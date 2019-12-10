@@ -65,7 +65,7 @@ namespace WebExpress.UI.Controls
                 base.Content.Add(new ControlText(Page) { Class = Icon, Color = Color, HorizontalAlignment = TypesHorizontalAlignment.Right });
             }
 
-            var text = new ControlText(Page) { Text = Value, Format = TypesTextFormat.H4 };
+            var text = new ControlText(Page, string.IsNullOrWhiteSpace(ID) ? null : ID + "_header" ) { Text = Value, Format = TypesTextFormat.H4 };
             var info = new ControlText(Page) { Text = Text, Format = TypesTextFormat.Span, Color = TypesTextColor.Muted };
 
             base.Content.Add(new ControlPanel(Page, text, info) { });
