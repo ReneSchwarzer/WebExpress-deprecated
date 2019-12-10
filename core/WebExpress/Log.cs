@@ -42,7 +42,7 @@ namespace WebExpress
         /// <summary>
         /// Aufzählungen zum LogModus
         /// </summary>
-        public enum Modus { Append, Override };
+        public enum Modus { Off, Append, Override };
 
         /// <summary>
         /// Liefert oder Setzt das Encoding
@@ -462,7 +462,7 @@ namespace WebExpress
             }
 
             // Dateischreiben vor nebenläufigen Zugriff schützen
-            if (list.Count > 0)
+            if (list.Count > 0 && LogModus != Modus.Off)
             {
                 lock (m_path)
                 {
