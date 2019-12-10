@@ -94,7 +94,7 @@ namespace WebExpress.App
             };
 
             // Beginne mit Logging
-            HttpServer.Context.Log.LogModus = Log.Modus.Override;
+            HttpServer.Context.Log.LogModus = (Log.Modus)Enum.Parse(typeof(Log.Modus), config.Log.Modus);
             HttpServer.Context.Log.Begin(config.Log.Path, config.Log.Filename);
 
             // Log Programmstart
