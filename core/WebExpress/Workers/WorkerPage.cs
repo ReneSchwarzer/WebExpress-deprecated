@@ -132,7 +132,7 @@ namespace WebExpress.Workers
 
                 if (dict.Count > 0)
                 {
-                    var url = Regex.Replace(p.ToString(), @"\$[0-9A-Za-z]+", "([0-9A-Za-z.]*)");
+                    var url = Regex.Replace(p.ToString(), @"\$[0-9A-Za-z]+", "([0-9A-Za-z.-]*)");
                     var group = Regex.Match(request.URL, url).Groups;
 
                     // Url-Parameter

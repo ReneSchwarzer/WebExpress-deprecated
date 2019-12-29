@@ -60,7 +60,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt das Icon
         /// </summary>
-        public string Icon { get; set; }
+        public Icon Icon { get; set; }
 
         /// <summary>
         /// Konstruktor
@@ -257,17 +257,17 @@ namespace WebExpress.UI.Controls
                 DataToggle = "dropdown"
             };
 
-            if (!string.IsNullOrWhiteSpace(Icon) && !string.IsNullOrWhiteSpace(Text))
+            if (Icon != Icon.None && !string.IsNullOrWhiteSpace(Text))
             {
-                button.Elements.Add(new HtmlElementSpan() { Class = Icon });
+                button.Elements.Add(new HtmlElementSpan() { Class = Icon.ToClass() });
 
                 button.Elements.Add(new HtmlNbsp());
                 button.Elements.Add(new HtmlNbsp());
                 button.Elements.Add(new HtmlNbsp());
             }
-            else if (!string.IsNullOrWhiteSpace(Icon) && string.IsNullOrWhiteSpace(Text))
+            else if (Icon != Icon.None && string.IsNullOrWhiteSpace(Text))
             {
-                button.AddClass(Icon);
+                button.AddClass(Icon.ToClass());
             }
 
             if (!string.IsNullOrWhiteSpace(Text))
@@ -283,11 +283,11 @@ namespace WebExpress.UI.Controls
                     Items.Select
                     (
                         x =>
-                        x == null ?
+                        x == null || x is ControlDropdownMenuDivider || x is ControlLine ?
                         new HtmlElementLi() { Class = "dropdown-divider", Inline = true } :
                         x is ControlDropdownMenuHeader ?
                         x.ToHtml() :
-                        new HtmlElementLi(x.ToHtml().AddClass("dropdown-item")) { }
+                        new HtmlElementLi(x.ToHtml()) { Class = "dropdown-item" }
                     )
                 )
                 {

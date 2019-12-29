@@ -7,7 +7,7 @@ using WebExpress.Config;
 
 namespace WebExpress.App
 {
-    internal class Program
+    public class Program
     { 
 		/// <summary>
 		/// Der HttpServer
@@ -18,7 +18,7 @@ namespace WebExpress.App
         /// Eintrittspunkt der Anwendung
         /// </summary>
         /// <param name="args">Aufrufsargumente</param>
-        private static int Main(string[] args)
+        public static int Main(string[] args)
         {
             var port = 80;
 

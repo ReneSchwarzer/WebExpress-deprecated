@@ -129,7 +129,7 @@ namespace WebExpress.UI.Controls
 
             var likeText = "Gefällt mir" + (Likes > 0 ? " (" + Likes + ")" : string.Empty);
 
-            var like = new ControlButtonLink(Page) { Icon = "fas fa-thumbs-up", Text = likeText, Url = Page.GetUrl(), Size = TypesSize.Small, Layout = TypesLayoutButton.Light, Outline = true, Color = TypesTextColor.Primary };
+            var like = new ControlButtonLink(Page) { Icon = Icon.ThumbsUp, Text = likeText, Url = Page.GetUrl(), Size = TypesSize.Small, Layout = TypesLayoutButton.Light, Outline = true, Color = TypesTextColor.Primary };
 
             var option = new HtmlElementDiv(like.ToHtml())
             {

@@ -6,7 +6,7 @@ namespace WebExpress.UI.Controls
     /// <summary>
     /// Informationszähler
     /// </summary>
-    public class ControlCardCounter : ControlCard
+    public class ControlCardCounter : ControlPanelCard
     {
         /// <summary>
         /// Liefert oder setzt die Textfarbe
@@ -16,7 +16,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt das Icon
         /// </summary>
-        public string Icon { get; set; }
+        public Icon Icon { get; set; }
 
         /// <summary>
         /// Liefert oder setzt den Wert des Counters
@@ -60,9 +60,9 @@ namespace WebExpress.UI.Controls
         {
             base.Content.Clear();
 
-            if (!string.IsNullOrWhiteSpace(Icon))
+            if (Icon != Icon.None)
             {
-                base.Content.Add(new ControlText(Page) { Class = Icon, Color = Color, HorizontalAlignment = TypesHorizontalAlignment.Right });
+                base.Content.Add(new ControlText(Page) { Class = Icon.ToClass(), Color = Color, HorizontalAlignment = TypesHorizontalAlignment.Right });
             }
 
             var text = new ControlText(Page, string.IsNullOrWhiteSpace(ID) ? null : ID + "_header" ) { Text = Value, Format = TypesTextFormat.H4 };

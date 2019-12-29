@@ -78,7 +78,7 @@ namespace WebExpress.UI.Controls
         /// <param name="name">Name der Spalte</param>
         /// <param name="icon">Das Icon der Spalte</param>
         /// <returns></returns>
-        public virtual void AddColumn(string name, string icon)
+        public virtual void AddColumn(string name, Icon icon)
         {
             Columns.Add(new ControlTableColumn(Page, null)
             {
@@ -94,7 +94,7 @@ namespace WebExpress.UI.Controls
         /// <param name="icon">Das Icon der Spalte</param>
         /// <param name="layout">Das Layout der Spalte</param>
         /// <returns></returns>
-        public virtual void AddColumn(string name, string icon, TypesLayoutTableRow layout)
+        public virtual void AddColumn(string name, Icon icon, TypesLayoutTableRow layout)
         {
             Columns.Add(new ControlTableColumn(Page, null)
             {

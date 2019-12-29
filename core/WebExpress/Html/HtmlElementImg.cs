@@ -1,4 +1,6 @@
-﻿namespace WebServer.Html
+﻿using System;
+
+namespace WebServer.Html
 {
     public class HtmlElementImg : HtmlElement
     {
@@ -18,6 +20,24 @@
         {
             get => GetAttribute("src");
             set => SetAttribute("src", value);
+        }
+
+        /// <summary>
+        /// Liefert oder setzt die Weite
+        /// </summary>
+        public int Width
+        {
+            get => Convert.ToInt32(GetAttribute("width"));
+            set => SetAttribute("width", value.ToString());
+        }
+
+        /// <summary>
+        /// Liefert oder setzt die Weite
+        /// </summary>
+        public int Height
+        {
+            get => Convert.ToInt32(GetAttribute("height"));
+            set => SetAttribute("height", value.ToString());
         }
 
         /// <summary>

@@ -164,17 +164,17 @@ namespace WebExpress.UI.Controls
                 Href = Url
             };
 
-            if (!string.IsNullOrWhiteSpace(Icon) && !string.IsNullOrWhiteSpace(Text))
+            if (Icon != Icon.None && !string.IsNullOrWhiteSpace(Text))
             {
-                html.Elements.Add(new HtmlElementSpan() { Class = Icon });
+                html.Elements.Add(new HtmlElementSpan() { Class = Icon.ToClass() });
 
                 html.Elements.Add(new HtmlNbsp());
                 html.Elements.Add(new HtmlNbsp());
                 html.Elements.Add(new HtmlNbsp());
             }
-            else if (!string.IsNullOrWhiteSpace(Icon) && string.IsNullOrWhiteSpace(Text))
+            else if (Icon != Icon.None && string.IsNullOrWhiteSpace(Text))
             {
-                html.AddClass(Icon);
+                html.AddClass(Icon.ToClass());
             }
 
             if (!string.IsNullOrWhiteSpace(Text))

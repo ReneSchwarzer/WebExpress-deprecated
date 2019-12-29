@@ -71,7 +71,7 @@ namespace WebExpress.UI.Controls
         /// </summary>
         /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlPanelNavbar(IPage page, string id)
+        public ControlPanelNavbar(IPage page, string id = null)
             : base(page, id)
         {
             ControlText = new ControlText(Page, "headline") { Class = "headline", Format = TypesTextFormat.Paragraph };

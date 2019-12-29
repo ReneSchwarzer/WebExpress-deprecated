@@ -23,7 +23,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt das Icon
         /// </summary>
-        public string Icon { get; set; }
+        public Icon Icon { get; set; }
 
         /// <summary>
         /// Konstruktor
@@ -82,15 +82,15 @@ namespace WebExpress.UI.Controls
                 Role = Role
             };
 
-            if (!string.IsNullOrWhiteSpace(Icon) && !string.IsNullOrWhiteSpace(Text))
+            if (Icon != Icon.None && !string.IsNullOrWhiteSpace(Text))
             {
-                html.Elements.Add(new HtmlElementSpan() { Class = Icon });
+                html.Elements.Add(new HtmlElementSpan() { Class = Icon.ToClass() });
 
                 html.Elements.Add(new HtmlNbsp());
             }
-            else if (!string.IsNullOrWhiteSpace(Icon) && string.IsNullOrWhiteSpace(Text))
+            else if (Icon != Icon.None && string.IsNullOrWhiteSpace(Text))
             {
-                html.AddClass(Icon);
+                html.AddClass(Icon.ToClass());
             }
 
             if (!string.IsNullOrWhiteSpace(Text))
@@ -103,7 +103,7 @@ namespace WebExpress.UI.Controls
                 ID = ID,
                 Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Role = Role
-            }; ;
+            }; 
         }
     }
 }

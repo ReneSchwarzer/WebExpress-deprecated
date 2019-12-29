@@ -8,17 +8,12 @@ namespace WebExpress.UI.Controls
     /// <summary>
     /// Box mit Rahmen
     /// </summary>
-    public class ControlCard : Control
+    public class ControlPanelCard : ControlPanel
     {
         /// <summary>
         /// Liefert oder setzt das Layout
         /// </summary>
         public TypesLayoutCard Layout { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt den Inhalt
-        /// </summary>
-        public List<Control> Content { get; protected set; }
 
         /// <summary>
         /// Liefert oder setzt den Headertext
@@ -55,7 +50,7 @@ namespace WebExpress.UI.Controls
         /// </summary>
         /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlCard(IPage page, string id = null)
+        public ControlPanelCard(IPage page, string id = null)
             : base(page, id)
         {
             Init();
@@ -66,10 +61,10 @@ namespace WebExpress.UI.Controls
         /// </summary>
         /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlCard(IPage page, string id, params Control[] items)
-            : this(page, id)
+        public ControlPanelCard(IPage page, string id, params Control[] items)
+            : base(page, id, items)
         {
-            Content.AddRange(items);
+            Init();
         }
 
         /// <summary>
@@ -77,10 +72,10 @@ namespace WebExpress.UI.Controls
         /// </summary>
         /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlCard(IPage page, params Control[] items)
-            : this(page)
+        public ControlPanelCard(IPage page, params Control[] items)
+            : base(page, items)
         {
-            Content.AddRange(items);
+            Init();
         }
 
         /// <summary>
@@ -89,7 +84,6 @@ namespace WebExpress.UI.Controls
         private void Init()
         {
             ShowBorder = true;
-            Content = new List<Control>();
         }
 
         /// <summary>
@@ -101,36 +95,9 @@ namespace WebExpress.UI.Controls
             var classes = new List<string>
             {
                 Class,
-                "card"
+                "card",
+                Layout.ToClass()
             };
-
-            switch (Layout)
-            {
-                case TypesLayoutCard.Primary:
-                    classes.Add("bg-primary");
-                    break;
-                case TypesLayoutCard.Secondary:
-                    classes.Add("bg-secondary");
-                    break;
-                case TypesLayoutCard.Success:
-                    classes.Add("bg-success");
-                    break;
-                case TypesLayoutCard.Info:
-                    classes.Add("bg-info");
-                    break;
-                case TypesLayoutCard.Warning:
-                    classes.Add("bg-warning");
-                    break;
-                case TypesLayoutCard.Danger:
-                    classes.Add("bg-danger");
-                    break;
-                case TypesLayoutCard.Light:
-                    classes.Add("bg-light");
-                    break;
-                case TypesLayoutCard.Dark:
-                    classes.Add("bg-dark");
-                    break;
-            }
 
             switch (HorizontalAlignment)
             {

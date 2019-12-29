@@ -145,7 +145,7 @@ namespace WebExpress.UI.Controls
             CancelButton = new ControlButtonLink(Page)
             {
                 Text = "Abbrechen",
-                Icon = "fas fa-times",
+                Icon = Icon.Times,
                 Layout = TypesLayoutButton.Danger,
                 Color = TypesTextColor.White,
                 HorizontalAlignment = TypesHorizontalAlignment.Right,

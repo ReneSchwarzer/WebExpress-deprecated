@@ -5,10 +5,10 @@ using WebServer.Html;
 
 namespace WebExpress.UI.Controls
 {
-    public class ControlToolBar : Control
+    public class ControlFlexbox : Control
     {
         /// <summary>
-        /// Liefert oder setzt den Inhalt
+        /// Liefert oder setzt die Listeneinträge
         /// </summary>
         public List<Control> Items { get; private set; }
 
@@ -23,11 +23,16 @@ namespace WebExpress.UI.Controls
         public TypesFlexboxDirection Direction { get; set; }
 
         /// <summary>
+        /// Bestimmt, ob die Items inline angezeigt werden sollen
+        /// </summary>
+        public bool Inline { get; set; }
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlToolBar(IPage page, string id = null)
+        public ControlFlexbox(IPage page, string id = null)
             : base(page, id)
         {
             Init();
@@ -38,11 +43,11 @@ namespace WebExpress.UI.Controls
         /// </summary>
         /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        /// <param name="items">Die Toolitems</param>
-        public ControlToolBar(IPage page, string id = null, params Control[] items)
+        /// <param name="items">Die Listeneinträge</param>
+        public ControlFlexbox(IPage page, string id, List<Control> items)
             : this(page, id)
         {
-            Add(items);
+            Items = items;
         }
 
         /// <summary>
@@ -54,15 +59,6 @@ namespace WebExpress.UI.Controls
         }
 
         /// <summary>
-        /// Fügt Einträge hinzu
-        /// </summary>
-        /// <param name="item">Die Einträge welcher hinzugefügt werden sollen</param>
-        public void Add(params Control[] item)
-        {
-            Items.AddRange(item);
-        }
-
-        /// <summary>
         /// In HTML konvertieren
         /// </summary>
         /// <returns>Das Control als HTML</returns>
@@ -71,19 +67,19 @@ namespace WebExpress.UI.Controls
             var classes = new List<string>
             {
                 Class,
-                "d-flex",
+                Inline ? "d-inline-flex" : "d-flex",
                 Layout.ToClass(),
                 Direction.ToClass()
             };
 
-            var html = new HtmlElementNav() 
-            { 
+            var html = new HtmlElementDiv()
+            {
                 ID = ID,
                 Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = Style 
+                Style = Style
             };
 
-            html.Elements.AddRange(Items.Select(x => x.ToHtml().AddClass("mr-1")));
+            html.Elements.AddRange(Items.Select(x => x.ToHtml()));
 
             return html;
         }
