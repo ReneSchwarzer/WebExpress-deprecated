@@ -52,7 +52,7 @@ namespace WebExpress.Workers
             var guid = Guid.NewGuid();
             try
             {
-                guid = Guid.Parse(sessionCookie.Value);
+                guid = Guid.Parse(sessionCookie?.Value);
             }
             catch
             {

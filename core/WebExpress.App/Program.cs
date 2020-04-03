@@ -32,7 +32,7 @@ namespace WebExpress.App
 
             if (argumentDict.ContainsKey("help"))
             {
-                Console.WriteLine("TurtleBay [-port number | -config dateiname | -help]");
+                Console.WriteLine("WebExpress [-port number | -config dateiname | -help]");
                 Console.WriteLine("Version: " + Version);
 
                 return 0;
@@ -46,7 +46,7 @@ namespace WebExpress.App
                 // Prüfe ob eine Datei namens Config.xml vorhanden ist
                 if (!File.Exists(Path.Combine(Path.Combine(Environment.CurrentDirectory, "Config"), "config.xml")))
                 {
-                    Console.WriteLine("Es wurde keine Konfigurationsdatei angegeben. Verwendung: TurtleBay -config dateiname");
+                    Console.WriteLine("Es wurde keine Konfigurationsdatei angegeben. Verwendung: WebExpress -config dateiname");
 
                     return 1;
                 }
