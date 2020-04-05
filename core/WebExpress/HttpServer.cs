@@ -288,7 +288,10 @@ namespace WebExpress
                     {
                         Context.Log.Exception(MethodInfo.GetCurrentMethod(), ex);
                     }
-                    response = new ResponseInternalServerError();
+                    response = new ResponseInternalServerError()
+                    {
+                        Content = ex.ToString()
+                    };
                 }
 
                 try

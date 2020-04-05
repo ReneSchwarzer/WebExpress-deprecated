@@ -35,6 +35,7 @@ namespace WebExpress.UI.Controls
         Map,
         MapMarker,
         Microchip, 
+        PlayCircle,
         Plus,
         PowerOff,
         ShoppingBag,
@@ -120,6 +121,8 @@ namespace WebExpress.UI.Controls
                     return "fas fa-map-marker";
                 case Icon.Microchip:
                     return "fas fa-microchip";
+                case Icon.PlayCircle:
+                    return "fas fa-play-circle";
                 case Icon.Plus:
                     return "fas fa-plus";
                 case Icon.PowerOff:
