@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using WebExpress.Config;
 using WebExpress.Messages;
 using WebExpress.Workers;
 
@@ -11,9 +12,14 @@ namespace WebExpress.Plugins
     public class Plugin : IPlugin
     {
         /// <summary>
-        /// Der zum Plugin zugehörige Host
+        /// Liefert oder setzt die Plugin-Einstellungen
         /// </summary>
-        public IHost Host { get; set; }
+        public PluginConfig Config { get; protected set; }
+
+        /// <summary>
+        /// Der zum Plugin zugehörige Kontext
+        /// </summary>
+        public IPluginContext Context { get; set; }
 
         /// <summary>
         /// Liefert den Namen der PipeStage
@@ -49,6 +55,12 @@ namespace WebExpress.Plugins
         /// <param name="configFileName">Der Dateiname der Konfiguration oder null</param>
         public virtual void Init(string configFileName = null)
         {
+            Config = new PluginConfig(configFileName);
+
+            if (!string.IsNullOrWhiteSpace(Config?.UrlBasePath))
+            {
+                Context = new PluginContext(Context, Config.UrlBasePath);
+            }
         }
 
         /// <summary>
@@ -57,7 +69,7 @@ namespace WebExpress.Plugins
         /// <param name="worker"></param>
         public void Register(IWorker worker)
         {
-            worker.HostContext = Host?.Context;
+            worker.Context = Context;
 
             var key = Regex.Replace(worker.Path.ToString(), @"\$[0-9A-Za-z]+", "([0-9A-Za-z.-]*)");
 

@@ -17,7 +17,7 @@ namespace WebExpress.Workers
         /// <summary>
         /// Liefert oder setzt den Kontext des Plugins
         /// </summary>
-        IPluginContext HostContext { get; set; }
+        IPluginContext Context { get; set; }
 
         /// <summary>
         /// Vorverarbeitung

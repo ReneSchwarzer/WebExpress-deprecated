@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using WebExpress.Config;
 using WebExpress.Messages;
 using WebExpress.Workers;
 
@@ -10,6 +11,11 @@ namespace WebExpress.Plugins
     /// </summary>
     public interface IPlugin : IDisposable
     {
+        /// <summary>
+        /// Liefert oder setzt die Plugin-Einstellungen
+        /// </summary>
+        PluginConfig Config { get; }
+
         /// <summary>
         /// Initialisierung des Plugins. Hier können z.B. verwaltete Ressourcen geladen werden. 
         /// </summary>
@@ -50,9 +56,9 @@ namespace WebExpress.Plugins
         string Name { get; }
 
         /// <summary>
-        /// Liefert oder setzt den Host
+        /// Liefert oder setzt den Kontext
         /// </summary>
-        IHost Host { get; set; }
+        IPluginContext Context { get; set; }
 
         /// <summary>
         /// Liste der Worker

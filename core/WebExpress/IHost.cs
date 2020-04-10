@@ -10,6 +10,6 @@ namespace WebExpress
         /// <summary>
         /// Der Kontext
         /// </summary>
-        IPluginContext Context { get; }
+        HttpServerContext Context { get; }
     }
 }

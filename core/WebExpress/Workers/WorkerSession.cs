@@ -59,16 +59,19 @@ namespace WebExpress.Workers
 
             }
 
-            if (sessionCookie != null && SessionManager.ContainsKey(guid))
+            lock (SessionManager)
             {
-                session = SessionManager[guid];
-            }
-            else
-            {
-                // keine oder ungültige Session => Neue Session vergeben
-                session = new Session(guid);
+                if (sessionCookie != null && SessionManager.ContainsKey(guid))
+                {
+                    session = SessionManager[guid];
+                }
+                else
+                {
+                    // keine oder ungültige Session => Neue Session vergeben
+                    session = new Session(guid);
 
-                SetSession(session);
+                    SetSession(session);
+                }
             }
 
             CurrentSession = session;

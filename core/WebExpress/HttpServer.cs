@@ -54,7 +54,7 @@ namespace WebExpress
         /// <summary>
         /// Liefert oder setzt den Kontext
         /// </summary>
-        public IPluginContext Context { get; protected set; }
+        public HttpServerContext Context { get; protected set; }
 
         /// <summary>
         /// Konstruktor
@@ -66,7 +66,7 @@ namespace WebExpress
             Queue = new Queue<TcpClient>();
             Plugins = new List<IPlugin>();
 
-            Context = new HttpServerContext(Environment.CurrentDirectory, Path.Combine(Environment.CurrentDirectory, "Config"), Log.Current);
+            Context = new HttpServerContext(Environment.CurrentDirectory, Path.Combine(Environment.CurrentDirectory, "Config"), "", Log.Current);
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace WebExpress
         public void RegisterPlugin(IPlugin plugin)
         {
             Plugins.Add(plugin);
-            plugin.Host = this;
+            plugin.Context = new PluginContext(Context);
 
             if (Context != null && Context.Log != null)
             {
@@ -339,7 +339,11 @@ namespace WebExpress
 
                 if (factory != null)
                 {
-                    var p = factory.Create(this, null);
+                    var p = factory.Create
+                    (
+                        new PluginContext(Context), 
+                        Path.Combine(Context.ConfigBaseFolder, factory.ConfigFileName)
+                    );
                     Plugins.Add(p);
                 }
             }

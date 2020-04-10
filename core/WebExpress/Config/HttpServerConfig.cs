@@ -33,6 +33,12 @@ namespace WebExpress.Config
         public string AssetBase { get; set; }
 
         /// <summary>
+        /// Der Basispfad des Plugins
+        /// </summary>
+        [XmlElement(ElementName = "urlbasepath")]
+        public string UrlBasePath { get; set; }
+
+        /// <summary>
         /// Log-Einstellungen
         /// </summary>
         [XmlElement(ElementName = "log")]
@@ -92,7 +98,12 @@ namespace WebExpress.Config
             {
                 AssetBase = xml.Element("root").Value;
             }
-            
+
+            if (xml.Element("urlbasepath") != null)
+            {
+                UrlBasePath = xml.Element("urlbasepath").Value;
+            }
+
             Log = new SettingLogItem(xml.Element("log"));
         }  
     }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using WebExpress.Plugins;
 
 namespace WebExpress.Pages
 {
@@ -13,7 +14,6 @@ namespace WebExpress.Pages
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="basePath">Der Basipfad</param>
         public Path()
         {
             Items = new List<PathItem>();

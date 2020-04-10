@@ -16,6 +16,11 @@
         string AssetBaseFolder { get; }
 
         /// <summary>
+        /// Liefert den Basispfad 
+        /// </summary>
+        string UrlBasePath { get; }
+
+        /// <summary>
         /// Liefert das Log, zum schreiben von Statusnachrichten auf die Konsole und in eine Log-Datei
         /// </summary>
         Log Log { get; }

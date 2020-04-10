@@ -87,7 +87,14 @@ namespace WebExpress.App
             // Config laden
             var config = new HttpServerConfig(configFile);
 
-            var context = new HttpServerContext(config.AssetBase, Path.GetDirectoryName(configFile), Log.Current);
+            var context = new HttpServerContext
+            (
+                config.AssetBase, 
+                Path.GetDirectoryName(configFile), 
+                config.UrlBasePath,
+                Log.Current
+            );
+
             HttpServer = new HttpServer(port, context)
             {
                 Config = config
