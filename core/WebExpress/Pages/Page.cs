@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
 using WebExpress.Messages;
+using WebExpress.Plugins;
 using WebExpress.Workers;
 
 namespace WebExpress.Pages
 {
     public class Page : IPage
     {
+        /// <summary>
+        /// Liefert oder setzt den Kontext
+        /// </summary>
+        public IPluginContext Context { get; set; }
+
         /// <summary>
         /// Liefert oder setzt die URL der Seite
         /// </summary>
@@ -289,9 +295,9 @@ namespace WebExpress.Pages
         /// Liefert die URL der Seite
         /// </summary>
         /// <param name="extention">Die Url-Erweiterung</param>
-        public string GetUrl(string extention)
+        public Path GetPath(string extention)
         {
-            return GetUrl(null, extention);
+            return GetPath(null, extention);
         }
 
         /// <summary>
@@ -299,36 +305,41 @@ namespace WebExpress.Pages
         /// </summary>
         /// <param name="index">N-te Teilstück der Url</param>
         /// <param name="extention">Die Url-Erweiterung</param>
-        public string GetUrl(int? index = null, string extention = null)
+        public Path GetPath(int? index = null, string extention = null)
         {
             var path = Path;
 
             if (index.HasValue && index < 0)
             {
                 // Entfernt n Elemente aus dem Pfad
-                path = new Path(Path.Items.Take(Path.Items.Count() + index.Value));
+                path = new Path(Context, Path.Items.Take(Path.Items.Count() + index.Value));
             }
             else if (index.HasValue && index > 0)
             {
                 // liefert die ersten n Elemente aus dem Url-Pfad
-                path = new Path(Path.Items.Take(index.Value));
+                path = new Path(Context, Path.Items.Take(index.Value));
             }
             else if (index.HasValue && index == 0)
             {
-                return "/" + (extention ?? string.Empty);
+                if (!string.IsNullOrWhiteSpace(extention) && extention.StartsWith("/"))
+                {
+                    return new Path(Context, (extention ?? string.Empty));
+                }
+
+                return new Path(Context, "/" + (extention ?? string.Empty));
             }
 
             if (string.IsNullOrWhiteSpace(extention))
             {
-                return path.ToString();
+                return new Path(Context, path.ToString());
             }
 
             if (path.Items.Count <= 1)
             {
-                return "/" + extention != null ? extention : string.Empty;
+                return new Path(Context, "/" + extention != null ? extention : string.Empty);
             }
 
-            return string.Join("/", path.ToString(), extention);
+            return new Path(Context, string.Join("/", path.ToString(), extention));
         }
 
         /// <summary>
@@ -337,7 +348,7 @@ namespace WebExpress.Pages
         /// <param name="tag">suche nach dem Tag</param>
         /// <param name="extention">Die Url-Erweiterung</param>
         /// <param name="reverseSearch">Suche Nach Tag in umgekehrter Reihenfolge</param>
-        public string GetUrl(string tag, string extention, bool reverseSearch = true)
+        public Path GetPath(string tag, string extention, bool reverseSearch = true)
         {
             var index = 0;
 
@@ -345,12 +356,12 @@ namespace WebExpress.Pages
             {
                 index = Path.Items.FindLastIndex(x => !string.IsNullOrWhiteSpace(x.Tag) && x.Tag.Equals(tag, StringComparison.OrdinalIgnoreCase));
 
-                return GetUrl(index + 1, extention);
+                return GetPath(index + 1, extention);
             }
 
             index = Path.Items.FindIndex(x => !string.IsNullOrWhiteSpace(x.Tag) && x.Tag.Equals(tag, StringComparison.OrdinalIgnoreCase));
 
-            return GetUrl(index + 1, extention);
+            return GetPath(index + 1, extention);
         }
 
         /// <summary>
@@ -394,9 +405,9 @@ namespace WebExpress.Pages
         /// Die Funktion löst die RedirectException aus
         /// </summary>
         /// <param name="url">Die URL zu der weitergeleitet werden soll</param>
-        public void Redirecting(string url)
+        public void Redirecting(Path url)
         {
-            throw new RedirectException(url);
+            throw new RedirectException(url?.ToString());
         }
     }
 }

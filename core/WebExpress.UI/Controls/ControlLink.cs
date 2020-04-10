@@ -31,7 +31,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt die Ziel-Url
         /// </summary>
-        public string Url { get; set; }
+        public Path Url { get; set; }
 
         /// <summary>
         /// Liefert oder setzt das Ziel
@@ -143,7 +143,7 @@ namespace WebExpress.UI.Controls
                         dict[v.Key.ToLower()] = v.Value;
                     }
                 }
-                else if (string.IsNullOrWhiteSpace(Url))
+                else if (string.IsNullOrWhiteSpace(Url?.ToString()))
                 {
                     if (!dict.ContainsKey(v.Key.ToLower()))
                     {
@@ -172,7 +172,7 @@ namespace WebExpress.UI.Controls
                             dict[v.Key.ToLower()] = v;
                         }
                     }
-                    else if (string.IsNullOrWhiteSpace(Url))
+                    else if (string.IsNullOrWhiteSpace(Url?.ToString()))
                     {
                         if (!dict.ContainsKey(v.Key.ToLower()))
                         {
@@ -274,7 +274,7 @@ namespace WebExpress.UI.Controls
                 Style = Style,
                 Role = Role,
                 Alt = Alt,
-                Href = Url + (param.Length > 0 ? "?" + param : string.Empty),
+                Href = Url.ToString() + (param.Length > 0 ? "?" + param : string.Empty),
                 Target = Target,
                 OnClick = OnClick
             };

@@ -10,7 +10,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt die Bildquelle
         /// </summary>
-        public string Source { get; set; }
+        public Path Source { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Weite
@@ -44,7 +44,7 @@ namespace WebExpress.UI.Controls
         /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
         /// <param name="source">Die Bildquelle</param>
-        public ControlImage(IPage page, string id, string source)
+        public ControlImage(IPage page, string id, Path source)
             : base(page, id)
         {
             Source = source;
@@ -87,7 +87,7 @@ namespace WebExpress.UI.Controls
                 Style = Style,
                 Role = Role,
                 Alt = Tooltip,
-                Src = Source,
+                Src = Source?.ToString(),
             };
 
             if (!string.IsNullOrWhiteSpace(Tooltip))

@@ -128,7 +128,7 @@ namespace WebExpress.Workers
                     session.SetProperty(new SessionPropertyParameter());
                 }
 
-                var page = new T() { Request = request };
+                var page = new T() { Request = request, Context = Context };
 
                 if (dict.Count > 0)
                 {

@@ -10,7 +10,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt die Ziel-Url
         /// </summary>
-        public string Url { get; set; }
+        public Path Url { get; set; }
 
         /// <summary>
         /// Liefert oder setzt das Format des Textes
@@ -161,7 +161,7 @@ namespace WebExpress.UI.Controls
             {
                 Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Role = Role,
-                Href = Url
+                Href = Url?.ToString()
             };
 
             if (Icon != Icon.None && !string.IsNullOrWhiteSpace(Text))

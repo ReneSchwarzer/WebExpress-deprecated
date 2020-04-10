@@ -37,7 +37,9 @@ namespace WebExpress.Workers
         {
             lock (Gard)
             {
-                var path = System.IO.Path.GetFullPath(Root + request.URL);
+                var url = request.URL.Substring(Context.UrlBasePath.Length);
+
+                var path = System.IO.Path.GetFullPath(Root + url);
 
                 if (!System.IO.File.Exists(path))
                 {

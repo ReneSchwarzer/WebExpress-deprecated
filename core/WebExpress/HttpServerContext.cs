@@ -26,6 +26,8 @@ namespace WebExpress
             AssetBaseFolder = assetBaseFolder;
             ConfigBaseFolder = configBaseFolder;
 
+            urlBasePath = !string.IsNullOrWhiteSpace(urlBasePath) ? urlBasePath.Trim() : string.Empty;
+
             if (!string.IsNullOrWhiteSpace(urlBasePath) && !urlBasePath.StartsWith("/"))
             {
                 urlBasePath = "/" + urlBasePath;

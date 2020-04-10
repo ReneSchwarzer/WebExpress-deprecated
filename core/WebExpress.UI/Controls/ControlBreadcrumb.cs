@@ -80,11 +80,11 @@ namespace WebExpress.UI.Controls
 
             var html = new HtmlElementUl() { Class = Class + addCss };
 
-            var basePath = new Path();
+            var basePath = new Path(Page.Context);
 
             foreach (var v in Path.Items)
             {
-                basePath = new Path(v.Name, basePath, v.Fragment);
+                basePath = new Path(Page.Context, v.Name, basePath, v.Fragment);
 
                 html.Elements.Add
                 (

@@ -48,10 +48,11 @@ namespace WebExpress.UI.Pages
         {
             var html = new HtmlElementHtml();
             html.Head.Title = Title;
-            html.Head.Styles = Styles;
-            html.Head.CssLinks = CssLinks;
-            html.Head.ScriptLinks = HeaderScriptLinks;
-            html.Head.Favicons = Favicons;
+            html.Head.Base = Context.UrlBasePath;
+            html.Head.Styles = Styles.Select(x => new Path(Context, x).ToString());;
+            html.Head.CssLinks = CssLinks.Select(x => new Path(Context, x).ToString());
+            html.Head.ScriptLinks = HeaderScriptLinks.Select(x => new Path(Context, x).ToString());
+            html.Head.Favicons = Favicons.Select(x => new Html.Favicon(new Path(Context, x.Url).ToString(), x.Mediatype));
             html.Head.Meta = Meta;
             html.Body.Elements.AddRange(Content.Select(x => x.ToHtml()));
 

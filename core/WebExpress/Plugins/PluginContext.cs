@@ -15,7 +15,7 @@ namespace WebExpress.Plugins
             AssetBaseFolder = serverContext.AssetBaseFolder;
             ConfigBaseFolder = serverContext.ConfigBaseFolder;
 
-            var urlBasePath = serverContext?.UrlBasePath?.Trim();
+            var urlBasePath = !string.IsNullOrWhiteSpace(serverContext?.UrlBasePath) ? serverContext?.UrlBasePath?.Trim() : string.Empty;
 
             if (!string.IsNullOrWhiteSpace(urlBasePath) && !urlBasePath.StartsWith("/"))
             {
@@ -41,6 +41,8 @@ namespace WebExpress.Plugins
         {
             AssetBaseFolder = context.AssetBaseFolder;
             ConfigBaseFolder = context.ConfigBaseFolder;
+
+            urlBasePath = string.IsNullOrWhiteSpace(urlBasePath) ? urlBasePath.Trim() : string.Empty;
 
             if (!string.IsNullOrWhiteSpace(urlBasePath) && !urlBasePath.StartsWith("/"))
             {

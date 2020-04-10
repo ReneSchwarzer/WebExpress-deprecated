@@ -42,17 +42,17 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt die Ziel-Url
         /// </summary>
-        public string Url { get; set; }
+        public Path Url { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Weiterleitungs-Url
         /// </summary>
-        public string RedirectUrl { get; set; }
+        public Path RedirectUrl { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Abbruchs-Url
         /// </summary>
-        public string BackUrl { get; set; }
+        public Path BackUrl { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Submit-Schaltfläche
@@ -160,7 +160,7 @@ namespace WebExpress.UI.Controls
                 {
                     OnProcess();
 
-                    if (!string.IsNullOrWhiteSpace(RedirectUrl))
+                    if (!string.IsNullOrWhiteSpace(RedirectUrl?.ToString()))
                     {
                         Page.Redirecting(RedirectUrl);
                     }
@@ -214,7 +214,7 @@ namespace WebExpress.UI.Controls
                 Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Style = Style,
                 Name = Name.ToLower() != "form" ? "form_" + Name.ToLower() : Name.ToLower(),
-                Action = Url,
+                Action = Url?.ToString(),
                 Method = "post"
             };
 

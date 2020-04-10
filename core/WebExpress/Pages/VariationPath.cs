@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using WebExpress.Plugins;
 
 namespace WebExpress.Pages
 {
@@ -12,12 +13,18 @@ namespace WebExpress.Pages
         public List<Path> Items { get; private set; }
 
         /// <summary>
+        /// Liefert oder setzt den Kontext
+        /// </summary>
+        private IPluginContext Context { get; set; }
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
+        /// <param name="context">Der Kontext</param>
         /// <param name="tag">Eine Bezeichnung, welche dem Tag zugeordnet wird</param>
         /// <param name="paths">Die zusammengehörigen Pfade</param>
-        public VariationPath(string tag, params PathItem[] paths)
-            : this(new VariationPath[] { }, tag, paths)
+        public VariationPath(IPluginContext context, string tag, params PathItem[] paths)
+            : this(context, new VariationPath[] { }, tag, paths)
         {
         }
 
@@ -28,7 +35,7 @@ namespace WebExpress.Pages
         /// <param name="tag">Eine Bezeichnung, welche dem Tag zugeordnet wird</param>
         /// <param name="paths">Die zusammengehörigen Pfade</param>
         public VariationPath(VariationPath basePath, string tag, params PathItem[] paths)
-            : this(new VariationPath[] { basePath }, tag, paths)
+            : this(basePath.Context, new VariationPath[] { basePath }, tag, paths)
         {
         }
 
@@ -40,7 +47,13 @@ namespace WebExpress.Pages
         /// <param name="tag">Eine Bezeichnung, welche dem Tag zugeordnet wird</param>
         /// <param name="paths">Die zusammengehörigen Pfade</param>
         public VariationPath(VariationPath basePath1, VariationPath basePath2, string tag, params PathItem[] paths)
-            : this(new VariationPath[] { basePath1, basePath2 }, tag, paths)
+            : this
+            (
+                  basePath1.Context != null ? basePath1.Context : basePath2.Context,
+                  new VariationPath[] { basePath1, basePath2 },
+                  tag,
+                  paths
+            )
         {
         }
 
@@ -53,8 +66,15 @@ namespace WebExpress.Pages
         /// <param name="tag">Eine Bezeichnung, welche dem Tag zugeordnet wird</param>
         /// <param name="paths">Die zusammengehörigen Pfade</param>
         public VariationPath(VariationPath basePath1, VariationPath basePath2, VariationPath basePath3, string tag, params PathItem[] paths)
-            : this(new VariationPath[] { basePath1, basePath2, basePath3 }, tag, paths)
+            : this
+            (
+                  basePath1.Context != null ? basePath1.Context : basePath2.Context,
+                  new VariationPath[] { basePath1, basePath2, basePath3 },
+                  tag,
+                  paths
+            )
         {
+            Context = basePath1.Context;
         }
 
         /// <summary>
@@ -67,18 +87,28 @@ namespace WebExpress.Pages
         /// <param name="tag">Eine Bezeichnung, welche dem Tag zugeordnet wird</param>
         /// <param name="paths">Die zusammengehörigen Pfade</param>
         public VariationPath(VariationPath basePath1, VariationPath basePath2, VariationPath basePath3, VariationPath basePath4, string tag, params PathItem[] paths)
-            : this(new VariationPath[] { basePath1, basePath2, basePath3, basePath4 }, tag, paths)
+            : this
+            (
+                  basePath1.Context != null ? basePath1.Context : basePath2.Context,
+                  new VariationPath[] { basePath1, basePath2, basePath3, basePath4 },
+                  tag,
+                  paths
+            )
         {
+            Context = basePath1.Context;
         }
 
         /// <summary>
         /// Konstruktor
         /// </summary>
+        /// <param name="context">Der Kontext</param>
         /// <param name="basePath">Der Basispfad</param>
         /// <param name="tag">Eine Bezeichnung, welche dem Tag zugeordnet wird</param>
         /// <param name="paths">Die zusammengehörigen Pfade</param>
-        public VariationPath(VariationPath[] basePath, string tag, params PathItem[] paths)
+        public VariationPath(IPluginContext context, VariationPath[] basePath, string tag, params PathItem[] paths)
         {
+            Context = context;
+
             Items = new List<Path>();
 
             foreach (var v in paths)
@@ -94,7 +124,7 @@ namespace WebExpress.Pages
                 }
                 else
                 {
-                    Items.Add(new Path(i));
+                    Items.Add(new Path(Context, i));
                 }
             }
         }

@@ -146,7 +146,7 @@ namespace WebExpress.UI.Controls
                 HorizontalAlignment = TypesHorizontalAlignment.Right,
                 Size = TypesSize.Small
             };
-            setting.Add(new ControlLink(Page) { Text = "Löschen", Icon = Icon.TrashAlt, Color = TypesTextColor.Danger, Url = Page.GetUrl() });
+            setting.Add(new ControlLink(Page) { Text = "Löschen", Icon = Icon.TrashAlt, Color = TypesTextColor.Danger, Url = Page.GetPath() });
 
             var header = new HtmlElementDiv(setting.ToHtml(), profile.ToHtml(), headerText)
             {
@@ -159,7 +159,7 @@ namespace WebExpress.UI.Controls
             };
 
             var likeText = "Gefällt mir" + (Likes > 0 ? " (" + Likes + ")" : string.Empty);
-            var like = new ControlButtonLink(Page) { Icon = Icon.ThumbsUp, Text = likeText, Url = Page.GetUrl(), Size = TypesSize.Small, Layout = TypesLayoutButton.Light, Outline = true, Color = TypesTextColor.Primary };
+            var like = new ControlButtonLink(Page) { Icon = Icon.ThumbsUp, Text = likeText, Url = Page.GetPath(), Size = TypesSize.Small, Layout = TypesLayoutButton.Light, Outline = true, Color = TypesTextColor.Primary };
             //var comment = new ControlButtonLink(Page) { Icon = "fas fa-comment", Text = "Antworten", Url = Page.GetUrl(), Size = TypesSize.Small, Layout = TypesLayoutButton.Light, Color = TypesTextColor.Primary };
 
             var option = new HtmlElementDiv(like.ToHtml())

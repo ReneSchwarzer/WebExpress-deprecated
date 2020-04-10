@@ -1,12 +1,18 @@
 ﻿using System.Collections.Generic;
 using WebExpress.Html;
 using WebExpress.Messages;
+using WebExpress.Plugins;
 using WebExpress.Workers;
 
 namespace WebExpress.Pages
 {
     public interface IPage
     {
+        /// <summary>
+        /// Liefert oder setzt den Kontext
+        /// </summary>
+        IPluginContext Context { get; set; }
+
         /// <summary>
         /// Liefert die Session
         /// </summary>
@@ -134,7 +140,7 @@ namespace WebExpress.Pages
         /// Die Funktion löst die RedirectException aus 
         /// </summary>
         /// <param name="url">Die URL zu der weitergeleitet werden soll</param>
-        void Redirecting(string url);
+        void Redirecting(Path url);
 
         /// <summary>
         /// Fügt eine Java-Script hinzu
@@ -153,14 +159,14 @@ namespace WebExpress.Pages
         /// Liefert die URL der Seite
         /// </summary>
         /// <param name="extention">Die Url-Erweiterung</param>
-        string GetUrl(string extention);
+        Path GetPath(string extention);
 
         /// <summary>
         /// Liefert die URL der Seite
         /// </summary>
         /// <param name="index">N-te Teilstück der Url</param>
         /// <param name="extention">Die Url-Erweiterung</param>
-        string GetUrl(int? index = null, string extention = null);
+        Path GetPath(int? index = null, string extention = null);
 
         /// <summary>
         /// Liefert Findet eine Url anhand des Tag und gibt diese zurück
@@ -168,6 +174,6 @@ namespace WebExpress.Pages
         /// <param name="tag">suche nach dem Tag</param>
         /// <param name="extention">Die Url-Erweiterung</param>
         /// <param name="reverseSearch">Suche Nach Tag in umgekehrter Reihenfolge</param>
-        string GetUrl(string tag, string extention, bool reverseSearch = true);
+        Path GetPath(string tag, string extention, bool reverseSearch = true);
     }
 }

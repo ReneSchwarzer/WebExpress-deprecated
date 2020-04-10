@@ -70,12 +70,21 @@ namespace WebExpress.Plugins
         public void Register(IWorker worker)
         {
             worker.Context = Context;
-
             var key = Regex.Replace(worker.Path.ToString(), @"\$[0-9A-Za-z]+", "([0-9A-Za-z.-]*)");
 
             if (!Workers.ContainsKey(key))
             {
                 Workers.Add(key, worker);
+
+                if (key.EndsWith("/"))
+                {
+                    Workers.Add(key.Substring(0, key.Length - 1), worker);
+                }
+
+                if (!key.EndsWith("/"))
+                {
+                    Workers.Add(key + "/", worker);
+                }
             }
             else
             {

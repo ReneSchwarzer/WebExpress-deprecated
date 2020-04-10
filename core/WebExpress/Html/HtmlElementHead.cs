@@ -22,9 +22,23 @@ namespace WebServer.Html
         private HtmlElementTitle ElementTitle { get; set; }
 
         /// <summary>
+        /// Liefert oder setzt den Titel
+        /// </summary>
+        public string Base
+        {
+            get => ElementBase.Href;
+            set => ElementBase.Href = value;
+        }
+
+        /// <summary>
+        /// Liefert oder setzt das TitelElement
+        /// </summary>
+        private HtmlElementBase ElementBase { get; set; }
+
+        /// <summary>
         /// Liefert oder setzt das Favicon
         /// </summary>
-        public List<Favicon> Favicons
+        public IEnumerable<Favicon> Favicons
         {
             get => (from x in ElementFavicons select new Favicon(x.Href, x.Type)).ToList();
             set { ElementFavicons.Clear(); ElementFavicons.AddRange(from x in value select new HtmlElementLink() { Href = x.Url, Rel = "icon", Type = x.GetMediatyp() }); }
@@ -38,7 +52,7 @@ namespace WebServer.Html
         /// <summary>
         /// Liefert oder setzt das internes Stylesheet  
         /// </summary>
-        public List<string> Styles
+        public IEnumerable<string> Styles
         {
             get => (from x in ElementStyles select x.Code).ToList();
             set { ElementStyles.Clear(); ElementStyles.AddRange(from x in value select new HtmlElementStyle(x)); }
@@ -66,7 +80,7 @@ namespace WebServer.Html
         /// <summary>
         /// Liefert oder setzt das text/javascript
         /// </summary>
-        public List<string> ScriptLinks
+        public IEnumerable<string> ScriptLinks
         {
             get => (from x in ElementScriptLinks select x.Src).ToList();
             set
@@ -84,7 +98,7 @@ namespace WebServer.Html
         /// <summary>
         /// Liefert oder setzt das internes Stylesheet  
         /// </summary>
-        public List<string> CssLinks
+        public IEnumerable<string> CssLinks
         {
             get => (from x in ElementCssLinks select x.Href).ToList();
             set
@@ -124,6 +138,7 @@ namespace WebServer.Html
             : base("head")
         {
             ElementTitle = new HtmlElementTitle();
+            ElementBase = new HtmlElementBase();
             ElementFavicons = new List<HtmlElementLink>();
             ElementStyles = new List<HtmlElementStyle>();
             ElementScripts = new List<HtmlElementScript>();
@@ -144,6 +159,11 @@ namespace WebServer.Html
             if (!string.IsNullOrWhiteSpace(Title))
             {
                 ElementTitle.ToString(builder, deep + 1);
+            }
+
+            if (!string.IsNullOrWhiteSpace(Base))
+            {
+                ElementBase.ToString(builder, deep + 1);
             }
 
             foreach (var v in ElementFavicons)
