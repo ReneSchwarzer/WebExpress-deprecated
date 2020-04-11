@@ -10,6 +10,6 @@ namespace WebExpress
         /// <summary>
         /// Der Kontext
         /// </summary>
-        HttpServerContext Context { get; }
+        static HttpServerContext Context { get; }
     }
 }

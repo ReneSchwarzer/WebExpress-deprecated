@@ -73,7 +73,7 @@ namespace WebServer.Html
                 v.ToString(builder, deep + 1);
             }
 
-            if (ScriptLinks.Count > 0)
+            if (Scripts.Count > 0)
             {
                 new HtmlElementScript(string.Join(Environment.NewLine, from x in Scripts select x)).ToString(builder, deep + 1);
             }

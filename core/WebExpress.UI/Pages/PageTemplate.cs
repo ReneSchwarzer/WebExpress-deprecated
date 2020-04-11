@@ -38,6 +38,11 @@ namespace WebExpress.UI.Pages
         public ControlFoot Foot { get; protected set; }
 
         /// <summary>
+        /// Liefert oder setzt das Hamburgermenü
+        /// </summary>
+        public ControlHamburgerMenu HamburgerMenu { get; protected set; }
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         public PageTemplate()

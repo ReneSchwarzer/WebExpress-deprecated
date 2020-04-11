@@ -56,6 +56,11 @@ namespace WebExpress.Plugins
         string Name { get; }
 
         /// <summary>
+        /// Liefert das Icon des Plugins
+        /// </summary>
+        string Icon { get; }
+
+        /// <summary>
         /// Liefert oder setzt den Kontext
         /// </summary>
         IPluginContext Context { get; set; }

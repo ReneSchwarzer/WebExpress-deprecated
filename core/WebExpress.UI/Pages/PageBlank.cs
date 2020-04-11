@@ -54,7 +54,9 @@ namespace WebExpress.UI.Pages
             html.Head.ScriptLinks = HeaderScriptLinks.Select(x => new Path(Context, x).ToString());
             html.Head.Favicons = Favicons.Select(x => new Html.Favicon(new Path(Context, x.Url).ToString(), x.Mediatype));
             html.Head.Meta = Meta;
+            html.Head.Scripts = HeaderScripts;
             html.Body.Elements.AddRange(Content.Select(x => x.ToHtml()));
+            html.Body.Scripts = Scripts.Values.ToList();
 
             return html.ToString();
         }

@@ -22,6 +22,7 @@ namespace WebExpress.UI.Pages
         {
             base.Init();
 
+            HamburgerMenu = new ControlHamburgerMenu(this, "hamburger") { };
             Notification = new ControlPanel(this, "notification") { Class = "notification" };
             Head = new ControlPanelHeader(this, "head") { Class = "bg-dark", Role = "" };
             ToolBar = new ControlToolBar(this, "toolbar") { Class = "toolbar" };

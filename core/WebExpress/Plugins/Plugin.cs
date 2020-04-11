@@ -2,6 +2,7 @@
 using System.Text.RegularExpressions;
 using WebExpress.Config;
 using WebExpress.Messages;
+using WebExpress.Pages;
 using WebExpress.Workers;
 
 namespace WebExpress.Plugins
@@ -22,9 +23,14 @@ namespace WebExpress.Plugins
         public IPluginContext Context { get; set; }
 
         /// <summary>
-        /// Liefert den Namen der PipeStage
+        /// Liefert oder setzt den Namen des Plugins
         /// </summary>
         public string Name { get; private set; }
+
+        /// <summary>
+        /// Liefert das Icon des Plugins
+        /// </summary>
+        public string Icon { get; private set; }
 
         /// <summary>
         /// Liefert oder setzt die Liste der Worker
@@ -34,7 +40,7 @@ namespace WebExpress.Plugins
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public Plugin()
+        private Plugin()
         {
             Workers = new Dictionary<string, IWorker>();
         }
@@ -42,15 +48,17 @@ namespace WebExpress.Plugins
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="name">Name des Prozesszustandes</param>
-        public Plugin(string name)
+        /// <param name="name">Name des Plugins</param>
+        /// <param name="icon">Das Icon des Plugins</param>
+        public Plugin(string name, string icon)
             : this()
         {
             Name = name;
+            Icon = icon;
         }
 
         /// <summary>
-        /// Initialisierung des Prozesszustandes. Hier können z.B. verwaltete Ressourcen geladen werden. 
+        /// Initialisierung des Plugins. Hier können z.B. verwaltete Ressourcen geladen werden. 
         /// </summary>
         /// <param name="configFileName">Der Dateiname der Konfiguration oder null</param>
         public virtual void Init(string configFileName = null)

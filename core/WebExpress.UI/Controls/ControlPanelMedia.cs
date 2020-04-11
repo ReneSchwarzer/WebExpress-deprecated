@@ -15,7 +15,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt die URL zum Bild
         /// </summary>
-        public string Image { get; set; }
+        public Path Image { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Weite des Bildes in Pixel
@@ -67,7 +67,7 @@ namespace WebExpress.UI.Controls
 
             var img = new HtmlElementImg()
             {
-                Src = Image,
+                Src = Image.ToString(),
                 Class = "mr-3 mt-3 rounded-circle"                
             };
 

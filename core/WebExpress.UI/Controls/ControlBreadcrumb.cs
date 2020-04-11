@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using WebExpress.Pages;
 using WebServer.Html;
 
@@ -76,9 +77,16 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            var addCss = "breadcrumb";
+            var classes = new List<string>
+            {
+                Class,
+                "breadcrumb"
+            };
 
-            var html = new HtmlElementUl() { Class = Class + addCss };
+            var html = new HtmlElementUl() 
+            { 
+                Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x)))
+            };
 
             var basePath = new Path(Page.Context);
 
