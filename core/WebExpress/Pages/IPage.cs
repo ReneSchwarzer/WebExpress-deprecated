@@ -3,6 +3,7 @@ using WebExpress.Html;
 using WebExpress.Messages;
 using WebExpress.Plugins;
 using WebExpress.Workers;
+using WebServer.Html;
 
 namespace WebExpress.Pages
 {
@@ -175,5 +176,11 @@ namespace WebExpress.Pages
         /// <param name="extention">Die Url-Erweiterung</param>
         /// <param name="reverseSearch">Suche Nach Tag in umgekehrter Reihenfolge</param>
         Path GetPath(string tag, string extention, bool reverseSearch = true);
+
+        /// <summary>
+        /// In HTML konvertieren
+        /// </summary>
+        /// <returns>Die Seite als HTML</returns>
+        IHtmlNode ToHtml();
     }
 }

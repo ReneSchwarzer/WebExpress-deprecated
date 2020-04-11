@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using WebExpress.Messages;
 using WebExpress.Pages;
+using WebServer.Html;
 
 namespace WebExpress.Workers
 {
@@ -20,7 +21,7 @@ namespace WebExpress.Workers
         /// <summary>
         /// Liefert oder setzt die Contentliefernde Funktion
         /// </summary>
-        protected Func<Request, string> Content { get; set; }
+        protected Func<Request, IHtmlNode> Content { get; set; }
 
         /// <summary>
         /// Konstruktor
@@ -40,7 +41,7 @@ namespace WebExpress.Workers
         {
             Content = (request) =>
             {
-                return content;
+                return new HtmlRaw(content);
             };
         }
 
@@ -53,7 +54,7 @@ namespace WebExpress.Workers
         {
             Content = (request) =>
             {
-                return content.ToString();
+                return content.ToHtml();
             };
         }
 
@@ -67,7 +68,7 @@ namespace WebExpress.Workers
             try
             {
                 var content = Content == null ?
-                        "<html><body</body></html>" :
+                        new HtmlRaw("<html><body</body></html>") :
                         Content(request);
 
                 return new ResponseOK()
@@ -160,7 +161,7 @@ namespace WebExpress.Workers
                 page.Init(p, request.URL, session);
                 page.Process();
 
-                return page.ToString();
+                return page.ToHtml();
             };
         }
 
@@ -173,7 +174,7 @@ namespace WebExpress.Workers
         {
             Content = (request) =>
             {
-                return content.ToString();
+                return content.ToHtml();
             };
         }
     }

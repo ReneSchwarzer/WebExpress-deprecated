@@ -41,10 +41,10 @@ namespace WebExpress.UI.Pages
         }
 
         /// <summary>
-        /// In String konvertieren
+        /// In HTML konvertieren
         /// </summary>
-        /// <returns>Das Objekt als String</returns>
-        public override string ToString()
+        /// <returns>Die Seite als HTML-Baum</returns>
+        public override IHtmlNode ToHtml()
         {
             var html = new HtmlElementHtml();
             html.Head.Title = Title;
@@ -58,7 +58,7 @@ namespace WebExpress.UI.Pages
             html.Body.Elements.AddRange(Content.Select(x => x.ToHtml()));
             html.Body.Scripts = Scripts.Values.ToList();
 
-            return html.ToString();
+            return html;
         }
     }
 }

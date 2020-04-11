@@ -1,4 +1,5 @@
 ﻿using WebExpress.UI.Controls;
+using WebServer.Html;
 
 namespace WebExpress.UI.Pages
 {
@@ -40,10 +41,10 @@ namespace WebExpress.UI.Pages
         }
 
         /// <summary>
-        /// In String konvertieren
+        /// In HTML konvertieren
         /// </summary>
-        /// <returns>Das Objekt als String</returns>
-        public override string ToString()
+        /// <returns>Die Seite als HTML-Baum</returns>
+        public override IHtmlNode ToHtml()
         {
             if (Notification.Content.Count > 0)
             {
@@ -64,7 +65,7 @@ namespace WebExpress.UI.Pages
             Content.Add(Main);
             Content.Add(Foot);
 
-            return base.ToString();
+            return base.ToHtml();
         }
     }
 }

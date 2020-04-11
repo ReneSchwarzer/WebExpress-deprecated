@@ -5,6 +5,7 @@ using WebExpress.Html;
 using WebExpress.Messages;
 using WebExpress.Plugins;
 using WebExpress.Workers;
+using WebServer.Html;
 
 namespace WebExpress.Pages
 {
@@ -397,7 +398,7 @@ namespace WebExpress.Pages
         /// <returns>Das Objekt als String</returns>
         public override string ToString()
         {
-            return string.Empty;
+            return ToHtml().ToString();
         }
 
         /// <summary>
@@ -408,6 +409,15 @@ namespace WebExpress.Pages
         public void Redirecting(Path url)
         {
             throw new RedirectException(url?.ToString());
+        }
+
+        /// <summary>
+        /// In HTML konvertieren
+        /// </summary>
+        /// <returns>Die Seite als HTML</returns>
+        public virtual IHtmlNode ToHtml()
+        {
+            return null; 
         }
     }
 }
