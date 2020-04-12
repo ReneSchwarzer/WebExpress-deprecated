@@ -46,11 +46,13 @@ namespace WebExpress.Workers
         /// <returns></returns>
         public T GetProperty<T>() where T : class, ISessionProperty, new()
         {
-            if (Properties.ContainsKey(typeof(T)))
+            lock (Properties)
             {
-                return Properties[typeof(T)] as T;
+                if (Properties.ContainsKey(typeof(T)))
+                {
+                    return Properties[typeof(T)] as T;
+                }
             }
-
             return default;
         }
 
@@ -60,12 +62,15 @@ namespace WebExpress.Workers
         /// <param name="property">Die zu setzende Eigenschaft</param>
         public void SetProperty(ISessionProperty property)
         {
-            if (!Properties.ContainsKey(property.GetType()))
+            lock (Properties)
             {
-                Properties.Add(property.GetType(), property);
-            }
+                if (!Properties.ContainsKey(property.GetType()))
+                {
+                    Properties.Add(property.GetType(), property);
+                }
 
-            Properties[property.GetType()] = property;
+                Properties[property.GetType()] = property;
+            }
         }
 
         /// <summary>
@@ -75,9 +80,12 @@ namespace WebExpress.Workers
         /// <returns></returns>
         public void RemoveProperty<T>() where T : class, ISessionProperty, new()
         {
-            if (Properties.ContainsKey(typeof(T)))
+            lock (Properties)
             {
-                Properties.Remove(typeof(T));
+                if (Properties.ContainsKey(typeof(T)))
+                {
+                    Properties.Remove(typeof(T));
+                }
             }
         }
 

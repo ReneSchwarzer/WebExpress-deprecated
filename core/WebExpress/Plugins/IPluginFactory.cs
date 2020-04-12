@@ -16,6 +16,6 @@
         /// <param name="host">Der Kontext</param>
         /// <param name="configFileName">Der Dateiname der Konfiguration oder null</param>
         /// <returns>Die Instanz des Plugins</returns>
-        IPlugin Create(IPluginContext host, string configFileName);
+        IPlugin Create(HttpServerContext host, string configFileName);
     }
 }

@@ -63,6 +63,21 @@ namespace WebExpress.UI.Controls
         public Icon Icon { get; set; }
 
         /// <summary>
+        /// Liefert oder setzt das Bild
+        /// </summary>
+        public Path Image { get; set; }
+
+        /// <summary>
+        /// Liefert oder setzt die Höhe
+        /// </summary>
+        public int Heigt { get; set; }
+
+        /// <summary>
+        /// Liefert oder setzt die Weite
+        /// </summary>
+        public int Width { get; set; }
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="page">Die zugehörige Seite</param>
@@ -249,33 +264,52 @@ namespace WebExpress.UI.Controls
                 Style = Style
             };
 
-            var button = new HtmlElementButton()
+            if (Image == null)
             {
-                ID = string.IsNullOrWhiteSpace(ID) ? "" : ID + "_btn",
-                Class = string.Join(" ", buttonClasses.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = StyleButton,
-                DataToggle = "dropdown"
-            };
+                var button = new HtmlElementButton()
+                {
+                    ID = string.IsNullOrWhiteSpace(ID) ? "" : ID + "_btn",
+                    Class = string.Join(" ", buttonClasses.Where(x => !string.IsNullOrWhiteSpace(x))),
+                    Style = StyleButton,
+                    DataToggle = "dropdown"
+                };
 
-            if (Icon != Icon.None && !string.IsNullOrWhiteSpace(Text))
-            {
-                button.Elements.Add(new HtmlElementSpan() { Class = Icon.ToClass() });
+                if (Icon != Icon.None && !string.IsNullOrWhiteSpace(Text))
+                {
+                    button.Elements.Add(new HtmlElementSpan() { Class = Icon.ToClass() });
 
-                button.Elements.Add(new HtmlNbsp());
-                button.Elements.Add(new HtmlNbsp());
-                button.Elements.Add(new HtmlNbsp());
+                    button.Elements.Add(new HtmlNbsp());
+                    button.Elements.Add(new HtmlNbsp());
+                    button.Elements.Add(new HtmlNbsp());
+                }
+                else if (Icon != Icon.None && string.IsNullOrWhiteSpace(Text))
+                {
+                    button.AddClass(Icon.ToClass());
+                }
+
+                if (!string.IsNullOrWhiteSpace(Text))
+                {
+                    button.Elements.Add(new HtmlText(Text));
+                }
+
+                html.Elements.Add(button);
             }
-            else if (Icon != Icon.None && string.IsNullOrWhiteSpace(Text))
+            else
             {
-                button.AddClass(Icon.ToClass());
+                var button = new HtmlElementImg()
+                {
+                    ID = string.IsNullOrWhiteSpace(ID) ? "" : ID + "_btn",
+                    Class = string.Join(" ", buttonClasses.Where(x => !string.IsNullOrWhiteSpace(x))),
+                    Style = StyleButton,
+                    Src = Image.ToString(),
+                    Height = Heigt,
+                    Width = Width,
+                    DataToggle = "dropdown"
+                };
+
+                html.Elements.Add(button);
             }
 
-            if (!string.IsNullOrWhiteSpace(Text))
-            {
-                button.Elements.Add(new HtmlText(Text));
-            }
-
-            html.Elements.Add(button);
             html.Elements.Add
             (
                 new HtmlElementUl

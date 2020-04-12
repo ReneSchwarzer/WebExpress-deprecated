@@ -71,10 +71,20 @@ namespace WebExpress.UI.Controls
             var classes = new List<string>
             {
                 Class,
-                "d-flex",
+                //"d-flex",
                 Layout.ToClass(),
                 Direction.ToClass()
             };
+
+            switch (HorizontalAlignment)
+            {
+                case TypesHorizontalAlignment.Left:
+                    classes.Add("float-left");
+                    break;
+                case TypesHorizontalAlignment.Right:
+                    classes.Add("float-right");
+                    break;
+            }
 
             var html = new HtmlElementNav() 
             { 

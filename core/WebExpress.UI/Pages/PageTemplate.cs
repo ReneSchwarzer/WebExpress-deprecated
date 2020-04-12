@@ -1,4 +1,5 @@
 ﻿using WebExpress.UI.Controls;
+using WebServer.Html;
 
 namespace WebExpress.UI.Pages
 {
@@ -38,6 +39,11 @@ namespace WebExpress.UI.Pages
         public ControlFoot Foot { get; protected set; }
 
         /// <summary>
+        /// Liefert oder setzt das Hamburgermenü
+        /// </summary>
+        public ControlHamburgerMenu HamburgerMenu { get; protected set; }
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         public PageTemplate()
@@ -63,14 +69,14 @@ namespace WebExpress.UI.Pages
         }
 
         /// <summary>
-        /// In String konvertieren
+        /// In HTML konvertieren
         /// </summary>
-        /// <returns>Das Objekt als String</returns>
-        public override string ToString()
+        /// <returns>Die Seite als HTML-Baum</returns>
+        public override IHtmlNode ToHtml()
         {
             PathCtrl.Path = Path;
 
-            return base.ToString();
+            return base.ToHtml();
         }
     }
 }

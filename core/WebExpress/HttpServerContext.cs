@@ -1,15 +1,19 @@
-﻿using WebExpress.Plugins;
+﻿using System.Collections.Generic;
+using System.Linq;
+using WebExpress.Plugins;
 
 namespace WebExpress
 {
     /// <summary>
     /// Der Kontext des Http-Servers
     /// </summary>
-    public class HttpServerContext 
+    public class HttpServerContext
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
+        /// <param name="port">Der Port</param>
+        /// <param name="plugins">Die Plugins</param>
         /// <param name="assetBaseFolder">Daten-Basisverzeichnis</param>
         /// <param name="configBaseFolder">Konfigurationserzeichnis</param>
         /// <param name="urlBasePath">Der Basispfad des Servers</param>
@@ -17,9 +21,10 @@ namespace WebExpress
         /// <param name="parser">Parser zur Substitution von Zeichenketten</param>
         public HttpServerContext
         (
-            string assetBaseFolder, 
-            string configBaseFolder, 
-            string urlBasePath, 
+            int port,
+            string assetBaseFolder,
+            string configBaseFolder,
+            string urlBasePath,
             Log log
         )
         {
@@ -42,6 +47,11 @@ namespace WebExpress
 
             Log = log;
         }
+
+        /// <summary>
+        /// Liefert oder setzt die Plugins
+        /// </summary>
+        public List<IPluginContext> Plugins { get; protected set; } = new List<IPluginContext>();
 
         /// <summary>
         /// Liefert oder setzt das Daten-Basisverzeichnis

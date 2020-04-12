@@ -41,10 +41,10 @@ namespace WebExpress.UI.Pages
         }
 
         /// <summary>
-        /// In String konvertieren
+        /// In HTML konvertieren
         /// </summary>
-        /// <returns>Das Objekt als String</returns>
-        public override string ToString()
+        /// <returns>Die Seite als HTML-Baum</returns>
+        public override IHtmlNode ToHtml()
         {
             var html = new HtmlElementHtml();
             html.Head.Title = Title;
@@ -54,9 +54,11 @@ namespace WebExpress.UI.Pages
             html.Head.ScriptLinks = HeaderScriptLinks.Select(x => new Path(Context, x).ToString());
             html.Head.Favicons = Favicons.Select(x => new Html.Favicon(new Path(Context, x.Url).ToString(), x.Mediatype));
             html.Head.Meta = Meta;
+            html.Head.Scripts = HeaderScripts;
             html.Body.Elements.AddRange(Content.Select(x => x.ToHtml()));
+            html.Body.Scripts = Scripts.Values.ToList();
 
-            return html.ToString();
+            return html;
         }
     }
 }
