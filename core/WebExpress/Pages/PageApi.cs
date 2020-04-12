@@ -1,4 +1,6 @@
-﻿namespace WebExpress.Pages
+﻿using WebServer.Html;
+
+namespace WebExpress.Pages
 {
     public class PageApi : Page
     {
@@ -31,12 +33,12 @@
         }
 
         /// <summary>
-        /// In String konvertieren
+        /// In HTML konvertieren
         /// </summary>
-        /// <returns>Das Objekt als String</returns>
-        public override string ToString()
+        /// <returns>Die Seite als HTML</returns>
+        public override IHtmlNode ToHtml()
         {
-            return Content;
+            return new HtmlRaw(Content);
         }
     }
 }

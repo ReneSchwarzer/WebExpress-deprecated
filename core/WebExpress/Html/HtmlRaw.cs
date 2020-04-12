@@ -27,6 +27,15 @@ namespace WebServer.Html
         }
 
         /// <summary>
+        /// In String konvertieren
+        /// </summary>
+        /// <returns>Das Objekt als String</returns>
+        public override string ToString()
+        {
+            return Html;
+        }
+
+        /// <summary>
         /// In String konvertieren unter Zuhilfenahme eines StringBuilder
         /// </summary>
         /// <param name="builder">Der StringBuilder</param>
