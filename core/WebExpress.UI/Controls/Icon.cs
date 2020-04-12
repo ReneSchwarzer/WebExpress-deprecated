@@ -76,7 +76,7 @@ namespace WebExpress.UI.Controls
                 case Icon.Bug:
                     return "fas fa-bug";
                 case Icon.Calendar:
-                    return "fas fa-calendar-plus";
+                    return "fas fa-calendar";
                 case Icon.CalendarMinus:
                     return "fas fa-calendar-minus";
                 case Icon.CalendarPlus:
