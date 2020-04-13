@@ -11,6 +11,16 @@
         string Name { get; }
 
         /// <summary>
+        /// Liefert die Version des Plugins 
+        /// </summary>
+        string Version { get; }
+
+        /// <summary>
+        /// Liefert die Version des HttpServers 
+        /// </summary>
+        string HttpServerVersion { get; }
+
+        /// <summary>
         /// Liefert das Konfigurationserzeichnis
         /// </summary>
         string ConfigBaseFolder { get; }

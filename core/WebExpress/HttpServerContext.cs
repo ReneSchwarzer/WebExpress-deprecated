@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using WebExpress.Plugins;
 
 namespace WebExpress
@@ -28,6 +29,9 @@ namespace WebExpress
             Log log
         )
         {
+            var assembly = typeof(HttpServer).Assembly;
+            Version = assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
+
             AssetBaseFolder = assetBaseFolder;
             ConfigBaseFolder = configBaseFolder;
 
@@ -47,6 +51,11 @@ namespace WebExpress
 
             Log = log;
         }
+
+        /// <summary>
+        /// Liefert die Version des Plugins 
+        /// </summary>
+        public string Version { get; protected set; }
 
         /// <summary>
         /// Liefert oder setzt die Plugins
