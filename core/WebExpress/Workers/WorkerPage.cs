@@ -141,10 +141,12 @@ namespace WebExpress.Workers
 
                             page.AddParam(key, value, ParameterScope.Url);
 
-                            //var i = p.Items.Where(x => x.Name == item.Name && x.Fragment == item.Fragment && x.Tag == item.Tag).FirstOrDefault();
+                            var variablePathItem = p.Items.Where(x => x is PathItemVariable).
+                                                           Select(x => x as PathItemVariable).
+                                                           Where(x => x.Equals(item)).FirstOrDefault();
 
-                            //i.Name = item.Name.Replace(key, value);
-                            item.Fragment = value;
+                            variablePathItem.Name = item.Name.Replace(key, value);
+                            variablePathItem.Fragment = value;
                         }
                         catch
                         {

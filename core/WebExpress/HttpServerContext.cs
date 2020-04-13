@@ -48,7 +48,7 @@ namespace WebExpress
             }
 
             UrlBasePath = urlBasePath;
-
+            
             Log = log;
         }
 

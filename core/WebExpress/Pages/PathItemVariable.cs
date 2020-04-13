@@ -43,7 +43,7 @@
         public PathItemVariable(string name, string variable)
             : this(name, variable, "([0-9A-Za-z.-]*)")
         {
-            
+
         }
 
         /// <summary>
@@ -81,6 +81,20 @@
             Variable = item.Variable;
             Pattern = item.Pattern;
             Fragment = item.Fragment;
+        }
+
+        /// <summary>
+        /// Vergleicht zwei variable PfadItems
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public virtual bool Equals(PathItemVariable item)
+        {
+            return Name == item.Name &&
+                   Fragment == item.Fragment &&
+                   Variable == item.Variable &&
+                   Pattern == item.Pattern &&
+                   Tag == item.Tag;
         }
     }
 }
