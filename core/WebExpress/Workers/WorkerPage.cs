@@ -100,19 +100,13 @@ namespace WebExpress.Workers
         public WorkerPage(Path path)
             : base(path)
         {
-            var dict = new Dictionary<int, KeyValuePair<string, PathItem>>();
+            var dict = new Dictionary<int, KeyValuePair<string, PathItemVariable>>();
             var index = 0;
             Path = path;
 
-            foreach (var item in path.Items)
+            foreach (var item in path.Items.Where(x => x is PathItemVariable).Select(x => x as PathItemVariable))
             {
-                if (item.Fragment != null)
-                {
-                    foreach (Match match in Regex.Matches(item.Fragment, @"\$[0-9A-Za-z]+"))
-                    {
-                        dict.Add(index++, new KeyValuePair<string, PathItem>(match.Value, item));
-                    }
-                }
+                dict.Add(index++, new KeyValuePair<string, PathItemVariable>(item.Variable, item));
             }
 
             Content = (request) =>
@@ -133,7 +127,7 @@ namespace WebExpress.Workers
 
                 if (dict.Count > 0)
                 {
-                    var url = Regex.Replace(p.ToString(), @"\$[0-9A-Za-z]+", "([0-9A-Za-z.-]*)");
+                    var url = p.ToRawString();
                     var group = Regex.Match(request.URL, url).Groups;
 
                     // Url-Parameter
@@ -145,12 +139,12 @@ namespace WebExpress.Workers
                             var key = v.Value.Key;
                             var item = v.Value.Value;
 
-                            page.AddParam(key.Substring(1), value, ParameterScope.Url);
+                            page.AddParam(key, value, ParameterScope.Url);
 
-                            var i = p.Items.Where(x => x.Name == item.Name && x.Fragment == item.Fragment && x.Tag == item.Tag).FirstOrDefault();
+                            //var i = p.Items.Where(x => x.Name == item.Name && x.Fragment == item.Fragment && x.Tag == item.Tag).FirstOrDefault();
 
-                            i.Name = item.Name.Replace(key, value);
-                            i.Fragment = item.Fragment.Replace(key, value);
+                            //i.Name = item.Name.Replace(key, value);
+                            item.Fragment = value;
                         }
                         catch
                         {

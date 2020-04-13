@@ -15,7 +15,7 @@ namespace WebExpress.Plugins
         public PluginContext(HttpServerContext serverContext, IPlugin plugin)
         {
             Name = plugin.Name;
-            Version = plugin.GetType().Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion;
+            Version = plugin.GetType().Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
             HttpServerVersion = serverContext.Version;
             IconUrl = plugin.Icon;
             AssetBaseFolder = serverContext.AssetBaseFolder;

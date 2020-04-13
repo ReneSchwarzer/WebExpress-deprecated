@@ -83,22 +83,29 @@ namespace WebExpress.UI.Controls
                 "breadcrumb"
             };
 
-            var html = new HtmlElementUl() 
-            { 
+            var html = new HtmlElementUl()
+            {
                 Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x)))
             };
 
             var basePath = new Path(Page.Context);
 
-            foreach (var v in Path.Items)
+            foreach (var item in Path.Items)
             {
-                basePath = new Path(Page.Context, v.Name, basePath, v.Fragment);
+                if (item is PathItem i)
+                {
+                    basePath = new Path(Page.Context, basePath, i);
+                }
+                else if (item is PathItemVariable v)
+                {
+                    basePath = new Path(Page.Context, basePath, v);
+                }
 
                 html.Elements.Add
                 (
                     new HtmlElementLi
                     (
-                        new HtmlElementA(v.Name) { Href = basePath.ToString() }
+                        new HtmlElementA(item.Name) { Href = basePath.ToString() }
                     )
                     {
                         Class = "breadcrumb-item"
