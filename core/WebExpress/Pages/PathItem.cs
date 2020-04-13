@@ -1,6 +1,6 @@
 ﻿namespace WebExpress.Pages
 {
-    public class PathItem
+    public class PathItem : IPathItem
     {
         /// <summary>
         /// Der Name

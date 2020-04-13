@@ -31,7 +31,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt die Ziel-Url
         /// </summary>
-        public Path Url { get; set; }
+        public IPath Url { get; set; }
 
         /// <summary>
         /// Liefert oder setzt das Ziel

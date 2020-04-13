@@ -23,7 +23,7 @@ namespace WebExpress.Pages
         /// <param name="context">Der Kontext</param>
         /// <param name="tag">Eine Bezeichnung, welche dem Tag zugeordnet wird</param>
         /// <param name="paths">Die zusammengehörigen Pfade</param>
-        public VariationPath(IPluginContext context, string tag, params PathItem[] paths)
+        public VariationPath(IPluginContext context, string tag, params IPathItem[] paths)
             : this(context, new VariationPath[] { }, tag, paths)
         {
         }
@@ -34,7 +34,7 @@ namespace WebExpress.Pages
         /// <param name="basePath">Der Basispfad</param>
         /// <param name="tag">Eine Bezeichnung, welche dem Tag zugeordnet wird</param>
         /// <param name="paths">Die zusammengehörigen Pfade</param>
-        public VariationPath(VariationPath basePath, string tag, params PathItem[] paths)
+        public VariationPath(VariationPath basePath, string tag, params IPathItem[] paths)
             : this(basePath.Context, new VariationPath[] { basePath }, tag, paths)
         {
         }
@@ -46,7 +46,7 @@ namespace WebExpress.Pages
         /// <param name="basePath2">Der zweite Basispfad</param>
         /// <param name="tag">Eine Bezeichnung, welche dem Tag zugeordnet wird</param>
         /// <param name="paths">Die zusammengehörigen Pfade</param>
-        public VariationPath(VariationPath basePath1, VariationPath basePath2, string tag, params PathItem[] paths)
+        public VariationPath(VariationPath basePath1, VariationPath basePath2, string tag, params IPathItem[] paths)
             : this
             (
                   basePath1.Context != null ? basePath1.Context : basePath2.Context,
@@ -65,7 +65,7 @@ namespace WebExpress.Pages
         /// <param name="basePath3">Der dritte Basispfad</param>
         /// <param name="tag">Eine Bezeichnung, welche dem Tag zugeordnet wird</param>
         /// <param name="paths">Die zusammengehörigen Pfade</param>
-        public VariationPath(VariationPath basePath1, VariationPath basePath2, VariationPath basePath3, string tag, params PathItem[] paths)
+        public VariationPath(VariationPath basePath1, VariationPath basePath2, VariationPath basePath3, string tag, params IPathItem[] paths)
             : this
             (
                   basePath1.Context != null ? basePath1.Context : basePath2.Context,
@@ -86,7 +86,7 @@ namespace WebExpress.Pages
         /// <param name="basePath4">Der vierte Basispfad</param>
         /// <param name="tag">Eine Bezeichnung, welche dem Tag zugeordnet wird</param>
         /// <param name="paths">Die zusammengehörigen Pfade</param>
-        public VariationPath(VariationPath basePath1, VariationPath basePath2, VariationPath basePath3, VariationPath basePath4, string tag, params PathItem[] paths)
+        public VariationPath(VariationPath basePath1, VariationPath basePath2, VariationPath basePath3, VariationPath basePath4, string tag, params IPathItem[] paths)
             : this
             (
                   basePath1.Context != null ? basePath1.Context : basePath2.Context,
@@ -105,7 +105,7 @@ namespace WebExpress.Pages
         /// <param name="basePath">Der Basispfad</param>
         /// <param name="tag">Eine Bezeichnung, welche dem Tag zugeordnet wird</param>
         /// <param name="paths">Die zusammengehörigen Pfade</param>
-        public VariationPath(IPluginContext context, VariationPath[] basePath, string tag, params PathItem[] paths)
+        public VariationPath(IPluginContext context, VariationPath[] basePath, string tag, params IPathItem[] paths)
         {
             Context = context;
 
@@ -113,11 +113,20 @@ namespace WebExpress.Pages
 
             foreach (var v in paths)
             {
-                var i = new PathItem(v) { Tag = tag };
+                IPathItem i = null;
+
+                if (v is PathItem item)
+                {
+                    i = new PathItem(item) { Tag = tag };
+                }
+                else if (v is PathItemVariable variable)
+                {
+                    i = new PathItemVariable(variable) { Tag = tag };
+                }
 
                 if (basePath.Count() > 0)
                 {
-                    foreach (var b in from b in basePath from item in b.Items select item)
+                    foreach (var b in from b in basePath from pitem in b.Items select pitem)
                     {
                         Items.Add(new Path(b, i));
                     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 
 namespace WebExpress.Plugins
@@ -14,6 +15,8 @@ namespace WebExpress.Plugins
         public PluginContext(HttpServerContext serverContext, IPlugin plugin)
         {
             Name = plugin.Name;
+            Version = plugin.GetType().Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
+            HttpServerVersion = serverContext.Version;
             IconUrl = plugin.Icon;
             AssetBaseFolder = serverContext.AssetBaseFolder;
             ConfigBaseFolder = serverContext.ConfigBaseFolder;
@@ -43,6 +46,8 @@ namespace WebExpress.Plugins
         public PluginContext(IPluginContext context, string urlBasePath)
         {
             Name = context.Name;
+            Version = context.Version;
+            HttpServerVersion = context.HttpServerVersion;
             IconUrl = context.IconUrl;
             AssetBaseFolder = context.AssetBaseFolder;
             ConfigBaseFolder = context.ConfigBaseFolder;
@@ -68,6 +73,16 @@ namespace WebExpress.Plugins
         /// Liefert oder setzt den Name des Plugins 
         /// </summary>
         public string Name { get; protected set; }
+
+        /// <summary>
+        /// Liefert die Version des Plugins 
+        /// </summary
+        public string Version { get; protected set; }
+
+        /// <summary>
+        /// Liefert oder setzt die Version des HttpServers 
+        /// </summary>
+        public string HttpServerVersion { get; protected set; }
 
         /// <summary>
         /// Liefert oder setzt das Daten-Basisverzeichnis

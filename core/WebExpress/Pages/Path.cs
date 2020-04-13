@@ -1,15 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using WebExpress.Plugins;
 
 namespace WebExpress.Pages
 {
-    public class Path
+    public class Path : IPath
     {
         /// <summary>
         /// Liefert oder setzt die Pfadelemente
         /// </summary>
-        public List<PathItem> Items { get; private set; } = new List<PathItem>();
+        public List<IPathItem> Items { get; private set; } = new List<IPathItem>();
 
         /// <summary>
         /// Liefert oder setzt den Kontext
@@ -31,9 +32,8 @@ namespace WebExpress.Pages
         /// <param name="context">Der Kontext</param>
         /// <param name="name">Der Name</param>
         /// <param name="basePath">Der Basipfad</param>
-        /// <param name="extension">Die Url-Erweiterung</param>
-        /// <param name="tag">Das Etikett</param>
-        public Path(IPluginContext context, string name, Path basePath, string extension, string tag = null)
+        /// <param name="item">Die Pfaderweiterung</param>
+        public Path(IPluginContext context, Path basePath, PathItem item)
             : this(context)
         {
             if (basePath != null)
@@ -41,7 +41,25 @@ namespace WebExpress.Pages
                 Items.AddRange(basePath.Items);
             }
 
-            Items.Add(new PathItem() { Name = name, Fragment = extension, Tag = tag });
+            Items.Add(new PathItem(item));
+        }
+
+        /// <summary>
+        /// Konstruktor
+        /// </summary>
+        /// <param name="context">Der Kontext</param>
+        /// <param name="name">Der Name</param>
+        /// <param name="basePath">Der Basipfad</param>
+        /// <param name="item">Die Pfaderweiterung</param>
+        public Path(IPluginContext context, Path basePath, PathItemVariable item)
+            : this(context)
+        {
+            if (basePath != null)
+            {
+                Items.AddRange(basePath.Items);
+            }
+
+            Items.Add(new PathItemVariable(item));
         }
 
         /// <summary>
@@ -63,19 +81,35 @@ namespace WebExpress.Pages
         public Path(Path path)
             : this(path.Context)
         {
-            Items.AddRange(path.Items.Select(x => new PathItem(x)));
+            foreach (var item in path.Items)
+            {
+                if (item is PathItem i)
+                {
+                    Items.Add(new PathItem(i));
+                }
+                else if (item is PathItemVariable v)
+                {
+                    Items.Add(new PathItemVariable(v));
+                }
+            }
         }
 
         /// <summary>
         /// Copy-Konstruktor
         /// </summary>
         /// <param name="path">Der zu kopierende Pfad</param>
-        public Path(Path path, PathItem item)
-            : this(path.Context)
+        /// <param name="item">Das anzuhängende PfadItem</param>
+        public Path(Path path, IPathItem item)
+            : this(path)
         {
-            Items.AddRange(path.Items.Select(x => new PathItem(x)));
-
-            Items.Add(new PathItem(item));
+            if (item is PathItem i)
+            {
+                Items.Add(new PathItem(i));
+            }
+            else if (item is PathItemVariable v)
+            {
+                Items.Add(new PathItemVariable(v));
+            }
         }
 
         /// <summary>
@@ -83,10 +117,17 @@ namespace WebExpress.Pages
         /// </summary>
         /// <param name="context">Der Kontext</param>
         /// <param name="path">Der zu kopierende Pfad</param>
-        public Path(IPluginContext context, PathItem item)
+        public Path(IPluginContext context, IPathItem item)
             : this(context)
         {
-            Items.Add(new PathItem(item));
+            if (item is PathItem i)
+            {
+                Items.Add(new PathItem(i));
+            }
+            else if (item is PathItemVariable v)
+            {
+                Items.Add(new PathItemVariable(v));
+            }
         }
 
         /// <summary>
@@ -97,7 +138,7 @@ namespace WebExpress.Pages
         public Path(IPluginContext context, string item)
             : this(context)
         {
-            if(item.StartsWith("/"))
+            if (item.StartsWith("/"))
             {
                 item = item.Substring(1);
             }
@@ -110,10 +151,48 @@ namespace WebExpress.Pages
         /// </summary>
         /// <param name="context">Der Kontext</param>
         /// <param name="items">Der zu kopierende Pfad</param>
-        public Path(IPluginContext context, IEnumerable<PathItem> items)
+        public Path(IPluginContext context, IEnumerable<IPathItem> items)
             : this(context)
         {
-            Items.AddRange(items.Select(x => new PathItem(x)));
+            foreach (var item in items)
+            {
+                if (item is PathItem i)
+                {
+                    Items.Add(new PathItem(i));
+                }
+                else if (item is PathItemVariable v)
+                {
+                    Items.Add(new PathItemVariable(v));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Umwandlung in Stringform
+        /// </summary>
+        /// <returns>Die URL des Pfades</returns>
+        public virtual string ToRawString()
+        {
+            var list = new List<string>();
+            foreach (var item in Items)
+            {
+                if (item is PathItemVariable dynamic)
+                {
+                    if (!string.IsNullOrEmpty(dynamic.Pattern))
+                    {
+                        list.Add(dynamic.Pattern);
+                    }
+                }
+                else if (item is PathItem stat)
+                {
+                    if (!string.IsNullOrEmpty(stat.Fragment))
+                    {
+                        list.Add(stat.Fragment);
+                    }
+                }
+            }
+
+            return Context?.UrlBasePath + "/" + string.Join("/", list);
         }
 
         /// <summary>
@@ -122,12 +201,31 @@ namespace WebExpress.Pages
         /// <returns>Die URL des Pfades</returns>
         public override string ToString()
         {
-            if (Context == null)
+            //if (Context == null)
+            //{
+            //    return string.Join("/", Items.Where(x => !string.IsNullOrEmpty(x.Fragment)).Select(x => x.Fragment.Trim()));
+            //}
+
+            var list = new List<string>();
+            foreach (var item in Items)
             {
-                return string.Join("/", Items.Where(x => !string.IsNullOrEmpty(x.Fragment)).Select(x => x.Fragment.Trim()));
+                if (item is PathItemVariable dynamic)
+                {
+                    if (!string.IsNullOrEmpty(dynamic.Fragment))
+                    {
+                        list.Add(dynamic.Fragment);
+                    }
+                }
+                else if (item is PathItem stat)
+                {
+                    if (!string.IsNullOrEmpty(stat.Fragment))
+                    {
+                        list.Add(stat.Fragment);
+                    }
+                }
             }
 
-            return Context?.UrlBasePath + "/" + string.Join("/", Items.Where(x => !string.IsNullOrEmpty(x.Fragment)).Select(x => x.Fragment.Trim()));
+            return Context?.UrlBasePath + "/" + string.Join("/", list);
         }
     }
 }

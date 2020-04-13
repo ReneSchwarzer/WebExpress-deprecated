@@ -182,3 +182,4 @@ UpgradeLog*.htm
 *.bim.layout
 *.bim_*.settings
 /src/uwp/.vs/TurtleBay/v15/sqlite3/storage.ide
+/core/WebExpress/Pages/PathItemDynamic.cs
