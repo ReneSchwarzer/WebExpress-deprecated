@@ -19,5 +19,14 @@ namespace WebExpress.Pages
         {
             Uri = uri;
         }
+
+        /// <summary>
+        /// Umwandlung in Stringform
+        /// </summary>
+        /// <returns>Die URL des Pfades</returns>
+        public override string ToString()
+        {
+            return Uri;
+        }
     }
 }
