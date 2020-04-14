@@ -90,7 +90,7 @@ namespace WebExpress.App
             var context = new HttpServerContext
             (
                 port,
-                config.AssetBase, 
+                string.IsNullOrWhiteSpace(config.AssetBase) ? Environment.CurrentDirectory : config.AssetBase, 
                 Path.GetDirectoryName(configFile), 
                 config.UrlBasePath,
                 Log.Current
