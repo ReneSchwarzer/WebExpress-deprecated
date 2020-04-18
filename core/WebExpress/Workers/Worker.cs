@@ -12,7 +12,7 @@ namespace WebExpress.Workers
         /// <summary>
         /// Liefert oder setzt die URL, auf dem der Worker reagiert
         /// </summary>
-        public Path Path { get; protected set; }
+        public UriPage Uri { get; protected set; }
 
         /// <summary>
         /// Liefert oder setzt den Kontext des Plugins
@@ -22,10 +22,10 @@ namespace WebExpress.Workers
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="path">Die URL</param>
-        public Worker(Path path)
+        /// <param name="uri">Die Uri</param>
+        public Worker(UriPage uri)
         {
-            Path = path;
+            Uri = uri;
         }
 
         /// <summary>

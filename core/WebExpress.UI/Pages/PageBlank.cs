@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using WebExpress.Html;
 using WebExpress.Pages;
 using WebExpress.UI.Controls;
-using WebServer.Html;
 
 namespace WebExpress.UI.Pages
 {
@@ -49,10 +49,10 @@ namespace WebExpress.UI.Pages
             var html = new HtmlElementHtml();
             html.Head.Title = Title;
             html.Head.Base = Context.UrlBasePath;
-            html.Head.Styles = Styles.Select(x => new Path(Context, x).ToString());;
-            html.Head.CssLinks = CssLinks.Select(x => new Path(Context, x).ToString());
-            html.Head.ScriptLinks = HeaderScriptLinks.Select(x => new Path(Context, x).ToString());
-            html.Head.Favicons = Favicons.Select(x => new Html.Favicon(new Path(Context, x.Url).ToString(), x.Mediatype));
+            html.Head.Styles = Styles.Select(x => new UriPage(x, Context).ToString());
+            html.Head.CssLinks = CssLinks.Select(x => new UriPage(x, Context).ToString());
+            html.Head.ScriptLinks = HeaderScriptLinks.Select(x => new UriPage(x, Context).ToString());
+            html.Head.Favicons = Favicons.Select(x => new Favicon(new UriPage(x.Url, Context).ToString(), x.Mediatype));
             html.Head.Meta = Meta;
             html.Head.Scripts = HeaderScripts;
             html.Body.Elements.AddRange(Content.Select(x => x.ToHtml()));

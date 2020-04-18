@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using WebExpress.Html;
 using WebExpress.Messages;
 using WebExpress.Plugins;
 using WebExpress.Workers;
-using WebServer.Html;
 
 namespace WebExpress.Pages
 {
@@ -17,14 +14,9 @@ namespace WebExpress.Pages
         public IPluginContext Context { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die URL der Seite
+        /// Liefert oder setzt die Uri der Seite
         /// </summary>
-        public string Url { get; protected set; }
-
-        /// <summary>
-        /// Liefert oder setzt den Pfad der Seite
-        /// </summary>
-        public Path Path { get; protected set; }
+        public UriPage Uri { get; protected set; }
 
         /// <summary>
         /// Liefert oder setzt die Session
@@ -128,13 +120,11 @@ namespace WebExpress.Pages
         /// <summary>
         /// Initialisierung
         /// </summary>
-        /// <param name="path">Der Pfad</param>
-        /// <param name="url">Die Url der Seite</param>
+        /// <param name="uri">Der Pfad</param>
         /// <param name="session">Die aktuelle Session</param>
-        public virtual void Init(Path path, string url, Session session)
+        public virtual void Init(UriPage uri, Session session)
         {
-            Path = path;
-            Url = url;
+            Uri = uri;
             Session = session;
 
             Init();
@@ -293,79 +283,6 @@ namespace WebExpress.Pages
         }
 
         /// <summary>
-        /// Liefert die URL der Seite
-        /// </summary>
-        /// <param name="extention">Die Url-Erweiterung</param>
-        public Path GetPath(string extention)
-        {
-            return GetPath(null, extention);
-        }
-
-        /// <summary>
-        /// Liefert die URL der Seite
-        /// </summary>
-        /// <param name="index">N-te Teilstück der Url</param>
-        /// <param name="extention">Die Url-Erweiterung</param>
-        public Path GetPath(int? index = null, string extention = null)
-        {
-            var path = Path;
-
-            if (index.HasValue && index < 0)
-            {
-                // Entfernt n Elemente aus dem Pfad
-                path = new Path(Context, Path.Items.Take(Path.Items.Count() + index.Value));
-            }
-            else if (index.HasValue && index > 0)
-            {
-                // liefert die ersten n Elemente aus dem Url-Pfad
-                path = new Path(Context, Path.Items.Take(index.Value));
-            }
-            else if (index.HasValue && index == 0)
-            {
-                if (!string.IsNullOrWhiteSpace(extention) && extention.StartsWith("/"))
-                {
-                    return new Path(Context, (extention ?? string.Empty));
-                }
-
-                return new Path(Context, "/" + (extention ?? string.Empty));
-            }
-
-            if (string.IsNullOrWhiteSpace(extention))
-            {
-                return new Path(Context, path.ToString());
-            }
-
-            if (path.Items.Count <= 1)
-            {
-                return new Path(Context, "/" + extention != null ? extention : string.Empty);
-            }
-
-            return new Path(Context, string.Join("/", path.ToString(), extention));
-        }
-
-        /// <summary>
-        /// Liefert Findet eine Url anhand des Tag und gibt diese zurück
-        /// </summary>
-        /// <param name="tag">suche nach dem Tag</param>
-        /// <param name="extention">Die Url-Erweiterung</param>
-        /// <param name="reverseSearch">Suche Nach Tag in umgekehrter Reihenfolge</param>
-        public Path GetPath(string tag, string extention, bool reverseSearch = true)
-        {
-            var index = 0;
-
-            if (reverseSearch)
-            {
-                index = Path.Items.FindLastIndex(x => !string.IsNullOrWhiteSpace(x.Tag) && x.Tag.Equals(tag, StringComparison.OrdinalIgnoreCase));
-
-                return GetPath(index + 1, extention);
-            }
-
-            index = Path.Items.FindIndex(x => !string.IsNullOrWhiteSpace(x.Tag) && x.Tag.Equals(tag, StringComparison.OrdinalIgnoreCase));
-
-            return GetPath(index + 1, extention);
-        }
-
-        /// <summary>
         /// Fügt eine Java-Script hinzu oder sersetzt dieses, falls vorhanden
         /// </summary>
         /// <param name="key">Der Schlüssel</param>
@@ -405,10 +322,10 @@ namespace WebExpress.Pages
         /// Weiterleitung an eine andere Seite
         /// Die Funktion löst die RedirectException aus
         /// </summary>
-        /// <param name="url">Die URL zu der weitergeleitet werden soll</param>
-        public void Redirecting(Path url)
+        /// <param name="uri">Die URL zu der weitergeleitet werden soll</param>
+        public void Redirecting(IUri uri)
         {
-            throw new RedirectException(url?.ToString());
+            throw new RedirectException(uri?.ToString());
         }
 
         /// <summary>
@@ -417,7 +334,7 @@ namespace WebExpress.Pages
         /// <returns>Die Seite als HTML</returns>
         public virtual IHtmlNode ToHtml()
         {
-            return null; 
+            return null;
         }
     }
 }

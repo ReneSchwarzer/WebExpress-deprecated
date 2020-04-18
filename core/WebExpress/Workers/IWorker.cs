@@ -12,7 +12,7 @@ namespace WebExpress.Workers
         /// <summary>
         /// Liefert die URL, auf dem der Worker reagiert
         /// </summary>
-        Path Path { get; }
+        UriPage Uri { get; }
 
         /// <summary>
         /// Liefert oder setzt den Kontext des Plugins

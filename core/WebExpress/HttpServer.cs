@@ -238,7 +238,7 @@ namespace WebExpress
                 }
 
                 Request request = null;
-                
+
                 try
                 {
                     Context.Log.Debug(MethodBase.GetCurrentMethod(), ip + ": Anfrage '" + requestStr + "'");
@@ -342,7 +342,7 @@ namespace WebExpress
                 {
                     var p = factory.Create
                     (
-                        Context, 
+                        Context,
                         Path.Combine(Context.ConfigBaseFolder, factory.ConfigFileName)
                     );
                     Plugins.Add(p);

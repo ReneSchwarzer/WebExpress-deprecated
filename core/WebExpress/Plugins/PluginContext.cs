@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
+﻿using System.Reflection;
 
 namespace WebExpress.Plugins
 {
@@ -34,7 +31,7 @@ namespace WebExpress.Plugins
             }
 
             UrlBasePath = urlBasePath;
-            
+
             Log = serverContext.Log;
         }
 

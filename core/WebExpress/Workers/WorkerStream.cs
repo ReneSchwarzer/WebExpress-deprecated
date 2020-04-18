@@ -16,8 +16,10 @@ namespace WebExpress.Workers
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public WorkerStream(Path url, System.IO.StreamReader stream)
-            : base(url)
+        /// <param name="uri">Die Uri</param>
+        /// <param name="stream">Der Stream</param>
+        public WorkerStream(UriPage uri, System.IO.StreamReader stream)
+            : base(uri)
         {
             Ressource = stream;
             base.Ressource = StreamToBytes(Ressource);

@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace WebServer.Html
+namespace WebExpress.Html
 {
     public class HtmlElementMeta : HtmlElement
     {

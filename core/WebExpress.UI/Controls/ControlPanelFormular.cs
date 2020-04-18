@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using WebExpress.Html;
 using WebExpress.Messages;
 using WebExpress.Pages;
-using WebServer.Html;
 
 namespace WebExpress.UI.Controls
 {
@@ -40,19 +40,19 @@ namespace WebExpress.UI.Controls
         public string Name { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Ziel-Url
+        /// Liefert oder setzt die Ziel-Uri
         /// </summary>
-        public Path Url { get; set; }
+        public IUri Uri { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Weiterleitungs-Url
         /// </summary>
-        public Path RedirectUrl { get; set; }
+        public IUri RedirectUrl { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Abbruchs-Url
         /// </summary>
-        public Path BackUrl { get; set; }
+        public IUri BackUrl { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Submit-Schaltfläche
@@ -149,7 +149,7 @@ namespace WebExpress.UI.Controls
                 Layout = TypesLayoutButton.Danger,
                 Color = TypesTextColor.White,
                 HorizontalAlignment = TypesHorizontalAlignment.Right,
-                Url = Url
+                Uri = Uri
             };
 
             SubmitButton.Click += (s, e) =>
@@ -184,7 +184,7 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            CancelButton.Url = RedirectUrl;
+            CancelButton.Uri = RedirectUrl;
 
             var classes = new List<string>
             {
@@ -214,7 +214,7 @@ namespace WebExpress.UI.Controls
                 Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Style = Style,
                 Name = Name.ToLower() != "form" ? "form_" + Name.ToLower() : Name.ToLower(),
-                Action = Url?.ToString(),
+                Action = Uri?.ToString(),
                 Method = "post"
             };
 

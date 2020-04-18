@@ -3,7 +3,6 @@ using WebExpress.Html;
 using WebExpress.Messages;
 using WebExpress.Plugins;
 using WebExpress.Workers;
-using WebServer.Html;
 
 namespace WebExpress.Pages
 {
@@ -65,14 +64,9 @@ namespace WebExpress.Pages
         List<string> HeaderScripts { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die URL der Seite
+        /// Liefert oder setzt die Uri der Seite
         /// </summary>
-        string Url { get; }
-
-        /// <summary>
-        /// Liefert oder setzt den Pfad der Seite
-        /// </summary>
-        Path Path { get; }
+        UriPage Uri { get; }
 
         /// <summary>
         /// Initialisierung
@@ -83,9 +77,8 @@ namespace WebExpress.Pages
         /// Initialisierung
         /// </summary>
         /// <param name="path">Der Pfad</param>
-        /// <param name="url">Die Url der Seite</param>
         /// <param name="session">Die aktuelle Session</param>
-        void Init(Path path, string url, Session session);
+        void Init(UriPage path, Session session);
 
         /// <summary>
         /// Verarbeitung
@@ -141,7 +134,7 @@ namespace WebExpress.Pages
         /// Die Funktion löst die RedirectException aus 
         /// </summary>
         /// <param name="url">Die URL zu der weitergeleitet werden soll</param>
-        void Redirecting(Path url);
+        void Redirecting(IUri url);
 
         /// <summary>
         /// Fügt eine Java-Script hinzu
@@ -155,27 +148,6 @@ namespace WebExpress.Pages
         /// <param name="key">Der Schlüssel</param>
         /// <param name="code">Der Code</param>
         void AddScript(string key, string code);
-
-        /// <summary>
-        /// Liefert die URL der Seite
-        /// </summary>
-        /// <param name="extention">Die Url-Erweiterung</param>
-        Path GetPath(string extention);
-
-        /// <summary>
-        /// Liefert die URL der Seite
-        /// </summary>
-        /// <param name="index">N-te Teilstück der Url</param>
-        /// <param name="extention">Die Url-Erweiterung</param>
-        Path GetPath(int? index = null, string extention = null);
-
-        /// <summary>
-        /// Liefert Findet eine Url anhand des Tag und gibt diese zurück
-        /// </summary>
-        /// <param name="tag">suche nach dem Tag</param>
-        /// <param name="extention">Die Url-Erweiterung</param>
-        /// <param name="reverseSearch">Suche Nach Tag in umgekehrter Reihenfolge</param>
-        Path GetPath(string tag, string extention, bool reverseSearch = true);
 
         /// <summary>
         /// In HTML konvertieren

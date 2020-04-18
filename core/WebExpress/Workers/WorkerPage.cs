@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
+using WebExpress.Html;
 using WebExpress.Messages;
 using WebExpress.Pages;
-using WebServer.Html;
 
 namespace WebExpress.Workers
 {
@@ -27,7 +28,7 @@ namespace WebExpress.Workers
         /// Konstruktor
         /// </summary>
         /// <param name="url">Die URL</param>
-        public WorkerPage(Path url)
+        public WorkerPage(UriPage url)
             : base(url)
         {
         }
@@ -36,7 +37,7 @@ namespace WebExpress.Workers
         /// Konstruktor
         /// </summary>
         /// <param name="path">Die URL</param>
-        public WorkerPage(Path path, string content)
+        public WorkerPage(UriPage path, string content)
             : base(path)
         {
             Content = (request) =>
@@ -49,7 +50,7 @@ namespace WebExpress.Workers
         /// Konstruktor
         /// </summary>
         /// <param name="path">Die URL</param>
-        public WorkerPage(Path path, IPage content)
+        public WorkerPage(UriPage path, IPage content)
             : base(path)
         {
             Content = (request) =>
@@ -96,22 +97,29 @@ namespace WebExpress.Workers
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="path">Die URL</param>
-        public WorkerPage(Path path)
-            : base(path)
+        /// <param name="uri">Die Uri</param>
+        public WorkerPage(UriPage uri)
+            : base(uri)
         {
-            var dict = new Dictionary<int, KeyValuePair<string, PathItemVariable>>();
+            var dict = new Dictionary<int, UriPathSegmentVariable>();
             var index = 0;
-            Path = path;
 
-            foreach (var item in path.Items.Where(x => x is PathItemVariable).Select(x => x as PathItemVariable))
+            foreach (var segment in Uri.Path.Where(x => x is UriPathSegmentPage).Select(x => x as UriPathSegmentPage))
             {
-                dict.Add(index++, new KeyValuePair<string, PathItemVariable>(item.Variable, item));
+                if (uri.Variables.ContainsKey(segment.SegmentID))
+                {
+                    var variable = uri.Variables[segment.SegmentID];
+
+                    foreach (var item in variable.Items)
+                    {
+                        dict.Add(index++, item);
+                    }
+                }
             }
 
             Content = (request) =>
             {
-                var p = new Path(path);
+                var newUri = new UriPage(uri);
                 var session = CurrentSession;
                 if (session == null)
                 {
@@ -127,34 +135,58 @@ namespace WebExpress.Workers
 
                 if (dict.Count > 0)
                 {
-                    var url = p.ToRawString();
-                    var group = Regex.Match(request.URL, url).Groups;
+                    var paramters = new Dictionary<string, string>();
+                    var raw = newUri.ToRawString().Substring(Context.UrlBasePath.Length);
+                    var group = Regex.Match(request.URL, raw).Groups;
 
-                    // Url-Parameter
+                    // Parameter
                     foreach (var v in dict)
                     {
                         try
                         {
+                            // Parameter
+                            var key = v.Value.Name;
                             var value = group[v.Key + 1].ToString();
-                            var key = v.Value.Key;
-                            var item = v.Value.Value;
 
-                            page.AddParam(key, value, ParameterScope.Url);
-
-                            var variablePathItem = p.Items.Where(x => x is PathItemVariable).
-                                                           Select(x => x as PathItemVariable).
-                                                           Where(x => x.Equals(item)).FirstOrDefault();
-
-                            variablePathItem.Name = item.Name.Replace(key, value);
-                            variablePathItem.Fragment = value;
-                        }
+                            if (!paramters.ContainsKey(key))
+                            {
+                                page.AddParam(key, value, ParameterScope.Url);
+                                paramters.Add(key, value);
+                            }
+                            else
+                            {
+                                Context.Log.Warning(MethodBase.GetCurrentMethod(), string.Format("Parameter '{0}' ist mehrfach in Uri '{1}' vorhanden", key, request.URL));
+                            }
+                         }
                         catch
                         {
                         }
                     }
+
+                    // Uri
+                    var split = request.URL.Substring(Context.UrlBasePath.Length).Split('/', StringSplitOptions.RemoveEmptyEntries);
+                    var i = 0;
+
+                    foreach (var segment in newUri.Path.Select(x => x as UriPathSegment))
+                    {
+                        if (!string.IsNullOrWhiteSpace(segment.Value))
+                        {
+                            segment.Value = split[i++];
+                        }
+                    }
+                    
+                    foreach (var segment in newUri.Path.Where(x => x is UriPathSegmentPage).Select(x => x as UriPathSegmentPage))
+                    {
+                        if (newUri.Variables.ContainsKey(segment.SegmentID))
+                        {
+                            var variable = uri.Variables[segment.SegmentID];
+
+                            segment.Display = variable.Display.ToString(paramters);
+                        }
+                    }
                 }
 
-                page.Init(p, request.URL, session);
+                page.Init(newUri, session);
                 page.Process();
 
                 return page.ToHtml();
@@ -164,9 +196,10 @@ namespace WebExpress.Workers
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="url">Die URL</param>
-        public WorkerPage(Path url, IPage content)
-            : base(url)
+        /// <param name="uri">Die Uri</param>
+        /// <param name="content">Der Inhalt</param>
+        public WorkerPage(UriPage uri, IPage content)
+            : base(uri)
         {
             Content = (request) =>
             {

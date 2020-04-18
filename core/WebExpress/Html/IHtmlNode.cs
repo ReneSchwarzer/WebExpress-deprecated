@@ -1,4 +1,4 @@
-﻿namespace WebServer.Html
+﻿namespace WebExpress.Html
 {
     public interface IHtmlNode : IHtml
     {

@@ -26,7 +26,7 @@
         /// <returns>Die Instanz des Plugins</returns>
         public IPlugin Create<T>(HttpServerContext context, string configFileName) where T : IPlugin, new()
         {
-            var import = new T() {  };
+            var import = new T() { };
             import.Context = new PluginContext(context, import);
 
             import.Init(configFileName);

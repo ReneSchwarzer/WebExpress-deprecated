@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using WebExpress.Html;
 using WebExpress.Messages;
 using WebExpress.Pages;
-using WebServer.Html;
 
 namespace WebExpress.UI.Controls
 {
@@ -29,9 +29,9 @@ namespace WebExpress.UI.Controls
         public string Alt { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Ziel-Url
+        /// Liefert oder setzt die Ziel-Uri
         /// </summary>
-        public IPath Url { get; set; }
+        public IUri Uri { get; set; }
 
         /// <summary>
         /// Liefert oder setzt das Ziel
@@ -143,7 +143,7 @@ namespace WebExpress.UI.Controls
                         dict[v.Key.ToLower()] = v.Value;
                     }
                 }
-                else if (string.IsNullOrWhiteSpace(Url?.ToString()))
+                else if (string.IsNullOrWhiteSpace(Uri?.ToString()))
                 {
                     if (!dict.ContainsKey(v.Key.ToLower()))
                     {
@@ -172,7 +172,7 @@ namespace WebExpress.UI.Controls
                             dict[v.Key.ToLower()] = v;
                         }
                     }
-                    else if (string.IsNullOrWhiteSpace(Url?.ToString()))
+                    else if (string.IsNullOrWhiteSpace(Uri?.ToString()))
                     {
                         if (!dict.ContainsKey(v.Key.ToLower()))
                         {
@@ -274,7 +274,7 @@ namespace WebExpress.UI.Controls
                 Style = Style,
                 Role = Role,
                 Alt = Alt,
-                Href = Url.ToString() + (param.Length > 0 ? "?" + param : string.Empty),
+                Href = Uri?.ToString() + (param.Length > 0 ? "?" + param : string.Empty),
                 Target = Target,
                 OnClick = OnClick
             };

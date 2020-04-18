@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text;
 
-namespace WebServer.Html
+namespace WebExpress.Html
 {
     public class HtmlElement : IHtmlNode
     {

@@ -11,8 +11,10 @@ namespace WebExpress.Workers
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public WorkerFileDownload(Path url, string root)
-            : base(url, root)
+        /// <param name="uri">Die Uri</param>
+        /// <param name="root">Die Wurzel</param>
+        public WorkerFileDownload(UriPage uri, string root)
+            : base(uri, root)
         {
         }
 

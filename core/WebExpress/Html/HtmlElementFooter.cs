@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace WebServer.Html
+namespace WebExpress.Html
 {
     public class HtmlElementFooter : HtmlElement
     {

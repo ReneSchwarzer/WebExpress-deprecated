@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WebExpress.UI.Controls
+﻿namespace WebExpress.UI.Controls
 {
     public enum Icon
     {
@@ -34,7 +30,7 @@ namespace WebExpress.UI.Controls
         Lightbulb,
         Map,
         MapMarker,
-        Microchip, 
+        Microchip,
         PlayCircle,
         Plus,
         PowerOff,
@@ -53,7 +49,7 @@ namespace WebExpress.UI.Controls
         Upload
     }
 
-    
+
     public static class IconExtensions
     {
         /// <summary>

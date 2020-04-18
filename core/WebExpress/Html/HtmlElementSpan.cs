@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace WebServer.Html
+namespace WebExpress.Html
 {
     public class HtmlElementSpan : HtmlElement
     {

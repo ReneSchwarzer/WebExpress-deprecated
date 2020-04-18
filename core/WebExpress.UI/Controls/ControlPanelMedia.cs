@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using WebExpress.Html;
 using WebExpress.Pages;
-using WebServer.Html;
 
 namespace WebExpress.UI.Controls
 {
@@ -15,7 +15,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt die URL zum Bild
         /// </summary>
-        public Path Image { get; set; }
+        public IUri Image { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Weite des Bildes in Pixel
@@ -68,7 +68,7 @@ namespace WebExpress.UI.Controls
             var img = new HtmlElementImg()
             {
                 Src = Image.ToString(),
-                Class = "mr-3 mt-3 rounded-circle"                
+                Class = "mr-3 mt-3 rounded-circle"
             };
 
             if (ImageWidth > -1)
@@ -91,7 +91,7 @@ namespace WebExpress.UI.Controls
             };
 
             body.Elements.AddRange(from x in Content select x.ToHtml());
-            
+
             var html = new HtmlElementDiv(img, body)
             {
                 ID = ID,

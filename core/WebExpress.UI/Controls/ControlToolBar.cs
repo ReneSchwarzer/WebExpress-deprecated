@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using WebExpress.Html;
 using WebExpress.Pages;
-using WebServer.Html;
 
 namespace WebExpress.UI.Controls
 {
@@ -86,11 +86,11 @@ namespace WebExpress.UI.Controls
                     break;
             }
 
-            var html = new HtmlElementNav() 
-            { 
+            var html = new HtmlElementNav()
+            {
                 ID = ID,
                 Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = Style 
+                Style = Style
             };
 
             html.Elements.AddRange(Items.Select(x => x.ToHtml().AddClass("mr-1")));

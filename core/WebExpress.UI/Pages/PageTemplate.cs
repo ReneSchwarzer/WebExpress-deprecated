@@ -1,5 +1,5 @@
-﻿using WebExpress.UI.Controls;
-using WebServer.Html;
+﻿using WebExpress.Html;
+using WebExpress.UI.Controls;
 
 namespace WebExpress.UI.Pages
 {
@@ -74,7 +74,7 @@ namespace WebExpress.UI.Pages
         /// <returns>Die Seite als HTML-Baum</returns>
         public override IHtmlNode ToHtml()
         {
-            PathCtrl.Path = Path;
+            PathCtrl.Uri = Uri;
 
             return base.ToHtml();
         }

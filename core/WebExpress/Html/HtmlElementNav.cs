@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace WebServer.Html
+namespace WebExpress.Html
 {
     /// <summary>
     /// Das Element nav beschreibt eine Aufzählungsliste von Links

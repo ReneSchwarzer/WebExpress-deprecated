@@ -105,6 +105,6 @@ namespace WebExpress.Config
             }
 
             Log = new SettingLogItem(xml.Element("log"));
-        }  
+        }
     }
 }
