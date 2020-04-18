@@ -24,7 +24,7 @@
             switch (direction)
             {
                 case TypesFlexboxDirection.Vertical:
-                   return "flex-column";
+                    return "flex-column";
                 case TypesFlexboxDirection.VerticalReverse:
                     return "flex-column-reverse";
                 case TypesFlexboxDirection.Horizontal:

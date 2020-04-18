@@ -21,8 +21,10 @@ namespace WebExpress.Workers
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public WorkerFile(Path url, string root)
-            : base(url)
+        /// <param name="uri">Die Uri</param>
+        /// <param name="root">Die Wurzel</param>
+        public WorkerFile(UriPage uri, string root)
+            : base(uri)
         {
             Gard = new object();
             Root = root;

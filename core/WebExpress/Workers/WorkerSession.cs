@@ -25,7 +25,7 @@ namespace WebExpress.Workers
         /// Konstruktor
         /// </summary>
         /// <param name="url">Die URL</param>
-        public WorkerSession(Path url)
+        public WorkerSession(UriPage url)
             : base(url)
         {
             if (SessionManager == null)

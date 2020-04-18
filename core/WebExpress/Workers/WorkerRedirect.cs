@@ -9,7 +9,7 @@ namespace WebExpress.Workers
     public class WorkerRedirect : Worker
     {
         /// <summary>
-        /// Liefert oder setzt die Umleitungs-URL
+        /// Liefert oder setzt die Umleitungs-Uri
         /// </summary>
         public string Location { get; set; }
 
@@ -21,8 +21,11 @@ namespace WebExpress.Workers
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public WorkerRedirect(Path url, string location, bool temporarilyMoved)
-            : base(url)
+        /// <param name="uri">Die Uri des Workers</param>
+        /// <param name="location">Die Umleitungs-Uri</param>
+        /// <param name="temporarilyMoved">Die Umleitungsart</param>
+        public WorkerRedirect(UriPage uri, string location, bool temporarilyMoved)
+            : base(uri)
         {
             Location = location;
             TemporarilyMoved = temporarilyMoved;

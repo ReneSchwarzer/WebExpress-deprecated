@@ -2,16 +2,15 @@
 using System.IO;
 using System.Reflection;
 using System.Threading;
-using WebExpress;
 using WebExpress.Config;
 
 namespace WebExpress.App
 {
     public class Program
-    { 
-		/// <summary>
-		/// Der HttpServer
-		/// </summary>
+    {
+        /// <summary>
+        /// Der HttpServer
+        /// </summary>
         private static HttpServer HttpServer { get; set; }
 
         /// <summary>
@@ -90,8 +89,8 @@ namespace WebExpress.App
             var context = new HttpServerContext
             (
                 port,
-                string.IsNullOrWhiteSpace(config.AssetBase) ? Environment.CurrentDirectory : config.AssetBase, 
-                Path.GetDirectoryName(configFile), 
+                string.IsNullOrWhiteSpace(config.AssetBase) ? Environment.CurrentDirectory : config.AssetBase,
+                Path.GetDirectoryName(configFile),
                 config.UrlBasePath,
                 Log.Current
             );

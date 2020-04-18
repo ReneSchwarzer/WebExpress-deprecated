@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using WebExpress.Html;
 using WebExpress.Pages;
-using WebServer.Html;
 
 namespace WebExpress.UI.Controls
 {
     public class ControlBreadcrumb : Control
     {
         /// <summary>
-        /// Liefert oder setzt den Verzeichnispfad
+        /// Liefert oder setzt die Uri
         /// </summary>
-        public Path Path { get; set; }
+        public IUri Uri { get; set; }
 
         /// <summary>
         /// Liefert oder setzt das Rootelement
@@ -37,11 +37,11 @@ namespace WebExpress.UI.Controls
         /// Konstruktor
         /// </summary>
         /// <param name="page">Die zugehörige Seite</param>
-        /// <param name="path">Der Verzeichnispfad</param>
-        public ControlBreadcrumb(IPage page, string id, Path path)
+        /// <param name="uri">Der Verzeichnispfad</param>
+        public ControlBreadcrumb(IPage page, string id, IUri uri)
             : base(page, id)
         {
-            Path = path;
+            Uri = uri;
         }
 
         /// <summary>
@@ -88,38 +88,15 @@ namespace WebExpress.UI.Controls
                 Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x)))
             };
 
-            var basePath = new Path(Page.Context);
-
-            foreach (var item in Path.Items)
+            for (int i = 1; i <= Page.Uri.Path.Count ; i++)
             {
-                if (item is PathItem i)
-                {
-                    basePath = new Path(Page.Context, basePath, i);
-                }
-                else if (item is PathItemVariable v)
-                {
-                    basePath = new Path(Page.Context, basePath, v);
-                }
+                var path = Page.Uri.Take(i);
 
                 html.Elements.Add
                 (
                     new HtmlElementLi
                     (
-                        new HtmlElementA(item.Name) { Href = basePath.ToString() }
-                    )
-                    {
-                        Class = "breadcrumb-item"
-                    }
-                );
-            }
-
-            if (Path.Items.Count == 0)
-            {
-                html.Elements.Add
-                (
-                    new HtmlElementLi
-                    (
-                        new HtmlElementA(EmptyName) { Href = "/" }
+                        new HtmlElementA(path.Display) { Href = path.ToString() }
                     )
                     {
                         Class = "breadcrumb-item"

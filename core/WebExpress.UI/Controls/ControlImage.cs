@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using WebExpress.Html;
 using WebExpress.Pages;
-using WebServer.Html;
 
 namespace WebExpress.UI.Controls
 {
@@ -10,7 +10,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt die Bildquelle
         /// </summary>
-        public Path Source { get; set; }
+        public IUri Source { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Weite
@@ -44,7 +44,7 @@ namespace WebExpress.UI.Controls
         /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
         /// <param name="source">Die Bildquelle</param>
-        public ControlImage(IPage page, string id, Path source)
+        public ControlImage(IPage page, string id, IUri source)
             : base(page, id)
         {
             Source = source;

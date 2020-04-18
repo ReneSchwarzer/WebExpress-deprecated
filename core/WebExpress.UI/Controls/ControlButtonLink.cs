@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using WebExpress.Html;
 using WebExpress.Pages;
-using WebServer.Html;
 
 namespace WebExpress.UI.Controls
 {
     public class ControlButtonLink : ControlButton
     {
         /// <summary>
-        /// Liefert oder setzt die Ziel-Url
+        /// Liefert oder setzt die Ziel-Uri
         /// </summary>
-        public Path Url { get; set; }
+        public IUri Uri { get; set; }
 
         /// <summary>
         /// Liefert oder setzt das Format des Textes
@@ -159,14 +159,19 @@ namespace WebExpress.UI.Controls
 
             var html = new HtmlElementA()
             {
+                ID = ID,
                 Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Role = Role,
-                Href = Url?.ToString()
+                Href = Uri?.ToString()
             };
 
             if (Icon != Icon.None && !string.IsNullOrWhiteSpace(Text))
             {
-                html.Elements.Add(new HtmlElementSpan() { Class = Icon.ToClass() });
+                html.Elements.Add(new HtmlElementSpan()
+                {
+                    ID = ID + "_icon",
+                    Class = Icon.ToClass()
+                });
 
                 html.Elements.Add(new HtmlNbsp());
                 html.Elements.Add(new HtmlNbsp());

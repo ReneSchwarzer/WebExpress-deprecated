@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace WebServer.Html
+namespace WebExpress.Html
 {
     /// <summary>
     /// Das Element legend uist dem fieldset untergeoordnet

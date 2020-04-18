@@ -16,8 +16,9 @@ namespace WebExpress.Workers
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public WorkerBinary(Path url)
-            : base(url)
+        /// <param name="uri">Die Uri</param>
+        public WorkerBinary(UriPage uri)
+            : base(uri)
         {
         }
 

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WebServer.Html
+namespace WebExpress.Html
 {
     public class HtmlElementImg : HtmlElement
     {

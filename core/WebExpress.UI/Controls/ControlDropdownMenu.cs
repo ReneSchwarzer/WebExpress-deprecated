@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using WebExpress.Html;
 using WebExpress.Pages;
-using WebServer.Html;
 
 namespace WebExpress.UI.Controls
 {
@@ -65,7 +65,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt das Bild
         /// </summary>
-        public Path Image { get; set; }
+        public IUri Image { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Höhe

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using WebExpress.Html;
 using WebExpress.Pages;
-using WebServer.Html;
 
 namespace WebExpress.UI.Controls
 {
@@ -129,7 +129,7 @@ namespace WebExpress.UI.Controls
 
             var likeText = "Gefällt mir" + (Likes > 0 ? " (" + Likes + ")" : string.Empty);
 
-            var like = new ControlButtonLink(Page) { Icon = Icon.ThumbsUp, Text = likeText, Url = Page.GetPath(), Size = TypesSize.Small, Layout = TypesLayoutButton.Light, Outline = true, Color = TypesTextColor.Primary };
+            var like = new ControlButtonLink(Page) { Icon = Icon.ThumbsUp, Text = likeText, Uri = Page.Uri, Size = TypesSize.Small, Layout = TypesLayoutButton.Light, Outline = true, Color = TypesTextColor.Primary };
 
             var option = new HtmlElementDiv(like.ToHtml())
             {

@@ -1,12 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using WebExpress.Html;
 using WebExpress.Pages;
-using WebServer.Html;
 
 namespace WebExpress.UI.Controls
 {
     public class ControlHtml : Control
-    { 
+    {
         /// <summary>
         /// Liefert oder setzt den HTML-Quelltext
         /// </summary>
@@ -50,8 +48,10 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            var html = new HtmlRaw();
-            html.Html = Html;
+            var html = new HtmlRaw
+            {
+                Html = Html
+            };
 
             return html;
         }

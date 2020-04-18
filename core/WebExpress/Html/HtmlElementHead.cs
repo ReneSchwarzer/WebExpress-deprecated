@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using WebExpress.Html;
 
-namespace WebServer.Html
+namespace WebExpress.Html
 {
     public class HtmlElementHead : HtmlElement
     {
@@ -163,7 +162,7 @@ namespace WebServer.Html
 
             if (!string.IsNullOrWhiteSpace(Base))
             {
-                ElementBase.ToString(builder, deep + 1);
+                //ElementBase.ToString(builder, deep + 1);
             }
 
             foreach (var v in ElementFavicons)

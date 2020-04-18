@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using WebExpress.Config;
+using WebExpress.Html;
 using WebExpress.Messages;
 using WebExpress.Pages;
 using WebExpress.Workers;
@@ -74,29 +76,97 @@ namespace WebExpress.Plugins
         /// <summary>
         /// Registriert einen Worker 
         /// </summary>
-        /// <param name="worker"></param>
+        /// <param name="worker">Der zu registrierende Worker</param>
         public void Register(IWorker worker)
         {
             worker.Context = Context;
-            var key = worker.Path.ToRawString();
+            var key = worker.Uri.ToRawString();
 
             if (!Workers.ContainsKey(key))
             {
-                Workers.Add(key, worker);
-
-                if (key.EndsWith("/"))
+                if (!worker.Uri.IncludeSubPaths)
                 {
-                    Workers.Add(key.Substring(0, key.Length - 1), worker);
+                    Workers.Add(key, worker);
+
+                    if (key.EndsWith("/"))
+                    {
+                        Workers.Add(key.Substring(0, key.Length - 1), worker);
+                    }
+
+                    if (!key.EndsWith("/"))
+                    {
+                        Workers.Add(key + "/", worker);
+                    }
                 }
-
-                if (!key.EndsWith("/"))
+                else
                 {
-                    Workers.Add(key + "/", worker);
+                    if (key.EndsWith("/"))
+                    {
+                        Workers.Add(key + ".*", worker);
+                    }
+                    else
+                    {
+                        Workers.Add(key + "/.*", worker);
+                    }
                 }
             }
             else
             {
                 Workers[key] = worker;
+            }
+        }
+
+        /// <summary>
+        /// Registriert eine SiteMap
+        /// </summary>
+        /// <param name="worker">Die zu registrierende SiteMap</param>
+        public void Register(SiteMap siteMap)
+        {
+            // Ermittle alle Pages aus allen Pfaden
+            var pagesFromPath = siteMap.Paths.Select
+            (
+                x => new
+                {
+                    Page = siteMap.Pages.Where(y => y.Value.ID.Equals(x.Path.Split('/').Where(x => !x.Equals(".*")).LastOrDefault())).Select(y=> y.Value).FirstOrDefault(),
+                    Path = x,
+                    x.IncludeSubPaths
+                }
+            );
+
+            foreach (var item in pagesFromPath)
+            {
+                if (item == null || item.Page == null || item.Path == null)
+                {
+                    throw new SiteMapException("Fehler in der SiteMap. Überprüfen Sie die SiteMap.");
+                }
+
+                var uri = new UriPage(Context) 
+                { 
+                    IncludeSubPaths = item.IncludeSubPaths 
+                };
+
+                foreach (var segment in item.Path.Path.Split('/').Where(x => !x.Equals(".*")))
+                {
+                    // Seite des Segmentes ermitteln
+                    var segmentPage = siteMap.Pages.Where(x => x.Value.ID.Equals(segment)).Select(x => x.Value).FirstOrDefault();
+
+                    // Pfadvariablen ermitteln
+                    if (siteMap.PathSegmentVariables.ContainsKey(segmentPage.ID))
+                    {
+                        var variable = siteMap.PathSegmentVariables[segmentPage.ID];
+
+                        uri.Variables.Add(segmentPage.ID, variable);
+                    }
+
+                    uri.Path.Add(new UriPathSegmentPage(segmentPage?.Segment, segmentPage?.ID)
+                    {
+                        Display = segmentPage?.Display
+                    });
+                }
+
+                var worker = item.Page.Create(uri);
+
+                Register(worker);
             }
         }
 

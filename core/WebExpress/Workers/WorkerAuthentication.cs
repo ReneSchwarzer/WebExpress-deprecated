@@ -17,7 +17,7 @@ namespace WebExpress.Workers
         /// Konstruktor
         /// </summary>
         /// <param name="url">Die URL</param>
-        public WorkerAuthentication(Path url)
+        public WorkerAuthentication(UriPage url)
             : base(url)
         {
         }

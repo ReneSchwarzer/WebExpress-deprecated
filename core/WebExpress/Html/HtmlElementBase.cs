@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace WebServer.Html
+﻿namespace WebExpress.Html
 {
     /// <summary>
     /// Stellt die Basis für relative Verweise da. 
