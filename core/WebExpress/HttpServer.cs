@@ -8,7 +8,9 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using WebExpress.Config;
+using WebExpress.Html;
 using WebExpress.Messages;
+using WebExpress.Pages;
 using WebExpress.Plugins;
 
 namespace WebExpress
@@ -209,7 +211,7 @@ namespace WebExpress
         /// Behandelt einen eingehenden Anforderung
         /// Wird nebenläufig ausgeführt
         /// </summary>
-        /// <param name="client"></param>
+        /// <param name="client">Der Client</param>
         private void HandleClient(TcpClient client)
         {
             Response response = new ResponseNotFound();
@@ -217,7 +219,7 @@ namespace WebExpress
 
             if (Context != null && Context.Log != null)
             {
-                Context.Log.Info(MethodInfo.GetCurrentMethod(), ip + ": Client wurde verbunden");
+                Context.Log.Info(MethodBase.GetCurrentMethod(), ip + ": Client wurde verbunden");
             }
 
             using (var reader = new StreamReader(client.GetStream()))
@@ -226,7 +228,6 @@ namespace WebExpress
 
                 try
                 {
-
                     while (!reader.EndOfStream && reader.Peek() != 13)
                     {
                         requestStr += reader.ReadLine() + "\n";
@@ -276,23 +277,40 @@ namespace WebExpress
                                 break;
                             }
                         }
+
+                        if (response is ResponseNotFound)
+                        {
+                            response.Content = GetStatusContent(request, response);
+                            response.HeaderFields.ContentLength = response.Content.ToString().Length;
+                        }
                     }
                     else
                     {
                         Context.Log.Debug(MethodBase.GetCurrentMethod(), ip + ": Unerwartete Anfrage '" + requestStr + "'");
                         response = new ResponseInternalServerError();
+                        response.Content = GetStatusContent(request, response);
+                        response.HeaderFields.ContentLength = response.Content.ToString().Length;
                     }
+                }
+                catch (RedirectException ex)
+                {
+                    if (ex.Permanet)
+                    {
+                        response = new ResponseRedirectPermanentlyMoved(ex.Url);
+                    }
+
+                    response = new ResponseRedirectTemporarilyMoved(ex.Url);
                 }
                 catch (Exception ex)
                 {
                     if (Context != null && Context.Log != null)
                     {
-                        Context.Log.Exception(MethodInfo.GetCurrentMethod(), ex);
+                        Context.Log.Exception(MethodBase.GetCurrentMethod(), ex);
                     }
-                    response = new ResponseInternalServerError()
-                    {
-                        Content = ex.ToString()
-                    };
+
+                    response = new ResponseInternalServerError();
+                    response.Content = GetStatusContent(request, response, ex.ToString());
+                    response.HeaderFields.ContentLength = response.Content != null ? response.Content.ToString().Length : 0;
                 }
 
                 try
@@ -325,7 +343,7 @@ namespace WebExpress
 
             client.Close();
 
-            Context.Log.Info(MethodInfo.GetCurrentMethod(), ip + ": Anfrage wurde bearbeitet. Status=" + response.Status);
+            Context.Log.Info(MethodBase.GetCurrentMethod(), ip + ": Anfrage wurde bearbeitet. Status=" + response.Status);
         }
 
         /// <summary>
@@ -381,6 +399,39 @@ namespace WebExpress
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Liefert die Statuspage
+        /// </summary>
+        /// <param name="request">Die Anfrage</param>
+        /// <param name="response">Die Statusantwort</param>
+        /// <param name="statusMessage">Der zusätzliche Statustext oder null</param>
+        /// <returns>Die passende Statuspage oder null</returns>
+        private object GetStatusContent(Request request, Response response, string statusMessage = null)
+        {
+            foreach (var plugin in Plugins.OrderByDescending(x => x.Context.UrlBasePath.Length))
+            {
+                if (request.URL.StartsWith(plugin.Context.UrlBasePath, StringComparison.OrdinalIgnoreCase))
+                {
+                    var callbackCreatePage = plugin.StatusPages.ContainsKey(response.Status) ? plugin.StatusPages[response.Status] : null;
+
+                    if (callbackCreatePage != null)
+                    {
+                        var page = callbackCreatePage();
+                        page.StatusMessage = statusMessage;
+                        page.Context = plugin.Context;
+                        page.Init(new UriPage(request.URL, plugin.Context), null);
+                        page.Process();
+
+                        return page.ToHtml();
+                    }
+                   
+                    return response.Content;
+                }
+            }
+
+            return response.Content;
         }
     }
 }

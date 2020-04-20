@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using WebExpress.Config;
 using WebExpress.Html;
@@ -37,14 +39,18 @@ namespace WebExpress.Plugins
         /// <summary>
         /// Liefert oder setzt die Liste der Worker
         /// </summary>
-        public Dictionary<string, IWorker> Workers { get; private set; }
+        public Dictionary<string, IWorker> Workers { get; private set; } = new Dictionary<string, IWorker>();
+
+        /// <summary>
+        /// Die Statuspages
+        /// </summary>
+        public Dictionary<int, Func<IPageStatus>> StatusPages { get; private set; } = new Dictionary<int, Func<IPageStatus>>();
 
         /// <summary>
         /// Konstruktor
         /// </summary>
         private Plugin()
         {
-            Workers = new Dictionary<string, IWorker>();
         }
 
         /// <summary>
@@ -168,6 +174,24 @@ namespace WebExpress.Plugins
 
                 Register(worker);
             }
+        }
+
+        /// <summary>
+        /// Registriert eine Statusseite
+        /// </summary>
+        /// <param name="code">Der Statuscode</param>
+        /// <param name="create">Die Rückruffunktion zum Erzeugen einer neuen Instanz</param>
+        public void RegisterStatusPage(int code, Func<IPageStatus> create)
+        {
+            if (!StatusPages.ContainsKey(code))
+            {
+                StatusPages.Add(code, create);
+                
+                return;
+            }
+
+            StatusPages[code] = create;
+            Context.Log.Warning(MethodBase.GetCurrentMethod(), "Statusseite {0} war bereits registriert und wird durch eine neue überschrieben!");
         }
 
         /// <summary>

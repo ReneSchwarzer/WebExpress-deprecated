@@ -182,7 +182,12 @@ namespace WebExpress.Pages
         /// <returns>true wenn die SegmentID der Uri angehört, false sonst</returns>
         public virtual bool ContainsSegemtID(string segmentID)
         {
-            var path = Path.Select(x => x as UriPathSegmentPage).ToList();
+            var path = Path.Where(x => x is UriPathSegmentPage).Select(x => x as UriPathSegmentPage).ToList();
+
+            if (path.Count() == 0)
+            {
+                return false;
+            }
 
             return path.Where(x => x.SegmentID.Equals(segmentID)).Count() > 0;
         }

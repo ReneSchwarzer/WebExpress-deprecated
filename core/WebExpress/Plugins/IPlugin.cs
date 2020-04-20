@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using WebExpress.Config;
 using WebExpress.Messages;
+using WebExpress.Pages;
 using WebExpress.Workers;
 
 namespace WebExpress.Plugins
@@ -27,6 +28,13 @@ namespace WebExpress.Plugins
         /// </summary>
         /// <param name="worker">Der zu registrierende Worker</param>
         void Register(IWorker worker);
+
+        /// <summary>
+        /// Registriert eine Statusseite
+        /// </summary>
+        /// <param name="code">Der Statuscode</param>
+        /// <param name="create">Die Rückruffunktion zum Erzeugen einer neuen Instanz</param>
+        void RegisterStatusPage(int code, Func<IPageStatus> create);
 
         /// <summary>
         /// Vorverarbeitung
@@ -69,5 +77,10 @@ namespace WebExpress.Plugins
         /// Liste der Worker
         /// </summary>
         Dictionary<string, IWorker> Workers { get; }
+
+        /// <summary>
+        /// Die Statuspages
+        /// </summary>
+        Dictionary<int, Func<IPageStatus>> StatusPages { get; }
     }
 }
