@@ -91,11 +91,11 @@ namespace WebExpress.UI.Controls
 
             var rows = Content.OrderBy(x => x.Key).Select(x => x.Value);
 
-            var html = new HtmlElementTextContentDiv(from x in rows select new HtmlElementTextContentDiv(x.Select(y => y.ToHtml())) { Class = "row mt-5" })
+            var html = new HtmlElementTextContentDiv(from x in rows select new HtmlElementTextContentDiv(x.Select(y => y.ToHtml())) { Class = "row" })
             {
                 ID = ID,
-                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Class = GetClasses(),
+                Style = GetStyles(),
                 Role = Role
             };
 

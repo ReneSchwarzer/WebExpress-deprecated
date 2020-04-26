@@ -36,9 +36,9 @@ namespace WebExpress.Messages
         public string ContentLanguage { get; private set; }
 
         /// <summary>
-        /// Liefert oder setzt den User-Agenten
+        /// Liefert oder setzt den User-Educationen
         /// </summary>
-        public string UserAgent { get; private set; }
+        public string UserEducation { get; private set; }
 
         /// <summary>
         /// Liefert oder setzt die erlaubten Endkodierungen
@@ -75,7 +75,7 @@ namespace WebExpress.Messages
                 Connection = GetOptionsValue(options, "Connection"),
                 ContentType = GetOptionsValue(options, "Content-Type"),
                 ContentLanguage = GetOptionsValue(options, "Content-Language"),
-                UserAgent = GetOptionsValue(options, "User-Agent"),
+                UserEducation = GetOptionsValue(options, "User-Education"),
                 AcceptEncoding = GetOptionsValue(options, "Accept-Encoding")
             };
 

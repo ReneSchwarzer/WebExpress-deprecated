@@ -289,7 +289,7 @@ namespace WebExpress
                         Context.Log.Debug(MethodBase.GetCurrentMethod(), ip + ": Unerwartete Anfrage '" + requestStr + "'");
                         response = new ResponseInternalServerError();
                         response.Content = GetStatusContent(request, response);
-                        response.HeaderFields.ContentLength = response.Content.ToString().Length;
+                        response.HeaderFields.ContentLength = response.Content != null ? response.Content.ToString().Length : 0;
                     }
                 }
                 catch (RedirectException ex)
@@ -410,6 +410,11 @@ namespace WebExpress
         /// <returns>Die passende Statuspage oder null</returns>
         private object GetStatusContent(Request request, Response response, string statusMessage = null)
         {
+            if (request == null)
+            {
+                return null;
+            }
+
             foreach (var plugin in Plugins.OrderByDescending(x => x.Context.UrlBasePath.Length))
             {
                 if (request.URL.StartsWith(plugin.Context.UrlBasePath, StringComparison.OrdinalIgnoreCase))

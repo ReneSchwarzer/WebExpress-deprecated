@@ -13,15 +13,6 @@ namespace WebExpress.UI.Controls
         public TypesTextFormat Format { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Farbe des Textes
-        /// </summary>
-        public PropertyColorText Color
-        {
-            get => (PropertyColorText)GetPropertyObject();
-            set => SetProperty(value, () => value?.ToClass(), () => value?.ToStyle());
-        }
-
-        /// <summary>
         /// Liefert oder setzt die Größe des Textes
         /// </summary>
         public TypesSize Size
@@ -186,6 +177,15 @@ namespace WebExpress.UI.Controls
                     {
                         ID = ID,
                         Class = Css.Concatenate("text-center",  GetClasses()),
+                        Style = GetStyles(),
+                        Role = Role
+                    };
+                    break;
+                case TypesTextFormat.Code:
+                    html = new HtmlElementTextSemanticsCode(new HtmlText(Text))
+                    {
+                        ID = ID,
+                        Class = GetClasses(),
                         Style = GetStyles(),
                         Role = Role
                     };

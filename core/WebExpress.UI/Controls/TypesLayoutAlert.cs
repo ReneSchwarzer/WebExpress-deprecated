@@ -2,13 +2,13 @@
 {
     public enum TypesLayoutAlert
     {
-        Default,
-        Success,
-        Info,
-        Warning,
-        Danger,
-        Light,
-        Dark
+        Default = 0,
+        Success = 3,
+        Info = 4,
+        Warning = 5,
+        Danger = 6,
+        Dark = 7,
+        Light = 8
     }
 
     public static class TypesLayoutAlertExtensions

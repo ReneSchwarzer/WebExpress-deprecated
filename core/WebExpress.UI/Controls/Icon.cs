@@ -12,7 +12,8 @@
         CalendarMinus,
         CalendarPlus,
         ChartBar,
-        Clock,
+        Clock, 
+        Clone,
         Code,
         Cog,
         Comment,
@@ -21,6 +22,7 @@
         EuroSign,
         ExclamationTriangle,
         Fire,
+        GraduationCap,
         Hashtag,
         Home,
         InfoCircle,
@@ -81,6 +83,8 @@
                     return "fas fa-chart-bar";
                 case Icon.Clock:
                     return "fas fa-clock";
+                case Icon.Clone:
+                    return "fas fa-clone";
                 case Icon.Code:
                     return "fas fa-code";
                 case Icon.Cog:
@@ -97,6 +101,8 @@
                     return "fas fa-exclamation-triangle";
                 case Icon.Fire:
                     return "fas fa-fire";
+                case Icon.GraduationCap:
+                    return "fas fa-graduation-cap";
                 case Icon.Hashtag:
                     return "fas fa-hashtag";
                 case Icon.Home:

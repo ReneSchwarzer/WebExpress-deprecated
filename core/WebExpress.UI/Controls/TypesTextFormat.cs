@@ -17,6 +17,7 @@
         H6,
         Span,
         Small,
-        Center
+        Center,
+        Code
     }
 }

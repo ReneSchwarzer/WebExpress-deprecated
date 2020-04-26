@@ -218,24 +218,24 @@ namespace WebExpress.UI.Controls
 
             foreach (var v in ValidationResults)
             {
-                var layout = TypesLayoutAlert.Default;
+                var bgColor = new PropertyColorBackground(TypesBackgroundColor.Default);
 
                 switch (v.Type)
                 {
                     case TypesInputValidity.Error:
-                        layout = TypesLayoutAlert.Danger;
+                        bgColor = new PropertyColorBackground(TypesBackgroundColor.Danger);
                         break;
                     case TypesInputValidity.Warning:
-                        layout = TypesLayoutAlert.Warning;
+                        bgColor = new PropertyColorBackground(TypesBackgroundColor.Warning);
                         break;
                     case TypesInputValidity.Success:
-                        layout = TypesLayoutAlert.Success;
+                        bgColor = new PropertyColorBackground(TypesBackgroundColor.Success);
                         break;
                 }
 
                 html.Elements.Add(new ControlAlert(Page)
                 {
-                    Layout = layout,
+                    BackgroundColor = bgColor,
                     Text = v.Text,
                     Dismissible = TypesDismissibleAlert.Dismissible,
                     Fade = TypesFade.FadeShow

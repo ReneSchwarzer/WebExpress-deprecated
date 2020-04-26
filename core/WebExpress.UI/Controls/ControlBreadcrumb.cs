@@ -58,9 +58,9 @@ namespace WebExpress.UI.Controls
                 Style = GetStyles(),
             };
 
-            for (int i = 1; i <= Page.Uri.Path.Count ; i++)
+            for (int i = 1; i <= Uri.Path.Count ; i++)
             {
-                var path = Page.Uri.Take(i);
+                var path = Uri.Take(i);
 
                 html.Elements.Add
                 (

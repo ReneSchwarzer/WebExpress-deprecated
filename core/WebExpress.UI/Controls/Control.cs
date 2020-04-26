@@ -20,6 +20,15 @@ namespace WebExpress.UI.Controls
         }
 
         /// <summary>
+        /// Liefert oder setzt die Farbe des Textes
+        /// </summary>
+        public PropertyColorText Color
+        {
+            get => (PropertyColorText)GetPropertyObject();
+            set => SetProperty(value, () => value?.ToClass(), () => value?.ToStyle());
+        }
+
+        /// <summary>
         /// Die Hintergrundfarbe
         /// </summary>
         public PropertyColorBackground BackgroundColor

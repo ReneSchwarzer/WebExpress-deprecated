@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using WebExpress.Html;
 using WebExpress.Pages;
 
@@ -10,9 +11,9 @@ namespace WebExpress.UI.Controls
     public class ControlAlert : Control
     {
         /// <summary>
-        /// Liefert oder setzt das Layout des Textes
+        /// Liefert oder setzt das Layout
         /// </summary>
-        public TypesLayoutAlert Layout
+        private TypesLayoutAlert Layout
         {
             get => (TypesLayoutAlert)GetProperty(TypesLayoutAlert.Default);
             set => SetProperty(value, () => value.ToClass());
@@ -62,7 +63,6 @@ namespace WebExpress.UI.Controls
         /// </summary>
         private void Init()
         {
-            SetProperty(() => "alert");
         }
 
         /// <summary>
@@ -71,14 +71,12 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            //Classes.Add(Layout.ToClass());
-
             var head = new HtmlElementTextSemanticsStrong
             (
                 new HtmlText(Head), 
                 new HtmlNbsp()
             );
-
+            
             var button = new HtmlElementFieldButton("&times;")
             {
                 Class = "close"
@@ -86,6 +84,33 @@ namespace WebExpress.UI.Controls
             button.AddUserAttribute("data-dismiss", "alert");
             button.AddUserAttribute("aria-label", "close");
             button.AddUserAttribute("aria-hidden", "true");
+
+            if (Enum.TryParse(typeof(TypesLayoutAlert), BackgroundColor.Value.ToString(), out object result))
+            {
+                Layout = (TypesLayoutAlert)result;
+
+                // Hintergrundfarbe entfernen
+                var bgColor = BackgroundColor;
+                BackgroundColor = new PropertyColorBackground(TypesBackgroundColor.Default);
+
+                var html = new HtmlElementTextContentDiv
+                (
+                    !string.IsNullOrWhiteSpace(Head) ? head : null,
+                    new HtmlText(Text),
+                    Dismissible != TypesDismissibleAlert.None ? button : null
+                )
+                {
+                    ID = ID,
+                    Class = Css.Concatenate("alert", GetClasses()),
+                    Style = GetStyles(),
+                    Role = "alert"
+                };
+
+                // Hintergrundfarbe wiederherstellen
+                BackgroundColor = bgColor;
+
+                return html;
+            }
 
             return new HtmlElementTextContentDiv
             (
@@ -95,8 +120,8 @@ namespace WebExpress.UI.Controls
             )
             {
                 ID = ID,
-                Class = GetClasses(),
-                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Class = Css.Concatenate("alert", GetClasses()),
+                Style = GetStyles(),
                 Role = "alert"
             };
         }

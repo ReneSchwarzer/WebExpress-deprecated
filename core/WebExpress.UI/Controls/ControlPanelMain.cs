@@ -25,8 +25,8 @@ namespace WebExpress.UI.Controls
             var html = new HtmlElementSectionMain()
             {
                 ID = ID,
-                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Class = GetClasses(),
+                Style = GetStyles(),
                 Role = Role
             };
             html.Elements.AddRange(from x in Content select x.ToHtml());
