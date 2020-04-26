@@ -38,11 +38,6 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            var classes = new List<string>
-            {
-                Class
-            };
-
             var labelClasses = new List<string>();
             if (Formular.Layout == TypesLayoutForm.Horizontal)
             {
@@ -73,14 +68,14 @@ namespace WebExpress.UI.Controls
                 return Item.ToHtml();
             }
 
-            var html = new HtmlElementFieldset()
+            var html = new HtmlElementFormFieldset()
             {
                 Class = Formular.Layout == TypesLayoutForm.Horizontal ?
                     "form-group row" :
                     "form-group"
             };
 
-            html.Elements.Add(new HtmlElementLabel(label.Label)
+            html.Elements.Add(new HtmlElementFieldLabel(label.Label)
             {
                 For = string.IsNullOrWhiteSpace(Item.ID) ? Item.ID : Item.Name,
                 Class = string.Join(" ", labelClasses.Where(x => !string.IsNullOrWhiteSpace(x)))
@@ -88,7 +83,7 @@ namespace WebExpress.UI.Controls
 
             if (Formular.Layout == TypesLayoutForm.Horizontal)
             {
-                html.Elements.Add(new HtmlElementDiv(Item.ToHtml())
+                html.Elements.Add(new HtmlElementTextContentDiv(Item.ToHtml())
                 {
                     Class = "col-xs-9"
                 });
@@ -100,7 +95,7 @@ namespace WebExpress.UI.Controls
 
             if (input != null && !string.IsNullOrEmpty(input.Help))
             {
-                html.Elements.Add(new HtmlElementSpan(new HtmlText(input.Help))
+                html.Elements.Add(new HtmlElementTextSemanticsSpan(new HtmlText(input.Help))
                 {
                     Class = "form-text text-muted",
                     ID = !string.IsNullOrEmpty(Item.ID) ? Item.ID + "_help" : string.Empty

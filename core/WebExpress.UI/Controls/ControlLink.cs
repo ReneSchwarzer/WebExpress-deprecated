@@ -11,12 +11,20 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt das Format des Textes
         /// </summary>
-        public TypesTextColor Color { get; set; }
+        public TypesTextColor Color
+        {
+            get => (TypesTextColor)GetProperty();
+            set => SetProperty(value, () => value.ToClass());
+        }
 
         /// <summary>
-        /// Liefert oder setzt das Format des Textes
+        /// Liefert oder setzt ob der Link aktiv ist
         /// </summary>
-        public TypesBackgroundColor BackgroundColor { get; set; }
+        public TypesActive Active
+        {
+            get => (TypesActive)GetProperty();
+            set => SetProperty(value, () => value.ToClass());
+        }
 
         /// <summary>
         /// Liefert oder setzt den Text
@@ -195,83 +203,13 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            var classes = new List<string>
-            {
-                Class
-            };
-
-            switch (Color)
-            {
-                case TypesTextColor.Muted:
-                    classes.Add("text-muted");
-                    break;
-                case TypesTextColor.Primary:
-                    classes.Add("text-primary");
-                    break;
-                case TypesTextColor.Success:
-                    classes.Add("text-success");
-                    break;
-                case TypesTextColor.Info:
-                    classes.Add("text-info");
-                    break;
-                case TypesTextColor.Warning:
-                    classes.Add("text-warning");
-                    break;
-                case TypesTextColor.Danger:
-                    classes.Add("text-danger");
-                    break;
-                case TypesTextColor.Light:
-                    classes.Add("text-light");
-                    break;
-                case TypesTextColor.Dark:
-                    classes.Add("text-dark");
-                    break;
-                case TypesTextColor.White:
-                    classes.Add("text-white");
-                    break;
-            }
-
-            switch (BackgroundColor)
-            {
-                case TypesBackgroundColor.Primary:
-                    classes.Add("bg-primary");
-                    break;
-                case TypesBackgroundColor.Secondary:
-                    classes.Add("bg-secondary");
-                    break;
-                case TypesBackgroundColor.Success:
-                    classes.Add("bg-success");
-                    break;
-                case TypesBackgroundColor.Info:
-                    classes.Add("bg-info");
-                    break;
-                case TypesBackgroundColor.Warning:
-                    classes.Add("bg-warning");
-                    break;
-                case TypesBackgroundColor.Danger:
-                    classes.Add("bg-danger");
-                    break;
-                case TypesBackgroundColor.Light:
-                    classes.Add("bg-light");
-                    break;
-                case TypesBackgroundColor.Dark:
-                    classes.Add("bg-dark");
-                    break;
-                case TypesBackgroundColor.White:
-                    classes.Add("bg-white");
-                    break;
-                case TypesBackgroundColor.Transparent:
-                    classes.Add("bg-transparent");
-                    break;
-            }
-
             var param = GetParams();
 
-            var html = new HtmlElementA(from x in Content select x.ToHtml())
+            var html = new HtmlElementTextSemanticsA(from x in Content select x.ToHtml())
             {
                 ID = ID,
-                Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = Style,
+                Class = GetClasses(),
+                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Role = Role,
                 Alt = Alt,
                 Href = Uri?.ToString() + (param.Length > 0 ? "?" + param : string.Empty),
@@ -281,7 +219,10 @@ namespace WebExpress.UI.Controls
 
             if (Icon != Icon.None && !string.IsNullOrWhiteSpace(Text))
             {
-                html.Elements.Add(new HtmlElementSpan() { Class = Icon.ToClass() });
+                html.Elements.Add(new ControlIcon(Page) 
+                { 
+                    Icon = Icon
+                }.ToHtml());
 
                 html.Elements.Add(new HtmlNbsp());
                 html.Elements.Add(new HtmlNbsp());

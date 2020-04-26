@@ -92,11 +92,6 @@ namespace WebExpress.UI.Controls
                 Checked = Value == Option;
             }
 
-            var classes = new List<string>
-            {
-                Class
-            };
-
             var c = new List<string>
             {
                 "radio"
@@ -112,21 +107,21 @@ namespace WebExpress.UI.Controls
                 c.Add("disabled");
             }
 
-            var html = new HtmlElementDiv
+            var html = new HtmlElementTextContentDiv
             (
-                new HtmlElementLabel
+                new HtmlElementFieldLabel
                 (
-                    new HtmlElementInput()
+                    new HtmlElementFieldInput()
                     {
                         ID = ID,
                         Name = Name,
                         Pattern = Pattern,
                         Type = "radio",
                         Disabled = Disabled,
-                        Role = Role,
                         Checked = Checked,
-                        Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                        Style = Style,
+                        Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                        Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                        Role = Role,
                         Value = Option
                     },
                     new HtmlText(string.IsNullOrWhiteSpace(Discription) ? string.Empty : "&nbsp;" + Discription)

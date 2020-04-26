@@ -1,4 +1,8 @@
-﻿using WebExpress.Html;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using WebExpress.Html;
 using WebExpress.Messages;
 using WebExpress.Pages;
 
@@ -9,7 +13,38 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Die horizontale Anordnung
         /// </summary>
-        public TypesHorizontalAlignment HorizontalAlignment { get; set; }
+        public TypesHorizontalAlignment HorizontalAlignment
+        {
+            get => (TypesHorizontalAlignment)GetProperty(TypesHorizontalAlignment.Default);
+            set => SetProperty(value, () => value.ToClass());
+        }
+
+        /// <summary>
+        /// Die Hintergrundfarbe
+        /// </summary>
+        public PropertyColorBackground BackgroundColor
+        {
+            get => (PropertyColorBackground)GetPropertyObject();
+            set => SetProperty(value, () => value?.ToClass(), () => value?.ToStyle());
+        }
+
+        /// <summary>
+        /// Padding
+        /// </summary>
+        public PropertySpacingPadding Padding
+        {
+            get => (PropertySpacingPadding)GetPropertyObject();
+            set => SetProperty(value, () => value?.ToClass());
+        }
+
+        /// <summary>
+        /// Margin
+        /// </summary>
+        public PropertySpacingMargin Margin
+        {
+            get => (PropertySpacingMargin)GetPropertyObject();
+            set => SetProperty(value, () => value?.ToClass());
+        }
 
         /// <summary>
         /// Liefert oder setzt die zugehörige Seite
@@ -24,12 +59,17 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt die Css-Klasse
         /// </summary>
-        public string Class { get; set; }
+        public List<string> Classes { get; set; } = new List<string>();
+
+        /// <summary>
+        /// Liefert oder setzt Eigenschaften, die durch Enums bestimmt werden
+        /// </summary>
+        protected Dictionary<string, Tuple<object, Func<string>, Func<string>>> Propertys { get; private set; } = new Dictionary<string, Tuple<object, Func<string>, Func<string>>>();
 
         /// <summary>
         /// Liefert oder setzt die Css-Style
         /// </summary>
-        public string Style { get; set; }
+        public List<string> Styles { get; set; } = new List<string>();
 
         /// <summary>
         /// Liefert oder setzt die Rolle
@@ -56,6 +96,11 @@ namespace WebExpress.UI.Controls
         {
             Page = page;
             ID = id;
+
+            HorizontalAlignment = TypesHorizontalAlignment.Default;
+            BackgroundColor = new PropertyColorBackground(TypesBackgroundColor.Default);
+            Padding = new PropertySpacingPadding(PropertySpacing.Space.None);
+            Margin = new PropertySpacingMargin(PropertySpacing.Space.None);
 
             Init();
         }
@@ -119,5 +164,151 @@ namespace WebExpress.UI.Controls
         {
             return Page.GetParam(name?.ToLower(), defaultValue);
         }
+
+        /// <summary>
+        /// Liefert eine Property
+        /// </summary>
+        /// <param name="defaultValue">Der Standardwert Property</param>
+        /// <param name="propertyName">Der Name der Property</param>
+        /// <returns>Der Wert</returns>
+        protected Enum GetProperty(Enum defaultValue, [CallerMemberName] string propertyName = "")
+        {
+            if (Propertys.ContainsKey(propertyName))
+            {
+                var item = Propertys[propertyName];
+
+                return (Enum)item.Item1;
+            }
+
+            return defaultValue;
+        }
+
+        /// <summary>
+        /// Liefert eine Property
+        /// </summary>
+        /// <param name="propertyName">Der Name der Property</param>
+        /// <returns>Der Wert</returns>
+        protected Enum GetProperty([CallerMemberName] string propertyName = "")
+        {
+            if (Propertys.ContainsKey(propertyName))
+            {
+                var item = Propertys[propertyName];
+
+                return (Enum)item.Item1; 
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Liefert eine Property
+        /// </summary>
+        /// <param name="propertyName">Der Name der Property</param>
+        /// <returns>Der Wert</returns>
+        protected IProperty GetPropertyObject([CallerMemberName] string propertyName = "")
+        {
+            if (Propertys.ContainsKey(propertyName))
+            {
+                var item = Propertys[propertyName];
+
+                return (IProperty)item.Item1;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Liefert ein Propertywert
+        /// </summary>
+        /// <param name="propertyName">Der Name der Property</param>
+        /// <returns>Der Wert</returns>
+        protected string GetPropertyValue([CallerMemberName] string propertyName = "")
+        {
+            if (Propertys.ContainsKey(propertyName))
+            {
+                var item = Propertys[propertyName];
+
+                return item.Item2();
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Speichert eine Property
+        /// </summary>
+        /// <param name="value">Der Wert</param>
+        /// <param name="callbackClass">Die Rückruffunktion zur Ermittlung der CSS-Klasse</param>
+        /// <param name="callbackStyle">Die Rückruffunktion zu Ermittlung des CSS-Styles</param>
+        /// <param name="propertyName">Der Name der Property</param>
+        protected void SetProperty(Enum value, Func<string> callbackClass, Func<string> callbackStyle = null, [CallerMemberName] string propertyName = "")
+        {
+            if (!Propertys.ContainsKey(propertyName))
+            {
+                Propertys.Add(propertyName, new Tuple<object, Func<string>, Func<string>>(value, callbackClass, callbackStyle));
+                return;
+            }
+
+            Propertys[propertyName] = new Tuple<object, Func<string>, Func<string>>(value, callbackClass, callbackStyle);
+        }
+
+        /// <summary>
+        /// Speichert eine Property
+        /// </summary>
+        /// <param name="value">Der Wert</param>
+        /// <param name="callbackClass">Die Rückruffunktion zur Ermittlung der CSS-Klasse</param>
+        /// <param name="callbackStyle">Die Rückruffunktion zu Ermittlung des CSS-Styles</param>
+        /// <param name="propertyName">Der Name der Property</param>
+        protected void SetProperty(IProperty value, Func<string> callbackClass, Func<string> callbackStyle = null, [CallerMemberName] string propertyName = "")
+        {
+            if (!Propertys.ContainsKey(propertyName))
+            {
+                Propertys.Add(propertyName, new Tuple<object, Func<string>, Func<string>>(value, callbackClass, callbackStyle));
+                return;
+            }
+
+            Propertys[propertyName] = new Tuple<object, Func<string>, Func<string>>(value, callbackClass, callbackStyle);
+        }
+
+        /// <summary>
+        /// Speichert eine Property
+        /// </summary>
+        /// <param name="value">Der Wert</param>
+        /// <param name="callbackClass">Die Rückruffunktion zur Ermittlung der CSS-Klasse</param>
+        /// <param name="callbackStyle">Die Rückruffunktion zur Ermittlung des CSS-Styles</param>
+        /// <param name="propertyName">Der Name der Property</param>
+        protected void SetProperty(Func<string> callbackClass, Func<string> callbackStyle = null, [CallerMemberName] string propertyName = "")
+        {
+            if (!Propertys.ContainsKey(propertyName))
+            {
+                Propertys.Add(propertyName, new Tuple<object, Func<string>, Func<string>>(null, callbackClass, callbackStyle));
+                return;
+            }
+
+            Propertys[propertyName] = new Tuple<object, Func<string>, Func<string>>(null, callbackClass, callbackStyle);
+        }
+
+        /// <summary>
+        /// Liefert alle Css-Klassen
+        /// </summary>
+        /// <returns>Die CSS-Kalssen</returns>
+        protected string GetClasses()
+        {
+            var list = Propertys.Values.Select(x => x.Item2()).Where(x => !string.IsNullOrEmpty(x)).Distinct();
+
+            return string.Join(" ", Classes.Union(list));
+        }
+
+        /// <summary>
+        /// Liefert alle Css-Styles
+        /// </summary>
+        /// <returns>Die CSS-Styles</returns>
+        protected string GetStyles()
+        {
+            var list = Propertys.Values.Where(x => x.Item3 != null).Select(x => x.Item3()).Where(x => !string.IsNullOrEmpty(x)).Distinct();
+
+            return string.Join(";", Styles.Union(list));
+        }
+
     }
 }

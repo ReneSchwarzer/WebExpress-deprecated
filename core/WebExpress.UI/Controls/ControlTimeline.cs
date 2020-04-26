@@ -53,18 +53,13 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            var classes = new List<string>
-            {
-                Class,
-                "timeline"
-            };
-            //classes.Add("list-unstyled");
+            Classes.Add("timeline");
 
-            var ul = new HtmlElementUl(Items.Select(x => new HtmlElementLi(x.ToHtml()) { Class = "item" }))
+            var ul = new HtmlElementTextContentUl(Items.Select(x => new HtmlElementTextContentLi(x.ToHtml()) { Class = "item" }))
             {
                 ID = ID,
-                Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = Style,
+                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Role = Role
             };
 

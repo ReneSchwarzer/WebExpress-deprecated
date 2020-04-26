@@ -59,13 +59,9 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            var classes = new List<string>
-            {
-                Class,
-                "media"
-            };
+            Classes.Add("media");
 
-            var img = new HtmlElementImg()
+            var img = new HtmlElementMultimediaImg()
             {
                 Src = Image.ToString(),
                 Class = "mr-3 mt-3 rounded-circle"
@@ -81,22 +77,22 @@ namespace WebExpress.UI.Controls
                 img.Height = ImageHeight;
             }
 
-            var heading = new HtmlElementH4(Title?.ToHtml())
+            var heading = new HtmlElementSectionH4(Title?.ToHtml())
             {
             };
 
-            var body = new HtmlElementDiv(Title != null ? heading : null)
+            var body = new HtmlElementTextContentDiv(Title != null ? heading : null)
             {
                 Class = "media-body"
             };
 
             body.Elements.AddRange(from x in Content select x.ToHtml());
 
-            var html = new HtmlElementDiv(img, body)
+            var html = new HtmlElementTextContentDiv(img, body)
             {
                 ID = ID,
-                Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = Style,
+                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Role = Role
             };
 

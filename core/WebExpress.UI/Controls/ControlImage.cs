@@ -65,26 +65,13 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            var classes = new List<string>
-            {
-                Class
-            };
+            Classes.Add(HorizontalAlignment.ToClass());
 
-            switch (HorizontalAlignment)
-            {
-                case TypesHorizontalAlignment.Left:
-                    classes.Add("float-left");
-                    break;
-                case TypesHorizontalAlignment.Right:
-                    classes.Add("float-right");
-                    break;
-            }
-
-            var html = new HtmlElementImg()
+            var html = new HtmlElementMultimediaImg()
             {
                 ID = ID,
-                Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = Style,
+                Class = GetClasses(),
+                Style = GetStyles(),
                 Role = Role,
                 Alt = Tooltip,
                 Src = Source?.ToString(),

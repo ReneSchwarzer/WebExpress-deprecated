@@ -65,33 +65,8 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            var classes = new List<string>
-            {
-                Class
-            };
-
-            switch (Layout)
-            {
-                case TypesLayoutList.Group:
-                    classes.Add("list-group");
-                    break;
-                case TypesLayoutList.Simple:
-                    classes.Add("list-unstyled");
-                    break;
-                case TypesLayoutList.Inline:
-                    classes.Add("list-inline");
-                    break;
-            }
-
-            switch (HorizontalAlignment)
-            {
-                case TypesHorizontalAlignment.Left:
-                    classes.Add("float-left");
-                    break;
-                case TypesHorizontalAlignment.Right:
-                    classes.Add("float-right");
-                    break;
-            }
+            Classes.Add(Layout.ToClass());
+            Classes.Add(HorizontalAlignment.ToClass());
 
             var items = (from x in Items select x.ToHtml()).ToList();
 
@@ -110,20 +85,20 @@ namespace WebExpress.UI.Controls
             switch (Sorted)
             {
                 case true:
-                    html = new HtmlElementUl(items)
+                    html = new HtmlElementTextContentUl(items)
                     {
                         ID = ID,
-                        Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                        Style = Style,
+                        Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                        Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                         Role = Role
                     };
                     break;
                 default:
-                    html = new HtmlElementUl(items)
+                    html = new HtmlElementTextContentUl(items)
                     {
                         ID = ID,
-                        Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                        Style = Style,
+                        Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                        Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                         Role = Role
                     };
                     break;

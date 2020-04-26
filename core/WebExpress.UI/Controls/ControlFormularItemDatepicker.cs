@@ -75,15 +75,11 @@ namespace WebExpress.UI.Controls
                 Value = Page.GetParam(Name);
             }
 
-            var classes = new List<string>
-            {
-                Class,
-                "form-control"
-            };
+            Classes.Add("form-control");
 
             if (Disabled)
             {
-                classes.Add("disabled");
+                Classes.Add("disabled");
             }
 
             if (AutoInitialize)
@@ -92,12 +88,14 @@ namespace WebExpress.UI.Controls
                 AutoInitialize = false;
             }
 
-            var html = new HtmlElementInput()
+            var html = new HtmlElementFieldInput()
             {
                 ID = ID,
                 Name = Name,
                 DataProvide = "datepicker",
-                Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Role = Role,
                 Value = Value
             };
             html.AddUserAttribute("data-date-format", "dd.mm.yyyy");

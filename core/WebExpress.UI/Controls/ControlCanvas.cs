@@ -84,16 +84,11 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            var classes = new List<string>
-            {
-                Class
-            };
-
-            return new HtmlElementCanvas(from x in Content select x.ToHtml())
+            return new HtmlElementScriptingCanvas()
             {
                 ID = ID,
-                Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = Style,
+                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Role = Role
             };
         }

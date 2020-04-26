@@ -1,4 +1,5 @@
-﻿using WebExpress.Html;
+﻿using System.Collections.Generic;
+using WebExpress.Html;
 using WebExpress.Pages;
 
 namespace WebExpress.UI.Controls
@@ -9,9 +10,13 @@ namespace WebExpress.UI.Controls
     public class ControlCardCounter : ControlPanelCard
     {
         /// <summary>
-        /// Liefert oder setzt die Textfarbe
+        /// Liefert oder setzt die Farbe des Textes
         /// </summary>
-        public TypesTextColor Color { get; set; }
+        public PropertyColorText Color
+        {
+            get => (PropertyColorText)GetPropertyObject();
+            set => SetProperty(value, () => value.ToClass(), () => value.ToStyle());
+        }
 
         /// <summary>
         /// Liefert oder setzt das Icon
@@ -41,6 +46,7 @@ namespace WebExpress.UI.Controls
         public ControlCardCounter(IPage page, string id = null)
             : base(page, id)
         {
+            Color = new PropertyColorText(TypesTextColor.Default);
             Init();
         }
 
@@ -58,48 +64,43 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            base.Content.Clear();
+            Content.Clear();
 
             if (Icon != Icon.None)
             {
-                base.Content.Add(new ControlText(Page) { Class = Icon.ToClass(), Color = Color, HorizontalAlignment = TypesHorizontalAlignment.Right });
+                Content.Add(new ControlIcon(Page) 
+                {
+                    Icon = Icon, 
+                    Color = Color, 
+                    HorizontalAlignment = TypesHorizontalAlignment.Right 
+                });
             }
 
-            var text = new ControlText(Page, string.IsNullOrWhiteSpace(ID) ? null : ID + "_header") { Text = Value, Format = TypesTextFormat.H4 };
-            var info = new ControlText(Page) { Text = Text, Format = TypesTextFormat.Span, Color = TypesTextColor.Muted };
+            var text = new ControlText(Page, string.IsNullOrWhiteSpace(ID) ? null : ID + "_header") 
+            { 
+                Text = Value, 
+                Format = TypesTextFormat.H4 
+            };
 
-            base.Content.Add(new ControlPanel(Page, text, info) { });
+            var info = new ControlText(Page) 
+            { 
+                Text = Text, 
+                Format = TypesTextFormat.Span, 
+                Color = new PropertyColorText(TypesTextColor.Muted) 
+            };
 
-            var color = TypesLayoutProgressBar.Default;
-
-            switch (Color)
-            {
-                case TypesTextColor.Primary:
-                    color = TypesLayoutProgressBar.Primary;
-                    break;
-                case TypesTextColor.Success:
-                    color = TypesLayoutProgressBar.Success;
-                    break;
-                case TypesTextColor.Info:
-                    color = TypesLayoutProgressBar.Info;
-                    break;
-                case TypesTextColor.Warning:
-                    color = TypesLayoutProgressBar.Warning;
-                    break;
-                case TypesTextColor.Danger:
-                    color = TypesLayoutProgressBar.Danger;
-                    break;
-                case TypesTextColor.Light:
-                    color = TypesLayoutProgressBar.Light;
-                    break;
-                case TypesTextColor.Dark:
-                    color = TypesLayoutProgressBar.Dark;
-                    break;
-            }
+            Content.Add(new ControlPanel(Page, text, info) { });
 
             if (Progress > -1)
             {
-                base.Content.Add(new ControlProgressBar(Page) { Value = Progress, Format = TypesProgressBarFormat.Striped, Layout = color, Size = TypesSize.Small });
+                Content.Add(new ControlProgressBar(Page) 
+                { 
+                    Value = Progress, 
+                    Format = TypesProgressBarFormat.Striped, 
+                    BackgroundColor = BackgroundColor, 
+                    Color = Color,
+                    Size = TypesSize.Small 
+                });
             }
 
             return base.ToHtml();

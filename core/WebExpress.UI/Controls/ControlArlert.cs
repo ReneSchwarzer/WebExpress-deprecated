@@ -1,21 +1,40 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using WebExpress.Html;
 using WebExpress.Pages;
 
 namespace WebExpress.UI.Controls
 {
+    /// <summary>
+    /// Erstellt eine Box, welche die Aufmerksamkeit des Benutzers erlangen soll 
+    /// </summary>
     public class ControlAlert : Control
     {
         /// <summary>
         /// Liefert oder setzt das Layout des Textes
         /// </summary>
-        public TypesLayoutAlert Layout { get; set; }
+        public TypesLayoutAlert Layout
+        {
+            get => (TypesLayoutAlert)GetProperty(TypesLayoutAlert.Default);
+            set => SetProperty(value, () => value.ToClass());
+        }
 
         /// <summary>
         /// Liefert oder setzt ob das Control geschlossen werden kann
         /// </summary>
-        public bool Dismissible { get; set; }
+        public TypesDismissibleAlert Dismissible
+        {
+            get => (TypesDismissibleAlert)GetProperty(TypesDismissibleAlert.Dismissible);
+            set => SetProperty(value, () => value.ToClass());
+        }
+        
+        /// <summary>
+        /// Liefert oder setzt ob der Fadereffekt verwendet werden soll
+        /// </summary>
+        public TypesFade Fade 
+        {
+            get => (TypesFade)GetProperty(TypesFade.None);
+            set => SetProperty(value, () => value.ToClass());
+        }
 
         /// <summary>
         /// Liefert oder setzt die Überschrift
@@ -26,11 +45,6 @@ namespace WebExpress.UI.Controls
         /// Liefert oder setzt die Text
         /// </summary>
         public string Text { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt ob der Fadereffekt verwendet werden soll
-        /// </summary>
-        public bool Fade { get; set; }
 
         /// <summary>
         /// Konstruktor
@@ -48,6 +62,7 @@ namespace WebExpress.UI.Controls
         /// </summary>
         private void Init()
         {
+            SetProperty(() => "alert");
         }
 
         /// <summary>
@@ -56,47 +71,15 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            var classes = new List<string>
-            {
-                Class,
-                "alert"
-            };
+            //Classes.Add(Layout.ToClass());
 
-            if (Dismissible)
-            {
-                classes.Add("alert-dismissible");
-            }
+            var head = new HtmlElementTextSemanticsStrong
+            (
+                new HtmlText(Head), 
+                new HtmlNbsp()
+            );
 
-            if (Fade)
-            {
-                classes.Add("fade show");
-            }
-
-            switch (Layout)
-            {
-                case TypesLayoutAlert.Success:
-                    classes.Add("alert-success");
-                    break;
-                case TypesLayoutAlert.Info:
-                    classes.Add("alert-info");
-                    break;
-                case TypesLayoutAlert.Warning:
-                    classes.Add("alert-warning");
-                    break;
-                case TypesLayoutAlert.Danger:
-                    classes.Add("alert-danger");
-                    break;
-                case TypesLayoutAlert.Light:
-                    classes.Add("alert-light");
-                    break;
-                case TypesLayoutAlert.Dark:
-                    classes.Add("alert-dark");
-                    break;
-            }
-
-            var head = new HtmlElementStrong(new HtmlText(Head), new HtmlNbsp());
-
-            var button = new HtmlElementButton("&times;")
+            var button = new HtmlElementFieldButton("&times;")
             {
                 Class = "close"
             };
@@ -104,11 +87,16 @@ namespace WebExpress.UI.Controls
             button.AddUserAttribute("aria-label", "close");
             button.AddUserAttribute("aria-hidden", "true");
 
-            return new HtmlElementDiv(!string.IsNullOrWhiteSpace(Head) ? head : null, new HtmlText(Text), Dismissible ? button : null)
+            return new HtmlElementTextContentDiv
+            (
+                !string.IsNullOrWhiteSpace(Head) ? head : null, 
+                new HtmlText(Text), 
+                Dismissible != TypesDismissibleAlert.None ? button : null
+            )
             {
                 ID = ID,
-                Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = Style,
+                Class = GetClasses(),
+                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Role = "alert"
             };
         }

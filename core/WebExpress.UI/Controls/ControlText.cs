@@ -13,19 +13,22 @@ namespace WebExpress.UI.Controls
         public TypesTextFormat Format { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt das Format des Textes
+        /// Liefert oder setzt die Farbe des Textes
         /// </summary>
-        public TypesTextColor Color { get; set; }
+        public PropertyColorText Color
+        {
+            get => (PropertyColorText)GetPropertyObject();
+            set => SetProperty(value, () => value?.ToClass(), () => value?.ToStyle());
+        }
 
         /// <summary>
         /// Liefert oder setzt die Größe des Textes
         /// </summary>
-        public TypesSize Size { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt das Format des Textes
-        /// </summary>
-        public TypesBackgroundColor BackgroundColor { get; set; }
+        public TypesSize Size
+        {
+            get => (TypesSize)GetProperty(TypesSize.Default);
+            set => SetProperty(value, () => value.ToClass());
+        }
 
         /// <summary>
         /// Liefert oder setzt die Text
@@ -75,178 +78,124 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            var classes = new List<string>
-            {
-                Class
-            };
-
-            switch (Color)
-            {
-                case TypesTextColor.Muted:
-                    classes.Add("text-muted");
-                    break;
-                case TypesTextColor.Primary:
-                    classes.Add("text-primary");
-                    break;
-                case TypesTextColor.Success:
-                    classes.Add("text-success");
-                    break;
-                case TypesTextColor.Info:
-                    classes.Add("text-info");
-                    break;
-                case TypesTextColor.Warning:
-                    classes.Add("text-warning");
-                    break;
-                case TypesTextColor.Danger:
-                    classes.Add("text-danger");
-                    break;
-                case TypesTextColor.Light:
-                    classes.Add("text-light");
-                    break;
-                case TypesTextColor.Dark:
-                    classes.Add("text-dark");
-                    break;
-                case TypesTextColor.White:
-                    classes.Add("text-white");
-                    break;
-            }
-
-            switch (BackgroundColor)
-            {
-                case TypesBackgroundColor.Primary:
-                    classes.Add("bg-primary");
-                    break;
-                case TypesBackgroundColor.Secondary:
-                    classes.Add("bg-secondary");
-                    break;
-                case TypesBackgroundColor.Success:
-                    classes.Add("bg-success");
-                    break;
-                case TypesBackgroundColor.Info:
-                    classes.Add("bg-info");
-                    break;
-                case TypesBackgroundColor.Warning:
-                    classes.Add("bg-warning");
-                    break;
-                case TypesBackgroundColor.Danger:
-                    classes.Add("bg-danger");
-                    break;
-                case TypesBackgroundColor.Light:
-                    classes.Add("bg-light");
-                    break;
-                case TypesBackgroundColor.Dark:
-                    classes.Add("bg-dark");
-                    break;
-                case TypesBackgroundColor.White:
-                    classes.Add("bg-white");
-                    break;
-                case TypesBackgroundColor.Transparent:
-                    classes.Add("bg-transparent");
-                    break;
-            }
-
-            switch (HorizontalAlignment)
-            {
-                case TypesHorizontalAlignment.Left:
-                    classes.Add("float-left");
-                    break;
-                case TypesHorizontalAlignment.Right:
-                    classes.Add("float-right");
-                    break;
-            }
-
-            switch (Size)
-            {
-                case TypesSize.Small:
-                    classes.Add("small");
-                    break;
-                case TypesSize.Large:
-                    classes.Add("large");
-                    break;
-            }
-
             var html = null as HtmlElement;
 
             switch (Format)
             {
                 case TypesTextFormat.Paragraph:
-                    html = new HtmlElementP(Text)
+                    html = new HtmlElementTextContentP(Text)
                     {
                         ID = ID,
-                        Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                        Style = Style,
+                        Class = GetClasses(),
+                        Style = GetStyles(),
                         Role = Role
                     };
                     break;
                 case TypesTextFormat.Italic:
-                    html = new HtmlElementI(Text)
+                    html = new HtmlElementTextSemanticsI(Text)
                     {
                         ID = ID,
-                        Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                        Style = Style,
+                        Class = GetClasses(),
+                        Style = GetStyles(),
                         Role = Role
                     };
                     break;
                 case TypesTextFormat.Bold:
-                    html = new HtmlElementB(Text)
+                    html = new HtmlElementTextSemanticsB(Text)
                     {
                         ID = ID,
-                        Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                        Style = Style,
+                        Class = GetClasses(),
+                        Style = GetStyles(),
                         Role = Role
                     };
                     break;
                 case TypesTextFormat.H1:
-                    html = new HtmlElementH1(Text)
+                    html = new HtmlElementSectionH1(Text)
                     {
                         ID = ID,
-                        Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                        Style = Style,
+                        Class = GetClasses(),
+                        Style = GetStyles(),
+                        Role = Role
+                    };
+                    break;
+                case TypesTextFormat.H2:
+                    html = new HtmlElementSectionH2(Text)
+                    {
+                        ID = ID,
+                        Class = GetClasses(),
+                        Style = GetStyles(),
+                        Role = Role
+                    };
+                    break;
+                case TypesTextFormat.H3:
+                    html = new HtmlElementSectionH3(Text)
+                    {
+                        ID = ID,
+                        Class = GetClasses(),
+                        Style = GetStyles(),
                         Role = Role
                     };
                     break;
                 case TypesTextFormat.H4:
-                    html = new HtmlElementH4(Text)
+                    html = new HtmlElementSectionH4(Text)
                     {
                         ID = ID,
-                        Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                        Style = Style,
+                        Class = GetClasses(),
+                        Style = GetStyles(),
+                        Role = Role
+                    };
+                    break;
+                case TypesTextFormat.H5:
+                    html = new HtmlElementSectionH5(Text)
+                    {
+                        ID = ID,
+                        Class = GetClasses(),
+                        Style = GetStyles(),
+                        Role = Role
+                    };
+                    break;
+                case TypesTextFormat.H6:
+                    html = new HtmlElementSectionH6(Text)
+                    {
+                        ID = ID,
+                        Class = GetClasses(),
+                        Style = GetStyles(),
                         Role = Role
                     };
                     break;
                 case TypesTextFormat.Span:
-                    html = new HtmlElementSpan(new HtmlText(Text))
+                    html = new HtmlElementTextSemanticsSpan(new HtmlText(Text))
                     {
                         ID = ID,
-                        Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                        Style = Style,
+                        Class = GetClasses(),
+                        Style = GetStyles(),
                         Role = Role
                     };
                     break;
                 case TypesTextFormat.Small:
-                    html = new HtmlElementSmall(new HtmlText(Text))
+                    html = new HtmlElementTextSemanticsSmall(new HtmlText(Text))
                     {
                         ID = ID,
-                        Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                        Style = Style,
+                        Class = GetClasses(),
+                        Style = GetStyles(),
                         Role = Role
                     };
                     break;
                 case TypesTextFormat.Center:
-                    html = new HtmlElementCenter(new HtmlText(Text))
+                    html = new HtmlElementTextContentDiv(new HtmlText(Text))
                     {
                         ID = ID,
-                        Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                        Style = Style,
+                        Class = Css.Concatenate("text-center",  GetClasses()),
+                        Style = GetStyles(),
                         Role = Role
                     };
                     break;
                 default:
-                    html = new HtmlElementDiv(new HtmlText(Text))
+                    html = new HtmlElementTextContentDiv(new HtmlText(Text))
                     {
                         ID = ID,
-                        Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                        Style = Style,
+                        Class = GetClasses(),
+                        Style = GetStyles(),
                         Role = Role
                     };
                     break;

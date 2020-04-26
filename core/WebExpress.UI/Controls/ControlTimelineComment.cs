@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
 using WebExpress.Pages;
@@ -57,11 +56,7 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            var classes = new List<string>
-            {
-                Class,
-                "comment"
-            };
+            Classes.Add("comment");
 
             var profile = new ControlAvatar(Page)
             {
@@ -114,31 +109,42 @@ namespace WebExpress.UI.Controls
                 Text = timespan,
                 Tooltip = "Am " + Timestamp.ToShortDateString() + " um " + Timestamp.ToShortTimeString() + " Uhr",
                 Format = TypesTextFormat.Span,
-                Color = TypesTextColor.Muted
+                Color = new PropertyColorText(TypesTextColor.Muted)
             };
 
-            var header = new HtmlElementDiv(profile.ToHtml(), date.ToHtml())
+            var header = new HtmlElementTextContentDiv(profile.ToHtml(), date.ToHtml())
             {
                 Class = "header"
             };
 
-            var body = new HtmlElementDiv(new HtmlText(Post))
+            var body = new HtmlElementTextContentDiv(new HtmlText(Post))
             {
                 Class = "post"
             };
 
             var likeText = "Gefällt mir" + (Likes > 0 ? " (" + Likes + ")" : string.Empty);
 
-            var like = new ControlButtonLink(Page) { Icon = Icon.ThumbsUp, Text = likeText, Uri = Page.Uri, Size = TypesSize.Small, Layout = TypesLayoutButton.Light, Outline = true, Color = TypesTextColor.Primary };
+            var like = new ControlButtonLink(Page)
+            {
+                Icon = Icon.ThumbsUp,
+                Text = likeText,
+                Uri = Page.Uri,
+                Size = TypesSize.Small,
+                Layout = TypesLayoutButton.Light,
+                Outline = true,
+                Color = new PropertyColorText(TypesTextColor.Primary)
+            };
 
-            var option = new HtmlElementDiv(like.ToHtml())
+            var option = new HtmlElementTextContentDiv(like.ToHtml())
             {
                 Class = "options"
             };
 
-            var html = new HtmlElementDiv(header, body, option)
+            var html = new HtmlElementTextContentDiv(header, body, option)
             {
-                Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x)))
+                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Role = Role
             };
 
             return html;

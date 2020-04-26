@@ -147,7 +147,7 @@ namespace WebExpress.UI.Controls
                 Text = "Abbrechen",
                 Icon = Icon.Times,
                 Layout = TypesLayoutButton.Danger,
-                Color = TypesTextColor.White,
+                Color = new PropertyColorText(TypesTextColor.White),
                 HorizontalAlignment = TypesHorizontalAlignment.Right,
                 Uri = Uri
             };
@@ -186,15 +186,10 @@ namespace WebExpress.UI.Controls
         {
             CancelButton.Uri = RedirectUrl;
 
-            var classes = new List<string>
-            {
-                Class
-            };
-
             switch (Layout)
             {
                 case TypesLayoutForm.Inline:
-                    classes.Add("form-inline");
+                    Classes.Add("form-inline");
                     break;
             }
 
@@ -208,11 +203,12 @@ namespace WebExpress.UI.Controls
             var next = SubmitAndNextButton.ToHtml();
             var cancel = CancelButton.ToHtml();
 
-            var html = new HtmlElementForm()
+            var html = new HtmlElementFormForm()
             {
                 ID = ID,
-                Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = Style,
+                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Role = Role,
                 Name = Name.ToLower() != "form" ? "form_" + Name.ToLower() : Name.ToLower(),
                 Action = Uri?.ToString(),
                 Method = "post"
@@ -241,8 +237,8 @@ namespace WebExpress.UI.Controls
                 {
                     Layout = layout,
                     Text = v.Text,
-                    Dismissible = true,
-                    Fade = true
+                    Dismissible = TypesDismissibleAlert.Dismissible,
+                    Fade = TypesFade.FadeShow
                 }.ToHtml());
             }
 

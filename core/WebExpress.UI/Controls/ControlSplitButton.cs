@@ -148,7 +148,7 @@ namespace WebExpress.UI.Controls
 
             var html = base.ToHtml();
 
-            var dropdownButton = new HtmlElementButton()
+            var dropdownButton = new HtmlElementFieldButton()
             {
                 ID = string.IsNullOrWhiteSpace(ID) ? "" : ID + "_btn",
                 Class = string.Join(" ", buttonClasses.Where(x => !string.IsNullOrWhiteSpace(x))),
@@ -156,23 +156,23 @@ namespace WebExpress.UI.Controls
                 DataToggle = "dropdown"
             };
 
-            var dropdownElements = new HtmlElementUl
+            var dropdownElements = new HtmlElementTextContentUl
             (
                 Items.Select
                 (
                     x =>
                     x == null ?
-                    new HtmlElementLi() { Class = "dropdown-divider", Inline = true } :
+                    new HtmlElementTextContentLi() { Class = "dropdown-divider", Inline = true } :
                     x is ControlDropdownMenuHeader ?
                     x.ToHtml() :
-                    new HtmlElementLi(x.ToHtml().AddClass("dropdown-item")) { }
+                    new HtmlElementTextContentLi(x.ToHtml().AddClass("dropdown-item")) { }
                 )
             )
             {
                 Class = HorizontalAlignment == TypesHorizontalAlignment.Right ? "dropdown-menu dropdown-menu-right" : "dropdown-menu"
             };
 
-            return new HtmlElementDiv(html, dropdownButton, dropdownElements)
+            return new HtmlElementTextContentDiv(html, dropdownButton, dropdownElements)
             {
                 Class = string.Join(" ", containerClasses.Where(x => !string.IsNullOrWhiteSpace(x))),
             };

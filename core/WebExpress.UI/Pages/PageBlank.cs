@@ -46,7 +46,7 @@ namespace WebExpress.UI.Pages
         /// <returns>Die Seite als HTML-Baum</returns>
         public override IHtmlNode ToHtml()
         {
-            var html = new HtmlElementHtml();
+            var html = new HtmlElementRootHtml();
             html.Head.Title = Title;
             html.Head.Base = Context.UrlBasePath;
             html.Head.Styles = Styles.Select(x => new UriPage(x, Context).ToString());

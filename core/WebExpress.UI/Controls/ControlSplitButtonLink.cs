@@ -95,7 +95,7 @@ namespace WebExpress.UI.Controls
         {
             Disabled = false;
             Size = TypesSize.Default;
-            Class = "";
+            Role = "button";
             ClassButton = "";
         }
 
@@ -114,11 +114,7 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            var classes = new List<string>
-            {
-                Class,
-                "btn"
-            };
+            Classes.Add("btn");
 
             var containerClasses = new List<string>
             {
@@ -139,31 +135,31 @@ namespace WebExpress.UI.Controls
                 switch (Layout)
                 {
                     case TypesLayoutButton.Primary:
-                        classes.Add("btn-outline-primary");
+                        Classes.Add("btn-outline-primary");
                         buttonClasses.Add("btn-outline-primary");
                         break;
                     case TypesLayoutButton.Success:
-                        classes.Add("btn-outline-success");
+                        Classes.Add("btn-outline-success");
                         buttonClasses.Add("btn-outline-success");
                         break;
                     case TypesLayoutButton.Info:
-                        classes.Add("btn-outline-info");
+                        Classes.Add("btn-outline-info");
                         buttonClasses.Add("btn-outline-info");
                         break;
                     case TypesLayoutButton.Warning:
-                        classes.Add("btn-outline-warning");
+                        Classes.Add("btn-outline-warning");
                         buttonClasses.Add("btn-outline-warning");
                         break;
                     case TypesLayoutButton.Danger:
-                        classes.Add("btn-outline-danger");
+                        Classes.Add("btn-outline-danger");
                         buttonClasses.Add("btn-outline-danger");
                         break;
                     case TypesLayoutButton.Light:
-                        classes.Add("btn-outline-light");
+                        Classes.Add("btn-outline-light");
                         buttonClasses.Add("btn-outline-light");
                         break;
                     case TypesLayoutButton.Dark:
-                        classes.Add("btn-outline-dark");
+                        Classes.Add("btn-outline-dark");
                         buttonClasses.Add("btn-outline-dark");
                         break;
                 }
@@ -173,31 +169,31 @@ namespace WebExpress.UI.Controls
                 switch (Layout)
                 {
                     case TypesLayoutButton.Primary:
-                        classes.Add("btn-primary");
+                        Classes.Add("btn-primary");
                         buttonClasses.Add("btn-primary");
                         break;
                     case TypesLayoutButton.Success:
-                        classes.Add("btn-success");
+                        Classes.Add("btn-success");
                         buttonClasses.Add("btn-success");
                         break;
                     case TypesLayoutButton.Info:
-                        classes.Add("btn-info");
+                        Classes.Add("btn-info");
                         buttonClasses.Add("btn-info");
                         break;
                     case TypesLayoutButton.Warning:
-                        classes.Add("btn-warning");
+                        Classes.Add("btn-warning");
                         buttonClasses.Add("btn-warning");
                         break;
                     case TypesLayoutButton.Danger:
-                        classes.Add("btn-danger");
+                        Classes.Add("btn-danger");
                         buttonClasses.Add("btn-danger");
                         break;
                     case TypesLayoutButton.Light:
-                        classes.Add("btn-light");
+                        Classes.Add("btn-light");
                         buttonClasses.Add("btn-light");
                         break;
                     case TypesLayoutButton.Dark:
-                        classes.Add("btn-dark");
+                        Classes.Add("btn-dark");
                         buttonClasses.Add("btn-dark");
                         break;
                 }
@@ -206,30 +202,31 @@ namespace WebExpress.UI.Controls
             switch (Size)
             {
                 case TypesSize.Large:
-                    classes.Add("btn-lg");
+                    Classes.Add("btn-lg");
                     buttonClasses.Add("btn-lg");
                     break;
                 case TypesSize.Small:
-                    classes.Add("btn-sm");
+                    Classes.Add("btn-sm");
                     buttonClasses.Add("btn-sm");
                     break;
             }
 
             if (Disabled)
             {
-                classes.Add("disabled");
+                Classes.Add("disabled");
                 buttonClasses.Add("disabled");
             }
 
-            var html = new HtmlElementA(Text)
+            var html = new HtmlElementTextSemanticsA(Text)
             {
                 ID = ID,
-                Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Role = "button",
+                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Role = Role,
                 Href = Url
             };
 
-            var dropdownButton = new HtmlElementP()
+            var dropdownButton = new HtmlElementTextContentP()
             {
                 ID = string.IsNullOrWhiteSpace(ID) ? "" : ID + "_btn",
                 Class = string.Join(" ", buttonClasses.Where(x => !string.IsNullOrWhiteSpace(x))),
@@ -237,16 +234,16 @@ namespace WebExpress.UI.Controls
                 DataToggle = "dropdown"
             };
 
-            var dropdownElements = new HtmlElementUl
+            var dropdownElements = new HtmlElementTextContentUl
             (
                 Items.Select
                 (
                     x =>
                     x == null ?
-                    new HtmlElementLi() { Class = "dropdown-divider", Inline = true } :
+                    new HtmlElementTextContentLi() { Class = "dropdown-divider", Inline = true } :
                     x is ControlDropdownMenuHeader ?
                     x.ToHtml() :
-                    new HtmlElementLi(x.ToHtml().AddClass("dropdown-item")) { }
+                    new HtmlElementTextContentLi(x.ToHtml().AddClass("dropdown-item")) { }
                 )
             )
             {
@@ -259,7 +256,7 @@ namespace WebExpress.UI.Controls
                 html.AddUserAttribute("data-target", "#" + Modal.ID);
             }
 
-            return new HtmlElementDiv(html, dropdownButton, dropdownElements, Modal?.ToHtml())
+            return new HtmlElementTextContentDiv(html, dropdownButton, dropdownElements, Modal?.ToHtml())
             {
                 Class = string.Join(" ", containerClasses.Where(x => !string.IsNullOrWhiteSpace(x))),
             };

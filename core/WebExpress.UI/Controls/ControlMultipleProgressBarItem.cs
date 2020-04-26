@@ -1,21 +1,18 @@
-﻿namespace WebExpress.UI.Controls
+﻿using WebExpress.Html;
+
+namespace WebExpress.UI.Controls
 {
-    public class ControlMultipleProgressBarItem
+    public class ControlMultipleProgressBarItem 
     {
         /// <summary>
         /// Liefert oder setzt die Textfarbe
         /// </summary>
-        public TypesTextColor Color { get; set; }
+        public PropertyColorText Color { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt das Layout
+        /// Die Hintergrundfarbe
         /// </summary>
-        public TypesLayoutProgressBar Layout { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt die Hintergrundfarbe
-        /// </summary>
-        public string BackgroundColor { get; set; }
+        public PropertyColorBackground BackgroundColor { get; set; }
 
         /// <summary>
         /// Liefert oder setzt den Wert

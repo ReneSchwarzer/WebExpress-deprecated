@@ -126,19 +126,17 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            var classes = new List<string>
-            {
-                Class,
-                "custom-select"
-            };
+            Classes.Add("custom-select");
 
             var select = string.IsNullOrWhiteSpace(SelectedValue) ? Selected : SelectedValue;
 
-            var html = new HtmlElementSelect()
+            var html = new HtmlElementFieldSelect()
             {
                 ID = ID,
                 Name = Name,
-                Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Role = Role,
                 Disabled = Disabled,
                 OnChange = OnChange
             };
@@ -147,15 +145,15 @@ namespace WebExpress.UI.Controls
             {
                 if (v.SubItems.Count > 0)
                 {
-                    html.Elements.Add(new HtmlElementOptgroup() { Label = v.Text });
+                    html.Elements.Add(new HtmlElementFormOptgroup() { Label = v.Text });
                     foreach (var s in v.SubItems)
                     {
-                        html.Elements.Add(new HtmlElementOption() { Value = s.Value, Text = s.Text, Selected = (s.Value == select) });
+                        html.Elements.Add(new HtmlElementFormOption() { Value = s.Value, Text = s.Text, Selected = (s.Value == select) });
                     }
                 }
                 else
                 {
-                    html.Elements.Add(new HtmlElementOption() { Value = v.Value, Text = v.Text, Selected = (v.Value == select) });
+                    html.Elements.Add(new HtmlElementFormOption() { Value = v.Value, Text = v.Text, Selected = (v.Value == select) });
                 }
             }
 

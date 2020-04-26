@@ -18,11 +18,6 @@ namespace WebExpress.UI.Controls
         public string EmptyName { get; set; }
 
         /// <summary>
-        /// Ersetzungen 
-        /// </summary>
-        private Dictionary<string, string> Replace { get; set; }
-
-        /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="page">Die zugehörige Seite</param>
@@ -49,27 +44,7 @@ namespace WebExpress.UI.Controls
         /// </summary>
         private void Init()
         {
-            Replace = new Dictionary<string, string>();
-            //ID = "path";
-            Class = "";
         }
-
-        ///// <summary>
-        ///// Füght eine neue Ersetzung hinzu
-        ///// </summary>
-        ///// <param name="key">Der Schlüssel</param>
-        ///// <param name="value">Die Ersetzung</param>
-        //public void AddReplace(string key, string value)
-        //{
-        //    if (!Replace.ContainsKey(key.ToLower()))
-        //    {
-        //        Replace.Add(key.ToLower(), value);
-        //    }
-        //    else
-        //    {
-        //        Replace[key.ToLower()] = value;
-        //    }
-        //}
 
         /// <summary>
         /// In HTML konvertieren
@@ -77,15 +52,10 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            var classes = new List<string>
+            var html = new HtmlElementTextContentUl()
             {
-                Class,
-                "breadcrumb"
-            };
-
-            var html = new HtmlElementUl()
-            {
-                Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x)))
+                Class = Css.Concatenate("breadcrumb", GetClasses()),
+                Style = GetStyles(),
             };
 
             for (int i = 1; i <= Page.Uri.Path.Count ; i++)
@@ -94,9 +64,16 @@ namespace WebExpress.UI.Controls
 
                 html.Elements.Add
                 (
-                    new HtmlElementLi
+                    new HtmlElementTextContentLi
                     (
-                        new HtmlElementA(path.Display) { Href = path.ToString() }
+                        //new ControlIcon(Page)
+                        //{ 
+                        //    Icon = path.Icon
+                        //}.ToHtml(),
+                        new HtmlElementTextSemanticsA(path.Display) 
+                        { 
+                            Href = path.ToString() 
+                        }
                     )
                     {
                         Class = "breadcrumb-item"

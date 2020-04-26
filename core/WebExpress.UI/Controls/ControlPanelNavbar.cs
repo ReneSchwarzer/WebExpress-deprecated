@@ -74,19 +74,14 @@ namespace WebExpress.UI.Controls
         public ControlPanelNavbar(IPage page, string id = null)
             : base(page, id)
         {
-            ControlText = new ControlText(Page, "headline") { Class = "headline", Format = TypesTextFormat.Paragraph };
+            ControlText = new ControlText(Page, "headline") { Classes = new List<string>(new[] { "headline" }), Format = TypesTextFormat.Paragraph };
             HamburgerMenu = new ControlHamburgerMenu(Page, "hamburger") { };
 
-            ToolBar = new ControlToolBar(Page, "toolbar") { Class = "toolbar" };
-            NotificationBar = new ControlToolBar(Page, "notificationbar") { Class = "notificationbar" };
+            ToolBar = new ControlToolBar(Page, "toolbar") { Classes = new List<string>(new[] { "toolbar" })};
+            NotificationBar = new ControlToolBar(Page, "notificationbar") { Classes = new List<string>(new[] { "notificationbar" })};
 
-            //Content.Add(HamburgerMenu);
-            //Content.Add(ToolBar);
-            //Content.Add(ControlText);
-            //Content.Add(NotificationBar);
             Expand = ExpandTypes.None;
             Fixed = FixedTypes.None;
-
         }
 
         /// <summary>
@@ -107,61 +102,58 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            var classes = new List<string>
-            {
-                Class,
-                "navbar"
-            };
-            //classes.Add("navbar-expand-xl");
+            Classes.Add("navbar");
 
             if (Dark)
             {
-                classes.Add("navbar-dark");
+                Classes.Add("navbar-dark");
             }
             else
             {
-                classes.Add("navbar-light");
+                Classes.Add("navbar-light");
             }
 
             switch (Fixed)
             {
                 case FixedTypes.Top:
-                    classes.Add("fixed-top");
+                    Classes.Add("fixed-top");
                     break;
                 case FixedTypes.Bottom:
-                    classes.Add("fixed-bottom");
+                    Classes.Add("fixed-bottom");
                     break;
             }
 
             switch (Expand)
             {
                 case ExpandTypes.ExtraLarge:
-                    classes.Add("navbar-expand-xl");
+                    Classes.Add("navbar-expand-xl");
                     break;
                 case ExpandTypes.Large:
-                    classes.Add("navbar-expand-lg");
+                    Classes.Add("navbar-expand-lg");
                     break;
                 case ExpandTypes.Medium:
-                    classes.Add("navbar-expand-md");
+                    Classes.Add("navbar-expand-md");
                     break;
                 case ExpandTypes.Small:
-                    classes.Add("navbar-expand-sm");
+                    Classes.Add("navbar-expand-sm");
                     break;
             }
 
             if (Sticky)
             {
-                classes.Add("sticky-top");
+                Classes.Add("sticky-top");
             }
 
-            var html = new HtmlElementNav()
+            var html = new HtmlElementSectionNav()
             {
-                Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x)))
+                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Role = Role
             };
 
             html.Elements.Add(HamburgerMenu.ToHtml());
             html.Elements.Add(ToolBar.ToHtml());
-            html.Elements.Add(new HtmlElementSpan(new HtmlText(Title)) { Class = "navbar-text" });
+            html.Elements.Add(new HtmlElementTextSemanticsSpan(new HtmlText(Title)) { Class = "navbar-text" });
             html.Elements.Add(NotificationBar.ToHtml());
 
             return html;

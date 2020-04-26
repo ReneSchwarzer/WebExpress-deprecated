@@ -1,4 +1,5 @@
-﻿using WebExpress.Html;
+﻿using System.Linq;
+using WebExpress.Html;
 using WebExpress.Pages;
 
 namespace WebExpress.UI.Controls
@@ -40,7 +41,7 @@ namespace WebExpress.UI.Controls
         /// </summary>
         private void Init()
         {
-            Class = "dropdown-header";
+            Classes.Add("dropdown-header");
         }
 
         /// <summary>
@@ -49,7 +50,13 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            return new HtmlElementLi(new HtmlText(Text)) { ID = ID, Class = Class, Style = Style };
+            return new HtmlElementTextContentLi(new HtmlText(Text))
+            {
+                ID = ID,
+                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Role = Role
+            };
         }
     }
 }

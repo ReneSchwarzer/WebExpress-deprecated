@@ -40,22 +40,17 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            var classes = new List<string>
-            {
-                Class
-            };
-
             var c = new List<string>
             {
                 "form-control-static"
             };
 
-            var html = new HtmlElementP()
+            var html = new HtmlElementTextContentP()
             {
                 Text = Text,
-                Role = Role,
-                Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = Style
+                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Role = Role
             };
 
             return html;

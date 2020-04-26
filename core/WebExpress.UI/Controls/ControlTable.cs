@@ -53,7 +53,6 @@ namespace WebExpress.UI.Controls
         /// </summary>
         private void Init()
         {
-            Class = "";
             Striped = true;
             Columns = new List<ControlTableColumn>();
             Rows = new List<ControlTableRow>();
@@ -111,7 +110,7 @@ namespace WebExpress.UI.Controls
         /// <param name="cssClass">Die Css-Klasse</param>
         public void AddRow(Control[] cells, string cssClass = null)
         {
-            var r = new ControlTableRow(Page, null) { Class = cssClass };
+            var r = new ControlTableRow(Page, null) { Classes = new List<string>(new[] { cssClass }) };
             r.Cells.AddRange(cells);
 
             Rows.Add(r);
@@ -125,7 +124,7 @@ namespace WebExpress.UI.Controls
         /// <param name="cssClass">Die Css-Klasse</param>
         public void AddRow(Control[] cells, TypesLayoutTableRow layout, string cssClass = null)
         {
-            var r = new ControlTableRow(Page, null) { Class = cssClass, Layout = layout };
+            var r = new ControlTableRow(Page, null) { Classes = new List<string>(new[] { cssClass }), Layout = layout };
             r.Cells.AddRange(cells);
 
             Rows.Add(r);
@@ -139,36 +138,33 @@ namespace WebExpress.UI.Controls
         {
             Columns.ForEach(x => x.Layout = ColumnLayout);
 
-            var classes = new List<string>
-            {
-                Class,
-                "table"
-            };
+            Classes.Add("table");
 
             if (Striped)
             {
-                classes.Add("table-striped");
+                Classes.Add("table-striped");
             }
 
             if (Responsive)
             {
-                classes.Add("table-responsive");
+                Classes.Add("table-responsive");
             }
 
             if (Reflow)
             {
-                classes.Add("table-reflow");
+                Classes.Add("table-reflow");
             }
 
-            var html = new HtmlElementTable()
+            var html = new HtmlElementTableTable()
             {
                 ID = ID,
-                Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = Style
+                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Role = Role
             };
 
-            html.Columns = new HtmlElementTr(Columns.Select(x => x.ToHtml()));
-            html.Rows.AddRange(from x in Rows select x.ToHtml() as HtmlElementTr);
+            html.Columns = new HtmlElementTableTr(Columns.Select(x => x.ToHtml()));
+            html.Rows.AddRange(from x in Rows select x.ToHtml() as HtmlElementTableTr);
 
             return html;
         }

@@ -13,7 +13,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt das Layout
         /// </summary>
-        public TypesLayoutCard Layout { get; set; }
+        //public TypesLayoutCard Layout { get; set; }
 
         /// <summary>
         /// Liefert oder setzt den Headertext
@@ -92,61 +92,61 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            var classes = new List<string>
-            {
-                Class,
-                "card",
-                Layout.ToClass()
-            };
-
-            switch (HorizontalAlignment)
-            {
-                case TypesHorizontalAlignment.Left:
-                    classes.Add("float-left");
-                    break;
-                case TypesHorizontalAlignment.Right:
-                    classes.Add("float-right");
-                    break;
-            }
+            //Classes.Add("card");
+            //Classes.Add(Layout.ToClass());
+            //Classes.Add(HorizontalAlignment.ToClass());
 
             if (!ShowBorder)
             {
-                classes.Add("border-0");
+                Classes.Add("border-0");
             }
 
-            var html = new HtmlElementDiv()
+            var html = new HtmlElementTextContentDiv()
             {
                 ID = ID,
-                Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = Style,
+                Class = Css.Concatenate("card", GetClasses()),
+                Style = GetStyles(),
                 Role = Role
             };
 
             if (!string.IsNullOrWhiteSpace(Header))
             {
-                html.Elements.Add(new HtmlElementDiv(new HtmlText(Header)) { Class = "card-header" });
+                html.Elements.Add(new HtmlElementTextContentDiv(new HtmlText(Header)) { Class = "card-header" });
             }
 
             if (!string.IsNullOrWhiteSpace(HeaderImage))
             {
-                html.Elements.Add(new HtmlElementImg() { Src = HeaderImage, Class = "card-img-top" });
+                html.Elements.Add(new HtmlElementMultimediaImg() 
+                { 
+                    Src = HeaderImage, 
+                    Class = "card-img-top" 
+                });
             }
 
             if (!string.IsNullOrWhiteSpace(Headline))
             {
-                Content.Insert(0, new ControlText(Page) { Text = Headline, Class = "card-title", Format = TypesTextFormat.H4 });
+                Content.Insert(0, new ControlText(Page) 
+                { 
+                    Text = Headline, 
+                    Classes = new List<string>(new[] { "card-title" }), 
+                    Format = TypesTextFormat.H4 
+                });
             }
 
-            html.Elements.Add(new HtmlElementDiv(Content.Select(x => x.ToHtml())) { Class = "card-body" });
+            html.Elements.Add(new HtmlElementTextContentDiv(Content.Select(x => x.ToHtml())) { Class = "card-body" });
 
             if (!string.IsNullOrWhiteSpace(FooterImage))
             {
-                html.Elements.Add(new HtmlElementImg() { Src = FooterImage, Class = "card-img-top" });
+                html.Elements.Add(new HtmlElementMultimediaImg() 
+                { 
+                    Src = FooterImage, 
+                    Class = "card-img-top" 
+                });
             }
 
             if (!string.IsNullOrWhiteSpace(Footer))
             {
-                html.Elements.Add(new HtmlElementDiv(new HtmlText(Footer)) { Class = "card-footer" });
+                html.Elements.Add(new HtmlElementTextContentDiv(new HtmlText(Footer)) { Class = "card-footer" });
             }
 
             return html;

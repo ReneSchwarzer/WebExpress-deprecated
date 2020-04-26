@@ -13,11 +13,6 @@ namespace WebExpress.UI.Controls
         public IUri Uri { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt das Format des Textes
-        /// </summary>
-        public TypesTextColor Color { get; set; }
-
-        /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="page">Die zugehörige Seite</param>
@@ -43,131 +38,27 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            var classes = new List<string>
-            {
-                Class,
-                "btn"
-            };
-
-            switch (Color)
-            {
-                case TypesTextColor.Muted:
-                    classes.Add("text-muted");
-                    break;
-                case TypesTextColor.Primary:
-                    classes.Add("text-primary");
-                    break;
-                case TypesTextColor.Success:
-                    classes.Add("text-success");
-                    break;
-                case TypesTextColor.Info:
-                    classes.Add("text-info");
-                    break;
-                case TypesTextColor.Warning:
-                    classes.Add("text-warning");
-                    break;
-                case TypesTextColor.Danger:
-                    classes.Add("text-danger");
-                    break;
-                case TypesTextColor.Light:
-                    classes.Add("text-light");
-                    break;
-                case TypesTextColor.Dark:
-                    classes.Add("text-dark");
-                    break;
-                case TypesTextColor.White:
-                    classes.Add("text-white");
-                    break;
-            }
-
-            if (Outline)
-            {
-                switch (Layout)
-                {
-                    case TypesLayoutButton.Primary:
-                        classes.Add("btn-outline-primary");
-                        break;
-                    case TypesLayoutButton.Success:
-                        classes.Add("btn-outline-success");
-                        break;
-                    case TypesLayoutButton.Info:
-                        classes.Add("btn-outline-info");
-                        break;
-                    case TypesLayoutButton.Warning:
-                        classes.Add("btn-outline-warning");
-                        break;
-                    case TypesLayoutButton.Danger:
-                        classes.Add("btn-outline-danger");
-                        break;
-                    case TypesLayoutButton.Dark:
-                        classes.Add("btn-outline-dark");
-                        break;
-                }
-            }
-            else
-            {
-                switch (Layout)
-                {
-                    case TypesLayoutButton.Primary:
-                        classes.Add("btn-primary");
-                        break;
-                    case TypesLayoutButton.Success:
-                        classes.Add("btn-success");
-                        break;
-                    case TypesLayoutButton.Info:
-                        classes.Add("btn-info");
-                        break;
-                    case TypesLayoutButton.Warning:
-                        classes.Add("btn-warning");
-                        break;
-                    case TypesLayoutButton.Danger:
-                        classes.Add("btn-danger");
-                        break;
-                    case TypesLayoutButton.Light:
-                        classes.Add("btn-light");
-                        break;
-                    case TypesLayoutButton.Dark:
-                        classes.Add("btn-dark");
-                        break;
-                }
-            }
-
-            switch (Size)
-            {
-                case TypesSize.Large:
-                    classes.Add("btn-lg");
-                    break;
-                case TypesSize.Small:
-                    classes.Add("btn-sm");
-                    break;
-            }
+            Classes.Add("btn");
+            Classes.Add(Layout.ToClass(Outline));
+            Classes.Add(Size.ToClass());
 
             if (Block)
             {
-                classes.Add("btn-block");
+                Classes.Add("btn-block");
             }
 
-            switch (HorizontalAlignment)
-            {
-                case TypesHorizontalAlignment.Left:
-                    classes.Add("float-left");
-                    break;
-                case TypesHorizontalAlignment.Right:
-                    classes.Add("float-right");
-                    break;
-            }
-
-            var html = new HtmlElementA()
+            var html = new HtmlElementTextSemanticsA()
             {
                 ID = ID,
-                Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Class = GetClasses(),
+                Style = GetStyles(),
                 Role = Role,
                 Href = Uri?.ToString()
             };
 
             if (Icon != Icon.None && !string.IsNullOrWhiteSpace(Text))
             {
-                html.Elements.Add(new HtmlElementSpan()
+                html.Elements.Add(new HtmlElementTextSemanticsSpan()
                 {
                     ID = ID + "_icon",
                     Class = Icon.ToClass()

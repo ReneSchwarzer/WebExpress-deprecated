@@ -145,7 +145,6 @@ namespace WebExpress.UI.Controls
         {
             Disabled = false;
             Size = TypesSize.Default;
-            Class = "";
             ClassButton = "";
             Items = new List<Control>();
         }
@@ -165,108 +164,33 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            var classes = new List<string>
-            {
-                Class,
-                "dropdown"
-            };
+            Classes.Add("dropdown");
 
             var buttonClasses = new List<string>
             {
                 ClassButton,
                 "btn"
             };
-
-            if (Outline)
-            {
-                switch (Layout)
-                {
-                    case TypesLayoutButton.Primary:
-                        buttonClasses.Add("btn-outline-primary");
-                        break;
-                    case TypesLayoutButton.Success:
-                        buttonClasses.Add("btn-outline-success");
-                        break;
-                    case TypesLayoutButton.Info:
-                        buttonClasses.Add("btn-outline-info");
-                        break;
-                    case TypesLayoutButton.Warning:
-                        buttonClasses.Add("btn-outline-warning");
-                        break;
-                    case TypesLayoutButton.Danger:
-                        buttonClasses.Add("btn-outline-danger");
-                        break;
-                    case TypesLayoutButton.Light:
-                        buttonClasses.Add("btn-outline-light");
-                        break;
-                    case TypesLayoutButton.Dark:
-                        buttonClasses.Add("btn-outline-dark");
-                        break;
-                }
-            }
-            else
-            {
-                switch (Layout)
-                {
-                    case TypesLayoutButton.Primary:
-                        buttonClasses.Add("btn-primary");
-                        break;
-                    case TypesLayoutButton.Success:
-                        buttonClasses.Add("btn-success");
-                        break;
-                    case TypesLayoutButton.Info:
-                        buttonClasses.Add("btn-info");
-                        break;
-                    case TypesLayoutButton.Warning:
-                        buttonClasses.Add("btn-warning");
-                        break;
-                    case TypesLayoutButton.Danger:
-                        buttonClasses.Add("btn-danger");
-                        break;
-                    case TypesLayoutButton.Light:
-                        buttonClasses.Add("btn-light");
-                        break;
-                    case TypesLayoutButton.Dark:
-                        buttonClasses.Add("btn-dark");
-                        break;
-                }
-            }
-
-            switch (Size)
-            {
-                case TypesSize.Large:
-                    buttonClasses.Add("btn-lg");
-                    break;
-                case TypesSize.Small:
-                    buttonClasses.Add("btn-sm");
-                    break;
-            }
-
-            switch (HorizontalAlignment)
-            {
-                case TypesHorizontalAlignment.Left:
-                    classes.Add("float-left");
-                    break;
-                case TypesHorizontalAlignment.Right:
-                    classes.Add("float-right");
-                    break;
-            }
+            buttonClasses.Add(Layout.ToClass(Outline));
+            buttonClasses.Add(Size.ToClass());
+            Classes.Add(HorizontalAlignment.ToClass());
 
             if (Block)
             {
                 buttonClasses.Add("btn-block");
             }
 
-            var html = new HtmlElementDiv()
+            var html = new HtmlElementTextContentDiv()
             {
                 ID = ID,
-                Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = Style
+                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Role = Role
             };
 
             if (Image == null)
             {
-                var button = new HtmlElementButton()
+                var button = new HtmlElementFieldButton()
                 {
                     ID = string.IsNullOrWhiteSpace(ID) ? "" : ID + "_btn",
                     Class = string.Join(" ", buttonClasses.Where(x => !string.IsNullOrWhiteSpace(x))),
@@ -276,7 +200,7 @@ namespace WebExpress.UI.Controls
 
                 if (Icon != Icon.None && !string.IsNullOrWhiteSpace(Text))
                 {
-                    button.Elements.Add(new HtmlElementSpan() { Class = Icon.ToClass() });
+                    button.Elements.Add(new HtmlElementTextSemanticsSpan() { Class = Icon.ToClass() });
 
                     button.Elements.Add(new HtmlNbsp());
                     button.Elements.Add(new HtmlNbsp());
@@ -296,7 +220,7 @@ namespace WebExpress.UI.Controls
             }
             else
             {
-                var button = new HtmlElementImg()
+                var button = new HtmlElementMultimediaImg()
                 {
                     ID = string.IsNullOrWhiteSpace(ID) ? "" : ID + "_btn",
                     Class = string.Join(" ", buttonClasses.Where(x => !string.IsNullOrWhiteSpace(x))),
@@ -312,16 +236,16 @@ namespace WebExpress.UI.Controls
 
             html.Elements.Add
             (
-                new HtmlElementUl
+                new HtmlElementTextContentUl
                 (
                     Items.Select
                     (
                         x =>
                         x == null || x is ControlDropdownMenuDivider || x is ControlLine ?
-                        new HtmlElementLi() { Class = "dropdown-divider", Inline = true } :
+                        new HtmlElementTextContentLi() { Class = "dropdown-divider", Inline = true } :
                         x is ControlDropdownMenuHeader ?
                         x.ToHtml() :
-                        new HtmlElementLi(x.ToHtml()) { Class = "dropdown-item" }
+                        new HtmlElementTextContentLi(x.ToHtml()) { Class = "dropdown-item" }
                     )
                 )
                 {

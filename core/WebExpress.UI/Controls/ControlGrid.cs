@@ -51,7 +51,7 @@ namespace WebExpress.UI.Controls
                 Content[row] = new List<Control>();
             }
 
-            var div = new ControlPanel(Page, content) { Class = "col-sm" };
+            var div = new ControlPanel(Page, content) { Classes = new List<string>(new[] { "col-sm" }) };
 
             Content[row].Add(div);
         }
@@ -69,7 +69,7 @@ namespace WebExpress.UI.Controls
                 Content[row] = new List<Control>();
             }
 
-            var div = new ControlPanel(Page, content) { Class = "col-sm-" + spanSize };
+            var div = new ControlPanel(Page, content) { Classes = new List<string>(new[] { "col-sm-" + spanSize }) };
 
             Content[row].Add(div);
         }
@@ -80,27 +80,22 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            var classes = new List<string>
-            {
-                Class
-            };
-
             if (!Fluid)
             {
-                classes.Add("container");
+                Classes.Add("container");
             }
             else
             {
-                classes.Add("container-fluid");
+                Classes.Add("container-fluid");
             }
 
             var rows = Content.OrderBy(x => x.Key).Select(x => x.Value);
 
-            var html = new HtmlElementDiv(from x in rows select new HtmlElementDiv(x.Select(y => y.ToHtml())) { Class = "row mt-5" })
+            var html = new HtmlElementTextContentDiv(from x in rows select new HtmlElementTextContentDiv(x.Select(y => y.ToHtml())) { Class = "row mt-5" })
             {
                 ID = ID,
-                Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = Style,
+                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Role = Role
             };
 

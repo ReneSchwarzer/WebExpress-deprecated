@@ -62,11 +62,6 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            var classes = new List<string>
-            {
-                Class
-            };
-
             var c = new List<string>
             {
                 "checkbox"
@@ -82,19 +77,19 @@ namespace WebExpress.UI.Controls
                 c.Add("disabled");
             }
 
-            var html = new HtmlElementDiv
+            var html = new HtmlElementTextContentDiv
             (
-                new HtmlElementLabel
+                new HtmlElementFieldLabel
                 (
-                    new HtmlElementInput()
+                    new HtmlElementFieldInput()
                     {
                         Name = Name,
                         Pattern = Pattern,
                         Type = "checkbox",
                         Disabled = Disabled,
+                        Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                        Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                         Role = Role,
-                        Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                        Style = Style,
                         Checked = Value
                     },
                     new HtmlText(string.IsNullOrWhiteSpace(Discription) ? string.Empty : "&nbsp;" + Discription)

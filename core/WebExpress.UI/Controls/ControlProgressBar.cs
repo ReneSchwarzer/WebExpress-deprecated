@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using WebExpress.Html;
+﻿using WebExpress.Html;
 using WebExpress.Pages;
 
 namespace WebExpress.UI.Controls
@@ -10,27 +8,29 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt das Format des Fortschrittbalkens
         /// </summary>
-        public TypesProgressBarFormat Format { get; set; }
+        public TypesProgressBarFormat Format
+        {
+            get => (TypesProgressBarFormat)GetProperty(TypesProgressBarFormat.Default);
+            set => SetProperty(value, () => value.ToClass());
+        }
 
         /// <summary>
         /// Liefert oder setzt die Größe
         /// </summary>
-        public TypesSize Size { get; set; }
+        public TypesSize Size
+        {
+            get => (TypesSize)GetProperty(TypesSize.Default);
+            set => SetProperty(value, () => value.ToClass());
+        }
 
         /// <summary>
-        /// Liefert oder setzt die Textfarbe
+        /// Liefert oder setzt die Farbe des Textes
         /// </summary>
-        public TypesTextColor Color { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt das Layout
-        /// </summary>
-        public TypesLayoutProgressBar Layout { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt die Hintergrundfarbe
-        /// </summary>
-        public string BackgroundColor { get; set; }
+        public PropertyColorText Color
+        {
+            get => (PropertyColorText)GetPropertyObject();
+            set => SetProperty(value, () => value.ToClass(), () => value.ToStyle());
+        }
 
         /// <summary>
         /// Liefert oder setzt den Wert
@@ -104,139 +104,53 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            var classes = new List<string>
+
+            if (Format == TypesProgressBarFormat.Default)
             {
-                Class
+                return new HtmlElementFormProgress(Value + "%")
+                {
+                    ID = ID,
+                    Class = GetClasses(),
+                    Style = GetStyles(),
+                    Role = Role,
+                    Min = Min.ToString(),
+                    Max = Max.ToString(),
+                    Value = Value.ToString()
+                };
+            }
+
+            var bar = new HtmlElementTextContentDiv(new HtmlText(Text))
+            {
+                Role = "progressbar",
+                Class = Css.Concatenate
+                (
+                    "progress-bar",
+                    BackgroundColor?.ToClass(),
+                    Format.ToClass()
+                ),
+                Style = Css.Concatenate
+                (
+                    "width: " + Value + "%;"
+                )
             };
+            bar.AddUserAttribute("aria-valuenow", Value.ToString());
+            bar.AddUserAttribute("aria-valuemin", Min.ToString());
+            bar.AddUserAttribute("aria-valuemax", Max.ToString());
 
-            var barClass = new List<string>();
-
-            switch (Format)
-            {
-                case TypesProgressBarFormat.Colored:
-                    barClass.Add("progress-bar");
-                    break;
-
-                case TypesProgressBarFormat.Striped:
-                    barClass.Add("progress-bar");
-                    barClass.Add("progress-bar-striped");
-                    break;
-
-                case TypesProgressBarFormat.Animated:
-                    barClass.Add("progress-bar");
-                    barClass.Add("progress-bar-striped");
-                    barClass.Add("progress-bar-animated");
-                    break;
-
-                default:
-                    return new HtmlElementProgress(Value + "%")
-                    {
-                        ID = ID,
-                        Class = Class,
-                        Style = Style,
-                        Role = Role,
-                        Min = Min.ToString(),
-                        Max = Max.ToString(),
-                        Value = Value.ToString()
-                    };
-            }
-
-            classes.Add("progress");
-
-            var styles = new List<string>
-            {
-                Style
-            };
-
-            var barStyles = new List<string>
-            {
-                "width: " + Value + "%;"
-            };
-
-            switch (Layout)
-            {
-                case TypesLayoutProgressBar.Primary:
-                    barClass.Add("bg-primary");
-                    break;
-                case TypesLayoutProgressBar.Success:
-                    barClass.Add("bg-success");
-                    break;
-                case TypesLayoutProgressBar.Info:
-                    barClass.Add("bg-info");
-                    break;
-                case TypesLayoutProgressBar.Warning:
-                    barClass.Add("bg-warning");
-                    break;
-                case TypesLayoutProgressBar.Danger:
-                    barClass.Add("bg-danger");
-                    break;
-                case TypesLayoutProgressBar.Light:
-                    barClass.Add("bg-light");
-                    break;
-                case TypesLayoutProgressBar.Dark:
-                    barClass.Add("bg-dark");
-                    break;
-                case TypesLayoutProgressBar.Color:
-                    barStyles.Add("background-color: " + BackgroundColor + ";");
-                    break;
-            }
-
-            switch (Color)
-            {
-                case TypesTextColor.Muted:
-                    barClass.Add("text-muted");
-                    break;
-                case TypesTextColor.Primary:
-                    barClass.Add("text-primary");
-                    break;
-                case TypesTextColor.Success:
-                    barClass.Add("text-success");
-                    break;
-                case TypesTextColor.Info:
-                    barClass.Add("text-info");
-                    break;
-                case TypesTextColor.Warning:
-                    barClass.Add("text-warning");
-                    break;
-                case TypesTextColor.Danger:
-                    barClass.Add("text-danger");
-                    break;
-                case TypesTextColor.Light:
-                    barClass.Add("text-light");
-                    break;
-                case TypesTextColor.Dark:
-                    barClass.Add("text-dark");
-                    break;
-                case TypesTextColor.White:
-                    barClass.Add("text-white");
-                    break;
-            }
-
-            switch (Size)
-            {
-                case TypesSize.Large:
-                    styles.Add("height: 30px;");
-                    break;
-                case TypesSize.Small:
-                    styles.Add("height: 10px;");
-                    break;
-            }
-
-            var bar = new HtmlElementDiv(new HtmlText(Text))
+            var html = new HtmlElementTextContentDiv(bar)
             {
                 ID = ID,
-                Class = string.Join(" ", barClass.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = string.Join(" ", barStyles.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Role = Role
+                Role = Role,
+                Class = Css.Concatenate
+                (
+                    "progress",
+                    Margin.ToClass(),
+                    Padding.ToClass()
+                )
             };
 
-            return new HtmlElementDiv(bar)
-            {
-                ID = ID,
-                Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = string.Join(" ", styles.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Role = Role
-            };
+            return html;
+
         }
     }
 }

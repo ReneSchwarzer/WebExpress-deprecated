@@ -13,11 +13,6 @@ namespace WebExpress.UI.Controls
         public List<Control> Items { get; private set; }
 
         /// <summary>
-        /// Liefert oder setzt das Layout
-        /// </summary>
-        public TypesLayoutCard Layout { get; set; }
-
-        /// <summary>
         /// Liefert oder setzt die Anordnung
         /// </summary>
         public TypesFlexboxDirection Direction { get; set; }
@@ -64,19 +59,15 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            var classes = new List<string>
-            {
-                Class,
-                Inline ? "d-inline-flex" : "d-flex",
-                Layout.ToClass(),
-                Direction.ToClass()
-            };
+            Classes.Add(Inline ? "d-inline-flex" : "d-flex");
+            Classes.Add(Direction.ToClass());
 
-            var html = new HtmlElementDiv()
+            var html = new HtmlElementTextContentDiv()
             {
                 ID = ID,
-                Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = Style
+                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Role = Role
             };
 
             html.Elements.AddRange(Items.Select(x => x.ToHtml()));

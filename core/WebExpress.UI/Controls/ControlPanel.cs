@@ -10,7 +10,16 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt den Inhalt
         /// </summary>
-        public List<Control> Content { get; private set; }
+        public List<Control> Content { get; private set; } = new List<Control>();
+
+        /// <summary>
+        /// Liefert oder setzt die Anordnung des Inhaltes
+        /// </summary>
+        public TypesFlexboxDirection Direction
+        {
+            get => (TypesFlexboxDirection)GetProperty(TypesFlexboxDirection.Default);
+            set => SetProperty(value, () => value.ToClass());
+        }
 
         /// <summary>
         /// Konstruktor
@@ -75,7 +84,6 @@ namespace WebExpress.UI.Controls
         /// </summary>
         private void Init()
         {
-            Content = new List<Control>();
         }
 
         /// <summary>
@@ -84,17 +92,11 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            var classes = new List<string>
-            {
-                Class
-            };
-            //classes.Add("container-fluid");
-
-            return new HtmlElementDiv(from x in Content select x.ToHtml())
+            return new HtmlElementTextContentDiv(from x in Content select x.ToHtml())
             {
                 ID = ID,
-                Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = Style,
+                Class = GetClasses(),
+                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Role = Role
             };
         }

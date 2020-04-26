@@ -66,7 +66,7 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            Class = "input-group-prepend";
+            Classes.Add("input-group-prepend");
             var html = base.ToHtml();
             return html;
         }

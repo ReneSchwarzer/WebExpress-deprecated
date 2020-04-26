@@ -10,7 +10,20 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt das Layout
         /// </summary>
-        public TypesLayoutButton Layout { get; set; }
+        public TypesLayoutButton Layout
+        {
+            get => (TypesLayoutButton)GetProperty(TypesLayoutButton.Default);
+            set => SetProperty(value, () => value.ToClass(Outline));
+        }
+
+        /// <summary>
+        /// Liefert oder setzt das Format des Textes
+        /// </summary>
+        public PropertyColorText Color
+        {
+            get => (PropertyColorText)GetPropertyObject();
+            set => SetProperty(value, () => value.ToClass(), () => value.ToStyle());
+        }
 
         /// <summary>
         /// Liefert oder setzt die Größe
@@ -18,7 +31,7 @@ namespace WebExpress.UI.Controls
         public TypesSize Size { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt doe Outline-Eigenschaft
+        /// Liefert oder setzt die Outline-Eigenschaft
         /// </summary>
         public bool Outline { get; set; }
 
@@ -84,101 +97,26 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            var classes = new List<string>
-            {
-                Class,
-                "btn"
-            };
-
-            if (Outline)
-            {
-                switch (Layout)
-                {
-                    case TypesLayoutButton.Primary:
-                        classes.Add("btn-outline-primary");
-                        break;
-                    case TypesLayoutButton.Success:
-                        classes.Add("btn-outline-success");
-                        break;
-                    case TypesLayoutButton.Info:
-                        classes.Add("btn-outline-info");
-                        break;
-                    case TypesLayoutButton.Warning:
-                        classes.Add("btn-outline-warning");
-                        break;
-                    case TypesLayoutButton.Danger:
-                        classes.Add("btn-outline-danger");
-                        break;
-                    case TypesLayoutButton.Dark:
-                        classes.Add("btn-outline-dark");
-                        break;
-                }
-            }
-            else
-            {
-                switch (Layout)
-                {
-                    case TypesLayoutButton.Primary:
-                        classes.Add("btn-primary");
-                        break;
-                    case TypesLayoutButton.Success:
-                        classes.Add("btn-success");
-                        break;
-                    case TypesLayoutButton.Info:
-                        classes.Add("btn-info");
-                        break;
-                    case TypesLayoutButton.Warning:
-                        classes.Add("btn-warning");
-                        break;
-                    case TypesLayoutButton.Danger:
-                        classes.Add("btn-danger");
-                        break;
-                    case TypesLayoutButton.Light:
-                        classes.Add("btn-light");
-                        break;
-                    case TypesLayoutButton.Dark:
-                        classes.Add("btn-dark");
-                        break;
-                }
-            }
-
-            switch (Size)
-            {
-                case TypesSize.Large:
-                    classes.Add("btn-lg");
-                    break;
-                case TypesSize.Small:
-                    classes.Add("btn-sm");
-                    break;
-            }
+            Classes.Add(Size.ToClass());
 
             if (Block)
             {
-                classes.Add("btn-block");
+                Classes.Add("btn-block");
             }
 
-            switch (HorizontalAlignment)
-            {
-                case TypesHorizontalAlignment.Left:
-                    classes.Add("float-left");
-                    break;
-                case TypesHorizontalAlignment.Right:
-                    classes.Add("float-right");
-                    break;
-            }
-
-            var html = new HtmlElementButton()
+            var html = new HtmlElementFieldButton()
             {
                 Type = "button",
                 Value = Value,
-                Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Class = Css.Concatenate("btn", GetClasses()),
+                Style = GetStyles(),
                 Role = Role,
                 Disabled = Disabled
             };
 
             if (Icon != Icon.None && !string.IsNullOrWhiteSpace(Text))
             {
-                html.Elements.Add(new HtmlElementSpan() { Class = Icon.ToClass() });
+                html.Elements.Add(new HtmlElementTextSemanticsSpan() { Class = Icon.ToClass() });
 
                 html.Elements.Add(new HtmlNbsp());
                 html.Elements.Add(new HtmlNbsp());

@@ -1,4 +1,5 @@
-﻿using WebExpress.Html;
+﻿using System.Collections.Generic;
+using WebExpress.Html;
 using WebExpress.Pages;
 
 namespace WebExpress.UI.Controls
@@ -18,12 +19,12 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt die Css-Klasse
         /// </summary>
-        string Class { get; set; }
+        List<string> Classes { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Css-Style
         /// </summary>
-        string Style { get; set; }
+        List<string> Styles { get; set; }
 
         /// <summary>
         /// In HTML konvertieren

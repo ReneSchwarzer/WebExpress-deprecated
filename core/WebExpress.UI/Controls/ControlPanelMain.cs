@@ -22,7 +22,13 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            var html = new HtmlElementMain() { ID = ID, Class = Class, Style = Style };
+            var html = new HtmlElementSectionMain()
+            {
+                ID = ID,
+                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Role = Role
+            };
             html.Elements.AddRange(from x in Content select x.ToHtml());
 
             return html;

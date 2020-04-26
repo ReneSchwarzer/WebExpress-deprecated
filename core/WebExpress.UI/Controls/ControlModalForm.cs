@@ -111,86 +111,82 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            var classes = new List<string>
-            {
-                Class,
-                "modal"
-            };
+            Classes.Add("modal");
 
             if (Fade)
             {
-                classes.Add("fade");
+                Classes.Add("fade");
             }
 
-            var headerText = new HtmlElementH4(Header)
+            var headerText = new HtmlElementSectionH4(Header)
             {
                 Class = "modal-title"
             };
 
-            var headerButtonLabel = new HtmlElementSpan(new HtmlText("&times;"))
+            var headerButtonLabel = new HtmlElementTextSemanticsSpan(new HtmlText("&times;"))
             {
             };
             headerButtonLabel.AddUserAttribute("aria-hidden", "true");
 
-            var headerButton = new HtmlElementButton(headerButtonLabel)
+            var headerButton = new HtmlElementFieldButton(headerButtonLabel)
             {
                 Class = "close"
             };
             headerButton.AddUserAttribute("aria-label", "close");
             headerButton.AddUserAttribute("data-dismiss", "modal");
 
-            var header = new HtmlElementDiv(headerText, headerButton)
+            var header = new HtmlElementTextContentDiv(headerText, headerButton)
             {
                 Class = "modal-header"
             };
 
-            var body = new HtmlElementDiv(from x in Content select x.ToHtml())
+            var body = new HtmlElementTextContentDiv(from x in Content select x.ToHtml())
             {
                 Class = "modal-body"
             };
 
-            var footerButtonOK = new HtmlElementButton(new HtmlText("OK"))
+            var footerButtonOK = new HtmlElementFieldButton(new HtmlText("OK"))
             {
                 Type = "submit",
                 Class = "btn btn-success"
             };
             //footerButtonOK.AddUserAttribute("data-dismiss", "modal");
 
-            var footerButtonCancel = new HtmlElementButton(new HtmlText("Abbrechen"))
+            var footerButtonCancel = new HtmlElementFieldButton(new HtmlText("Abbrechen"))
             {
                 Type = "button",
                 Class = "btn btn-danger"
             };
             footerButtonCancel.AddUserAttribute("data-dismiss", "modal");
 
-            var footer = new HtmlElementDiv(footerButtonOK, footerButtonCancel)
+            var footer = new HtmlElementTextContentDiv(footerButtonOK, footerButtonCancel)
             {
                 Class = "modal-footer"
             };
 
-            var form = new HtmlElementForm(header, body, footer)
+            var form = new HtmlElementFormForm(header, body, footer)
             {
                 Action = "#" + ID,
                 Method = "post",
                 Name = "form_" + ID
             };
 
-            var content = new HtmlElementDiv(form)
+            var content = new HtmlElementTextContentDiv(form)
             {
                 Class = "modal-content"
             };
 
-            var dialog = new HtmlElementDiv(content)
+            var dialog = new HtmlElementTextContentDiv(content)
             {
                 Class = "modal-dialog",
                 Role = "document"
             };
 
-            var html = new HtmlElementDiv(dialog)
+            var html = new HtmlElementTextContentDiv(dialog)
             {
                 ID = ID,
-                Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = Style,
+                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Role = "dialog"
             };
 

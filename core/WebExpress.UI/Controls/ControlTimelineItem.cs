@@ -73,11 +73,7 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            var classes = new List<string>
-            {
-                Class,
-                "post"
-            };
+            Classes.Add("post");
 
             var profile = new ControlAvatar(Page)
             {
@@ -130,12 +126,17 @@ namespace WebExpress.UI.Controls
                 Text = timespan,
                 Tooltip = "Am " + Timestamp.ToShortDateString() + " um " + Timestamp.ToShortTimeString() + " Uhr",
                 Format = TypesTextFormat.Span,
-                Color = TypesTextColor.Muted
+                Color = new PropertyColorText(TypesTextColor.Muted)
             };
 
-            var headerText = new HtmlElementP
+            var headerText = new HtmlElementTextContentP
             (
-                new ControlText(Page) { Text = Action, Color = TypesTextColor.Info, Format = TypesTextFormat.Span }.ToHtml(),
+                new ControlText(Page)
+                {
+                    Text = Action,
+                    Color = new PropertyColorText(TypesTextColor.Info),
+                    Format = TypesTextFormat.Span
+                }.ToHtml(),
                 date.ToHtml()
             );
 
@@ -148,30 +149,37 @@ namespace WebExpress.UI.Controls
             };
             setting.Add(new ControlLink(Page) { Text = "Löschen", Icon = Icon.TrashAlt, Color = TypesTextColor.Danger, Uri = Page.Uri });
 
-            var header = new HtmlElementDiv(setting.ToHtml(), profile.ToHtml(), headerText)
+            var header = new HtmlElementTextContentDiv(setting.ToHtml(), profile.ToHtml(), headerText)
             {
                 Class = "header"
             };
 
-            var body = new HtmlElementDiv(new HtmlText(Post))
+            var body = new HtmlElementTextContentDiv(new HtmlText(Post))
             {
-                Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x)))
+                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Role = Role
             };
 
             var likeText = "Gefällt mir" + (Likes > 0 ? " (" + Likes + ")" : string.Empty);
-            var like = new ControlButtonLink(Page) { Icon = Icon.ThumbsUp, Text = likeText, Uri = Page.Uri, Size = TypesSize.Small, Layout = TypesLayoutButton.Light, Outline = true, Color = TypesTextColor.Primary };
-            //var comment = new ControlButtonLink(Page) { Icon = "fas fa-comment", Text = "Antworten", Url = Page.GetUrl(), Size = TypesSize.Small, Layout = TypesLayoutButton.Light, Color = TypesTextColor.Primary };
+            var like = new ControlButtonLink(Page)
+            {
+                Icon = Icon.ThumbsUp,
+                Text = likeText,
+                Uri = Page.Uri,
+                Size = TypesSize.Small,
+                Layout = TypesLayoutButton.Light,
+                Outline = true,
+                Color = new PropertyColorText(TypesTextColor.Primary)
+            };
 
-            var option = new HtmlElementDiv(like.ToHtml())
+            var option = new HtmlElementTextContentDiv(like.ToHtml())
             {
                 Class = "options"
             };
 
             var html = new HtmlList(header, body, option);
-            //if (Comments.Count > 0)
-            //{
-            //    html.Elements.Add(new HtmlElementHr());
-            //}
+
             html.Elements.AddRange(from x in Comments select x.ToHtml());
 
             var form = new ControlPanelFormular(Page)

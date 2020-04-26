@@ -46,17 +46,13 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            var classes = new List<string>
-            {
-                Class,
-                "profile"
-            };
+            Classes.Add("profile");
 
             var img = null as HtmlElement;
 
             if (!string.IsNullOrWhiteSpace(Image))
             {
-                img = new HtmlElementImg() { Src = Image, Class = "" };
+                img = new HtmlElementMultimediaImg() { Src = Image, Class = "" };
             }
             else if (!string.IsNullOrWhiteSpace(User))
             {
@@ -64,14 +60,17 @@ namespace WebExpress.UI.Controls
                 var i = split[0].FirstOrDefault().ToString();
                 i += split.Count() > 1 ? split[1].FirstOrDefault().ToString() : "";
 
-                img = new HtmlElementB(new HtmlText(i)) { Class = "bg-info text-light" };
+                img = new HtmlElementTextSemanticsB(new HtmlText(i)) 
+                { 
+                    Class = "bg-info text-light" 
+                };
             }
 
-            var html = new HtmlElementDiv(img, new HtmlText(User))
+            var html = new HtmlElementTextContentDiv(img, new HtmlText(User))
             {
                 ID = ID,
-                Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = Style,
+                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Role = Role
             };
 

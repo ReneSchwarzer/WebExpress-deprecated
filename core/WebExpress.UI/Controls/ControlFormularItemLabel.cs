@@ -1,4 +1,5 @@
-﻿using WebExpress.Html;
+﻿using System.Linq;
+using WebExpress.Html;
 
 namespace WebExpress.UI.Controls
 {
@@ -50,12 +51,12 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            return new HtmlElementLabel()
+            return new HtmlElementFieldLabel()
             {
                 Text = Text,
-                Class = Class,
+                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Role = Role,
-                Style = Style,
                 For = FormularItem != null ?
                     string.IsNullOrWhiteSpace(FormularItem.ID) ?
                     FormularItem.Name :

@@ -30,43 +30,39 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            var classes = new List<string>
-            {
-                Class
-            };
-
             switch (Layout)
             {
                 case TypesLayoutTableRow.Primary:
-                    classes.Add("table-primary");
+                    Classes.Add("table-primary");
                     break;
                 case TypesLayoutTableRow.Secondary:
-                    classes.Add("table-secondary");
+                    Classes.Add("table-secondary");
                     break;
                 case TypesLayoutTableRow.Success:
-                    classes.Add("table-success");
+                    Classes.Add("table-success");
                     break;
                 case TypesLayoutTableRow.Info:
-                    classes.Add("table-info");
+                    Classes.Add("table-info");
                     break;
                 case TypesLayoutTableRow.Warning:
-                    classes.Add("table-warning");
+                    Classes.Add("table-warning");
                     break;
                 case TypesLayoutTableRow.Danger:
-                    classes.Add("table-danger");
+                    Classes.Add("table-danger");
                     break;
                 case TypesLayoutTableRow.Light:
-                    classes.Add("table-light");
+                    Classes.Add("table-light");
                     break;
                 case TypesLayoutTableRow.Dark:
-                    classes.Add("table-dark");
+                   Classes.Add("table-dark");
                     break;
             }
 
-            return new HtmlElementTr(from c in Cells select new HtmlElementTd(c.ToHtml()))
+            return new HtmlElementTableTr(from c in Cells select new HtmlElementTableTd(c.ToHtml()))
             {
                 ID = ID,
-                Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Role = Role
             };
         }

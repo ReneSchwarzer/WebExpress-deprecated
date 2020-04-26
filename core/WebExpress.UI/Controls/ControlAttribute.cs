@@ -1,16 +1,32 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using WebExpress.Html;
 using WebExpress.Pages;
 
 namespace WebExpress.UI.Controls
 {
+    /// <summary>
+    /// Anzeige eines Namen-Wert-Paares
+    /// </summary>
     public class ControlAttribute : Control
     {
         /// <summary>
-        /// Liefert oder setzt das Format des Textes
+        /// Liefert oder setzt die Textfarbe
         /// </summary>
-        public TypesTextColor Color { get; set; }
+        public TypesTextColor Color
+        {
+            get => (TypesTextColor)GetProperty(TypesTextColor.Default);
+            set => SetProperty(value, () => value.ToClass());
+        }
+
+        /// <summary>
+        /// Liefert oder setzt die Textfarbe des Namens
+        /// </summary>
+        public TypesTextColor NameColor { get; set; }
+
+        /// <summary>
+        /// Liefert oder setzt die Textfarbe des Textes
+        /// </summary>
+        public TypesTextColor TextColor { get; set; }
 
         /// <summary>
         /// Liefert oder setzt das Icon
@@ -51,62 +67,31 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            var classes = new List<string>
-            {
-                Class
-            };
-
-            switch (Color)
-            {
-                case TypesTextColor.Muted:
-                    classes.Add("text-muted");
-                    break;
-                case TypesTextColor.Primary:
-                    classes.Add("text-primary");
-                    break;
-                case TypesTextColor.Success:
-                    classes.Add("text-success");
-                    break;
-                case TypesTextColor.Info:
-                    classes.Add("text-info");
-                    break;
-                case TypesTextColor.Warning:
-                    classes.Add("text-warning");
-                    break;
-                case TypesTextColor.Danger:
-                    classes.Add("text-danger");
-                    break;
-                case TypesTextColor.Light:
-                    classes.Add("text-light");
-                    break;
-                case TypesTextColor.Dark:
-                    classes.Add("text-dark");
-                    break;
-                case TypesTextColor.White:
-                    classes.Add("text-white");
-                    break;
-            }
-
-            var icon = new HtmlElementSpan()
+            var icon = new HtmlElementTextSemanticsSpan()
             {
                 Class = Icon.ToClass()
             };
 
-            var name = new HtmlElementSpan(new HtmlText(Name))
+            var name = new HtmlElementTextSemanticsSpan(new HtmlText(Name))
             {
-
+                Class = NameColor != TypesTextColor.Default ? NameColor.ToClass() : string.Empty
             };
 
-            var value = new HtmlElementSpan(new HtmlText(Value))
+            var value = new HtmlElementTextSemanticsSpan(new HtmlText(Value))
             {
-                Class = "text-primary"
+                Class = TextColor != TypesTextColor.Default ? NameColor.ToClass() : string.Empty
             };
 
-            var html = new HtmlElementDiv(icon, name, value)
+            var html = new HtmlElementTextContentDiv
+            (
+                Icon != Icon.None ? icon : null,
+                name,
+                value
+            )
             {
                 ID = ID,
-                Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = Style,
+                Class = GetClasses(),
+                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Role = Role
             };
 

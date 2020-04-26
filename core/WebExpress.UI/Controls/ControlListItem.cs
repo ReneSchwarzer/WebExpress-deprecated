@@ -61,7 +61,13 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            return new HtmlElementLi(from x in Content select x.ToHtml()) { ID = ID, Class = Class, Style = Style };
+            return new HtmlElementTextContentLi(from x in Content select x.ToHtml())
+            {
+                ID = ID,
+                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Role = Role
+            };
         }
     }
 }

@@ -54,11 +54,6 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            var classes = new List<string>
-            {
-                Class
-            };
-
             var barClass = new List<string>();
 
             switch (Format)
@@ -79,11 +74,11 @@ namespace WebExpress.UI.Controls
                     break;
 
                 default:
-                    return new HtmlElementProgress(Items.Select(x => x.Value).Sum() + "%")
+                    return new HtmlElementFormProgress(Items.Select(x => x.Value).Sum() + "%")
                     {
                         ID = ID,
-                        Class = Class,
-                        Style = Style,
+                        Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                        Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                         Role = Role,
                         Min = "0",
                         Max = "100",
@@ -91,13 +86,13 @@ namespace WebExpress.UI.Controls
                     };
             }
 
-            classes.Add("progress");
+            Classes.Add("progress");
 
-            var html = new HtmlElementDiv()
+            var html = new HtmlElementTextContentDiv()
             {
                 ID = ID,
-                Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = Style,
+                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Role = Role
             };
 
@@ -109,67 +104,11 @@ namespace WebExpress.UI.Controls
                 };
 
                 var c = new List<string>(barClass);
+                c.Add(v.BackgroundColor.ToClass());
+                
+                barClass.Add(v.Color.ToClass());
 
-                switch (v.Layout)
-                {
-                    case TypesLayoutProgressBar.Primary:
-                        c.Add("bg-primary");
-                        break;
-                    case TypesLayoutProgressBar.Success:
-                        c.Add("bg-success");
-                        break;
-                    case TypesLayoutProgressBar.Info:
-                        c.Add("bg-info");
-                        break;
-                    case TypesLayoutProgressBar.Warning:
-                        c.Add("bg-warning");
-                        break;
-                    case TypesLayoutProgressBar.Danger:
-                        c.Add("bg-danger");
-                        break;
-                    case TypesLayoutProgressBar.Light:
-                        c.Add("bg-light");
-                        break;
-                    case TypesLayoutProgressBar.Dark:
-                        c.Add("bg-dark");
-                        break;
-                    case TypesLayoutProgressBar.Color:
-                        c.Add("background-color: " + v.BackgroundColor + ";");
-                        break;
-                }
-
-                switch (v.Color)
-                {
-                    case TypesTextColor.Muted:
-                        barClass.Add("text-muted");
-                        break;
-                    case TypesTextColor.Primary:
-                        barClass.Add("text-primary");
-                        break;
-                    case TypesTextColor.Success:
-                        barClass.Add("text-success");
-                        break;
-                    case TypesTextColor.Info:
-                        barClass.Add("text-info");
-                        break;
-                    case TypesTextColor.Warning:
-                        barClass.Add("text-warning");
-                        break;
-                    case TypesTextColor.Danger:
-                        barClass.Add("text-danger");
-                        break;
-                    case TypesTextColor.Light:
-                        barClass.Add("text-light");
-                        break;
-                    case TypesTextColor.Dark:
-                        barClass.Add("text-dark");
-                        break;
-                    case TypesTextColor.White:
-                        barClass.Add("text-white");
-                        break;
-                }
-
-                var bar = new HtmlElementDiv(new HtmlText(v.Text))
+                var bar = new HtmlElementTextContentDiv(new HtmlText(v.Text))
                 {
                     ID = ID,
                     Class = string.Join(" ", c.Where(x => !string.IsNullOrWhiteSpace(x))),

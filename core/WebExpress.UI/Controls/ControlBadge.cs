@@ -79,7 +79,6 @@ namespace WebExpress.UI.Controls
         /// </summary>
         private void Init()
         {
-            Class = "";
         }
 
         /// <summary>
@@ -88,56 +87,26 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            var classes = new List<string>
-            {
-                Class,
-                "badge"
-            };
-
-            var styles = new List<string>
-            {
-                Style
-            };
+            Classes.Add("badge");
+            Classes.Add(Layout.ToClass());
 
             switch (Layout)
             {
-                case TypesLayoutBadge.Primary:
-                    classes.Add("badge-primary");
-                    break;
-                case TypesLayoutBadge.Success:
-                    classes.Add("badge-success");
-                    break;
-                case TypesLayoutBadge.Info:
-                    classes.Add("badge-info");
-                    break;
-                case TypesLayoutBadge.Warning:
-                    classes.Add("badge-warning");
-                    break;
-                case TypesLayoutBadge.Danger:
-                    classes.Add("badge-danger");
-                    break;
-                case TypesLayoutBadge.Light:
-                    classes.Add("badge-light");
-                    break;
-                case TypesLayoutBadge.Dark:
-                    classes.Add("badge-dark");
-                    break;
                 case TypesLayoutBadge.Color:
-                    classes.Add("badge-dark");
-                    styles.Add("background-color: " + BackgroundColor + ";");
+                    Styles.Add("background-color: " + BackgroundColor + ";");
                     break;
             }
 
             if (Pill)
             {
-                classes.Add("badge-pill");
+                Classes.Add("badge-pill");
             }
 
-            return new HtmlElementSpan(new HtmlText(Value.ToString()))
+            return new HtmlElementTextSemanticsSpan(new HtmlText(Value.ToString()))
             {
                 ID = ID,
-                Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = string.Join(" ", styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Role = Role
             };
         }

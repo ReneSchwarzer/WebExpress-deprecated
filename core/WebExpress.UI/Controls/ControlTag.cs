@@ -108,95 +108,87 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            var classes = new List<string>
-            {
-                Class
-            };
-
-            var styles = new List<string>
-            {
-                Style
-            };
-
             switch (Layout)
             {
                 case TypesLayoutBadge.Primary:
-                    classes.Add("badge-primary");
+                    Classes.Add("badge-primary");
                     break;
                 case TypesLayoutBadge.Success:
-                    classes.Add("badge-success");
+                    Classes.Add("badge-success");
                     break;
                 case TypesLayoutBadge.Info:
-                    classes.Add("badge-info");
+                    Classes.Add("badge-info");
                     break;
                 case TypesLayoutBadge.Warning:
-                    classes.Add("badge-warning");
+                    Classes.Add("badge-warning");
                     break;
                 case TypesLayoutBadge.Danger:
-                    classes.Add("badge-danger");
+                    Classes.Add("badge-danger");
                     break;
                 case TypesLayoutBadge.Light:
-                    classes.Add("badge-light");
+                    Classes.Add("badge-light");
                     break;
                 case TypesLayoutBadge.Dark:
-                    classes.Add("badge-dark");
+                    Classes.Add("badge-dark");
                     break;
                 case TypesLayoutBadge.Color:
-                    classes.Add("badge-dark");
-                    styles.Add("background-color: " + BackgroundColor + ";");
+                    Classes.Add("badge-dark");
+                    Styles.Add("background-color: " + BackgroundColor + ";");
                     break;
             }
 
             if (Pill)
             {
-                classes.Add("badge-pill");
+                Classes.Add("badge-pill");
             }
 
-            classes.Add("badge");
+            Classes.Add("badge");
 
             if (Items.Count == 0)
             {
-                return new HtmlElementSpan(new HtmlText(Text))
+                return new HtmlElementTextSemanticsSpan(new HtmlText(Text))
                 {
-                    Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                    Style = string.Join(" ", styles.Where(x => !string.IsNullOrWhiteSpace(x)))
+                    Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                    Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                    Role = Role
                 };
             }
 
-            classes.Add("btn");
+            Classes.Add("btn");
 
-            var html = new HtmlElementSpan()
+            var html = new HtmlElementTextSemanticsSpan()
             {
                 ID = ID,
                 Class = "dropdown"
             };
 
-            var tag = new HtmlElementSpan
+            var tag = new HtmlElementTextSemanticsSpan
             (
-                new HtmlText(Text), new HtmlElementSpan()
+                new HtmlText(Text), new HtmlElementTextSemanticsSpan()
                 {
                     Class = "fas fa-caret-down"
                 }
             )
             {
-                Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = string.Join(" ", styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Role = Role,
                 DataToggle = "dropdown"
             };
 
             html.Elements.Add(tag);
             html.Elements.Add
             (
-                new HtmlElementUl
+                new HtmlElementTextContentUl
                 (
                     Items.Select
                     (
                         x =>
                         x == null ?
-                        new HtmlElementLi() { Class = "dropdown-divider", Inline = true } :
+                        new HtmlElementTextContentLi() { Class = "dropdown-divider", Inline = true } :
                         x is ControlDropdownMenuHeader ?
                         x.ToHtml() :
-                        new HtmlElementLi(x.ToHtml().AddClass("dropdown-item")) { }
+                        new HtmlElementTextContentLi(x.ToHtml().AddClass("dropdown-item")) { }
                     )
                 )
                 {

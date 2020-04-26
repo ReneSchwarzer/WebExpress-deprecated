@@ -62,25 +62,14 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            var classes = new List<string>
-            {
-                Class,
-                "pagination"
-            };
+            Classes.Add("pagination");
+            Classes.Add(HorizontalAlignment.ToClass());
 
-            switch (HorizontalAlignment)
+            var html = new HtmlElementTextContentUl()
             {
-                case TypesHorizontalAlignment.Left:
-                    classes.Add("float-left");
-                    break;
-                case TypesHorizontalAlignment.Right:
-                    classes.Add("float-right");
-                    break;
-            }
-
-            var html = new HtmlElementUl()
-            {
-                Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x)))
+                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Role = Role
             };
 
             if (Offset >= Count)
@@ -97,12 +86,12 @@ namespace WebExpress.UI.Controls
             {
                 html.Elements.Add
                 (
-                    new HtmlElementLi
+                    new HtmlElementTextContentLi
                     (
                         new ControlLink(Page, null)
                         {
                             Params = Parameter.Create(new Parameter("offset", Offset - 1) { Scope = ParameterScope.Local }),
-                            Class = "page-link fas fa-angle-left"
+                            Classes = new List<string>(new[] { "page-link", "fas fa-angle-left" })
                         }.ToHtml()
                     )
                     {
@@ -114,12 +103,12 @@ namespace WebExpress.UI.Controls
             {
                 html.Elements.Add
                 (
-                    new HtmlElementLi
+                    new HtmlElementTextContentLi
                     (
                         new ControlLink(Page, null)
                         {
                             Params = Parameter.Create(),
-                            Class = "page-link fas fa-angle-left"
+                            Classes = new List<string>(new[] { "page-link", "fas fa-angle-left" })
                         }.ToHtml()
                     )
                     {
@@ -157,12 +146,12 @@ namespace WebExpress.UI.Controls
                 {
                     html.Elements.Add
                     (
-                        new HtmlElementLi
+                        new HtmlElementTextContentLi
                         (
                             new ControlLink(Page, null, (v + 1).ToString())
                             {
                                 Params = Parameter.Create(new Parameter("offset", v) { Scope = ParameterScope.Local }),
-                                Class = "page-link"
+                                Classes = new List<string>(new[] { "page-link" })
                             }.ToHtml()
                         )
                         {
@@ -174,12 +163,12 @@ namespace WebExpress.UI.Controls
                 {
                     html.Elements.Add
                     (
-                        new HtmlElementLi
+                        new HtmlElementTextContentLi
                         (
                             new ControlLink(Page, null, (v + 1).ToString())
                             {
                                 Params = Parameter.Create(new Parameter("offset", v) { Scope = ParameterScope.Local }),
-                                Class = "page-link"
+                                Classes = new List<string>(new[] { "page-link" })
                             }.ToHtml()
                         )
                         {
@@ -193,12 +182,12 @@ namespace WebExpress.UI.Controls
             {
                 html.Elements.Add
                 (
-                    new HtmlElementLi
+                    new HtmlElementTextContentLi
                     (
                         new ControlLink(Page, null)
                         {
                             Params = Parameter.Create(new Parameter("offset", Offset + 1) { Scope = ParameterScope.Local }),
-                            Class = "page-link fas fa-angle-right"
+                            Classes = new List<string>(new[] { "page-link", "fas fa-angle-right" })
                         }.ToHtml()
                     )
                     {
@@ -210,12 +199,12 @@ namespace WebExpress.UI.Controls
             {
                 html.Elements.Add
                 (
-                    new HtmlElementLi
+                    new HtmlElementTextContentLi
                     (
                         new ControlLink(Page, null)
                         {
                             Params = Parameter.Create(),
-                            Class = "page-link fas fa-angle-right"
+                            Classes = new List<string>(new[] { "page-link", "fas fa-angle-right" })
                         }.ToHtml()
                     )
                     {

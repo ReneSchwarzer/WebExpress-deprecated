@@ -111,27 +111,23 @@ namespace WebExpress.UI.Controls
                 Value = Page.GetParam(Name);
             }
 
-            var classes = new List<string>
-            {
-                Class,
-                "form-control"
-            };
+            Classes.Add("form-control");
 
             if (Disabled)
             {
-                classes.Add("disabled");
+                Classes.Add("disabled");
             }
 
             switch (ValidationResult)
             {
                 case TypesInputValidity.Success:
-                    classes.Add("input-success");
+                    Classes.Add("input-success");
                     break;
                 case TypesInputValidity.Warning:
-                    classes.Add("input-warning");
+                    Classes.Add("input-warning");
                     break;
                 case TypesInputValidity.Error:
-                    classes.Add("input-error");
+                    Classes.Add("input-error");
                     break;
             }
 
@@ -144,29 +140,29 @@ namespace WebExpress.UI.Controls
             switch (Format)
             {
                 case TypesEditTextFormat.Multiline:
-                    return new HtmlElementTextarea()
+                    return new HtmlElementFormTextarea()
                     {
                         ID = ID,
                         Value = Value,
                         Name = Name,
-                        Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                        Style = Style,
+                        Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                        Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                         Role = Role,
                         Placeholder = Placeholder
                     };
                 case TypesEditTextFormat.Wysiwyg:
-                    return new HtmlElementTextarea()
+                    return new HtmlElementFormTextarea()
                     {
                         ID = ID,
                         Value = Value,
                         Name = Name,
-                        Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                        Style = Style,
+                        Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                        Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                         Role = Role,
                         Placeholder = Placeholder
                     };
                 default:
-                    return new HtmlElementInput()
+                    return new HtmlElementFieldInput()
                     {
                         ID = ID,
                         Value = Value,
@@ -177,7 +173,8 @@ namespace WebExpress.UI.Controls
                         Pattern = Pattern,
                         Type = "text",
                         Disabled = Disabled,
-                        Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                        Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                        Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                         Role = Role,
                         Placeholder = Placeholder
                     };

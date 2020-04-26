@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Version>1.4.1.0</Version>
-    <AssemblyVersion>1.4.1.0</AssemblyVersion>
+    <Version>1.4.2.0</Version>
+    <AssemblyVersion>1.4.2.0</AssemblyVersion>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <ApplicationIcon>Rocket.ico</ApplicationIcon>
     <RuntimeIdentifiers>win10-x64;win-arm;linux-arm</RuntimeIdentifiers>
