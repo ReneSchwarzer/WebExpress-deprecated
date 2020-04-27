@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -144,6 +145,16 @@ namespace WebExpress.Html
             }
 
             return copy;
+        }
+
+        /// <summary>
+        /// Ermittelt, ob das gegebene Segment Teil der Uri ist
+        /// </summary>
+        /// <param name="segment">Das Segment, welches geprüft wird</param>
+        /// <returns>true wenn erfolgreich, false sonst</returns>
+        public virtual bool Contains(string segment)
+        {
+            return Path.Where(x => x.Value.Equals(segment, StringComparison.OrdinalIgnoreCase)).Count() > 0;
         }
 
         /// <summary>

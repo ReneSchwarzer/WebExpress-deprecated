@@ -47,5 +47,12 @@ namespace WebExpress.Html
         /// <param name="">Die Anzahl</param>
         /// <returns>Die Teiluri</returns>
         IUri Take(int count);
+
+        /// <summary>
+        /// Ermittelt, ob das gegebene Segment Teil der Uri ist
+        /// </summary>
+        /// <param name="segment">Das Segment, welches geprüft wird</param>
+        /// <returns>true wenn erfolgreich, false sonst</returns>
+        bool Contains(string segment);
     }
 }

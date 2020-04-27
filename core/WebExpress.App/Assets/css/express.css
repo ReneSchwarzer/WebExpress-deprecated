@@ -110,3 +110,81 @@
 {
     margin-left: 50px;
 }
+
+.callout 
+{
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-left-width: .25rem;
+  border-radius: 0.25rem;
+}
+
+.callout-body 
+{
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  padding: 1.25rem;
+  border-radius: 0 0 calc(0.25rem - 1px) calc(0.25rem - 1px);
+}
+
+.callout-title 
+{
+  margin-top: 0.375rem;
+  margin-bottom: 0.1rem;
+  margin-left: 1.25rem;
+  font-weight: bold;
+}
+
+.callout-info 
+{
+  border-left-color: #17a2b8;
+  background-color: #f8f9fa;
+}
+
+.callout-success 
+{
+  border-left-color: #28a745;
+  background-color: #f8f9fa;
+}
+
+.callout-warning 
+{
+  border-left-color: #ffc107;
+  background-color: #f8f9fa;
+}
+
+.callout-danger 
+{
+  border-left-color: #dc3545;
+  background-color: #f8f9fa;
+}
+
+.callout-primary 
+{
+  border-left-color: #007bff;
+  background-color: #f8f9fa;
+}
+
+.callout-secondary 
+{
+  border-left-color: #6c757d;
+  background-color: #f8f9fa;
+}
+
+.callout-dark 
+{
+  border-left-color: #343a40;
+  background-color: #f8f9fa;
+}
+
+.callout-light 
+{
+
+}

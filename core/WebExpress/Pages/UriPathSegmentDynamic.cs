@@ -46,5 +46,16 @@ namespace WebExpress.Pages
             Seperator = seperator;
             Items = items.ToList();
         }
+
+        /// <summary>
+        /// Copy-Konstruktor
+        /// </summary>
+        /// <param name="segment">Das zu kopierende Segment</param>
+        public UriPathSegmentDynamic(UriPathSegmentDynamic segment)
+        {
+            Display = new UriPathSegmentDynamicDisplay(segment.Display);
+            Seperator = segment.Seperator;
+            Items = segment.Items.ToList();
+        }
     }
 }

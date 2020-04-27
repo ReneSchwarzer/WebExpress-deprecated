@@ -1,9 +1,15 @@
 ﻿using System.Reflection;
+using WebExpress.Pages;
 
 namespace WebExpress.Plugins
 {
     public class PluginContext : IPluginContext
     {
+        /// <summary>
+        /// Liefert oder setzt den Verweis auf das Plugin
+        /// </summary>
+        private IPlugin Plugin { get; set; }
+
         /// <summary>
         /// Konstruktor
         /// </summary>
@@ -11,6 +17,7 @@ namespace WebExpress.Plugins
         /// <param name="plugin">Das zugehörige Plugin</param>
         public PluginContext(HttpServerContext serverContext, IPlugin plugin)
         {
+            Plugin = plugin;
             Name = plugin.Name;
             Version = plugin.GetType().Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
             HttpServerVersion = serverContext.Version;
@@ -100,6 +107,11 @@ namespace WebExpress.Plugins
         /// Liefert oder setzt die IconUrl
         /// </summary>
         public string IconUrl { get; set; }
+
+        /// <summary>
+        /// Liefert das Sitemap
+        /// </summary>
+        public ISiteMap SiteMap => Plugin?.SiteMap;
 
         /// <summary>
         /// Liefert oder setzt das Log, zum schreiben von Statusnachrichten auf die Konsole und in eine Log-Datei

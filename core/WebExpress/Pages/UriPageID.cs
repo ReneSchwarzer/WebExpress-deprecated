@@ -35,6 +35,15 @@ namespace WebExpress.Pages
         }
 
         /// <summary>
+        /// Copy-Konstruktor
+        /// </summary>
+        /// <param name="id">Die ID</param>
+        public UriSegmentID(UriSegmentID id)
+        {
+            Value = id.Value;
+        }
+
+        /// <summary>
         /// Vergleichen
         /// </summary>
         /// <param name="obj">Das zu vergleichende Objekt</param>

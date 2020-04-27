@@ -40,5 +40,14 @@ namespace WebExpress.Pages
             Display = display;
             Create = create;
         }
+
+        /// <summary>
+        /// Copy-Konstruktor
+        /// </summary>
+        /// <param name="page">Die zu kopierende Seite</param>
+        public SiteMapPage(SiteMapPage page)
+            :this(new UriSegmentID(page.ID), page.Segment, page.Display, page.Create)
+        {
+        }
     }
 }

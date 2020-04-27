@@ -25,5 +25,15 @@ namespace WebExpress.Pages
             Path = path;
             IncludeSubPaths = includeSubPaths;
         }
+
+        /// <summary>
+        /// Copy-Konstruktor
+        /// </summary>
+        /// <param name="path">Der zu kopierende Pfad</param>
+        public SiteMapPath(SiteMapPath path)
+            :this(path.Path, path.IncludeSubPaths)
+        {
+           
+        }
     }
 }

@@ -229,6 +229,16 @@ namespace WebExpress.Pages
         }
 
         /// <summary>
+        /// Ermittelt, ob das gegebene Segment Teil der Uri ist
+        /// </summary>
+        /// <param name="segmentID">Die SegmentID, welches geprüft wird</param>
+        /// <returns>true wenn erfolgreich, false sonst</returns>
+        public override bool Contains(string segmentID)
+        {
+            return Path.Where(x => (x as UriPathSegmentPage).SegmentID.ToString().Equals(segmentID, StringComparison.OrdinalIgnoreCase)).Count() > 0;
+        }
+
+        /// <summary>
         /// Wandelt die Uri in einen String um
         /// </summary>
         /// <returns>Die Stringrepräsentation der Uri</returns>

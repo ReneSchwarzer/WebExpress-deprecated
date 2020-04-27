@@ -363,6 +363,7 @@ namespace WebExpress
                         Context,
                         Path.Combine(Context.ConfigBaseFolder, factory.ConfigFileName)
                     );
+                    p.Run();
                     Plugins.Add(p);
                     Context.Plugins.Add(p.Context);
                 }

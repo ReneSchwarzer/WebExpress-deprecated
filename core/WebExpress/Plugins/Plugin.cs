@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using WebExpress.Config;
-using WebExpress.Html;
 using WebExpress.Messages;
 using WebExpress.Pages;
 using WebExpress.Workers;
@@ -37,6 +36,11 @@ namespace WebExpress.Plugins
         public string Icon { get; private set; }
 
         /// <summary>
+        /// Liefert oder setzt die Sitemap
+        /// </summary>
+        public ISiteMap SiteMap { get; private set; }
+
+        /// <summary>
         /// Liefert oder setzt die Liste der Worker
         /// </summary>
         public Dictionary<string, IWorker> Workers { get; private set; } = new Dictionary<string, IWorker>();
@@ -51,6 +55,7 @@ namespace WebExpress.Plugins
         /// </summary>
         private Plugin()
         {
+
         }
 
         /// <summary>
@@ -77,6 +82,16 @@ namespace WebExpress.Plugins
             {
                 Context = new PluginContext(Context, Config.UrlBasePath);
             }
+
+            SiteMap = new SiteMap(Context);
+        }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn das Plugin mit der Arbeit beginnt
+        /// </summary>
+        public virtual void Run()
+        {
+            Register(SiteMap);
         }
 
         /// <summary>
@@ -126,14 +141,14 @@ namespace WebExpress.Plugins
         /// Registriert eine SiteMap
         /// </summary>
         /// <param name="worker">Die zu registrierende SiteMap</param>
-        public void Register(SiteMap siteMap)
+        public void Register(ISiteMap siteMap)
         {
             // Ermittle alle Pages aus allen Pfaden
             var pagesFromPath = siteMap.Paths.Select
             (
                 x => new
                 {
-                    Page = siteMap.Pages.Where(y => y.Value.ID.Equals(x.Path.Split('/').Where(x => !x.Equals(".*")).LastOrDefault())).Select(y=> y.Value).FirstOrDefault(),
+                    Page = siteMap.Pages.Where(y => y.Value.ID.Equals(x.Path.Split('/').Where(x => !x.Equals(".*")).LastOrDefault())).Select(y => y.Value).FirstOrDefault(),
                     Path = x,
                     x.IncludeSubPaths
                 }
@@ -146,9 +161,9 @@ namespace WebExpress.Plugins
                     throw new SiteMapException("Fehler in der SiteMap. Überprüfen Sie die SiteMap.");
                 }
 
-                var uri = new UriPage(Context) 
-                { 
-                    IncludeSubPaths = item.IncludeSubPaths 
+                var uri = new UriPage(Context)
+                {
+                    IncludeSubPaths = item.IncludeSubPaths
                 };
 
                 foreach (var segment in item.Path.Path.Split('/').Where(x => !x.Equals(".*")))
@@ -186,7 +201,7 @@ namespace WebExpress.Plugins
             if (!StatusPages.ContainsKey(code))
             {
                 StatusPages.Add(code, create);
-                
+
                 return;
             }
 

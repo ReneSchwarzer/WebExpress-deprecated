@@ -10,7 +10,16 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder sezt den Titel
         /// </summary>
-        public ControlText Title { get; set; }
+        public string Title { get; set; }
+
+        /// <summary>
+        /// Das Layout
+        /// </summary>
+        public TypesLayoutCallout Layout
+        {
+            get => (TypesLayoutCallout)GetProperty(TypesLayoutCallout.Default);
+            set => SetProperty(value, () => value.ToClass());
+        }
 
         /// <summary>
         /// Konstruktor
@@ -69,10 +78,16 @@ namespace WebExpress.UI.Controls
 
             if (Title != null)
             {
-                html.Elements.Add(Title.ToHtml());
+                html.Elements.Add(new HtmlElementTextSemanticsSpan(new HtmlText(Title)) 
+                {
+                    Class = "callout-title"
+                });
             }
 
-            html.Elements.AddRange(from x in Content select x.ToHtml());
+            html.Elements.Add(new HtmlElementTextContentDiv(from x in Content select x.ToHtml()) 
+            { 
+                Class = "callout-body"
+            });
 
             return html;
         }

@@ -1,4 +1,6 @@
-﻿namespace WebExpress.Plugins
+﻿using WebExpress.Pages;
+
+namespace WebExpress.Plugins
 {
     /// <summary>
     /// Der Kontext
@@ -38,7 +40,12 @@
         /// <summary>
         /// Liefert die IconUrl
         /// </summary>
-        public string IconUrl { get; set; }
+        string IconUrl { get; set; }
+
+        /// <summary>
+        /// Liefert das Sitemap
+        /// </summary>
+        ISiteMap SiteMap { get; }
 
         /// <summary>
         /// Liefert das Log, zum schreiben von Statusnachrichten auf die Konsole und in eine Log-Datei

@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using WebExpress.Html;
 using WebExpress.Plugins;
 using WebExpress.Workers;
 
@@ -16,7 +18,7 @@ namespace WebExpress.Pages
     /// siteMap.AddPath("Home/Hilfe");
     /// </code>
     /// </summary>
-    public class SiteMap
+    public class SiteMap : ISiteMap
     {
         /// <summary>
         /// Liefert oder setzt die Seiten
@@ -45,6 +47,27 @@ namespace WebExpress.Pages
         public SiteMap(IPluginContext context)
         {
             Context = context;
+        }
+
+        /// <summary>
+        /// Copy-Konstruktor
+        /// </summary>
+        /// <param name="siteMap">Die zu kopierende Sitemap</param>
+        public SiteMap(SiteMap siteMap)
+        {
+            Context = siteMap.Context;
+            
+            foreach(var v in siteMap.Pages)
+            {
+                Pages.Add(v.Key, new SiteMapPage(v.Value));
+            }
+
+            foreach (var v in siteMap.PathSegmentVariables)
+            {
+                PathSegmentVariables.Add(v.Key, new UriPathSegmentDynamic(v.Value));
+            }
+
+            Paths.AddRange(siteMap.Paths.Select(x => new SiteMapPath(x)));
         }
 
         /// <summary>
@@ -116,5 +139,61 @@ namespace WebExpress.Pages
         {
             Paths.Add(new SiteMapPath(path, includeSubPath));
         }
+
+        /// <summary>
+        /// Ermittelt die Uri zur angegebenen Seite
+        /// </summary>
+        /// <param name="pageID">Die SeitenID</param>
+        /// <returns>Die Uri</returns>
+        public IUri GetUri(UriSegmentID pageID)
+        {
+            // Ermittle alle Pages aus allen Pfaden
+            var pagesFromPath = Paths.Select
+            (
+                x => new
+                {
+                    Page = Pages.Where(y => y.Value.ID.Equals(x.Path.Split('/').Where(x => !x.Equals(".*")).LastOrDefault())).Select(y => y.Value).FirstOrDefault(),
+                    Path = x,
+                    x.IncludeSubPaths
+                }
+            ).Where(x => x.Page.ID == pageID);
+
+            foreach (var item in pagesFromPath)
+            {
+                if (item == null || item.Page == null || item.Path == null)
+                {
+                    throw new SiteMapException("Fehler in der SiteMap. Überprüfen Sie die SiteMap.");
+                }
+
+                var uri = new UriPage(Context)
+                {
+                    IncludeSubPaths = item.IncludeSubPaths
+                };
+
+                foreach (var segment in item.Path.Path.Split('/').Where(x => !x.Equals(".*")))
+                {
+                    // Seite des Segmentes ermitteln
+                    var segmentPage = Pages.Where(x => x.Value.ID.Equals(segment)).Select(x => x.Value).FirstOrDefault();
+
+                    // Pfadvariablen ermitteln
+                    if (PathSegmentVariables.ContainsKey(segmentPage.ID))
+                    {
+                        var variable = PathSegmentVariables[segmentPage.ID];
+
+                        uri.Variables.Add(segmentPage.ID, variable);
+                    }
+
+                    uri.Path.Add(new UriPathSegmentPage(segmentPage?.Segment, segmentPage?.ID)
+                    {
+                        Display = segmentPage?.Display
+                    });
+                }
+                
+                return uri;
+            }
+
+            return null;
+        }
+
     }
 }

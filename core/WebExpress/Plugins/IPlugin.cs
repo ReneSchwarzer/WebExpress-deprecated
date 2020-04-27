@@ -24,6 +24,11 @@ namespace WebExpress.Plugins
         void Init(string configFileName = null);
 
         /// <summary>
+        /// Wird aufgerufen, wenn das Plugin mit der Arbeit beginnt
+        /// </summary>
+        void Run();
+
+        /// <summary>
         /// Registriert einen Worker 
         /// </summary>
         /// <param name="worker">Der zu registrierende Worker</param>
@@ -67,6 +72,11 @@ namespace WebExpress.Plugins
         /// Liefert das Icon des Plugins
         /// </summary>
         string Icon { get; }
+
+        /// <summary>
+        /// Liefert oder setzt die Sitemap
+        /// </summary>
+        ISiteMap SiteMap { get; }
 
         /// <summary>
         /// Liefert oder setzt den Kontext
