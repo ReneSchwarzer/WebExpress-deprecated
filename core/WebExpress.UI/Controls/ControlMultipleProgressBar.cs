@@ -10,7 +10,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt das Format des Fortschrittbalkens
         /// </summary>
-        public TypesProgressBarFormat Format { get; set; }
+        public TypeFormatProgress Format { get; set; }
 
         /// <summary>
         /// Liefert oder setzt den Wert
@@ -58,16 +58,16 @@ namespace WebExpress.UI.Controls
 
             switch (Format)
             {
-                case TypesProgressBarFormat.Colored:
+                case TypeFormatProgress.Colored:
                     barClass.Add("progress-bar");
                     break;
 
-                case TypesProgressBarFormat.Striped:
+                case TypeFormatProgress.Striped:
                     barClass.Add("progress-bar");
                     barClass.Add("progress-bar-striped");
                     break;
 
-                case TypesProgressBarFormat.Animated:
+                case TypeFormatProgress.Animated:
                     barClass.Add("progress-bar");
                     barClass.Add("progress-bar-striped");
                     barClass.Add("progress-bar-animated");

@@ -1,12 +1,12 @@
 ﻿namespace WebExpress.UI.Controls
 {
-    public class PropertyColorText : PropertyColor<TypeColorText>
+    public class PropertyColorProgress : PropertyColor<TypeColorProgress>
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="color">Die Farbe</param>
-        public PropertyColorText(TypeColorText color)
+        public PropertyColorProgress(TypeColorProgress color)
         {
             SystemColor = color;
         }
@@ -15,9 +15,9 @@
         /// Konstruktor
         /// </summary>
         /// <param name="color">Die Farbe</param>
-        public PropertyColorText(string color)
+        public PropertyColorProgress(string color)
         {
-            SystemColor = (TypeColorText)TypeColor.User;
+            SystemColor = (TypeColorProgress)TypeColor.User;
             UserColor = color;
         }
 
@@ -29,7 +29,7 @@
         {
             if ((TypeColor)SystemColor != TypeColor.Default && (TypeColor)SystemColor != TypeColor.User)
             {
-                return SystemColor.ToClass();
+                return ((TypeColorProgress)SystemColor).ToClass();
             }
 
             return null;
@@ -43,7 +43,7 @@
         {
             if ((TypeColor)SystemColor == TypeColor.User)
             {
-                return "color:" + UserColor + ";";
+                return "background:" + UserColor + ";";
             }
 
             return null;

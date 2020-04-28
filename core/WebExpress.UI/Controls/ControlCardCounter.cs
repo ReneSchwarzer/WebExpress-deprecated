@@ -71,7 +71,7 @@ namespace WebExpress.UI.Controls
                 Content.Add(new ControlIcon(Page) 
                 {
                     Icon = new PropertyIcon(Icon), 
-                    Color = Color, 
+                    TextColor = Color, 
                     HorizontalAlignment = TypesHorizontalAlignment.Right 
                 });
             }
@@ -86,7 +86,7 @@ namespace WebExpress.UI.Controls
             { 
                 Text = Text, 
                 Format = TypesTextFormat.Span, 
-                Color = new PropertyColorText(TypeColorText.Muted) 
+                TextColor = new PropertyColorText(TypeColorText.Muted) 
             };
 
             Content.Add(new ControlPanel(Page, text, info) { });
@@ -96,10 +96,10 @@ namespace WebExpress.UI.Controls
                 Content.Add(new ControlProgressBar(Page) 
                 { 
                     Value = Progress, 
-                    Format = TypesProgressBarFormat.Striped, 
+                    Format = TypeFormatProgress.Striped, 
                     BackgroundColor = BackgroundColor, 
-                    Color = Color,
-                    Size = TypesSize.Small 
+                    //Color = Color,
+                    Size = TypesSizeProgress.Small 
                 });
             }
 

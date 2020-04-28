@@ -8,29 +8,26 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt das Format des Fortschrittbalkens
         /// </summary>
-        public TypesProgressBarFormat Format
-        {
-            get => (TypesProgressBarFormat)GetProperty(TypesProgressBarFormat.Default);
-            set => SetProperty(value, () => value.ToClass());
-        }
+        public TypeFormatProgress Format { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Größe
         /// </summary>
-        public TypesSize Size
+        public TypesSizeProgress Size
         {
-            get => (TypesSize)GetProperty(TypesSize.Default);
-            set => SetProperty(value, () => value.ToClass());
+            get => (TypesSizeProgress)GetProperty(TypesSize.Default);
+            set => SetProperty(value, () => value.ToClass(), () => value.ToStyle());
         }
 
         /// <summary>
         /// Liefert oder setzt die Farbe des Textes
         /// </summary>
-        public PropertyColorText Color
-        {
-            get => (PropertyColorText)GetPropertyObject();
-            set => SetProperty(value, () => value.ToClass(), () => value.ToStyle());
-        }
+        public PropertyColorProgress Color { get; set; }
+
+        /// <summary>
+        /// Liefert oder setzt die Farbe des Textes
+        /// </summary>
+        public new PropertyColorText TextColor { get; set; }
 
         /// <summary>
         /// Liefert oder setzt den Wert
@@ -96,6 +93,7 @@ namespace WebExpress.UI.Controls
         {
             Min = 0;
             Max = 100;
+            BackgroundColor = new PropertyColorBackground(TypeColorBackground.Default);
         }
 
         /// <summary>
@@ -104,8 +102,7 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-
-            if (Format == TypesProgressBarFormat.Default)
+            if (Format == TypeFormatProgress.Default)
             {
                 return new HtmlElementFormProgress(Value + "%")
                 {
@@ -125,12 +122,15 @@ namespace WebExpress.UI.Controls
                 Class = Css.Concatenate
                 (
                     "progress-bar",
-                    BackgroundColor?.ToClass(),
+                    Color?.ToClass(),
+                    TextColor?.ToClass(),
                     Format.ToClass()
                 ),
                 Style = Css.Concatenate
                 (
-                    "width: " + Value + "%;"
+                    "width: " + Value + "%;",
+                    Color?.ToStyle(),
+                    TextColor?.ToStyle()
                 )
             };
             bar.AddUserAttribute("aria-valuenow", Value.ToString());
@@ -144,9 +144,9 @@ namespace WebExpress.UI.Controls
                 Class = Css.Concatenate
                 (
                     "progress",
-                    Margin.ToClass(),
-                    Padding.ToClass()
-                )
+                    GetClasses()
+                ),
+                Style = GetStyles()
             };
 
             return html;

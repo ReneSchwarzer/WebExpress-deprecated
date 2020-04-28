@@ -126,7 +126,7 @@ namespace WebExpress.UI.Controls
                 Text = timespan,
                 Tooltip = "Am " + Timestamp.ToShortDateString() + " um " + Timestamp.ToShortTimeString() + " Uhr",
                 Format = TypesTextFormat.Span,
-                Color = new PropertyColorText(TypeColorText.Muted)
+                TextColor = new PropertyColorText(TypeColorText.Muted)
             };
 
             var headerText = new HtmlElementTextContentP
@@ -134,7 +134,7 @@ namespace WebExpress.UI.Controls
                 new ControlText(Page)
                 {
                     Text = Action,
-                    Color = new PropertyColorText(TypeColorText.Info),
+                    TextColor = new PropertyColorText(TypeColorText.Info),
                     Format = TypesTextFormat.Span
                 }.ToHtml(),
                 date.ToHtml()

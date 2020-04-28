@@ -22,7 +22,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt die Farbe des Textes
         /// </summary>
-        public PropertyColorText Color
+        public PropertyColorText TextColor
         {
             get => (PropertyColorText)GetPropertyObject();
             set => SetProperty(value, () => value?.ToClass(), () => value?.ToStyle());
@@ -316,7 +316,7 @@ namespace WebExpress.UI.Controls
         {
             var list = Propertys.Values.Where(x => x.Item3 != null).Select(x => x.Item3()).Where(x => !string.IsNullOrEmpty(x)).Distinct();
 
-            return string.Join(";", Styles.Union(list));
+            return string.Join(" ", Styles.Union(list));
         }
 
     }
