@@ -56,7 +56,7 @@ namespace WebExpress.UI.Controls
                 Href = Uri?.ToString()
             };
 
-            if (Icon != Icon.None && !string.IsNullOrWhiteSpace(Text))
+            if (Icon != TypeIcon.None && !string.IsNullOrWhiteSpace(Text))
             {
                 html.Elements.Add(new HtmlElementTextSemanticsSpan()
                 {
@@ -68,7 +68,7 @@ namespace WebExpress.UI.Controls
                 html.Elements.Add(new HtmlNbsp());
                 html.Elements.Add(new HtmlNbsp());
             }
-            else if (Icon != Icon.None && string.IsNullOrWhiteSpace(Text))
+            else if (Icon != TypeIcon.None && string.IsNullOrWhiteSpace(Text))
             {
                 html.AddClass(Icon.ToClass());
             }

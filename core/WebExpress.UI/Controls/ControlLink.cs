@@ -64,7 +64,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt das Icon
         /// </summary>
-        public Icon Icon { get; set; }
+        public TypeIcon Icon { get; set; }
 
         /// <summary>
         /// Liefert oder setzt einen Tooltiptext
@@ -124,7 +124,7 @@ namespace WebExpress.UI.Controls
         /// </summary>
         private void Init()
         {
-            Icon = Icon.None;
+            Icon = TypeIcon.None;
             Content = new List<Control>();
             Params = new List<Parameter>();
         }
@@ -217,18 +217,18 @@ namespace WebExpress.UI.Controls
                 OnClick = OnClick
             };
 
-            if (Icon != Icon.None && !string.IsNullOrWhiteSpace(Text))
+            if (Icon != TypeIcon.None && !string.IsNullOrWhiteSpace(Text))
             {
                 html.Elements.Add(new ControlIcon(Page) 
                 { 
-                    Icon = Icon
+                    Icon = new PropertyIcon(Icon)
                 }.ToHtml());
 
                 html.Elements.Add(new HtmlNbsp());
                 html.Elements.Add(new HtmlNbsp());
                 html.Elements.Add(new HtmlNbsp());
             }
-            else if (Icon != Icon.None && string.IsNullOrWhiteSpace(Text))
+            else if (Icon != TypeIcon.None && string.IsNullOrWhiteSpace(Text))
             {
                 html.AddClass(Icon.ToClass());
             }

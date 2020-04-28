@@ -126,7 +126,7 @@ namespace WebExpress.UI.Controls
 
             var like = new ControlButtonLink(Page)
             {
-                Icon = Icon.ThumbsUp,
+                Icon = TypeIcon.ThumbsUp,
                 Text = likeText,
                 Uri = Page.Uri,
                 Size = TypesSize.Small,

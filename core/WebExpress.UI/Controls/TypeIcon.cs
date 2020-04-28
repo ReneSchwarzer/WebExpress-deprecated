@@ -1,6 +1,6 @@
 ﻿namespace WebExpress.UI.Controls
 {
-    public enum Icon
+    public enum TypeIcon
     {
         None,
         At,
@@ -48,112 +48,113 @@
         Truck,
         ThumbsUp,
         Undo,
-        Upload
+        Upload,
+        UserIcon
     }
 
 
-    public static class IconExtensions
+    public static class TypeIconExtensions
     {
         /// <summary>
         /// Umwandlung in eine CSS-Klasse
         /// </summary>
         /// <param name="icon">Das Icon, welches umgewandelt werden soll</param>
         /// <returns>Die zum Icon gehörende CSS-KLasse</returns>
-        public static string ToClass(this Icon icon)
+        public static string ToClass(this TypeIcon icon)
         {
             switch (icon)
             {
-                case Icon.At:
+                case TypeIcon.At:
                     return "fas fa-at";
-                case Icon.Bars:
+                case TypeIcon.Bars:
                     return "fas fa-bars";
-                case Icon.Bomb:
+                case TypeIcon.Bomb:
                     return "fas fa-bomb";
-                case Icon.Book:
+                case TypeIcon.Book:
                     return "fas fa-book";
-                case Icon.Bug:
+                case TypeIcon.Bug:
                     return "fas fa-bug";
-                case Icon.Calendar:
+                case TypeIcon.Calendar:
                     return "fas fa-calendar";
-                case Icon.CalendarMinus:
+                case TypeIcon.CalendarMinus:
                     return "fas fa-calendar-minus";
-                case Icon.CalendarPlus:
+                case TypeIcon.CalendarPlus:
                     return "fas fa-calendar-plus";
-                case Icon.ChartBar:
+                case TypeIcon.ChartBar:
                     return "fas fa-chart-bar";
-                case Icon.Clock:
+                case TypeIcon.Clock:
                     return "fas fa-clock";
-                case Icon.Clone:
+                case TypeIcon.Clone:
                     return "fas fa-clone";
-                case Icon.Code:
+                case TypeIcon.Code:
                     return "fas fa-code";
-                case Icon.Cog:
+                case TypeIcon.Cog:
                     return "fas fa-cog";
-                case Icon.Comment:
+                case TypeIcon.Comment:
                     return "fas fa-comment";
-                case Icon.CommentAlt:
+                case TypeIcon.CommentAlt:
                     return "fas fa-comment-alt";
-                case Icon.Download:
+                case TypeIcon.Download:
                     return "fas fa-upload";
-                case Icon.EuroSign:
+                case TypeIcon.EuroSign:
                     return "fas fa-euro-sign";
-                case Icon.ExclamationTriangle:
+                case TypeIcon.ExclamationTriangle:
                     return "fas fa-exclamation-triangle";
-                case Icon.Fire:
+                case TypeIcon.Fire:
                     return "fas fa-fire";
-                case Icon.GraduationCap:
+                case TypeIcon.GraduationCap:
                     return "fas fa-graduation-cap";
-                case Icon.Hashtag:
+                case TypeIcon.Hashtag:
                     return "fas fa-hashtag";
-                case Icon.Home:
+                case TypeIcon.Home:
                     return "fas fa-home";
-                case Icon.InfoCircle:
+                case TypeIcon.InfoCircle:
                     return "fas fa-info-circle";
-                case Icon.Image:
+                case TypeIcon.Image:
                     return "fas fa-image";
-                case Icon.Industry:
+                case TypeIcon.Industry:
                     return "fas fa-industry";
-                case Icon.Info:
+                case TypeIcon.Info:
                     return "fas fa-info";
-                case Icon.Lightbulb:
+                case TypeIcon.Lightbulb:
                     return "fas fa-lightbulb";
-                case Icon.Map:
+                case TypeIcon.Map:
                     return "fas fa-map";
-                case Icon.MapMarker:
+                case TypeIcon.MapMarker:
                     return "fas fa-map-marker";
-                case Icon.Microchip:
+                case TypeIcon.Microchip:
                     return "fas fa-microchip";
-                case Icon.PlayCircle:
+                case TypeIcon.PlayCircle:
                     return "fas fa-play-circle";
-                case Icon.Plus:
+                case TypeIcon.Plus:
                     return "fas fa-plus";
-                case Icon.PowerOff:
+                case TypeIcon.PowerOff:
                     return "fas fa-power-off";
-                case Icon.ShoppingBag:
+                case TypeIcon.ShoppingBag:
                     return "fas fa-shopping-bag";
-                case Icon.Star:
+                case TypeIcon.Star:
                     return "fas fa-star";
-                case Icon.Stopwatch:
+                case TypeIcon.Stopwatch:
                     return "fas fa-stopwatch";
-                case Icon.Sun:
+                case TypeIcon.Sun:
                     return "fas fa-sun";
-                case Icon.TachometerAlt:
+                case TypeIcon.TachometerAlt:
                     return "fas fa-tachometer-alt";
-                case Icon.ThermometerQuarter:
+                case TypeIcon.ThermometerQuarter:
                     return "fas fa-thermometer-quarter";
-                case Icon.Times:
+                case TypeIcon.Times:
                     return "fas fa-times";
-                case Icon.Trash:
+                case TypeIcon.Trash:
                     return "fas fa-trash";
-                case Icon.TrashAlt:
+                case TypeIcon.TrashAlt:
                     return "fas fa-trash-alt";
-                case Icon.Truck:
+                case TypeIcon.Truck:
                     return "fas fa-truck";
-                case Icon.ThumbsUp:
+                case TypeIcon.ThumbsUp:
                     return "fas fa-thumbs-up";
-                case Icon.Undo:
+                case TypeIcon.Undo:
                     return "fas fa-undo";
-                case Icon.Upload:
+                case TypeIcon.Upload:
                     return "fas fa-download";
             }
 

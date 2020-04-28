@@ -21,7 +21,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt das Icon
         /// </summary>
-        public Icon Icon { get; set; }
+        public TypeIcon Icon { get; set; }
 
         /// <summary>
         /// Liefert oder setzt den Wert des Counters
@@ -66,11 +66,11 @@ namespace WebExpress.UI.Controls
         {
             Content.Clear();
 
-            if (Icon != Icon.None)
+            if (Icon != TypeIcon.None)
             {
                 Content.Add(new ControlIcon(Page) 
                 {
-                    Icon = Icon, 
+                    Icon = new PropertyIcon(Icon), 
                     Color = Color, 
                     HorizontalAlignment = TypesHorizontalAlignment.Right 
                 });

@@ -142,12 +142,12 @@ namespace WebExpress.UI.Controls
 
             var setting = new ControlDropdownMenu(Page)
             {
-                Icon = Icon.Cog,
+                Icon = TypeIcon.Cog,
                 Layout = TypesLayoutButton.Light,
                 HorizontalAlignment = TypesHorizontalAlignment.Right,
                 Size = TypesSize.Small
             };
-            setting.Add(new ControlLink(Page) { Text = "Löschen", Icon = Icon.TrashAlt, Color = TypeColorText.Danger, Uri = Page.Uri });
+            setting.Add(new ControlLink(Page) { Text = "Löschen", Icon = TypeIcon.TrashAlt, Color = TypeColorText.Danger, Uri = Page.Uri });
 
             var header = new HtmlElementTextContentDiv(setting.ToHtml(), profile.ToHtml(), headerText)
             {
@@ -164,7 +164,7 @@ namespace WebExpress.UI.Controls
             var likeText = "Gefällt mir" + (Likes > 0 ? " (" + Likes + ")" : string.Empty);
             var like = new ControlButtonLink(Page)
             {
-                Icon = Icon.ThumbsUp,
+                Icon = TypeIcon.ThumbsUp,
                 Text = likeText,
                 Uri = Page.Uri,
                 Size = TypesSize.Small,

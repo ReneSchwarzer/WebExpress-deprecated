@@ -68,7 +68,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt das Icon
         /// </summary>
-        public Icon Icon { get; set; }
+        public TypeIcon Icon { get; set; }
 
         /// <summary>
         /// Konstruktor
@@ -114,7 +114,7 @@ namespace WebExpress.UI.Controls
                 Disabled = Disabled
             };
 
-            if (Icon != Icon.None && !string.IsNullOrWhiteSpace(Text))
+            if (Icon != TypeIcon.None && !string.IsNullOrWhiteSpace(Text))
             {
                 html.Elements.Add(new HtmlElementTextSemanticsSpan() { Class = Icon.ToClass() });
 
@@ -122,7 +122,7 @@ namespace WebExpress.UI.Controls
                 html.Elements.Add(new HtmlNbsp());
                 html.Elements.Add(new HtmlNbsp());
             }
-            else if (Icon != Icon.None && string.IsNullOrWhiteSpace(Text))
+            else if (Icon != TypeIcon.None && string.IsNullOrWhiteSpace(Text))
             {
                 html.AddClass(Icon.ToClass());
             }

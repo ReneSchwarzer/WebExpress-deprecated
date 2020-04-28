@@ -11,20 +11,16 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt das Icon
         /// </summary>
-        public Icon Icon
+        public PropertyIcon Icon
         {
-            get => (Icon)GetProperty();
-            set => SetProperty(value, () => value.ToClass());
+            get => (PropertyIcon)GetPropertyObject();
+            set => SetProperty(value, () => value?.ToClass(), () => value?.ToStyle());
         }
 
         /// <summary>
-        /// Liefert oder setzt die Farbe des Textes
+        /// Liefert oder setzt den Titel
         /// </summary>
-        public PropertyColorText Color
-        {
-            get => (PropertyColorText)GetPropertyObject();
-            set => SetProperty(value, () => value.ToClass(), () => value.ToStyle());
-        }
+        public string Title { get; set; }
 
         /// <summary>
         /// Konstruktor
@@ -42,7 +38,7 @@ namespace WebExpress.UI.Controls
         /// </summary>
         private void Init()
         {
-            Icon = Icon.None;
+            Icon = new PropertyIcon(TypeIcon.None);
         }
 
         /// <summary>
@@ -51,13 +47,28 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
+            if (Icon.SystemIcon == TypeIcon.UserIcon)
+            {
+                return new HtmlElementMultimediaImg()
+                {
+                    ID = ID,
+                    Src = Icon.UserIcon?.ToString(),
+                    Class = GetClasses(),
+                    Style = GetStyles(),
+                    Role = Role,
+                    Title = Title
+                };
+            }
+
             var html = new HtmlElementTextSemanticsSpan()
             {
                 ID = ID,
                 Class = GetClasses(),
-                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Style = GetStyles(),
                 Role = Role
             };
+
+            html.AddUserAttribute("title", Title);
 
             return html;
         }

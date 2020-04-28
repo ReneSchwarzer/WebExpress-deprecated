@@ -60,7 +60,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt das Icon
         /// </summary>
-        public Icon Icon { get; set; }
+        public TypeIcon Icon { get; set; }
 
         /// <summary>
         /// Liefert oder setzt das Bild
@@ -198,7 +198,7 @@ namespace WebExpress.UI.Controls
                     DataToggle = "dropdown"
                 };
 
-                if (Icon != Icon.None && !string.IsNullOrWhiteSpace(Text))
+                if (Icon != TypeIcon.None && !string.IsNullOrWhiteSpace(Text))
                 {
                     button.Elements.Add(new HtmlElementTextSemanticsSpan() { Class = Icon.ToClass() });
 
@@ -206,7 +206,7 @@ namespace WebExpress.UI.Controls
                     button.Elements.Add(new HtmlNbsp());
                     button.Elements.Add(new HtmlNbsp());
                 }
-                else if (Icon != Icon.None && string.IsNullOrWhiteSpace(Text))
+                else if (Icon != TypeIcon.None && string.IsNullOrWhiteSpace(Text))
                 {
                     button.AddClass(Icon.ToClass());
                 }

@@ -31,7 +31,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt das Icon
         /// </summary>
-        public Icon Icon { get; set; }
+        public TypeIcon Icon { get; set; }
 
         /// <summary>
         /// Liefert oder setzt den Namen
@@ -84,7 +84,7 @@ namespace WebExpress.UI.Controls
 
             var html = new HtmlElementTextContentDiv
             (
-                Icon != Icon.None ? icon : null,
+                Icon != TypeIcon.None ? icon : null,
                 name,
                 value
             )
