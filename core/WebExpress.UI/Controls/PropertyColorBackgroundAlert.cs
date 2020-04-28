@@ -1,24 +1,23 @@
 ﻿namespace WebExpress.UI.Controls
 {
-    public class PropertyColorText : PropertyColor<TypeColorText>
+    public class PropertyColorBackgroundAlert : PropertyColorBackground
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="color">Die Farbe</param>
-        public PropertyColorText(TypeColorText color)
+        public PropertyColorBackgroundAlert(TypeColorBackground color)
+            : base(color)
         {
-            SystemColor = color;
         }
 
         /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="color">Die Farbe</param>
-        public PropertyColorText(string color)
+        public PropertyColorBackgroundAlert(string color)
+            :base(color)
         {
-            SystemColor = (TypeColorText)TypeColor.User;
-            UserColor = color;
         }
 
         /// <summary>
@@ -29,7 +28,7 @@
         {
             if ((TypeColor)SystemColor != TypeColor.Default && (TypeColor)SystemColor != TypeColor.User)
             {
-                return SystemColor.ToClass();
+                return ((TypeColorBackgroundAlert)SystemColor).ToClass();
             }
 
             return null;
@@ -41,12 +40,7 @@
         /// <returns>Der zur Farbe gehörende CSS-Style</returns>
         public override string ToStyle()
         {
-            if ((TypeColor)SystemColor == TypeColor.User)
-            {
-                return "color:" + UserColor;
-            }
-
-            return null;
+            return base.ToStyle();
         }
     }
 }

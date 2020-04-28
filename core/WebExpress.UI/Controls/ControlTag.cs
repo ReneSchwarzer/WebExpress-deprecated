@@ -10,7 +10,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt das Layout
         /// </summary>
-        public TypesLayoutBadge Layout { get; set; }
+        public TypeColorBackgroundBadge Layout { get; set; }
 
         /// <summary>
         /// Liefert oder setzt ob abgerundete Ecken verwendet werden soll
@@ -108,48 +108,18 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            switch (Layout)
-            {
-                case TypesLayoutBadge.Primary:
-                    Classes.Add("badge-primary");
-                    break;
-                case TypesLayoutBadge.Success:
-                    Classes.Add("badge-success");
-                    break;
-                case TypesLayoutBadge.Info:
-                    Classes.Add("badge-info");
-                    break;
-                case TypesLayoutBadge.Warning:
-                    Classes.Add("badge-warning");
-                    break;
-                case TypesLayoutBadge.Danger:
-                    Classes.Add("badge-danger");
-                    break;
-                case TypesLayoutBadge.Light:
-                    Classes.Add("badge-light");
-                    break;
-                case TypesLayoutBadge.Dark:
-                    Classes.Add("badge-dark");
-                    break;
-                case TypesLayoutBadge.Color:
-                    Classes.Add("badge-dark");
-                    Styles.Add("background-color: " + BackgroundColor + ";");
-                    break;
-            }
 
             if (Pill)
             {
                 Classes.Add("badge-pill");
             }
 
-            Classes.Add("badge");
-
             if (Items.Count == 0)
             {
                 return new HtmlElementTextSemanticsSpan(new HtmlText(Text))
                 {
-                    Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                    Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                    Class = Css.Concatenate("badge", GetClasses()),
+                    Style = GetStyles(),
                     Role = Role
                 };
             }

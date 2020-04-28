@@ -46,7 +46,7 @@ namespace WebExpress.UI.Controls
         public ControlCardCounter(IPage page, string id = null)
             : base(page, id)
         {
-            Color = new PropertyColorText(TypesTextColor.Default);
+            Color = new PropertyColorText(TypeColorText.Default);
             Init();
         }
 
@@ -86,7 +86,7 @@ namespace WebExpress.UI.Controls
             { 
                 Text = Text, 
                 Format = TypesTextFormat.Span, 
-                Color = new PropertyColorText(TypesTextColor.Muted) 
+                Color = new PropertyColorText(TypeColorText.Muted) 
             };
 
             Content.Add(new ControlPanel(Page, text, info) { });

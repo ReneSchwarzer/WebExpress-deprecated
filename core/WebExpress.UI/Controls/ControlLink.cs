@@ -11,9 +11,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt das Format des Textes
         /// </summary>
-        public TypesTextColor Color
+        public TypeColorText Color
         {
-            get => (TypesTextColor)GetProperty();
+            get => (TypeColorText)GetProperty();
             set => SetProperty(value, () => value.ToClass());
         }
 

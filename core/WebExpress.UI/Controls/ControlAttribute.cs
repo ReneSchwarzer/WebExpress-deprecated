@@ -12,21 +12,21 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt die Textfarbe
         /// </summary>
-        public TypesTextColor Color
+        public TypeColorText Color
         {
-            get => (TypesTextColor)GetProperty(TypesTextColor.Default);
+            get => (TypeColorText)GetProperty(TypeColorText.Default);
             set => SetProperty(value, () => value.ToClass());
         }
 
         /// <summary>
         /// Liefert oder setzt die Textfarbe des Namens
         /// </summary>
-        public TypesTextColor NameColor { get; set; }
+        public TypeColorText NameColor { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Textfarbe des Textes
         /// </summary>
-        public TypesTextColor TextColor { get; set; }
+        public TypeColorText TextColor { get; set; }
 
         /// <summary>
         /// Liefert oder setzt das Icon
@@ -74,12 +74,12 @@ namespace WebExpress.UI.Controls
 
             var name = new HtmlElementTextSemanticsSpan(new HtmlText(Name))
             {
-                Class = NameColor != TypesTextColor.Default ? NameColor.ToClass() : string.Empty
+                Class = NameColor != TypeColorText.Default ? NameColor.ToClass() : string.Empty
             };
 
             var value = new HtmlElementTextSemanticsSpan(new HtmlText(Value))
             {
-                Class = TextColor != TypesTextColor.Default ? NameColor.ToClass() : string.Empty
+                Class = TextColor != TypeColorText.Default ? NameColor.ToClass() : string.Empty
             };
 
             var html = new HtmlElementTextContentDiv

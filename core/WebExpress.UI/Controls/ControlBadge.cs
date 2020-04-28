@@ -10,11 +10,20 @@ namespace WebExpress.UI.Controls
     public class ControlBadge : Control
     {
         /// <summary>
+        /// Die Hintergrundfarbe
+        /// </summary>
+        public new PropertyColorBackgroundBadge BackgroundColor
+        {
+            get => (PropertyColorBackgroundBadge)GetPropertyObject();
+            set => SetProperty(value, () => value?.ToClass(), () => value?.ToStyle());
+        }
+
+        /// <summary>
         /// Liefert oder setzt das Layout
         /// </summary>
-        private TypesLayoutBadge Layout
+        private TypeColorBackgroundBadge Layout
         {
-            get => (TypesLayoutBadge)GetProperty(TypesLayoutBadge.Default);
+            get => (TypeColorBackgroundBadge)GetProperty(TypeColorBackgroundBadge.Default);
             set => SetProperty(value, () => value.ToClass());
         }
 
@@ -55,7 +64,7 @@ namespace WebExpress.UI.Controls
         /// <param name="id">Die ID</param>
         /// <param name="text">Der Text</param>
         /// <param name="layout">Das Layout</param>
-        public ControlBadge(IPage page, string id, string value, TypesLayoutBadge layout = TypesLayoutBadge.Default)
+        public ControlBadge(IPage page, string id, string value, TypeColorBackgroundBadge layout = TypeColorBackgroundBadge.Default)
             : base(page, id)
         {
             Value = value;
@@ -71,7 +80,7 @@ namespace WebExpress.UI.Controls
         /// <param name="id">Die ID</param>
         /// <param name="text">Der Text</param>
         /// <param name="layout">Das Layout</param>
-        public ControlBadge(IPage page, string id, int value, TypesLayoutBadge layout = TypesLayoutBadge.Default)
+        public ControlBadge(IPage page, string id, int value, TypeColorBackgroundBadge layout = TypeColorBackgroundBadge.Default)
             : base(page, id)
         {
             Value = value.ToString();
@@ -93,44 +102,6 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         { 
-            if (Enum.TryParse(typeof(TypesLayoutBadge), BackgroundColor.Value.ToString(), out var result))
-            {
-                Layout = (TypesLayoutBadge)result;
-
-                // Hintergrundfarbe entfernen
-                var bgColor = BackgroundColor;
-                BackgroundColor = new PropertyColorBackground(TypesBackgroundColor.Default);
-
-                var html = null as IHtmlNode;
-
-                if (Uri != null)
-                {
-                    html = new HtmlElementTextSemanticsA(new HtmlText(Value.ToString()))
-                    {
-                        ID = ID,
-                        Class = Css.Concatenate("badge", GetClasses()),
-                        Style = GetStyles(),
-                        Href = Uri.ToString(),
-                        Role = Role
-                    };
-                }
-                else
-                {
-                    html = new HtmlElementTextSemanticsSpan(new HtmlText(Value.ToString()))
-                    {
-                        ID = ID,
-                        Class = Css.Concatenate("badge", GetClasses()),
-                        Style = GetStyles(),
-                        Role = Role
-                    };
-                }
-
-                // Hintergrundfarbe wiederherstellen
-                BackgroundColor = bgColor;
-
-                return html;
-            }
-
             if (Uri != null)
             {
                 return new HtmlElementTextSemanticsA(new HtmlText(Value.ToString()))

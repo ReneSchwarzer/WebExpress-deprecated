@@ -3,7 +3,7 @@
     /// <summary>
     /// Die Standardhintergrundfarben
     /// </summary>
-    public enum TypesBackgroundColor
+    public enum TypeColorBackground
     {
         Default = 0,
         Primary = 1,
@@ -18,36 +18,36 @@
         Transparent = 10
     }
 
-    public static class TypesBackgroundColorExtensions
+    public static class TypeColorBackgroundExtensions
     {
         /// <summary>
         /// Umwandlung in eine CSS-Klasse
         /// </summary>
         /// <param name="color">Die Hintergrundfarbe, welches umgewandelt werden soll</param>
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
-        public static string ToClass(this TypesBackgroundColor color)
+        public static string ToClass(this TypeColorBackground color)
         {
             switch (color)
             {
-                case TypesBackgroundColor.Primary:
+                case TypeColorBackground.Primary:
                     return "bg-primary";
-                case TypesBackgroundColor.Secondary:
+                case TypeColorBackground.Secondary:
                     return "bg-secondary";
-                case TypesBackgroundColor.Success:
+                case TypeColorBackground.Success:
                     return "bg-success";
-                case TypesBackgroundColor.Info:
+                case TypeColorBackground.Info:
                     return "bg-info";
-                case TypesBackgroundColor.Warning:
+                case TypeColorBackground.Warning:
                     return "bg-warning";
-                case TypesBackgroundColor.Danger:
+                case TypeColorBackground.Danger:
                     return "bg-danger";
-                case TypesBackgroundColor.Light:
+                case TypeColorBackground.Light:
                     return "bg-light";
-                case TypesBackgroundColor.Dark:
+                case TypeColorBackground.Dark:
                     return "bg-dark";
-                case TypesBackgroundColor.White:
+                case TypeColorBackground.White:
                     return "bg-white";
-                case TypesBackgroundColor.Transparent:
+                case TypeColorBackground.Transparent:
                     return "bg-transparent";
             }
 

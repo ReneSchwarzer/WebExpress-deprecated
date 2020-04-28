@@ -107,7 +107,7 @@ namespace WebExpress.UI.Controls
             ID = id;
 
             HorizontalAlignment = TypesHorizontalAlignment.Default;
-            BackgroundColor = new PropertyColorBackground(TypesBackgroundColor.Default);
+            BackgroundColor = new PropertyColorBackground(TypeColorBackground.Default);
             Padding = new PropertySpacingPadding(PropertySpacing.Space.None);
             Margin = new PropertySpacingMargin(PropertySpacing.Space.None);
 

@@ -1,14 +1,14 @@
 ﻿namespace WebExpress.UI.Controls
 {
-    public class PropertyColorBackground : PropertyColor
+    public class PropertyColorBackground : PropertyColor<TypeColorBackground>
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="color">Die Farbe</param>
-        public PropertyColorBackground(TypesBackgroundColor color)
+        public PropertyColorBackground(TypeColorBackground color)
         {
-            Value = (Color)color;
+            SystemColor = color;
         }
 
         /// <summary>
@@ -17,8 +17,8 @@
         /// <param name="color">Die Farbe</param>
         public PropertyColorBackground(string color)
         {
-            Value = Color.User;
-            UserValue = color;
+            SystemColor = (TypeColorBackground)TypeColor.User;
+            UserColor = color;
         }
 
         /// <summary>
@@ -27,7 +27,12 @@
         /// <returns>Die zur Farbe gehörende CSS-KLasse</returns>
         public override string ToClass()
         {
-            return ToClass("bg");
+            if ((TypeColor)SystemColor != TypeColor.Default && (TypeColor)SystemColor != TypeColor.User)
+            {
+                return SystemColor.ToClass();
+            }
+            
+            return null;
         }
 
         /// <summary>
@@ -36,7 +41,13 @@
         /// <returns>Der zur Farbe gehörende CSS-Style</returns>
         public override string ToStyle()
         {
-            return ToStyle("background");
+            if ((TypeColor)SystemColor == TypeColor.User)
+            {
+                return "background:" + UserColor;
+            }
+
+            return null;
         }
+
     }
 }

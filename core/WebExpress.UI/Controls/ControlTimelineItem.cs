@@ -126,7 +126,7 @@ namespace WebExpress.UI.Controls
                 Text = timespan,
                 Tooltip = "Am " + Timestamp.ToShortDateString() + " um " + Timestamp.ToShortTimeString() + " Uhr",
                 Format = TypesTextFormat.Span,
-                Color = new PropertyColorText(TypesTextColor.Muted)
+                Color = new PropertyColorText(TypeColorText.Muted)
             };
 
             var headerText = new HtmlElementTextContentP
@@ -134,7 +134,7 @@ namespace WebExpress.UI.Controls
                 new ControlText(Page)
                 {
                     Text = Action,
-                    Color = new PropertyColorText(TypesTextColor.Info),
+                    Color = new PropertyColorText(TypeColorText.Info),
                     Format = TypesTextFormat.Span
                 }.ToHtml(),
                 date.ToHtml()
@@ -147,7 +147,7 @@ namespace WebExpress.UI.Controls
                 HorizontalAlignment = TypesHorizontalAlignment.Right,
                 Size = TypesSize.Small
             };
-            setting.Add(new ControlLink(Page) { Text = "Löschen", Icon = Icon.TrashAlt, Color = TypesTextColor.Danger, Uri = Page.Uri });
+            setting.Add(new ControlLink(Page) { Text = "Löschen", Icon = Icon.TrashAlt, Color = TypeColorText.Danger, Uri = Page.Uri });
 
             var header = new HtmlElementTextContentDiv(setting.ToHtml(), profile.ToHtml(), headerText)
             {
@@ -170,7 +170,7 @@ namespace WebExpress.UI.Controls
                 Size = TypesSize.Small,
                 Layout = TypesLayoutButton.Light,
                 Outline = true,
-                Color = new PropertyColorText(TypesTextColor.Primary)
+                Color = new PropertyColorText(TypeColorText.Primary)
             };
 
             var option = new HtmlElementTextContentDiv(like.ToHtml())

@@ -11,12 +11,12 @@ namespace WebExpress.UI.Controls
     public class ControlAlert : Control
     {
         /// <summary>
-        /// Liefert oder setzt das Layout
+        /// Die Hintergrundfarbe
         /// </summary>
-        private TypesLayoutAlert Layout
+        public new PropertyColorBackgroundAlert BackgroundColor
         {
-            get => (TypesLayoutAlert)GetProperty(TypesLayoutAlert.Default);
-            set => SetProperty(value, () => value.ToClass());
+            get => (PropertyColorBackgroundAlert)GetPropertyObject();
+            set => SetProperty(value, () => value?.ToClass(), () => value?.ToStyle());
         }
 
         /// <summary>
@@ -84,33 +84,6 @@ namespace WebExpress.UI.Controls
             button.AddUserAttribute("data-dismiss", "alert");
             button.AddUserAttribute("aria-label", "close");
             button.AddUserAttribute("aria-hidden", "true");
-
-            if (Enum.TryParse(typeof(TypesLayoutAlert), BackgroundColor.Value.ToString(), out object result))
-            {
-                Layout = (TypesLayoutAlert)result;
-
-                // Hintergrundfarbe entfernen
-                var bgColor = BackgroundColor;
-                BackgroundColor = new PropertyColorBackground(TypesBackgroundColor.Default);
-
-                var html = new HtmlElementTextContentDiv
-                (
-                    !string.IsNullOrWhiteSpace(Head) ? head : null,
-                    new HtmlText(Text),
-                    Dismissible != TypesDismissibleAlert.None ? button : null
-                )
-                {
-                    ID = ID,
-                    Class = Css.Concatenate("alert", GetClasses()),
-                    Style = GetStyles(),
-                    Role = "alert"
-                };
-
-                // Hintergrundfarbe wiederherstellen
-                BackgroundColor = bgColor;
-
-                return html;
-            }
 
             return new HtmlElementTextContentDiv
             (

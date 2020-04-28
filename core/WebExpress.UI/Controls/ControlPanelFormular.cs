@@ -147,7 +147,7 @@ namespace WebExpress.UI.Controls
                 Text = "Abbrechen",
                 Icon = Icon.Times,
                 Layout = TypesLayoutButton.Danger,
-                Color = new PropertyColorText(TypesTextColor.White),
+                Color = new PropertyColorText(TypeColorText.White),
                 HorizontalAlignment = TypesHorizontalAlignment.Right,
                 Uri = Uri
             };
@@ -218,18 +218,18 @@ namespace WebExpress.UI.Controls
 
             foreach (var v in ValidationResults)
             {
-                var bgColor = new PropertyColorBackground(TypesBackgroundColor.Default);
+                var bgColor = new PropertyColorBackgroundAlert(TypeColorBackground.Default);
 
                 switch (v.Type)
                 {
                     case TypesInputValidity.Error:
-                        bgColor = new PropertyColorBackground(TypesBackgroundColor.Danger);
+                        bgColor = new PropertyColorBackgroundAlert(TypeColorBackground.Danger);
                         break;
                     case TypesInputValidity.Warning:
-                        bgColor = new PropertyColorBackground(TypesBackgroundColor.Warning);
+                        bgColor = new PropertyColorBackgroundAlert(TypeColorBackground.Warning);
                         break;
                     case TypesInputValidity.Success:
-                        bgColor = new PropertyColorBackground(TypesBackgroundColor.Success);
+                        bgColor = new PropertyColorBackgroundAlert(TypeColorBackground.Success);
                         break;
                 }
 

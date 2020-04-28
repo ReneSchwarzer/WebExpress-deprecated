@@ -109,7 +109,7 @@ namespace WebExpress.UI.Controls
                 Text = timespan,
                 Tooltip = "Am " + Timestamp.ToShortDateString() + " um " + Timestamp.ToShortTimeString() + " Uhr",
                 Format = TypesTextFormat.Span,
-                Color = new PropertyColorText(TypesTextColor.Muted)
+                Color = new PropertyColorText(TypeColorText.Muted)
             };
 
             var header = new HtmlElementTextContentDiv(profile.ToHtml(), date.ToHtml())
@@ -132,7 +132,7 @@ namespace WebExpress.UI.Controls
                 Size = TypesSize.Small,
                 Layout = TypesLayoutButton.Light,
                 Outline = true,
-                Color = new PropertyColorText(TypesTextColor.Primary)
+                Color = new PropertyColorText(TypeColorText.Primary)
             };
 
             var option = new HtmlElementTextContentDiv(like.ToHtml())

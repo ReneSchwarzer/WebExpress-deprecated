@@ -3,7 +3,7 @@
     /// <summary>
     /// Die Standardtextfarben
     /// </summary>
-    public enum TypesTextColor
+    public enum TypeColorText
     {
         Default = 0,
         Primary = 1,
@@ -17,34 +17,34 @@
         Muted = 11
     }
 
-    public static class TypesTextColorExtensions
+    public static class TypeColorTextExtensions
     {
         /// <summary>
         /// Umwandlung in eine CSS-Klasse
         /// </summary>
         /// <param name="color">Die Farbe, welches umgewandelt werden soll</param>
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
-        public static string ToClass(this TypesTextColor color)
+        public static string ToClass(this TypeColorText color)
         {
             switch (color)
             {
-                case TypesTextColor.Muted:
+                case TypeColorText.Muted:
                     return "text-muted";
-                case TypesTextColor.Primary:
+                case TypeColorText.Primary:
                     return "text-primary";
-                case TypesTextColor.Success:
+                case TypeColorText.Success:
                     return "text-success";
-                case TypesTextColor.Info:
+                case TypeColorText.Info:
                     return "text-info";
-                case TypesTextColor.Warning:
+                case TypeColorText.Warning:
                     return "text-warning";
-                case TypesTextColor.Danger:
+                case TypeColorText.Danger:
                     return "text-danger";
-                case TypesTextColor.Light:
+                case TypeColorText.Light:
                     return "text-light";
-                case TypesTextColor.Dark:
+                case TypeColorText.Dark:
                     return "text-dark";
-                case TypesTextColor.White:
+                case TypeColorText.White:
                     return "text-white";
             }
 
