@@ -8,6 +8,25 @@ namespace WebExpress.UI.Controls
     public class ControlLine : Control
     {
         /// <summary>
+        /// Liefert oder setzt die Farbe des Textes
+        /// </summary>
+        public new PropertyColorText TextColor { get; private set; }
+
+        /// <summary>
+        /// Die Hintergrundfarbe
+        /// </summary>
+        public new PropertyColorBackground BackgroundColor { get; private set; }
+
+        /// <summary>
+        /// Liefert oder setzt die Farbe
+        /// </summary>
+        public PropertyColorLine Color
+        {
+            get => (PropertyColorLine)GetPropertyObject();
+            set => SetProperty(value, () => value?.ToClass(), () => value?.ToStyle());
+        }
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="page">Die zugehörige Seite</param>

@@ -20,7 +20,7 @@ namespace WebExpress.UI.Controls
         }
 
         /// <summary>
-        /// Liefert oder setzt die Farbe des Textes
+        /// Liefert oder setzt die Farbe des Balkens
         /// </summary>
         public PropertyColorProgress Color { get; set; }
 
