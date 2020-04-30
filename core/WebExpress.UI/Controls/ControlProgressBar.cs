@@ -13,9 +13,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt die Größe
         /// </summary>
-        public TypesSizeProgress Size
+        public TypeSizeProgress Size
         {
-            get => (TypesSizeProgress)GetProperty(TypesSize.Default);
+            get => (TypeSizeProgress)GetProperty(TypeSizeButton.Default);
             set => SetProperty(value, () => value.ToClass(), () => value.ToStyle());
         }
 

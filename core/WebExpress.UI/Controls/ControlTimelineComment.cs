@@ -129,7 +129,7 @@ namespace WebExpress.UI.Controls
                 Icon = TypeIcon.ThumbsUp,
                 Text = likeText,
                 Uri = Page.Uri,
-                Size = TypesSize.Small,
+                Size = TypeSizeButton.Small,
                 Layout = TypesLayoutButton.Light,
                 Outline = true,
                 Color = new PropertyColorText(TypeColorText.Primary)

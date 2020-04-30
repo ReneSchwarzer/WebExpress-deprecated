@@ -15,9 +15,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt die Größe des Textes
         /// </summary>
-        public TypesSize Size
+        public TypeSizeButton Size
         {
-            get => (TypesSize)GetProperty(TypesSize.Default);
+            get => (TypeSizeButton)GetProperty(TypeSizeButton.Default);
             set => SetProperty(value, () => value.ToClass());
         }
 

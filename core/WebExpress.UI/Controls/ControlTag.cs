@@ -162,7 +162,7 @@ namespace WebExpress.UI.Controls
                     )
                 )
                 {
-                    Class = HorizontalAlignment == TypesHorizontalAlignment.Right ? "dropdown-menu dropdown-menu-right" : "dropdown-menu"
+                    Class = HorizontalAlignment == TypeHorizontalAlignment.Right ? "dropdown-menu dropdown-menu-right" : "dropdown-menu"
                 }
             );
 

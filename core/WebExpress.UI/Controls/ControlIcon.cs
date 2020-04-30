@@ -23,6 +23,24 @@ namespace WebExpress.UI.Controls
         public string Title { get; set; }
 
         /// <summary>
+        /// Die vertikale Ausrichtung
+        /// </summary>
+        public TypeVerticalAlignment VerticalAlignment
+        {
+            get => (TypeVerticalAlignment)GetProperty(TypeVerticalAlignment.Default);
+            set => SetProperty(value, () => value.ToClass());
+        }
+
+        /// <summary>
+        /// Liefert oder setzt die Größe
+        /// </summary>
+        public PropertySizeText Size
+        {
+            get => (PropertySizeText)GetPropertyObject();
+            set => SetProperty(value, () => value?.ToClass(), () => value?.ToStyle());
+        }
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="page">Die zugehörige Seite</param>
@@ -47,7 +65,7 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            if (Icon.SystemIcon == TypeIcon.UserIcon)
+            if (Icon.IsUserIcon)
             {
                 return new HtmlElementMultimediaImg()
                 {

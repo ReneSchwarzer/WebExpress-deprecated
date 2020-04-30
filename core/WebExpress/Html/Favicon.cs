@@ -10,14 +10,14 @@
         /// <summary>
         /// Liefert oder setzt den Mediatyp
         /// </summary>
-        public TypesFavicon Mediatype { get; set; }
+        public TypeFavicon Mediatype { get; set; }
 
         /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="url">Die URL</param>
         /// <param name="mediatype">Den Mediatyp</param>
-        public Favicon(string url, TypesFavicon mediatype)
+        public Favicon(string url, TypeFavicon mediatype)
         {
             Url = url;
             Mediatype = mediatype;
@@ -35,16 +35,16 @@
             switch (mediatype)
             {
                 case "image/x-icon":
-                    Mediatype = TypesFavicon.ICON;
+                    Mediatype = TypeFavicon.ICON;
                     break;
                 case "image/jpg":
-                    Mediatype = TypesFavicon.JPG;
+                    Mediatype = TypeFavicon.JPG;
                     break;
                 case "image/png":
-                    Mediatype = TypesFavicon.PNG;
+                    Mediatype = TypeFavicon.PNG;
                     break;
                 case "image/svg+xml":
-                    Mediatype = TypesFavicon.SVG;
+                    Mediatype = TypeFavicon.SVG;
                     break;
             }
         }
@@ -57,13 +57,13 @@
         {
             switch (Mediatype)
             {
-                case TypesFavicon.ICON:
+                case TypeFavicon.ICON:
                     return "image/x-icon";
-                case TypesFavicon.JPG:
+                case TypeFavicon.JPG:
                     return "image/jpg";
-                case TypesFavicon.PNG:
+                case TypeFavicon.PNG:
                     return "image/png";
-                case TypesFavicon.SVG:
+                case TypeFavicon.SVG:
                     return "image/svg+xml";
             }
 

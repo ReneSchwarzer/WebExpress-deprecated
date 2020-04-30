@@ -3,23 +3,23 @@
     /// <summary>
     /// Die Größenmöglichkeiten
     /// </summary>
-    public enum TypesSizeProgress
+    public enum TypeSizeText
     {
-        Default,
-        ExtraSmall,
-        Small,
-        Large,
-        ExtraLarge
+        Default = 0,
+        ExtraSmall = 1,
+        Small = 2,
+        Large = 3,
+        ExtraLarge = 4
     }
 
-    public static class TypesSizeProgressExtensions
+    public static class TypesSizeTextExtensions
     {
         /// <summary>
         /// Umwandlung in eine CSS-Klasse
         /// </summary>
         /// <param name="size">Die Größe, welches umgewandelt werden soll</param>
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
-        public static string ToClass(this TypesSizeProgress size)
+        public static string ToClass(this TypeSizeText size)
         {
             return string.Empty;
         }
@@ -29,18 +29,18 @@
         /// </summary>
         /// <param name="size">Die Größe, welches umgewandelt werden soll</param>
         /// <returns>Der zur Größe gehörende CSS-Style</returns>
-        public static string ToStyle(this TypesSizeProgress size)
+        public static string ToStyle(this TypeSizeText size)
         {
             switch (size)
             {
-                case TypesSizeProgress.ExtraLarge:
-                    return "height:40px;";
-                case TypesSizeProgress.Large:
-                    return "height:27px;";
-                case TypesSizeProgress.Small:
-                    return "height:10px;";
-                case TypesSizeProgress.ExtraSmall:
-                    return "height:2px;";
+                case TypeSizeText.ExtraLarge:
+                    return "font-size:2rem;";
+                case TypeSizeText.Large:
+                    return "font-size:1.5rem;";
+                case TypeSizeText.Small:
+                    return "font-size:0.5rem;";
+                case TypeSizeText.ExtraSmall:
+                    return "font-size:0.25rem;";
             }
 
             return string.Empty;

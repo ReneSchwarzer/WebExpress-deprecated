@@ -1,6 +1,6 @@
 ﻿namespace WebExpress.Html
 {
-    public enum TypesFavicon
+    public enum TypeFavicon
     {
         ICON,
         PNG,

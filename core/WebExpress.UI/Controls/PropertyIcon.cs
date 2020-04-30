@@ -29,7 +29,7 @@ namespace WebExpress.UI.Controls
         /// <param name="icon">Das benutzerdefinierte Icon</param>
         public PropertyIcon(IUri icon)
         {
-            SystemIcon = TypeIcon.UserIcon;
+            SystemIcon = TypeIcon.None;
             UserIcon = icon;
         }
 
@@ -39,7 +39,7 @@ namespace WebExpress.UI.Controls
         /// <returns>Die zur Farbe gehörende CSS-KLasse</returns>
         public virtual string ToClass()
         {
-            if (SystemIcon != TypeIcon.None && SystemIcon != TypeIcon.UserIcon)
+            if (SystemIcon != TypeIcon.None)
             {
                 return SystemIcon.ToClass();
             }
@@ -56,5 +56,16 @@ namespace WebExpress.UI.Controls
             return null;
         }
 
+        /// <summary>
+        /// Prüft ob ein Icon gesetzt ist
+        /// </summary>
+        /// <returns>True wenn ein Icon gesetzt ist, false sonst</returns>
+        public virtual bool HasIcon => SystemIcon != TypeIcon.None || UserIcon != null;
+
+        /// <summary>
+        /// Prüft ob ein benutzerdefiniertes Icon gesetzt ist
+        /// </summary>
+        /// <returns>True wenn ein benutzerdefiniertes Icon gesetzt ist, false sonst</returns>
+        public virtual bool IsUserIcon => UserIcon != null;
     }
 }

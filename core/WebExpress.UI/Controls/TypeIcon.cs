@@ -48,8 +48,7 @@
         Truck,
         ThumbsUp,
         Undo,
-        Upload,
-        UserIcon
+        Upload
     }
 
 

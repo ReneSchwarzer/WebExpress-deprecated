@@ -13,9 +13,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Die horizontale Anordnung
         /// </summary>
-        public TypesHorizontalAlignment HorizontalAlignment
+        public TypeHorizontalAlignment HorizontalAlignment
         {
-            get => (TypesHorizontalAlignment)GetProperty(TypesHorizontalAlignment.Default);
+            get => (TypeHorizontalAlignment)GetProperty(TypeHorizontalAlignment.Default);
             set => SetProperty(value, () => value.ToClass());
         }
 
@@ -106,7 +106,7 @@ namespace WebExpress.UI.Controls
             Page = page;
             ID = id;
 
-            HorizontalAlignment = TypesHorizontalAlignment.Default;
+            HorizontalAlignment = TypeHorizontalAlignment.Default;
             BackgroundColor = new PropertyColorBackground(TypeColorBackground.Default);
             Padding = new PropertySpacingPadding(PropertySpacing.Space.None);
             Margin = new PropertySpacingMargin(PropertySpacing.Space.None);

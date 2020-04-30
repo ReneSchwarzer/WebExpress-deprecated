@@ -15,7 +15,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt die Größe
         /// </summary>
-        public TypesSize Size { get; set; }
+        public TypeSizeButton Size { get; set; }
 
         /// <summary>
         /// Liefert oder setzt doe Outline-Eigenschaft
@@ -144,7 +144,7 @@ namespace WebExpress.UI.Controls
         private void Init()
         {
             Disabled = false;
-            Size = TypesSize.Default;
+            Size = TypeSizeButton.Default;
             ClassButton = "";
             Items = new List<Control>();
         }
@@ -249,7 +249,7 @@ namespace WebExpress.UI.Controls
                     )
                 )
                 {
-                    Class = HorizontalAlignment == TypesHorizontalAlignment.Right ? "dropdown-menu dropdown-menu-right" : "dropdown-menu"
+                    Class = HorizontalAlignment == TypeHorizontalAlignment.Right ? "dropdown-menu dropdown-menu-right" : "dropdown-menu"
                 }
             );
 

@@ -94,7 +94,7 @@ namespace WebExpress.UI.Controls
         private void Init()
         {
             Disabled = false;
-            Size = TypesSize.Default;
+            Size = TypeSizeButton.Default;
             Role = "button";
             ClassButton = "";
         }
@@ -201,11 +201,11 @@ namespace WebExpress.UI.Controls
 
             switch (Size)
             {
-                case TypesSize.Large:
+                case TypeSizeButton.Large:
                     Classes.Add("btn-lg");
                     buttonClasses.Add("btn-lg");
                     break;
-                case TypesSize.Small:
+                case TypeSizeButton.Small:
                     Classes.Add("btn-sm");
                     buttonClasses.Add("btn-sm");
                     break;
@@ -247,7 +247,7 @@ namespace WebExpress.UI.Controls
                 )
             )
             {
-                Class = HorizontalAlignment == TypesHorizontalAlignment.Right ? "dropdown-menu dropdown-menu-right" : "dropdown-menu"
+                Class = HorizontalAlignment == TypeHorizontalAlignment.Right ? "dropdown-menu dropdown-menu-right" : "dropdown-menu"
             };
 
             if (Modal != null)

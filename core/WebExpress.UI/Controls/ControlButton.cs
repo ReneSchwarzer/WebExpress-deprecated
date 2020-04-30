@@ -28,7 +28,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt die Größe
         /// </summary>
-        public TypesSize Size { get; set; }
+        public TypeSizeButton Size { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Outline-Eigenschaft
@@ -87,7 +87,7 @@ namespace WebExpress.UI.Controls
         private void Init()
         {
             Disabled = false;
-            Size = TypesSize.Default;
+            Size = TypeSizeButton.Default;
             Content = new List<Control>();
         }
 

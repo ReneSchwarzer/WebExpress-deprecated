@@ -148,7 +148,7 @@ namespace WebExpress.UI.Controls
                 Icon = TypeIcon.Times,
                 Layout = TypesLayoutButton.Danger,
                 Color = new PropertyColorText(TypeColorText.White),
-                HorizontalAlignment = TypesHorizontalAlignment.Right,
+                HorizontalAlignment = TypeHorizontalAlignment.Right,
                 Uri = Uri
             };
 

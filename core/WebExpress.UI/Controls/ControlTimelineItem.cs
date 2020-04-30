@@ -142,12 +142,18 @@ namespace WebExpress.UI.Controls
 
             var setting = new ControlDropdownMenu(Page)
             {
-                Icon = TypeIcon.Cog,
+                //Icon = new PropertyIcon(TypeIcon.Cog),
                 Layout = TypesLayoutButton.Light,
-                HorizontalAlignment = TypesHorizontalAlignment.Right,
-                Size = TypesSize.Small
+                HorizontalAlignment = TypeHorizontalAlignment.Right,
+                Size = TypeSizeButton.Small
             };
-            setting.Add(new ControlLink(Page) { Text = "Löschen", Icon = TypeIcon.TrashAlt, Color = TypeColorText.Danger, Uri = Page.Uri });
+            setting.Add(new ControlLink(Page) 
+            { 
+                Text = "Löschen", 
+                Icon = new PropertyIcon(TypeIcon.TrashAlt), 
+                TextColor = new PropertyColorText(TypeColorText.Danger), 
+                Uri = Page.Uri 
+            });
 
             var header = new HtmlElementTextContentDiv(setting.ToHtml(), profile.ToHtml(), headerText)
             {
@@ -167,7 +173,7 @@ namespace WebExpress.UI.Controls
                 Icon = TypeIcon.ThumbsUp,
                 Text = likeText,
                 Uri = Page.Uri,
-                Size = TypesSize.Small,
+                Size = TypeSizeButton.Small,
                 Layout = TypesLayoutButton.Light,
                 Outline = true,
                 Color = new PropertyColorText(TypeColorText.Primary)
@@ -191,8 +197,8 @@ namespace WebExpress.UI.Controls
             form.SubmitButton.Icon = "fas fa-paper-plane";
             form.SubmitButton.Text = "Antworten";
             form.SubmitButton.Outline = true;
-            form.SubmitButton.Size = TypesSize.Small;
-            form.SubmitButton.HorizontalAlignment = TypesHorizontalAlignment.Default;
+            form.SubmitButton.Size = TypeSizeButton.Small;
+            form.SubmitButton.HorizontalAlignment = TypeHorizontalAlignment.Default;
 
             form.Add(new ControlFormularItemTextBox(form) { Format = TypesEditTextFormat.Multiline, Placeholder = "Kommentieren..." });
 

@@ -19,15 +19,6 @@ namespace WebExpress.UI.Controls
         }
 
         /// <summary>
-        /// Liefert oder setzt das Layout
-        /// </summary>
-        private TypeColorBackgroundBadge Layout
-        {
-            get => (TypeColorBackgroundBadge)GetProperty(TypeColorBackgroundBadge.Default);
-            set => SetProperty(value, () => value.ToClass());
-        }
-
-        /// <summary>
         /// Liefert oder setzt ob abgerundete Ecken verwendet werden soll
         /// </summary>
         public TypesBadgePill Pill
@@ -47,6 +38,24 @@ namespace WebExpress.UI.Controls
         public string Value { get; set; }
 
         /// <summary>
+        /// Die vertikale Ausrichtung
+        /// </summary>
+        public TypeVerticalAlignment VerticalAlignment
+        {
+            get => (TypeVerticalAlignment)GetProperty(TypeVerticalAlignment.Default);
+            set => SetProperty(value, () => value.ToClass());
+        }
+
+        /// <summary>
+        /// Liefert oder setzt die Größe
+        /// </summary>
+        public PropertySizeText Size
+        {
+            get => (PropertySizeText)GetPropertyObject();
+            set => SetProperty(value, () => value?.ToClass(), () => value?.ToStyle());
+        }
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="page">Die zugehörige Seite</param>
@@ -62,13 +71,11 @@ namespace WebExpress.UI.Controls
         /// </summary>
         /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        /// <param name="text">Der Text</param>
-        /// <param name="layout">Das Layout</param>
-        public ControlBadge(IPage page, string id, string value, TypeColorBackgroundBadge layout = TypeColorBackgroundBadge.Default)
+        /// <param name="value">Der Wert</param>
+        public ControlBadge(IPage page, string id, string value)
             : base(page, id)
         {
             Value = value;
-            Layout = layout;
 
             Init();
         }
@@ -78,13 +85,11 @@ namespace WebExpress.UI.Controls
         /// </summary>
         /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        /// <param name="text">Der Text</param>
-        /// <param name="layout">Das Layout</param>
-        public ControlBadge(IPage page, string id, int value, TypeColorBackgroundBadge layout = TypeColorBackgroundBadge.Default)
+        /// <param name="value">Der Wert</param>
+        public ControlBadge(IPage page, string id, int value)
             : base(page, id)
         {
             Value = value.ToString();
-            Layout = layout;
 
             Init();
         }

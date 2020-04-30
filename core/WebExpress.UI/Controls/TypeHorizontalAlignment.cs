@@ -3,7 +3,7 @@
     /// <summary>
     /// Die horizontale Anordnung
     /// </summary>
-    public enum TypesHorizontalAlignment
+    public enum TypeHorizontalAlignment
     {
         Default,
         Left,
@@ -17,13 +17,13 @@
         /// </summary>
         /// <param name="alignment">Die Ausrichtung, welches umgewandelt werden soll</param>
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
-        public static string ToClass(this TypesHorizontalAlignment alignment)
+        public static string ToClass(this TypeHorizontalAlignment alignment)
         {
             switch (alignment)
             {
-                case TypesHorizontalAlignment.Left:
+                case TypeHorizontalAlignment.Left:
                     return "float-left";
-                case TypesHorizontalAlignment.Right:
+                case TypeHorizontalAlignment.Right:
                     return "float-right";
             }
 

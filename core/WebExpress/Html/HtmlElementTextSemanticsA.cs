@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace WebExpress.Html
@@ -23,12 +24,21 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Liefert oder setzt den ToolTip
+        /// Liefert oder setzt den alternativen Text
         /// </summary>
         public string Alt
         {
             get => GetAttribute("alt");
             set => SetAttribute("alt", value);
+        }
+        
+        /// <summary>
+        /// Liefert oder setzt den Tooltip
+        /// </summary>
+        public string Title
+        {
+            get => GetAttribute("title");
+            set => SetAttribute("title", value);
         }
 
         /// <summary>
@@ -43,10 +53,10 @@ namespace WebExpress.Html
         /// <summary>
         /// Liefert oder setzt das Ziel
         /// </summary>
-        public string Target
+        public TypeTarget Target
         {
-            get => GetAttribute("target");
-            set => SetAttribute("target", value);
+            get => (TypeTarget)Enum.Parse(typeof(TypeTarget), GetAttribute("target"));
+            set => SetAttribute("target", value.ToStringValue());
         }
 
         /// <summary>

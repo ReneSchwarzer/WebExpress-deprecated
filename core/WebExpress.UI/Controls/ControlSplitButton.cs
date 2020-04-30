@@ -53,7 +53,7 @@ namespace WebExpress.UI.Controls
         private void Init()
         {
             Disabled = false;
-            Size = TypesSize.Default;
+            Size = TypeSizeButton.Default;
             Items = new List<Control>();
         }
 
@@ -133,10 +133,10 @@ namespace WebExpress.UI.Controls
 
             switch (Size)
             {
-                case TypesSize.Large:
+                case TypeSizeButton.Large:
                     buttonClasses.Add("btn-lg");
                     break;
-                case TypesSize.Small:
+                case TypeSizeButton.Small:
                     buttonClasses.Add("btn-sm");
                     break;
             }
@@ -169,7 +169,7 @@ namespace WebExpress.UI.Controls
                 )
             )
             {
-                Class = HorizontalAlignment == TypesHorizontalAlignment.Right ? "dropdown-menu dropdown-menu-right" : "dropdown-menu"
+                Class = HorizontalAlignment == TypeHorizontalAlignment.Right ? "dropdown-menu dropdown-menu-right" : "dropdown-menu"
             };
 
             return new HtmlElementTextContentDiv(html, dropdownButton, dropdownElements)

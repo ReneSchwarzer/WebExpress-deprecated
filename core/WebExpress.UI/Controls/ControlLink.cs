@@ -9,15 +9,6 @@ namespace WebExpress.UI.Controls
     public class ControlLink : Control
     {
         /// <summary>
-        /// Liefert oder setzt das Format des Textes
-        /// </summary>
-        public TypeColorText Color
-        {
-            get => (TypeColorText)GetProperty();
-            set => SetProperty(value, () => value.ToClass());
-        }
-
-        /// <summary>
         /// Liefert oder setzt ob der Link aktiv ist
         /// </summary>
         public TypesActive Active
@@ -34,7 +25,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt den ToolTip
         /// </summary>
-        public string Alt { get; set; }
+        public string Title { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Ziel-Uri
@@ -44,7 +35,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt das Ziel
         /// </summary>
-        public string Target { get; set; }
+        public TypeTarget Target { get; set; }
 
         /// <summary>
         /// Liefert oder setzt einen modalen Dialag
@@ -64,12 +55,30 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt das Icon
         /// </summary>
-        public TypeIcon Icon { get; set; }
+        public PropertyIcon Icon { get; set; }
 
         /// <summary>
         /// Liefert oder setzt einen Tooltiptext
         /// </summary>
         public string Tooltip { get; set; }
+
+        /// <summary>
+        /// Die vertikale Ausrichtung
+        /// </summary>
+        public TypeVerticalAlignment VerticalAlignment
+        {
+            get => (TypeVerticalAlignment)GetProperty(TypeVerticalAlignment.Default);
+            set => SetProperty(value, () => value.ToClass());
+        }
+
+        /// <summary>
+        /// Liefert oder setzt die Größe
+        /// </summary>
+        public PropertySizeText Size
+        {
+            get => (PropertySizeText)GetPropertyObject();
+            set => SetProperty(value, () => value?.ToClass(), () => value?.ToStyle());
+        }
 
         /// <summary>
         /// Konstruktor
@@ -124,7 +133,6 @@ namespace WebExpress.UI.Controls
         /// </summary>
         private void Init()
         {
-            Icon = TypeIcon.None;
             Content = new List<Control>();
             Params = new List<Parameter>();
         }
@@ -209,28 +217,28 @@ namespace WebExpress.UI.Controls
             {
                 ID = ID,
                 Class = GetClasses(),
-                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Style = GetStyles(),
                 Role = Role,
-                Alt = Alt,
                 Href = Uri?.ToString() + (param.Length > 0 ? "?" + param : string.Empty),
                 Target = Target,
+                Title = Title,
                 OnClick = OnClick
             };
 
-            if (Icon != TypeIcon.None && !string.IsNullOrWhiteSpace(Text))
+            if (Icon != null && Icon.HasIcon)
             {
-                html.Elements.Add(new ControlIcon(Page) 
-                { 
-                    Icon = new PropertyIcon(Icon)
+                html.Elements.Add(new ControlIcon(Page)
+                {
+                    Icon = Icon,
+                    Margin = !string.IsNullOrWhiteSpace(Text) ? new PropertySpacingMargin
+                    (
+                        PropertySpacing.Space.None,
+                        PropertySpacing.Space.Two,
+                        PropertySpacing.Space.None,
+                        PropertySpacing.Space.None
+                    ) : new PropertySpacingMargin(PropertySpacing.Space.None),
+                    VerticalAlignment = Icon.IsUserIcon ? TypeVerticalAlignment.TextBottom : TypeVerticalAlignment.Default
                 }.ToHtml());
-
-                html.Elements.Add(new HtmlNbsp());
-                html.Elements.Add(new HtmlNbsp());
-                html.Elements.Add(new HtmlNbsp());
-            }
-            else if (Icon != TypeIcon.None && string.IsNullOrWhiteSpace(Text))
-            {
-                html.AddClass(Icon.ToClass());
             }
 
             if (!string.IsNullOrWhiteSpace(Text))
@@ -249,7 +257,6 @@ namespace WebExpress.UI.Controls
             if (!string.IsNullOrWhiteSpace(Tooltip))
             {
                 html.AddUserAttribute("data-toggle", "tooltip");
-                html.AddUserAttribute("title", Tooltip);
             }
 
             return html;

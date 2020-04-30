@@ -82,6 +82,19 @@ namespace WebExpress.UI.Controls
         }
 
         /// <summary>
+        /// Konstruktor
+        /// </summary>
+        /// <param name="page">Die zugehörige Seite</param>
+        /// <param name="id">Die ID</param>
+        /// <param name="text">Der Text</param>
+        /// <param name="content">Der Inhalt</param>
+        public ControlModal(IPage page, string id = null, params Control [] content)
+            : this(page, id, string.Empty)
+        {
+            Content.AddRange(content);
+        }
+
+        /// <summary>
         /// Initialisierung
         /// </summary>
         private void Init()

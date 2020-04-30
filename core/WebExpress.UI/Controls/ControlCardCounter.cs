@@ -72,7 +72,7 @@ namespace WebExpress.UI.Controls
                 {
                     Icon = new PropertyIcon(Icon), 
                     TextColor = Color, 
-                    HorizontalAlignment = TypesHorizontalAlignment.Right 
+                    HorizontalAlignment = TypeHorizontalAlignment.Right 
                 });
             }
 
@@ -99,7 +99,7 @@ namespace WebExpress.UI.Controls
                     Format = TypeFormatProgress.Striped, 
                     BackgroundColor = BackgroundColor, 
                     //Color = Color,
-                    Size = TypesSizeProgress.Small 
+                    Size = TypeSizeProgress.Small 
                 });
             }
 

@@ -3,7 +3,7 @@
     /// <summary>
     /// Die Größenmöglichkeiten
     /// </summary>
-    public enum TypesSize
+    public enum TypeSizeButton
     {
         Default,
         Small,
@@ -17,14 +17,14 @@
         /// </summary>
         /// <param name="size">Die Größe, welches umgewandelt werden soll</param>
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
-        public static string ToClass(this TypesSize size)
+        public static string ToClass(this TypeSizeButton size)
         {
             switch (size)
             {
-                case TypesSize.Large:
+                case TypeSizeButton.Large:
                     return "btn-lg";
                     break;
-                case TypesSize.Small:
+                case TypeSizeButton.Small:
                     return "btn-sm";
             }
 
