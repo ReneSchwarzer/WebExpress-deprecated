@@ -9,43 +9,43 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt das Layout
         /// </summary>
-        public TypesLayoutTab Layout
+        public TypeLayoutTab Layout
         {
-            get => (TypesLayoutTab)GetProperty(TypesLayoutTab.Default);
+            get => (TypeLayoutTab)GetProperty(TypeLayoutTab.Default);
             set => SetProperty(value, () => value.ToClass());
         }
 
         /// <summary>
         /// Die horizontale Anordnung
         /// </summary>
-        public new TypesTabHorizontalAlignment HorizontalAlignment
+        public new TypeHorizontalAlignmentTab HorizontalAlignment
         {
-            get => (TypesTabHorizontalAlignment)GetProperty(TypesTabHorizontalAlignment.Default);
+            get => (TypeHorizontalAlignmentTab)GetProperty(TypeHorizontalAlignmentTab.Default);
             set => SetProperty(value, () => value.ToClass());
         }
 
         /// <summary>
         /// Liefert oder setzt ob die Tab-Register die gleiche Größe besitzen sollen
         /// </summary>
-        public TypesNavJustified Justified
+        public TypeJustifiedTab Justified
         {
-            get => (TypesNavJustified)GetProperty(TypesNavJustified.Default);
+            get => (TypeJustifiedTab)GetProperty(TypeJustifiedTab.Default);
             set => SetProperty(value, () => value.ToClass());
         }
 
         /// <summary>
         /// Liefert oder setztdie horizontale oder vertikale Ausrichtung
         /// </summary>
-        public TypesNavOrientation Orientation
+        public TypeOrientationTab Orientation
         {
-            get => (TypesNavOrientation)GetProperty(TypesNavOrientation.Default);
+            get => (TypeOrientationTab)GetProperty(TypeOrientationTab.Default);
             set => SetProperty(value, () => value.ToClass());
         }
 
         /// <summary>
         /// Liefert oder setzt die Listeneinträge
         /// </summary>
-        public List<ControlLink> Items { get; private set; }
+        public List<ControlLink> Items { get; private set; } = new List<ControlLink>();
 
         /// <summary>
         /// Konstruktor
@@ -59,11 +59,21 @@ namespace WebExpress.UI.Controls
         }
 
         /// <summary>
+        /// Konstruktor
+        /// </summary>
+        /// <param name="page">Die zugehörige Seite</param>
+        /// <param name="links">Die Linkelemente</param>
+        public ControlTab(IPage page, params ControlLink [] links)
+            : base(page, null)
+        {
+            Items.AddRange(links);
+        }
+
+        /// <summary>
         /// Initialisierung
         /// </summary>
         private void Init()
         {
-            Items = new List<ControlLink>();
         }
 
         /// <summary>

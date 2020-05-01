@@ -11,9 +11,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt ob der Link aktiv ist
         /// </summary>
-        public TypesActive Active
+        public TypeActive Active
         {
-            get => (TypesActive)GetProperty();
+            get => (TypeActive)GetProperty();
             set => SetProperty(value, () => value.ToClass());
         }
 
@@ -101,6 +101,17 @@ namespace WebExpress.UI.Controls
             : this(page, id)
         {
             Text = text;
+        }
+
+        /// <summary>
+        /// Konstruktor
+        /// </summary>
+        /// <param name="page">Die zugehörige Seite</param>
+        /// <param name="content">Der Inhalt</param>
+        public ControlLink(IPage page, params Control[] content)
+            : this(page, (string)null)
+        {
+            Content.AddRange(content);
         }
 
         /// <summary>

@@ -160,14 +160,24 @@ namespace WebExpress.Messages
         /// </summary>
         /// <param name="name">Der Name des Parameters</param>
         /// <returns>Der Wert</returns>
-        public string GetParam(string name)
+        public Parameter GetParam(string name)
         {
             if (HasParam(name))
             {
-                return Param[name.ToLower()].Value;
+                return Param[name.ToLower()];
             }
 
-            return string.Empty;
+            return null;
+        }
+
+        /// <summary>
+        /// Liefert ein Parameter anhand seines Namens
+        /// </summary>
+        /// <param name="name">Der Name des Parameters</param>
+        /// <returns>Der Wert</returns>
+        public string GetParamValue(string name)
+        {
+            return GetParam(name)?.Value;
         }
 
         /// <summary>

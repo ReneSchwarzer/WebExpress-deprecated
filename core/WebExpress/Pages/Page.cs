@@ -145,7 +145,7 @@ namespace WebExpress.Pages
         /// <param name="scope">Der Gültigkeitsbereich des Parameters</param>
         public void AddParam(string name, ParameterScope scope = ParameterScope.Global)
         {
-            AddParam(name, Request.GetParam(name), scope);
+            AddParam(name, Request.GetParamValue(name), scope);
         }
 
         /// <summary>
@@ -216,7 +216,8 @@ namespace WebExpress.Pages
 
             if (Request.HasParam(name))
             {
-                return Request.GetParam(name);
+                var value = Request.GetParamValue(name);
+                return value;
             }
 
             if (Session == null)

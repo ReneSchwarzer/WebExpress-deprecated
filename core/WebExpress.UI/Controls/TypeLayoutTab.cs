@@ -3,7 +3,7 @@
     /// <summary>
     /// Die Layoutmöglichkeiten des Tabulator-Steuerelementes
     /// </summary>
-    public enum TypesLayoutTab
+    public enum TypeLayoutTab
     {
         Default,
         Menu,
@@ -11,20 +11,20 @@
         Pill
     }
 
-    public static class TypesLayoutTabExtensions
+    public static class TypeLayoutTabExtensions
     {
         /// <summary>
         /// Umwandlung in eine CSS-Klasse
         /// </summary>
         /// <param name="layout">Das Layout, welches umgewandelt werden soll</param>
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
-        public static string ToClass(this TypesLayoutTab layout)
+        public static string ToClass(this TypeLayoutTab layout)
         {
             switch (layout)
             {
-                case TypesLayoutTab.Tab:
+                case TypeLayoutTab.Tab:
                     return "nav-tabs";
-                case TypesLayoutTab.Pill:
+                case TypeLayoutTab.Pill:
                     return "nav-pills";
             }
 

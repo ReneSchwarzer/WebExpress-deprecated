@@ -1,24 +1,24 @@
 ﻿namespace WebExpress.UI.Controls
 {
-    public enum TypesNavJustified
+    public enum TypeDismissibleAlert
     {
-        Default,
-        Justified
+        None,
+        Dismissible
     }
 
-    public static class TypesNavJustifiedExtensions
+    public static class TypeDismissibleAlertExtensions
     {
         /// <summary>
         /// Umwandlung in eine CSS-Klasse
         /// </summary>
         /// <param name="layout">Das Layout, welches umgewandelt werden soll</param>
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
-        public static string ToClass(this TypesNavJustified layout)
+        public static string ToClass(this TypeDismissibleAlert layout)
         {
             switch (layout)
             {
-                case TypesNavJustified.Justified:
-                    return "nav-justified";
+                case TypeDismissibleAlert.Dismissible:
+                    return "alert-dismissible";
             }
 
             return string.Empty;

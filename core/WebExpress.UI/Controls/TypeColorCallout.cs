@@ -1,10 +1,10 @@
 ﻿namespace WebExpress.UI.Controls
 {
-    public enum TypesLayoutCallout
+    public enum TypeColorCallout
     {
         Default = 0,
-        Primary,
-        Secondary,
+        Primary = 1,
+        Secondary = 2,
         Success = 3,
         Info = 4,
         Warning = 5,
@@ -13,32 +13,32 @@
         Light = 8
     }
 
-    public static class TypesLayoutCalloutExtensions
+    public static class TypeColorCalloutExtensions
     {
         /// <summary>
         /// Umwandlung in eine CSS-Klasse
         /// </summary>
         /// <param name="layout">Das Layout, welches umgewandelt werden soll</param>
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
-        public static string ToClass(this TypesLayoutCallout layout)
+        public static string ToClass(this TypeColorCallout layout)
         {
             switch (layout)
             {
-                case TypesLayoutCallout.Primary:
+                case TypeColorCallout.Primary:
                     return "callout-primary";
-                case TypesLayoutCallout.Secondary:
+                case TypeColorCallout.Secondary:
                     return "callout-secondary";
-                case TypesLayoutCallout.Success:
+                case TypeColorCallout.Success:
                     return "callout-success";
-                case TypesLayoutCallout.Info:
+                case TypeColorCallout.Info:
                     return "callout-info";
-                case TypesLayoutCallout.Warning:
+                case TypeColorCallout.Warning:
                     return "callout-warning";
-                case TypesLayoutCallout.Danger:
+                case TypeColorCallout.Danger:
                     return "callout-danger";
-                case TypesLayoutCallout.Light:
+                case TypeColorCallout.Light:
                     return "callout-light";
-                case TypesLayoutCallout.Dark:
+                case TypeColorCallout.Dark:
                     return "callout-dark";
             }
 

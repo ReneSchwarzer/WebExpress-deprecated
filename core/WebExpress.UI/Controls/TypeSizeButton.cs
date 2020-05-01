@@ -10,7 +10,7 @@
         Large
     }
 
-    public static class TypesSizeExtensions
+    public static class TypeSizeButtonExtensions
     {
         /// <summary>
         /// Umwandlung in eine CSS-Klasse
@@ -23,7 +23,6 @@
             {
                 case TypeSizeButton.Large:
                     return "btn-lg";
-                    break;
                 case TypeSizeButton.Small:
                     return "btn-sm";
             }

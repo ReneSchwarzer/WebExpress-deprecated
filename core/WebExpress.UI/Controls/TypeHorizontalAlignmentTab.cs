@@ -3,7 +3,7 @@
     /// <summary>
     /// Die horizontale Anordnung
     /// </summary>
-    public enum TypesTabHorizontalAlignment
+    public enum TypeHorizontalAlignmentTab
     {
         Default,
         Left,
@@ -11,20 +11,20 @@
         Right
     }
 
-    public static class TypesTabHorizontalAlignmentExtensions
+    public static class TypeHorizontalAlignmentTabExtensions
     {
         /// <summary>
         /// Umwandlung in eine CSS-Klasse
         /// </summary>
         /// <param name="alignment">Die Ausrichtung, welches umgewandelt werden soll</param>
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
-        public static string ToClass(this TypesTabHorizontalAlignment alignment)
+        public static string ToClass(this TypeHorizontalAlignmentTab alignment)
         {
             switch (alignment)
             {
-                case TypesTabHorizontalAlignment.Center:
+                case TypeHorizontalAlignmentTab.Center:
                     return "justify-content-center";
-                case TypesTabHorizontalAlignment.Right:
+                case TypeHorizontalAlignmentTab.Right:
                     return "justify-content-end";
             }
 

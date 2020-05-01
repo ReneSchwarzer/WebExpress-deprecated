@@ -237,8 +237,8 @@ namespace WebExpress.UI.Controls
                 {
                     BackgroundColor = bgColor,
                     Text = v.Text,
-                    Dismissible = TypesDismissibleAlert.Dismissible,
-                    Fade = TypesFade.FadeShow
+                    Dismissible = TypeDismissibleAlert.Dismissible,
+                    Fade = TypeFade.FadeShow
                 }.ToHtml());
             }
 

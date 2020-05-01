@@ -1,24 +1,30 @@
 ﻿namespace WebExpress.UI.Controls
 {
-    public enum TypesDismissibleAlert
+    public enum TypeFade
     {
         None,
-        Dismissible
+        FadeIn,
+        FadeOut,
+        FadeShow,
     }
 
-    public static class TypesDismissibleAlertExtensions
+    public static class TypeFadeExtensions
     {
         /// <summary>
         /// Umwandlung in eine CSS-Klasse
         /// </summary>
         /// <param name="layout">Das Layout, welches umgewandelt werden soll</param>
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
-        public static string ToClass(this TypesDismissibleAlert layout)
+        public static string ToClass(this TypeFade layout)
         {
             switch (layout)
             {
-                case TypesDismissibleAlert.Dismissible:
-                    return "alert-dismissible";
+                case TypeFade.FadeIn:
+                    return "fade in";
+                case TypeFade.FadeOut:
+                    return "fade out";
+                case TypeFade.FadeShow:
+                    return "fade show";
             }
 
             return string.Empty;

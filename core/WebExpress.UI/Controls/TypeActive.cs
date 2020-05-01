@@ -1,30 +1,27 @@
 ﻿namespace WebExpress.UI.Controls
 {
-    public enum TypesFade
+    public enum TypeActive
     {
         None,
-        FadeIn,
-        FadeOut,
-        FadeShow,
+        Active,
+        Disabled
     }
 
-    public static class TypesFadeExtensions
+    public static class TypesActiveExtensions
     {
         /// <summary>
         /// Umwandlung in eine CSS-Klasse
         /// </summary>
         /// <param name="layout">Das Layout, welches umgewandelt werden soll</param>
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
-        public static string ToClass(this TypesFade layout)
+        public static string ToClass(this TypeActive layout)
         {
             switch (layout)
             {
-                case TypesFade.FadeIn:
-                    return "fade in";
-                case TypesFade.FadeOut:
-                    return "fade out";
-                case TypesFade.FadeShow:
-                    return "fade show";
+                case TypeActive.Active:
+                    return "active";
+                case TypeActive.Disabled:
+                    return "disabled";
             }
 
             return string.Empty;

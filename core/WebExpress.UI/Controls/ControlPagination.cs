@@ -88,7 +88,7 @@ namespace WebExpress.UI.Controls
                 (
                     new HtmlElementTextContentLi
                     (
-                        new ControlLink(Page, null)
+                        new ControlLink(Page)
                         {
                             Params = Parameter.Create(new Parameter("offset", Offset - 1) { Scope = ParameterScope.Local }),
                             Classes = new List<string>(new[] { "page-link", "fas fa-angle-left" })
@@ -105,7 +105,7 @@ namespace WebExpress.UI.Controls
                 (
                     new HtmlElementTextContentLi
                     (
-                        new ControlLink(Page, null)
+                        new ControlLink(Page)
                         {
                             Params = Parameter.Create(),
                             Classes = new List<string>(new[] { "page-link", "fas fa-angle-left" })
@@ -184,7 +184,7 @@ namespace WebExpress.UI.Controls
                 (
                     new HtmlElementTextContentLi
                     (
-                        new ControlLink(Page, null)
+                        new ControlLink(Page)
                         {
                             Params = Parameter.Create(new Parameter("offset", Offset + 1) { Scope = ParameterScope.Local }),
                             Classes = new List<string>(new[] { "page-link", "fas fa-angle-right" })
@@ -201,7 +201,7 @@ namespace WebExpress.UI.Controls
                 (
                     new HtmlElementTextContentLi
                     (
-                        new ControlLink(Page, null)
+                        new ControlLink(Page)
                         {
                             Params = Parameter.Create(),
                             Classes = new List<string>(new[] { "page-link", "fas fa-angle-right" })

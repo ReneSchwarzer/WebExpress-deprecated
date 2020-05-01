@@ -21,9 +21,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt ob abgerundete Ecken verwendet werden soll
         /// </summary>
-        public TypesBadgePill Pill
+        public TypePillBadge Pill
         {
-            get => (TypesBadgePill)GetProperty(TypesBadgePill.None);
+            get => (TypePillBadge)GetProperty(TypePillBadge.None);
             set => SetProperty(value, () => value.ToClass());
         }
 

@@ -22,18 +22,18 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt ob das Control geschlossen werden kann
         /// </summary>
-        public TypesDismissibleAlert Dismissible
+        public TypeDismissibleAlert Dismissible
         {
-            get => (TypesDismissibleAlert)GetProperty(TypesDismissibleAlert.Dismissible);
+            get => (TypeDismissibleAlert)GetProperty(TypeDismissibleAlert.Dismissible);
             set => SetProperty(value, () => value.ToClass());
         }
         
         /// <summary>
         /// Liefert oder setzt ob der Fadereffekt verwendet werden soll
         /// </summary>
-        public TypesFade Fade 
+        public TypeFade Fade 
         {
-            get => (TypesFade)GetProperty(TypesFade.None);
+            get => (TypeFade)GetProperty(TypeFade.None);
             set => SetProperty(value, () => value.ToClass());
         }
 
@@ -89,7 +89,7 @@ namespace WebExpress.UI.Controls
             (
                 !string.IsNullOrWhiteSpace(Head) ? head : null, 
                 new HtmlText(Text), 
-                Dismissible != TypesDismissibleAlert.None ? button : null
+                Dismissible != TypeDismissibleAlert.None ? button : null
             )
             {
                 ID = ID,

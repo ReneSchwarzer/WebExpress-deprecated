@@ -13,12 +13,12 @@ namespace WebExpress.UI.Controls
         public string Title { get; set; }
 
         /// <summary>
-        /// Das Layout
+        /// Liefert oder setzt die Farbe
         /// </summary>
-        public TypesLayoutCallout Layout
+        public PropertyColorCallout Color
         {
-            get => (TypesLayoutCallout)GetProperty(TypesLayoutCallout.Default);
-            set => SetProperty(value, () => value.ToClass());
+            get => (PropertyColorCallout)GetPropertyObject();
+            set => SetProperty(value, () => value?.ToClass(), () => value?.ToStyle());
         }
 
         /// <summary>

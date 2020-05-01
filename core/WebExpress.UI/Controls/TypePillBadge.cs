@@ -1,25 +1,24 @@
 ﻿namespace WebExpress.UI.Controls
 {
-    public enum TypesNavOrientation
+    public enum TypePillBadge
     {
-        Default,
-        Horizontal,
-        Vertical
+        None,
+        Pill
     }
 
-    public static class TypesNavVerticalExtensions
+    public static class TypePillBadgeExtensions
     {
         /// <summary>
         /// Umwandlung in eine CSS-Klasse
         /// </summary>
         /// <param name="layout">Das Layout, welches umgewandelt werden soll</param>
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
-        public static string ToClass(this TypesNavOrientation layout)
+        public static string ToClass(this TypePillBadge layout)
         {
             switch (layout)
             {
-                case TypesNavOrientation.Vertical:
-                    return "flex-column";
+                case TypePillBadge.Pill:
+                    return "badge-pill";
             }
 
             return string.Empty;
