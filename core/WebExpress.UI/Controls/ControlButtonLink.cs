@@ -39,13 +39,8 @@ namespace WebExpress.UI.Controls
         public override IHtmlNode ToHtml()
         {
             Classes.Add("btn");
-            Classes.Add(Layout.ToClass(Outline));
+            //Classes.Add(Color.ToClass(Outline));
             Classes.Add(Size.ToClass());
-
-            if (Block)
-            {
-                Classes.Add("btn-block");
-            }
 
             var html = new HtmlElementTextSemanticsA()
             {
@@ -56,21 +51,20 @@ namespace WebExpress.UI.Controls
                 Href = Uri?.ToString()
             };
 
-            if (Icon != TypeIcon.None && !string.IsNullOrWhiteSpace(Text))
+            if (Icon != null && Icon.HasIcon)
             {
-                html.Elements.Add(new HtmlElementTextSemanticsSpan()
+                html.Elements.Add(new ControlIcon(Page)
                 {
-                    ID = ID + "_icon",
-                    Class = Icon.ToClass()
-                });
-
-                html.Elements.Add(new HtmlNbsp());
-                html.Elements.Add(new HtmlNbsp());
-                html.Elements.Add(new HtmlNbsp());
-            }
-            else if (Icon != TypeIcon.None && string.IsNullOrWhiteSpace(Text))
-            {
-                html.AddClass(Icon.ToClass());
+                    Icon = Icon,
+                    Margin = !string.IsNullOrWhiteSpace(Text) ? new PropertySpacingMargin
+                    (
+                        PropertySpacing.Space.None,
+                        PropertySpacing.Space.Two,
+                        PropertySpacing.Space.None,
+                        PropertySpacing.Space.None
+                    ) : new PropertySpacingMargin(PropertySpacing.Space.None),
+                    VerticalAlignment = Icon.IsUserIcon ? TypeVerticalAlignment.TextBottom : TypeVerticalAlignment.Default
+                }.ToHtml());
             }
 
             if (!string.IsNullOrWhiteSpace(Text))

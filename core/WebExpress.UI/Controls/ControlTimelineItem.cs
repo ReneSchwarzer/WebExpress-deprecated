@@ -143,7 +143,7 @@ namespace WebExpress.UI.Controls
             var setting = new ControlDropdownMenu(Page)
             {
                 //Icon = new PropertyIcon(TypeIcon.Cog),
-                Layout = TypesLayoutButton.Light,
+                Layout = TypeColorButton.Light,
                 HorizontalAlignment = TypeHorizontalAlignment.Right,
                 Size = TypeSizeButton.Small
             };
@@ -170,13 +170,13 @@ namespace WebExpress.UI.Controls
             var likeText = "Gefällt mir" + (Likes > 0 ? " (" + Likes + ")" : string.Empty);
             var like = new ControlButtonLink(Page)
             {
-                Icon = TypeIcon.ThumbsUp,
+                Icon = new PropertyIcon(TypeIcon.ThumbsUp),
                 Text = likeText,
                 Uri = Page.Uri,
                 Size = TypeSizeButton.Small,
-                Layout = TypesLayoutButton.Light,
+                Color =  new PropertyColorButton(TypeColorButton.Light),
                 Outline = true,
-                Color = new PropertyColorText(TypeColorText.Primary)
+                TextColor = new PropertyColorText(TypeColorText.Primary)
             };
 
             var option = new HtmlElementTextContentDiv(like.ToHtml())

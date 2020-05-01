@@ -130,74 +130,74 @@ namespace WebExpress.UI.Controls
                 "dropdown-toggle"
             };
 
-            if (Outline)
-            {
-                switch (Layout)
-                {
-                    case TypesLayoutButton.Primary:
-                        Classes.Add("btn-outline-primary");
-                        buttonClasses.Add("btn-outline-primary");
-                        break;
-                    case TypesLayoutButton.Success:
-                        Classes.Add("btn-outline-success");
-                        buttonClasses.Add("btn-outline-success");
-                        break;
-                    case TypesLayoutButton.Info:
-                        Classes.Add("btn-outline-info");
-                        buttonClasses.Add("btn-outline-info");
-                        break;
-                    case TypesLayoutButton.Warning:
-                        Classes.Add("btn-outline-warning");
-                        buttonClasses.Add("btn-outline-warning");
-                        break;
-                    case TypesLayoutButton.Danger:
-                        Classes.Add("btn-outline-danger");
-                        buttonClasses.Add("btn-outline-danger");
-                        break;
-                    case TypesLayoutButton.Light:
-                        Classes.Add("btn-outline-light");
-                        buttonClasses.Add("btn-outline-light");
-                        break;
-                    case TypesLayoutButton.Dark:
-                        Classes.Add("btn-outline-dark");
-                        buttonClasses.Add("btn-outline-dark");
-                        break;
-                }
-            }
-            else
-            {
-                switch (Layout)
-                {
-                    case TypesLayoutButton.Primary:
-                        Classes.Add("btn-primary");
-                        buttonClasses.Add("btn-primary");
-                        break;
-                    case TypesLayoutButton.Success:
-                        Classes.Add("btn-success");
-                        buttonClasses.Add("btn-success");
-                        break;
-                    case TypesLayoutButton.Info:
-                        Classes.Add("btn-info");
-                        buttonClasses.Add("btn-info");
-                        break;
-                    case TypesLayoutButton.Warning:
-                        Classes.Add("btn-warning");
-                        buttonClasses.Add("btn-warning");
-                        break;
-                    case TypesLayoutButton.Danger:
-                        Classes.Add("btn-danger");
-                        buttonClasses.Add("btn-danger");
-                        break;
-                    case TypesLayoutButton.Light:
-                        Classes.Add("btn-light");
-                        buttonClasses.Add("btn-light");
-                        break;
-                    case TypesLayoutButton.Dark:
-                        Classes.Add("btn-dark");
-                        buttonClasses.Add("btn-dark");
-                        break;
-                }
-            }
+            //if (Outline)
+            //{
+            //    switch (Color)
+            //    {
+            //        case TypeColorButton.Primary:
+            //            Classes.Add("btn-outline-primary");
+            //            buttonClasses.Add("btn-outline-primary");
+            //            break;
+            //        case TypeColorButton.Success:
+            //            Classes.Add("btn-outline-success");
+            //            buttonClasses.Add("btn-outline-success");
+            //            break;
+            //        case TypeColorButton.Info:
+            //            Classes.Add("btn-outline-info");
+            //            buttonClasses.Add("btn-outline-info");
+            //            break;
+            //        case TypeColorButton.Warning:
+            //            Classes.Add("btn-outline-warning");
+            //            buttonClasses.Add("btn-outline-warning");
+            //            break;
+            //        case TypeColorButton.Danger:
+            //            Classes.Add("btn-outline-danger");
+            //            buttonClasses.Add("btn-outline-danger");
+            //            break;
+            //        case TypeColorButton.Light:
+            //            Classes.Add("btn-outline-light");
+            //            buttonClasses.Add("btn-outline-light");
+            //            break;
+            //        case TypeColorButton.Dark:
+            //            Classes.Add("btn-outline-dark");
+            //            buttonClasses.Add("btn-outline-dark");
+            //            break;
+            //    }
+            //}
+            //else
+            //{
+            //    switch (Color)
+            //    {
+            //        case TypeColorButton.Primary:
+            //            Classes.Add("btn-primary");
+            //            buttonClasses.Add("btn-primary");
+            //            break;
+            //        case TypeColorButton.Success:
+            //            Classes.Add("btn-success");
+            //            buttonClasses.Add("btn-success");
+            //            break;
+            //        case TypeColorButton.Info:
+            //            Classes.Add("btn-info");
+            //            buttonClasses.Add("btn-info");
+            //            break;
+            //        case TypeColorButton.Warning:
+            //            Classes.Add("btn-warning");
+            //            buttonClasses.Add("btn-warning");
+            //            break;
+            //        case TypeColorButton.Danger:
+            //            Classes.Add("btn-danger");
+            //            buttonClasses.Add("btn-danger");
+            //            break;
+            //        case TypeColorButton.Light:
+            //            Classes.Add("btn-light");
+            //            buttonClasses.Add("btn-light");
+            //            break;
+            //        case TypeColorButton.Dark:
+            //            Classes.Add("btn-dark");
+            //            buttonClasses.Add("btn-dark");
+            //            break;
+            //    }
+            //}
 
             switch (Size)
             {

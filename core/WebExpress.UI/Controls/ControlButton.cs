@@ -8,27 +8,27 @@ namespace WebExpress.UI.Controls
     public class ControlButton : Control
     {
         /// <summary>
-        /// Liefert oder setzt das Layout
+        /// Die Hintergrundfarbe
         /// </summary>
-        public TypesLayoutButton Layout
-        {
-            get => (TypesLayoutButton)GetProperty(TypesLayoutButton.Default);
-            set => SetProperty(value, () => value.ToClass(Outline));
-        }
+        public new PropertyColorBackground BackgroundColor { get; private set; }
 
         /// <summary>
-        /// Liefert oder setzt das Format des Textes
+        /// Liefert oder setzt die Farbe der Schaltfläche
         /// </summary>
-        public PropertyColorText Color
+        public PropertyColorButton Color
         {
-            get => (PropertyColorText)GetPropertyObject();
-            set => SetProperty(value, () => value.ToClass(), () => value.ToStyle());
+            get => (PropertyColorButton)GetPropertyObject();
+            set => SetProperty(value, () => value?.ToClass(Outline), () => value?.ToStyle(Outline));
         }
 
         /// <summary>
         /// Liefert oder setzt die Größe
         /// </summary>
-        public TypeSizeButton Size { get; set; }
+        public TypeSizeButton Size
+        {
+            get => (TypeSizeButton)GetProperty(TypeSizeButton.Default);
+            set => SetProperty(value, () => value.ToClass());
+        }
 
         /// <summary>
         /// Liefert oder setzt die Outline-Eigenschaft
@@ -38,7 +38,11 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt ob die Schaltfläche die volle Breite einnehmen soll
         /// </summary>
-        public bool Block { get; set; }
+        public TypeBlockButton Block
+        {
+            get => (TypeBlockButton)GetProperty(TypeBlockButton.None);
+            set => SetProperty(value, () => value.ToClass());
+        }
 
         /// <summary>
         /// Liefert oder setzt ob die Schaltfläche deaktiviert ist
@@ -68,7 +72,16 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt das Icon
         /// </summary>
-        public TypeIcon Icon { get; set; }
+        public PropertyIcon Icon { get; set; }
+
+        /// <summary>
+        /// Liefert oder setzt den Aktivierungsstatus der Schaltfläche
+        /// </summary>
+        public TypeActive Active
+        {
+            get => (TypeActive)GetProperty();
+            set => SetProperty(value, () => value.ToClass());
+        }
 
         /// <summary>
         /// Konstruktor
@@ -97,13 +110,6 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            Classes.Add(Size.ToClass());
-
-            if (Block)
-            {
-                Classes.Add("btn-block");
-            }
-
             var html = new HtmlElementFieldButton()
             {
                 Type = "button",
@@ -114,17 +120,20 @@ namespace WebExpress.UI.Controls
                 Disabled = Disabled
             };
 
-            if (Icon != TypeIcon.None && !string.IsNullOrWhiteSpace(Text))
+            if (Icon != null && Icon.HasIcon)
             {
-                html.Elements.Add(new HtmlElementTextSemanticsSpan() { Class = Icon.ToClass() });
-
-                html.Elements.Add(new HtmlNbsp());
-                html.Elements.Add(new HtmlNbsp());
-                html.Elements.Add(new HtmlNbsp());
-            }
-            else if (Icon != TypeIcon.None && string.IsNullOrWhiteSpace(Text))
-            {
-                html.AddClass(Icon.ToClass());
+                html.Elements.Add(new ControlIcon(Page)
+                {
+                    Icon = Icon,
+                    Margin = !string.IsNullOrWhiteSpace(Text) ? new PropertySpacingMargin
+                    (
+                        PropertySpacing.Space.None,
+                        PropertySpacing.Space.Two,
+                        PropertySpacing.Space.None,
+                        PropertySpacing.Space.None
+                    ) : new PropertySpacingMargin(PropertySpacing.Space.None),
+                    VerticalAlignment = Icon.IsUserIcon ? TypeVerticalAlignment.TextBottom : TypeVerticalAlignment.Default
+                }.ToHtml());
             }
 
             if (!string.IsNullOrWhiteSpace(Text))

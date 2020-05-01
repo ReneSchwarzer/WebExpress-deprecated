@@ -10,7 +10,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt das Layout
         /// </summary>
-        public TypesLayoutButton Layout { get; set; }
+        public TypeColorButton Layout { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Größe

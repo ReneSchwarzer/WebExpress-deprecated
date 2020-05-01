@@ -13,7 +13,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Die horizontale Anordnung
         /// </summary>
-        public TypeHorizontalAlignment HorizontalAlignment
+        public virtual TypeHorizontalAlignment HorizontalAlignment
         {
             get => (TypeHorizontalAlignment)GetProperty(TypeHorizontalAlignment.Default);
             set => SetProperty(value, () => value.ToClass());
@@ -22,7 +22,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt die Farbe des Textes
         /// </summary>
-        public PropertyColorText TextColor
+        public virtual PropertyColorText TextColor
         {
             get => (PropertyColorText)GetPropertyObject();
             set => SetProperty(value, () => value?.ToClass(), () => value?.ToStyle());
@@ -31,7 +31,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Die Hintergrundfarbe
         /// </summary>
-        public PropertyColorBackground BackgroundColor
+        public virtual PropertyColorBackground BackgroundColor
         {
             get => (PropertyColorBackground)GetPropertyObject();
             set => SetProperty(value, () => value?.ToClass(), () => value?.ToStyle());
@@ -40,7 +40,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Padding
         /// </summary>
-        public PropertySpacingPadding Padding
+        public virtual PropertySpacingPadding Padding
         {
             get => (PropertySpacingPadding)GetPropertyObject();
             set => SetProperty(value, () => value?.ToClass());
@@ -49,7 +49,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Margin
         /// </summary>
-        public PropertySpacingMargin Margin
+        public virtual PropertySpacingMargin Margin
         {
             get => (PropertySpacingMargin)GetPropertyObject();
             set => SetProperty(value, () => value?.ToClass());

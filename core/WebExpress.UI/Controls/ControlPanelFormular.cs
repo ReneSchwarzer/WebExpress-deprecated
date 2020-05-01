@@ -127,7 +127,7 @@ namespace WebExpress.UI.Controls
                 Name = "submit_" + Name.ToLower(),
                 Text = "Speichern",
                 Icon = "fas fa-save",
-                Layout = TypesLayoutButton.Success,
+                Layout = TypeColorButton.Success,
                 Type = "submit",
                 Value = "1"
             };
@@ -137,7 +137,7 @@ namespace WebExpress.UI.Controls
                 Name = "next_" + Name.ToLower(),
                 Text = "Speichern und weiter",
                 Icon = "fas fa-forward",
-                Layout = TypesLayoutButton.Success,
+                Layout = TypeColorButton.Success,
                 Type = "submit",
                 Value = "1"
             };
@@ -145,9 +145,9 @@ namespace WebExpress.UI.Controls
             CancelButton = new ControlButtonLink(Page)
             {
                 Text = "Abbrechen",
-                Icon = TypeIcon.Times,
-                Layout = TypesLayoutButton.Danger,
-                Color = new PropertyColorText(TypeColorText.White),
+                Icon = new PropertyIcon(TypeIcon.Times),
+                Color = new PropertyColorButton(TypeColorButton.Danger),
+                TextColor = new PropertyColorText(TypeColorText.White),
                 HorizontalAlignment = TypeHorizontalAlignment.Right,
                 Uri = Uri
             };

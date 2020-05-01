@@ -126,13 +126,13 @@ namespace WebExpress.UI.Controls
 
             var like = new ControlButtonLink(Page)
             {
-                Icon = TypeIcon.ThumbsUp,
+                Icon = new PropertyIcon(TypeIcon.ThumbsUp),
                 Text = likeText,
                 Uri = Page.Uri,
                 Size = TypeSizeButton.Small,
-                Layout = TypesLayoutButton.Light,
+                Color = new PropertyColorButton(TypeColorButton.Light),
                 Outline = true,
-                Color = new PropertyColorText(TypeColorText.Primary)
+                TextColor = new PropertyColorText(TypeColorText.Primary)
             };
 
             var option = new HtmlElementTextContentDiv(like.ToHtml())

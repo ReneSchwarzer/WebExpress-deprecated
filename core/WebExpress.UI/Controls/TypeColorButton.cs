@@ -1,62 +1,62 @@
 ﻿namespace WebExpress.UI.Controls
 {
-    public enum TypesLayoutButton
+    public enum TypeColorButton
     {
-        Default,
-        Primary,
-        Success,
-        Info,
-        Warning,
-        Danger,
-        Light,
-        Dark
+        Default = 0,
+        Primary = 1,
+        Success = 3,
+        Info = 4,
+        Warning = 5,
+        Danger = 6,
+        Dark = 7,
+        Light = 8
     }
 
-    public static class TypesLayoutButtonExtensions
+    public static class TypeColorButtonExtensions
     {
         /// <summary>
         /// Umwandlung in eine CSS-Klasse
         /// </summary>
-        /// <param name="layout">Das Layout, welches umgewandelt werden soll</param>
+        /// <param name="color">Die Farbe, welches umgewandelt werden soll</param>
         /// <param name="outline">Die Outline-Eigenschaft</param>
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
-        public static string ToClass(this TypesLayoutButton layout, bool outline = false)
+        public static string ToClass(this TypeColorButton color, bool outline = false)
         {
             if (outline)
             {
-                switch (layout)
+                switch (color)
                 {
-                    case TypesLayoutButton.Primary:
+                    case TypeColorButton.Primary:
                         return "btn-outline-primary";
-                    case TypesLayoutButton.Success:
+                    case TypeColorButton.Success:
                         return "btn-outline-success";
-                    case TypesLayoutButton.Info:
+                    case TypeColorButton.Info:
                         return "btn-outline-info";
-                    case TypesLayoutButton.Warning:
+                    case TypeColorButton.Warning:
                         return "btn-outline-warning";
-                    case TypesLayoutButton.Danger:
+                    case TypeColorButton.Danger:
                         return "btn-outline-danger";
-                    case TypesLayoutButton.Dark:
+                    case TypeColorButton.Dark:
                         return "btn-outline-dark";
                 }
             }
             else
             {
-                switch (layout)
+                switch (color)
                 {
-                    case TypesLayoutButton.Primary:
+                    case TypeColorButton.Primary:
                         return "btn-primary";
-                    case TypesLayoutButton.Success:
+                    case TypeColorButton.Success:
                         return "btn-success";
-                    case TypesLayoutButton.Info:
+                    case TypeColorButton.Info:
                         return "btn-info";
-                    case TypesLayoutButton.Warning:
+                    case TypeColorButton.Warning:
                         return "btn-warning";
-                    case TypesLayoutButton.Danger:
+                    case TypeColorButton.Danger:
                         return "btn-danger";
-                    case TypesLayoutButton.Light:
+                    case TypeColorButton.Light:
                         return "btn-light";
-                    case TypesLayoutButton.Dark:
+                    case TypeColorButton.Dark:
                         return "btn-dark";
                 }
             }
