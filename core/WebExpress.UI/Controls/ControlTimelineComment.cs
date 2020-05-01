@@ -107,8 +107,8 @@ namespace WebExpress.UI.Controls
             var date = new ControlText(Page)
             {
                 Text = timespan,
-                Tooltip = "Am " + Timestamp.ToShortDateString() + " um " + Timestamp.ToShortTimeString() + " Uhr",
-                Format = TypesTextFormat.Span,
+                Title = "Am " + Timestamp.ToShortDateString() + " um " + Timestamp.ToShortTimeString() + " Uhr",
+                Format = TypeTextFormat.Span,
                 TextColor = new PropertyColorText(TypeColorText.Muted)
             };
 

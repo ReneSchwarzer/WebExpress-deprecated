@@ -3,7 +3,7 @@
 namespace WebExpress.Html
 {
     /// <summary>
-    /// Steht für hervorgehobenen Text. 
+    /// Markiert einen hervorgehobenen Text. 
     /// </summary>
     public class HtmlElementTextSemanticsEm : HtmlElement, IHtmlElementTextSemantics
     {

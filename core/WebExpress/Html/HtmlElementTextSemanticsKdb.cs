@@ -3,7 +3,7 @@
 namespace WebExpress.Html
 {
     /// <summary>
-    /// Steht für eine Benutzereingabe, oftmals, aber nicht unbedingt, auf der Tastatur. Kann auch für andere Eingaben, beispielsweise transkribierte Sprachbefehle stehen.
+    /// Markiert eine Benutzereingabe, oftmals, aber nicht unbedingt, auf der Tastatur. Kann auch für andere Eingaben, beispielsweise transkribierte Sprachbefehle stehen.
     /// </summary>
     public class HtmlElementTextSemanticsKdb : HtmlElement, IHtmlElementTextSemantics
     {

@@ -3,7 +3,7 @@
 namespace WebExpress.Html
 {
     /// <summary>
-    /// ezeichnet die Beschriftung einer Abbildung.
+    /// Markiert die Beschriftung einer Abbildung.
     /// </summary>
     public class HtmlElementTextContentFigcaption : HtmlElement, IHtmlElementTextContent
     {

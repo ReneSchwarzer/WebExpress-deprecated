@@ -3,7 +3,7 @@
 namespace WebExpress.Html
 {
     /// <summary>
-    /// Markiert hochgestellten Text.
+    /// Markiert einen hochgestellten Text.
     /// </summary>
     public class HtmlElementTextSemanticsSup : HtmlElement, IHtmlElementTextSemantics
     {

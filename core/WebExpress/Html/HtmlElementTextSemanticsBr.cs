@@ -1,7 +1,7 @@
 ﻿namespace WebExpress.Html
 {
     /// <summary>
-    /// Bezeichnet einenZeilenumbruch.
+    /// Bezeichnet einen Zeilenumbruch.
     /// </summary>
     public class HtmlElementTextSemanticsBr : HtmlElement,IHtmlElementTextSemantics
     {

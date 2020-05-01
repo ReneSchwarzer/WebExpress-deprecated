@@ -4,7 +4,7 @@ using System.Text;
 namespace WebExpress.Html
 {
     /// <summary>
-    /// Beschreibt eine Überschrift der obersten Ebene
+    /// Markiert eine Überschrift der obersten Ebene
     /// </summary>
     public class HtmlElementSectionH1 : HtmlElement, IHtmlElementSection
     {

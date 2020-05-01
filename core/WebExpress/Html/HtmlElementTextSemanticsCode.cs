@@ -3,7 +3,7 @@
 namespace WebExpress.Html
 {
     /// <summary>
-    /// Wird verwendet, um Programmiercode zu markieren.
+    /// Markiert ein Programmiercode.
     /// </summary>
     public class HtmlElementTextSemanticsCode : HtmlElement, IHtmlElementTextSemantics
     {

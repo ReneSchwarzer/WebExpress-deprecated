@@ -10,15 +10,15 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt das Format des Textes
         /// </summary>
-        public TypesTextFormat Format { get; set; }
+        public TypeTextFormat Format { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Größe des Textes
         /// </summary>
-        public TypeSizeButton Size
+        public PropertySizeText Size
         {
-            get => (TypeSizeButton)GetProperty(TypeSizeButton.Default);
-            set => SetProperty(value, () => value.ToClass());
+            get => (PropertySizeText)GetPropertyObject();
+            set => SetProperty(value, () => value?.ToClass(), () => value?.ToStyle());
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt einen Tooltiptext
         /// </summary>
-        public string Tooltip { get; set; }
+        public string Title { get; set; }
 
         /// <summary>
         /// Konstruktor
@@ -73,7 +73,7 @@ namespace WebExpress.UI.Controls
 
             switch (Format)
             {
-                case TypesTextFormat.Paragraph:
+                case TypeTextFormat.Paragraph:
                     html = new HtmlElementTextContentP(Text)
                     {
                         ID = ID,
@@ -82,7 +82,7 @@ namespace WebExpress.UI.Controls
                         Role = Role
                     };
                     break;
-                case TypesTextFormat.Italic:
+                case TypeTextFormat.Italic:
                     html = new HtmlElementTextSemanticsI(Text)
                     {
                         ID = ID,
@@ -91,7 +91,7 @@ namespace WebExpress.UI.Controls
                         Role = Role
                     };
                     break;
-                case TypesTextFormat.Bold:
+                case TypeTextFormat.Bold:
                     html = new HtmlElementTextSemanticsB(Text)
                     {
                         ID = ID,
@@ -100,7 +100,34 @@ namespace WebExpress.UI.Controls
                         Role = Role
                     };
                     break;
-                case TypesTextFormat.H1:
+                case TypeTextFormat.Underline:
+                    html = new HtmlElementTextSemanticsU(Text)
+                    {
+                        ID = ID,
+                        Class = GetClasses(),
+                        Style = GetStyles(),
+                        Role = Role
+                    };
+                    break;
+                case TypeTextFormat.StruckOut:
+                    html = new HtmlElementTextSemanticsS(Text)
+                    {
+                        ID = ID,
+                        Class = GetClasses(),
+                        Style = GetStyles(),
+                        Role = Role
+                    };
+                    break;
+                case TypeTextFormat.Cite:
+                    html = new HtmlElementTextSemanticsCite(Text)
+                    {
+                        ID = ID,
+                        Class = GetClasses(),
+                        Style = GetStyles(),
+                        Role = Role
+                    };
+                    break;
+                case TypeTextFormat.H1:
                     html = new HtmlElementSectionH1(Text)
                     {
                         ID = ID,
@@ -109,7 +136,7 @@ namespace WebExpress.UI.Controls
                         Role = Role
                     };
                     break;
-                case TypesTextFormat.H2:
+                case TypeTextFormat.H2:
                     html = new HtmlElementSectionH2(Text)
                     {
                         ID = ID,
@@ -118,7 +145,7 @@ namespace WebExpress.UI.Controls
                         Role = Role
                     };
                     break;
-                case TypesTextFormat.H3:
+                case TypeTextFormat.H3:
                     html = new HtmlElementSectionH3(Text)
                     {
                         ID = ID,
@@ -127,7 +154,7 @@ namespace WebExpress.UI.Controls
                         Role = Role
                     };
                     break;
-                case TypesTextFormat.H4:
+                case TypeTextFormat.H4:
                     html = new HtmlElementSectionH4(Text)
                     {
                         ID = ID,
@@ -136,7 +163,7 @@ namespace WebExpress.UI.Controls
                         Role = Role
                     };
                     break;
-                case TypesTextFormat.H5:
+                case TypeTextFormat.H5:
                     html = new HtmlElementSectionH5(Text)
                     {
                         ID = ID,
@@ -145,7 +172,7 @@ namespace WebExpress.UI.Controls
                         Role = Role
                     };
                     break;
-                case TypesTextFormat.H6:
+                case TypeTextFormat.H6:
                     html = new HtmlElementSectionH6(Text)
                     {
                         ID = ID,
@@ -154,7 +181,7 @@ namespace WebExpress.UI.Controls
                         Role = Role
                     };
                     break;
-                case TypesTextFormat.Span:
+                case TypeTextFormat.Span:
                     html = new HtmlElementTextSemanticsSpan(new HtmlText(Text))
                     {
                         ID = ID,
@@ -163,7 +190,7 @@ namespace WebExpress.UI.Controls
                         Role = Role
                     };
                     break;
-                case TypesTextFormat.Small:
+                case TypeTextFormat.Small:
                     html = new HtmlElementTextSemanticsSmall(new HtmlText(Text))
                     {
                         ID = ID,
@@ -171,8 +198,17 @@ namespace WebExpress.UI.Controls
                         Style = GetStyles(),
                         Role = Role
                     };
+                    break; 
+                case TypeTextFormat.Strong:
+                    html = new HtmlElementTextSemanticsStrong(new HtmlText(Text))
+                    {
+                        ID = ID,
+                        Class = GetClasses(),
+                        Style = GetStyles(),
+                        Role = Role
+                    };
                     break;
-                case TypesTextFormat.Center:
+                case TypeTextFormat.Center:
                     html = new HtmlElementTextContentDiv(new HtmlText(Text))
                     {
                         ID = ID,
@@ -181,8 +217,98 @@ namespace WebExpress.UI.Controls
                         Role = Role
                     };
                     break;
-                case TypesTextFormat.Code:
+                case TypeTextFormat.Code:
                     html = new HtmlElementTextSemanticsCode(new HtmlText(Text))
+                    {
+                        ID = ID,
+                        Class = GetClasses(),
+                        Style = GetStyles(),
+                        Role = Role
+                    };
+                    break;
+                case TypeTextFormat.Output:
+                    html = new HtmlElementTextSemanticsSamp(new HtmlText(Text))
+                    {
+                        ID = ID,
+                        Class = GetClasses(),
+                        Style = GetStyles(),
+                        Role = Role
+                    };
+                    break;
+                case TypeTextFormat.Time:
+                    html = new HtmlElementTextSemanticsTime(new HtmlText(Text))
+                    {
+                        ID = ID,
+                        Class = GetClasses(),
+                        Style = GetStyles(),
+                        Role = Role
+                    };
+                    break;
+                case TypeTextFormat.Mark:
+                    html = new HtmlElementTextSemanticsMark(new HtmlText(Text))
+                    {
+                        ID = ID,
+                        Class = GetClasses(),
+                        Style = GetStyles(),
+                        Role = Role
+                    };
+                    break;
+                case TypeTextFormat.Highlight:
+                    html = new HtmlElementTextSemanticsEm(new HtmlText(Text))
+                    {
+                        ID = ID,
+                        Class = GetClasses(),
+                        Style = GetStyles(),
+                        Role = Role
+                    };
+                    break;
+                case TypeTextFormat.Definition:
+                    html = new HtmlElementTextSemanticsDfn(new HtmlText(Text))
+                    {
+                        ID = ID,
+                        Class = GetClasses(),
+                        Style = GetStyles(),
+                        Role = Role
+                    };
+                    break;
+                case TypeTextFormat.Abbreviation:
+                    html = new HtmlElementTextSemanticsAbbr(new HtmlText(Text))
+                    {
+                        ID = ID,
+                        Class = GetClasses(),
+                        Style = GetStyles(),
+                        Role = Role
+                    };
+                    break;
+                case TypeTextFormat.Input:
+                    html = new HtmlElementTextSemanticsKdb(new HtmlText(Text))
+                    {
+                        ID = ID,
+                        Class = GetClasses(),
+                        Style = GetStyles(),
+                        Role = Role
+                    };
+                    break;
+                case TypeTextFormat.Blockquote:
+                    html = new HtmlElementTextContentBlockquote(new HtmlText(Text))
+                    {
+                        ID = ID,
+                        Class = GetClasses(),
+                        Style = GetStyles(),
+                        Role = Role
+                    };
+                    break;
+                case TypeTextFormat.Figcaption:
+                    html = new HtmlElementTextContentFigcaption(new HtmlText(Text))
+                    {
+                        ID = ID,
+                        Class = GetClasses(),
+                        Style = GetStyles(),
+                        Role = Role
+                    };
+                    break;
+                case TypeTextFormat.Preformatted:
+                    html = new HtmlElementTextContentPre(new HtmlText(Text))
                     {
                         ID = ID,
                         Class = GetClasses(),
@@ -201,10 +327,10 @@ namespace WebExpress.UI.Controls
                     break;
             }
 
-            if (!string.IsNullOrWhiteSpace(Tooltip))
+            if (!string.IsNullOrWhiteSpace(Title))
             {
                 html.AddUserAttribute("data-toggle", "tooltip");
-                html.AddUserAttribute("title", Tooltip);
+                html.AddUserAttribute("title", Title);
             }
 
             return html;

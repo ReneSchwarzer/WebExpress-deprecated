@@ -3,7 +3,7 @@
 namespace WebExpress.Html
 {
     /// <summary>
-    /// Bezeichnet eine Abkürzung oder ein Akronym.
+    /// Markiert eine Abkürzung oder ein Akronym.
     /// </summary>
     public class HtmlElementTextSemanticsAbbr : HtmlElement, IHtmlElementTextSemantics
     {

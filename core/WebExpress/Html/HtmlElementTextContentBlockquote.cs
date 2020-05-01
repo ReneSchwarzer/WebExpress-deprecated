@@ -3,7 +3,7 @@
 namespace WebExpress.Html
 {
     /// <summary>
-    /// Kennzeichnet ein Zitat.
+    /// Markiert ein Zitat.
     /// </summary>
     public class HtmlElementTextContentBlockquote : HtmlElement, IHtmlElementTextContent
     {

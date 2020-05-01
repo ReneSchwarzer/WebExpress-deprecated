@@ -4,7 +4,7 @@ using System.Text;
 namespace WebExpress.Html
 {
     /// <summary>
-    /// Der Inhalt dieses Elements soll als Absatz dargestellt werden.
+    /// Markiert den Inhalt als Absatz.
     /// </summary>
     public class HtmlElementTextContentP : HtmlElement, IHtmlElementTextContent
     {

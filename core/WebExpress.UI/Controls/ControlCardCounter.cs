@@ -79,13 +79,13 @@ namespace WebExpress.UI.Controls
             var text = new ControlText(Page, string.IsNullOrWhiteSpace(ID) ? null : ID + "_header") 
             { 
                 Text = Value, 
-                Format = TypesTextFormat.H4 
+                Format = TypeTextFormat.H4 
             };
 
             var info = new ControlText(Page) 
             { 
                 Text = Text, 
-                Format = TypesTextFormat.Span, 
+                Format = TypeTextFormat.Span, 
                 TextColor = new PropertyColorText(TypeColorText.Muted) 
             };
 

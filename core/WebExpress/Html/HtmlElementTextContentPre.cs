@@ -3,7 +3,7 @@
 namespace WebExpress.Html
 {
     /// <summary>
-    /// Zeigt an, das der Inhalt dieses Elements vorformatiert ist und das dieses Format erhalten bleiben soll.
+    /// Markiert den Inhalt dieses Elements als vorformatiert und das dieses Format erhalten bleiben soll.
     /// </summary>
     public class HtmlElementTextContentPre : HtmlElement, IHtmlElementTextContent
     {
