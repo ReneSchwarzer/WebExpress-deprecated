@@ -74,7 +74,7 @@ namespace WebExpress.UI.Controls
         public ControlPanelNavbar(IPage page, string id = null)
             : base(page, id)
         {
-            ControlText = new ControlText(Page, "headline") { Classes = new List<string>(new[] { "headline" }), Format = TypeTextFormat.Paragraph };
+            ControlText = new ControlText(Page, "headline") { Classes = new List<string>(new[] { "headline" }), Format = TypeFormatText.Paragraph };
             HamburgerMenu = new ControlHamburgerMenu(Page, "hamburger") { };
 
             ToolBar = new ControlToolBar(Page, "toolbar") { Classes = new List<string>(new[] { "toolbar" })};

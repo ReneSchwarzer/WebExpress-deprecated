@@ -3,7 +3,7 @@
     /// <summary>
     /// Die Textformate
     /// </summary>
-    public enum TypeTextFormat
+    public enum TypeFormatText
     {
         Default,
         /// <summary>
@@ -118,7 +118,11 @@
         /// <summary>
         /// Markiert den Inhalt dieses Elements als vorformatiert und das dieses Format erhalten bleiben soll.
         /// </summary>
-        Preformatted
+        Preformatted,
+        /// <summary>
+        /// Markiert den Text als Markdown, welcher in HTML umgewandelt wird
+        /// </summary>
+        Markdown
 
     }
 }

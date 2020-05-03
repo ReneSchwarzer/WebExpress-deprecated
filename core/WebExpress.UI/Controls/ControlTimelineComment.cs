@@ -108,7 +108,7 @@ namespace WebExpress.UI.Controls
             {
                 Text = timespan,
                 Title = "Am " + Timestamp.ToShortDateString() + " um " + Timestamp.ToShortTimeString() + " Uhr",
-                Format = TypeTextFormat.Span,
+                Format = TypeFormatText.Span,
                 TextColor = new PropertyColorText(TypeColorText.Muted)
             };
 

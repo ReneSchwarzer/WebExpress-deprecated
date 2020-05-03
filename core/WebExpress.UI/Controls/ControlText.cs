@@ -10,7 +10,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt das Format des Textes
         /// </summary>
-        public TypeTextFormat Format { get; set; }
+        public TypeFormatText Format { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Größe des Textes
@@ -70,11 +70,12 @@ namespace WebExpress.UI.Controls
         public override IHtmlNode ToHtml()
         {
             var html = null as HtmlElement;
+            var text = Text;
 
             switch (Format)
             {
-                case TypeTextFormat.Paragraph:
-                    html = new HtmlElementTextContentP(Text)
+                case TypeFormatText.Paragraph:
+                    html = new HtmlElementTextContentP(text)
                     {
                         ID = ID,
                         Class = GetClasses(),
@@ -82,8 +83,8 @@ namespace WebExpress.UI.Controls
                         Role = Role
                     };
                     break;
-                case TypeTextFormat.Italic:
-                    html = new HtmlElementTextSemanticsI(Text)
+                case TypeFormatText.Italic:
+                    html = new HtmlElementTextSemanticsI(text)
                     {
                         ID = ID,
                         Class = GetClasses(),
@@ -91,8 +92,8 @@ namespace WebExpress.UI.Controls
                         Role = Role
                     };
                     break;
-                case TypeTextFormat.Bold:
-                    html = new HtmlElementTextSemanticsB(Text)
+                case TypeFormatText.Bold:
+                    html = new HtmlElementTextSemanticsB(text)
                     {
                         ID = ID,
                         Class = GetClasses(),
@@ -100,8 +101,8 @@ namespace WebExpress.UI.Controls
                         Role = Role
                     };
                     break;
-                case TypeTextFormat.Underline:
-                    html = new HtmlElementTextSemanticsU(Text)
+                case TypeFormatText.Underline:
+                    html = new HtmlElementTextSemanticsU(text)
                     {
                         ID = ID,
                         Class = GetClasses(),
@@ -109,8 +110,8 @@ namespace WebExpress.UI.Controls
                         Role = Role
                     };
                     break;
-                case TypeTextFormat.StruckOut:
-                    html = new HtmlElementTextSemanticsS(Text)
+                case TypeFormatText.StruckOut:
+                    html = new HtmlElementTextSemanticsS(text)
                     {
                         ID = ID,
                         Class = GetClasses(),
@@ -118,8 +119,8 @@ namespace WebExpress.UI.Controls
                         Role = Role
                     };
                     break;
-                case TypeTextFormat.Cite:
-                    html = new HtmlElementTextSemanticsCite(Text)
+                case TypeFormatText.Cite:
+                    html = new HtmlElementTextSemanticsCite(text)
                     {
                         ID = ID,
                         Class = GetClasses(),
@@ -127,8 +128,8 @@ namespace WebExpress.UI.Controls
                         Role = Role
                     };
                     break;
-                case TypeTextFormat.H1:
-                    html = new HtmlElementSectionH1(Text)
+                case TypeFormatText.H1:
+                    html = new HtmlElementSectionH1(text)
                     {
                         ID = ID,
                         Class = GetClasses(),
@@ -136,8 +137,8 @@ namespace WebExpress.UI.Controls
                         Role = Role
                     };
                     break;
-                case TypeTextFormat.H2:
-                    html = new HtmlElementSectionH2(Text)
+                case TypeFormatText.H2:
+                    html = new HtmlElementSectionH2(text)
                     {
                         ID = ID,
                         Class = GetClasses(),
@@ -145,8 +146,8 @@ namespace WebExpress.UI.Controls
                         Role = Role
                     };
                     break;
-                case TypeTextFormat.H3:
-                    html = new HtmlElementSectionH3(Text)
+                case TypeFormatText.H3:
+                    html = new HtmlElementSectionH3(text)
                     {
                         ID = ID,
                         Class = GetClasses(),
@@ -154,8 +155,8 @@ namespace WebExpress.UI.Controls
                         Role = Role
                     };
                     break;
-                case TypeTextFormat.H4:
-                    html = new HtmlElementSectionH4(Text)
+                case TypeFormatText.H4:
+                    html = new HtmlElementSectionH4(text)
                     {
                         ID = ID,
                         Class = GetClasses(),
@@ -163,8 +164,8 @@ namespace WebExpress.UI.Controls
                         Role = Role
                     };
                     break;
-                case TypeTextFormat.H5:
-                    html = new HtmlElementSectionH5(Text)
+                case TypeFormatText.H5:
+                    html = new HtmlElementSectionH5(text)
                     {
                         ID = ID,
                         Class = GetClasses(),
@@ -172,8 +173,8 @@ namespace WebExpress.UI.Controls
                         Role = Role
                     };
                     break;
-                case TypeTextFormat.H6:
-                    html = new HtmlElementSectionH6(Text)
+                case TypeFormatText.H6:
+                    html = new HtmlElementSectionH6(text)
                     {
                         ID = ID,
                         Class = GetClasses(),
@@ -181,8 +182,8 @@ namespace WebExpress.UI.Controls
                         Role = Role
                     };
                     break;
-                case TypeTextFormat.Span:
-                    html = new HtmlElementTextSemanticsSpan(new HtmlText(Text))
+                case TypeFormatText.Span:
+                    html = new HtmlElementTextSemanticsSpan(new HtmlText(text))
                     {
                         ID = ID,
                         Class = GetClasses(),
@@ -190,8 +191,8 @@ namespace WebExpress.UI.Controls
                         Role = Role
                     };
                     break;
-                case TypeTextFormat.Small:
-                    html = new HtmlElementTextSemanticsSmall(new HtmlText(Text))
+                case TypeFormatText.Small:
+                    html = new HtmlElementTextSemanticsSmall(new HtmlText(text))
                     {
                         ID = ID,
                         Class = GetClasses(),
@@ -199,8 +200,8 @@ namespace WebExpress.UI.Controls
                         Role = Role
                     };
                     break; 
-                case TypeTextFormat.Strong:
-                    html = new HtmlElementTextSemanticsStrong(new HtmlText(Text))
+                case TypeFormatText.Strong:
+                    html = new HtmlElementTextSemanticsStrong(new HtmlText(text))
                     {
                         ID = ID,
                         Class = GetClasses(),
@@ -208,8 +209,8 @@ namespace WebExpress.UI.Controls
                         Role = Role
                     };
                     break;
-                case TypeTextFormat.Center:
-                    html = new HtmlElementTextContentDiv(new HtmlText(Text))
+                case TypeFormatText.Center:
+                    html = new HtmlElementTextContentDiv(new HtmlText(text))
                     {
                         ID = ID,
                         Class = Css.Concatenate("text-center",  GetClasses()),
@@ -217,8 +218,8 @@ namespace WebExpress.UI.Controls
                         Role = Role
                     };
                     break;
-                case TypeTextFormat.Code:
-                    html = new HtmlElementTextSemanticsCode(new HtmlText(Text))
+                case TypeFormatText.Code:
+                    html = new HtmlElementTextSemanticsCode(new HtmlText(text))
                     {
                         ID = ID,
                         Class = GetClasses(),
@@ -226,8 +227,8 @@ namespace WebExpress.UI.Controls
                         Role = Role
                     };
                     break;
-                case TypeTextFormat.Output:
-                    html = new HtmlElementTextSemanticsSamp(new HtmlText(Text))
+                case TypeFormatText.Output:
+                    html = new HtmlElementTextSemanticsSamp(new HtmlText(text))
                     {
                         ID = ID,
                         Class = GetClasses(),
@@ -235,8 +236,8 @@ namespace WebExpress.UI.Controls
                         Role = Role
                     };
                     break;
-                case TypeTextFormat.Time:
-                    html = new HtmlElementTextSemanticsTime(new HtmlText(Text))
+                case TypeFormatText.Time:
+                    html = new HtmlElementTextSemanticsTime(new HtmlText(text))
                     {
                         ID = ID,
                         Class = GetClasses(),
@@ -244,8 +245,8 @@ namespace WebExpress.UI.Controls
                         Role = Role
                     };
                     break;
-                case TypeTextFormat.Mark:
-                    html = new HtmlElementTextSemanticsMark(new HtmlText(Text))
+                case TypeFormatText.Mark:
+                    html = new HtmlElementTextSemanticsMark(new HtmlText(text))
                     {
                         ID = ID,
                         Class = GetClasses(),
@@ -253,8 +254,8 @@ namespace WebExpress.UI.Controls
                         Role = Role
                     };
                     break;
-                case TypeTextFormat.Highlight:
-                    html = new HtmlElementTextSemanticsEm(new HtmlText(Text))
+                case TypeFormatText.Highlight:
+                    html = new HtmlElementTextSemanticsEm(new HtmlText(text))
                     {
                         ID = ID,
                         Class = GetClasses(),
@@ -262,8 +263,8 @@ namespace WebExpress.UI.Controls
                         Role = Role
                     };
                     break;
-                case TypeTextFormat.Definition:
-                    html = new HtmlElementTextSemanticsDfn(new HtmlText(Text))
+                case TypeFormatText.Definition:
+                    html = new HtmlElementTextSemanticsDfn(new HtmlText(text))
                     {
                         ID = ID,
                         Class = GetClasses(),
@@ -271,8 +272,8 @@ namespace WebExpress.UI.Controls
                         Role = Role
                     };
                     break;
-                case TypeTextFormat.Abbreviation:
-                    html = new HtmlElementTextSemanticsAbbr(new HtmlText(Text))
+                case TypeFormatText.Abbreviation:
+                    html = new HtmlElementTextSemanticsAbbr(new HtmlText(text))
                     {
                         ID = ID,
                         Class = GetClasses(),
@@ -280,8 +281,8 @@ namespace WebExpress.UI.Controls
                         Role = Role
                     };
                     break;
-                case TypeTextFormat.Input:
-                    html = new HtmlElementTextSemanticsKdb(new HtmlText(Text))
+                case TypeFormatText.Input:
+                    html = new HtmlElementTextSemanticsKdb(new HtmlText(text))
                     {
                         ID = ID,
                         Class = GetClasses(),
@@ -289,8 +290,8 @@ namespace WebExpress.UI.Controls
                         Role = Role
                     };
                     break;
-                case TypeTextFormat.Blockquote:
-                    html = new HtmlElementTextContentBlockquote(new HtmlText(Text))
+                case TypeFormatText.Blockquote:
+                    html = new HtmlElementTextContentBlockquote(new HtmlText(text))
                     {
                         ID = ID,
                         Class = GetClasses(),
@@ -298,8 +299,8 @@ namespace WebExpress.UI.Controls
                         Role = Role
                     };
                     break;
-                case TypeTextFormat.Figcaption:
-                    html = new HtmlElementTextContentFigcaption(new HtmlText(Text))
+                case TypeFormatText.Figcaption:
+                    html = new HtmlElementTextContentFigcaption(new HtmlText(text))
                     {
                         ID = ID,
                         Class = GetClasses(),
@@ -307,8 +308,8 @@ namespace WebExpress.UI.Controls
                         Role = Role
                     };
                     break;
-                case TypeTextFormat.Preformatted:
-                    html = new HtmlElementTextContentPre(new HtmlText(Text))
+                case TypeFormatText.Preformatted:
+                    html = new HtmlElementTextContentPre(new HtmlText(text))
                     {
                         ID = ID,
                         Class = GetClasses(),
@@ -316,6 +317,8 @@ namespace WebExpress.UI.Controls
                         Role = Role
                     };
                     break;
+                case TypeFormatText.Markdown:
+                    return new Markdown.Markdown().Transform(text);
                 default:
                     html = new HtmlElementTextContentDiv(new HtmlText(Text))
                     {

@@ -125,7 +125,7 @@ namespace WebExpress.UI.Controls
             {
                 Text = timespan,
                 Title = "Am " + Timestamp.ToShortDateString() + " um " + Timestamp.ToShortTimeString() + " Uhr",
-                Format = TypeTextFormat.Span,
+                Format = TypeFormatText.Span,
                 TextColor = new PropertyColorText(TypeColorText.Muted)
             };
 
@@ -135,7 +135,7 @@ namespace WebExpress.UI.Controls
                 {
                     Text = Action,
                     TextColor = new PropertyColorText(TypeColorText.Info),
-                    Format = TypeTextFormat.Span
+                    Format = TypeFormatText.Span
                 }.ToHtml(),
                 date.ToHtml()
             );

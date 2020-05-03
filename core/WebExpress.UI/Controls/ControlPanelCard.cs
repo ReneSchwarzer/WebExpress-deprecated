@@ -129,7 +129,7 @@ namespace WebExpress.UI.Controls
                 { 
                     Text = Headline, 
                     Classes = new List<string>(new[] { "card-title" }), 
-                    Format = TypeTextFormat.H4 
+                    Format = TypeFormatText.H4 
                 });
             }
 
