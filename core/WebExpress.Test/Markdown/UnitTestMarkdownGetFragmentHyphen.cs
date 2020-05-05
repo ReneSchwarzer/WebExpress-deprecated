@@ -270,8 +270,8 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.HorizontaleLinie &&
-                result?.Text == "- -  - -",
+                result?.Type == MarkdownMorpheme.Hyphen1 &&
+                result?.Text == "-",
                 "Fehler beim Ermitteln eines Fragments!"
             );
         }

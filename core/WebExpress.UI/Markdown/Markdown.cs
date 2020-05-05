@@ -89,10 +89,10 @@ namespace WebExpress.UI.Markdown
 
             if (token.Empty)
             {
-                return new MarkdownFragment() 
-                { 
-                    Text= string.Empty, 
-                    Type = MarkdownMorpheme.Newline 
+                return new MarkdownFragment()
+                {
+                    Text = string.Empty,
+                    Type = MarkdownMorpheme.Newline
                 };
             }
             else if (token.EoL)
@@ -110,7 +110,7 @@ namespace WebExpress.UI.Markdown
                         switch (state)
                         {
                             case MarkdownState.None:
-                                state = MarkdownState.None;
+                                state = MarkdownState.W1;
                                 break;
                             case MarkdownState.A1:
                                 state = MarkdownState.A1E;
@@ -141,6 +141,33 @@ namespace WebExpress.UI.Markdown
                                 break;
                             case MarkdownState.B:
                                 goto exitLoop;
+                            case MarkdownState.D1:
+                                state = MarkdownState.D1E;
+                                break;
+                            case MarkdownState.D1E:
+                                goto exitLoop;
+                            case MarkdownState.DLT:
+                                state = MarkdownState.DLTE;
+                                break;
+                            case MarkdownState.DLTE:
+                                goto exitLoop;
+                            case MarkdownState.D2:
+                                state = MarkdownState.D2E;
+                                break;
+                            case MarkdownState.D2E:
+                                state = MarkdownState.D1;
+                                goto exitLoop;
+                            case MarkdownState.D3:
+                                state = MarkdownState.D3E;
+                                break;
+                            case MarkdownState.D3E:
+                                goto exitLoop;
+                            case MarkdownState.DL:
+                                state = MarkdownState.DLE;
+                                break;
+                            case MarkdownState.DLE:
+                                state = MarkdownState.DLE;
+                                break;
                             case MarkdownState.E:
                                 goto exitLoop;
                             case MarkdownState.EH:
@@ -234,6 +261,17 @@ namespace WebExpress.UI.Markdown
                             case MarkdownState.ULE:
                                 state = MarkdownState.ULE;
                                 break;
+                            case MarkdownState.W1:
+                                state = MarkdownState.W2;
+                                break;
+                            case MarkdownState.W2:
+                                state = MarkdownState.W3;
+                                break;
+                            case MarkdownState.W3:
+                                state = MarkdownState.W4;
+                                break;
+                            case MarkdownState.W4:
+                                goto exitLoop;
                             case MarkdownState.Y1:
                                 state = MarkdownState.Y1E;
                                 break;
@@ -302,6 +340,67 @@ namespace WebExpress.UI.Markdown
                             case MarkdownState.ALE:
                                 state = MarkdownState.AL;
                                 break;
+                            case MarkdownState.W1:
+                                state = MarkdownState.A1;
+                                break;
+                            case MarkdownState.W2:
+                                state = MarkdownState.A1;
+                                break;
+                            case MarkdownState.W3:
+                                state = MarkdownState.A1;
+                                break;
+                            default:
+                                goto exitLoop;
+                        }
+                        break;
+                    case '~':
+                        switch (state)
+                        {
+                            case MarkdownState.None:
+                                state = MarkdownState.D1;
+                                break;
+                            case MarkdownState.D1:
+                                state = MarkdownState.D2;
+                                break;
+                            case MarkdownState.D1E:
+                                state = MarkdownState.DLT;
+                                break;
+                            case MarkdownState.DLT:
+                                state = MarkdownState.DL;
+                                break;
+                            case MarkdownState.DLTE:
+                                state = MarkdownState.DL;
+                                break;
+                            case MarkdownState.D2:
+                                state = MarkdownState.D3;
+                                break;
+                            case MarkdownState.D2E:
+                                state = MarkdownState.DL;
+                                break;
+                            case MarkdownState.D3:
+                                state = MarkdownState.DL;
+                                break;
+                            case MarkdownState.D3E:
+                                state = MarkdownState.DL;
+                                break;
+                            case MarkdownState.DL:
+                                state = MarkdownState.DL;
+                                break;
+                            case MarkdownState.DLE:
+                                state = MarkdownState.DL;
+                                break;
+                            case MarkdownState.RT:
+                                state = MarkdownState.RT;
+                                break;
+                            case MarkdownState.W1:
+                                state = MarkdownState.D1;
+                                break;
+                            case MarkdownState.W2:
+                                state = MarkdownState.D1;
+                                break;
+                            case MarkdownState.W3:
+                                state = MarkdownState.D1;
+                                break;
                             default:
                                 goto exitLoop;
                         }
@@ -315,11 +414,20 @@ namespace WebExpress.UI.Markdown
                             case MarkdownState.RT:
                                 state = MarkdownState.RT;
                                 break;
+                            case MarkdownState.W1:
+                                state = MarkdownState.Y1;
+                                break;
+                            case MarkdownState.W2:
+                                state = MarkdownState.Y1;
+                                break;
+                            case MarkdownState.W3:
+                                state = MarkdownState.Y1;
+                                break;
                             case MarkdownState.Y1:
                                 state = MarkdownState.Y2;
                                 break;
                             case MarkdownState.Y1E:
-                                state = MarkdownState.YL;
+                                state = MarkdownState.YLT;
                                 break;
                             case MarkdownState.YLT:
                                 state = MarkdownState.YL;
@@ -362,7 +470,7 @@ namespace WebExpress.UI.Markdown
                                 state = MarkdownState.U2;
                                 break;
                             case MarkdownState.U1E:
-                                state = MarkdownState.UL;
+                                state = MarkdownState.ULT;
                                 break;
                             case MarkdownState.ULT:
                                 state = MarkdownState.UL;
@@ -387,6 +495,15 @@ namespace WebExpress.UI.Markdown
                                 break;
                             case MarkdownState.ULE:
                                 state = MarkdownState.UL;
+                                break;
+                            case MarkdownState.W1:
+                                state = MarkdownState.U1;
+                                break;
+                            case MarkdownState.W2:
+                                state = MarkdownState.U1;
+                                break;
+                            case MarkdownState.W3:
+                                state = MarkdownState.U1;
                                 break;
                             default:
                                 goto exitLoop;
@@ -749,6 +866,26 @@ namespace WebExpress.UI.Markdown
                                 goto exitLoop;
                             case MarkdownState.B:
                                 goto exitLoop;
+                            case MarkdownState.D1:
+                                goto exitLoop;
+                            case MarkdownState.D1E:
+                                goto exitLoop;
+                            case MarkdownState.DLT:
+                                goto exitLoop;
+                            case MarkdownState.DLTE:
+                                goto exitLoop;
+                            case MarkdownState.D2:
+                                goto exitLoop;
+                            case MarkdownState.D2E:
+                                goto exitLoop;
+                            case MarkdownState.D3:
+                                goto exitLoop;
+                            case MarkdownState.D3E:
+                                goto exitLoop;
+                            case MarkdownState.DL:
+                                goto exitLoop;
+                            case MarkdownState.DLE:
+                                goto exitLoop;
                             case MarkdownState.E:
                                 goto exitLoop;
                             case MarkdownState.EH:
@@ -922,6 +1059,42 @@ namespace WebExpress.UI.Markdown
                 case MarkdownState.B:
                     morpheme = MarkdownMorpheme.Code;
                     break;
+                case MarkdownState.D1:
+                    morpheme = MarkdownMorpheme.Tilde1;
+                    break;
+                case MarkdownState.D1E:
+                    morpheme = MarkdownMorpheme.Tilde1;
+                    position--;
+                    break;
+                case MarkdownState.DLT:
+                    morpheme = MarkdownMorpheme.Tilde1;
+                    position = orign + 1;
+                    break;
+                case MarkdownState.DLTE:
+                    morpheme = MarkdownMorpheme.Tilde1;
+                    position = orign + 1;
+                    break;
+                case MarkdownState.D2:
+                    morpheme = MarkdownMorpheme.Tilde2;
+                    break;
+                case MarkdownState.D2E:
+                    morpheme = MarkdownMorpheme.Tilde2;
+                    position--;
+                    break;
+                case MarkdownState.D3:
+                    morpheme = MarkdownMorpheme.Tilde3;
+                    break;
+                case MarkdownState.D3E:
+                    morpheme = MarkdownMorpheme.Tilde3;
+                    position--;
+                    break;
+                case MarkdownState.DL:
+                    morpheme = MarkdownMorpheme.HorizontaleLinie;
+                    break;
+                case MarkdownState.DLE:
+                    morpheme = MarkdownMorpheme.HorizontaleLinie;
+                    position--;
+                    break;
                 case MarkdownState.E:
                     morpheme = MarkdownMorpheme.Text;
                     break;
@@ -1092,6 +1265,18 @@ namespace WebExpress.UI.Markdown
                 case MarkdownState.ULE:
                     morpheme = MarkdownMorpheme.HorizontaleLinie;
                     position--;
+                    break;
+                case MarkdownState.W1:
+                    morpheme = MarkdownMorpheme.Text;
+                    break;
+                case MarkdownState.W2:
+                    morpheme = MarkdownMorpheme.Text;
+                    break;
+                case MarkdownState.W3:
+                    morpheme = MarkdownMorpheme.Text;
+                    break;
+                case MarkdownState.W4:
+                    morpheme = MarkdownMorpheme.Space4;
                     break;
                 case MarkdownState.Y1:
                     morpheme = MarkdownMorpheme.Hyphen1;

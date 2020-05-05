@@ -25,7 +25,7 @@ namespace WebExpress.UI.Markdown
         /// </summary>
         Code,
         /// <summary>
-        ///  '***' | '---' | '___' | '**...*' | '* * ... *' | ...
+        ///  '***' | '---' | '___' | '**...*' | '* * ... *' | '~~...~' | ...
         /// </summary>
         HorizontaleLinie,
         /// <summary>
@@ -105,9 +105,25 @@ namespace WebExpress.UI.Markdown
         /// </summary>
         Quote,
         /// <summary>
+        /// '    '
+        /// </summary>
+        Space4,
+        /// <summary>
         /// Normaler Text
         /// </summary>
         Text,
+        /// <summary>
+        /// '~'
+        /// </summary>
+        Tilde1,
+        /// <summary>
+        /// '~~'
+        /// </summary>
+        Tilde2,
+        /// <summary>
+        /// '~~~'
+        /// </summary>
+        Tilde3,
         /// <summary>
         /// '_'
         /// </summary>

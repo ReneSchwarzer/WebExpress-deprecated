@@ -7,12 +7,12 @@ using Xunit;
 
 namespace WebExpress.Test.Markdown
 {
-    public class UnitTestMarkdownGetFragmentUnderline
+    public class UnitTestMarkdownGetFragmentTilde
     {
         [Fact]
-        public void GetFragment_UnderlinekOne_1()
+        public void GetFragment_TildeOne_1()
         {
-            var markdown = "_";
+            var markdown = "~";
 
             var obj = new UI.Markdown.Markdown();
             var methodInfo = typeof(UI.Markdown.Markdown).GetMethod("GetFragment", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -21,16 +21,16 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Underline1 &&
-                result?.Text == "_", 
+                result?.Type == MarkdownMorpheme.Tilde1 &&
+                result?.Text == "~", 
                 "Fehler beim Ermitteln eines Fragments!"
             );
         }
 
         [Fact]
-        public void GetFragment_UnderlineOne_2()
+        public void GetFragment_TildeOne_2()
         {
-            var markdown = "_ test";
+            var markdown = "~ test";
 
             var obj = new UI.Markdown.Markdown();
             var methodInfo = typeof(UI.Markdown.Markdown).GetMethod("GetFragment", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -39,16 +39,16 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Underline1 &&
-                result?.Text == "_",
+                result?.Type == MarkdownMorpheme.Tilde1 &&
+                result?.Text == "~",
                 "Fehler beim Ermitteln eines Fragments!"
             );
         }
 
         [Fact]
-        public void GetFragment_UnderlineOne_3()
+        public void GetFragment_TildeOne_3()
         {
-            var markdown = "test _ test";
+            var markdown = "test ~ test";
 
             var obj = new UI.Markdown.Markdown();
             var methodInfo = typeof(UI.Markdown.Markdown).GetMethod("GetFragment", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -57,15 +57,15 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type != MarkdownMorpheme.Underline1,
+                result?.Type != MarkdownMorpheme.Tilde1,
                 "Fehler beim Ermitteln eines Fragments!"
             );
         }
 
         [Fact]
-        public void GetFragment_UnderlineOne_4()
+        public void GetFragment_TildeOne_4()
         {
-            var markdown = "_ ";
+            var markdown = "~ ";
 
             var obj = new UI.Markdown.Markdown();
             var methodInfo = typeof(UI.Markdown.Markdown).GetMethod("GetFragment", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -74,16 +74,16 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Underline1 &&
-                result?.Text == "_",
+                result?.Type == MarkdownMorpheme.Tilde1 &&
+                result?.Text == "~",
                 "Fehler beim Ermitteln eines Fragments!"
             );
         }
 
         [Fact]
-        public void GetFragment_UnderlineTwo_1()
+        public void GetFragment_TildeTwo_1()
         {
-            var markdown = "__";
+            var markdown = "~~";
 
             var obj = new UI.Markdown.Markdown();
             var methodInfo = typeof(UI.Markdown.Markdown).GetMethod("GetFragment", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -92,16 +92,16 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Underline2 &&
-                result?.Text == "__",
+                result?.Type == MarkdownMorpheme.Tilde2 &&
+                result?.Text == "~~",
                 "Fehler beim Ermitteln eines Fragments!"
             );
         }
 
         [Fact]
-        public void GetFragment_UnderlineTwo_2()
+        public void GetFragment_TildeTwo_2()
         {
-            var markdown = "__ test";
+            var markdown = "~~ test";
 
             var obj = new UI.Markdown.Markdown();
             var methodInfo = typeof(UI.Markdown.Markdown).GetMethod("GetFragment", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -110,16 +110,16 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Underline2 &&
-                result?.Text == "__",
+                result?.Type == MarkdownMorpheme.Tilde2 &&
+                result?.Text == "~~",
                 "Fehler beim Ermitteln eines Fragments!"
             );
         }
 
         [Fact]
-        public void GetFragment_UnderlineTwo_3()
+        public void GetFragment_TildeTwo_3()
         {
-            var markdown = "test __ test";
+            var markdown = "test ~~ test";
 
             var obj = new UI.Markdown.Markdown();
             var methodInfo = typeof(UI.Markdown.Markdown).GetMethod("GetFragment", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -128,15 +128,15 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type != MarkdownMorpheme.Underline2,
+                result?.Type != MarkdownMorpheme.Tilde2,
                 "Fehler beim Ermitteln eines Fragments!"
             );
         }
 
         [Fact]
-        public void GetFragment_UnderlineThree_1()
+        public void GetFragment_TildeThree_1()
         {
-            var markdown = "___";
+            var markdown = "~~~";
 
             var obj = new UI.Markdown.Markdown();
             var methodInfo = typeof(UI.Markdown.Markdown).GetMethod("GetFragment", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -145,16 +145,16 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Underline3 &&
-                result?.Text == "___",
+                result?.Type == MarkdownMorpheme.Tilde3 &&
+                result?.Text == "~~~",
                 "Fehler beim Ermitteln eines Fragments!"
             );
         }
 
         [Fact]
-        public void GetFragment_UnderlineThree_2()
+        public void GetFragment_TildeThree_2()
         {
-            var markdown = "___ test";
+            var markdown = "~~~ test";
 
             var obj = new UI.Markdown.Markdown();
             var methodInfo = typeof(UI.Markdown.Markdown).GetMethod("GetFragment", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -163,16 +163,16 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Underline3 &&
-                result?.Text == "___",
+                result?.Type == MarkdownMorpheme.Tilde3 &&
+                result?.Text == "~~~",
                 "Fehler beim Ermitteln eines Fragments!"
             );
         }
 
         [Fact]
-        public void GetFragment_UnderlineThree_3()
+        public void GetFragment_TildeThree_3()
         {
-            var markdown = "test ___ test";
+            var markdown = "test ~~~ test";
 
             var obj = new UI.Markdown.Markdown();
             var methodInfo = typeof(UI.Markdown.Markdown).GetMethod("GetFragment", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -181,15 +181,15 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type != MarkdownMorpheme.Underline3,
+                result?.Type != MarkdownMorpheme.Tilde3,
                 "Fehler beim Ermitteln eines Fragments!"
             );
         }
 
         [Fact]
-        public void GetFragment_UnderlineLine_1()
+        public void GetFragment_TildeLine_1()
         {
-            var markdown = "____";
+            var markdown = "~~~~";
 
             var obj = new UI.Markdown.Markdown();
             var methodInfo = typeof(UI.Markdown.Markdown).GetMethod("GetFragment", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -199,15 +199,15 @@ namespace WebExpress.Test.Markdown
             Assert.True
             (
                 result?.Type == MarkdownMorpheme.HorizontaleLinie &&
-                result?.Text == "____",
+                result?.Text == "~~~~",
                 "Fehler beim Ermitteln eines Fragments!"
             );
         }
 
         [Fact]
-        public void GetFragment_UnderlineLine_2()
+        public void GetFragment_TildeLine_2()
         {
-            var markdown = "_________";
+            var markdown = "~~~~~~~~~~~~";
 
             var obj = new UI.Markdown.Markdown();
             var methodInfo = typeof(UI.Markdown.Markdown).GetMethod("GetFragment", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -217,15 +217,15 @@ namespace WebExpress.Test.Markdown
             Assert.True
             (
                 result?.Type == MarkdownMorpheme.HorizontaleLinie &&
-                result?.Text == "_________",
+                result?.Text == "~~~~~~~~~~~~",
                 "Fehler beim Ermitteln eines Fragments!"
             );
         }
 
         [Fact]
-        public void GetFragment_UnderlineLine_3()
+        public void GetFragment_TildeLine_3()
         {
-            var markdown = "_ _ _";
+            var markdown = "~ ~ ~";
 
             var obj = new UI.Markdown.Markdown();
             var methodInfo = typeof(UI.Markdown.Markdown).GetMethod("GetFragment", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -235,15 +235,15 @@ namespace WebExpress.Test.Markdown
             Assert.True
             (
                 result?.Type == MarkdownMorpheme.HorizontaleLinie &&
-                result?.Text == "_ _ _",
+                result?.Text == "~ ~ ~",
                 "Fehler beim Ermitteln eines Fragments!"
             );
         }
 
         [Fact]
-        public void GetFragment_UnderlineLine_4()
+        public void GetFragment_TildeLine_4()
         {
-            var markdown = "_  _  _";
+            var markdown = "~  ~  ~";
 
             var obj = new UI.Markdown.Markdown();
             var methodInfo = typeof(UI.Markdown.Markdown).GetMethod("GetFragment", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -252,16 +252,16 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Underline1 &&
-                result?.Text == "_",
+                result?.Type == MarkdownMorpheme.Tilde1 &&
+                result?.Text == "~",
                 "Fehler beim Ermitteln eines Fragments!"
             );
         }
 
         [Fact]
-        public void GetFragment_UnderlineLine_5()
+        public void GetFragment_TildeLine_5()
         {
-            var markdown = "_ _  _ _ ";
+            var markdown = "~ ~  ~ ~ ";
 
             var obj = new UI.Markdown.Markdown();
             var methodInfo = typeof(UI.Markdown.Markdown).GetMethod("GetFragment", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -270,8 +270,8 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Underline1 &&
-                result?.Text == "_",
+                result?.Type == MarkdownMorpheme.Tilde1 &&
+                result?.Text == "~",
                 "Fehler beim Ermitteln eines Fragments!"
             );
         }

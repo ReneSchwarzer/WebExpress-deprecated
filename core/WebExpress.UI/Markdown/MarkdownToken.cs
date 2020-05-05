@@ -23,7 +23,7 @@ namespace WebExpress.UI.Markdown
         /// <summary>
         /// Prüft ob ein Inhalt verhanden ist
         /// </summary>
-        public bool Empty => string.IsNullOrWhiteSpace(Text);
+        public bool Empty => string.IsNullOrEmpty(Text);
 
         public bool Next()
         {

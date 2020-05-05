@@ -81,6 +81,60 @@ namespace WebExpress.Test.Markdown
         }
 
         [Fact]
+        public void GetFragment_AsteriskOne_5()
+        {
+            var markdown = " * ";
+
+            var obj = new UI.Markdown.Markdown();
+            var methodInfo = typeof(UI.Markdown.Markdown).GetMethod("GetFragment", BindingFlags.NonPublic | BindingFlags.Instance);
+            var parameters = new[] { new MarkdownToken() { Text = markdown } };
+            var result = methodInfo.Invoke(obj, parameters) as MarkdownFragment;
+
+            Assert.True
+            (
+                result?.Type == MarkdownMorpheme.Asterisk1 &&
+                result?.Text == " *",
+                "Fehler beim Ermitteln eines Fragments!"
+            );
+        }
+
+        [Fact]
+        public void GetFragment_AsteriskOne_6()
+        {
+            var markdown = "  * ";
+
+            var obj = new UI.Markdown.Markdown();
+            var methodInfo = typeof(UI.Markdown.Markdown).GetMethod("GetFragment", BindingFlags.NonPublic | BindingFlags.Instance);
+            var parameters = new[] { new MarkdownToken() { Text = markdown } };
+            var result = methodInfo.Invoke(obj, parameters) as MarkdownFragment;
+
+            Assert.True
+            (
+                result?.Type == MarkdownMorpheme.Asterisk1 &&
+                result?.Text == "  *",
+                "Fehler beim Ermitteln eines Fragments!"
+            );
+        }
+
+        [Fact]
+        public void GetFragment_AsteriskOne_7()
+        {
+            var markdown = "   * ";
+
+            var obj = new UI.Markdown.Markdown();
+            var methodInfo = typeof(UI.Markdown.Markdown).GetMethod("GetFragment", BindingFlags.NonPublic | BindingFlags.Instance);
+            var parameters = new[] { new MarkdownToken() { Text = markdown } };
+            var result = methodInfo.Invoke(obj, parameters) as MarkdownFragment;
+
+            Assert.True
+            (
+                result?.Type == MarkdownMorpheme.Asterisk1 &&
+                result?.Text == "   *",
+                "Fehler beim Ermitteln eines Fragments!"
+            );
+        }
+
+        [Fact]
         public void GetFragment_AsteriskTwo_1()
         {
             var markdown = "**";

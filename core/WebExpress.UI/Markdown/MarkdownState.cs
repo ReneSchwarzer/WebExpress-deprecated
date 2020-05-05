@@ -57,6 +57,46 @@ namespace WebExpress.UI.Markdown
         /// </summary>
         B,
         /// <summary>
+        /// '~'
+        /// </summary>
+        D1,
+        /// <summary>
+        /// '~ '
+        /// </summary>
+        D1E,
+        /// <summary>
+        /// '~ ~'
+        /// </summary>
+        DLT,
+        /// <summary>
+        /// '~ ~ '
+        /// </summary>
+        DLTE,
+        /// <summary>
+        /// '~~'
+        /// </summary>
+        D2,
+        /// <summary>
+        /// '~~ '
+        /// </summary>
+        D2E,
+        /// <summary>
+        /// '~~~'
+        /// </summary>
+        D3,
+        /// <summary>
+        /// '~~~ '
+        /// </summary>
+        D3E,
+        /// <summary>
+        /// '~~...~' | '~ ~ ... ~'
+        /// </summary>
+        DL,
+        /// <summary>
+        /// '~~...~ ' | '~ ~ ... ~ '
+        /// </summary>
+        DLE,
+        /// <summary>
         /// '='
         /// </summary>
         E,
@@ -276,6 +316,22 @@ namespace WebExpress.UI.Markdown
         /// '__...-_ ' | '_ _ ... _ '
         /// </summary>
         ULE,
+        /// <summary>
+        /// ' '
+        /// </summary>
+        W1,
+        /// <summary>
+        /// '  '
+        /// </summary>
+        W2,
+        /// <summary>
+        /// '   '
+        /// </summary>
+        W3,
+        /// <summary>
+        /// '    '
+        /// </summary>
+        W4,
         /// <summary>
         /// '-'
         /// </summary>
