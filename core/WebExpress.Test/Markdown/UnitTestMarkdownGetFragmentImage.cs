@@ -18,7 +18,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Image &&
+                result?.Type == MarkdownFragmentState.Image &&
                 result?.Text == "[Bild 1]: Assets/img/Logo.png",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -36,7 +36,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Image &&
+                result?.Type == MarkdownFragmentState.Image &&
                 result?.Text == "[Bild 1]: Assets/img/Logo.png \"Optionaler Teil\"",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -55,7 +55,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Text &&
+                result?.Type == MarkdownFragmentState.Text &&
                 result?.Text == "[Bild 1]: Assets/img/Logo.png \"Optionaler Teil",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -73,7 +73,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Text &&
+                result?.Type == MarkdownFragmentState.Text &&
                 result?.Text == "[Hallo Welt]",
                 "Fehler beim Ermitteln eines Fragments!"
             );

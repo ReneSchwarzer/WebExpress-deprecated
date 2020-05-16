@@ -18,7 +18,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Text &&
+                result?.Type == MarkdownFragmentState.Text &&
                 result?.Text == " ",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -36,7 +36,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Text &&
+                result?.Type == MarkdownFragmentState.Text &&
                 result?.Text == "  ",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -53,7 +53,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Text &&
+                result?.Type == MarkdownFragmentState.Text &&
                 result?.Text == "   ",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -71,7 +71,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Space4 &&
+                result?.Type == MarkdownFragmentState.Space4 &&
                 result?.Text == "    ",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -89,7 +89,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Space4 &&
+                result?.Type == MarkdownFragmentState.Space4 &&
                 result?.Text == "    ",
                 "Fehler beim Ermitteln eines Fragments!"
             );

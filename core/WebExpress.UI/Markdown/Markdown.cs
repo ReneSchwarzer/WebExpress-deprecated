@@ -17,12 +17,14 @@ namespace WebExpress.UI.Markdown
         public IHtmlNode Transform(string text)
         {
             var lines = SplitLines(text);
-            var fragments = new List<MarkdownFragment>();
+            var stack = new Stack<MarkdownMorpheme>();
 
             foreach (var line in lines)
             {
-                var md = ConvertLine(line);
-                fragments.AddRange(md.Fragments);
+                foreach (var morphemes in ConvertLine(line)?.Morphemes)
+                {
+
+                }
             }
 
             var html = new List<IHtmlNode>();
@@ -36,25 +38,14 @@ namespace WebExpress.UI.Markdown
         /// </summary>
         /// <param name="text">Die zu prüfende Zeile</param>
         /// <returns>Die geprüfte und bestimmte Zeile</returns>
-        private MarkdownLine ConvertLine(string text)
+        private MarkdownMorphemes ConvertLine(string text)
         {
             if (string.IsNullOrWhiteSpace(text))
             {
-                return new MarkdownLine()
-                {
-                    Text = text,
-                    Fragments = new List<MarkdownFragment>() 
-                    {
-                        new MarkdownFragment()
-                        {
-                            Text = string.Empty,
-                            Type = MarkdownMorpheme.Newline
-                        }
-                     }
-                };
+                return new MarkdownMorphemes();
             }
 
-            var fragments = new List<MarkdownFragment>();
+            var morphemes = new MarkdownMorphemes();
             var fragment = null as MarkdownFragment;
             var token = new MarkdownToken()
             {
@@ -64,14 +55,12 @@ namespace WebExpress.UI.Markdown
 
             while ((fragment = GetFragment(token)) != null)
             {
-                fragments.Add(fragment);
+                morphemes.Add(fragment.Type, fragment.Text);
             }
 
-            return new MarkdownLine()
-            {
-                Text = text,
-                Fragments = fragments
-            };
+            morphemes.Completed();
+
+            return morphemes;
         }
 
         /// <summary>
@@ -83,7 +72,7 @@ namespace WebExpress.UI.Markdown
         /// <returns>Das Fragment</returns>
         private MarkdownFragment GetFragment(MarkdownToken token)
         {
-            var state = MarkdownState.None;
+            var state = MarkdownTokenState.None;
             var orign = token.Position;
             var position = orign;
 
@@ -92,7 +81,7 @@ namespace WebExpress.UI.Markdown
                 return new MarkdownFragment()
                 {
                     Text = string.Empty,
-                    Type = MarkdownMorpheme.Newline
+                    Type = MarkdownFragmentState.Newline
                 };
             }
             else if (token.EoL)
@@ -109,245 +98,245 @@ namespace WebExpress.UI.Markdown
                     case ' ':
                         switch (state)
                         {
-                            case MarkdownState.None:
-                                state = MarkdownState.W1;
+                            case MarkdownTokenState.None:
+                                state = MarkdownTokenState.W1;
                                 break;
-                            case MarkdownState.A1:
-                                state = MarkdownState.A1E;
+                            case MarkdownTokenState.A1:
+                                state = MarkdownTokenState.A1E;
                                 break;
-                            case MarkdownState.A1E:
+                            case MarkdownTokenState.A1E:
                                 goto exitLoop;
-                            case MarkdownState.ALT:
-                                state = MarkdownState.ALTE;
+                            case MarkdownTokenState.ALT:
+                                state = MarkdownTokenState.ALTE;
                                 break;
-                            case MarkdownState.ALTE:
+                            case MarkdownTokenState.ALTE:
                                 goto exitLoop;
-                            case MarkdownState.A2:
-                                state = MarkdownState.A2E;
+                            case MarkdownTokenState.A2:
+                                state = MarkdownTokenState.A2E;
                                 break;
-                            case MarkdownState.A2E:
-                                state = MarkdownState.A1;
+                            case MarkdownTokenState.A2E:
+                                state = MarkdownTokenState.A1;
                                 goto exitLoop;
-                            case MarkdownState.A3:
-                                state = MarkdownState.A3E;
+                            case MarkdownTokenState.A3:
+                                state = MarkdownTokenState.A3E;
                                 break;
-                            case MarkdownState.A3E:
+                            case MarkdownTokenState.A3E:
                                 goto exitLoop;
-                            case MarkdownState.AL:
-                                state = MarkdownState.ALE;
+                            case MarkdownTokenState.AL:
+                                state = MarkdownTokenState.ALE;
                                 break;
-                            case MarkdownState.ALE:
-                                state = MarkdownState.ALE;
+                            case MarkdownTokenState.ALE:
+                                state = MarkdownTokenState.ALE;
                                 break;
-                            case MarkdownState.B:
+                            case MarkdownTokenState.B:
                                 goto exitLoop;
-                            case MarkdownState.D1:
-                                state = MarkdownState.D1E;
+                            case MarkdownTokenState.D1:
+                                state = MarkdownTokenState.D1E;
                                 break;
-                            case MarkdownState.D1E:
+                            case MarkdownTokenState.D1E:
                                 goto exitLoop;
-                            case MarkdownState.DLT:
-                                state = MarkdownState.DLTE;
+                            case MarkdownTokenState.DLT:
+                                state = MarkdownTokenState.DLTE;
                                 break;
-                            case MarkdownState.DLTE:
+                            case MarkdownTokenState.DLTE:
                                 goto exitLoop;
-                            case MarkdownState.D2:
-                                state = MarkdownState.D2E;
+                            case MarkdownTokenState.D2:
+                                state = MarkdownTokenState.D2E;
                                 break;
-                            case MarkdownState.D2E:
-                                state = MarkdownState.D1;
+                            case MarkdownTokenState.D2E:
+                                state = MarkdownTokenState.D1;
                                 goto exitLoop;
-                            case MarkdownState.D3:
-                                state = MarkdownState.D3E;
+                            case MarkdownTokenState.D3:
+                                state = MarkdownTokenState.D3E;
                                 break;
-                            case MarkdownState.D3E:
+                            case MarkdownTokenState.D3E:
                                 goto exitLoop;
-                            case MarkdownState.DL:
-                                state = MarkdownState.DLE;
+                            case MarkdownTokenState.DL:
+                                state = MarkdownTokenState.DLE;
                                 break;
-                            case MarkdownState.DLE:
-                                state = MarkdownState.DLE;
+                            case MarkdownTokenState.DLE:
+                                state = MarkdownTokenState.DLE;
                                 break;
-                            case MarkdownState.E:
+                            case MarkdownTokenState.E:
                                 goto exitLoop;
-                            case MarkdownState.EH:
+                            case MarkdownTokenState.EH:
                                 goto exitLoop;
-                            case MarkdownState.G:
+                            case MarkdownTokenState.G:
                                 goto exitLoop;
-                            case MarkdownState.H1:
+                            case MarkdownTokenState.H1:
                                 goto exitLoop;
-                            case MarkdownState.H2:
+                            case MarkdownTokenState.H2:
                                 goto exitLoop;
-                            case MarkdownState.H3:
+                            case MarkdownTokenState.H3:
                                 goto exitLoop;
-                            case MarkdownState.H4:
+                            case MarkdownTokenState.H4:
                                 goto exitLoop;
-                            case MarkdownState.H5:
+                            case MarkdownTokenState.H5:
                                 goto exitLoop;
-                            case MarkdownState.H6:
+                            case MarkdownTokenState.H6:
                                 goto exitLoop;
-                            case MarkdownState.I1T:
-                                state = MarkdownState.IN;
+                            case MarkdownTokenState.I1T:
+                                state = MarkdownTokenState.IN;
                                 break;
-                            case MarkdownState.IN:
-                                state = MarkdownState.IN;
+                            case MarkdownTokenState.IN:
+                                state = MarkdownTokenState.IN;
                                 break;
-                            case MarkdownState.I2T:
-                                state = MarkdownState.I2T;
+                            case MarkdownTokenState.I2T:
+                                state = MarkdownTokenState.I2T;
                                 break;
-                            case MarkdownState.I3T:
-                                state = MarkdownState.I3T;
+                            case MarkdownTokenState.I3T:
+                                state = MarkdownTokenState.I3T;
                                 break;
-                            case MarkdownState.IP:
-                                state = MarkdownState.IPE;
+                            case MarkdownTokenState.IP:
+                                state = MarkdownTokenState.IPE;
                                 break;
-                            case MarkdownState.IO:
-                                state = MarkdownState.IO;
+                            case MarkdownTokenState.IO:
+                                state = MarkdownTokenState.IO;
                                 break;
-                            case MarkdownState.LT:
-                                state = MarkdownState.L;
+                            case MarkdownTokenState.LT:
+                                state = MarkdownTokenState.L;
                                 break;
-                            case MarkdownState.P:
+                            case MarkdownTokenState.P:
                                 goto exitLoop;
-                            case MarkdownState.RT:
-                                state = MarkdownState.RT;
+                            case MarkdownTokenState.RT:
+                                state = MarkdownTokenState.RT;
                                 break;
-                            case MarkdownState.R2T:
-                                state = MarkdownState.R2T;
+                            case MarkdownTokenState.R2T:
+                                state = MarkdownTokenState.R2T;
                                 break;
-                            case MarkdownState.RN:
-                                state = MarkdownState.RN;
+                            case MarkdownTokenState.RN:
+                                state = MarkdownTokenState.RN;
                                 break;
-                            case MarkdownState.R3T:
-                                state = MarkdownState.RP;
+                            case MarkdownTokenState.R3T:
+                                state = MarkdownTokenState.RP;
                                 break;
-                            case MarkdownState.RP:
-                                state = MarkdownState.RP;
+                            case MarkdownTokenState.RP:
+                                state = MarkdownTokenState.RP;
                                 break;
-                            case MarkdownState.RO:
-                                state = MarkdownState.RO;
+                            case MarkdownTokenState.RO:
+                                state = MarkdownTokenState.RO;
                                 break;
-                            case MarkdownState.ROT:
-                                state = MarkdownState.ROT;
+                            case MarkdownTokenState.ROT:
+                                state = MarkdownTokenState.ROT;
                                 break;
-                            case MarkdownState.S:
+                            case MarkdownTokenState.S:
                                 goto exitLoop;
-                            case MarkdownState.T:
+                            case MarkdownTokenState.T:
                                 goto exitLoop;
-                            case MarkdownState.U1:
-                                state = MarkdownState.U1E;
+                            case MarkdownTokenState.U1:
+                                state = MarkdownTokenState.U1E;
                                 break;
-                            case MarkdownState.U1E:
+                            case MarkdownTokenState.U1E:
                                 goto exitLoop;
-                            case MarkdownState.ULT:
-                                state = MarkdownState.ULTE;
+                            case MarkdownTokenState.ULT:
+                                state = MarkdownTokenState.ULTE;
                                 break;
-                            case MarkdownState.ULTE:
+                            case MarkdownTokenState.ULTE:
                                 goto exitLoop;
-                            case MarkdownState.U2:
-                                state = MarkdownState.U2E;
+                            case MarkdownTokenState.U2:
+                                state = MarkdownTokenState.U2E;
                                 break;
-                            case MarkdownState.U2E:
-                                state = MarkdownState.U1;
+                            case MarkdownTokenState.U2E:
+                                state = MarkdownTokenState.U1;
                                 goto exitLoop;
-                            case MarkdownState.U3:
-                                state = MarkdownState.U3E;
+                            case MarkdownTokenState.U3:
+                                state = MarkdownTokenState.U3E;
                                 break;
-                            case MarkdownState.U3E:
+                            case MarkdownTokenState.U3E:
                                 goto exitLoop;
-                            case MarkdownState.UL:
-                                state = MarkdownState.ULE;
+                            case MarkdownTokenState.UL:
+                                state = MarkdownTokenState.ULE;
                                 break;
-                            case MarkdownState.ULE:
-                                state = MarkdownState.ULE;
+                            case MarkdownTokenState.ULE:
+                                state = MarkdownTokenState.ULE;
                                 break;
-                            case MarkdownState.W1:
-                                state = MarkdownState.W2;
+                            case MarkdownTokenState.W1:
+                                state = MarkdownTokenState.W2;
                                 break;
-                            case MarkdownState.W2:
-                                state = MarkdownState.W3;
+                            case MarkdownTokenState.W2:
+                                state = MarkdownTokenState.W3;
                                 break;
-                            case MarkdownState.W3:
-                                state = MarkdownState.W4;
+                            case MarkdownTokenState.W3:
+                                state = MarkdownTokenState.W4;
                                 break;
-                            case MarkdownState.W4:
+                            case MarkdownTokenState.W4:
                                 goto exitLoop;
-                            case MarkdownState.Y1:
-                                state = MarkdownState.Y1E;
+                            case MarkdownTokenState.Y1:
+                                state = MarkdownTokenState.Y1E;
                                 break;
-                            case MarkdownState.Y1E:
+                            case MarkdownTokenState.Y1E:
                                 goto exitLoop;
-                            case MarkdownState.YLT:
-                                state = MarkdownState.YLTE;
+                            case MarkdownTokenState.YLT:
+                                state = MarkdownTokenState.YLTE;
                                 break;
-                            case MarkdownState.YLTE:
+                            case MarkdownTokenState.YLTE:
                                 goto exitLoop;
-                            case MarkdownState.Y2:
-                                state = MarkdownState.Y2E;
+                            case MarkdownTokenState.Y2:
+                                state = MarkdownTokenState.Y2E;
                                 break;
-                            case MarkdownState.Y2E:
-                                state = MarkdownState.Y1;
+                            case MarkdownTokenState.Y2E:
+                                state = MarkdownTokenState.Y1;
                                 goto exitLoop;
-                            case MarkdownState.Y3:
-                                state = MarkdownState.Y3E;
+                            case MarkdownTokenState.Y3:
+                                state = MarkdownTokenState.Y3E;
                                 break;
-                            case MarkdownState.Y3E:
+                            case MarkdownTokenState.Y3E:
                                 goto exitLoop;
-                            case MarkdownState.YL:
-                                state = MarkdownState.YLE;
+                            case MarkdownTokenState.YL:
+                                state = MarkdownTokenState.YLE;
                                 break;
-                            case MarkdownState.YLE:
-                                state = MarkdownState.YLE;
+                            case MarkdownTokenState.YLE:
+                                state = MarkdownTokenState.YLE;
                                 break;
                             default:
-                                state = MarkdownState.X;
+                                state = MarkdownTokenState.X;
                                 break;
                         }
                         break;
                     case '*':
                         switch (state)
                         {
-                            case MarkdownState.None:
-                                state = MarkdownState.A1;
+                            case MarkdownTokenState.None:
+                                state = MarkdownTokenState.A1;
                                 break;
-                            case MarkdownState.A1:
-                                state = MarkdownState.A2;
+                            case MarkdownTokenState.A1:
+                                state = MarkdownTokenState.A2;
                                 break;
-                            case MarkdownState.A1E:
-                                state = MarkdownState.ALT;
+                            case MarkdownTokenState.A1E:
+                                state = MarkdownTokenState.ALT;
                                 break;
-                            case MarkdownState.ALT:
-                                state = MarkdownState.AL;
+                            case MarkdownTokenState.ALT:
+                                state = MarkdownTokenState.AL;
                                 break;
-                            case MarkdownState.ALTE:
-                                state = MarkdownState.AL;
+                            case MarkdownTokenState.ALTE:
+                                state = MarkdownTokenState.AL;
                                 break;
-                            case MarkdownState.A2:
-                                state = MarkdownState.A3;
+                            case MarkdownTokenState.A2:
+                                state = MarkdownTokenState.A3;
                                 break;
-                            case MarkdownState.A2E:
-                                state = MarkdownState.AL;
+                            case MarkdownTokenState.A2E:
+                                state = MarkdownTokenState.AL;
                                 break;
-                            case MarkdownState.A3:
-                                state = MarkdownState.AL;
+                            case MarkdownTokenState.A3:
+                                state = MarkdownTokenState.AL;
                                 break;
-                            case MarkdownState.A3E:
-                                state = MarkdownState.AL;
+                            case MarkdownTokenState.A3E:
+                                state = MarkdownTokenState.AL;
                                 break;
-                            case MarkdownState.AL:
-                                state = MarkdownState.AL;
+                            case MarkdownTokenState.AL:
+                                state = MarkdownTokenState.AL;
                                 break;
-                            case MarkdownState.ALE:
-                                state = MarkdownState.AL;
+                            case MarkdownTokenState.ALE:
+                                state = MarkdownTokenState.AL;
                                 break;
-                            case MarkdownState.W1:
-                                state = MarkdownState.A1;
+                            case MarkdownTokenState.W1:
+                                state = MarkdownTokenState.A1;
                                 break;
-                            case MarkdownState.W2:
-                                state = MarkdownState.A1;
+                            case MarkdownTokenState.W2:
+                                state = MarkdownTokenState.A1;
                                 break;
-                            case MarkdownState.W3:
-                                state = MarkdownState.A1;
+                            case MarkdownTokenState.W3:
+                                state = MarkdownTokenState.A1;
                                 break;
                             default:
                                 goto exitLoop;
@@ -356,50 +345,50 @@ namespace WebExpress.UI.Markdown
                     case '~':
                         switch (state)
                         {
-                            case MarkdownState.None:
-                                state = MarkdownState.D1;
+                            case MarkdownTokenState.None:
+                                state = MarkdownTokenState.D1;
                                 break;
-                            case MarkdownState.D1:
-                                state = MarkdownState.D2;
+                            case MarkdownTokenState.D1:
+                                state = MarkdownTokenState.D2;
                                 break;
-                            case MarkdownState.D1E:
-                                state = MarkdownState.DLT;
+                            case MarkdownTokenState.D1E:
+                                state = MarkdownTokenState.DLT;
                                 break;
-                            case MarkdownState.DLT:
-                                state = MarkdownState.DL;
+                            case MarkdownTokenState.DLT:
+                                state = MarkdownTokenState.DL;
                                 break;
-                            case MarkdownState.DLTE:
-                                state = MarkdownState.DL;
+                            case MarkdownTokenState.DLTE:
+                                state = MarkdownTokenState.DL;
                                 break;
-                            case MarkdownState.D2:
-                                state = MarkdownState.D3;
+                            case MarkdownTokenState.D2:
+                                state = MarkdownTokenState.D3;
                                 break;
-                            case MarkdownState.D2E:
-                                state = MarkdownState.DL;
+                            case MarkdownTokenState.D2E:
+                                state = MarkdownTokenState.DL;
                                 break;
-                            case MarkdownState.D3:
-                                state = MarkdownState.DL;
+                            case MarkdownTokenState.D3:
+                                state = MarkdownTokenState.DL;
                                 break;
-                            case MarkdownState.D3E:
-                                state = MarkdownState.DL;
+                            case MarkdownTokenState.D3E:
+                                state = MarkdownTokenState.DL;
                                 break;
-                            case MarkdownState.DL:
-                                state = MarkdownState.DL;
+                            case MarkdownTokenState.DL:
+                                state = MarkdownTokenState.DL;
                                 break;
-                            case MarkdownState.DLE:
-                                state = MarkdownState.DL;
+                            case MarkdownTokenState.DLE:
+                                state = MarkdownTokenState.DL;
                                 break;
-                            case MarkdownState.RT:
-                                state = MarkdownState.RT;
+                            case MarkdownTokenState.RT:
+                                state = MarkdownTokenState.RT;
                                 break;
-                            case MarkdownState.W1:
-                                state = MarkdownState.D1;
+                            case MarkdownTokenState.W1:
+                                state = MarkdownTokenState.D1;
                                 break;
-                            case MarkdownState.W2:
-                                state = MarkdownState.D1;
+                            case MarkdownTokenState.W2:
+                                state = MarkdownTokenState.D1;
                                 break;
-                            case MarkdownState.W3:
-                                state = MarkdownState.D1;
+                            case MarkdownTokenState.W3:
+                                state = MarkdownTokenState.D1;
                                 break;
                             default:
                                 goto exitLoop;
@@ -408,50 +397,50 @@ namespace WebExpress.UI.Markdown
                     case '-':
                         switch (state)
                         {
-                            case MarkdownState.None:
-                                state = MarkdownState.Y1;
+                            case MarkdownTokenState.None:
+                                state = MarkdownTokenState.Y1;
                                 break;
-                            case MarkdownState.RT:
-                                state = MarkdownState.RT;
+                            case MarkdownTokenState.RT:
+                                state = MarkdownTokenState.RT;
                                 break;
-                            case MarkdownState.W1:
-                                state = MarkdownState.Y1;
+                            case MarkdownTokenState.W1:
+                                state = MarkdownTokenState.Y1;
                                 break;
-                            case MarkdownState.W2:
-                                state = MarkdownState.Y1;
+                            case MarkdownTokenState.W2:
+                                state = MarkdownTokenState.Y1;
                                 break;
-                            case MarkdownState.W3:
-                                state = MarkdownState.Y1;
+                            case MarkdownTokenState.W3:
+                                state = MarkdownTokenState.Y1;
                                 break;
-                            case MarkdownState.Y1:
-                                state = MarkdownState.Y2;
+                            case MarkdownTokenState.Y1:
+                                state = MarkdownTokenState.Y2;
                                 break;
-                            case MarkdownState.Y1E:
-                                state = MarkdownState.YLT;
+                            case MarkdownTokenState.Y1E:
+                                state = MarkdownTokenState.YLT;
                                 break;
-                            case MarkdownState.YLT:
-                                state = MarkdownState.YL;
+                            case MarkdownTokenState.YLT:
+                                state = MarkdownTokenState.YL;
                                 break;
-                            case MarkdownState.YLTE:
-                                state = MarkdownState.YL;
+                            case MarkdownTokenState.YLTE:
+                                state = MarkdownTokenState.YL;
                                 break;
-                            case MarkdownState.Y2:
-                                state = MarkdownState.Y3;
+                            case MarkdownTokenState.Y2:
+                                state = MarkdownTokenState.Y3;
                                 break;
-                            case MarkdownState.Y2E:
-                                state = MarkdownState.YL;
+                            case MarkdownTokenState.Y2E:
+                                state = MarkdownTokenState.YL;
                                 break;
-                            case MarkdownState.Y3:
-                                state = MarkdownState.YL;
+                            case MarkdownTokenState.Y3:
+                                state = MarkdownTokenState.YL;
                                 break;
-                            case MarkdownState.Y3E:
-                                state = MarkdownState.YL;
+                            case MarkdownTokenState.Y3E:
+                                state = MarkdownTokenState.YL;
                                 break;
-                            case MarkdownState.YL:
-                                state = MarkdownState.YL;
+                            case MarkdownTokenState.YL:
+                                state = MarkdownTokenState.YL;
                                 break;
-                            case MarkdownState.YLE:
-                                state = MarkdownState.YL;
+                            case MarkdownTokenState.YLE:
+                                state = MarkdownTokenState.YL;
                                 break;
                             default:
                                 goto exitLoop;
@@ -460,50 +449,50 @@ namespace WebExpress.UI.Markdown
                     case '_':
                         switch (state)
                         {
-                            case MarkdownState.None:
-                                state = MarkdownState.U1;
+                            case MarkdownTokenState.None:
+                                state = MarkdownTokenState.U1;
                                 break;
-                            case MarkdownState.RT:
-                                state = MarkdownState.RT;
+                            case MarkdownTokenState.RT:
+                                state = MarkdownTokenState.RT;
                                 break;
-                            case MarkdownState.U1:
-                                state = MarkdownState.U2;
+                            case MarkdownTokenState.U1:
+                                state = MarkdownTokenState.U2;
                                 break;
-                            case MarkdownState.U1E:
-                                state = MarkdownState.ULT;
+                            case MarkdownTokenState.U1E:
+                                state = MarkdownTokenState.ULT;
                                 break;
-                            case MarkdownState.ULT:
-                                state = MarkdownState.UL;
+                            case MarkdownTokenState.ULT:
+                                state = MarkdownTokenState.UL;
                                 break;
-                            case MarkdownState.ULTE:
-                                state = MarkdownState.UL;
+                            case MarkdownTokenState.ULTE:
+                                state = MarkdownTokenState.UL;
                                 break;
-                            case MarkdownState.U2:
-                                state = MarkdownState.U3;
+                            case MarkdownTokenState.U2:
+                                state = MarkdownTokenState.U3;
                                 break;
-                            case MarkdownState.U2E:
-                                state = MarkdownState.UL;
+                            case MarkdownTokenState.U2E:
+                                state = MarkdownTokenState.UL;
                                 break;
-                            case MarkdownState.U3:
-                                state = MarkdownState.UL;
+                            case MarkdownTokenState.U3:
+                                state = MarkdownTokenState.UL;
                                 break;
-                            case MarkdownState.U3E:
-                                state = MarkdownState.UL;
+                            case MarkdownTokenState.U3E:
+                                state = MarkdownTokenState.UL;
                                 break;
-                            case MarkdownState.UL:
-                                state = MarkdownState.UL;
+                            case MarkdownTokenState.UL:
+                                state = MarkdownTokenState.UL;
                                 break;
-                            case MarkdownState.ULE:
-                                state = MarkdownState.UL;
+                            case MarkdownTokenState.ULE:
+                                state = MarkdownTokenState.UL;
                                 break;
-                            case MarkdownState.W1:
-                                state = MarkdownState.U1;
+                            case MarkdownTokenState.W1:
+                                state = MarkdownTokenState.U1;
                                 break;
-                            case MarkdownState.W2:
-                                state = MarkdownState.U1;
+                            case MarkdownTokenState.W2:
+                                state = MarkdownTokenState.U1;
                                 break;
-                            case MarkdownState.W3:
-                                state = MarkdownState.U1;
+                            case MarkdownTokenState.W3:
+                                state = MarkdownTokenState.U1;
                                 break;
                             default:
                                 goto exitLoop;
@@ -512,28 +501,28 @@ namespace WebExpress.UI.Markdown
                     case '#':
                         switch (state)
                         {
-                            case MarkdownState.None:
-                                state = MarkdownState.H1;
+                            case MarkdownTokenState.None:
+                                state = MarkdownTokenState.H1;
                                 break;
-                            case MarkdownState.H1:
-                                state = MarkdownState.H2;
+                            case MarkdownTokenState.H1:
+                                state = MarkdownTokenState.H2;
                                 break;
-                            case MarkdownState.H2:
-                                state = MarkdownState.H3;
+                            case MarkdownTokenState.H2:
+                                state = MarkdownTokenState.H3;
                                 break;
-                            case MarkdownState.H3:
-                                state = MarkdownState.H4;
+                            case MarkdownTokenState.H3:
+                                state = MarkdownTokenState.H4;
                                 break;
-                            case MarkdownState.H4:
-                                state = MarkdownState.H5;
+                            case MarkdownTokenState.H4:
+                                state = MarkdownTokenState.H5;
                                 break;
-                            case MarkdownState.H5:
-                                state = MarkdownState.H6;
+                            case MarkdownTokenState.H5:
+                                state = MarkdownTokenState.H6;
                                 break;
-                            case MarkdownState.H6:
+                            case MarkdownTokenState.H6:
                                 goto exitLoop;
-                            case MarkdownState.RT:
-                                state = MarkdownState.RT;
+                            case MarkdownTokenState.RT:
+                                state = MarkdownTokenState.RT;
                                 break;
                             default:
                                 goto exitLoop;
@@ -542,17 +531,17 @@ namespace WebExpress.UI.Markdown
                     case '=':
                         switch (state)
                         {
-                            case MarkdownState.None:
-                                state = MarkdownState.E;
+                            case MarkdownTokenState.None:
+                                state = MarkdownTokenState.E;
                                 break;
-                            case MarkdownState.E:
-                                state = MarkdownState.EH;
+                            case MarkdownTokenState.E:
+                                state = MarkdownTokenState.EH;
                                 break;
-                            case MarkdownState.EH:
-                                state = MarkdownState.EH;
+                            case MarkdownTokenState.EH:
+                                state = MarkdownTokenState.EH;
                                 break;
-                            case MarkdownState.RT:
-                                state = MarkdownState.RT;
+                            case MarkdownTokenState.RT:
+                                state = MarkdownTokenState.RT;
                                 break;
                             default:
                                 goto exitLoop;
@@ -561,11 +550,11 @@ namespace WebExpress.UI.Markdown
                     case '+':
                         switch (state)
                         {
-                            case MarkdownState.None:
-                                state = MarkdownState.P;
+                            case MarkdownTokenState.None:
+                                state = MarkdownTokenState.P;
                                 break;
-                            case MarkdownState.RT:
-                                state = MarkdownState.RT;
+                            case MarkdownTokenState.RT:
+                                state = MarkdownTokenState.RT;
                                 break;
                             default:
                                 goto exitLoop;
@@ -574,11 +563,11 @@ namespace WebExpress.UI.Markdown
                     case '>':
                         switch (state)
                         {
-                            case MarkdownState.None:
-                                state = MarkdownState.G;
+                            case MarkdownTokenState.None:
+                                state = MarkdownTokenState.G;
                                 break;
-                            case MarkdownState.RT:
-                                state = MarkdownState.RT;
+                            case MarkdownTokenState.RT:
+                                state = MarkdownTokenState.RT;
                                 break;
                             default:
                                 goto exitLoop;
@@ -587,11 +576,11 @@ namespace WebExpress.UI.Markdown
                     case '`':
                         switch (state)
                         {
-                            case MarkdownState.None:
-                                state = MarkdownState.B;
+                            case MarkdownTokenState.None:
+                                state = MarkdownTokenState.B;
                                 break;
-                            case MarkdownState.RT:
-                                state = MarkdownState.RT;
+                            case MarkdownTokenState.RT:
+                                state = MarkdownTokenState.RT;
                                 break;
                             default:
                                 goto exitLoop;
@@ -600,8 +589,8 @@ namespace WebExpress.UI.Markdown
                     case '\\':
                         switch (state)
                         {
-                            case MarkdownState.None:
-                                state = MarkdownState.S;
+                            case MarkdownTokenState.None:
+                                state = MarkdownTokenState.S;
                                 break;
                             default:
                                 goto exitLoop;
@@ -610,11 +599,11 @@ namespace WebExpress.UI.Markdown
                     case '|':
                         switch (state)
                         {
-                            case MarkdownState.None:
-                                state = MarkdownState.T;
+                            case MarkdownTokenState.None:
+                                state = MarkdownTokenState.T;
                                 break;
-                            case MarkdownState.RT:
-                                state = MarkdownState.RT;
+                            case MarkdownTokenState.RT:
+                                state = MarkdownTokenState.RT;
                                 break;
                             default:
                                 goto exitLoop;
@@ -623,14 +612,14 @@ namespace WebExpress.UI.Markdown
                     case '[':
                         switch (state)
                         {
-                            case MarkdownState.None:
-                                state = MarkdownState.I1T;
+                            case MarkdownTokenState.None:
+                                state = MarkdownTokenState.I1T;
                                 break;
-                            case MarkdownState.R1T:
-                                state = MarkdownState.RT;
+                            case MarkdownTokenState.R1T:
+                                state = MarkdownTokenState.RT;
                                 break;
-                            case MarkdownState.R2T:
-                                state = MarkdownState.RN;
+                            case MarkdownTokenState.R2T:
+                                state = MarkdownTokenState.RN;
                                 break;
                             default:
                                 goto exitLoop;
@@ -639,17 +628,17 @@ namespace WebExpress.UI.Markdown
                     case ']':
                         switch (state)
                         {
-                            case MarkdownState.IN:
-                                state = MarkdownState.I2T;
+                            case MarkdownTokenState.IN:
+                                state = MarkdownTokenState.I2T;
                                 break;
-                            case MarkdownState.RT:
-                                state = MarkdownState.R2T;
+                            case MarkdownTokenState.RT:
+                                state = MarkdownTokenState.R2T;
                                 break;
-                            case MarkdownState.RN:
-                                state = MarkdownState.R;
+                            case MarkdownTokenState.RN:
+                                state = MarkdownTokenState.R;
                                 break;
-                            case MarkdownState.X:
-                                state = MarkdownState.X;
+                            case MarkdownTokenState.X:
+                                state = MarkdownTokenState.X;
                                 break;
                             default:
                                 goto exitLoop;
@@ -658,14 +647,14 @@ namespace WebExpress.UI.Markdown
                     case ':':
                         switch (state)
                         {
-                            case MarkdownState.I2T:
-                                state = MarkdownState.I3T;
+                            case MarkdownTokenState.I2T:
+                                state = MarkdownTokenState.I3T;
                                 break;
-                            case MarkdownState.LH4:
-                                state = MarkdownState.LH5;
+                            case MarkdownTokenState.LH4:
+                                state = MarkdownTokenState.LH5;
                                 break;
-                            case MarkdownState.LM6:
-                                state = MarkdownState.LM7;
+                            case MarkdownTokenState.LM6:
+                                state = MarkdownTokenState.LM7;
                                 break;
                             default:
                                 goto Default;
@@ -674,20 +663,20 @@ namespace WebExpress.UI.Markdown
                     case '"':
                         switch (state)
                         {
-                            case MarkdownState.IPE:
-                                state = MarkdownState.IO;
+                            case MarkdownTokenState.IPE:
+                                state = MarkdownTokenState.IO;
                                 break;
-                            case MarkdownState.IO:
-                                state = MarkdownState.IOE;
+                            case MarkdownTokenState.IO:
+                                state = MarkdownTokenState.IOE;
                                 break;
-                            case MarkdownState.RP:
-                                state = MarkdownState.RO;
+                            case MarkdownTokenState.RP:
+                                state = MarkdownTokenState.RO;
                                 break;
-                            case MarkdownState.RO:
-                                state = MarkdownState.ROT;
+                            case MarkdownTokenState.RO:
+                                state = MarkdownTokenState.ROT;
                                 break;
-                            case MarkdownState.X:
-                                state = MarkdownState.X;
+                            case MarkdownTokenState.X:
+                                state = MarkdownTokenState.X;
                                 break;
                             default:
                                 goto exitLoop;
@@ -696,8 +685,8 @@ namespace WebExpress.UI.Markdown
                     case '!':
                         switch (state)
                         {
-                            case MarkdownState.None:
-                                state = MarkdownState.R1T;
+                            case MarkdownTokenState.None:
+                                state = MarkdownTokenState.R1T;
                                 break;
                             default:
                                 goto Default;
@@ -706,11 +695,11 @@ namespace WebExpress.UI.Markdown
                     case '(':
                         switch (state)
                         {
-                            case MarkdownState.R2T:
-                                state = MarkdownState.R3T;
+                            case MarkdownTokenState.R2T:
+                                state = MarkdownTokenState.R3T;
                                 break;
-                            case MarkdownState.X:
-                                state = MarkdownState.X;
+                            case MarkdownTokenState.X:
+                                state = MarkdownTokenState.X;
                                 break;
                             default:
                                 goto exitLoop;
@@ -719,17 +708,17 @@ namespace WebExpress.UI.Markdown
                     case ')':
                         switch (state)
                         {
-                            case MarkdownState.R2T:
-                                state = MarkdownState.R3T;
+                            case MarkdownTokenState.R2T:
+                                state = MarkdownTokenState.R3T;
                                 break;
-                            case MarkdownState.RP:
-                                state = MarkdownState.R;
+                            case MarkdownTokenState.RP:
+                                state = MarkdownTokenState.R;
                                 break;
-                            case MarkdownState.ROT:
-                                state = MarkdownState.R;
+                            case MarkdownTokenState.ROT:
+                                state = MarkdownTokenState.R;
                                 break;
-                            case MarkdownState.X:
-                                state = MarkdownState.X;
+                            case MarkdownTokenState.X:
+                                state = MarkdownTokenState.X;
                                 break;
                             default:
                                 goto exitLoop;
@@ -738,11 +727,11 @@ namespace WebExpress.UI.Markdown
                     case '/':
                         switch (state)
                         {
-                            case MarkdownState.LH5:
-                                state = MarkdownState.LH6;
+                            case MarkdownTokenState.LH5:
+                                state = MarkdownTokenState.LH6;
                                 break;
-                            case MarkdownState.LH6:
-                                state = MarkdownState.LH7;
+                            case MarkdownTokenState.LH6:
+                                state = MarkdownTokenState.LH7;
                                 break;
                             default:
                                 goto Default;
@@ -751,8 +740,8 @@ namespace WebExpress.UI.Markdown
                     case 'h':
                         switch (state)
                         {
-                            case MarkdownState.None:
-                                state = MarkdownState.LH1;
+                            case MarkdownTokenState.None:
+                                state = MarkdownTokenState.LH1;
                                 break;
                             default:
                                 goto Default;
@@ -761,8 +750,8 @@ namespace WebExpress.UI.Markdown
                     case 'a':
                         switch (state)
                         {
-                            case MarkdownState.LM1:
-                                state = MarkdownState.LM2;
+                            case MarkdownTokenState.LM1:
+                                state = MarkdownTokenState.LM2;
                                 break;
                             default:
                                 goto Default;
@@ -771,8 +760,8 @@ namespace WebExpress.UI.Markdown
                     case 'i':
                         switch (state)
                         {
-                            case MarkdownState.LM2:
-                                state = MarkdownState.LM3;
+                            case MarkdownTokenState.LM2:
+                                state = MarkdownTokenState.LM3;
                                 break;
                             default:
                                 goto Default;
@@ -781,8 +770,8 @@ namespace WebExpress.UI.Markdown
                     case 'l':
                         switch (state)
                         {
-                            case MarkdownState.LM3:
-                                state = MarkdownState.LM4;
+                            case MarkdownTokenState.LM3:
+                                state = MarkdownTokenState.LM4;
                                 break;
                             default:
                                 goto Default;
@@ -791,8 +780,8 @@ namespace WebExpress.UI.Markdown
                     case 'm':
                         switch (state)
                         {
-                            case MarkdownState.None:
-                                state = MarkdownState.LM1;
+                            case MarkdownTokenState.None:
+                                state = MarkdownTokenState.LM1;
                                 break;
                             default:
                                 goto Default;
@@ -801,8 +790,8 @@ namespace WebExpress.UI.Markdown
                     case 'o':
                         switch (state)
                         {
-                            case MarkdownState.LM5:
-                                state = MarkdownState.LM6;
+                            case MarkdownTokenState.LM5:
+                                state = MarkdownTokenState.LM6;
                                 break;
                             default:
                                 goto Default;
@@ -811,8 +800,8 @@ namespace WebExpress.UI.Markdown
                     case 'p':
                         switch (state)
                         {
-                            case MarkdownState.LH3:
-                                state = MarkdownState.LH4;
+                            case MarkdownTokenState.LH3:
+                                state = MarkdownTokenState.LH4;
                                 break;
                             default:
                                 goto Default;
@@ -821,187 +810,187 @@ namespace WebExpress.UI.Markdown
                     case 't':
                         switch (state)
                         {
-                            case MarkdownState.I1T:
-                                state = MarkdownState.X;
+                            case MarkdownTokenState.I1T:
+                                state = MarkdownTokenState.X;
                                 break;
-                            case MarkdownState.LH1:
-                                state = MarkdownState.LH2;
+                            case MarkdownTokenState.LH1:
+                                state = MarkdownTokenState.LH2;
                                 break;
-                            case MarkdownState.LH2:
-                                state = MarkdownState.LH3;
+                            case MarkdownTokenState.LH2:
+                                state = MarkdownTokenState.LH3;
                                 break;
-                            case MarkdownState.LM4:
-                                state = MarkdownState.LM5;
+                            case MarkdownTokenState.LM4:
+                                state = MarkdownTokenState.LM5;
                                 break;
                             default:
                                 goto Default;
                         }
                         break;
                     default:
-                        Default:
+                    Default:
                         switch (state)
                         {
-                            case MarkdownState.None:
-                                state = MarkdownState.X;
+                            case MarkdownTokenState.None:
+                                state = MarkdownTokenState.X;
                                 break;
-                            case MarkdownState.A1:
+                            case MarkdownTokenState.A1:
                                 goto exitLoop;
-                            case MarkdownState.A1E:
+                            case MarkdownTokenState.A1E:
                                 goto exitLoop;
-                            case MarkdownState.ALT:
+                            case MarkdownTokenState.ALT:
                                 goto exitLoop;
-                            case MarkdownState.ALTE:
+                            case MarkdownTokenState.ALTE:
                                 goto exitLoop;
-                            case MarkdownState.A2:
+                            case MarkdownTokenState.A2:
                                 goto exitLoop;
-                            case MarkdownState.A2E:
+                            case MarkdownTokenState.A2E:
                                 goto exitLoop;
-                            case MarkdownState.A3:
+                            case MarkdownTokenState.A3:
                                 goto exitLoop;
-                            case MarkdownState.A3E:
+                            case MarkdownTokenState.A3E:
                                 goto exitLoop;
-                            case MarkdownState.AL:
+                            case MarkdownTokenState.AL:
                                 goto exitLoop;
-                            case MarkdownState.ALE:
+                            case MarkdownTokenState.ALE:
                                 goto exitLoop;
-                            case MarkdownState.B:
+                            case MarkdownTokenState.B:
                                 goto exitLoop;
-                            case MarkdownState.D1:
+                            case MarkdownTokenState.D1:
                                 goto exitLoop;
-                            case MarkdownState.D1E:
+                            case MarkdownTokenState.D1E:
                                 goto exitLoop;
-                            case MarkdownState.DLT:
+                            case MarkdownTokenState.DLT:
                                 goto exitLoop;
-                            case MarkdownState.DLTE:
+                            case MarkdownTokenState.DLTE:
                                 goto exitLoop;
-                            case MarkdownState.D2:
+                            case MarkdownTokenState.D2:
                                 goto exitLoop;
-                            case MarkdownState.D2E:
+                            case MarkdownTokenState.D2E:
                                 goto exitLoop;
-                            case MarkdownState.D3:
+                            case MarkdownTokenState.D3:
                                 goto exitLoop;
-                            case MarkdownState.D3E:
+                            case MarkdownTokenState.D3E:
                                 goto exitLoop;
-                            case MarkdownState.DL:
+                            case MarkdownTokenState.DL:
                                 goto exitLoop;
-                            case MarkdownState.DLE:
+                            case MarkdownTokenState.DLE:
                                 goto exitLoop;
-                            case MarkdownState.E:
+                            case MarkdownTokenState.E:
                                 goto exitLoop;
-                            case MarkdownState.EH:
+                            case MarkdownTokenState.EH:
                                 goto exitLoop;
-                            case MarkdownState.G:
+                            case MarkdownTokenState.G:
                                 goto exitLoop;
-                            case MarkdownState.H1:
+                            case MarkdownTokenState.H1:
                                 goto exitLoop;
-                            case MarkdownState.H2:
+                            case MarkdownTokenState.H2:
                                 goto exitLoop;
-                            case MarkdownState.H3:
+                            case MarkdownTokenState.H3:
                                 goto exitLoop;
-                            case MarkdownState.H4:
+                            case MarkdownTokenState.H4:
                                 goto exitLoop;
-                            case MarkdownState.H5:
+                            case MarkdownTokenState.H5:
                                 goto exitLoop;
-                            case MarkdownState.H6:
+                            case MarkdownTokenState.H6:
                                 goto exitLoop;
-                            case MarkdownState.I1T:
-                                state = MarkdownState.IN;
+                            case MarkdownTokenState.I1T:
+                                state = MarkdownTokenState.IN;
                                 break;
-                            case MarkdownState.IN:
-                                state = MarkdownState.IN;
+                            case MarkdownTokenState.IN:
+                                state = MarkdownTokenState.IN;
                                 break;
-                            case MarkdownState.I3T:
-                                state = MarkdownState.IP;
+                            case MarkdownTokenState.I3T:
+                                state = MarkdownTokenState.IP;
                                 break;
-                            case MarkdownState.IP:
-                                state = MarkdownState.IP;
+                            case MarkdownTokenState.IP:
+                                state = MarkdownTokenState.IP;
                                 break;
-                            case MarkdownState.IPE:
+                            case MarkdownTokenState.IPE:
                                 goto exitLoop;
-                            case MarkdownState.IO:
-                                state = MarkdownState.IO;
+                            case MarkdownTokenState.IO:
+                                state = MarkdownTokenState.IO;
                                 break;
-                            case MarkdownState.IOE:
+                            case MarkdownTokenState.IOE:
                                 goto exitLoop;
-                            case MarkdownState.LH7:
-                                state = MarkdownState.LT;
+                            case MarkdownTokenState.LH7:
+                                state = MarkdownTokenState.LT;
                                 break;
-                            case MarkdownState.LM7:
-                                state = MarkdownState.LT;
+                            case MarkdownTokenState.LM7:
+                                state = MarkdownTokenState.LT;
                                 break;
-                            case MarkdownState.LT:
-                                state = MarkdownState.LT;
+                            case MarkdownTokenState.LT:
+                                state = MarkdownTokenState.LT;
                                 break;
-                            case MarkdownState.P:
+                            case MarkdownTokenState.P:
                                 goto exitLoop;
-                            case MarkdownState.R1T:
-                                state = MarkdownState.X;
+                            case MarkdownTokenState.R1T:
+                                state = MarkdownTokenState.X;
                                 break;
-                            case MarkdownState.RT:
-                                state = MarkdownState.RT;
+                            case MarkdownTokenState.RT:
+                                state = MarkdownTokenState.RT;
                                 break;
-                            case MarkdownState.R2T:
+                            case MarkdownTokenState.R2T:
                                 goto exitLoop;
-                            case MarkdownState.RN:
-                                state = MarkdownState.RN;
+                            case MarkdownTokenState.RN:
+                                state = MarkdownTokenState.RN;
                                 break;
-                            case MarkdownState.R3T:
-                                state = MarkdownState.RP;
+                            case MarkdownTokenState.R3T:
+                                state = MarkdownTokenState.RP;
                                 break;
-                            case MarkdownState.RP:
-                                state = MarkdownState.RP;
+                            case MarkdownTokenState.RP:
+                                state = MarkdownTokenState.RP;
                                 break;
-                            case MarkdownState.RO:
-                                state = MarkdownState.RO;
+                            case MarkdownTokenState.RO:
+                                state = MarkdownTokenState.RO;
                                 break;
-                            case MarkdownState.ROT:
+                            case MarkdownTokenState.ROT:
                                 goto exitLoop;
-                            case MarkdownState.S:
+                            case MarkdownTokenState.S:
                                 goto exitLoop;
-                            case MarkdownState.T:
+                            case MarkdownTokenState.T:
                                 goto exitLoop;
-                            case MarkdownState.U1:
+                            case MarkdownTokenState.U1:
                                 goto exitLoop;
-                            case MarkdownState.U1E:
+                            case MarkdownTokenState.U1E:
                                 goto exitLoop;
-                            case MarkdownState.ULT:
+                            case MarkdownTokenState.ULT:
                                 goto exitLoop;
-                            case MarkdownState.ULTE:
+                            case MarkdownTokenState.ULTE:
                                 goto exitLoop;
-                            case MarkdownState.U2:
+                            case MarkdownTokenState.U2:
                                 goto exitLoop;
-                            case MarkdownState.U2E:
+                            case MarkdownTokenState.U2E:
                                 goto exitLoop;
-                            case MarkdownState.U3:
+                            case MarkdownTokenState.U3:
                                 goto exitLoop;
-                            case MarkdownState.U3E:
+                            case MarkdownTokenState.U3E:
                                 goto exitLoop;
-                            case MarkdownState.UL:
+                            case MarkdownTokenState.UL:
                                 goto exitLoop;
-                            case MarkdownState.ULE:
+                            case MarkdownTokenState.ULE:
                                 goto exitLoop;
-                            case MarkdownState.Y1:
+                            case MarkdownTokenState.Y1:
                                 goto exitLoop;
-                            case MarkdownState.Y1E:
+                            case MarkdownTokenState.Y1E:
                                 goto exitLoop;
-                            case MarkdownState.YLT:
+                            case MarkdownTokenState.YLT:
                                 goto exitLoop;
-                            case MarkdownState.YLTE:
+                            case MarkdownTokenState.YLTE:
                                 goto exitLoop;
-                            case MarkdownState.Y2:
+                            case MarkdownTokenState.Y2:
                                 goto exitLoop;
-                            case MarkdownState.Y2E:
+                            case MarkdownTokenState.Y2E:
                                 goto exitLoop;
-                            case MarkdownState.Y3:
+                            case MarkdownTokenState.Y3:
                                 goto exitLoop;
-                            case MarkdownState.Y3E:
+                            case MarkdownTokenState.Y3E:
                                 goto exitLoop;
-                            case MarkdownState.YL:
+                            case MarkdownTokenState.YL:
                                 goto exitLoop;
-                            case MarkdownState.YLE:
+                            case MarkdownTokenState.YLE:
                                 goto exitLoop;
                             default:
-                                state = MarkdownState.X;
+                                state = MarkdownTokenState.X;
                                 break;
                         }
                         break;
@@ -1014,304 +1003,304 @@ namespace WebExpress.UI.Markdown
 
         exitLoop:
 
-            var morpheme = MarkdownMorpheme.Text;
+            var morpheme = MarkdownFragmentState.Text;
 
             switch (state)
             {
-                case MarkdownState.None:
-                    morpheme = MarkdownMorpheme.Text;
+                case MarkdownTokenState.None:
+                    morpheme = MarkdownFragmentState.Text;
                     break;
-                case MarkdownState.A1:
-                    morpheme = MarkdownMorpheme.Asterisk1;
+                case MarkdownTokenState.A1:
+                    morpheme = MarkdownFragmentState.Asterisk1;
                     break;
-                case MarkdownState.A1E:
-                    morpheme = MarkdownMorpheme.Asterisk1;
+                case MarkdownTokenState.A1E:
+                    morpheme = MarkdownFragmentState.Asterisk1;
                     position--;
                     break;
-                case MarkdownState.ALT:
-                    morpheme = MarkdownMorpheme.Asterisk1;
+                case MarkdownTokenState.ALT:
+                    morpheme = MarkdownFragmentState.Asterisk1;
                     position = orign + 1;
                     break;
-                case MarkdownState.ALTE:
-                    morpheme = MarkdownMorpheme.Asterisk1;
+                case MarkdownTokenState.ALTE:
+                    morpheme = MarkdownFragmentState.Asterisk1;
                     position = orign + 1;
                     break;
-                case MarkdownState.A2:
-                    morpheme = MarkdownMorpheme.Asterisk2;
+                case MarkdownTokenState.A2:
+                    morpheme = MarkdownFragmentState.Asterisk2;
                     break;
-                case MarkdownState.A2E:
-                    morpheme = MarkdownMorpheme.Asterisk2;
+                case MarkdownTokenState.A2E:
+                    morpheme = MarkdownFragmentState.Asterisk2;
                     position--;
                     break;
-                case MarkdownState.A3:
-                    morpheme = MarkdownMorpheme.Asterisk3;
+                case MarkdownTokenState.A3:
+                    morpheme = MarkdownFragmentState.Asterisk3;
                     break;
-                case MarkdownState.A3E:
-                    morpheme = MarkdownMorpheme.Asterisk3;
+                case MarkdownTokenState.A3E:
+                    morpheme = MarkdownFragmentState.Asterisk3;
                     position--;
                     break;
-                case MarkdownState.AL:
-                    morpheme = MarkdownMorpheme.HorizontaleLinie;
+                case MarkdownTokenState.AL:
+                    morpheme = MarkdownFragmentState.HorizontalLine;
                     break;
-                case MarkdownState.ALE:
-                    morpheme = MarkdownMorpheme.HorizontaleLinie;
+                case MarkdownTokenState.ALE:
+                    morpheme = MarkdownFragmentState.HorizontalLine;
                     break;
-                case MarkdownState.B:
-                    morpheme = MarkdownMorpheme.Code;
+                case MarkdownTokenState.B:
+                    morpheme = MarkdownFragmentState.Code;
                     break;
-                case MarkdownState.D1:
-                    morpheme = MarkdownMorpheme.Tilde1;
+                case MarkdownTokenState.D1:
+                    morpheme = MarkdownFragmentState.Tilde1;
                     break;
-                case MarkdownState.D1E:
-                    morpheme = MarkdownMorpheme.Tilde1;
+                case MarkdownTokenState.D1E:
+                    morpheme = MarkdownFragmentState.Tilde1;
                     position--;
                     break;
-                case MarkdownState.DLT:
-                    morpheme = MarkdownMorpheme.Tilde1;
+                case MarkdownTokenState.DLT:
+                    morpheme = MarkdownFragmentState.Tilde1;
                     position = orign + 1;
                     break;
-                case MarkdownState.DLTE:
-                    morpheme = MarkdownMorpheme.Tilde1;
+                case MarkdownTokenState.DLTE:
+                    morpheme = MarkdownFragmentState.Tilde1;
                     position = orign + 1;
                     break;
-                case MarkdownState.D2:
-                    morpheme = MarkdownMorpheme.Tilde2;
+                case MarkdownTokenState.D2:
+                    morpheme = MarkdownFragmentState.Tilde2;
                     break;
-                case MarkdownState.D2E:
-                    morpheme = MarkdownMorpheme.Tilde2;
+                case MarkdownTokenState.D2E:
+                    morpheme = MarkdownFragmentState.Tilde2;
                     position--;
                     break;
-                case MarkdownState.D3:
-                    morpheme = MarkdownMorpheme.Tilde3;
+                case MarkdownTokenState.D3:
+                    morpheme = MarkdownFragmentState.Tilde3;
                     break;
-                case MarkdownState.D3E:
-                    morpheme = MarkdownMorpheme.Tilde3;
+                case MarkdownTokenState.D3E:
+                    morpheme = MarkdownFragmentState.Tilde3;
                     position--;
                     break;
-                case MarkdownState.DL:
-                    morpheme = MarkdownMorpheme.HorizontaleLinie;
+                case MarkdownTokenState.DL:
+                    morpheme = MarkdownFragmentState.HorizontalLine;
                     break;
-                case MarkdownState.DLE:
-                    morpheme = MarkdownMorpheme.HorizontaleLinie;
+                case MarkdownTokenState.DLE:
+                    morpheme = MarkdownFragmentState.HorizontalLine;
                     position--;
                     break;
-                case MarkdownState.E:
-                    morpheme = MarkdownMorpheme.Text;
+                case MarkdownTokenState.E:
+                    morpheme = MarkdownFragmentState.Text;
                     break;
-                case MarkdownState.EH:
-                    morpheme = MarkdownMorpheme.Headheadline1Marker;
+                case MarkdownTokenState.EH:
+                    morpheme = MarkdownFragmentState.Headheadline1Marker;
                     break;
-                case MarkdownState.G:
-                    morpheme = MarkdownMorpheme.Quote;
+                case MarkdownTokenState.G:
+                    morpheme = MarkdownFragmentState.Quote;
                     break;
-                case MarkdownState.H1:
-                    morpheme = MarkdownMorpheme.Headheadline1;
+                case MarkdownTokenState.H1:
+                    morpheme = MarkdownFragmentState.Headheadline1;
                     break;
-                case MarkdownState.H2:
-                    morpheme = MarkdownMorpheme.Headheadline2;
+                case MarkdownTokenState.H2:
+                    morpheme = MarkdownFragmentState.Headheadline2;
                     break;
-                case MarkdownState.H3:
-                    morpheme = MarkdownMorpheme.Headheadline3;
+                case MarkdownTokenState.H3:
+                    morpheme = MarkdownFragmentState.Headheadline3;
                     break;
-                case MarkdownState.H4:
-                    morpheme = MarkdownMorpheme.Headheadline4;
+                case MarkdownTokenState.H4:
+                    morpheme = MarkdownFragmentState.Headheadline4;
                     break;
-                case MarkdownState.H5:
-                    morpheme = MarkdownMorpheme.Headheadline5;
+                case MarkdownTokenState.H5:
+                    morpheme = MarkdownFragmentState.Headheadline5;
                     break;
-                case MarkdownState.H6:
-                    morpheme = MarkdownMorpheme.Headheadline6;
+                case MarkdownTokenState.H6:
+                    morpheme = MarkdownFragmentState.Headheadline6;
                     break;
-                case MarkdownState.I1T:
-                    morpheme = MarkdownMorpheme.Text;
+                case MarkdownTokenState.I1T:
+                    morpheme = MarkdownFragmentState.Text;
                     break;
-                case MarkdownState.IN:
-                    morpheme = MarkdownMorpheme.Text;
+                case MarkdownTokenState.IN:
+                    morpheme = MarkdownFragmentState.Text;
                     break;
-                case MarkdownState.I2T:
-                    morpheme = MarkdownMorpheme.Text;
+                case MarkdownTokenState.I2T:
+                    morpheme = MarkdownFragmentState.Text;
                     break;
-                case MarkdownState.I3T:
-                    morpheme = MarkdownMorpheme.Text;
+                case MarkdownTokenState.I3T:
+                    morpheme = MarkdownFragmentState.Text;
                     break;
-                case MarkdownState.IP:
-                    morpheme = MarkdownMorpheme.Image;
+                case MarkdownTokenState.IP:
+                    morpheme = MarkdownFragmentState.Image;
                     break;
-                case MarkdownState.IPE:
-                    morpheme = MarkdownMorpheme.Image;
+                case MarkdownTokenState.IPE:
+                    morpheme = MarkdownFragmentState.Image;
                     break;
-                case MarkdownState.IO:
-                    morpheme = MarkdownMorpheme.Text;
+                case MarkdownTokenState.IO:
+                    morpheme = MarkdownFragmentState.Text;
                     break;
-                case MarkdownState.IOE:
-                    morpheme = MarkdownMorpheme.Image;
+                case MarkdownTokenState.IOE:
+                    morpheme = MarkdownFragmentState.Image;
                     break;
-                case MarkdownState.LH1:
-                    morpheme = MarkdownMorpheme.Text;
+                case MarkdownTokenState.LH1:
+                    morpheme = MarkdownFragmentState.Text;
                     break;
-                case MarkdownState.LH2:
-                    morpheme = MarkdownMorpheme.Text;
+                case MarkdownTokenState.LH2:
+                    morpheme = MarkdownFragmentState.Text;
                     break;
-                case MarkdownState.LH3:
-                    morpheme = MarkdownMorpheme.Text;
+                case MarkdownTokenState.LH3:
+                    morpheme = MarkdownFragmentState.Text;
                     break;
-                case MarkdownState.LH4:
-                    morpheme = MarkdownMorpheme.Text;
+                case MarkdownTokenState.LH4:
+                    morpheme = MarkdownFragmentState.Text;
                     break;
-                case MarkdownState.LH5:
-                    morpheme = MarkdownMorpheme.Text;
+                case MarkdownTokenState.LH5:
+                    morpheme = MarkdownFragmentState.Text;
                     break;
-                case MarkdownState.LH6:
-                    morpheme = MarkdownMorpheme.Text;
+                case MarkdownTokenState.LH6:
+                    morpheme = MarkdownFragmentState.Text;
                     break;
-                case MarkdownState.LH7:
-                    morpheme = MarkdownMorpheme.Text;
+                case MarkdownTokenState.LH7:
+                    morpheme = MarkdownFragmentState.Text;
                     break;
-                case MarkdownState.LM1:
-                    morpheme = MarkdownMorpheme.Text;
+                case MarkdownTokenState.LM1:
+                    morpheme = MarkdownFragmentState.Text;
                     break;
-                case MarkdownState.LM2:
-                    morpheme = MarkdownMorpheme.Text;
+                case MarkdownTokenState.LM2:
+                    morpheme = MarkdownFragmentState.Text;
                     break;
-                case MarkdownState.LM3:
-                    morpheme = MarkdownMorpheme.Text;
+                case MarkdownTokenState.LM3:
+                    morpheme = MarkdownFragmentState.Text;
                     break;
-                case MarkdownState.LM4:
-                    morpheme = MarkdownMorpheme.Text;
+                case MarkdownTokenState.LM4:
+                    morpheme = MarkdownFragmentState.Text;
                     break;
-                case MarkdownState.LM5:
-                    morpheme = MarkdownMorpheme.Text;
+                case MarkdownTokenState.LM5:
+                    morpheme = MarkdownFragmentState.Text;
                     break;
-                case MarkdownState.LM6:
-                    morpheme = MarkdownMorpheme.Text;
+                case MarkdownTokenState.LM6:
+                    morpheme = MarkdownFragmentState.Text;
                     break;
-                case MarkdownState.LM7:
-                    morpheme = MarkdownMorpheme.Text;
+                case MarkdownTokenState.LM7:
+                    morpheme = MarkdownFragmentState.Text;
                     break;
-                case MarkdownState.LT:
-                    morpheme = MarkdownMorpheme.Link;
+                case MarkdownTokenState.LT:
+                    morpheme = MarkdownFragmentState.Link;
                     break;
-                case MarkdownState.L:
-                    morpheme = MarkdownMorpheme.Link;
+                case MarkdownTokenState.L:
+                    morpheme = MarkdownFragmentState.Link;
                     break;
-                case MarkdownState.P:
-                    morpheme = MarkdownMorpheme.Plus;
+                case MarkdownTokenState.P:
+                    morpheme = MarkdownFragmentState.Plus;
                     break;
-                case MarkdownState.R1T:
-                    morpheme = MarkdownMorpheme.Text;
+                case MarkdownTokenState.R1T:
+                    morpheme = MarkdownFragmentState.Text;
                     break;
-                case MarkdownState.RT:
-                    morpheme = MarkdownMorpheme.Text;
+                case MarkdownTokenState.RT:
+                    morpheme = MarkdownFragmentState.Text;
                     break;
-                case MarkdownState.R2T:
-                    morpheme = MarkdownMorpheme.Text;
+                case MarkdownTokenState.R2T:
+                    morpheme = MarkdownFragmentState.Text;
                     break;
-                case MarkdownState.RN:
-                    morpheme = MarkdownMorpheme.Text;
+                case MarkdownTokenState.RN:
+                    morpheme = MarkdownFragmentState.Text;
                     break;
-                case MarkdownState.R:
-                    morpheme = MarkdownMorpheme.ImageReference;
+                case MarkdownTokenState.R:
+                    morpheme = MarkdownFragmentState.ImageReference;
                     break;
-                case MarkdownState.R3T:
-                    morpheme = MarkdownMorpheme.Text;
+                case MarkdownTokenState.R3T:
+                    morpheme = MarkdownFragmentState.Text;
                     break;
-                case MarkdownState.RP:
-                    morpheme = MarkdownMorpheme.Text;
+                case MarkdownTokenState.RP:
+                    morpheme = MarkdownFragmentState.Text;
                     break;
-                case MarkdownState.RO:
-                    morpheme = MarkdownMorpheme.Text;
+                case MarkdownTokenState.RO:
+                    morpheme = MarkdownFragmentState.Text;
                     break;
-                case MarkdownState.ROT:
-                    morpheme = MarkdownMorpheme.Text;
+                case MarkdownTokenState.ROT:
+                    morpheme = MarkdownFragmentState.Text;
                     break;
-                case MarkdownState.S:
-                    morpheme = MarkdownMorpheme.Mask;
+                case MarkdownTokenState.S:
+                    morpheme = MarkdownFragmentState.Mask;
                     break;
-                case MarkdownState.T:
-                    morpheme = MarkdownMorpheme.Pipe;
+                case MarkdownTokenState.T:
+                    morpheme = MarkdownFragmentState.Pipe;
                     break;
-                case MarkdownState.U1:
-                    morpheme = MarkdownMorpheme.Underline1;
+                case MarkdownTokenState.U1:
+                    morpheme = MarkdownFragmentState.Underline1;
                     break;
-                case MarkdownState.U1E:
-                    morpheme = MarkdownMorpheme.Underline1;
+                case MarkdownTokenState.U1E:
+                    morpheme = MarkdownFragmentState.Underline1;
                     position--;
                     break;
-                case MarkdownState.ULT:
-                    morpheme = MarkdownMorpheme.Underline1;
+                case MarkdownTokenState.ULT:
+                    morpheme = MarkdownFragmentState.Underline1;
                     position = orign + 1;
                     break;
-                case MarkdownState.ULTE:
-                    morpheme = MarkdownMorpheme.Underline1;
+                case MarkdownTokenState.ULTE:
+                    morpheme = MarkdownFragmentState.Underline1;
                     position = orign + 1;
                     break;
-                case MarkdownState.U2:
-                    morpheme = MarkdownMorpheme.Underline2;
+                case MarkdownTokenState.U2:
+                    morpheme = MarkdownFragmentState.Underline2;
                     break;
-                case MarkdownState.U2E:
-                    morpheme = MarkdownMorpheme.Underline2;
+                case MarkdownTokenState.U2E:
+                    morpheme = MarkdownFragmentState.Underline2;
                     position--;
                     break;
-                case MarkdownState.U3:
-                    morpheme = MarkdownMorpheme.Underline3;
+                case MarkdownTokenState.U3:
+                    morpheme = MarkdownFragmentState.Underline3;
                     break;
-                case MarkdownState.U3E:
-                    morpheme = MarkdownMorpheme.Underline3;
+                case MarkdownTokenState.U3E:
+                    morpheme = MarkdownFragmentState.Underline3;
                     position--;
                     break;
-                case MarkdownState.UL:
-                    morpheme = MarkdownMorpheme.HorizontaleLinie;
+                case MarkdownTokenState.UL:
+                    morpheme = MarkdownFragmentState.HorizontalLine;
                     break;
-                case MarkdownState.ULE:
-                    morpheme = MarkdownMorpheme.HorizontaleLinie;
+                case MarkdownTokenState.ULE:
+                    morpheme = MarkdownFragmentState.HorizontalLine;
                     position--;
                     break;
-                case MarkdownState.W1:
-                    morpheme = MarkdownMorpheme.Text;
+                case MarkdownTokenState.W1:
+                    morpheme = MarkdownFragmentState.Text;
                     break;
-                case MarkdownState.W2:
-                    morpheme = MarkdownMorpheme.Text;
+                case MarkdownTokenState.W2:
+                    morpheme = MarkdownFragmentState.Text;
                     break;
-                case MarkdownState.W3:
-                    morpheme = MarkdownMorpheme.Text;
+                case MarkdownTokenState.W3:
+                    morpheme = MarkdownFragmentState.Text;
                     break;
-                case MarkdownState.W4:
-                    morpheme = MarkdownMorpheme.Space4;
+                case MarkdownTokenState.W4:
+                    morpheme = MarkdownFragmentState.Space4;
                     break;
-                case MarkdownState.Y1:
-                    morpheme = MarkdownMorpheme.Hyphen1;
+                case MarkdownTokenState.Y1:
+                    morpheme = MarkdownFragmentState.Hyphen1;
                     break;
-                case MarkdownState.Y1E:
-                    morpheme = MarkdownMorpheme.Hyphen1;
+                case MarkdownTokenState.Y1E:
+                    morpheme = MarkdownFragmentState.Hyphen1;
                     position--;
                     break;
-                case MarkdownState.YLT:
-                    morpheme = MarkdownMorpheme.Hyphen1;
+                case MarkdownTokenState.YLT:
+                    morpheme = MarkdownFragmentState.Hyphen1;
                     position = orign + 1;
                     break;
-                case MarkdownState.YLTE:
-                    morpheme = MarkdownMorpheme.Hyphen1;
+                case MarkdownTokenState.YLTE:
+                    morpheme = MarkdownFragmentState.Hyphen1;
                     position = orign + 1;
                     break;
-                case MarkdownState.Y2:
-                    morpheme = MarkdownMorpheme.Hyphen2;
+                case MarkdownTokenState.Y2:
+                    morpheme = MarkdownFragmentState.Hyphen2;
                     break;
-                case MarkdownState.Y2E:
-                    morpheme = MarkdownMorpheme.Hyphen2;
+                case MarkdownTokenState.Y2E:
+                    morpheme = MarkdownFragmentState.Hyphen2;
                     position--;
                     break;
-                case MarkdownState.Y3:
-                    morpheme = MarkdownMorpheme.Hyphen3;
+                case MarkdownTokenState.Y3:
+                    morpheme = MarkdownFragmentState.Hyphen3;
                     break;
-                case MarkdownState.Y3E:
-                    morpheme = MarkdownMorpheme.Hyphen3;
+                case MarkdownTokenState.Y3E:
+                    morpheme = MarkdownFragmentState.Hyphen3;
                     position--;
                     break;
-                case MarkdownState.YL:
-                    morpheme = MarkdownMorpheme.HorizontaleLinie;
+                case MarkdownTokenState.YL:
+                    morpheme = MarkdownFragmentState.HorizontalLine;
                     break;
-                case MarkdownState.YLE:
-                    morpheme = MarkdownMorpheme.HorizontaleLinie;
+                case MarkdownTokenState.YLE:
+                    morpheme = MarkdownFragmentState.HorizontalLine;
                     position--;
                     break;
             }

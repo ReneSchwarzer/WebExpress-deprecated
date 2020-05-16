@@ -6,7 +6,7 @@ namespace WebExpress.UI.Markdown
     /// <summary>
     /// Zustände des Zustandsautomaten (siehe Dokumentation https://github.com/ReneSchwarzer/WebExpress/blob/master/doc/Markdown.vsd)
     /// </summary>
-    internal enum MarkdownState
+    internal enum MarkdownTokenState
     {
         /// <summary>
         /// Keine Zuordnung

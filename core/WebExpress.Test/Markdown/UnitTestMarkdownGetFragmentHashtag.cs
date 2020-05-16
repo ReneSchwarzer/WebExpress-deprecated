@@ -18,7 +18,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Headheadline1 &&
+                result?.Type == MarkdownFragmentState.Headheadline1 &&
                 result?.Text == "#",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -36,7 +36,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Headheadline1 &&
+                result?.Type == MarkdownFragmentState.Headheadline1 &&
                 result?.Text == "#",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -54,7 +54,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Headheadline1 &&
+                result?.Type == MarkdownFragmentState.Headheadline1 &&
                 result?.Text == "#",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -72,7 +72,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Headheadline1 &&
+                result?.Type == MarkdownFragmentState.Headheadline1 &&
                 result?.Text == "#",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -90,7 +90,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Headheadline1 &&
+                result?.Type == MarkdownFragmentState.Headheadline1 &&
                 result?.Text == "#",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -108,7 +108,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Headheadline2 &&
+                result?.Type == MarkdownFragmentState.Headheadline2 &&
                 result?.Text == "##",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -126,7 +126,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Headheadline2 &&
+                result?.Type == MarkdownFragmentState.Headheadline2 &&
                 result?.Text == "##",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -144,7 +144,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Headheadline2 &&
+                result?.Type == MarkdownFragmentState.Headheadline2 &&
                 result?.Text == "##",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -162,7 +162,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Headheadline2 &&
+                result?.Type == MarkdownFragmentState.Headheadline2 &&
                 result?.Text == "##",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -180,7 +180,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Headheadline2 &&
+                result?.Type == MarkdownFragmentState.Headheadline2 &&
                 result?.Text == "##",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -198,7 +198,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Headheadline3 &&
+                result?.Type == MarkdownFragmentState.Headheadline3 &&
                 result?.Text == "###",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -216,7 +216,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Headheadline3 &&
+                result?.Type == MarkdownFragmentState.Headheadline3 &&
                 result?.Text == "###",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -234,7 +234,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Headheadline3 &&
+                result?.Type == MarkdownFragmentState.Headheadline3 &&
                 result?.Text == "###",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -252,7 +252,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Headheadline3 &&
+                result?.Type == MarkdownFragmentState.Headheadline3 &&
                 result?.Text == "###",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -270,7 +270,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Headheadline3 &&
+                result?.Type == MarkdownFragmentState.Headheadline3 &&
                 result?.Text == "###",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -288,7 +288,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Headheadline4 &&
+                result?.Type == MarkdownFragmentState.Headheadline4 &&
                 result?.Text == "####",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -306,7 +306,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Headheadline4 &&
+                result?.Type == MarkdownFragmentState.Headheadline4 &&
                 result?.Text == "####",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -324,7 +324,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Headheadline4 &&
+                result?.Type == MarkdownFragmentState.Headheadline4 &&
                 result?.Text == "####",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -342,7 +342,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Headheadline4 &&
+                result?.Type == MarkdownFragmentState.Headheadline4 &&
                 result?.Text == "####",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -360,7 +360,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Headheadline4 &&
+                result?.Type == MarkdownFragmentState.Headheadline4 &&
                 result?.Text == "####",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -378,7 +378,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Headheadline6 &&
+                result?.Type == MarkdownFragmentState.Headheadline6 &&
                 result?.Text == "######",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -396,7 +396,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Headheadline6 &&
+                result?.Type == MarkdownFragmentState.Headheadline6 &&
                 result?.Text == "######",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -414,7 +414,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Headheadline6 &&
+                result?.Type == MarkdownFragmentState.Headheadline6 &&
                 result?.Text == "######",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -432,7 +432,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Headheadline6 &&
+                result?.Type == MarkdownFragmentState.Headheadline6 &&
                 result?.Text == "######",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -450,7 +450,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Headheadline6 &&
+                result?.Type == MarkdownFragmentState.Headheadline6 &&
                 result?.Text == "######",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -468,7 +468,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Headheadline6 &&
+                result?.Type == MarkdownFragmentState.Headheadline6 &&
                 result?.Text == "######",
                 "Fehler beim Ermitteln eines Fragments!"
             );

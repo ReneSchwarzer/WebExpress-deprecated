@@ -21,7 +21,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Asterisk1 &&
+                result?.Type == MarkdownFragmentState.Asterisk1 &&
                 result?.Text == "*", 
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -39,7 +39,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Asterisk1 &&
+                result?.Type == MarkdownFragmentState.Asterisk1 &&
                 result?.Text == "*",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -57,7 +57,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type != MarkdownMorpheme.Asterisk1,
+                result?.Type != MarkdownFragmentState.Asterisk1,
                 "Fehler beim Ermitteln eines Fragments!"
             );
         }
@@ -74,7 +74,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Asterisk1 &&
+                result?.Type == MarkdownFragmentState.Asterisk1 &&
                 result?.Text == "*",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -92,7 +92,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Asterisk1 &&
+                result?.Type == MarkdownFragmentState.Asterisk1 &&
                 result?.Text == " *",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -110,7 +110,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Asterisk1 &&
+                result?.Type == MarkdownFragmentState.Asterisk1 &&
                 result?.Text == "  *",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -128,7 +128,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Asterisk1 &&
+                result?.Type == MarkdownFragmentState.Asterisk1 &&
                 result?.Text == "   *",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -146,7 +146,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Asterisk2 &&
+                result?.Type == MarkdownFragmentState.Asterisk2 &&
                 result?.Text == "**",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -164,7 +164,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Asterisk2 &&
+                result?.Type == MarkdownFragmentState.Asterisk2 &&
                 result?.Text == "**",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -182,7 +182,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type != MarkdownMorpheme.Asterisk2,
+                result?.Type != MarkdownFragmentState.Asterisk2,
                 "Fehler beim Ermitteln eines Fragments!"
             );
         }
@@ -199,7 +199,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Asterisk3 &&
+                result?.Type == MarkdownFragmentState.Asterisk3 &&
                 result?.Text == "***",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -217,7 +217,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Asterisk3 &&
+                result?.Type == MarkdownFragmentState.Asterisk3 &&
                 result?.Text == "***",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -235,7 +235,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type != MarkdownMorpheme.Asterisk3,
+                result?.Type != MarkdownFragmentState.Asterisk3,
                 "Fehler beim Ermitteln eines Fragments!"
             );
         }
@@ -252,7 +252,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.HorizontaleLinie &&
+                result?.Type == MarkdownFragmentState.HorizontalLine &&
                 result?.Text == "****",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -270,7 +270,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.HorizontaleLinie &&
+                result?.Type == MarkdownFragmentState.HorizontalLine &&
                 result?.Text == "*********",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -288,7 +288,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.HorizontaleLinie &&
+                result?.Type == MarkdownFragmentState.HorizontalLine &&
                 result?.Text == "* * *",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -306,7 +306,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Asterisk1 &&
+                result?.Type == MarkdownFragmentState.Asterisk1 &&
                 result?.Text == "*",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -324,7 +324,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Asterisk1 &&
+                result?.Type == MarkdownFragmentState.Asterisk1 &&
                 result?.Text == "*",
                 "Fehler beim Ermitteln eines Fragments!"
             );

@@ -18,7 +18,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Link &&
+                result?.Type == MarkdownFragmentState.Link &&
                 result?.Text == "http://www.example.com",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -36,7 +36,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Link &&
+                result?.Type == MarkdownFragmentState.Link &&
                 result?.Text == "mailto:info@example.com",
                 "Fehler beim Ermitteln eines Fragments!"
             );

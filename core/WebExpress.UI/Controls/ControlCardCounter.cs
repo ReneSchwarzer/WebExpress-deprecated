@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using WebExpress.Html;
+﻿using WebExpress.Html;
 using WebExpress.Pages;
 
 namespace WebExpress.UI.Controls
@@ -21,7 +20,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt das Icon
         /// </summary>
-        public TypeIcon Icon { get; set; }
+        public PropertyIcon Icon { get; set; }
 
         /// <summary>
         /// Liefert oder setzt den Wert des Counters
@@ -66,40 +65,40 @@ namespace WebExpress.UI.Controls
         {
             Content.Clear();
 
-            if (Icon != TypeIcon.None)
+            if (Icon != null && Icon.HasIcon)
             {
-                Content.Add(new ControlIcon(Page) 
+                Content.Add(new ControlIcon(Page)
                 {
-                    Icon = new PropertyIcon(Icon), 
-                    TextColor = Color, 
-                    HorizontalAlignment = TypeHorizontalAlignment.Right 
+                    Icon = Icon,
+                    TextColor = Color,
+                    HorizontalAlignment = TypeHorizontalAlignment.Right
                 });
             }
 
-            var text = new ControlText(Page, string.IsNullOrWhiteSpace(ID) ? null : ID + "_header") 
-            { 
-                Text = Value, 
-                Format = TypeFormatText.H4 
+            var text = new ControlText(Page, string.IsNullOrWhiteSpace(ID) ? null : ID + "_header")
+            {
+                Text = Value,
+                Format = TypeFormatText.H4
             };
 
-            var info = new ControlText(Page) 
-            { 
-                Text = Text, 
-                Format = TypeFormatText.Span, 
-                TextColor = new PropertyColorText(TypeColorText.Muted) 
+            var info = new ControlText(Page)
+            {
+                Text = Text,
+                Format = TypeFormatText.Span,
+                TextColor = new PropertyColorText(TypeColorText.Muted)
             };
 
             Content.Add(new ControlPanel(Page, text, info) { });
 
             if (Progress > -1)
             {
-                Content.Add(new ControlProgressBar(Page) 
-                { 
-                    Value = Progress, 
-                    Format = TypeFormatProgress.Striped, 
-                    BackgroundColor = BackgroundColor, 
+                Content.Add(new ControlProgressBar(Page)
+                {
+                    Value = Progress,
+                    Format = TypeFormatProgress.Striped,
+                    BackgroundColor = BackgroundColor,
                     //Color = Color,
-                    Size = TypeSizeProgress.Small 
+                    Size = TypeSizeProgress.Small
                 });
             }
 

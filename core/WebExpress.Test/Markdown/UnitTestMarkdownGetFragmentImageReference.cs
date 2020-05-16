@@ -18,7 +18,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.ImageReference &&
+                result?.Type == MarkdownFragmentState.ImageReference &&
                 result?.Text == "![Alt-Text][Bild 1]",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -36,7 +36,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.ImageReference &&
+                result?.Type == MarkdownFragmentState.ImageReference &&
                 result?.Text == "![Alt-Text](Assets/img/Logo.png \"Optionaler Teil\")",
                 "Fehler beim Ermitteln eines Fragments!"
             );

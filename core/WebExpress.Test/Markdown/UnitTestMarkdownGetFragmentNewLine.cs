@@ -18,7 +18,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Newline &&
+                result?.Type == MarkdownFragmentState.Newline &&
                 result?.Text == "",
                 "Fehler beim Ermitteln eines Fragments!"
             );

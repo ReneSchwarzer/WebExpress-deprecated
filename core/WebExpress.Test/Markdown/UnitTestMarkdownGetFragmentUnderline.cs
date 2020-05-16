@@ -21,7 +21,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Underline1 &&
+                result?.Type == MarkdownFragmentState.Underline1 &&
                 result?.Text == "_", 
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -39,7 +39,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Underline1 &&
+                result?.Type == MarkdownFragmentState.Underline1 &&
                 result?.Text == "_",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -57,7 +57,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type != MarkdownMorpheme.Underline1,
+                result?.Type != MarkdownFragmentState.Underline1,
                 "Fehler beim Ermitteln eines Fragments!"
             );
         }
@@ -74,7 +74,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Underline1 &&
+                result?.Type == MarkdownFragmentState.Underline1 &&
                 result?.Text == "_",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -92,7 +92,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Underline2 &&
+                result?.Type == MarkdownFragmentState.Underline2 &&
                 result?.Text == "__",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -110,7 +110,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Underline2 &&
+                result?.Type == MarkdownFragmentState.Underline2 &&
                 result?.Text == "__",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -128,7 +128,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type != MarkdownMorpheme.Underline2,
+                result?.Type != MarkdownFragmentState.Underline2,
                 "Fehler beim Ermitteln eines Fragments!"
             );
         }
@@ -145,7 +145,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Underline3 &&
+                result?.Type == MarkdownFragmentState.Underline3 &&
                 result?.Text == "___",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -163,7 +163,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Underline3 &&
+                result?.Type == MarkdownFragmentState.Underline3 &&
                 result?.Text == "___",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -181,7 +181,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type != MarkdownMorpheme.Underline3,
+                result?.Type != MarkdownFragmentState.Underline3,
                 "Fehler beim Ermitteln eines Fragments!"
             );
         }
@@ -198,7 +198,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.HorizontaleLinie &&
+                result?.Type == MarkdownFragmentState.HorizontalLine &&
                 result?.Text == "____",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -216,7 +216,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.HorizontaleLinie &&
+                result?.Type == MarkdownFragmentState.HorizontalLine &&
                 result?.Text == "_________",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -234,7 +234,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.HorizontaleLinie &&
+                result?.Type == MarkdownFragmentState.HorizontalLine &&
                 result?.Text == "_ _ _",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -252,7 +252,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Underline1 &&
+                result?.Type == MarkdownFragmentState.Underline1 &&
                 result?.Text == "_",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -270,7 +270,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Underline1 &&
+                result?.Type == MarkdownFragmentState.Underline1 &&
                 result?.Text == "_",
                 "Fehler beim Ermitteln eines Fragments!"
             );

@@ -5,7 +5,7 @@
         /// <summary>
         /// Liefert doer setzt den Type
         /// </summary>
-        public MarkdownMorpheme Type { get; set; }
+        public MarkdownFragmentState Type { get; set; }
 
         /// <summary>
         /// Liefert oder setzt den Text

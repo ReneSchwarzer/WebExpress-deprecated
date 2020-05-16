@@ -18,7 +18,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Text &&
+                result?.Type == MarkdownFragmentState.Text &&
                 result?.Text == "hallo",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -36,7 +36,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Text &&
+                result?.Type == MarkdownFragmentState.Text &&
                 result?.Text == "hallo:{}]</",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -54,7 +54,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Text &&
+                result?.Type == MarkdownFragmentState.Text &&
                 result?.Text == "!hallo:{}]</",
                 "Fehler beim Ermitteln eines Fragments!"
             );
@@ -72,7 +72,7 @@ namespace WebExpress.Test.Markdown
 
             Assert.True
             (
-                result?.Type == MarkdownMorpheme.Text &&
+                result?.Type == MarkdownFragmentState.Text &&
                 result?.Text == "[!httallo:{}]</",
                 "Fehler beim Ermitteln eines Fragments!"
             );

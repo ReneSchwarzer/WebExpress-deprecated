@@ -23,7 +23,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt das Icon
         /// </summary>
-        public TypeIcon Icon { get; set; }
+        public PropertyIcon Icon { get; set; }
 
         /// <summary>
         /// Konstruktor
@@ -78,17 +78,22 @@ namespace WebExpress.UI.Controls
                 Role = Role
             };
 
-            if (Icon != TypeIcon.None && !string.IsNullOrWhiteSpace(Text))
+            if (Icon != null && Icon.HasIcon)
             {
-                html.Elements.Add(new HtmlElementTextSemanticsSpan() { Class = Icon.ToClass() });
-
-                html.Elements.Add(new HtmlNbsp());
+                html.Elements.Add(new ControlIcon(Page)
+                {
+                    Icon = Icon,
+                    Margin = !string.IsNullOrWhiteSpace(Text) ? new PropertySpacingMargin
+                   (
+                       PropertySpacing.Space.None,
+                       PropertySpacing.Space.Two,
+                       PropertySpacing.Space.None,
+                       PropertySpacing.Space.None
+                   ) : new PropertySpacingMargin(PropertySpacing.Space.None),
+                    VerticalAlignment = Icon.IsUserIcon ? TypeVerticalAlignment.TextBottom : TypeVerticalAlignment.Default
+                }.ToHtml());
             }
-            else if (Icon != TypeIcon.None && string.IsNullOrWhiteSpace(Text))
-            {
-                html.AddClass(Icon.ToClass());
-            }
-
+            
             if (!string.IsNullOrWhiteSpace(Text))
             {
                 html.Elements.Add(new HtmlText(Text));
