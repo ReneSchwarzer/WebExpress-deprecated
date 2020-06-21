@@ -8,6 +8,24 @@ namespace WebExpress.UI.Controls
     public class ControlPanelHeader : ControlPanel
     {
         /// <summary>
+        /// Die fixierte Anordnung
+        /// </summary>
+        public virtual TypeFixed Fixed
+        {
+            get => (TypeFixed)GetProperty(TypeFixed.None);
+            set => SetProperty(value, () => value.ToClass());
+        }
+
+        /// <summary>
+        /// Fixiert die Anordnung, wenn sich die Toolbar am oberen Rand befindet
+        /// </summary>
+        public virtual TypeSticky Sticky
+        {
+            get => (TypeSticky)GetProperty(TypeSticky.None);
+            set => SetProperty(value, () => value.ToClass());
+        }
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="page">Die zugehörige Seite</param>
@@ -57,8 +75,8 @@ namespace WebExpress.UI.Controls
             return new HtmlElementSectionHeader(from x in Content select x.ToHtml())
             {
                 ID = ID,
-                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Class = GetClasses(),
+                Style = GetStyles(),
                 Role = Role
             };
         }

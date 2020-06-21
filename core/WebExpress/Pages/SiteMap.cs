@@ -101,6 +101,27 @@ namespace WebExpress.Pages
         }
 
         /// <summary>
+        /// Fügt eine Seite hinzu 
+        /// </summary>
+        /// <param name="id">Die Seiten-ID</param>
+        /// <param name="segment">Das Segment des Uri-Pfades</param>
+        /// <param name="display">Der Anzeigestring </param>
+        /// <param name="create">Die Rückrufsfunktion zum erzeugen der Worker-Instanzen</param>
+        public void AddPage(string id, string segment, string display, Func<UriPage, IWorker> create)
+        {
+            var pageID = new UriSegmentID(id);
+
+            if (!Pages.ContainsKey(pageID))
+            {
+                Pages.Add(pageID, new SiteMapPage(pageID, segment, display, create));
+            }
+            else
+            {
+                throw new SiteMapException("Die SeitenID ist nicht eindeutig. Stellen Sie sicher, dass sie nur eindeutige SeitenIDs verwenden.");
+            }
+        }
+
+        /// <summary>
         /// Fügt eine Pfadvariable hinzu 
         /// </summary>
         /// <param name="id">Die SeitenID</param>

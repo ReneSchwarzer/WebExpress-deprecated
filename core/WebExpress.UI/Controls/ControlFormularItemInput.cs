@@ -15,6 +15,11 @@ namespace WebExpress.UI.Controls
         public event EventHandler<ValidationEventArgs> Validation;
 
         /// <summary>
+        /// Liefert oder setzt das Icon
+        /// </summary>
+        public PropertyIcon Icon { get; set; }
+
+        /// <summary>
         /// Liefert oder setzt die Beschriftung
         /// </summary>
         public string Label { get; set; }

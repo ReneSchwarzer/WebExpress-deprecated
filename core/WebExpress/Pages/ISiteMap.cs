@@ -39,6 +39,15 @@ namespace WebExpress.Pages
         void AddPage(string id, string segment, Func<UriPage, IWorker> create);
 
         /// <summary>
+        /// Fügt eine Seite hinzu 
+        /// </summary>
+        /// <param name="id">Die Seiten-ID</param>
+        /// <param name="segment">Das Segment des Uri-Pfades</param>
+        /// <param name="display">Der Anzeigestring </param>
+        /// <param name="create">Die Rückrufsfunktion zum erzeugen der Worker-Instanzen</param>
+        void AddPage(string id, string segment, string display, Func<UriPage, IWorker> create);
+
+        /// <summary>
         /// Fügt eine Pfadvariable hinzu 
         /// </summary>
         /// <param name="id">Die SeitenID</param>

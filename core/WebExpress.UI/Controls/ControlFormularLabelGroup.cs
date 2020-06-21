@@ -72,8 +72,17 @@ namespace WebExpress.UI.Controls
             {
                 Class = Formular.Layout == TypesLayoutForm.Horizontal ?
                     "form-group row" :
-                    "form-group"
+                    "form-group" + " " + GetClasses(),
+                Style = GetStyles()
             };
+
+            if (Item is ControlFormularItemInput icon && icon.Icon != null)
+            {
+                html.Elements.Add(new ControlIcon(Page) 
+                { 
+                    Icon = icon.Icon
+                }.ToHtml());
+            }
 
             html.Elements.Add(new HtmlElementFieldLabel(label.Label)
             {

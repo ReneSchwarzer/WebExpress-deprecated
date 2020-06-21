@@ -36,7 +36,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Umwandlung in eine CSS-Klasse
         /// </summary>
-        /// <returns>Die zur Farbe gehörende CSS-KLasse</returns>
+        /// <returns>Die zum Icon gehörende CSS-KLasse</returns>
         public virtual string ToClass()
         {
             if (SystemIcon != TypeIcon.None)
@@ -50,7 +50,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Umwandlung in einen CSS-Style
         /// </summary>
-        /// <returns>Das zur Farbe gehörende CSS-Style</returns>
+        /// <returns>Das zum Icon gehörende CSS-Style</returns>
         public virtual string ToStyle()
         {
             return null;

@@ -26,7 +26,8 @@ namespace WebExpress.UI.Pages
             HamburgerMenu = new ControlHamburgerMenu(this, "hamburger") { };
             Notification = new ControlPanel(this, "notification") { };
             Head = new ControlPanelHeader(this, "head") { };
-            ToolBar = new ControlToolBar(this, "toolbar") { };
+            ToolBar = new ControlToolBar(this, "toolbar") { Orientation = TypeOrientationToolBar.Vertical, Padding = new PropertySpacingPadding(PropertySpacing.Space.Null) };
+            SideBar = new ControlToolBar(this, "sidebar") { Orientation = TypeOrientationToolBar.Horizontal, Padding = new PropertySpacingPadding(PropertySpacing.Space.Null) };
             Foot = new ControlFoot(this);
             Main = new ControlPanelMain(this) { };
             PathCtrl = new ControlBreadcrumb(this);
@@ -62,7 +63,12 @@ namespace WebExpress.UI.Pages
 
             if (ToolBar.Items.Count > 0)
             {
-                Content.Add(ToolBar);
+                Head.Content.Add(ToolBar);
+            }
+
+            if (SideBar.Items.Count > 0)
+            {
+                Content.Add(SideBar);
             }
 
             Content.Add(PathCtrl);

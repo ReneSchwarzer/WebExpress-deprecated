@@ -19,7 +19,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt die OnChange-Attribut
         /// </summary>
-        public string OnChange { get; set; }
+        public PropertyOnChange OnChange { get; set; }
 
         /// <summary>
         /// Liefert oder setzt das ausgewählte Element anhand des Wertes
@@ -138,7 +138,7 @@ namespace WebExpress.UI.Controls
                 Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Role = Role,
                 Disabled = Disabled,
-                OnChange = OnChange
+                OnChange = OnChange?.ToString()
             };
 
             foreach (var v in Items)

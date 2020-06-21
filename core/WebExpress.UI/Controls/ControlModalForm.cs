@@ -14,6 +14,7 @@ namespace WebExpress.UI.Controls
         /// </summary>
         public event EventHandler<ValidationEventArgs> Validation;
 
+
         /// <summary>
         /// Liefert oder setzt den Formularnamen
         /// </summary>
@@ -140,10 +141,18 @@ namespace WebExpress.UI.Controls
                 Class = "modal-header"
             };
 
-            var body = new HtmlElementTextContentDiv(from x in Content select x.ToHtml())
+            var body = new HtmlElementTextContentDiv()
             {
                 Class = "modal-body"
             };
+
+            foreach (var v in Content)
+            {
+                body.Elements.Add(new ControlFormularLabelGroup(this)
+                {
+                    Item = v as ControlFormularItem
+                }.ToHtml());
+            }
 
             var footerButtonOK = new HtmlElementFieldButton(new HtmlText("OK"))
             {
@@ -185,8 +194,8 @@ namespace WebExpress.UI.Controls
             var html = new HtmlElementTextContentDiv(dialog)
             {
                 ID = ID,
-                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Class = GetClasses(),
+                Style = GetStyles(),
                 Role = "dialog"
             };
 

@@ -7,6 +7,7 @@
     {
         Default = 0,
         Primary = 1,
+        Secondary = 2,
         Success = 3,
         Info = 4,
         Warning = 5,
@@ -32,6 +33,8 @@
                     return "text-muted";
                 case TypeColorText.Primary:
                     return "text-primary";
+                case TypeColorText.Secondary:
+                    return "text-secondary";
                 case TypeColorText.Success:
                     return "text-success";
                 case TypeColorText.Info:

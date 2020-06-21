@@ -19,9 +19,13 @@
         Comment,
         CommentAlt,
         Download,
+        Edit,
         EuroSign,
         ExclamationTriangle,
         Fire,
+        Folder,
+        FolderOpen,
+        Font,
         GraduationCap,
         Hashtag,
         Home,
@@ -30,18 +34,23 @@
         Industry,
         Info,
         Lightbulb,
+        Link,
         Map,
         MapMarker,
         Microchip,
         PlayCircle,
         Plus,
         PowerOff,
+        Print,
+        Save,
         ShoppingBag,
         Star,
         Stopwatch,
         Sun,
         TachometerAlt,
         ThermometerQuarter,
+        Tag,
+        Tags,
         Times,
         Trash,
         TrashAlt,
@@ -95,12 +104,20 @@
                     return "fas fa-comment-alt";
                 case TypeIcon.Download:
                     return "fas fa-upload";
+                case TypeIcon.Edit:
+                    return "fas fa-edit";
                 case TypeIcon.EuroSign:
                     return "fas fa-euro-sign";
                 case TypeIcon.ExclamationTriangle:
                     return "fas fa-exclamation-triangle";
                 case TypeIcon.Fire:
                     return "fas fa-fire";
+                case TypeIcon.Folder:
+                    return "fas fa-folder";
+                case TypeIcon.FolderOpen:
+                    return "fas fa-folder-open";
+                case TypeIcon.Font:
+                    return "fas fa-font";
                 case TypeIcon.GraduationCap:
                     return "fas fa-graduation-cap";
                 case TypeIcon.Hashtag:
@@ -117,6 +134,8 @@
                     return "fas fa-info";
                 case TypeIcon.Lightbulb:
                     return "fas fa-lightbulb";
+                case TypeIcon.Link:
+                    return "fas fa-link";
                 case TypeIcon.Map:
                     return "fas fa-map";
                 case TypeIcon.MapMarker:
@@ -129,6 +148,10 @@
                     return "fas fa-plus";
                 case TypeIcon.PowerOff:
                     return "fas fa-power-off";
+                case TypeIcon.Print:
+                    return "fas fa-print";
+                case TypeIcon.Save:
+                    return "fas fa-save";
                 case TypeIcon.ShoppingBag:
                     return "fas fa-shopping-bag";
                 case TypeIcon.Star:
@@ -139,6 +162,10 @@
                     return "fas fa-sun";
                 case TypeIcon.TachometerAlt:
                     return "fas fa-tachometer-alt";
+                case TypeIcon.Tag:
+                    return "fas fa-tag";
+                case TypeIcon.Tags:
+                    return "fas fa-tags";
                 case TypeIcon.ThermometerQuarter:
                     return "fas fa-thermometer-quarter";
                 case TypeIcon.Times:

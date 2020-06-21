@@ -9,15 +9,6 @@ namespace WebExpress.UI.Controls
     public class ControlCardCounter : ControlPanelCard
     {
         /// <summary>
-        /// Liefert oder setzt die Farbe des Textes
-        /// </summary>
-        public PropertyColorText Color
-        {
-            get => (PropertyColorText)GetPropertyObject();
-            set => SetProperty(value, () => value.ToClass(), () => value.ToStyle());
-        }
-
-        /// <summary>
         /// Liefert oder setzt das Icon
         /// </summary>
         public PropertyIcon Icon { get; set; }
@@ -45,7 +36,7 @@ namespace WebExpress.UI.Controls
         public ControlCardCounter(IPage page, string id = null)
             : base(page, id)
         {
-            Color = new PropertyColorText(TypeColorText.Default);
+            TextColor = new PropertyColorText(TypeColorText.Default);
             Init();
         }
 
@@ -70,7 +61,7 @@ namespace WebExpress.UI.Controls
                 Content.Add(new ControlIcon(Page)
                 {
                     Icon = Icon,
-                    TextColor = Color,
+                    TextColor = TextColor,
                     HorizontalAlignment = TypeHorizontalAlignment.Right
                 });
             }

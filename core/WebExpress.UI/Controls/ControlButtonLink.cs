@@ -13,6 +13,11 @@ namespace WebExpress.UI.Controls
         public IUri Uri { get; set; }
 
         /// <summary>
+        /// Liefert oder setzt den Tooltip
+        /// </summary>
+        public string Title  { get; set; }
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="page">Die zugehörige Seite</param>
@@ -30,6 +35,7 @@ namespace WebExpress.UI.Controls
         {
             Disabled = false;
             Size = TypeSizeButton.Default;
+            Classes.Add("btn");
         }
 
         /// <summary>
@@ -38,8 +44,6 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode ToHtml()
         {
-            Classes.Add("btn");
-            //Classes.Add(Color.ToClass(Outline));
             Classes.Add(Size.ToClass());
 
             var html = new HtmlElementTextSemanticsA()
@@ -48,7 +52,8 @@ namespace WebExpress.UI.Controls
                 Class = GetClasses(),
                 Style = GetStyles(),
                 Role = Role,
-                Href = Uri?.ToString()
+                Href = Uri?.ToString(),
+                Title = Title
             };
 
             if (Icon != null && Icon.HasIcon)

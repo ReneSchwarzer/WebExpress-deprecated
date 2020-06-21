@@ -8,9 +8,36 @@ namespace WebExpress.UI.Controls
     public class ControlToolBar : Control
     {
         /// <summary>
+        /// Die horizontale Anordnung
+        /// </summary>
+        public virtual TypeOrientationToolBar Orientation
+        {
+            get => (TypeOrientationToolBar)GetProperty(TypeOrientationToolBar.Default);
+            set => SetProperty(value, () => value.ToClass());
+        }
+
+        /// <summary>
+        /// Die fixierte Anordnung
+        /// </summary>
+        public virtual TypeFixed Fixed
+        {
+            get => (TypeFixed)GetProperty(TypeFixed.None);
+            set => SetProperty(value, () => value.ToClass());
+        }
+
+        /// <summary>
+        /// Fixiert die Anordnung, wenn sich die Toolbar am oberen Rand befindet
+        /// </summary>
+        public virtual TypeSticky Sticky
+        {
+            get => (TypeSticky)GetProperty(TypeSticky.None);
+            set => SetProperty(value, () => value.ToClass());
+        }
+
+        /// <summary>
         /// Liefert oder setzt den Inhalt
         /// </summary>
-        public List<Control> Items { get; private set; }
+        public List<IControlToolBarItem> Items { get; private set; } = new List<IControlToolBarItem>();
 
         /// <summary>
         /// Konstruktor
@@ -29,8 +56,19 @@ namespace WebExpress.UI.Controls
         /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
         /// <param name="items">Die Toolitems</param>
-        public ControlToolBar(IPage page, string id = null, params Control[] items)
+        public ControlToolBar(IPage page, string id = null, params IControlToolBarItem[] items)
             : this(page, id)
+        {
+            Add(items);
+        }
+
+        /// <summary>
+        /// Konstruktor
+        /// </summary>
+        /// <param name="page">Die zugehörige Seite</param>
+        /// <param name="items">Die Toolitems</param>
+        public ControlToolBar(IPage page, params IControlToolBarItem[] items)
+            : this(page, (string)null)
         {
             Add(items);
         }
@@ -40,14 +78,14 @@ namespace WebExpress.UI.Controls
         /// </summary>
         private void Init()
         {
-            Items = new List<Control>();
+            Classes.Add("navbar");
         }
 
         /// <summary>
         /// Fügt Einträge hinzu
         /// </summary>
         /// <param name="item">Die Einträge welcher hinzugefügt werden sollen</param>
-        public void Add(params Control[] item)
+        public void Add(params IControlToolBarItem[] item)
         {
             Items.AddRange(item);
         }
@@ -62,16 +100,27 @@ namespace WebExpress.UI.Controls
             {
                 ID = ID,
                 Class = GetClasses(),
-                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Style = GetStyles(),
                 Role = Role
             };
 
-            html.Elements.AddRange
+            html.Elements.Add
             (
-                Items.Select(x => new ControlPanel(Page) 
-                { 
-                    Margin = new PropertySpacingMargin(PropertySpacing.Space.One, PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.None) 
-                }.ToHtml())
+                new HtmlElementTextContentUl
+                (
+                    Items.Select
+                    (
+                        x =>
+                        x == null || x is ControlDropdownMenuDivider || x is ControlLine ?
+                        new HtmlElementTextContentLi() { Class = "divider", Inline = true } :
+                        x is ControlDropdownMenuHeader ?
+                        x.ToHtml() :
+                        new HtmlElementTextContentLi(x.ToHtml()) { Class = "nav-item" }
+                    )
+                )
+                {
+                    Class = HorizontalAlignment == TypeHorizontalAlignment.Right ? "" : "navbar-nav"
+                }
             );
 
             return html;

@@ -206,8 +206,8 @@ namespace WebExpress.UI.Controls
             var html = new HtmlElementFormForm()
             {
                 ID = ID,
-                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Class = GetClasses(),
+                Style = GetStyles(),
                 Role = Role,
                 Name = Name.ToLower() != "form" ? "form_" + Name.ToLower() : Name.ToLower(),
                 Action = Uri?.ToString(),
@@ -244,7 +244,11 @@ namespace WebExpress.UI.Controls
 
             foreach (var v in Items)
             {
-                html.Elements.Add(new ControlFormularLabelGroup(this) { Item = v }.ToHtml());
+                html.Elements.Add(new ControlFormularLabelGroup(this) 
+                { 
+                    Item = v, 
+                    Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None)
+                }.ToHtml());
             }
 
             html.Elements.Add(button);
@@ -266,9 +270,9 @@ namespace WebExpress.UI.Controls
         /// Fügt eine Textbox binzu
         /// </summary>
         /// <param name="item">Das Formularelement</param>
-        public void Add(ControlFormularItem item)
+        public void Add(params ControlFormularItem[] item)
         {
-            Items.Add(item);
+            Items.AddRange(item);
         }
 
         /// <summary>

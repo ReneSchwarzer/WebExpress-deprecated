@@ -16,12 +16,17 @@ namespace WebExpress.UI.Pages
         /// <summary>
         /// Liefert oder setzt den Kopf
         /// </summary>
-        public ControlPanel Head { get; protected set; }
+        public ControlPanelHeader Head { get; protected set; }
 
         /// <summary>
         /// Liefert oder setzt die ToolBar
         /// </summary>
         public ControlToolBar ToolBar { get; protected set; }
+
+        /// <summary>
+        /// Liefert oder setzt die ToolBar
+        /// </summary>
+        public ControlToolBar SideBar { get; protected set; }
 
         /// <summary>
         /// Liefert oder setzt den Inhalt

@@ -10,28 +10,14 @@ namespace WebExpress.UI.Controls
     public class ControlAttribute : Control
     {
         /// <summary>
-        /// Liefert oder setzt die Textfarbe
-        /// </summary>
-        public TypeColorText Color
-        {
-            get => (TypeColorText)GetProperty(TypeColorText.Default);
-            set => SetProperty(value, () => value.ToClass());
-        }
-
-        /// <summary>
         /// Liefert oder setzt die Textfarbe des Namens
         /// </summary>
-        public TypeColorText NameColor { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt die Textfarbe des Textes
-        /// </summary>
-        public TypeColorText TextColor { get; set; }
+        public PropertyColorText NameColor { get; set; }
 
         /// <summary>
         /// Liefert oder setzt das Icon
         /// </summary>
-        public TypeIcon Icon { get; set; }
+        public PropertyIcon Icon { get; set; }
 
         /// <summary>
         /// Liefert oder setzt den Namen
@@ -74,17 +60,17 @@ namespace WebExpress.UI.Controls
 
             var name = new HtmlElementTextSemanticsSpan(new HtmlText(Name))
             {
-                Class = NameColor != TypeColorText.Default ? NameColor.ToClass() : string.Empty
+                Class = NameColor?.ToClass()
             };
 
             var value = new HtmlElementTextSemanticsSpan(new HtmlText(Value))
             {
-                Class = TextColor != TypeColorText.Default ? NameColor.ToClass() : string.Empty
+                Class = NameColor?.ToClass()
             };
 
             var html = new HtmlElementTextContentDiv
             (
-                Icon != TypeIcon.None ? icon : null,
+                Icon != null && Icon.HasIcon ? icon : null,
                 name,
                 value
             )
