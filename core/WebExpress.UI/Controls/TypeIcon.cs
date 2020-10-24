@@ -11,6 +11,7 @@
         Calendar,
         CalendarMinus,
         CalendarPlus,
+        Car,
         ChartBar,
         Clock, 
         Clone,
@@ -57,7 +58,8 @@
         Truck,
         ThumbsUp,
         Undo,
-        Upload
+        Upload,
+        Users
     }
 
 
@@ -88,6 +90,8 @@
                     return "fas fa-calendar-minus";
                 case TypeIcon.CalendarPlus:
                     return "fas fa-calendar-plus";
+                case TypeIcon.Car:
+                    return "fas fa-car";
                 case TypeIcon.ChartBar:
                     return "fas fa-chart-bar";
                 case TypeIcon.Clock:
@@ -182,6 +186,8 @@
                     return "fas fa-undo";
                 case TypeIcon.Upload:
                     return "fas fa-download";
+                case TypeIcon.Users:
+                    return "fas fa-users";
             }
 
             return string.Empty;
