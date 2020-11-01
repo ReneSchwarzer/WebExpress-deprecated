@@ -14,10 +14,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlDropdownMenuHeader(IPage page, string id = null)
-            : base(page, id)
+        public ControlDropdownMenuHeader(string id = null)
+            : base(id)
         {
             Init();
         }
@@ -25,11 +24,10 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
         /// <param name="text">Der Text</param>
-        public ControlDropdownMenuHeader(IPage page, string id, string text)
-            : base(page, id)
+        public ControlDropdownMenuHeader(string id, string text)
+            : base(id)
         {
             Text = text;
 
@@ -47,8 +45,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render(RenderContext context)
         {
             return new HtmlElementTextContentLi(new HtmlText(Text))
             {

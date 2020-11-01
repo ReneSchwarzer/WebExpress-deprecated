@@ -22,12 +22,20 @@ namespace WebExpress.UI.Controls
         }
 
         /// <summary>
+        /// Fester oder Anpassung an die gesammte Breite
+        /// </summary>
+        public TypePanelContainer Fluid
+        {
+            get => (TypePanelContainer)GetProperty(TypePanelContainer.None);
+            set => SetProperty(value, () => value.ToClass());
+        }
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlPanel(IPage page, string id = null)
-            : base(page, id)
+        public ControlPanel(string id = null)
+            : base(id)
         {
             Init();
         }
@@ -35,10 +43,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="content">Der Inhalt</param>
-        public ControlPanel(IPage page, params Control[] content)
-            : this(page)
+        public ControlPanel(params Control[] content)
+            : this()
         {
             Content.AddRange(content);
         }
@@ -46,11 +53,10 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
         /// <param name="content">Der Inhalt</param>
-        public ControlPanel(IPage page, string id, params Control[] content)
-            : this(page, id)
+        public ControlPanel(string id, params Control[] content)
+            : this(id)
         {
             Content.AddRange(content);
         }
@@ -58,11 +64,10 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
         /// <param name="content">Der Inhalt</param>
-        public ControlPanel(IPage page, string id, IEnumerable<Control> content)
-            : this(page, id)
+        public ControlPanel(string id, IEnumerable<Control> content)
+            : this(id)
         {
             Content.AddRange(content);
         }
@@ -70,11 +75,10 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
         /// <param name="content">Der Inhalt</param>
-        public ControlPanel(IPage page, string id, List<Control> content)
-            : base(page, id)
+        public ControlPanel(string id, List<Control> content)
+            : base(id)
         {
             Content = content;
         }
@@ -89,10 +93,11 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render(RenderContext context)
         {
-            return new HtmlElementTextContentDiv(from x in Content select x.ToHtml())
+            return new HtmlElementTextContentDiv(from x in Content select x.Render(context))
             {
                 ID = ID,
                 Class = GetClasses(),

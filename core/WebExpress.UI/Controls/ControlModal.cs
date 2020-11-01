@@ -35,10 +35,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlModal(IPage page, string id)
-            : base(page, !string.IsNullOrWhiteSpace(id) ? id : "modal")
+        public ControlModal(string id)
+            : base(!string.IsNullOrWhiteSpace(id) ? id : "modal")
         {
             Init();
         }
@@ -46,11 +45,10 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
         /// <param name="header">Die Überschrift</param>
-        public ControlModal(IPage page, string id, string header)
-            : this(page, id)
+        public ControlModal(string id, string header)
+            : this(id)
         {
             Header = header;
         }
@@ -58,12 +56,11 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
         /// <param name="header">Die Überschrift</param>
         /// <param name="content">Der Inhalt</param>
-        public ControlModal(IPage page, string id, string header, params Control[] content)
-            : this(page, id, header)
+        public ControlModal(string id, string header, params Control[] content)
+            : this(id, header)
         {
             Content.AddRange(content);
         }
@@ -71,12 +68,11 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
         /// <param name="text">Der Text</param>
         /// <param name="content">Der Inhalt</param>
-        public ControlModal(IPage page, string id, string text, IEnumerable<Control> content)
-            : this(page, id, text)
+        public ControlModal(string id, string text, IEnumerable<Control> content)
+            : this(id, text)
         {
             Content.AddRange(content);
         }
@@ -84,12 +80,11 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
         /// <param name="text">Der Text</param>
         /// <param name="content">Der Inhalt</param>
-        public ControlModal(IPage page, string id = null, params Control [] content)
-            : this(page, id, string.Empty)
+        public ControlModal(string id = null, params Control [] content)
+            : this(id, string.Empty)
         {
             Content.AddRange(content);
         }
@@ -107,8 +102,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render(RenderContext context)
         {
             Classes.Add("modal");
 
@@ -139,7 +135,7 @@ namespace WebExpress.UI.Controls
                 Class = "modal-header"
             };
 
-            var body = new HtmlElementTextContentDiv(from x in Content select x.ToHtml())
+            var body = new HtmlElementTextContentDiv(from x in Content select x.Render(context))
             {
                 Class = "modal-body"
             };
@@ -178,13 +174,13 @@ namespace WebExpress.UI.Controls
             if (!string.IsNullOrWhiteSpace(OnShownCode))
             {
                 var shown = "$('#" + ID + "').on('shown.bs.modal', function(e) { " + OnShownCode + " });";
-                Page.AddScript(ID + "_shown", shown);
+                context.Page.AddScript(ID + "_shown", shown);
             }
 
             if (!string.IsNullOrWhiteSpace(OnHiddenCode))
             {
                 var hidden = "$('#" + ID + "').on('hidden.bs.modal', function() { " + OnHiddenCode + " });";
-                Page.AddScript(ID + "_hidden", hidden);
+                context.Page.AddScript(ID + "_hidden", hidden);
             }
 
             return html;

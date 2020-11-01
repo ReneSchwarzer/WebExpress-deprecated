@@ -5,32 +5,18 @@ using WebExpress.Pages;
 
 namespace WebExpress.UI.Controls
 {
-    public class ControlLine : Control
+    /// <summary>
+    /// Grid aus 12-Zellen pro Zeile
+    /// </summary>
+    public class ControlPanelGrid : ControlPanel
     {
-        /// <summary>
-        /// Liefert oder setzt die Farbe des Textes
-        /// </summary>
-        public new PropertyColorText TextColor { get; private set; }
-
-        /// <summary>
-        /// Die Hintergrundfarbe
-        /// </summary>
-        public new PropertyColorBackground BackgroundColor { get; private set; }
-
-        /// <summary>
-        /// Liefert oder setzt die Farbe
-        /// </summary>
-        public PropertyColorLine Color
-        {
-            get => (PropertyColorLine)GetPropertyObject();
-            set => SetProperty(value, () => value?.ToClass(), () => value?.ToStyle());
-        }
+        
 
         /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="id">Die ID</param>
-        public ControlLine(string id = null)
+        public ControlPanelGrid(string id = null)
             : base(id)
         {
             Init();
@@ -41,6 +27,7 @@ namespace WebExpress.UI.Controls
         /// </summary>
         private void Init()
         {
+
         }
 
         /// <summary>
@@ -50,13 +37,15 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var html = new HtmlElementTextContentHr()
+            var html = new HtmlElementTextContentDiv()
             {
                 ID = ID,
                 Class = GetClasses(),
                 Style = GetStyles(),
                 Role = Role
             };
+
+            html.Elements.Add(new HtmlElementTextContentDiv(Content.Select(x => x.Render(context))) { Class = "row" });
 
             return html;
         }

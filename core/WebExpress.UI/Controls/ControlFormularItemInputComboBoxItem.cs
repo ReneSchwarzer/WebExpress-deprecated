@@ -2,9 +2,9 @@
 
 namespace WebExpress.UI.Controls
 {
-    public class ControlFormularItemComboBoxItem
+    public class ControlFormularItemInputComboBoxItem
     {
-        public List<ControlFormularItemComboBoxItem> SubItems { get; private set; }
+        public List<ControlFormularItemInputComboBoxItem> SubItems { get; private set; }
 
         /// <summary>
         /// Liefert oder setzt den Text
@@ -24,16 +24,16 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public ControlFormularItemComboBoxItem()
+        public ControlFormularItemInputComboBoxItem()
         {
-            SubItems = new List<ControlFormularItemComboBoxItem>();
+            SubItems = new List<ControlFormularItemInputComboBoxItem>();
         }
 
         /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="subitems">Die untergeordnetetn Einträge</param>
-        public ControlFormularItemComboBoxItem(params ControlFormularItemComboBoxItem[] subitems)
+        public ControlFormularItemInputComboBoxItem(params ControlFormularItemInputComboBoxItem[] subitems)
             : this()
         {
             SubItems.AddRange(subitems);
@@ -43,7 +43,7 @@ namespace WebExpress.UI.Controls
         /// Konstruktor
         /// </summary>
         /// <param name="subitems">Die untergeordnetetn Einträge</param>
-        public ControlFormularItemComboBoxItem(IEnumerable<ControlFormularItemComboBoxItem> subitems)
+        public ControlFormularItemInputComboBoxItem(IEnumerable<ControlFormularItemInputComboBoxItem> subitems)
             : this()
         {
             SubItems.AddRange(subitems);

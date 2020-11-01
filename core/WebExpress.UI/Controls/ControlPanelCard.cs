@@ -11,11 +11,6 @@ namespace WebExpress.UI.Controls
     public class ControlPanelCard : ControlPanel
     {
         /// <summary>
-        /// Liefert oder setzt das Layout
-        /// </summary>
-        //public TypesLayoutCard Layout { get; set; }
-
-        /// <summary>
         /// Liefert oder setzt den Headertext
         /// </summary>
         public string Header { get; set; }
@@ -41,17 +36,11 @@ namespace WebExpress.UI.Controls
         public string FooterImage { get; set; }
 
         /// <summary>
-        /// Zeigt einen Rahmen an oder keinen
-        /// </summary>
-        public bool ShowBorder { get; set; }
-
-        /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlPanelCard(IPage page, string id = null)
-            : base(page, id)
+        public ControlPanelCard(string id = null)
+            : base(id)
         {
             Init();
         }
@@ -59,10 +48,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlPanelCard(IPage page, string id, params Control[] items)
-            : base(page, id, items)
+        public ControlPanelCard(string id, params Control[] items)
+            : base(id, items)
         {
             Init();
         }
@@ -70,10 +58,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlPanelCard(IPage page, params Control[] items)
-            : base(page, items)
+        public ControlPanelCard(params Control[] items)
+            : base(items)
         {
             Init();
         }
@@ -83,24 +70,16 @@ namespace WebExpress.UI.Controls
         /// </summary>
         private void Init()
         {
-            ShowBorder = true;
+            Border = new PropertyBorder(true);
         }
 
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render(RenderContext context)
         {
-            //Classes.Add("card");
-            //Classes.Add(Layout.ToClass());
-            //Classes.Add(HorizontalAlignment.ToClass());
-
-            if (!ShowBorder)
-            {
-                Classes.Add("border-0");
-            }
-
             var html = new HtmlElementTextContentDiv()
             {
                 ID = ID,
@@ -125,7 +104,7 @@ namespace WebExpress.UI.Controls
 
             if (!string.IsNullOrWhiteSpace(Headline))
             {
-                Content.Insert(0, new ControlText(Page) 
+                Content.Insert(0, new ControlText() 
                 { 
                     Text = Headline, 
                     Classes = new List<string>(new[] { "card-title" }), 
@@ -133,7 +112,7 @@ namespace WebExpress.UI.Controls
                 });
             }
 
-            html.Elements.Add(new HtmlElementTextContentDiv(Content.Select(x => x.ToHtml())) { Class = "card-body" });
+            html.Elements.Add(new HtmlElementTextContentDiv(new HtmlElementTextContentDiv(Content.Select(x => x.Render(context))) { Class = "card-text" }) { Class = "card-body" });
 
             if (!string.IsNullOrWhiteSpace(FooterImage))
             {

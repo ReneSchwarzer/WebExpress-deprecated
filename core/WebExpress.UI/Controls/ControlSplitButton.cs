@@ -25,10 +25,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlSplitButton(IPage page, string id)
-            : base(page, id)
+        public ControlSplitButton(string id)
+            : base(id)
         {
             Init();
         }
@@ -36,11 +35,10 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Das zugehörige Formular</param>
         /// <param name="id">Die ID</param>
         /// <param name="items">Der Inhalt</param>
-        public ControlSplitButton(IPage page, string id, params Control[] items)
-            : base(page, id)
+        public ControlSplitButton(string id, params Control[] items)
+            : base(id)
         {
             Init();
 
@@ -60,8 +58,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render(RenderContext context)
         {
             var containerClasses = new List<string>
             {
@@ -146,7 +145,7 @@ namespace WebExpress.UI.Controls
                 buttonClasses.Add("disabled");
             }
 
-            var html = base.ToHtml();
+            var html = base.Render(context);
 
             var dropdownButton = new HtmlElementFieldButton()
             {
@@ -164,8 +163,8 @@ namespace WebExpress.UI.Controls
                     x == null ?
                     new HtmlElementTextContentLi() { Class = "dropdown-divider", Inline = true } :
                     x is ControlDropdownMenuHeader ?
-                    x.ToHtml() :
-                    new HtmlElementTextContentLi(x.ToHtml().AddClass("dropdown-item")) { }
+                    x.Render(context) :
+                    new HtmlElementTextContentLi(x.Render(context).AddClass("dropdown-item")) { }
                 )
             )
             {

@@ -7,7 +7,7 @@ using WebExpress.Pages;
 
 namespace WebExpress.UI.Controls
 {
-    public class ControlPanelFormular : ControlPanel, IControlFormular
+    public class ControlFormular : Control
     {
         /// <summary>
         /// Event zum Validieren der Eingabewerte
@@ -17,7 +17,11 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt das Layout
         /// </summary>
-        public TypesLayoutForm Layout { get; set; }
+        public virtual TypeLayoutFormular Layout
+        {
+            get => (TypeLayoutFormular)GetProperty(TypeLayoutFormular.Default);
+            set => SetProperty(value, () => value.ToClass());
+        }
 
         /// <summary>
         /// Event wird ausgelöst, wenn das Formular geladen werden soll
@@ -87,7 +91,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt die Formulareinträge
         /// </summary>
-        public List<ControlFormularItem> Items { get; set; }
+        public List<ControlFormularItem> Items { get; private set; } = new List<ControlFormularItem>();
 
         /// <summary>
         /// Bestimmt ob die Eingabe gültig sind
@@ -102,11 +106,35 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlPanelFormular(IPage page, string id = null)
-            : base(page, id)
+        public ControlFormular(string id = null)
+            : base(id)
         {
+            Init();
+        }
+
+        /// <summary>
+        /// Konstruktor
+        /// </summary>
+        /// <param name="id">Die ID</param>
+        /// <param name="items">Die Steuerelemente, welche dem Formular zugeordnet werden</param>
+        public ControlFormular(string id, params ControlFormularItem[] items)
+            : base(id)
+        {
+            Items.AddRange(items);
+
+            Init();
+        }
+
+        /// <summary>
+        /// Konstruktor
+        /// </summary>
+        /// <param name="items">Die Steuerelemente, welche dem Formular zugeordnet werden</param>
+        public ControlFormular(params ControlFormularItem[] items)
+            : base(null as string)
+        {
+            Items.AddRange(items);
+
             Init();
         }
 
@@ -115,34 +143,58 @@ namespace WebExpress.UI.Controls
         /// </summary>
         private void Init()
         {
-            Items = new List<ControlFormularItem>();
             ValidationResults = new List<ValidationResult>();
 
             EnableCancelButton = true;
             Scope = ParameterScope.Local;
             Name = "Form";
+        }
 
-            SubmitButton = new ControlFormularItemButton(this)
+        /// <summary>
+        /// In HTML konvertieren
+        /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        /// <returns>Das Control als HTML</returns>
+        public override IHtmlNode Render(RenderContext context)
+        {
+            var renderContext = new RenderContextFormular(context, this);
+            SubmitButton?.Initialize(renderContext);
+            
+            if (EnableSubmitAndNextButton)
+            {
+                SubmitAndNextButton?.Initialize(renderContext);
+            }
+
+            Items.ForEach(x => x.Initialize(renderContext));
+            
+            if (CancelButton != null)
+            {
+                CancelButton.Uri = RedirectUrl;
+            }
+
+            SubmitButton = new ControlFormularItemButton()
             {
                 Name = "submit_" + Name.ToLower(),
                 Text = "Speichern",
-                Icon = "fas fa-save",
-                Layout = TypeColorButton.Success,
+                Icon = new PropertyIcon(TypeIcon.Save),
+                Color = new PropertyColorButton(TypeColorButton.Success),
                 Type = "submit",
-                Value = "1"
+                Value = "1",
+                Margin = new PropertySpacingMargin(Layout == TypeLayoutFormular.Inline ? PropertySpacing.Space.Two : PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None)
             };
 
-            SubmitAndNextButton = new ControlFormularItemButton(this)
+            SubmitAndNextButton = new ControlFormularItemButton()
             {
                 Name = "next_" + Name.ToLower(),
                 Text = "Speichern und weiter",
-                Icon = "fas fa-forward",
-                Layout = TypeColorButton.Success,
+                Icon = new PropertyIcon(TypeIcon.Forward),
+                Color = new PropertyColorButton(TypeColorButton.Success),
                 Type = "submit",
-                Value = "1"
+                Value = "1",
+                Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None)
             };
 
-            CancelButton = new ControlButtonLink(Page)
+            CancelButton = new ControlButtonLink()
             {
                 Text = "Abbrechen",
                 Icon = new PropertyIcon(TypeIcon.Times),
@@ -162,7 +214,7 @@ namespace WebExpress.UI.Controls
 
                     if (!string.IsNullOrWhiteSpace(RedirectUrl?.ToString()))
                     {
-                        Page.Redirecting(RedirectUrl);
+                        context.Page.Redirecting(RedirectUrl);
                     }
                 }
             };
@@ -176,32 +228,16 @@ namespace WebExpress.UI.Controls
                     OnProcessAndNextFormular();
                 }
             };
-        }
-
-        /// <summary>
-        /// In HTML konvertieren
-        /// </summary>
-        /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode ToHtml()
-        {
-            CancelButton.Uri = RedirectUrl;
-
-            switch (Layout)
-            {
-                case TypesLayoutForm.Inline:
-                    Classes.Add("form-inline");
-                    break;
-            }
 
             // Prüfe ob Formular abgeschickt wurde
-            if (string.IsNullOrWhiteSpace(GetParam(SubmitButton.Name)))
+            if (string.IsNullOrWhiteSpace(context.Page.GetParam(SubmitButton.Name)))
             {
                 OnInit();
             }
 
-            var button = SubmitButton.ToHtml();
-            var next = SubmitAndNextButton.ToHtml();
-            var cancel = CancelButton.ToHtml();
+            var button = SubmitButton.Render(renderContext);
+            var next = SubmitAndNextButton.Render(renderContext);
+            var cancel = CancelButton.Render(renderContext);
 
             var html = new HtmlElementFormForm()
             {
@@ -213,8 +249,6 @@ namespace WebExpress.UI.Controls
                 Action = Uri?.ToString(),
                 Method = "post"
             };
-
-            html.Elements.AddRange(Content.Select(x => x.ToHtml()));
 
             foreach (var v in ValidationResults)
             {
@@ -233,22 +267,21 @@ namespace WebExpress.UI.Controls
                         break;
                 }
 
-                html.Elements.Add(new ControlAlert(Page)
+                html.Elements.Add(new ControlAlert()
                 {
                     BackgroundColor = bgColor,
                     Text = v.Text,
                     Dismissible = TypeDismissibleAlert.Dismissible,
                     Fade = TypeFade.FadeShow
-                }.ToHtml());
+                }.Render(renderContext));
             }
 
             foreach (var v in Items)
             {
-                html.Elements.Add(new ControlFormularLabelGroup(this) 
+                html.Elements.Add(new ControlFormularItemLabelGroup(v) 
                 { 
-                    Item = v, 
-                    Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None)
-                }.ToHtml());
+                    //Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None)
+                }.Render(renderContext));
             }
 
             html.Elements.Add(button);

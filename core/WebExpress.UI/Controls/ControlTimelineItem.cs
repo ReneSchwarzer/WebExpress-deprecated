@@ -51,10 +51,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlTimelineItem(IPage page, string id = null)
-            : base(page, id)
+        public ControlTimelineItem(string id = null)
+            : base(id)
         {
             Init();
         }
@@ -70,12 +69,13 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render(RenderContext context)
         {
             Classes.Add("post");
 
-            var profile = new ControlAvatar(Page)
+            var profile = new ControlAvatar()
             {
                 User = User,
                 Image = Image
@@ -121,7 +121,7 @@ namespace WebExpress.UI.Controls
                 timespan = "vor " + days + " Tagen";
             }
 
-            var date = new ControlText(Page)
+            var date = new ControlText()
             {
                 Text = timespan,
                 Title = "Am " + Timestamp.ToShortDateString() + " um " + Timestamp.ToShortTimeString() + " Uhr",
@@ -131,31 +131,31 @@ namespace WebExpress.UI.Controls
 
             var headerText = new HtmlElementTextContentP
             (
-                new ControlText(Page)
+                new ControlText()
                 {
                     Text = Action,
                     TextColor = new PropertyColorText(TypeColorText.Info),
                     Format = TypeFormatText.Span
-                }.ToHtml(),
-                date.ToHtml()
+                }.Render(context),
+                date.Render(context)
             );
 
-            var setting = new ControlDropdownMenu(Page)
+            var setting = new ControlDropdownMenu()
             {
                 //Icon = new PropertyIcon(TypeIcon.Cog),
                 Layout = TypeColorButton.Light,
                 HorizontalAlignment = TypeHorizontalAlignment.Right,
                 Size = TypeSizeButton.Small
             };
-            setting.Add(new ControlLink(Page) 
+            setting.Add(new ControlLink() 
             { 
                 Text = "Löschen", 
                 Icon = new PropertyIcon(TypeIcon.TrashAlt), 
                 TextColor = new PropertyColorText(TypeColorText.Danger), 
-                Uri = Page.Uri 
+                Uri = context.Page.Uri 
             });
 
-            var header = new HtmlElementTextContentDiv(setting.ToHtml(), profile.ToHtml(), headerText)
+            var header = new HtmlElementTextContentDiv(setting.Render(context), profile.Render(context), headerText)
             {
                 Class = "header"
             };
@@ -168,41 +168,41 @@ namespace WebExpress.UI.Controls
             };
 
             var likeText = "Gefällt mir" + (Likes > 0 ? " (" + Likes + ")" : string.Empty);
-            var like = new ControlButtonLink(Page)
+            var like = new ControlButtonLink()
             {
                 Icon = new PropertyIcon(TypeIcon.ThumbsUp),
                 Text = likeText,
-                Uri = Page.Uri,
+                Uri = context.Page.Uri,
                 Size = TypeSizeButton.Small,
                 Color =  new PropertyColorButton(TypeColorButton.Light),
                 Outline = true,
                 TextColor = new PropertyColorText(TypeColorText.Primary)
             };
 
-            var option = new HtmlElementTextContentDiv(like.ToHtml())
+            var option = new HtmlElementTextContentDiv(like.Render(context))
             {
                 Class = "options"
             };
 
             var html = new HtmlList(header, body, option);
 
-            html.Elements.AddRange(from x in Comments select x.ToHtml());
+            html.Elements.AddRange(from x in Comments select x.Render(context));
 
-            var form = new ControlPanelFormular(Page)
+            var form = new ControlFormular()
             {
                 Name = !string.IsNullOrWhiteSpace(Name) ? Name : "form",
                 EnableCancelButton = false
             };
 
-            form.SubmitButton.Icon = "fas fa-paper-plane";
+            form.SubmitButton.Icon = new PropertyIcon(TypeIcon.PaperPlane);
             form.SubmitButton.Text = "Antworten";
             form.SubmitButton.Outline = true;
             form.SubmitButton.Size = TypeSizeButton.Small;
-            form.SubmitButton.HorizontalAlignment = TypeHorizontalAlignment.Default;
+            //form.SubmitButton.HorizontalAlignment = TypeHorizontalAlignment.Default;
 
-            form.Add(new ControlFormularItemTextBox(form) { Format = TypesEditTextFormat.Multiline, Placeholder = "Kommentieren..." });
+            form.Add(new ControlFormularItemInputTextBox() { Format = TypesEditTextFormat.Multiline, Placeholder = "Kommentieren..." });
 
-            html.Elements.Add(form.ToHtml());
+            html.Elements.Add(form.Render(context));
 
             return html;
         }

@@ -30,10 +30,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlPanelMedia(IPage page, string id = null)
-            : base(page, id)
+        public ControlPanelMedia(string id = null)
+            : base(id)
         {
 
         }
@@ -41,13 +40,12 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
         /// <param name="title">Die Überschrift</param>
-        public ControlPanelMedia(IPage page, string id, string title)
-            : this(page, id)
+        public ControlPanelMedia(string id, string title)
+            : this(id)
         {
-            Title = new ControlText(page, string.IsNullOrWhiteSpace(id) ? null : id + "_header")
+            Title = new ControlText(string.IsNullOrWhiteSpace(id) ? null : id + "_header")
             {
                 Text = title
             };
@@ -56,8 +54,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render(RenderContext context)
         {
             Classes.Add("media");
 
@@ -77,7 +76,7 @@ namespace WebExpress.UI.Controls
                 img.Height = ImageHeight;
             }
 
-            var heading = new HtmlElementSectionH4(Title?.ToHtml())
+            var heading = new HtmlElementSectionH4(Title?.Render(context))
             {
             };
 
@@ -86,7 +85,7 @@ namespace WebExpress.UI.Controls
                 Class = "media-body"
             };
 
-            body.Elements.AddRange(from x in Content select x.ToHtml());
+            body.Elements.AddRange(from x in Content select x.Render(context));
 
             var html = new HtmlElementTextContentDiv(img, body)
             {

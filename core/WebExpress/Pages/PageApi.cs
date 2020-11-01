@@ -36,7 +36,7 @@ namespace WebExpress.Pages
         /// In HTML konvertieren
         /// </summary>
         /// <returns>Die Seite als HTML</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render()
         {
             return new HtmlRaw(Content);
         }

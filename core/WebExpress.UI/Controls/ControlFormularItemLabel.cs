@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using WebExpress.Html;
+using WebExpress.Pages;
 
 namespace WebExpress.UI.Controls
 {
@@ -18,44 +19,43 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="formular">Das zugehörige Formular</param>
         /// <param name="id">Die ID</param>
-        public ControlFormularItemLabel(IControlFormular formular, string id)
-            : base(formular, id)
+        public ControlFormularItemLabel(string id)
+            : base(id)
         {
-            Init();
         }
 
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="formular">Das zugehörige Formular</param>
         /// <param name="id">Die ID</param>
         /// <param name="text">Der Text</param>
-        public ControlFormularItemLabel(IControlFormular formular, string id, string text)
-            : this(formular, id)
+        public ControlFormularItemLabel(string id, string text)
+            : this(id)
         {
             Text = text;
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialisiert das Formularelement
         /// </summary>
-        private void Init()
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        public override void Initialize(RenderContextFormular context)
         {
         }
 
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render(RenderContextFormular context)
         {
             return new HtmlElementFieldLabel()
             {
                 Text = Text,
-                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Class = GetClasses(),
+                Style = GetStyles(),
                 Role = Role,
                 For = FormularItem != null ?
                     string.IsNullOrWhiteSpace(FormularItem.ID) ?

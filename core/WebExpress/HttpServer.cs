@@ -430,7 +430,7 @@ namespace WebExpress
                         page.Init(new UriPage(request.URL, plugin.Context), null);
                         page.Process();
 
-                        return page.ToHtml();
+                        return page.Render();
                     }
                    
                     return response.Content;

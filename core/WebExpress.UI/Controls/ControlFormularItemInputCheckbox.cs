@@ -1,27 +1,28 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
+using WebExpress.Pages;
 
 namespace WebExpress.UI.Controls
 {
-    public class ControlFormularItemCheckbox : ControlFormularItemInput
+    public class ControlFormularItemInputCheckbox : ControlFormularItemInput
     {
-        /// <summary>
-        /// Liefert oder setzt den Wert der TextBox
-        /// </summary>
-        public new bool Value
-        {
-            get => GetParam(Name) == "t" ? true : false;
-            set
-            {
-                var v = GetParam(Name);
+        ///// <summary>
+        ///// Liefert oder setzt den Wert der TextBox
+        ///// </summary>
+        //public new bool Value
+        //{ 
+            //get => GetParam(Name) == "t" ? true : false;
+            //set
+            //{
+            //    var v = GetParam(Name);
 
-                if (string.IsNullOrWhiteSpace(v))
-                {
-                    AddParam(Name, value ? "t" : "f", Formular.Scope);
-                }
-            }
-        }
+            //    if (string.IsNullOrWhiteSpace(v))
+            //    {
+            //        AddParam(Name, value ? "t" : "f", Formular.Scope);
+            //    }
+            //}
+        //}
 
         /// <summary>
         /// Liefert oder setzt ob die Checkbox in einer neuen Zeile angezeigt werden soll
@@ -41,26 +42,26 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="formular">Das zugehörige Formular</param>
         /// <param name="id">Die ID</param>
-        public ControlFormularItemCheckbox(IControlFormular formular, string id = null)
-            : base(formular, id)
+        public ControlFormularItemInputCheckbox(string id = null)
+            : base(id)
         {
-            Init();
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialisiert das Formularelement
         /// </summary>
-        private void Init()
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        public override void Initialize(RenderContextFormular context)
         {
         }
 
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render(RenderContextFormular context)
         {
             var c = new List<string>
             {
@@ -89,8 +90,8 @@ namespace WebExpress.UI.Controls
                         Disabled = Disabled,
                         Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
                         Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
-                        Role = Role,
-                        Checked = Value
+                        //Role = Role,
+                        //Checked = Value
                     },
                     new HtmlText(string.IsNullOrWhiteSpace(Discription) ? string.Empty : "&nbsp;" + Discription)
                 )

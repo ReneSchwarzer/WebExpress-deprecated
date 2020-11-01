@@ -35,10 +35,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlTimelineComment(IPage page, string id = null)
-            : base(page, id)
+        public ControlTimelineComment(string id = null)
+            : base(id)
         {
             Init();
         }
@@ -53,12 +52,13 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render(RenderContext context)
         {
             Classes.Add("comment");
 
-            var profile = new ControlAvatar(Page)
+            var profile = new ControlAvatar()
             {
                 User = User,
                 Image = Image
@@ -104,7 +104,7 @@ namespace WebExpress.UI.Controls
                 timespan = "vor " + days + " Tagen";
             }
 
-            var date = new ControlText(Page)
+            var date = new ControlText()
             {
                 Text = timespan,
                 Title = "Am " + Timestamp.ToShortDateString() + " um " + Timestamp.ToShortTimeString() + " Uhr",
@@ -112,7 +112,7 @@ namespace WebExpress.UI.Controls
                 TextColor = new PropertyColorText(TypeColorText.Muted)
             };
 
-            var header = new HtmlElementTextContentDiv(profile.ToHtml(), date.ToHtml())
+            var header = new HtmlElementTextContentDiv(profile.Render(context), date.Render(context))
             {
                 Class = "header"
             };
@@ -124,18 +124,18 @@ namespace WebExpress.UI.Controls
 
             var likeText = "Gefällt mir" + (Likes > 0 ? " (" + Likes + ")" : string.Empty);
 
-            var like = new ControlButtonLink(Page)
+            var like = new ControlButtonLink()
             {
                 Icon = new PropertyIcon(TypeIcon.ThumbsUp),
                 Text = likeText,
-                Uri = Page.Uri,
+                Uri = context.Page.Uri,
                 Size = TypeSizeButton.Small,
                 Color = new PropertyColorButton(TypeColorButton.Light),
                 Outline = true,
                 TextColor = new PropertyColorText(TypeColorText.Primary)
             };
 
-            var option = new HtmlElementTextContentDiv(like.ToHtml())
+            var option = new HtmlElementTextContentDiv(like.Render(context))
             {
                 Class = "options"
             };

@@ -10,10 +10,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlPanelCenter(IPage page, string id = null)
-            : base(page, id)
+        public ControlPanelCenter(string id = null)
+            : base(id)
         {
             Init();
         }
@@ -21,10 +20,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="content">Der Inhalt</param>
-        public ControlPanelCenter(IPage page, params Control[] content)
-            : this(page)
+        public ControlPanelCenter(params Control[] content)
+            : this()
         {
             Content.AddRange(content);
         }
@@ -32,11 +30,10 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
         /// <param name="content">Der Inhalt</param>
-        public ControlPanelCenter(IPage page, string id, params Control[] content)
-            : this(page, id)
+        public ControlPanelCenter(string id, params Control[] content)
+            : this(id)
         {
             Content.AddRange(content);
         }
@@ -51,10 +48,11 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render(RenderContext context)
         {
-            var html = new HtmlElementTextContentDiv(from x in Content select x.ToHtml())
+            var html = new HtmlElementTextContentDiv(from x in Content select x.Render(context))
             {
                 ID = ID,
                 Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),

@@ -20,10 +20,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlButtonLink(IPage page, string id = null)
-            : base(page, id)
+        public ControlButtonLink(string id = null)
+            : base(id)
         {
             Init();
         }
@@ -41,8 +40,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render(RenderContext context)
         {
             Classes.Add(Size.ToClass());
 
@@ -58,7 +58,7 @@ namespace WebExpress.UI.Controls
 
             if (Icon != null && Icon.HasIcon)
             {
-                html.Elements.Add(new ControlIcon(Page)
+                html.Elements.Add(new ControlIcon()
                 {
                     Icon = Icon,
                     Margin = !string.IsNullOrWhiteSpace(Text) ? new PropertySpacingMargin
@@ -69,7 +69,7 @@ namespace WebExpress.UI.Controls
                         PropertySpacing.Space.None
                     ) : new PropertySpacingMargin(PropertySpacing.Space.None),
                     VerticalAlignment = Icon.IsUserIcon ? TypeVerticalAlignment.TextBottom : TypeVerticalAlignment.Default
-                }.ToHtml());
+                }.Render(context));
             }
 
             if (!string.IsNullOrWhiteSpace(Text))
@@ -79,7 +79,7 @@ namespace WebExpress.UI.Controls
 
             if (Content.Count > 0)
             {
-                html.Elements.AddRange(Content.Select(x => x.ToHtml()));
+                html.Elements.AddRange(Content.Select(x => x.Render(context)));
             }
 
             if (Modal != null)
@@ -87,7 +87,7 @@ namespace WebExpress.UI.Controls
                 html.AddUserAttribute("data-toggle", "modal");
                 html.AddUserAttribute("data-target", "#" + Modal.ID);
 
-                return new HtmlList(html, Modal.ToHtml());
+                return new HtmlList(html, Modal.Render(context));
             }
 
             return html;

@@ -25,10 +25,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlFlexbox(IPage page, string id = null)
-            : base(page, id)
+        public ControlFlexbox(string id = null)
+            : base(id)
         {
             Init();
         }
@@ -36,11 +35,10 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
         /// <param name="items">Die Listeneinträge</param>
-        public ControlFlexbox(IPage page, string id, List<Control> items)
-            : this(page, id)
+        public ControlFlexbox(string id, List<Control> items)
+            : this(id)
         {
             Items = items;
         }
@@ -56,8 +54,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render(RenderContext context)
         {
             Classes.Add(Inline ? "d-inline-flex" : "d-flex");
             Classes.Add(Direction.ToClass());
@@ -70,7 +69,7 @@ namespace WebExpress.UI.Controls
                 Role = Role
             };
 
-            html.Elements.AddRange(Items.Select(x => x.ToHtml()));
+            html.Elements.AddRange(Items.Select(x => x.Render(context)));
 
             return html;
         }

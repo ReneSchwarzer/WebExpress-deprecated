@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using WebExpress.Html;
 
 namespace WebExpress.UI.Controls
 {
@@ -84,27 +85,14 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt den Wert
         /// </summary>
-        public virtual string Value
-        {
-            get => GetParam(Name);
-            set
-            {
-                var v = GetParam(Name);
-
-                if (string.IsNullOrWhiteSpace(v))
-                {
-                    AddParam(Name, value, Formular.Scope);
-                }
-            }
-        }
+        public virtual string Value { get; set; }
 
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="formular">Das zugehörige Formular</param>
         /// <param name="id">Die ID</param>
-        public ControlFormularItemInput(IControlFormular formular, string id)
-            : base(formular, id)
+        public ControlFormularItemInput(string id)
+            : base(id)
         {
             Init();
         }
@@ -119,6 +107,27 @@ namespace WebExpress.UI.Controls
             ValidationResults = new List<Controls.ValidationResult>();
             IsValidated = false;
         }
+
+        ///// <summary>
+        ///// In HTML konvertieren
+        ///// </summary>
+        ///// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        ///// <returns>Das Control als HTML</returns>
+        //public override IHtmlNode Render(RenderContext context)
+        //{
+        //    //get => context.Page.GetParam(Name);
+        //    //set
+        //    //{
+        //    //    var v = GetParam(Name);
+
+        //    //    if (string.IsNullOrWhiteSpace(v))
+        //    //    {
+        //    //        AddParam(Name, value, Formular.Scope);
+        //    //    }
+        //    //}
+
+        //    return base.Render(context);
+        //}
 
         /// <summary>
         /// Löst das Validation-Event aus

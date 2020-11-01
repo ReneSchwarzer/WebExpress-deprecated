@@ -28,10 +28,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlTableColumn(IPage page, string id)
-            : base(page, id)
+        public ControlTableColumn(string id)
+            : base(id)
         {
 
         }
@@ -39,8 +38,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render(RenderContext context)
         {
             switch (Layout)
             {
@@ -80,7 +80,7 @@ namespace WebExpress.UI.Controls
 
             if (Icon != null && Icon.HasIcon)
             {
-                html.Elements.Add(new ControlIcon(Page)
+                html.Elements.Add(new ControlIcon()
                 {
                     Icon = Icon,
                     Margin = !string.IsNullOrWhiteSpace(Text) ? new PropertySpacingMargin
@@ -91,7 +91,7 @@ namespace WebExpress.UI.Controls
                        PropertySpacing.Space.None
                    ) : new PropertySpacingMargin(PropertySpacing.Space.None),
                     VerticalAlignment = Icon.IsUserIcon ? TypeVerticalAlignment.TextBottom : TypeVerticalAlignment.Default
-                }.ToHtml());
+                }.Render(context));
             }
             
             if (!string.IsNullOrWhiteSpace(Text))

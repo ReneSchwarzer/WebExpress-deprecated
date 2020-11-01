@@ -32,10 +32,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlPagination(IPage page, string id = null)
-            : base(page, id)
+        public ControlPagination(string id = null)
+            : base(id)
         {
             MaxDisplayCount = 5;
 
@@ -48,19 +47,20 @@ namespace WebExpress.UI.Controls
         private void Init()
         {
             //AddParam("count");
-            AddParam("size", ParameterScope.Session);
-            AddParam("offset", ParameterScope.Local);
+            //AddParam("size", ParameterScope.Session);
+            //AddParam("offset", ParameterScope.Local);
 
-            //Count = GetParam("count", 0);
-            Size = GetParam("size", 50);
-            Offset = GetParam("offset", 0);
+            ////Count = GetParam("count", 0);
+            //Size = GetParam("size", 50);
+            //Offset = GetParam("offset", 0);
         }
 
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render(RenderContext context)
         {
             Classes.Add("pagination");
             Classes.Add(HorizontalAlignment.ToClass());
@@ -88,11 +88,11 @@ namespace WebExpress.UI.Controls
                 (
                     new HtmlElementTextContentLi
                     (
-                        new ControlLink(Page)
+                        new ControlLink()
                         {
                             Params = Parameter.Create(new Parameter("offset", Offset - 1) { Scope = ParameterScope.Local }),
                             Classes = new List<string>(new[] { "page-link", "fas fa-angle-left" })
-                        }.ToHtml()
+                        }.Render(context)
                     )
                     {
                         Class = "page-item"
@@ -105,11 +105,11 @@ namespace WebExpress.UI.Controls
                 (
                     new HtmlElementTextContentLi
                     (
-                        new ControlLink(Page)
+                        new ControlLink()
                         {
                             Params = Parameter.Create(),
                             Classes = new List<string>(new[] { "page-link", "fas fa-angle-left" })
-                        }.ToHtml()
+                        }.Render(context)
                     )
                     {
                         Class = "page-item disabled"
@@ -148,11 +148,11 @@ namespace WebExpress.UI.Controls
                     (
                         new HtmlElementTextContentLi
                         (
-                            new ControlLink(Page, null, (v + 1).ToString())
+                            new ControlLink(null, (v + 1).ToString())
                             {
                                 Params = Parameter.Create(new Parameter("offset", v) { Scope = ParameterScope.Local }),
                                 Classes = new List<string>(new[] { "page-link" })
-                            }.ToHtml()
+                            }.Render(context)
                         )
                         {
                             Class = "page-item active"
@@ -165,11 +165,11 @@ namespace WebExpress.UI.Controls
                     (
                         new HtmlElementTextContentLi
                         (
-                            new ControlLink(Page, null, (v + 1).ToString())
+                            new ControlLink(null, (v + 1).ToString())
                             {
                                 Params = Parameter.Create(new Parameter("offset", v) { Scope = ParameterScope.Local }),
                                 Classes = new List<string>(new[] { "page-link" })
-                            }.ToHtml()
+                            }.Render(context)
                         )
                         {
                             Class = "page-item"
@@ -184,11 +184,11 @@ namespace WebExpress.UI.Controls
                 (
                     new HtmlElementTextContentLi
                     (
-                        new ControlLink(Page)
+                        new ControlLink()
                         {
                             Params = Parameter.Create(new Parameter("offset", Offset + 1) { Scope = ParameterScope.Local }),
                             Classes = new List<string>(new[] { "page-link", "fas fa-angle-right" })
-                        }.ToHtml()
+                        }.Render(context)
                     )
                     {
                         Class = "page-item"
@@ -201,11 +201,11 @@ namespace WebExpress.UI.Controls
                 (
                     new HtmlElementTextContentLi
                     (
-                        new ControlLink(Page)
+                        new ControlLink()
                         {
                             Params = Parameter.Create(),
                             Classes = new List<string>(new[] { "page-link", "fas fa-angle-right" })
-                        }.ToHtml()
+                        }.Render(context)
                     )
                     {
                         Class = "page-item disabled"

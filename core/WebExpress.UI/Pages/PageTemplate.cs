@@ -77,11 +77,11 @@ namespace WebExpress.UI.Pages
         /// In HTML konvertieren
         /// </summary>
         /// <returns>Die Seite als HTML-Baum</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render()
         {
             PathCtrl.Uri = Uri;
 
-            return base.ToHtml();
+            return base.Render();
         }
     }
 }

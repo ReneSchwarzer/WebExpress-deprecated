@@ -9,18 +9,18 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlPanelMain(IPage page, string id = null)
-            : base(page, id)
+        public ControlPanelMain(string id = null)
+            : base(id)
         {
         }
 
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render(RenderContext context)
         {
             var html = new HtmlElementSectionMain()
             {
@@ -29,7 +29,7 @@ namespace WebExpress.UI.Controls
                 Style = GetStyles(),
                 Role = Role
             };
-            html.Elements.AddRange(from x in Content select x.ToHtml());
+            html.Elements.AddRange(from x in Content select x.Render(context));
 
             return html;
         }

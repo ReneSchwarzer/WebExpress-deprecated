@@ -30,10 +30,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlList(IPage page, string id = null)
-            : base(page, id)
+        public ControlList(string id = null)
+            : base(id)
         {
             Init();
         }
@@ -41,11 +40,10 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
         /// <param name="items">Die Listeneinträge</param>
-        public ControlList(IPage page, string id, List<ControlListItem> items)
-            : base(page, id)
+        public ControlList(string id, List<ControlListItem> items)
+            : base(id)
         {
             Items = items;
         }
@@ -62,13 +60,14 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render(RenderContext context)
         {
             Classes.Add(Layout.ToClass());
             Classes.Add(HorizontalAlignment.ToClass());
 
-            var items = (from x in Items select x.ToHtml()).ToList();
+            var items = (from x in Items select x.Render(context)).ToList();
 
             if (Layout == TypesLayoutList.Group)
             {

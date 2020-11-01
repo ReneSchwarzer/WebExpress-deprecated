@@ -7,11 +7,6 @@ namespace WebExpress.UI.Controls
     public interface IControl
     {
         /// <summary>
-        /// Liefert oder setzt die zugehörige Seite
-        /// </summary>
-        IPage Page { get; }
-
-        /// <summary>
         /// Liefert oder setzt die ID
         /// </summary>
         string ID { get; }
@@ -29,7 +24,8 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Das Control als HTML</returns>
-        IHtmlNode ToHtml();
+        IHtmlNode Render(RenderContext context);
     }
 }

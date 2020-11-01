@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
+using WebExpress.Pages;
 using WebExpress.UI.Scripts;
 
 namespace WebExpress.UI.Controls
 {
-    public class ControlFormularItemTextBox : ControlFormularItemInput
+    public class ControlFormularItemInputTextBox : ControlFormularItemInput
     {
         /// <summary>
         /// Das Steuerelement wird automatisch initialisiert
@@ -31,12 +32,12 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt die minimale Länge
         /// </summary>
-        public string MinLength { get; set; }
+        public int? MinLength { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die maximale Länge
         /// </summary>
-        public string MaxLength { get; set; }
+        public int? MaxLength { get; set; }
 
         /// <summary>
         /// Liefert oder setzt ob Eingaben erzwungen werden
@@ -66,51 +67,48 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="formular">Das zugehörige Formular</param>
         /// <param name="id">Die ID</param>
-        public ControlFormularItemTextBox(IControlFormular formular, string id = null)
-            : base(formular, !string.IsNullOrWhiteSpace(id) ? id : "note")
+        public ControlFormularItemInputTextBox(string id = null)
+            : base(!string.IsNullOrWhiteSpace(id) ? id : "note")
         {
             Name = ID;
-
-            Init();
+            Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None);
         }
 
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="formular">Das zugehörige Formular</param>
         /// <param name="id">Die ID</param>
         /// <param name="name">Der Name der TextBox</param>
-        public ControlFormularItemTextBox(IControlFormular formular, string id, string name)
-            : base(formular, !string.IsNullOrWhiteSpace(id) ? id : "note")
+        public ControlFormularItemInputTextBox(string id, string name)
+            : base(!string.IsNullOrWhiteSpace(id) ? id : "note")
         {
             Name = name;
-
-            Init();
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialisiert das Formularelement
         /// </summary>
-        private void Init()
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        public override void Initialize(RenderContextFormular context)
         {
             Height = 200;
             AutoInitialize = true;
             Format = TypesEditTextFormat.Default;
+
+            if (context.Page.HasParam(Name))
+            {
+                Value = context?.Page.GetParam(Name);
+            }
         }
 
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render(RenderContextFormular context)
         {
-            if (Page.HasParam(Name))
-            {
-                Value = Page.GetParam(Name);
-            }
-
             Classes.Add("form-control");
 
             if (Disabled)
@@ -133,7 +131,7 @@ namespace WebExpress.UI.Controls
 
             if (AutoInitialize && Format == TypesEditTextFormat.Wysiwyg)
             {
-                Page.AddScript(ID, InitializeCode);
+                context.Page.AddScript(ID, InitializeCode);
                 AutoInitialize = false;
             }
 
@@ -167,8 +165,8 @@ namespace WebExpress.UI.Controls
                         ID = ID,
                         Value = Value,
                         Name = Name,
-                        MinLength = MinLength,
-                        MaxLength = MaxLength,
+                        MinLength = MinLength?.ToString(),
+                        MaxLength = MaxLength?.ToString(),
                         Required = Required,
                         Pattern = Pattern,
                         Type = "text",
@@ -200,12 +198,12 @@ namespace WebExpress.UI.Controls
                 return;
             }
 
-            if (!string.IsNullOrWhiteSpace(MinLength) && Convert.ToInt32(MinLength) > base.Value.Length)
+            if (!string.IsNullOrWhiteSpace(MinLength?.ToString()) && Convert.ToInt32(MinLength) > base.Value.Length)
             {
                 ValidationResults.Add(new ValidationResult() { Type = TypesInputValidity.Error, Text = "Der Text entsprcht nicht der minimalen Länge von " + MinLength + "!" });
             }
 
-            if (!string.IsNullOrWhiteSpace(MaxLength) && Convert.ToInt32(MaxLength) < base.Value.Length)
+            if (!string.IsNullOrWhiteSpace(MaxLength?.ToString()) && Convert.ToInt32(MaxLength) < base.Value.Length)
             {
                 ValidationResults.Add(new ValidationResult() { Type = TypesInputValidity.Error, Text = "Der Text ist größer als die maximalen Länge von " + MaxLength + "!" });
             }

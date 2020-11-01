@@ -3,6 +3,10 @@
     public enum TypeIcon
     {
         None,
+        AlignCenter,
+        AlignJustify,
+        AlignLeft,
+        AlignRight,
         At,
         Bars,
         Bomb,
@@ -27,6 +31,7 @@
         Folder,
         FolderOpen,
         Font,
+        Forward,
         GraduationCap,
         Hashtag,
         Home,
@@ -39,6 +44,7 @@
         Map,
         MapMarker,
         Microchip,
+        PaperPlane,
         PlayCircle,
         Plus,
         PowerOff,
@@ -74,6 +80,14 @@
         {
             switch (icon)
             {
+                case TypeIcon.AlignCenter:
+                    return "fas fa-align-center";
+                case TypeIcon.AlignJustify:
+                    return "fas fa-align-justify";
+                case TypeIcon.AlignLeft:
+                    return "fas fa-align-left";
+                case TypeIcon.AlignRight:
+                    return "fas fa-align-right";
                 case TypeIcon.At:
                     return "fas fa-at";
                 case TypeIcon.Bars:
@@ -122,6 +136,8 @@
                     return "fas fa-folder-open";
                 case TypeIcon.Font:
                     return "fas fa-font";
+                case TypeIcon.Forward:
+                    return "fas fa-forward";
                 case TypeIcon.GraduationCap:
                     return "fas fa-graduation-cap";
                 case TypeIcon.Hashtag:
@@ -146,6 +162,8 @@
                     return "fas fa-map-marker";
                 case TypeIcon.Microchip:
                     return "fas fa-microchip";
+                case TypeIcon.PaperPlane:
+                    return "paper-plane";
                 case TypeIcon.PlayCircle:
                     return "fas fa-play-circle";
                 case TypeIcon.Plus:

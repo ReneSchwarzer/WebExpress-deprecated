@@ -55,7 +55,7 @@ namespace WebExpress.Workers
         {
             Content = (request) =>
             {
-                return content.ToHtml();
+                return content.Render();
             };
         }
 
@@ -189,7 +189,7 @@ namespace WebExpress.Workers
                 page.Init(newUri, session);
                 page.Process();
 
-                return page.ToHtml();
+                return page.Render();
             };
         }
 
@@ -203,7 +203,7 @@ namespace WebExpress.Workers
         {
             Content = (request) =>
             {
-                return content.ToHtml();
+                return content.Render();
             };
         }
     }

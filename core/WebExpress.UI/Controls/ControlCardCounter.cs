@@ -31,10 +31,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlCardCounter(IPage page, string id = null)
-            : base(page, id)
+        public ControlCardCounter(string id = null)
+            : base(id)
         {
             TextColor = new PropertyColorText(TypeColorText.Default);
             Init();
@@ -51,14 +50,15 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render(RenderContext context)
         {
             Content.Clear();
 
             if (Icon != null && Icon.HasIcon)
             {
-                Content.Add(new ControlIcon(Page)
+                Content.Add(new ControlIcon()
                 {
                     Icon = Icon,
                     TextColor = TextColor,
@@ -66,24 +66,24 @@ namespace WebExpress.UI.Controls
                 });
             }
 
-            var text = new ControlText(Page, string.IsNullOrWhiteSpace(ID) ? null : ID + "_header")
+            var text = new ControlText(string.IsNullOrWhiteSpace(ID) ? null : ID + "_header")
             {
                 Text = Value,
                 Format = TypeFormatText.H4
             };
 
-            var info = new ControlText(Page)
+            var info = new ControlText()
             {
                 Text = Text,
                 Format = TypeFormatText.Span,
                 TextColor = new PropertyColorText(TypeColorText.Muted)
             };
 
-            Content.Add(new ControlPanel(Page, text, info) { });
+            Content.Add(new ControlPanel(text, info) { });
 
             if (Progress > -1)
             {
-                Content.Add(new ControlProgressBar(Page)
+                Content.Add(new ControlProgressBar()
                 {
                     Value = Progress,
                     Format = TypeFormatProgress.Striped,
@@ -93,7 +93,7 @@ namespace WebExpress.UI.Controls
                 });
             }
 
-            return base.ToHtml();
+            return base.Render(context);
         }
     }
 }

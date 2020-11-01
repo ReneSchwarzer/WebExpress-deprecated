@@ -10,10 +10,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlToolBarItemButton(IPage page, string id = null)
-            : base(page, id)
+        public ControlToolBarItemButton(string id = null)
+            : base(id)
         {
             Init();
         }

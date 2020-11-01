@@ -316,7 +316,7 @@ namespace WebExpress.Pages
         /// <returns>Das Objekt als String</returns>
         public override string ToString()
         {
-            return ToHtml().ToString();
+            return Render().ToString();
         }
 
         /// <summary>
@@ -333,7 +333,7 @@ namespace WebExpress.Pages
         /// In HTML konvertieren
         /// </summary>
         /// <returns>Die Seite als HTML</returns>
-        public virtual IHtmlNode ToHtml()
+        public virtual IHtmlNode Render()
         {
             return null;
         }

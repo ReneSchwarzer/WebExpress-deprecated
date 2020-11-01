@@ -1,19 +1,22 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using WebExpress.Html;
 using WebExpress.Pages;
 
 namespace WebExpress.UI.Controls
 {
-    public class ControlFormularItemStaticText : ControlFormularItem, IControlFormularLabel
+    public class ControlFormularItemHelpText : ControlFormularItem
     {
         /// <summary>
-        /// Liefert oder setzt Beschriftung
+        /// Liefert oder setzt die Größe des Textes
         /// </summary>
-        public string Label { get; set; }
+        public PropertySizeText Size
+        {
+            get => (PropertySizeText)GetPropertyObject();
+            set => SetProperty(value, () => value?.ToClass(), () => value?.ToStyle());
+        }
 
         /// <summary>
-        /// Liefert oder setzt die Beschreibung
+        /// Liefert oder setzt den Hilfetext
         /// </summary>
         public string Text { get; set; }
 
@@ -21,9 +24,20 @@ namespace WebExpress.UI.Controls
         /// Konstruktor
         /// </summary>
         /// <param name="id">Die ID</param>
-        public ControlFormularItemStaticText(string id = null)
+        public ControlFormularItemHelpText(string id)
             : base(id)
         {
+        }
+
+        /// <summary>
+        /// Konstruktor
+        /// </summary>
+        /// <param name="id">Die ID</param>
+        /// <param name="text">Der Text</param>
+        public ControlFormularItemHelpText(string id, string text)
+            : this(id)
+        {
+            Text = text;
         }
 
         /// <summary>
@@ -32,30 +46,23 @@ namespace WebExpress.UI.Controls
         /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         public override void Initialize(RenderContextFormular context)
         {
+            TextColor = new PropertyColorText(TypeColorText.Muted);
         }
 
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
         /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
-        /// <param name="formular">Das Formular</param>
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContextFormular context)
         {
-            var c = new List<string>
-            {
-                "form-control-static"
-            };
-
-            var html = new HtmlElementTextContentP()
+            return new HtmlElementTextSemanticsSmall()
             {
                 Text = Text,
-                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Class = Css.Concatenate("form-text", GetClasses()),
+                Style = GetStyles(),
                 Role = Role
             };
-
-            return html;
         }
     }
 }

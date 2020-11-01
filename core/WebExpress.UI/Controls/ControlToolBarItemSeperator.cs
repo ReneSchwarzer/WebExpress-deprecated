@@ -10,10 +10,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlToolBarItemSeperator(IPage page, string id = null)
-            : base(page, id)
+        public ControlToolBarItemSeperator(string id = null)
+            : base(id)
         {
 
         }

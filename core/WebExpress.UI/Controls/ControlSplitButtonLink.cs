@@ -30,10 +30,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlSplitButtonLink(IPage page, string id)
-            : base(page, id)
+        public ControlSplitButtonLink(string id)
+            : base(id)
         {
             Init();
         }
@@ -41,11 +40,10 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
         /// <param name="content">Der Inhalt</param>
-        public ControlSplitButtonLink(IPage page, string id, params Control[] content)
-            : this(page, id)
+        public ControlSplitButtonLink(string id, params Control[] content)
+            : this(id)
         {
             Items.AddRange(content);
         }
@@ -53,11 +51,10 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
         /// <param name="content">Der Inhalt</param>
-        public ControlSplitButtonLink(IPage page, string id, IEnumerable<Control> content)
-            : this(page, id)
+        public ControlSplitButtonLink(string id, IEnumerable<Control> content)
+            : this(id)
         {
             Items.AddRange(content);
         }
@@ -85,7 +82,7 @@ namespace WebExpress.UI.Controls
         /// <param name="text">Der Überschriftstext</param>
         public void AddHeader(string text)
         {
-            Items.Add(new ControlDropdownMenuHeader(Page) { Text = text });
+            Items.Add(new ControlDropdownMenuHeader() { Text = text });
         }
 
         /// <summary>
@@ -111,8 +108,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render(RenderContext context)
         {
             Classes.Add("btn");
 
@@ -242,8 +240,8 @@ namespace WebExpress.UI.Controls
                     x == null ?
                     new HtmlElementTextContentLi() { Class = "dropdown-divider", Inline = true } :
                     x is ControlDropdownMenuHeader ?
-                    x.ToHtml() :
-                    new HtmlElementTextContentLi(x.ToHtml().AddClass("dropdown-item")) { }
+                    x.Render(context) :
+                    new HtmlElementTextContentLi(x.Render(context).AddClass("dropdown-item")) { }
                 )
             )
             {
@@ -256,7 +254,7 @@ namespace WebExpress.UI.Controls
                 html.AddUserAttribute("data-target", "#" + Modal.ID);
             }
 
-            return new HtmlElementTextContentDiv(html, dropdownButton, dropdownElements, Modal?.ToHtml())
+            return new HtmlElementTextContentDiv(html, dropdownButton, dropdownElements, Modal?.Render(context))
             {
                 Class = string.Join(" ", containerClasses.Where(x => !string.IsNullOrWhiteSpace(x))),
             };

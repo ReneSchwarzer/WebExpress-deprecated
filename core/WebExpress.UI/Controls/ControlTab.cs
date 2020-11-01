@@ -50,10 +50,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlTab(IPage page, string id = null)
-            : base(page, id)
+        public ControlTab(string id = null)
+            : base(id)
         {
             Init();
         }
@@ -61,10 +60,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="links">Die Linkelemente</param>
-        public ControlTab(IPage page, params ControlLink [] links)
-            : base(page, null)
+        public ControlTab(params ControlLink [] links)
+            : base(null)
         {
             Items.AddRange(links);
         }
@@ -79,13 +77,14 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render(RenderContext context)
         {
             var items = new List<HtmlElement>();
             foreach (var item in Items)
             {
-                var i = item.ToHtml() as HtmlElement;
+                var i = item.Render(context) as HtmlElement;
                 i.AddClass("nav-link");
 
                 items.Add(new HtmlElementTextContentLi(i)

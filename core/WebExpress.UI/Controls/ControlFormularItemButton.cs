@@ -2,20 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
+using WebExpress.Pages;
 
 namespace WebExpress.UI.Controls
 {
     public class ControlFormularItemButton : ControlFormularItem
     {
         /// <summary>
-        /// Liefert oder setzt das Layout
+        /// Liefert oder setzt die Farbe der Schaltfläche
         /// </summary>
-        public TypeColorButton Layout { get; set; }
+        public PropertyColorButton Color
+        {
+            get => (PropertyColorButton)GetPropertyObject();
+            set => SetProperty(value, () => value?.ToClass(Outline), () => value?.ToStyle(Outline));
+        }
 
         /// <summary>
         /// Liefert oder setzt die Größe
         /// </summary>
-        public TypeSizeButton Size { get; set; }
+        public TypeSizeButton Size
+        {
+            get => (TypeSizeButton)GetProperty(TypeSizeButton.Default);
+            set => SetProperty(value, () => value.ToClass());
+        }
 
         /// <summary>
         /// Liefert oder setzt doe Outline-Eigenschaft
@@ -25,7 +34,11 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt ob die Schaltfläche die volle Breite einnehmen soll
         /// </summary>
-        public bool Block { get; set; }
+        public TypeBlockButton Block
+        {
+            get => (TypeBlockButton)GetProperty(TypeBlockButton.None);
+            set => SetProperty(value, () => value.ToClass());
+        }
 
         /// <summary>
         /// Liefert oder setzt ob die Schaltfläche deaktiviert ist
@@ -35,7 +48,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt den Inhalt
         /// </summary>
-        public List<Control> Content { get; private set; }
+        public List<Control> Content { get; private set; } = new List<Control>();
 
         /// <summary>
         /// Event wird ausgelöst, wenn die Schlatfläche geklickt wurde
@@ -60,79 +73,71 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt das Icon
         /// </summary>
-        public string Icon { get; set; }
+        public PropertyIcon Icon { get; set; }
 
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="formular">Das zugehörige Formular</param>
         /// <param name="id">Die ID</param>
-        public ControlFormularItemButton(ControlPanelFormular formular, string id = null)
-            : base(formular, id)
+        public ControlFormularItemButton(string id = null)
+            : base(id)
         {
-            Init();
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialisiert das Formularelement
         /// </summary>
-        private void Init()
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        public override void Initialize(RenderContextFormular context)
         {
             Disabled = false;
             Size = TypeSizeButton.Default;
-            Content = new List<Control>();
-        }
 
-        /// <summary>
-        /// In HTML konvertieren
-        /// </summary>
-        /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode ToHtml()
-        {
-            if (Page.HasParam(Name))
+            if (context.Page.HasParam(Name))
             {
-                Value = Page.GetParam(Name);
+                Value = context.Page.GetParam(Name);
 
-                var value = Page.GetParam(Name);
+                var value = context.Page.GetParam(Name);
 
                 if (!string.IsNullOrWhiteSpace(Value) && value == Value)
                 {
                     OnClickEvent(new EventArgs());
                 }
             }
+        }
 
-            Classes.Add("btn");
-            Classes.Add(Layout.ToClass(Outline));
-            Classes.Add(Size.ToClass());
-            Classes.Add(HorizontalAlignment.ToClass());
-
-            if (Block)
-            {
-                Classes.Add("btn-block");
-            }
-
+        /// <summary>
+        /// In HTML konvertieren
+        /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        /// <returns>Das Control als HTML</returns>
+        public override IHtmlNode Render(RenderContextFormular context)
+        {
             var html = new HtmlElementFieldButton()
             {
                 Name = Name,
                 Type = Type,
                 Value = Value,
-                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Class = Css.Concatenate("btn", GetClasses()),
+                Style = GetStyles(),
                 Role = Role,
                 Disabled = Disabled
             };
 
-            if (!string.IsNullOrWhiteSpace(Icon) && !string.IsNullOrWhiteSpace(Text))
+            if (Icon != null && Icon.HasIcon)
             {
-                html.Elements.Add(new HtmlElementTextSemanticsSpan() { Class = Icon });
-
-                html.Elements.Add(new HtmlNbsp());
-                html.Elements.Add(new HtmlNbsp());
-                html.Elements.Add(new HtmlNbsp());
-            }
-            else if (!string.IsNullOrWhiteSpace(Icon) && string.IsNullOrWhiteSpace(Text))
-            {
-                html.AddClass(Icon);
+                html.Elements.Add(new ControlIcon()
+                {
+                    Icon = Icon,
+                    Margin = !string.IsNullOrWhiteSpace(Text) ? new PropertySpacingMargin
+                    (
+                        PropertySpacing.Space.None,
+                        PropertySpacing.Space.Two,
+                        PropertySpacing.Space.None,
+                        PropertySpacing.Space.None
+                    ) : new PropertySpacingMargin(PropertySpacing.Space.None),
+                    VerticalAlignment = Icon.IsUserIcon ? TypeVerticalAlignment.TextBottom : TypeVerticalAlignment.Default
+                }.Render(context));
             }
 
             if (!string.IsNullOrWhiteSpace(Text))
@@ -142,7 +147,7 @@ namespace WebExpress.UI.Controls
 
             if (Content.Count > 0)
             {
-                html.Elements.AddRange(Content.Select(x => x.ToHtml()));
+                html.Elements.AddRange(Content.Select(x => x.Render(context)));
             }
 
             return html;

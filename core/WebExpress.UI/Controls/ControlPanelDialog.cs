@@ -2,15 +2,14 @@
 
 namespace WebExpress.UI.Controls
 {
-    public class ControlPanelDialog : ControlPanelFormular
+    public class ControlPanelDialog : ControlFormular
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlPanelDialog(IPage page, string id = null)
-            : base(page, id)
+        public ControlPanelDialog(string id = null)
+            : base(id)
         {
             Init();
         }

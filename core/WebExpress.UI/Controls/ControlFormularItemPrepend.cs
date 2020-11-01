@@ -4,15 +4,14 @@ using WebExpress.Pages;
 
 namespace WebExpress.UI.Controls
 {
-    public class ControlFormularItemInputPrepend : ControlPanel
+    public class ControlFormularItemPrepend : ControlPanel
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlFormularItemInputPrepend(IPage page, string id)
-            : base(page, id)
+        public ControlFormularItemPrepend(string id)
+            : base(id)
         {
             Init();
         }
@@ -20,11 +19,10 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
         /// <param name="content">Der Inhalt</param>
-        public ControlFormularItemInputPrepend(IPage page, string id, params Control[] content)
-            : base(page, id, content)
+        public ControlFormularItemPrepend(string id, params Control[] content)
+            : base(id, content)
         {
             Init();
         }
@@ -32,11 +30,10 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
         /// <param name="content">Der Inhalt</param>
-        public ControlFormularItemInputPrepend(IPage page, string id, IEnumerable<Control> content)
-            : base(page, id, content)
+        public ControlFormularItemPrepend(string id, IEnumerable<Control> content)
+            : base(id, content)
         {
             Init();
         }
@@ -44,11 +41,10 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
         /// <param name="content">Der Inhalt</param>
-        public ControlFormularItemInputPrepend(IPage page, string id, List<Control> content)
-            : base(page, id, content)
+        public ControlFormularItemPrepend(string id, List<Control> content)
+            : base(id, content)
         {
             Init();
         }
@@ -63,11 +59,12 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render(RenderContext context)
         {
             Classes.Add("input-group-prepend");
-            var html = base.ToHtml();
+            var html = base.Render(context);
             return html;
         }
     }

@@ -153,6 +153,6 @@ namespace WebExpress.Pages
         /// In HTML konvertieren
         /// </summary>
         /// <returns>Die Seite als HTML</returns>
-        IHtmlNode ToHtml();
+        IHtmlNode Render();
     }
 }

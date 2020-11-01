@@ -16,10 +16,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlTableRow(IPage page, string id = null)
-            : base(page, id)
+        public ControlTableRow(string id = null)
+            : base(id)
         {
             Cells = new List<Control>();
         }
@@ -27,8 +26,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render(RenderContext context)
         {
             switch (Layout)
             {
@@ -58,7 +58,7 @@ namespace WebExpress.UI.Controls
                     break;
             }
 
-            return new HtmlElementTableTr(from c in Cells select new HtmlElementTableTd(c.ToHtml()))
+            return new HtmlElementTableTr(from c in Cells select new HtmlElementTableTd(c.Render(context)))
             {
                 ID = ID,
                 Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),

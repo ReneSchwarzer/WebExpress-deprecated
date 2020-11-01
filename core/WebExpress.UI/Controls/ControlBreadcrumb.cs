@@ -22,8 +22,8 @@ namespace WebExpress.UI.Controls
         /// </summary>
         /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlBreadcrumb(IPage page, string id = null)
-            : base(page, id)
+        public ControlBreadcrumb(string id = null)
+            : base(id)
         {
             Init();
         }
@@ -33,8 +33,8 @@ namespace WebExpress.UI.Controls
         /// </summary>
         /// <param name="page">Die zugehörige Seite</param>
         /// <param name="uri">Der Verzeichnispfad</param>
-        public ControlBreadcrumb(IPage page, string id, IUri uri)
-            : base(page, id)
+        public ControlBreadcrumb(string id, IUri uri)
+            : base(id)
         {
             Uri = uri;
         }
@@ -49,8 +49,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render(RenderContext context)
         {
             var html = new HtmlElementTextContentUl()
             {

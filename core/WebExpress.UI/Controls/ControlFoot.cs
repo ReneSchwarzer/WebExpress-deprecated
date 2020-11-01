@@ -15,10 +15,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlFoot(IPage page, string id = null)
-            : base(page, id)
+        public ControlFoot(string id = null)
+            : base(id)
         {
             Content = new List<Control>();
 
@@ -28,11 +27,10 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
         /// <param name="content">Der Inhalt</param>
-        public ControlFoot(IPage page, string id, params Control[] content)
-            : this(page, id)
+        public ControlFoot(string id, params Control[] content)
+            : this(id)
         {
             Content.AddRange(content);
         }
@@ -40,11 +38,10 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
         /// <param name="content">Der Inhalt</param>
-        public ControlFoot(IPage page, string id, List<Control> content)
-            : base(page, id)
+        public ControlFoot(string id, List<Control> content)
+            : base(id)
         {
             Init();
 
@@ -56,16 +53,17 @@ namespace WebExpress.UI.Controls
         /// </summary>
         private void Init()
         {
-            Content.Add(new ControlPanel(Page, new ControlLine(Page)));
+            Content.Add(new ControlPanel(new ControlLine()));
         }
 
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render(RenderContext context)
         {
-            return new HtmlElementSectionFooter(from x in Content select x.ToHtml())
+            return new HtmlElementSectionFooter(from x in Content select x.Render(context))
             {
                 ID = ID,
                 Class = GetClasses(),

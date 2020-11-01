@@ -27,8 +27,8 @@ namespace WebExpress.UI.Controls
         /// </summary>
         /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlAvatar(IPage page, string id = null)
-            : base(page, id)
+        public ControlAvatar(string id = null)
+            : base(id)
         {
             Init();
         }
@@ -43,8 +43,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render(RenderContext context)
         {
             Classes.Add("profile");
 
@@ -79,7 +80,7 @@ namespace WebExpress.UI.Controls
                 html.AddUserAttribute("data-toggle", "modal");
                 html.AddUserAttribute("data-target", "#" + Modal.ID);
 
-                return new HtmlList(html, Modal.ToHtml());
+                return new HtmlList(html, Modal.Render(context));
             }
 
             return html;

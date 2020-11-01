@@ -2,15 +2,14 @@
 
 namespace WebExpress.UI.Controls
 {
-    public class ControlPanelFilter : ControlPanelFormular
+    public class ControlPanelFilter : ControlFormular
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlPanelFilter(IPage page, string id = null)
-            : base(page, id)
+        public ControlPanelFilter(string id = null)
+            : base(id)
         {
             Init();
         }

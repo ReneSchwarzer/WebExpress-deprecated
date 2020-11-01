@@ -18,10 +18,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlTimeline(IPage page, string id = null)
-            : base(page, id)
+        public ControlTimeline(string id = null)
+            : base(id)
         {
             Init();
         }
@@ -29,10 +28,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlTimeline(IPage page, params ControlTimelineItem[] items)
-            : base(page, null)
+        public ControlTimeline(params ControlTimelineItem[] items)
+            : base(null)
         {
             Init();
 
@@ -50,12 +48,13 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render(RenderContext context)
         {
             Classes.Add("timeline");
 
-            var ul = new HtmlElementTextContentUl(Items.Select(x => new HtmlElementTextContentLi(x.ToHtml()) { Class = "item" }))
+            var ul = new HtmlElementTextContentUl(Items.Select(x => new HtmlElementTextContentLi(x.Render(context)) { Class = "item" }))
             {
                 ID = ID,
                 Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),

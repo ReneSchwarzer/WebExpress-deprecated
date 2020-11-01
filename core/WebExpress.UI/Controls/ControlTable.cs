@@ -40,10 +40,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlTable(IPage page, string id = null)
-            : base(page, id)
+        public ControlTable(string id = null)
+            : base(id)
         {
             Init();
         }
@@ -65,7 +64,7 @@ namespace WebExpress.UI.Controls
         /// <returns></returns>
         public virtual void AddColumn(string name)
         {
-            Columns.Add(new ControlTableColumn(Page, null)
+            Columns.Add(new ControlTableColumn(null)
             {
                 Text = name
             });
@@ -79,7 +78,7 @@ namespace WebExpress.UI.Controls
         /// <returns></returns>
         public virtual void AddColumn(string name, PropertyIcon icon)
         {
-            Columns.Add(new ControlTableColumn(Page, null)
+            Columns.Add(new ControlTableColumn(null)
             {
                 Text = name,
                 Icon = icon
@@ -95,7 +94,7 @@ namespace WebExpress.UI.Controls
         /// <returns></returns>
         public virtual void AddColumn(string name, PropertyIcon icon, TypesLayoutTableRow layout)
         {
-            Columns.Add(new ControlTableColumn(Page, null)
+            Columns.Add(new ControlTableColumn(null)
             {
                 Text = name,
                 Icon = icon,
@@ -110,7 +109,7 @@ namespace WebExpress.UI.Controls
         /// <param name="cssClass">Die Css-Klasse</param>
         public void AddRow(Control[] cells, string cssClass = null)
         {
-            var r = new ControlTableRow(Page, null) { Classes = new List<string>(new[] { cssClass }) };
+            var r = new ControlTableRow(null) { Classes = new List<string>(new[] { cssClass }) };
             r.Cells.AddRange(cells);
 
             Rows.Add(r);
@@ -124,7 +123,7 @@ namespace WebExpress.UI.Controls
         /// <param name="cssClass">Die Css-Klasse</param>
         public void AddRow(Control[] cells, TypesLayoutTableRow layout, string cssClass = null)
         {
-            var r = new ControlTableRow(Page, null) { Classes = new List<string>(new[] { cssClass }), Layout = layout };
+            var r = new ControlTableRow(null) { Classes = new List<string>(new[] { cssClass }), Layout = layout };
             r.Cells.AddRange(cells);
 
             Rows.Add(r);
@@ -133,8 +132,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render(RenderContext context)
         {
             Columns.ForEach(x => x.Layout = ColumnLayout);
 
@@ -163,8 +163,8 @@ namespace WebExpress.UI.Controls
                 Role = Role
             };
 
-            html.Columns = new HtmlElementTableTr(Columns.Select(x => x.ToHtml()));
-            html.Rows.AddRange(from x in Rows select x.ToHtml() as HtmlElementTableTr);
+            html.Columns = new HtmlElementTableTr(Columns.Select(x => x.Render(context)));
+            html.Rows.AddRange(from x in Rows select x.Render(context) as HtmlElementTableTr);
 
             return html;
         }

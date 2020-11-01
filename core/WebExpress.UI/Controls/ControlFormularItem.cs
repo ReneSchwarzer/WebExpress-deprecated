@@ -1,12 +1,15 @@
-﻿namespace WebExpress.UI.Controls
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using WebExpress.Html;
+using WebExpress.Pages;
+
+namespace WebExpress.UI.Controls
 {
     public abstract class ControlFormularItem : Control
     {
-        /// <summary>
-        /// Liefert oder setzt das zugehörige Formular
-        /// </summary>
-        public IControlFormular Formular { get; private set; }
-
         /// <summary>
         /// Liefert oder setzt den Namen des Eingabefeldes
         /// </summary>
@@ -15,12 +18,38 @@
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="formular">Das zugehörige Formular</param>
         /// <param name="id">Die ID</param>
-        public ControlFormularItem(IControlFormular formular, string id)
-            : base(formular.Page, id)
+        public ControlFormularItem(string id = null)
+            : base(id)
         {
-            Formular = formular;
+        }
+
+        /// <summary>
+        /// Initialisiert das Formularelement
+        /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        public abstract void Initialize(RenderContextFormular context);
+
+        /// <summary>
+        /// In HTML konvertieren
+        /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        /// <returns>Das Control als HTML</returns>
+        public abstract IHtmlNode Render(RenderContextFormular context);
+
+        /// <summary>
+        /// In HTML konvertieren
+        /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        /// <returns>Das Control als HTML</returns>
+        public override IHtmlNode Render(RenderContext context)
+        {
+            if (context is RenderContextFormular formContext)
+            {
+                return Render(formContext);
+            }
+
+            return null;
         }
     }
 }

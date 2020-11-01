@@ -35,10 +35,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlTag(IPage page, string id = null)
-            : base(page, id)
+        public ControlTag(string id = null)
+            : base(id)
         {
             Init();
         }
@@ -49,8 +48,8 @@ namespace WebExpress.UI.Controls
         /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
         /// <param name="content">Der Inhalt</param>
-        public ControlTag(IPage page, string id, params Control[] content)
-            : this(page, id)
+        public ControlTag(string id, params Control[] content)
+            : this(id)
         {
             Items.AddRange(content);
         }
@@ -58,11 +57,10 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
         /// <param name="content">Der Inhalt</param>
-        public ControlTag(IPage page, string id, IEnumerable<Control> content)
-            : this(page, id)
+        public ControlTag(string id, IEnumerable<Control> content)
+            : this(id)
         {
             Items.AddRange(content);
         }
@@ -99,14 +97,15 @@ namespace WebExpress.UI.Controls
         /// <param name="text">Der Überschriftstext</param>
         public void AddHeader(string text)
         {
-            Items.Add(new ControlDropdownMenuHeader(Page) { Text = text });
+            Items.Add(new ControlDropdownMenuHeader() { Text = text });
         }
 
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render(RenderContext context)
         {
 
             if (Pill)
@@ -157,8 +156,8 @@ namespace WebExpress.UI.Controls
                         x == null ?
                         new HtmlElementTextContentLi() { Class = "dropdown-divider", Inline = true } :
                         x is ControlDropdownMenuHeader ?
-                        x.ToHtml() :
-                        new HtmlElementTextContentLi(x.ToHtml().AddClass("dropdown-item")) { }
+                        x.Render(context) :
+                        new HtmlElementTextContentLi(x.Render(context).AddClass("dropdown-item")) { }
                     )
                 )
                 {

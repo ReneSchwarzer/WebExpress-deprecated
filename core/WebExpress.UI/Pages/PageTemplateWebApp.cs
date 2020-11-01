@@ -23,14 +23,14 @@ namespace WebExpress.UI.Pages
         {
             base.Init();
 
-            HamburgerMenu = new ControlHamburgerMenu(this, "hamburger") { };
-            Notification = new ControlPanel(this, "notification") { };
-            Head = new ControlPanelHeader(this, "head") { };
-            ToolBar = new ControlToolBar(this, "toolbar") { Orientation = TypeOrientationToolBar.Vertical, Padding = new PropertySpacingPadding(PropertySpacing.Space.Null) };
-            SideBar = new ControlToolBar(this, "sidebar") { Orientation = TypeOrientationToolBar.Horizontal, Padding = new PropertySpacingPadding(PropertySpacing.Space.Null) };
-            Foot = new ControlFoot(this);
-            Main = new ControlPanelMain(this) { };
-            PathCtrl = new ControlBreadcrumb(this);
+            HamburgerMenu = new ControlHamburgerMenu("hamburger") { };
+            Notification = new ControlPanel("notification") { };
+            Head = new ControlPanelHeader("head") { };
+            ToolBar = new ControlToolBar("toolbar") { Orientation = TypeOrientationToolBar.Vertical, Padding = new PropertySpacingPadding(PropertySpacing.Space.Null) };
+            SideBar = new ControlToolBar("sidebar") { Orientation = TypeOrientationToolBar.Horizontal, Padding = new PropertySpacingPadding(PropertySpacing.Space.Null) };
+            Foot = new ControlFoot();
+            Main = new ControlPanelMain() { };
+            PathCtrl = new ControlBreadcrumb();
 
             Notification.Classes.Add("notification");
             Head.Classes.Add("bg-dark");
@@ -49,7 +49,7 @@ namespace WebExpress.UI.Pages
         /// In HTML konvertieren
         /// </summary>
         /// <returns>Die Seite als HTML-Baum</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render()
         {
             if (Notification.Content.Count > 0)
             {
@@ -75,7 +75,7 @@ namespace WebExpress.UI.Pages
             Content.Add(Main);
             Content.Add(Foot);
 
-            return base.ToHtml();
+            return base.Render();
         }
     }
 }

@@ -30,10 +30,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlImage(IPage page, string id = null)
-            : base(page, id)
+        public ControlImage(string id = null)
+            : base(id)
         {
             Init();
         }
@@ -41,11 +40,10 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
         /// <param name="source">Die Bildquelle</param>
-        public ControlImage(IPage page, string id, IUri source)
-            : base(page, id)
+        public ControlImage(string id, IUri source)
+            : base(id)
         {
             Source = source;
 
@@ -62,8 +60,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render(RenderContext context)
         {
             Classes.Add(HorizontalAlignment.ToClass());
 

@@ -52,10 +52,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlProgressBar(IPage page, string id = null)
-            : base(page, id)
+        public ControlProgressBar(string id = null)
+            : base(id)
         {
             Init();
         }
@@ -63,11 +62,10 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
         /// <param name="value">Der Wert</param>
-        public ControlProgressBar(IPage page, string id, int value)
-            : this(page, id)
+        public ControlProgressBar(string id, int value)
+            : this(id)
         {
             Value = value;
         }
@@ -75,11 +73,10 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
         /// <param name="value">Der Wert</param>
-        public ControlProgressBar(IPage page, string id, int value, int min = 0, int max = 100)
-            : this(page, id)
+        public ControlProgressBar(string id, int value, int min = 0, int max = 100)
+            : this(id)
         {
             Value = value;
             Min = min;
@@ -99,8 +96,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render(RenderContext context)
         {
             if (Format == TypeFormatProgress.Default)
             {

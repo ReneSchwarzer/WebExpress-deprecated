@@ -7,10 +7,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlPanelNotification(IPage page, string id)
-            : base(page, id)
+        public ControlPanelNotification(string id)
+            : base(id)
         {
         }
     }

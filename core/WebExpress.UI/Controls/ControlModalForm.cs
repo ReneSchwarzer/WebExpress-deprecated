@@ -7,7 +7,7 @@ using WebExpress.Pages;
 
 namespace WebExpress.UI.Controls
 {
-    public class ControlModalForm : ControlModal, IControlFormular
+    public class ControlModalForm : ControlModal
     {
         /// <summary>
         /// Event zum Validieren der Eingabewerte
@@ -28,7 +28,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt das Layout
         /// </summary>
-        public TypesLayoutForm Layout { get; set; }
+        public TypeLayoutFormular Layout { get; set; }
 
         /// <summary>
         /// Liefert oder setzt den Gültigkeitsbereich der Formulardaten
@@ -48,10 +48,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlModalForm(IPage page, string id)
-            : base(page, id)
+        public ControlModalForm(string id)
+            : base(id)
         {
             Init();
         }
@@ -59,11 +58,10 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
         /// <param name="name">Der Formularname</param>
-        public ControlModalForm(IPage page, string id, string name)
-            : base(page, id, string.Empty)
+        public ControlModalForm(string id, string name)
+            : base(id, string.Empty)
         {
             Init();
 
@@ -73,12 +71,11 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
         /// <param name="name">Der Name</param>
         /// <param name="content">Der Inhalt</param>
-        public ControlModalForm(IPage page, string id, string name, params Control[] content)
-            : base(page, id, string.Empty, content)
+        public ControlModalForm(string id, string name, params Control[] content)
+            : base(id, string.Empty, content)
         {
             Init();
 
@@ -88,12 +85,11 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
         /// <param name="name">Der Name</param>
         /// <param name="content">Der Inhalt</param>
-        public ControlModalForm(IPage page, string id, string name, IEnumerable<Control> content)
-            : base(page, id, string.Empty, content)
+        public ControlModalForm(string id, string name, IEnumerable<Control> content)
+            : base(id, string.Empty, content)
         {
             Init();
 
@@ -109,8 +105,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render(RenderContext context)
         {
             Classes.Add("modal");
 
@@ -146,13 +143,13 @@ namespace WebExpress.UI.Controls
                 Class = "modal-body"
             };
 
-            foreach (var v in Content)
-            {
-                body.Elements.Add(new ControlFormularLabelGroup(this)
-                {
-                    Item = v as ControlFormularItem
-                }.ToHtml());
-            }
+            //foreach (var v in Content)
+            //{
+            //    body.Elements.Add(new FormularLabelGroup(v as FormularItem)
+            //    {
+    
+            //    }.ToHtml(page, this));
+            //}
 
             var footerButtonOK = new HtmlElementFieldButton(new HtmlText("OK"))
             {
@@ -202,13 +199,13 @@ namespace WebExpress.UI.Controls
             if (!string.IsNullOrWhiteSpace(OnShownCode))
             {
                 var shown = "$('#" + ID + "').on('shown.bs.modal', function(e) { " + OnShownCode + " });";
-                Page.AddScript(ID + "_shown", shown);
+                context.Page.AddScript(ID + "_shown", shown);
             }
 
             if (!string.IsNullOrWhiteSpace(OnHiddenCode))
             {
                 var hidden = "$('#" + ID + "').on('hidden.bs.modal', function() { " + OnHiddenCode + " });";
-                Page.AddScript(ID + "_hidden", hidden);
+                context.Page.AddScript(ID + "_hidden", hidden);
             }
 
             return html;

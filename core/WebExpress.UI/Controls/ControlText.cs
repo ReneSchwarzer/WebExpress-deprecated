@@ -34,10 +34,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlText(IPage page, string id = null)
-            : base(page, id)
+        public ControlText(string id = null)
+            : base(id)
         {
             Init();
         }
@@ -45,11 +44,10 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
         /// <param name="value">Der Text</param>
-        public ControlText(IPage page, string id, int value)
-            : base(page, id)
+        public ControlText(string id, int value)
+            : base(id)
         {
             Text = value.ToString();
 
@@ -66,8 +64,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render(RenderContext context)
         {
             var html = null as HtmlElement;
             var text = Text;

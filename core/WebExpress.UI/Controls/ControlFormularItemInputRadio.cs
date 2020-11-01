@@ -4,29 +4,29 @@ using WebExpress.Html;
 
 namespace WebExpress.UI.Controls
 {
-    public class ControlFormularItemRadio : ControlFormularItemInput
+    public class ControlFormularItemInputRadio : ControlFormularItemInput
     {
         /// <summary>
         /// Liefert oder setzt den Wert der Optiopn
         /// </summary>
         public string Option { get; set; }
 
-        /// <summary>
-        /// Liefert oder setzt den Wert der RadioButtons
-        /// </summary>
-        public new string Value
-        {
-            get => GetParam(Name);
-            set
-            {
-                var v = GetParam(Name);
+        ///// <summary>
+        ///// Liefert oder setzt den Wert der RadioButtons
+        ///// </summary>
+        //public new string Value
+        //{
+        //    get => GetParam(Name);
+        //    set
+        //    {
+        //        var v = GetParam(Name);
 
-                if (string.IsNullOrWhiteSpace(v))
-                {
-                    AddParam(Name, value, Formular.Scope);
-                }
-            }
-        }
+        //        if (string.IsNullOrWhiteSpace(v))
+        //        {
+        //            AddParam(Name, value, Formular.Scope);
+        //        }
+        //    }
+        //}
 
         /// <summary>
         /// Liefert oder setzt ob die Checkbox in einer neuen Zeile angezeigt werden soll
@@ -51,41 +51,40 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="formular">Das zugehörige Formular</param>
         /// <param name="id">Die ID</param>
-        public ControlFormularItemRadio(IControlFormular formular, string id)
-            : base(formular, id)
+        public ControlFormularItemInputRadio(string id = null)
+            : base(id)
         {
-            Init();
+
         }
 
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="formular">Das zugehörige Formular</param>
         /// <param name="id">Die ID</param>
         /// <param name="name">Der Name der TextBox</param>
-        public ControlFormularItemRadio(IControlFormular formular, string id, string name)
-            : this(formular, id)
+        public ControlFormularItemInputRadio(string id, string name)
+            : this(id)
         {
             Name = name;
-
-            AddParam(name, Formular.Scope);
-            Value = GetParam(Name);
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialisiert das Formularelement
         /// </summary>
-        private void Init()
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        public override void Initialize(RenderContextFormular context)
         {
+            //AddParam(name, Formular.Scope);
+            //Value = GetParam(Name);
         }
 
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render(RenderContextFormular context)
         {
             if (!string.IsNullOrWhiteSpace(Value))
             {

@@ -83,10 +83,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlLink(IPage page, string id = null)
-            : base(page, id)
+        public ControlLink(string id = null)
+            : base(id)
         {
             Init();
         }
@@ -94,11 +93,10 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
         /// <param name="text">Der Inhalt</param>
-        public ControlLink(IPage page, string id, string text)
-            : this(page, id)
+        public ControlLink(string id, string text)
+            : this(id)
         {
             Text = text;
         }
@@ -106,10 +104,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="content">Der Inhalt</param>
-        public ControlLink(IPage page, params Control[] content)
-            : this(page, (string)null)
+        public ControlLink(params Control[] content)
+            : this((string)null)
         {
             Content.AddRange(content);
         }
@@ -117,11 +114,10 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
         /// <param name="content">Der Inhalt</param>
-        public ControlLink(IPage page, string id, params Control[] content)
-            : this(page, id)
+        public ControlLink(string id, params Control[] content)
+            : this(id)
         {
             Content.AddRange(content);
         }
@@ -129,11 +125,10 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
         /// <param name="content">Der Inhalt</param>
-        public ControlLink(IPage page, string id, List<Control> content)
-            : base(page, id)
+        public ControlLink(string id, List<Control> content)
+            : base(id)
         {
             Content = content;
             Params = new List<Parameter>();
@@ -151,13 +146,14 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert alle lokalen und temporären Parameter
         /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Die Parameter</returns>
-        public string GetParams()
+        public string GetParams(IPage page)
         {
             var dict = new Dictionary<string, Parameter>();
 
             // Übernahme der Parameter von der Seite
-            foreach (var v in Page.Params)
+            foreach (var v in page.Params)
             {
                 if (v.Value.Scope == ParameterScope.Global)
                 {
@@ -219,12 +215,13 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render(RenderContext context)
         {
-            var param = GetParams();
+            var param = GetParams(context?.Page);
 
-            var html = new HtmlElementTextSemanticsA(from x in Content select x.ToHtml())
+            var html = new HtmlElementTextSemanticsA(from x in Content select x.Render(context))
             {
                 ID = ID,
                 Class = GetClasses(),
@@ -238,7 +235,7 @@ namespace WebExpress.UI.Controls
 
             if (Icon != null && Icon.HasIcon)
             {
-                html.Elements.Add(new ControlIcon(Page)
+                html.Elements.Add(new ControlIcon()
                 {
                     Icon = Icon,
                     Margin = !string.IsNullOrWhiteSpace(Text) ? new PropertySpacingMargin
@@ -249,7 +246,7 @@ namespace WebExpress.UI.Controls
                         PropertySpacing.Space.None
                     ) : new PropertySpacingMargin(PropertySpacing.Space.None),
                     VerticalAlignment = Icon.IsUserIcon ? TypeVerticalAlignment.TextBottom : TypeVerticalAlignment.Default
-                }.ToHtml());
+                }.Render(context));
             }
 
             if (!string.IsNullOrWhiteSpace(Text))
@@ -262,7 +259,7 @@ namespace WebExpress.UI.Controls
                 html.AddUserAttribute("data-toggle", "modal");
                 html.AddUserAttribute("data-target", "#" + Modal.ID);
 
-                return new HtmlList(html, Modal.ToHtml());
+                return new HtmlList(html, Modal.Render(context));
             }
 
             if (!string.IsNullOrWhiteSpace(Tooltip))

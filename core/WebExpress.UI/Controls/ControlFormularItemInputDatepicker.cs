@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
+using WebExpress.Pages;
 
 namespace WebExpress.UI.Controls
 {
-    public class ControlFormularItemDatepicker : ControlFormularItemInput
+    public class ControlFormularItemInputDatepicker : ControlFormularItemInput
     {
         /// <summary>
         /// Das Steuerelement wird automatisch initialisiert
@@ -45,34 +46,31 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="formular">Das zugehörige Formular</param>#
         /// <param name="id">Die ID</param>
-        public ControlFormularItemDatepicker(IControlFormular formular, string id = null)
-            : base(formular, !string.IsNullOrWhiteSpace(id) ? id : "datepicker")
+        public ControlFormularItemInputDatepicker(string id = null)
+            : base(!string.IsNullOrWhiteSpace(id) ? id : "datepicker")
         {
-            Init();
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialisiert das Formularelement
         /// </summary>
-        private void Init()
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        public override void Initialize(RenderContextFormular context)
         {
             AutoInitialize = true;
-
-            //AddParam(Name, Formular.Scope);
-            //Value = Page.GetParam(Name);
         }
 
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render(RenderContextFormular context)
         {
-            if (Page.HasParam(Name))
+            if (context.Page.HasParam(Name))
             {
-                Value = Page.GetParam(Name);
+                Value = context.Page.GetParam(Name);
             }
 
             Classes.Add("form-control");
@@ -84,7 +82,7 @@ namespace WebExpress.UI.Controls
 
             if (AutoInitialize)
             {
-                Page.AddScript(ID, InitializeCode);
+                context.Page.AddScript(ID, InitializeCode);
                 AutoInitialize = false;
             }
 

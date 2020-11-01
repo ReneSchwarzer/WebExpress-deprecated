@@ -42,10 +42,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlToolBar(IPage page, string id = null)
-            : base(page, id)
+        public ControlToolBar(string id = null)
+            : base(id)
         {
             Init();
         }
@@ -53,11 +52,10 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
         /// <param name="items">Die Toolitems</param>
-        public ControlToolBar(IPage page, string id = null, params IControlToolBarItem[] items)
-            : this(page, id)
+        public ControlToolBar(string id = null, params IControlToolBarItem[] items)
+            : this(id)
         {
             Add(items);
         }
@@ -65,10 +63,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="items">Die Toolitems</param>
-        public ControlToolBar(IPage page, params IControlToolBarItem[] items)
-            : this(page, (string)null)
+        public ControlToolBar(params IControlToolBarItem[] items)
+            : this((string)null)
         {
             Add(items);
         }
@@ -93,8 +90,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render(RenderContext context)
         {
             var html = new HtmlElementSectionNav()
             {
@@ -114,8 +112,8 @@ namespace WebExpress.UI.Controls
                         x == null || x is ControlDropdownMenuDivider || x is ControlLine ?
                         new HtmlElementTextContentLi() { Class = "divider", Inline = true } :
                         x is ControlDropdownMenuHeader ?
-                        x.ToHtml() :
-                        new HtmlElementTextContentLi(x.ToHtml()) { Class = "nav-item" }
+                        x.Render(context) :
+                        new HtmlElementTextContentLi(x.Render(context)) { Class = "nav-item" }
                     )
                 )
                 {

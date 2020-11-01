@@ -69,16 +69,15 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlPanelNavbar(IPage page, string id = null)
-            : base(page, id)
+        public ControlPanelNavbar(string id = null)
+            : base(id)
         {
-            ControlText = new ControlText(Page, "headline") { Classes = new List<string>(new[] { "headline" }), Format = TypeFormatText.Paragraph };
-            HamburgerMenu = new ControlHamburgerMenu(Page, "hamburger") { };
+            ControlText = new ControlText("headline") { Classes = new List<string>(new[] { "headline" }), Format = TypeFormatText.Paragraph };
+            HamburgerMenu = new ControlHamburgerMenu("hamburger") { };
 
-            ToolBar = new ControlToolBar(Page, "toolbar") { Classes = new List<string>(new[] { "toolbar" })};
-            NotificationBar = new ControlToolBar(Page, "notificationbar") { Classes = new List<string>(new[] { "notificationbar" })};
+            ToolBar = new ControlToolBar("toolbar") { Classes = new List<string>(new[] { "toolbar" })};
+            NotificationBar = new ControlToolBar("notificationbar") { Classes = new List<string>(new[] { "notificationbar" })};
 
             Expand = ExpandTypes.None;
             Fixed = FixedTypes.None;
@@ -87,11 +86,10 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
         /// <param name="title">Die Überschrift</param>
-        public ControlPanelNavbar(IPage page, string id, string title)
-            : this(page, id)
+        public ControlPanelNavbar(string id, string title)
+            : this(id)
         {
             Title = title;
         }
@@ -99,8 +97,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render(RenderContext context)
         {
             Classes.Add("navbar");
 
@@ -151,10 +150,10 @@ namespace WebExpress.UI.Controls
                 Role = Role
             };
 
-            html.Elements.Add(HamburgerMenu.ToHtml());
-            html.Elements.Add(ToolBar.ToHtml());
+            html.Elements.Add(HamburgerMenu.Render(context));
+            html.Elements.Add(ToolBar.Render(context));
             html.Elements.Add(new HtmlElementTextSemanticsSpan(new HtmlText(Title)) { Class = "navbar-text" });
-            html.Elements.Add(NotificationBar.ToHtml());
+            html.Elements.Add(NotificationBar.Render(context));
 
             return html;
         }
