@@ -3,7 +3,7 @@
     /// <summary>
     /// Die Anordnungsmöglichkeiten
     /// </summary>
-    public enum TypesFlexboxDirection
+    public enum TypeDirection
     {
         Default,
         Vertical,
@@ -19,17 +19,17 @@
         /// </summary>
         /// <param name="direction">Die Anordnung, welches umgewandelt werden soll</param>
         /// <returns>Die zur Anordnung gehörende CSS-KLasse</returns>
-        public static string ToClass(this TypesFlexboxDirection direction)
+        public static string ToClass(this TypeDirection direction)
         {
             switch (direction)
             {
-                case TypesFlexboxDirection.Vertical:
+                case TypeDirection.Vertical:
                     return "flex-column";
-                case TypesFlexboxDirection.VerticalReverse:
+                case TypeDirection.VerticalReverse:
                     return "flex-column-reverse";
-                case TypesFlexboxDirection.Horizontal:
+                case TypeDirection.Horizontal:
                     return "flex-row";
-                case TypesFlexboxDirection.HorizontalReverse:
+                case TypeDirection.HorizontalReverse:
                     return "flex-row-reverse";
             }
 

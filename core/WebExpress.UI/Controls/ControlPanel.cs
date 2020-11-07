@@ -15,9 +15,9 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt die Anordnung des Inhaltes
         /// </summary>
-        public TypesFlexboxDirection Direction
+        public TypeDirection Direction
         {
-            get => (TypesFlexboxDirection)GetProperty(TypesFlexboxDirection.Default);
+            get => (TypeDirection)GetProperty(TypeDirection.Default);
             set => SetProperty(value, () => value.ToClass());
         }
 

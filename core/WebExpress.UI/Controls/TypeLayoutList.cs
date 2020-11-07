@@ -9,7 +9,7 @@
         Horizontal
     }
 
-    public static class TypesLayoutListExtensions
+    public static class TypeLayoutListExtensions
     {
         /// <summary>
         /// Umwandlung in eine CSS-Klasse
