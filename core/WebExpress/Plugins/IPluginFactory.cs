@@ -6,6 +6,26 @@
     public interface IPluginFactory
     {
         /// <summary>
+        /// Liefert oder setzt die ID
+        /// </summary>
+        string ArtifactID { get; }
+
+        /// <summary>
+        /// Liefert oder setzt die HerstellerID
+        /// </summary>
+        string ManufacturerID { get; }
+
+        /// <summary>
+        /// Liefert oder setzt die Beschreibung
+        /// </summary>
+        string Description { get; }
+
+        /// <summary>
+        /// Liefert oder setzt den Namen
+        /// </summary>
+        string Version { get; }
+
+        /// <summary>
         /// Liefert den Dateinamen der Konfigurationsdatei
         /// </summary>
         string ConfigFileName { get; }

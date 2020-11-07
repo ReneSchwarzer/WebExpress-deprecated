@@ -13,7 +13,7 @@ namespace WebExpress.Plugins
     /// <summary>
     /// Repräsentiert ein Plugin
     /// </summary>
-    public class Plugin : IPlugin
+    public abstract class Plugin : IPlugin
     {
         /// <summary>
         /// Liefert oder setzt die Plugin-Einstellungen
@@ -240,10 +240,13 @@ namespace WebExpress.Plugins
                     if (response == null)
                     {
                         response = w.Value.Process(request);
-                        response = w.Value.PostProcess(request, response);
+                        if (!(response is ResponseNotFound))
+                        {
+                            response = w.Value.PostProcess(request, response);
+                            
+                            return response;
+                        }
                     }
-
-                    return response;
                 }
             }
 

@@ -1,11 +1,12 @@
 ﻿namespace WebExpress.UI.Controls
 {
-    public enum TypesLayoutList
+    public enum TypeLayoutList
     {
         Default,
         Simple,
-        Inline,
-        Group
+        Group,
+        Flush,
+        Horizontal
     }
 
     public static class TypesLayoutListExtensions
@@ -15,16 +16,18 @@
         /// </summary>
         /// <param name="layout">Das Layout, welches umgewandelt werden soll</param>
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
-        public static string ToClass(this TypesLayoutList layout)
+        public static string ToClass(this TypeLayoutList layout)
         {
             switch (layout)
             {
-                case TypesLayoutList.Group:
+                case TypeLayoutList.Group:
                     return "list-group";
-                case TypesLayoutList.Simple:
+                case TypeLayoutList.Simple:
                     return "list-unstyled";
-                case TypesLayoutList.Inline:
-                    return "list-inline";
+                case TypeLayoutList.Flush:
+                    return "list-group list-group-flush";
+                case TypeLayoutList.Horizontal:
+                    return "list-group list-group-horizontal";
             }
 
             return string.Empty;

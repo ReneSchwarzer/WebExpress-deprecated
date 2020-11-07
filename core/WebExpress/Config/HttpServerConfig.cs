@@ -23,8 +23,8 @@ namespace WebExpress.Config
         /// <summary>
         /// Verzeichnis, indem sich die zu ladenden Plugins befinden
         /// </summary>
-        [XmlElement(ElementName = "stagedirectory")]
-        public string StageDirectory { get; set; }
+        [XmlElement(ElementName = "deployment")]
+        public string Deployment { get; set; }
 
         /// <summary>
         /// Root-Verzeichnis der Assets
@@ -84,9 +84,9 @@ namespace WebExpress.Config
                 ConnectionLimit = Convert.ToInt32(xml.Element("connectionlimit").Value);
             }
 
-            if (xml.Element("stagedirectory") != null)
+            if (xml.Element("deployment") != null)
             {
-                StageDirectory = xml.Element("stagedirectory").Value;
+                Deployment = xml.Element("deployment").Value;
             }
 
             if (xml.Element("assets") != null)
@@ -96,7 +96,7 @@ namespace WebExpress.Config
 
             if (xml.Element("root") != null)
             {
-                AssetBase = xml.Element("root").Value;
+                //Root = xml.Element("root").Value;
             }
 
             if (xml.Element("urlbasepath") != null)

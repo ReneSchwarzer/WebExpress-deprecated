@@ -110,7 +110,7 @@ namespace WebExpress
 
             if (Config != null)
             {
-                LoadPlugins(Config.StageDirectory);
+                LoadPlugins(Config.Deployment);
             }
             else
             {
@@ -352,7 +352,12 @@ namespace WebExpress
         /// <param name="path">Das Verzeichnis, indem sich die Plugins befinden</param>
         private void LoadPlugins(string path)
         {
-            foreach (var plugin in Directory.EnumerateFiles(path, "*.dll"))
+            if (!File.Exists(path))
+            {
+                path = Environment.CurrentDirectory;
+            }
+
+            foreach (var plugin in Directory.EnumerateFiles(path, "*.dll", SearchOption.AllDirectories))
             {
                 var factory = GetFactoryObjectFromAssembly(plugin);
 

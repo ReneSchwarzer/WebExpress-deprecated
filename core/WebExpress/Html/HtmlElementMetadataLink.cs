@@ -1,4 +1,6 @@
-﻿namespace WebExpress.Html
+﻿using System.Collections.Generic;
+
+namespace WebExpress.Html
 {
     /// <summary>
     /// Wird verwendet, um externe JavaScript- und CSS-Dateien in das aktuelle HTML-Dokument einzubinden.

@@ -10,12 +10,16 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt das Layout
         /// </summary>
-        public TypesLayoutList Layout { get; set; }
+        public TypeLayoutList Layout
+        {
+            get => (TypeLayoutList)GetProperty(TypeLayoutList.Default);
+            set => SetProperty(value, () => value.ToClass());
+        }
 
         /// <summary>
         /// Liefert oder setzt die Listeneinträge
         /// </summary>
-        public List<ControlListItem> Items { get; private set; }
+        public List<ControlListItem> Items { get; private set; } = new List<ControlListItem>();
 
         /// <summary>
         /// Bestimm, ob es sich um eine sotrierte oder unsortierte Liste handelt
@@ -42,10 +46,39 @@ namespace WebExpress.UI.Controls
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="items">Die Listeneinträge</param>
+        public ControlList(string id, params ControlListItem[] items)
+            : base(id)
+        {
+            Items.AddRange(items);
+        }
+
+        /// <summary>
+        /// Konstruktor
+        /// </summary>
+        /// <param name="items">Die Listeneinträge</param>
+        public ControlList(params ControlListItem[] items)
+            : this(null, items)
+        {
+        }
+
+        /// <summary>
+        /// Konstruktor
+        /// </summary>
+        /// <param name="id">Die ID</param>
+        /// <param name="items">Die Listeneinträge</param>
         public ControlList(string id, List<ControlListItem> items)
             : base(id)
         {
             Items = items;
+        }
+
+        /// <summary>
+        /// Konstruktor
+        /// </summary>
+        /// <param name="items">Die Listeneinträge</param>
+        public ControlList(List<ControlListItem> items)
+            : this(null, items)
+        {
         }
 
         /// <summary>
@@ -64,44 +97,32 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            Classes.Add(Layout.ToClass());
-            Classes.Add(HorizontalAlignment.ToClass());
+            //Classes.Add(HorizontalAlignment.ToClass());
 
             var items = (from x in Items select x.Render(context)).ToList();
 
-            if (Layout == TypesLayoutList.Group)
+            switch (Layout)
             {
-                items.ForEach(x => x.AddClass("list-group-item"));
+                case TypeLayoutList.Horizontal:
+                case TypeLayoutList.Flush:
+                case TypeLayoutList.Group:
+                    items.ForEach(x => x.AddClass("list-group-item"));
+                    break;
             }
 
             if (!ShowBorder)
             {
-                items.ForEach(x => x.AddClass("border-0"));
+                //items.ForEach(x => x.AddClass("border-0"));
             }
 
-            var html = null as HtmlElement;
-
-            switch (Sorted)
+           
+            var html = new HtmlElementTextContentUl(items)
             {
-                case true:
-                    html = new HtmlElementTextContentUl(items)
-                    {
-                        ID = ID,
-                        Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                        Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
-                        Role = Role
-                    };
-                    break;
-                default:
-                    html = new HtmlElementTextContentUl(items)
-                    {
-                        ID = ID,
-                        Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                        Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
-                        Role = Role
-                    };
-                    break;
-            }
+                ID = ID,
+                Class = Css.Concatenate("", GetClasses()),
+                Style = GetStyles(),
+                Role = Role
+            };
 
             return html;
         }

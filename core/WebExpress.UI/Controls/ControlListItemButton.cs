@@ -5,27 +5,13 @@ using WebExpress.Pages;
 
 namespace WebExpress.UI.Controls
 {
-    public class ControlListItem : Control
+    public class ControlListItemButton : ControlListItem
     {
         /// <summary>
-        /// Liefert oder setzt den Inhalt
-        /// </summary>
-        public List<Control> Content { get; private set; } = new List<Control>();
-
-        /// <summary>
-        /// Liefert oder setzt die Ativitätsstatus des Listenelements
-        /// </summary>
-        public TypeActive Active
-        {
-            get => (TypeActive)GetProperty(TypeActive.None);
-            set => SetProperty(value, () => value.ToClass());
-        }
-
-        /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="id">Die ID</param>
-        public ControlListItem(string id = null)
+        public ControlListItemButton(string id = null)
             : base(id)
         {
             Init();
@@ -36,31 +22,9 @@ namespace WebExpress.UI.Controls
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="content">Der Inhalt</param>
-        public ControlListItem(string id, params Control[] content)
-            : this(id)
+        public ControlListItemButton(string id, params Control[] content)
+            : base(id, content)
         {
-            Content.AddRange(content);
-        }
-
-        /// <summary>
-        /// Konstruktor
-        /// </summary>
-        /// <param name="content">Der Inhalt</param>
-        public ControlListItem(params Control[] content)
-            : this(null, content)
-        {
-        }
-
-        /// <summary>
-        /// Konstruktor
-        /// </summary>
-        /// <param name="id">Die ID</param>
-        /// <param name="content">Der Inhalt</param>
-        public ControlListItem(string id, List<Control> content)
-            : base(id)
-        {
-            Content = content;
-
             Init();
         }
 
@@ -68,10 +32,31 @@ namespace WebExpress.UI.Controls
         /// Konstruktor
         /// </summary>
         /// <param name="content">Der Inhalt</param>
-        public ControlListItem(List<Control> content)
-            : this(null, content)
+        public ControlListItemButton(params Control[] content)
+            : base(content)
         {
-            Content = content;
+            Init();
+        }
+
+        /// <summary>
+        /// Konstruktor
+        /// </summary>
+        /// <param name="id">Die ID</param>
+        /// <param name="content">Der Inhalt</param>
+        public ControlListItemButton(string id, List<Control> content)
+            : base(id, content)
+        {
+            Init();
+        }
+
+        /// <summary>
+        /// Konstruktor
+        /// </summary>
+        /// <param name="content">Der Inhalt</param>
+        public ControlListItemButton(List<Control> content)
+            : base(content)
+        {
+            Init();
         }
 
         /// <summary>
@@ -88,10 +73,10 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            return new HtmlElementTextContentLi(from x in Content select x.Render(context))
+            return new HtmlElementFieldButton(from x in Content select x.Render(context))
             {
                 ID = ID,
-                Class = GetClasses(),
+                Class = Css.Concatenate("list-group-item-action", GetClasses()),
                 Style = GetStyles(),
                 Role = Role
             };

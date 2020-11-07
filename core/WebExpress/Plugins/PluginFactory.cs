@@ -6,6 +6,26 @@
     public abstract class PluginFactory : IPluginFactory
     {
         /// <summary>
+        /// Liefert oder setzt die ID
+        /// </summary>
+        public abstract string ArtifactID { get; }
+
+        /// <summary>
+        /// Liefert oder setzt die HerstellerID
+        /// </summary>
+        public abstract string ManufacturerID { get; }
+
+        /// <summary>
+        /// Liefert oder setzt die Beschreibung
+        /// </summary>
+        public abstract string Description { get; }
+
+        /// <summary>
+        /// Liefert oder setzt den Namen
+        /// </summary>
+        public abstract string Version { get; }
+
+        /// <summary>
         /// Liefert den Dateinamen der Konfigurationsdatei
         /// </summary>
         public abstract string ConfigFileName { get; }

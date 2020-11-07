@@ -1,17 +1,25 @@
-﻿using WebExpress.Messages;
+﻿using System.IO;
+using System.Linq;
+using System.Reflection;
+using WebExpress.Messages;
 using WebExpress.Pages;
 
 namespace WebExpress.Workers
 {
     /// <summary>
-    /// Arbeitet eine Anfrage ab. Dies erfolgt nebenläufig
+    /// Stellt eine Ressource aus dem Plugin bereit
     /// </summary>
-    public class WorkerFile : WorkerBinary
+    public class WorkerRessource : WorkerBinary
     {
         /// <summary>
         /// Schutz vor Nebenläufgkeit
         /// </summary>
         private object Gard { get; set; }
+
+        /// <summary>
+        /// Das Assembly, indem sich die Ressourcen befindet
+        /// </summary>
+        private Assembly Assembly { get; set; }
 
         /// <summary>
         /// Liefert oder setzt das Wurzelverzeichnis
@@ -22,11 +30,13 @@ namespace WebExpress.Workers
         /// Konstruktor
         /// </summary>
         /// <param name="uri">Die aufzulösende Uri</param>
+        /// <param name="assembly">Das Assembly, indem sich die Ressource befindet</param>
         /// <param name="root">Die Wurzel</param>
-        public WorkerFile(UriPage uri, string root)
+        public WorkerRessource(UriPage uri, Assembly assembly, string root)
             : base(uri)
         {
             Gard = new object();
+            Assembly = assembly;
             Root = root;
         }
 
@@ -39,20 +49,21 @@ namespace WebExpress.Workers
         {
             lock (Gard)
             {
+                var resources = Assembly.GetManifestResourceNames();
                 var url = request.URL.Substring(Context.UrlBasePath.Length);
+                var fileName = Path.GetFileName(url);
+                var file = string.Join("", Root, url.Replace("/", "."));
 
-                var path = System.IO.Path.GetFullPath(Root + url);
+                Ressource = GetData(file, Assembly);
 
-                if (!System.IO.File.Exists(path))
+                if (Ressource == null)
                 {
                     return new ResponseNotFound();
                 }
 
-                Ressource = System.IO.File.ReadAllBytes(path);
-
                 var response = base.Process(request);
 
-                var extension = System.IO.Path.GetExtension(path);
+                var extension = Path.GetExtension(fileName);
                 extension = !string.IsNullOrWhiteSpace(extension) ? extension.ToLower() : "";
 
                 switch (extension)
@@ -74,11 +85,11 @@ namespace WebExpress.Workers
                         response.HeaderFields.ContentType = "text/html";
                         break;
                     case ".exe":
-                        response.HeaderFields.ContentDisposition = "attatchment; filename=" + System.IO.Path.GetFileName(path) + "; size=" + Ressource.LongLength;
+                        response.HeaderFields.ContentDisposition = "attatchment; filename=" + fileName + "; size=" + Ressource.LongLength;
                         response.HeaderFields.ContentType = "application/octet-stream";
                         break;
                     case ".zip":
-                        response.HeaderFields.ContentDisposition = "attatchment; filename=" + System.IO.Path.GetFileName(path) + "; size=" + Ressource.LongLength;
+                        response.HeaderFields.ContentDisposition = "attatchment; filename=" + fileName + "; size=" + Ressource.LongLength;
                         response.HeaderFields.ContentType = "application/zip";
                         break;
                     case ".doc":
@@ -110,6 +121,32 @@ namespace WebExpress.Workers
                 //HostContext.Log.Debug(MethodBase.GetCurrentMethod(), request.Client + ": Datei '" + request.URL + "' wurde geladen.");
 
                 return response;
+            }
+        }
+
+        /// <summary>
+        /// Liest die Daten einer angeegbenen Ressource
+        /// </summary>
+        /// <param name="file">Die Datei</param>
+        /// <param name="assembly">Das Assembly</param>
+        /// <returns></returns>
+        private byte[] GetData(string file, Assembly assembly)
+        {
+            var resources = Assembly.GetManifestResourceNames();
+            var item = resources.Where(x => x.Equals(file)).FirstOrDefault();
+            if (item == null)
+            {
+                return null;
+            }
+
+            using (var stream = Assembly.GetManifestResourceStream(item))
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    stream.CopyTo(memoryStream);
+
+                    return memoryStream.ToArray();
+                }
             }
         }
     }

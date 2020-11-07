@@ -11,6 +11,182 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\css\bootstrap-datepicker3.min.css" />
+    <None Remove="Assets\css\bootstrap.min.css" />
+    <None Remove="Assets\css\express.css" />
+    <None Remove="Assets\css\express.form.css" />
+    <None Remove="Assets\css\fontawesome.css" />
+    <None Remove="Assets\css\solid.css" />
+    <None Remove="Assets\css\summernote-bs4.css" />
+    <None Remove="Assets\fonts\bootstrap-datepicker3.min.css" />
+    <None Remove="Assets\fonts\bootstrap.min.css" />
+    <None Remove="Assets\fonts\express.css" />
+    <None Remove="Assets\fonts\express.form.css" />
+    <None Remove="Assets\fonts\fa-brands-400.eot" />
+    <None Remove="Assets\fonts\fa-brands-400.svg" />
+    <None Remove="Assets\fonts\fa-brands-400.ttf" />
+    <None Remove="Assets\fonts\fa-brands-400.woff" />
+    <None Remove="Assets\fonts\fa-brands-400.woff2" />
+    <None Remove="Assets\fonts\fa-regular-400.eot" />
+    <None Remove="Assets\fonts\fa-regular-400.svg" />
+    <None Remove="Assets\fonts\fa-regular-400.ttf" />
+    <None Remove="Assets\fonts\fa-regular-400.woff" />
+    <None Remove="Assets\fonts\fa-regular-400.woff2" />
+    <None Remove="Assets\fonts\fa-solid-900.eot" />
+    <None Remove="Assets\fonts\fa-solid-900.svg" />
+    <None Remove="Assets\fonts\fa-solid-900.ttf" />
+    <None Remove="Assets\fonts\fa-solid-900.woff" />
+    <None Remove="Assets\fonts\fa-solid-900.woff2" />
+    <None Remove="Assets\fonts\fontawesome.css" />
+    <None Remove="Assets\fonts\solid.css" />
+    <None Remove="Assets\fonts\summernote-bs4.css" />
+    <None Remove="Assets\fonts\summernote.eot" />
+    <None Remove="Assets\fonts\summernote.ttf" />
+    <None Remove="Assets\fonts\summernote.woff" />
+    <None Remove="Assets\img\Banner.png" />
+    <None Remove="Assets\img\Favicon.png" />
+    <None Remove="Assets\img\Icon16.png" />
+    <None Remove="Assets\img\Logo.png" />
+    <None Remove="Assets\img\Rocket.png" />
+    <None Remove="Assets\js\bootstrap-datepicker.de.min.js" />
+    <None Remove="Assets\js\bootstrap-datepicker.min.js" />
+    <None Remove="Assets\js\bootstrap.min.js" />
+    <None Remove="Assets\js\jquery-3.3.1.min.js" />
+    <None Remove="Assets\js\popper.min.js" />
+    <None Remove="Assets\js\summernote-bs4.min.js" />
+    <None Remove="Assets\js\summernote-de-DE.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\css\bootstrap-datepicker3.min.css">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\css\bootstrap.min.css">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\css\express.css">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\css\express.form.css">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\css\fontawesome.css">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\css\solid.css">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\css\summernote-bs4.css">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\fonts\bootstrap-datepicker3.min.css">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\fonts\bootstrap.min.css">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\fonts\express.css">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\fonts\express.form.css">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\fonts\fa-brands-400.eot">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\fonts\fa-brands-400.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\fonts\fa-brands-400.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\fonts\fa-brands-400.woff">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\fonts\fa-brands-400.woff2">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\fonts\fa-regular-400.eot">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\fonts\fa-regular-400.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\fonts\fa-regular-400.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\fonts\fa-regular-400.woff">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\fonts\fa-regular-400.woff2">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\fonts\fa-solid-900.eot">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\fonts\fa-solid-900.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\fonts\fa-solid-900.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\fonts\fa-solid-900.woff">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\fonts\fa-solid-900.woff2">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\fonts\fontawesome.css">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\fonts\solid.css">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\fonts\summernote-bs4.css">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\fonts\summernote.eot">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\fonts\summernote.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\fonts\summernote.woff">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\img\Banner.png" />
+    <EmbeddedResource Include="Assets\img\Favicon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\img\Icon16.png" />
+    <EmbeddedResource Include="Assets\img\Logo.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\img\Rocket.png" />
+    <EmbeddedResource Include="Assets\js\bootstrap-datepicker.de.min.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\js\bootstrap-datepicker.min.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\js\bootstrap.min.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\js\jquery-3.3.1.min.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\js\popper.min.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\js\summernote-bs4.min.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\js\summernote-de-DE.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\WebExpress\WebExpress.csproj" />
   </ItemGroup>
 
