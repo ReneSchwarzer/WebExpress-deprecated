@@ -4,7 +4,7 @@ using WebExpress.Pages;
 
 namespace WebExpress.UI.Controls
 {
-    public class ControlDropdownMenuHeader : Control
+    public class ControlDropdownHeader : Control
     {
         /// <summary>
         /// Liefert oder setzt die Text
@@ -15,7 +15,7 @@ namespace WebExpress.UI.Controls
         /// Konstruktor
         /// </summary>
         /// <param name="id">Die ID</param>
-        public ControlDropdownMenuHeader(string id = null)
+        public ControlDropdownHeader(string id = null)
             : base(id)
         {
             Init();
@@ -26,7 +26,7 @@ namespace WebExpress.UI.Controls
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="text">Der Text</param>
-        public ControlDropdownMenuHeader(string id, string text)
+        public ControlDropdownHeader(string id, string text)
             : base(id)
         {
             Text = text;

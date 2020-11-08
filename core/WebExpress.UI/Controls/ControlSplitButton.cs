@@ -162,7 +162,7 @@ namespace WebExpress.UI.Controls
                     x =>
                     x == null ?
                     new HtmlElementTextContentLi() { Class = "dropdown-divider", Inline = true } :
-                    x is ControlDropdownMenuHeader ?
+                    x is ControlDropdownHeader ?
                     x.Render(context) :
                     new HtmlElementTextContentLi(x.Render(context).AddClass("dropdown-item")) { }
                 )

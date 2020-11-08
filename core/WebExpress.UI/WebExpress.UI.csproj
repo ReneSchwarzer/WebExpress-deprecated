@@ -51,7 +51,6 @@
     <None Remove="Assets\js\bootstrap-datepicker.de.min.js" />
     <None Remove="Assets\js\bootstrap-datepicker.min.js" />
     <None Remove="Assets\js\bootstrap.min.js" />
-    <None Remove="Assets\js\jquery-3.3.1.min.js" />
     <None Remove="Assets\js\popper.min.js" />
     <None Remove="Assets\js\summernote-bs4.min.js" />
     <None Remove="Assets\js\summernote-de-DE.js" />
@@ -170,9 +169,6 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Assets\js\bootstrap.min.js">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Assets\js\jquery-3.3.1.min.js">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Assets\js\popper.min.js">

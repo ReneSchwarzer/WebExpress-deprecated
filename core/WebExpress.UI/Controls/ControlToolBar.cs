@@ -109,9 +109,9 @@ namespace WebExpress.UI.Controls
                     Items.Select
                     (
                         x =>
-                        x == null || x is ControlDropdownMenuDivider || x is ControlLine ?
+                        x == null || x is ControlDropdownDivider || x is ControlLine ?
                         new HtmlElementTextContentLi() { Class = "divider", Inline = true } :
-                        x is ControlDropdownMenuHeader ?
+                        x is ControlDropdownHeader ?
                         x.Render(context) :
                         new HtmlElementTextContentLi(x.Render(context)) { Class = "nav-item" }
                     )

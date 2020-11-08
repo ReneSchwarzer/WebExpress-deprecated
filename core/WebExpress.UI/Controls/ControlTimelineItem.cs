@@ -140,7 +140,7 @@ namespace WebExpress.UI.Controls
                 date.Render(context)
             );
 
-            var setting = new ControlDropdownMenu()
+            var setting = new ControlDropdown()
             {
                 //Icon = new PropertyIcon(TypeIcon.Cog),
                 Layout = TypeColorButton.Light,

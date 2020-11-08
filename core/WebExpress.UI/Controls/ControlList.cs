@@ -91,6 +91,24 @@ namespace WebExpress.UI.Controls
         }
 
         /// <summary>
+        /// Fügt Listeneinträge hinzu
+        /// </summary>
+        /// <param name="items">Die Listeneinträge</param>
+        public void Add(IEnumerable<ControlListItem> items)
+        {
+            Items.AddRange(items);
+        }
+
+        /// <summary>
+        /// Fügt Listeneinträge hinzu
+        /// </summary>
+        /// <param name="item">Der Listeneintrag</param>
+        public void Add(ControlListItem item)
+        {
+            Items.Add(item);
+        }
+
+        /// <summary>
         /// In HTML konvertieren
         /// </summary>
         /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>

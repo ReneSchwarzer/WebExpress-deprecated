@@ -4,7 +4,7 @@ using WebExpress.Pages;
 
 namespace WebExpress.UI.Controls
 {
-    public class ControlHamburgerMenu : ControlDropdownMenu
+    public class ControlHamburgerMenu : ControlDropdown
     {
         /// <summary>
         /// Konstruktor

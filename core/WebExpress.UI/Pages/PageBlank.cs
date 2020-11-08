@@ -27,7 +27,7 @@ namespace WebExpress.UI.Pages
             CssLinks.Add("/Assets/css/solid.css");
             CssLinks.Add("/Assets/css/summernote-bs4.css");
 
-            HeaderScriptLinks.Add("/Assets/js/jquery-3.3.1.min.js");
+            HeaderScriptLinks.Add("/Assets/js/jquery-3.5.1.min.js");
             HeaderScriptLinks.Add("/Assets/js/popper.min.js");
             HeaderScriptLinks.Add("/Assets/js/bootstrap.min.js");
         }

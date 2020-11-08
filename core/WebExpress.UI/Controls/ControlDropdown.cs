@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
-using WebExpress.Pages;
 
 namespace WebExpress.UI.Controls
 {
-    public class ControlDropdownMenu : Control
+    public class ControlDropdown : Control
     {
         /// <summary>
         /// Liefert oder setzt das Layout
@@ -81,7 +80,7 @@ namespace WebExpress.UI.Controls
         /// Konstruktor
         /// </summary>
         /// <param name="id">Die ID</param>
-        public ControlDropdownMenu(string id = null)
+        public ControlDropdown(string id = null)
             : base(id)
         {
             Init();
@@ -92,7 +91,7 @@ namespace WebExpress.UI.Controls
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="content">Der Inhalt</param>
-        public ControlDropdownMenu(string id, params Control[] content)
+        public ControlDropdown(string id, params Control[] content)
             : this(id)
         {
             Items.AddRange(content);
@@ -104,7 +103,7 @@ namespace WebExpress.UI.Controls
         /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
         /// <param name="content">Der Inhalt</param>
-        public ControlDropdownMenu(string id, IEnumerable<Control> content)
+        public ControlDropdown(string id, IEnumerable<Control> content)
             : this(id)
         {
             Items.AddRange(content);
@@ -133,7 +132,7 @@ namespace WebExpress.UI.Controls
         /// <param name="text">Der Überschriftstext</param>
         public void AddHeader(string text)
         {
-            Items.Add(new ControlDropdownMenuHeader() { Text = text });
+            Items.Add(new ControlDropdownHeader() { Text = text });
         }
 
         /// <summary>
@@ -182,8 +181,8 @@ namespace WebExpress.UI.Controls
             var html = new HtmlElementTextContentDiv()
             {
                 ID = ID,
-                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Class = GetClasses(),
+                Style = GetStyles(),
                 Role = Role
             };
 
@@ -212,7 +211,7 @@ namespace WebExpress.UI.Controls
                         VerticalAlignment = Icon.IsUserIcon ? TypeVerticalAlignment.TextBottom : TypeVerticalAlignment.Default
                     }.Render(context));
                 }
-                
+
                 if (!string.IsNullOrWhiteSpace(Text))
                 {
                     button.Elements.Add(new HtmlText(Text));
@@ -243,9 +242,9 @@ namespace WebExpress.UI.Controls
                     Items.Select
                     (
                         x =>
-                        x == null || x is ControlDropdownMenuDivider || x is ControlLine ?
+                        x == null || x is ControlDropdownDivider || x is ControlLine ?
                         new HtmlElementTextContentLi() { Class = "dropdown-divider", Inline = true } :
-                        x is ControlDropdownMenuHeader ?
+                        x is ControlDropdownHeader ?
                         x.Render(context) :
                         new HtmlElementTextContentLi(x.Render(context)) { Class = "dropdown-item" }
                     )

@@ -5,13 +5,13 @@ using WebExpress.Pages;
 
 namespace WebExpress.UI.Controls
 {
-    public class ControlDropdownMenuDivider : Control
+    public class ControlDropdownDivider : Control
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="id">Die ID</param>
-        public ControlDropdownMenuDivider(string id = null)
+        public ControlDropdownDivider(string id = null)
             : base(id)
         {
             Init();

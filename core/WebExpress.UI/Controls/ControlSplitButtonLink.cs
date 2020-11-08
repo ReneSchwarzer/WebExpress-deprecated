@@ -82,7 +82,7 @@ namespace WebExpress.UI.Controls
         /// <param name="text">Der Überschriftstext</param>
         public void AddHeader(string text)
         {
-            Items.Add(new ControlDropdownMenuHeader() { Text = text });
+            Items.Add(new ControlDropdownHeader() { Text = text });
         }
 
         /// <summary>
@@ -239,7 +239,7 @@ namespace WebExpress.UI.Controls
                     x =>
                     x == null ?
                     new HtmlElementTextContentLi() { Class = "dropdown-divider", Inline = true } :
-                    x is ControlDropdownMenuHeader ?
+                    x is ControlDropdownHeader ?
                     x.Render(context) :
                     new HtmlElementTextContentLi(x.Render(context).AddClass("dropdown-item")) { }
                 )
