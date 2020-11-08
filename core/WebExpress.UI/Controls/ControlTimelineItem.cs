@@ -143,7 +143,7 @@ namespace WebExpress.UI.Controls
             var setting = new ControlDropdown()
             {
                 //Icon = new PropertyIcon(TypeIcon.Cog),
-                Layout = TypeColorButton.Light,
+                BackgroundColor = new PropertyColorButton(TypeColorButton.Light),
                 HorizontalAlignment = TypeHorizontalAlignment.Right,
                 Size = TypeSizeButton.Small
             };
@@ -174,7 +174,7 @@ namespace WebExpress.UI.Controls
                 Text = likeText,
                 Uri = context.Page.Uri,
                 Size = TypeSizeButton.Small,
-                Color =  new PropertyColorButton(TypeColorButton.Light),
+                BackgroundColor =  new PropertyColorButton(TypeColorButton.Light),
                 Outline = true,
                 TextColor = new PropertyColorText(TypeColorText.Primary)
             };

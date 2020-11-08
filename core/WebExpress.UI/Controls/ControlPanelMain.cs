@@ -29,7 +29,8 @@ namespace WebExpress.UI.Controls
                 Style = GetStyles(),
                 Role = Role
             };
-            html.Elements.AddRange(from x in Content select x.Render(context));
+
+            html.Elements.AddRange(from x in Content select x?.Render(context));
 
             return html;
         }

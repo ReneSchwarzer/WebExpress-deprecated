@@ -47,7 +47,7 @@ namespace WebExpress.UI.Controls
         public ControlPanel(params Control[] content)
             : this()
         {
-            Content.AddRange(content);
+            Content.AddRange(content.Where(x => x != null));
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace WebExpress.UI.Controls
         public ControlPanel(string id, params Control[] content)
             : this(id)
         {
-            Content.AddRange(content);
+            Content.AddRange(content.Where(x => x != null));
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace WebExpress.UI.Controls
         public ControlPanel(string id, IEnumerable<Control> content)
             : this(id)
         {
-            Content.AddRange(content);
+            Content.AddRange(content.Where(x => x != null));
         }
 
         /// <summary>

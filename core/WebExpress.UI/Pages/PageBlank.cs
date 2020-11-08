@@ -55,7 +55,7 @@ namespace WebExpress.UI.Pages
             html.Head.Favicons = Favicons.Select(x => new Favicon(new UriPage(x.Url, Context).ToString(), x.Mediatype));
             html.Head.Meta = Meta;
             html.Head.Scripts = HeaderScripts;
-            html.Body.Elements.AddRange(Content.Select(x => x.Render(new RenderContext(this))));
+            html.Body.Elements.AddRange(Content.Select(x => x?.Render(new RenderContext(this))));
             html.Body.Scripts = Scripts.Values.ToList();
 
             return html;

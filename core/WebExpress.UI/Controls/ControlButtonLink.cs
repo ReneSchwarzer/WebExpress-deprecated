@@ -32,7 +32,6 @@ namespace WebExpress.UI.Controls
         /// </summary>
         private void Init()
         {
-            Disabled = false;
             Size = TypeSizeButton.Default;
             Classes.Add("btn");
         }

@@ -7,59 +7,74 @@ namespace WebExpress.UI.Controls
     public class ControlDropdown : Control
     {
         /// <summary>
-        /// Liefert oder setzt das Layout
+        /// Liefert oder setzt den Inhalt
         /// </summary>
-        public TypeColorButton Layout { get; set; }
+        protected List<Control> Items { get; private set; } = new List<Control>();
+
+        /// <summary>
+        /// Liefert oder setzt die Farbe der Schaltfläche
+        /// </summary>
+        public new PropertyColorButton BackgroundColor
+        {
+            get => (PropertyColorButton)GetPropertyObject();
+            set => SetProperty(value, () => value?.ToClass(Outline), () => value?.ToStyle(Outline));
+        }
 
         /// <summary>
         /// Liefert oder setzt die Größe
         /// </summary>
-        public TypeSizeButton Size { get; set; }
+        public TypeSizeButton Size
+        {
+            get => (TypeSizeButton)GetProperty(TypeSizeButton.Default);
+            set => SetProperty(value, () => value.ToClass());
+        }
 
         /// <summary>
-        /// Liefert oder setzt doe Outline-Eigenschaft
+        /// Liefert oder setzt die Outline-Eigenschaft
         /// </summary>
         public bool Outline { get; set; }
 
         /// <summary>
         /// Liefert oder setzt ob die Schaltfläche die volle Breite einnehmen soll
         /// </summary>
-        public bool Block { get; set; }
+        public TypeBlockButton Block
+        {
+            get => (TypeBlockButton)GetProperty(TypeBlockButton.None);
+            set => SetProperty(value, () => value.ToClass());
+        }
 
         /// <summary>
-        /// Liefert oder setzt ob die Schaltfläche deaktiviert ist
+        /// Liefert oder setzt ein Indikator, welcher darauf hinweist, dass ein Menü vorhanden ist.
         /// </summary>
-        public bool Disabled { get; set; }
+        public TypeToggleDropdown Toogle
+        {
+            get => (TypeToggleDropdown)GetProperty(TypeToggleDropdown.None);
+            set => SetProperty(value, () => value.ToClass());
+        }
 
         /// <summary>
-        /// Liefert oder setzt den Inhalt
-        /// </summary>
-        protected List<Control> Items { get; private set; }
-
-        /// <summary>
-        /// Liefert oder setzt den Text
+        /// Liefert oder setzt den Text der TextBox
         /// </summary>
         public string Text { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt das Ziel
+        /// Liefert oder setzt den Wert
         /// </summary>
-        public string Target { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt die CSS-Klasse der Schaltfläche
-        /// </summary>
-        public string ClassButton { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt die CSS-Style der Schaltfläche
-        /// </summary>
-        public string StyleButton { get; set; }
+        public string Value { get; set; }
 
         /// <summary>
         /// Liefert oder setzt das Icon
         /// </summary>
         public PropertyIcon Icon { get; set; }
+
+        /// <summary>
+        /// Liefert oder setzt den Aktivierungsstatus der Schaltfläche
+        /// </summary>
+        public TypeActive Active
+        {
+            get => (TypeActive)GetProperty(TypeActive.None);
+            set => SetProperty(value, () => value.ToClass());
+        }
 
         /// <summary>
         /// Liefert oder setzt das Bild
@@ -92,21 +107,48 @@ namespace WebExpress.UI.Controls
         /// <param name="id">Die ID</param>
         /// <param name="content">Der Inhalt</param>
         public ControlDropdown(string id, params Control[] content)
-            : this(id)
+            : base(id)
         {
             Items.AddRange(content);
+
+            Init();
         }
 
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
+        /// <param name="content">Der Inhalt</param>
+        public ControlDropdown(params Control[] content)
+            : base(null)
+        {
+            Items.AddRange(content);
+
+            Init();
+        }
+
+        /// <summary>
+        /// Konstruktor
+        /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="content">Der Inhalt</param>
         public ControlDropdown(string id, IEnumerable<Control> content)
-            : this(id)
+            : base(id)
         {
             Items.AddRange(content);
+
+            Init();
+        }
+
+        /// <summary>
+        /// Konstruktor
+        /// </summary>
+        /// <param name="content">Der Inhalt</param>
+        public ControlDropdown(IEnumerable<Control> content)
+            : base(null)
+        {
+            Items.AddRange(content);
+
+            Init();
         }
 
         /// <summary>
@@ -140,10 +182,7 @@ namespace WebExpress.UI.Controls
         /// </summary>
         private void Init()
         {
-            Disabled = false;
-            Size = TypeSizeButton.Default;
-            ClassButton = "";
-            Items = new List<Control>();
+            Size = TypeSizeButton.Default; 
         }
 
         /// <summary>
@@ -162,27 +201,18 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            Classes.Add("dropdown");
 
-            var buttonClasses = new List<string>
-            {
-                ClassButton,
-                "btn"
-            };
-            buttonClasses.Add(Layout.ToClass(Outline));
-            buttonClasses.Add(Size.ToClass());
-            Classes.Add(HorizontalAlignment.ToClass());
+            //Classes.Add(HorizontalAlignment.ToClass());
 
-            if (Block)
-            {
-                buttonClasses.Add("btn-block");
-            }
+            //if (Block)
+            //{
+            //    buttonClasses.Add("btn-block");
+            //}
 
             var html = new HtmlElementTextContentDiv()
             {
                 ID = ID,
-                Class = GetClasses(),
-                Style = GetStyles(),
+                Class = "dropdown",
                 Role = Role
             };
 
@@ -191,8 +221,8 @@ namespace WebExpress.UI.Controls
                 var button = new HtmlElementFieldButton()
                 {
                     ID = string.IsNullOrWhiteSpace(ID) ? "" : ID + "_btn",
-                    Class = string.Join(" ", buttonClasses.Where(x => !string.IsNullOrWhiteSpace(x))),
-                    Style = StyleButton,
+                    Class = Css.Concatenate("btn", GetClasses()),
+                    Style = GetStyles(),
                     DataToggle = "dropdown"
                 };
 
@@ -224,8 +254,8 @@ namespace WebExpress.UI.Controls
                 var button = new HtmlElementMultimediaImg()
                 {
                     ID = string.IsNullOrWhiteSpace(ID) ? "" : ID + "_btn",
-                    Class = string.Join(" ", buttonClasses.Where(x => !string.IsNullOrWhiteSpace(x))),
-                    Style = StyleButton,
+                    Class = Css.Concatenate("", GetClasses()),
+                    Style = GetStyles(),
                     Src = Image.ToString(),
                     Height = Heigt,
                     Width = Width,

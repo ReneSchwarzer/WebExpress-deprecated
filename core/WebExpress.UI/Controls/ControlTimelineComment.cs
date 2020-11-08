@@ -130,7 +130,7 @@ namespace WebExpress.UI.Controls
                 Text = likeText,
                 Uri = context.Page.Uri,
                 Size = TypeSizeButton.Small,
-                Color = new PropertyColorButton(TypeColorButton.Light),
+                BackgroundColor = new PropertyColorButton(TypeColorButton.Light),
                 Outline = true,
                 TextColor = new PropertyColorText(TypeColorText.Primary)
             };

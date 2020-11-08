@@ -9,46 +9,6 @@ namespace WebExpress.UI.Pages
     public abstract class PageTemplate : PageBlank
     {
         /// <summary>
-        /// Liefert oder setzt den Kopf
-        /// </summary>
-        public ControlPanel Notification { get; protected set; }
-
-        /// <summary>
-        /// Liefert oder setzt den Kopf
-        /// </summary>
-        public ControlPanelHeader Head { get; protected set; }
-
-        /// <summary>
-        /// Liefert oder setzt die ToolBar
-        /// </summary>
-        public ControlToolBar ToolBar { get; protected set; }
-
-        /// <summary>
-        /// Liefert oder setzt die ToolBar
-        /// </summary>
-        public ControlToolBar SideBar { get; protected set; }
-
-        /// <summary>
-        /// Liefert oder setzt den Inhalt
-        /// </summary>
-        public ControlPanelMain Main { get; protected set; }
-
-        /// <summary>
-        /// Liefert oder setzt den Pfad
-        /// </summary>
-        public ControlBreadcrumb PathCtrl { get; protected set; }
-
-        /// <summary>
-        /// Liefert oder setzt den Fuß
-        /// </summary>
-        public ControlFoot Foot { get; protected set; }
-
-        /// <summary>
-        /// Liefert oder setzt das Hamburgermenü
-        /// </summary>
-        public ControlHamburgerMenu HamburgerMenu { get; protected set; }
-
-        /// <summary>
         /// Konstruktor
         /// </summary>
         public PageTemplate()
@@ -70,7 +30,7 @@ namespace WebExpress.UI.Pages
         {
             base.Process();
 
-            Content.Clear();
+            base.Content.Clear();
         }
 
         /// <summary>
@@ -79,8 +39,6 @@ namespace WebExpress.UI.Pages
         /// <returns>Die Seite als HTML-Baum</returns>
         public override IHtmlNode Render()
         {
-            PathCtrl.Uri = Uri;
-
             return base.Render();
         }
     }

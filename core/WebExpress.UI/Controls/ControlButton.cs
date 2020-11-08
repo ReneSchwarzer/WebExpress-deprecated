@@ -8,14 +8,9 @@ namespace WebExpress.UI.Controls
     public class ControlButton : Control
     {
         /// <summary>
-        /// Die Hintergrundfarbe
-        /// </summary>
-        public new PropertyColorBackground BackgroundColor { get; private set; }
-
-        /// <summary>
         /// Liefert oder setzt die Farbe der Schaltfläche
         /// </summary>
-        public PropertyColorButton Color
+        public new PropertyColorButton BackgroundColor
         {
             get => (PropertyColorButton)GetPropertyObject();
             set => SetProperty(value, () => value?.ToClass(Outline), () => value?.ToStyle(Outline));
@@ -45,11 +40,6 @@ namespace WebExpress.UI.Controls
         }
 
         /// <summary>
-        /// Liefert oder setzt ob die Schaltfläche deaktiviert ist
-        /// </summary>
-        public bool Disabled { get; set; }
-
-        /// <summary>
         /// Liefert oder setzt den Inhalt
         /// </summary>
         public List<Control> Content { get; private set; }
@@ -73,17 +63,13 @@ namespace WebExpress.UI.Controls
         /// Liefert oder setzt das Icon
         /// </summary>
         public PropertyIcon Icon { get; set; }
-        //{
-        //    get => (PropertyIcon)GetPropertyObject();
-        //    set => SetProperty(value, () => value?.ToClass(), () => value?.ToStyle());
-        //}
 
         /// <summary>
         /// Liefert oder setzt den Aktivierungsstatus der Schaltfläche
         /// </summary>
         public TypeActive Active
         {
-            get => (TypeActive)GetProperty();
+            get => (TypeActive)GetProperty(TypeActive.None);
             set => SetProperty(value, () => value.ToClass());
         }
 
@@ -102,7 +88,6 @@ namespace WebExpress.UI.Controls
         /// </summary>
         private void Init()
         {
-            Disabled = false;
             Size = TypeSizeButton.Default;
             Content = new List<Control>();
         }
@@ -121,7 +106,7 @@ namespace WebExpress.UI.Controls
                 Class = Css.Concatenate("btn", GetClasses()),
                 Style = GetStyles(),
                 Role = Role,
-                Disabled = Disabled
+                Disabled = Active == TypeActive.Disabled
             };
 
             if (Icon != null && Icon.HasIcon)

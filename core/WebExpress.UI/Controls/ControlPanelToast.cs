@@ -2,13 +2,13 @@
 
 namespace WebExpress.UI.Controls
 {
-    public class ControlPanelNotification : ControlPanel
+    public class ControlPanelToast : ControlPanel
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="id">Die ID</param>
-        public ControlPanelNotification(string id)
+        public ControlPanelToast(string id)
             : base(id)
         {
         }

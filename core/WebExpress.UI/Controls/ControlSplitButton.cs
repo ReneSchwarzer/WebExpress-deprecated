@@ -50,7 +50,6 @@ namespace WebExpress.UI.Controls
         /// </summary>
         private void Init()
         {
-            Disabled = false;
             Size = TypeSizeButton.Default;
             Items = new List<Control>();
         }
@@ -140,10 +139,10 @@ namespace WebExpress.UI.Controls
                     break;
             }
 
-            if (Disabled)
-            {
-                buttonClasses.Add("disabled");
-            }
+            //if (Disabled)
+            //{
+            //    buttonClasses.Add("disabled");
+            //}
 
             var html = base.Render(context);
 

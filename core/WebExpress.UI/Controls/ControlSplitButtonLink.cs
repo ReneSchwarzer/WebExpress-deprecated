@@ -90,7 +90,6 @@ namespace WebExpress.UI.Controls
         /// </summary>
         private void Init()
         {
-            Disabled = false;
             Size = TypeSizeButton.Default;
             Role = "button";
             ClassButton = "";
@@ -209,11 +208,11 @@ namespace WebExpress.UI.Controls
                     break;
             }
 
-            if (Disabled)
-            {
-                Classes.Add("disabled");
-                buttonClasses.Add("disabled");
-            }
+            //if (Disabled)
+            //{
+            //    Classes.Add("disabled");
+            //    buttonClasses.Add("disabled");
+            //}
 
             var html = new HtmlElementTextSemanticsA(Text)
             {

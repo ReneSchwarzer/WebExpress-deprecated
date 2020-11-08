@@ -198,7 +198,7 @@ namespace WebExpress.UI.Controls
             {
                 Text = "Abbrechen",
                 Icon = new PropertyIcon(TypeIcon.Times),
-                Color = new PropertyColorButton(TypeColorButton.Danger),
+                BackgroundColor = new PropertyColorButton(TypeColorButton.Danger),
                 TextColor = new PropertyColorText(TypeColorText.White),
                 HorizontalAlignment = TypeHorizontalAlignment.Right,
                 Uri = Uri
