@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Security.Principal;
+using System.Linq;
 using WebExpress.Html;
 using WebExpress.UI.Controls;
+using WebExpress.UI.Plugin;
 
 namespace WebExpress.UI.Pages
 {
@@ -14,27 +15,7 @@ namespace WebExpress.UI.Pages
         /// <summary>
         /// Liefert oder setzt den Kopf
         /// </summary>
-        public ControlPanelHeader Header { get; protected set; } = new ControlPanelHeader("header");
-
-        /// <summary>
-        /// Liefert oder setzt den Kopf
-        /// </summary>
-        public ControlDropdown Hamburger { get; protected set; } = new ControlDropdown("hamburger");
-
-        /// <summary>
-        /// Liefert oder setzt den Anwendungsnamen
-        /// </summary>
-        public ControlText AppTitle { get; protected set; } = new ControlText("apptitle");
-
-        /// <summary>
-        /// Liefert oder setzt den den Bereich für die App-Funktionen
-        /// </summary>
-        public ControlPanel AppFunctions { get; protected set; } = new ControlPanel("appfunctions");
-        
-        /// <summary>
-        /// Liefert oder setzt die Schaltfläche zum schnellen Erzeugen neuer Inhalte
-        /// </summary>
-        public ControlSplitButton QuickCreate { get; protected set; } = new ControlSplitButton("quickcreate");
+        public ControlHeaderWebApp Header { get; protected set; } = new ControlHeaderWebApp("header");
 
         /// <summary>
         /// Liefert oder setzt den Inhalt
@@ -120,28 +101,16 @@ namespace WebExpress.UI.Pages
             Header.Fixed = TypeFixed.Top;
             Header.Styles = new List<string>(new[] { "position: sticky; top: 0; z-index: 99;" });
 
-            Hamburger.Width = 70;
-            Hamburger.Heigt = 60;
-            Hamburger.Image = Uri.Root.Append(Context.IconUrl);
-            Hamburger.Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None);
-
-            AppTitle.Text = Context.Name;
-            AppTitle.TextColor = new PropertyColorText(TypeColorText.White);
-            AppTitle.Format = TypeFormatText.H1;
-            AppTitle.Padding = new PropertySpacingPadding(PropertySpacing.Space.One);
-            AppTitle.Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.Null);
-
-            QuickCreate.Text = "Erstellen";
-            QuickCreate.BackgroundColor = new PropertyColorButton(TypeColorButton.Primary);
-            QuickCreate.Margin = new PropertySpacingMargin(PropertySpacing.Space.Auto, PropertySpacing.Space.None);
+            Header.Logo = Uri.Root.Append(Context.IconUrl);
+            Header.Title = Context.Name;
 
             Breadcrumb.Uri = Uri;
             Breadcrumb.Margin = new PropertySpacingMargin(PropertySpacing.Space.Null);
-            
+
             Toast.BackgroundColor = new PropertyColorBackgroundAlert(TypeColorBackground.Warning);
 
             Sidebar.BackgroundColor = new PropertyColorBackground(TypeColorBackground.Light);
-            
+
             PageTitle.Text = Title;
             PageTitle.Format = TypeFormatText.H2;
             PageTitle.TextColor = new PropertyColorText(TypeColorText.Dark);
@@ -155,7 +124,20 @@ namespace WebExpress.UI.Pages
         /// </summary>
         public override void Process()
         {
-            base.Process();          
+            base.Process();
+
+            var hamburgerPrimary = Context.Host.CreatePluginComponet<IPluginComponentHamburgerPrimary>();
+            Header.HamburgerPrimary.AddRange(hamburgerPrimary.Where(x => x != null));
+            
+            var hamburgerSecondary = Context.Host.CreatePluginComponet<IPluginComponentHamburgerSecondary>();
+            Header.HamburgerSecondary.AddRange(hamburgerSecondary.Where(x => x != null));
+
+            var appNavigationPrimary = Context.Host.CreatePluginComponet<IPluginComponentAppNavigationPrimary>();
+            Header.NavigationPrimary.AddRange(appNavigationPrimary.Where(x => x != null));
+
+            var appNavigationSecondary = Context.Host.CreatePluginComponet<IPluginComponentAppNavigationSecondary>();
+            Header.NavigationSecondary.AddRange(appNavigationSecondary.Where(x => x != null));
+
         }
 
         /// <summary>
@@ -164,17 +146,9 @@ namespace WebExpress.UI.Pages
         /// <returns>Die Seite als HTML-Baum</returns>
         public override IHtmlNode Render()
         {
-            Header.Content.Add(new ControlPanelFlexbox
-            (
-                Hamburger,
-                AppTitle,
-                AppFunctions.Content.Count > 0 ? AppFunctions : null,
-                QuickCreate
-            )
-            {
-                Layout = TypeLayoutFlexbox.Default,
-                Align = TypeAlignFlexbox.Center
-            });
+
+
+            Header.Classes.Add("navbar");
 
             Sidebar.Content.Add(SidebarHeader);
             Sidebar.Content.Add(SidebarNavigation);
@@ -206,14 +180,14 @@ namespace WebExpress.UI.Pages
                     }
                 )
                 {
-                    
+
                 }
-            ) 
-            { 
-                Layout = TypeLayoutFlexbox.Default, 
-                Align = TypeAlignFlexbox.Stretch 
+            )
+            {
+                Layout = TypeLayoutFlexbox.Default,
+                Align = TypeAlignFlexbox.Stretch
             };
-            
+
 
             base.Content.Add(Header);
             base.Content.Add(Toast);

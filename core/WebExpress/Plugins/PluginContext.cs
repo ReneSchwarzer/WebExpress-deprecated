@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
 using WebExpress.Pages;
 
 namespace WebExpress.Plugins
@@ -40,6 +42,7 @@ namespace WebExpress.Plugins
             UrlBasePath = urlBasePath;
 
             Log = serverContext.Log;
+            Host = serverContext.Host;
         }
 
         /// <summary>
@@ -71,6 +74,7 @@ namespace WebExpress.Plugins
             UrlBasePath = context.UrlBasePath + urlBasePath;
 
             Log = context.Log;
+            Host = context.Host;
         }
 
         /// <summary>
@@ -117,5 +121,10 @@ namespace WebExpress.Plugins
         /// Liefert oder setzt das Log, zum schreiben von Statusnachrichten auf die Konsole und in eine Log-Datei
         /// </summary>
         public Log Log { get; protected set; }
+
+        /// <summary>
+        /// Verweis auf dem Webserver
+        /// </summary>
+        public IHost Host { get; protected set; }
     }
 }

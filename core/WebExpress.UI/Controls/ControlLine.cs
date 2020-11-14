@@ -5,7 +5,7 @@ using WebExpress.Pages;
 
 namespace WebExpress.UI.Controls
 {
-    public class ControlLine : Control
+    public class ControlLine : Control, IControlSplitButtonItem, IControlDropdownItem
     {
         /// <summary>
         /// Liefert oder setzt die Farbe des Textes

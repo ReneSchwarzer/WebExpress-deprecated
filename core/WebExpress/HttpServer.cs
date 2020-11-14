@@ -68,7 +68,7 @@ namespace WebExpress
             Queue = new Queue<TcpClient>();
             Plugins = new List<IPlugin>();
 
-            Context = new HttpServerContext(port, Environment.CurrentDirectory, Path.Combine(Environment.CurrentDirectory, "Config"), "", Log.Current);
+            Context = new HttpServerContext(port, Environment.CurrentDirectory, Path.Combine(Environment.CurrentDirectory, "Config"), "", Log.Current, this);
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace WebExpress
         public HttpServer(int port, HttpServerContext context)
             : this(port)
         {
-            Context = context;
+            Context = new HttpServerContext(port, context.AssetBaseFolder, context.ConfigBaseFolder, context.UrlBasePath, context.Log, this);
         }
 
         /// <summary>
@@ -405,6 +405,33 @@ namespace WebExpress
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Erstellt Instanzen aus den Typen der geladenen Plugins
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<T> CreatePluginComponet<T>() where T : IPluginComponent
+        {
+            var list = new List<T>();
+            var name = typeof(T).FullName;
+
+            foreach (var p in Plugins)
+            {
+                var assembly = p.GetType().Assembly;
+                var types = assembly.GetExportedTypes();
+
+                foreach (var t in types)
+                {
+                    if (t.IsClass && t.IsPublic && t.GetInterface(name) != null)
+                    {
+                        var result = (T)assembly.CreateInstance(t.FullName);
+                        list.Add(result);
+                    }
+                }
+            }
+
+            return list;
         }
 
         /// <summary>

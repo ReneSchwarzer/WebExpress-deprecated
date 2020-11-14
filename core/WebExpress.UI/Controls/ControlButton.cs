@@ -5,7 +5,7 @@ using WebExpress.Pages;
 
 namespace WebExpress.UI.Controls
 {
-    public class ControlButton : Control
+    public class ControlButton : Control, IControlButton
     {
         /// <summary>
         /// Liefert oder setzt die Farbe der Schaltfläche

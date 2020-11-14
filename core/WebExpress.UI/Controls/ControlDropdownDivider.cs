@@ -5,7 +5,7 @@ using WebExpress.Pages;
 
 namespace WebExpress.UI.Controls
 {
-    public class ControlDropdownDivider : Control
+    public class ControlDropdownDivider : Control, IControlDropdownItem, IControlSplitButtonItem
     {
         /// <summary>
         /// Konstruktor

@@ -4,7 +4,7 @@ using WebExpress.Pages;
 
 namespace WebExpress.UI.Controls
 {
-    public class ControlTab : Control
+    public class ControlNavigation : Control
     {
         /// <summary>
         /// Liefert oder setzt das Layout
@@ -45,13 +45,13 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt die Listeneinträge
         /// </summary>
-        public List<ControlLink> Items { get; private set; } = new List<ControlLink>();
+        public List<IControlNavigationItem> Items { get; private set; } = new List<IControlNavigationItem>();
 
         /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="id">Die ID</param>
-        public ControlTab(string id = null)
+        public ControlNavigation(string id = null)
             : base(id)
         {
             Init();
@@ -60,11 +60,38 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="links">Die Linkelemente</param>
-        public ControlTab(params ControlLink [] links)
+        /// <param name="items">Die Linkelemente</param>
+        public ControlNavigation(params IControlNavigationItem[] items)
             : base(null)
         {
-            Items.AddRange(links);
+            Items.AddRange(items);
+
+            Init();
+        }
+
+        /// <summary>
+        /// Konstruktor
+        /// </summary>
+        /// <param name="id">Die ID</param>
+        /// <param name="content">Der Inhalt</param>
+        public ControlNavigation(string id, IEnumerable<IControlNavigationItem> content)
+            : base(id)
+        {
+            Items.AddRange(content);
+
+            Init();
+        }
+
+        /// <summary>
+        /// Konstruktor
+        /// </summary>
+        /// <param name="content">Der Inhalt</param>
+        public ControlNavigation(IEnumerable<IControlNavigationItem> content)
+            : base(null)
+        {
+            Items.AddRange(content);
+
+            Init();
         }
 
         /// <summary>

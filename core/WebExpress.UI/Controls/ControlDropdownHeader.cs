@@ -4,7 +4,7 @@ using WebExpress.Pages;
 
 namespace WebExpress.UI.Controls
 {
-    public class ControlDropdownHeader : Control
+    public class ControlDropdownHeader : Control, IControlDropdownItem, IControlSplitButtonItem
     {
         /// <summary>
         /// Liefert oder setzt die Text

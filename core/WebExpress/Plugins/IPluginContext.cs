@@ -1,4 +1,8 @@
-﻿using WebExpress.Pages;
+﻿using Microsoft.VisualBasic;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using WebExpress.Pages;
 
 namespace WebExpress.Plugins
 {
@@ -51,5 +55,10 @@ namespace WebExpress.Plugins
         /// Liefert das Log, zum schreiben von Statusnachrichten auf die Konsole und in eine Log-Datei
         /// </summary>
         Log Log { get; }
+
+        /// <summary>
+        /// Verweis auf dem Webserver
+        /// </summary>
+        IHost Host { get; }
     }
 }

@@ -10,7 +10,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt die Bildquelle
         /// </summary>
-        public IUri Source { get; set; }
+        public IUri Uri { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Weite
@@ -45,7 +45,7 @@ namespace WebExpress.UI.Controls
         public ControlImage(string id, IUri source)
             : base(id)
         {
-            Source = source;
+            Uri = source;
 
             Init();
         }
@@ -73,7 +73,7 @@ namespace WebExpress.UI.Controls
                 Style = GetStyles(),
                 Role = Role,
                 Alt = Tooltip,
-                Src = Source?.ToString(),
+                Src = Uri?.ToString(),
             };
 
             if (!string.IsNullOrWhiteSpace(Tooltip))

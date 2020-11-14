@@ -10,22 +10,12 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt das Ziel
         /// </summary>
-        public string Target { get; set; }
+        public TypeTarget Target { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Ziel-Url
         /// </summary>
-        public string Url { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt die CSS-Klasse der Schaltfläche
-        /// </summary>
-        public string ClassButton { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt die CSS-Style der Schaltfläche
-        /// </summary>
-        public string StyleButton { get; set; }
+        public IUri Uri { get; set; }
 
         /// <summary>
         /// Konstruktor
@@ -42,10 +32,24 @@ namespace WebExpress.UI.Controls
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="content">Der Inhalt</param>
-        public ControlSplitButtonLink(string id, params Control[] content)
-            : this(id)
+        public ControlSplitButtonLink(string id, params IControlSplitButtonItem[] content)
+            : base(id)
         {
             Items.AddRange(content);
+
+            Init();
+        }
+
+        /// <summary>
+        /// Konstruktor
+        /// </summary>
+        /// <param name="content">Der Inhalt</param>
+        public ControlSplitButtonLink(params IControlSplitButtonItem[] content)
+            : base(id: null)
+        {
+            Items.AddRange(content);
+
+            Init();
         }
 
         /// <summary>
@@ -53,17 +57,32 @@ namespace WebExpress.UI.Controls
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="content">Der Inhalt</param>
-        public ControlSplitButtonLink(string id, IEnumerable<Control> content)
-            : this(id)
+        public ControlSplitButtonLink(string id, IEnumerable<IControlSplitButtonItem> content)
+            : base(id)
         {
             Items.AddRange(content);
+
+            Init();
+        }
+
+        /// <summary>
+        /// Konstruktor
+        /// </summary>
+        /// <param name="id">Die ID</param>
+        /// <param name="content">Der Inhalt</param>
+        public ControlSplitButtonLink(IEnumerable<IControlSplitButtonItem> content)
+            : base(id: null)
+        {
+            Items.AddRange(content);
+
+            Init();
         }
 
         /// <summary>
         /// Fügt ein neues Item hinzu
         /// </summary>
         /// <param name="item"></param>
-        public void Add(Control item)
+        public void Add(IControlSplitButtonItem item)
         {
             Items.Add(item);
         }
@@ -92,14 +111,13 @@ namespace WebExpress.UI.Controls
         {
             Size = TypeSizeButton.Default;
             Role = "button";
-            ClassButton = "";
         }
 
         /// <summary>
         /// Fügt Einträge hinzu
         /// </summary>
         /// <param name="item">Die Einträge welcher hinzugefügt werden sollen</param>
-        public void Add(params Control[] item)
+        public void Add(params IControlSplitButtonItem[] item)
         {
             Items.AddRange(item);
         }
@@ -111,152 +129,128 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            Classes.Add("btn");
-
-            var containerClasses = new List<string>
-            {
-                ClassContainer,
-                "btn-group",
-                "btn-group-toggle"
-            };
-
-            var buttonClasses = new List<string>
-            {
-                ClassDropDown,
-                "btn",
-                "dropdown-toggle"
-            };
-
-            //if (Outline)
-            //{
-            //    switch (Color)
-            //    {
-            //        case TypeColorButton.Primary:
-            //            Classes.Add("btn-outline-primary");
-            //            buttonClasses.Add("btn-outline-primary");
-            //            break;
-            //        case TypeColorButton.Success:
-            //            Classes.Add("btn-outline-success");
-            //            buttonClasses.Add("btn-outline-success");
-            //            break;
-            //        case TypeColorButton.Info:
-            //            Classes.Add("btn-outline-info");
-            //            buttonClasses.Add("btn-outline-info");
-            //            break;
-            //        case TypeColorButton.Warning:
-            //            Classes.Add("btn-outline-warning");
-            //            buttonClasses.Add("btn-outline-warning");
-            //            break;
-            //        case TypeColorButton.Danger:
-            //            Classes.Add("btn-outline-danger");
-            //            buttonClasses.Add("btn-outline-danger");
-            //            break;
-            //        case TypeColorButton.Light:
-            //            Classes.Add("btn-outline-light");
-            //            buttonClasses.Add("btn-outline-light");
-            //            break;
-            //        case TypeColorButton.Dark:
-            //            Classes.Add("btn-outline-dark");
-            //            buttonClasses.Add("btn-outline-dark");
-            //            break;
-            //    }
-            //}
-            //else
-            //{
-            //    switch (Color)
-            //    {
-            //        case TypeColorButton.Primary:
-            //            Classes.Add("btn-primary");
-            //            buttonClasses.Add("btn-primary");
-            //            break;
-            //        case TypeColorButton.Success:
-            //            Classes.Add("btn-success");
-            //            buttonClasses.Add("btn-success");
-            //            break;
-            //        case TypeColorButton.Info:
-            //            Classes.Add("btn-info");
-            //            buttonClasses.Add("btn-info");
-            //            break;
-            //        case TypeColorButton.Warning:
-            //            Classes.Add("btn-warning");
-            //            buttonClasses.Add("btn-warning");
-            //            break;
-            //        case TypeColorButton.Danger:
-            //            Classes.Add("btn-danger");
-            //            buttonClasses.Add("btn-danger");
-            //            break;
-            //        case TypeColorButton.Light:
-            //            Classes.Add("btn-light");
-            //            buttonClasses.Add("btn-light");
-            //            break;
-            //        case TypeColorButton.Dark:
-            //            Classes.Add("btn-dark");
-            //            buttonClasses.Add("btn-dark");
-            //            break;
-            //    }
-            //}
-
-            switch (Size)
-            {
-                case TypeSizeButton.Large:
-                    Classes.Add("btn-lg");
-                    buttonClasses.Add("btn-lg");
-                    break;
-                case TypeSizeButton.Small:
-                    Classes.Add("btn-sm");
-                    buttonClasses.Add("btn-sm");
-                    break;
-            }
-
-            //if (Disabled)
-            //{
-            //    Classes.Add("disabled");
-            //    buttonClasses.Add("disabled");
-            //}
-
-            var html = new HtmlElementTextSemanticsA(Text)
-            {
-                ID = ID,
-                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Role = Role,
-                Href = Url
-            };
-
-            var dropdownButton = new HtmlElementTextContentP()
+            var button = new HtmlElementTextSemanticsA()
             {
                 ID = string.IsNullOrWhiteSpace(ID) ? "" : ID + "_btn",
-                Class = string.Join(" ", buttonClasses.Where(x => !string.IsNullOrWhiteSpace(x))),
-                //Style = StyleButton,
+                Class = Css.Concatenate("btn", Css.Remove(GetClasses(), Margin.ToClass())),
+                Style = GetStyles(),
+                Target = Target,
+                Href = Uri?.ToString()
+            };
+
+            if (Icon != null && Icon.HasIcon)
+            {
+                button.Elements.Add(new ControlIcon()
+                {
+                    Icon = Icon,
+                    Margin = !string.IsNullOrWhiteSpace(Text) ? new PropertySpacingMargin
+                    (
+                        PropertySpacing.Space.None,
+                        PropertySpacing.Space.Two,
+                        PropertySpacing.Space.None,
+                        PropertySpacing.Space.None
+                    ) : new PropertySpacingMargin(PropertySpacing.Space.None),
+                    VerticalAlignment = Icon.IsUserIcon ? TypeVerticalAlignment.TextBottom : TypeVerticalAlignment.Default
+                }.Render(context));
+            }
+
+            if (!string.IsNullOrWhiteSpace(Text))
+            {
+                button.Elements.Add(new HtmlText(Text));
+            }
+
+            if (Modal != null)
+            {
+                button.AddUserAttribute("data-toggle", "modal");
+                button.AddUserAttribute("data-target", "#" + Modal.ID);
+            }
+
+            var dropdownButton = new HtmlElementTextSemanticsSpan(new HtmlElementTextSemanticsSpan() { Class = "caret" })
+            {
+                ID = string.IsNullOrWhiteSpace(ID) ? "" : ID + "_btn",
+                Class = Css.Concatenate("btn dropdown-toggle dropdown-toggle-split", Css.Remove(GetClasses(), "btn-block", Margin.ToClass())),
+                Style = GetStyles(),
                 DataToggle = "dropdown"
             };
 
             var dropdownElements = new HtmlElementTextContentUl
-            (
-                Items.Select
                 (
-                    x =>
-                    x == null ?
-                    new HtmlElementTextContentLi() { Class = "dropdown-divider", Inline = true } :
-                    x is ControlDropdownHeader ?
-                    x.Render(context) :
-                    new HtmlElementTextContentLi(x.Render(context).AddClass("dropdown-item")) { }
+                    Items.Select
+                    (
+                        x =>
+                        x == null || x is ControlDropdownDivider || x is ControlLine ?
+                        new HtmlElementTextContentLi() { Class = "dropdown-divider", Inline = true } :
+                        x is ControlDropdownHeader ?
+                        x.Render(context) :
+                        new HtmlElementTextContentLi(x.Render(context)) { Class = "dropdown-item" }
+                    )
                 )
-            )
             {
                 Class = HorizontalAlignment == TypeHorizontalAlignment.Right ? "dropdown-menu dropdown-menu-right" : "dropdown-menu"
             };
 
-            if (Modal != null)
+            var html = new HtmlElementTextContentDiv
+            (
+                Modal != null ? (IHtmlNode)new HtmlList(button, Modal.Render(context)) : button,
+                dropdownButton,
+                dropdownElements
+            )
             {
-                html.AddUserAttribute("data-toggle", "modal");
-                html.AddUserAttribute("data-target", "#" + Modal.ID);
-            }
-
-            return new HtmlElementTextContentDiv(html, dropdownButton, dropdownElements, Modal?.Render(context))
-            {
-                Class = string.Join(" ", containerClasses.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Class = Css.Concatenate
+                (
+                    "btn-group ",
+                    Margin.ToClass(),
+                    (Block == TypeBlockButton.Block ? "btn-block" : "")
+                ),
+                Role = Role
             };
+
+            return html;
+
+
+            //var html = new HtmlElementTextSemanticsA(Text)
+            //{
+            //    ID = ID,
+            //    Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+            //    Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+            //    Role = Role,
+            //    Href = Url
+            //};
+
+            //var dropdownButton = new HtmlElementTextContentP()
+            //{
+            //    ID = string.IsNullOrWhiteSpace(ID) ? "" : ID + "_btn",
+            //    //Class = string.Join(" ", buttonClasses.Where(x => !string.IsNullOrWhiteSpace(x))),
+            //    //Style = StyleButton,
+            //    DataToggle = "dropdown"
+            //};
+
+            //var dropdownElements = new HtmlElementTextContentUl
+            //(
+            //    Items.Select
+            //    (
+            //        x =>
+            //        x == null ?
+            //        new HtmlElementTextContentLi() { Class = "dropdown-divider", Inline = true } :
+            //        x is ControlDropdownHeader ?
+            //        x.Render(context) :
+            //        new HtmlElementTextContentLi(x.Render(context).AddClass("dropdown-item")) { }
+            //    )
+            //)
+            //{
+            //    Class = HorizontalAlignment == TypeHorizontalAlignment.Right ? "dropdown-menu dropdown-menu-right" : "dropdown-menu"
+            //};
+
+            ////if (Modal != null)
+            ////{
+            ////    html.AddUserAttribute("data-toggle", "modal");
+            ////    html.AddUserAttribute("data-target", "#" + Modal.ID);
+            ////}
+
+            //return new HtmlElementTextContentDiv(html, dropdownButton, dropdownElements/*, Modal?.Render(context)*/)
+            //{
+            //    //Class = string.Join(" ", containerClasses.Where(x => !string.IsNullOrWhiteSpace(x))),
+            //};
         }
     }
 }

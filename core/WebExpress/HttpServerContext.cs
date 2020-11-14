@@ -18,14 +18,15 @@ namespace WebExpress
         /// <param name="configBaseFolder">Konfigurationserzeichnis</param>
         /// <param name="urlBasePath">Der Basispfad des Servers</param>
         /// <param name="log">Log</param>
-        /// <param name="parser">Parser zur Substitution von Zeichenketten</param>
+        /// <param name="host">Verweis auf den Host</param>
         public HttpServerContext
         (
             int port,
             string assetBaseFolder,
             string configBaseFolder,
             string urlBasePath,
-            Log log
+            Log log,
+            IHost host = null
         )
         {
             var assembly = typeof(HttpServer).Assembly;
@@ -49,6 +50,7 @@ namespace WebExpress
             UrlBasePath = urlBasePath;
 
             Log = log;
+            Host = host;
         }
 
         /// <summary>
@@ -80,5 +82,10 @@ namespace WebExpress
         /// Liefert oder setzt das Log, zum schreiben von Statusnachrichten auf die Konsole und in eine Log-Datei
         /// </summary>
         public Log Log { get; protected set; }
+
+        /// <summary>
+        /// Liefert oder setzt den Host
+        /// </summary>
+        public IHost Host  { get; protected set; }
     }
 }

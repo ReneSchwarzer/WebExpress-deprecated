@@ -4,12 +4,12 @@ using WebExpress.Html;
 
 namespace WebExpress.UI.Controls
 {
-    public class ControlDropdown : Control
+    public class ControlDropdown : Control, IControlNavigationItem
     {
         /// <summary>
         /// Liefert oder setzt den Inhalt
         /// </summary>
-        protected List<Control> Items { get; private set; } = new List<Control>();
+        public List<IControlDropdownItem> Items { get; private set; } = new List<IControlDropdownItem>();
 
         /// <summary>
         /// Liefert oder setzt die Farbe der Schaltfläche
@@ -84,7 +84,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt die Höhe
         /// </summary>
-        public int Heigt { get; set; }
+        public int Height { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Weite
@@ -106,7 +106,7 @@ namespace WebExpress.UI.Controls
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="content">Der Inhalt</param>
-        public ControlDropdown(string id, params Control[] content)
+        public ControlDropdown(string id, params IControlDropdownItem[] content)
             : base(id)
         {
             Items.AddRange(content);
@@ -118,7 +118,7 @@ namespace WebExpress.UI.Controls
         /// Konstruktor
         /// </summary>
         /// <param name="content">Der Inhalt</param>
-        public ControlDropdown(params Control[] content)
+        public ControlDropdown(params IControlDropdownItem[] content)
             : base(null)
         {
             Items.AddRange(content);
@@ -131,7 +131,7 @@ namespace WebExpress.UI.Controls
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="content">Der Inhalt</param>
-        public ControlDropdown(string id, IEnumerable<Control> content)
+        public ControlDropdown(string id, IEnumerable<IControlDropdownItem> content)
             : base(id)
         {
             Items.AddRange(content);
@@ -143,7 +143,7 @@ namespace WebExpress.UI.Controls
         /// Konstruktor
         /// </summary>
         /// <param name="content">Der Inhalt</param>
-        public ControlDropdown(IEnumerable<Control> content)
+        public ControlDropdown(IEnumerable<IControlDropdownItem> content)
             : base(null)
         {
             Items.AddRange(content);
@@ -155,7 +155,7 @@ namespace WebExpress.UI.Controls
         /// Fügt ein neues Item hinzu
         /// </summary>
         /// <param name="item"></param>
-        public void Add(Control item)
+        public void Add(IControlDropdownItem item)
         {
             Items.Add(item);
         }
@@ -189,7 +189,7 @@ namespace WebExpress.UI.Controls
         /// Fügt Einträge hinzu
         /// </summary>
         /// <param name="item">Die Einträge welcher hinzugefügt werden sollen</param>
-        public void Add(params Control[] item)
+        public void Add(params IControlDropdownItem[] item)
         {
             Items.AddRange(item);
         }
@@ -201,14 +201,6 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-
-            //Classes.Add(HorizontalAlignment.ToClass());
-
-            //if (Block)
-            //{
-            //    buttonClasses.Add("btn-block");
-            //}
-
             var html = new HtmlElementTextContentDiv()
             {
                 ID = ID,
@@ -257,7 +249,7 @@ namespace WebExpress.UI.Controls
                     Class = Css.Concatenate("", GetClasses()),
                     Style = GetStyles(),
                     Src = Image.ToString(),
-                    Height = Heigt,
+                    Height = Height,
                     Width = Width,
                     DataToggle = "dropdown"
                 };

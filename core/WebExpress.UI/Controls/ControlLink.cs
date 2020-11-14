@@ -6,14 +6,23 @@ using WebExpress.Pages;
 
 namespace WebExpress.UI.Controls
 {
-    public class ControlLink : Control
+    public class ControlLink : Control, IControlLink, IControlNavigationItem, IControlDropdownItem, IControlSplitButtonItem
     {
         /// <summary>
-        /// Liefert oder setzt ob der Link aktiv ist
+        /// Bestimmt ob der Link aktiv ist oder nicht
         /// </summary>
         public TypeActive Active
         {
             get => (TypeActive)GetProperty();
+            set => SetProperty(value, () => value.ToClass());
+        }
+
+        /// <summary>
+        /// Bestimmt ob der Link unterstrichen ist oder nicht
+        /// </summary>
+        public TypeTextDecoration Decoration
+        {
+            get => (TypeTextDecoration)GetProperty(TypeTextDecoration.Default);
             set => SetProperty(value, () => value.ToClass());
         }
 

@@ -10,7 +10,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt den Inhalt
         /// </summary>
-        public List<Control> Content { get; private set; } = new List<Control>();
+        public List<IControl> Content { get; private set; } = new List<IControl>();
 
         /// <summary>
         /// Liefert oder setzt die Anordnung des Inhaltes
@@ -44,7 +44,7 @@ namespace WebExpress.UI.Controls
         /// Konstruktor
         /// </summary>
         /// <param name="content">Der Inhalt</param>
-        public ControlPanel(params Control[] content)
+        public ControlPanel(params IControl[] content)
             : this()
         {
             Content.AddRange(content.Where(x => x != null));
@@ -55,7 +55,7 @@ namespace WebExpress.UI.Controls
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="content">Der Inhalt</param>
-        public ControlPanel(string id, params Control[] content)
+        public ControlPanel(string id, params IControl[] content)
             : this(id)
         {
             Content.AddRange(content.Where(x => x != null));
@@ -66,7 +66,7 @@ namespace WebExpress.UI.Controls
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="content">Der Inhalt</param>
-        public ControlPanel(string id, IEnumerable<Control> content)
+        public ControlPanel(string id, IEnumerable<IControl> content)
             : this(id)
         {
             Content.AddRange(content.Where(x => x != null));
@@ -77,7 +77,7 @@ namespace WebExpress.UI.Controls
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="content">Der Inhalt</param>
-        public ControlPanel(string id, List<Control> content)
+        public ControlPanel(string id, List<IControl> content)
             : base(id)
         {
             Content = content;

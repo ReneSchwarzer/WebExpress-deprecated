@@ -58,7 +58,7 @@ namespace WebExpress.UI.Controls
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="content">Die Listeneinträge</param>
-        public ControlPanelFlexbox(string id, params Control[] content)
+        public ControlPanelFlexbox(string id, params IControl[] content)
             : base(id, content)
         {
             Init();
@@ -68,7 +68,7 @@ namespace WebExpress.UI.Controls
         /// Konstruktor
         /// </summary>
         /// <param name="content">Die Listeneinträge</param>
-        public ControlPanelFlexbox(params Control[] content)
+        public ControlPanelFlexbox(params IControl[] content)
             : base(null, content)
         {
             Init();
@@ -79,7 +79,7 @@ namespace WebExpress.UI.Controls
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="items">Die Listeneinträge</param>
-        public ControlPanelFlexbox(string id, List<Control> content)
+        public ControlPanelFlexbox(string id, IEnumerable<IControl> content)
             : base(id, content)
         {
             Init();
@@ -89,7 +89,7 @@ namespace WebExpress.UI.Controls
         /// Konstruktor
         /// </summary>
         /// <param name="items">Die Listeneinträge</param>
-        public ControlPanelFlexbox(List<Control> content)
+        public ControlPanelFlexbox(IEnumerable<IControl> content)
             : base(null, content)
         {
             Init();

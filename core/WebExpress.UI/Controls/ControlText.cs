@@ -8,6 +8,15 @@ namespace WebExpress.UI.Controls
     public class ControlText : Control
     {
         /// <summary>
+        /// Liefert oder setzt die Farbe des Textes
+        /// </summary>
+        public new virtual PropertyColorText TextColor
+        {
+            get => (PropertyColorText)GetPropertyObject();
+            set => SetProperty(value, () => value?.ToClass(), () => value?.ToStyle());
+        }
+
+        /// <summary>
         /// Liefert oder setzt das Format des Textes
         /// </summary>
         public TypeFormatText Format { get; set; }
