@@ -38,6 +38,15 @@ namespace WebExpress.UI.Controls
         }
 
         /// <summary>
+        /// Die Rahmenfarbe
+        /// </summary>
+        public virtual PropertyColorBorder BorderColor
+        {
+            get => (PropertyColorBorder)GetPropertyObject();
+            set => SetProperty(value, () => value?.ToClass(), () => value?.ToStyle());
+        }
+
+        /// <summary>
         /// Padding
         /// </summary>
         public virtual PropertySpacingPadding Padding

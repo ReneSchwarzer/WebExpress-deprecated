@@ -12,22 +12,31 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt die Anzahl der Seiten
         /// </summary>
-        public int Count { get; set; }
+        public int PageCount { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Seitengröße
         /// </summary>
-        public int Size { get; set; }
+        public int PageSize { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die aktuelle Seite
         /// </summary>
-        public int Offset { get; set; }
+        public int PageOffset { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die maximale Anzahl der Seitenschaltflächen
         /// </summary>
         public int MaxDisplayCount { get; set; }
+
+        /// <summary>
+        /// Liefert oder setzt die Größe
+        /// </summary>
+        public TypeSizePagination Size
+        {
+            get => (TypeSizePagination)GetProperty(TypeSizePagination.Default);
+            set => SetProperty(value, () => value.ToClass());
+        }
 
         /// <summary>
         /// Konstruktor
@@ -62,27 +71,24 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            Classes.Add("pagination");
-            Classes.Add(HorizontalAlignment.ToClass());
-
             var html = new HtmlElementTextContentUl()
             {
-                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Class = Css.Concatenate("pagination", Css.Remove(GetClasses(), BackgroundColor?.ToClass(), BorderColor?.ToClass())),
+                Style = Style.Remove(GetStyles(), BackgroundColor.ToStyle()),
                 Role = Role
             };
 
-            if (Offset >= Count)
+            if (PageOffset >= PageCount)
             {
-                Offset = Count - 1;
+                PageOffset = PageCount - 1;
             }
 
-            if (Offset < 0)
+            if (PageOffset < 0)
             {
-                Offset = 0;
+                PageOffset = 0;
             }
 
-            if (Offset > 0 && Count > 1)
+            if (PageOffset > 0 && PageCount > 1)
             {
                 html.Elements.Add
                 (
@@ -90,8 +96,8 @@ namespace WebExpress.UI.Controls
                     (
                         new ControlLink()
                         {
-                            Params = Parameter.Create(new Parameter("offset", Offset - 1) { Scope = ParameterScope.Local }),
-                            Classes = new List<string>(new[] { "page-link", "fas fa-angle-left" })
+                            Params = Parameter.Create(new Parameter("offset", PageOffset - 1) { Scope = ParameterScope.Local }),
+                            Classes = new List<string>(new[] { "page-link", "fas fa-angle-left", "border-0" })
                         }.Render(context)
                     )
                     {
@@ -108,7 +114,7 @@ namespace WebExpress.UI.Controls
                         new ControlLink()
                         {
                             Params = Parameter.Create(),
-                            Classes = new List<string>(new[] { "page-link", "fas fa-angle-left" })
+                            Classes = new List<string>(new[] { "page-link", "fas fa-angle-left", "border-0" })
                         }.Render(context)
                     )
                     {
@@ -122,19 +128,19 @@ namespace WebExpress.UI.Controls
             var j = 0;
             var k = 0;
 
-            buf.Add(Offset);
-            while (buf.Count < Math.Min(Count, MaxDisplayCount))
+            buf.Add(PageOffset);
+            while (buf.Count < Math.Min(PageCount, MaxDisplayCount))
             {
-                if (Offset + j + 1 < Count)
+                if (PageOffset + j + 1 < PageCount)
                 {
                     j += 1;
-                    buf.Add(Offset + j);
+                    buf.Add(PageOffset + j);
                 }
 
-                if (Offset - k - 1 >= 0)
+                if (PageOffset - k - 1 >= 0)
                 {
                     k += 1;
-                    buf.Add(Offset - k);
+                    buf.Add(PageOffset - k);
                 }
             }
 
@@ -142,7 +148,7 @@ namespace WebExpress.UI.Controls
 
             foreach (var v in buf)
             {
-                if (v == Offset)
+                if (v == PageOffset)
                 {
                     html.Elements.Add
                     (
@@ -150,8 +156,10 @@ namespace WebExpress.UI.Controls
                         (
                             new ControlLink(null, (v + 1).ToString())
                             {
+                                BackgroundColor = BackgroundColor,
                                 Params = Parameter.Create(new Parameter("offset", v) { Scope = ParameterScope.Local }),
-                                Classes = new List<string>(new[] { "page-link" })
+                                Classes = new List<string>() { Css.Concatenate("page-link border-0") },
+                                Styles = new List<string>() { Style.Concatenate("", BackgroundColor.ToStyle()) }
                             }.Render(context)
                         )
                         {
@@ -168,7 +176,7 @@ namespace WebExpress.UI.Controls
                             new ControlLink(null, (v + 1).ToString())
                             {
                                 Params = Parameter.Create(new Parameter("offset", v) { Scope = ParameterScope.Local }),
-                                Classes = new List<string>(new[] { "page-link" })
+                                Classes = new List<string>(new[] { "page-link border-0" })
                             }.Render(context)
                         )
                         {
@@ -178,7 +186,7 @@ namespace WebExpress.UI.Controls
                 }
             }
 
-            if (Offset < Count - 1)
+            if (PageOffset < PageCount - 1)
             {
                 html.Elements.Add
                 (
@@ -186,8 +194,8 @@ namespace WebExpress.UI.Controls
                     (
                         new ControlLink()
                         {
-                            Params = Parameter.Create(new Parameter("offset", Offset + 1) { Scope = ParameterScope.Local }),
-                            Classes = new List<string>(new[] { "page-link", "fas fa-angle-right" })
+                            Params = Parameter.Create(new Parameter("offset", PageOffset + 1) { Scope = ParameterScope.Local }),
+                            Classes = new List<string>(new[] { "page-link", "fas fa-angle-right", "border-0" })
                         }.Render(context)
                     )
                     {
@@ -204,7 +212,7 @@ namespace WebExpress.UI.Controls
                         new ControlLink()
                         {
                             Params = Parameter.Create(),
-                            Classes = new List<string>(new[] { "page-link", "fas fa-angle-right" })
+                            Classes = new List<string>(new[] { "page-link", "fas fa-angle-right", "border-0" })
                         }.Render(context)
                     )
                     {
