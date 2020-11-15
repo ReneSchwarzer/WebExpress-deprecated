@@ -146,7 +146,7 @@ namespace WebExpress.UI.Controls
                 HorizontalAlignment = TypeHorizontalAlignment.Right,
                 Size = TypeSizeButton.Small
             };
-            setting.Add(new ControlLink()
+            setting.Add(new ControlDropdownItemLink()
             {
                 Text = "Löschen",
                 Icon = new PropertyIcon(TypeIcon.TrashAlt),

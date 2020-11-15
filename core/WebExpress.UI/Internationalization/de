@@ -1,1 +1,6 @@
-﻿webexpress.ui.quickcreate.label=Erstellen
+﻿# Deutsch
+webexpress.ui.quickcreate.label=Erstellen
+webexpress.ui.form.submit.label=Speichern
+webexpress.ui.form.next.label=Speichern und weiter
+webexpress.ui.form.cancel.label=Abbrechen
+webexpress.ui.modal.close.label=Schließen

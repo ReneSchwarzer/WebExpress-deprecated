@@ -1,1 +1,6 @@
-﻿webexpress.ui.quickcreate.label=Create
+﻿# Englisch
+webexpress.ui.quickcreate.label=Create
+webexpress.ui.form.submit.label=Submit
+webexpress.ui.form.next.label=Next
+webexpress.ui.form.cancel.label=Cancel
+webexpress.ui.modal.close.label=Close

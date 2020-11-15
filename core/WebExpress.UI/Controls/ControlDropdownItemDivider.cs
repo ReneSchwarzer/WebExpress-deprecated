@@ -3,13 +3,13 @@ using WebExpress.Html;
 
 namespace WebExpress.UI.Controls
 {
-    public class ControlDropdownDivider : Control, IControlDropdownItem, IControlSplitButtonItem
+    public class ControlDropdownItemDivider : Control, IControlDropdownItem
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="id">Die ID</param>
-        public ControlDropdownDivider(string id = null)
+        public ControlDropdownItemDivider(string id = null)
             : base(id)
         {
             Init();
@@ -29,13 +29,11 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            Classes.Add("dropdown-divider");
-
             var html = new HtmlElementTextContentDiv()
             {
                 ID = ID,
-                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Class = Css.Concatenate("dropdown-divider", GetClasses()),
+                Style = GetStyles(),
                 Role = Role
             };
 

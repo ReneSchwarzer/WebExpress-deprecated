@@ -42,6 +42,21 @@ namespace WebExpress.UI.Controls
         }
 
         /// <summary>
+        /// Liefert oder setzt die aktive Farbe
+        /// </summary>
+        public PropertyColorBackground ActiveColor { get; set; }
+
+        /// <summary>
+        /// Liefert oder setzt die aktive Farbe
+        /// </summary>
+        public PropertyColorText ActiveTextColor { get; set; }
+
+        /// <summary>
+        /// Liefert oder setzt die normale Farbe
+        /// </summary>
+        public PropertyColorText LinkColor { get; set; }
+
+        /// <summary>
         /// Liefert oder setzt die Listeneinträge
         /// </summary>
         public List<IControlNavigationItem> Items { get; private set; } = new List<IControlNavigationItem>();
@@ -98,6 +113,9 @@ namespace WebExpress.UI.Controls
         /// </summary>
         private void Init()
         {
+            ActiveColor = LayoutSchema.NavigationActiveBackground;
+            ActiveTextColor = LayoutSchema.NavigationActive;
+            LinkColor = LayoutSchema.NavigationLink;
         }
 
         /// <summary>
@@ -111,7 +129,60 @@ namespace WebExpress.UI.Controls
             foreach (var item in Items)
             {
                 var i = item.Render(context) as HtmlElement;
-                i.AddClass("nav-link");
+
+                if (item is ControlNavigationItemLink link)
+                {
+                    i.RemoveClass(link.TextColor?.ToClass());
+                    i.RemoveStyle(link.TextColor?.ToStyle());
+
+                    i.AddClass
+                    (
+                        Css.Concatenate
+                        (
+                            "nav-link", 
+                            link.Active == TypeActive.Active ? ActiveColor?.ToClass() : "",
+                            link.Active == TypeActive.Active ? ActiveTextColor?.ToClass() : LinkColor?.ToClass()
+                        )
+                    );
+                    
+                    i.AddStyle
+                    (
+                        Style.Concatenate
+                        (
+                            link.Active == TypeActive.Active ? ActiveColor?.ToStyle() : "",
+                            link.Active == TypeActive.Active ? ActiveTextColor?.ToStyle() : LinkColor?.ToStyle()
+                        )
+                    );
+
+                    
+                }
+                else if (item is ControlNavigationItemDropdown dropdown)
+                {
+                    i.RemoveClass(dropdown.TextColor?.ToClass());
+                    i.RemoveStyle(dropdown.TextColor?.ToStyle());
+
+                    i.AddClass
+                    (
+                        Css.Concatenate
+                        (
+                            "nav-link",
+                            dropdown.Active == TypeActive.Active ? ActiveColor?.ToClass() : "",
+                            dropdown.Active == TypeActive.Active ? ActiveTextColor?.ToClass() : ""
+                        )
+                    );
+                    i.AddStyle
+                    (
+                        Style.Concatenate
+                        (
+                            dropdown.Active == TypeActive.Active ? ActiveColor?.ToStyle() : "",
+                            dropdown.Active == TypeActive.Active ? ActiveTextColor?.ToStyle() : ""
+                        )
+                    );
+                }
+                else
+                {
+                    i.AddClass(Css.Concatenate("nav-link"));
+                }
 
                 items.Add(new HtmlElementTextContentLi(i)
                 {

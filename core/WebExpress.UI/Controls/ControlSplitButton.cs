@@ -138,6 +138,7 @@ namespace WebExpress.UI.Controls
         private void Init()
         {
             Size = TypeSizeButton.Default;
+            BackgroundColor = LayoutSchema.ButtonBackground;
         }
 
         /// <summary>
@@ -194,9 +195,9 @@ namespace WebExpress.UI.Controls
                     Items.Select
                     (
                         x =>
-                        x == null || x is ControlDropdownDivider || x is ControlLine ?
+                        x == null || x is ControlDropdownItemDivider || x is ControlLine ?
                         new HtmlElementTextContentLi() { Class = "dropdown-divider", Inline = true } :
-                        x is ControlDropdownHeader ?
+                        x is ControlDropdownItemHeader ?
                         x.Render(context) :
                         new HtmlElementTextContentLi(x.Render(context)) { Class = "dropdown-item" }
                     )

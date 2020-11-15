@@ -15,6 +15,15 @@ namespace WebExpress.UI.Controls
         public string EmptyName { get; set; }
 
         /// <summary>
+        /// Liefert oder setzt die Größe
+        /// </summary>
+        public TypeSizeButton Size
+        {
+            get => (TypeSizeButton)GetProperty(TypeSizeButton.Default);
+            set => SetProperty(value, () => value.ToClass());
+        }
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="page">Die zugehörige Seite</param>
@@ -41,6 +50,7 @@ namespace WebExpress.UI.Controls
         /// </summary>
         private void Init()
         {
+            Size = LayoutSchema.BreadcrumbSize;
         }
 
         /// <summary>
@@ -52,7 +62,7 @@ namespace WebExpress.UI.Controls
         {
             var html = new HtmlElementTextContentUl()
             {
-                Class = Css.Concatenate("breadcrumb", GetClasses()),
+                Class = Css.Concatenate("breadcrumb rounded-0", GetClasses()),
                 Style = GetStyles(),
             };
 

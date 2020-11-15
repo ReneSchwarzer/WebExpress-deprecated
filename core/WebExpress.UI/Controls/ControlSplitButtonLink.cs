@@ -100,7 +100,7 @@ namespace WebExpress.UI.Controls
         /// <param name="text">Der Überschriftstext</param>
         public void AddHeader(string text)
         {
-            Items.Add(new ControlDropdownHeader() { Text = text });
+            Items.Add(new ControlSplitButtonItemHeader() { Text = text });
         }
 
         /// <summary>
@@ -177,9 +177,9 @@ namespace WebExpress.UI.Controls
                     Items.Select
                     (
                         x =>
-                        x == null || x is ControlDropdownDivider || x is ControlLine ?
+                        x == null || x is ControlDropdownItemDivider || x is ControlLine ?
                         new HtmlElementTextContentLi() { Class = "dropdown-divider", Inline = true } :
-                        x is ControlDropdownHeader ?
+                        x is ControlDropdownItemHeader ?
                         x.Render(context) :
                         new HtmlElementTextContentLi(x.Render(context)) { Class = "dropdown-item" }
                     )
@@ -205,51 +205,6 @@ namespace WebExpress.UI.Controls
             };
 
             return html;
-
-
-            //var html = new HtmlElementTextSemanticsA(Text)
-            //{
-            //    ID = ID,
-            //    Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-            //    Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
-            //    Role = Role,
-            //    Href = Url
-            //};
-
-            //var dropdownButton = new HtmlElementTextContentP()
-            //{
-            //    ID = string.IsNullOrWhiteSpace(ID) ? "" : ID + "_btn",
-            //    //Class = string.Join(" ", buttonClasses.Where(x => !string.IsNullOrWhiteSpace(x))),
-            //    //Style = StyleButton,
-            //    DataToggle = "dropdown"
-            //};
-
-            //var dropdownElements = new HtmlElementTextContentUl
-            //(
-            //    Items.Select
-            //    (
-            //        x =>
-            //        x == null ?
-            //        new HtmlElementTextContentLi() { Class = "dropdown-divider", Inline = true } :
-            //        x is ControlDropdownHeader ?
-            //        x.Render(context) :
-            //        new HtmlElementTextContentLi(x.Render(context).AddClass("dropdown-item")) { }
-            //    )
-            //)
-            //{
-            //    Class = HorizontalAlignment == TypeHorizontalAlignment.Right ? "dropdown-menu dropdown-menu-right" : "dropdown-menu"
-            //};
-
-            ////if (Modal != null)
-            ////{
-            ////    html.AddUserAttribute("data-toggle", "modal");
-            ////    html.AddUserAttribute("data-target", "#" + Modal.ID);
-            ////}
-
-            //return new HtmlElementTextContentDiv(html, dropdownButton, dropdownElements/*, Modal?.Render(context)*/)
-            //{
-            //    //Class = string.Join(" ", containerClasses.Where(x => !string.IsNullOrWhiteSpace(x))),
-            //};
         }
     }
 }

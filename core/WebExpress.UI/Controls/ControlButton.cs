@@ -89,6 +89,7 @@ namespace WebExpress.UI.Controls
         {
             Size = TypeSizeButton.Default;
             Content = new List<Control>();
+            BackgroundColor = LayoutSchema.ButtonBackground;
         }
 
         /// <summary>

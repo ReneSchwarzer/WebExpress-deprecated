@@ -20,7 +20,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt den Navigationsbereich
         /// </summary>
-        public ControlPanelNavbar Navigation { get; protected set; } = new ControlPanelNavbar("sidebarnavigation");
+        public ControlNavigation Navigation { get; protected set; } = new ControlNavigation("sidebarnavigation");
 
         /// <summary>
         /// Konstruktor
@@ -37,7 +37,15 @@ namespace WebExpress.UI.Controls
         /// </summary>
         private void Init()
         {
-            BackgroundColor = new PropertyColorBackground(TypeColorBackground.Light);
+            BackgroundColor = LayoutSchema.SidebarBackground;
+
+            Navigation.Layout = TypeLayoutTab.Pill;
+            Navigation.Orientation = TypeOrientationTab.Vertical;
+            Navigation.GridColumn = new PropertyGrid(TypeDevice.Medium, 2);
+            
+            Navigation.ActiveColor = LayoutSchema.SidebarNavigationActiveBackground;
+            Navigation.ActiveTextColor = LayoutSchema.SidebarNavigationActive;
+            Navigation.LinkColor = LayoutSchema.SidebarNavigationLink;
         }
 
         /// <summary>
@@ -47,7 +55,7 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            if (Header.Content.Count == 0 && Navigation.Content.Count == 0 && Content.Content.Count == 0)
+            if (Header.Content.Count == 0 && Navigation.Items.Count == 0 && Content.Content.Count == 0)
             {
                 return null;
             }

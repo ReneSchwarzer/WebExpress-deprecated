@@ -81,6 +81,24 @@ namespace WebExpress.UI.Controls
         }
 
         /// <summary>
+        /// Die Weiten-Eigenschaft, wenn das Steuerelements
+        /// </summary>
+        public virtual TypeWidth Width
+        {
+            get => (TypeWidth)GetProperty(TypeWidth.Default);
+            set => SetProperty(value, () => value.ToClass());
+        }
+
+        /// <summary>
+        /// Die Höhen-Eigenschaft, wenn das Steuerelements
+        /// </summary>
+        public virtual TypeHeight Height
+        {
+            get => (TypeHeight)GetProperty(TypeHeight.Default);
+            set => SetProperty(value, () => value.ToClass());
+        }
+
+        /// <summary>
         /// Liefert oder setzt die ID
         /// </summary>
         public string ID { get; private set; }

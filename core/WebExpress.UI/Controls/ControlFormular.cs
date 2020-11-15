@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using WebExpress.Html;
 using WebExpress.Messages;
 
@@ -174,9 +175,9 @@ namespace WebExpress.UI.Controls
             SubmitButton = new ControlFormularItemButton()
             {
                 Name = "submit_" + Name.ToLower(),
-                Text = "Speichern",
+                Text = context.I18N(Assembly.GetExecutingAssembly(), "webexpress.ui.form.submit.label"),
                 Icon = new PropertyIcon(TypeIcon.Save),
-                Color = new PropertyColorButton(TypeColorButton.Success),
+                Color = LayoutSchema.SubmitButtonBackground,
                 Type = "submit",
                 Value = "1",
                 Margin = new PropertySpacingMargin(Layout == TypeLayoutFormular.Inline ? PropertySpacing.Space.Two : PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None)
@@ -185,9 +186,9 @@ namespace WebExpress.UI.Controls
             SubmitAndNextButton = new ControlFormularItemButton()
             {
                 Name = "next_" + Name.ToLower(),
-                Text = "Speichern und weiter",
+                Text = context.I18N(Assembly.GetExecutingAssembly(), "webexpress.ui.form.next.label"),
                 Icon = new PropertyIcon(TypeIcon.Forward),
-                Color = new PropertyColorButton(TypeColorButton.Success),
+                Color = LayoutSchema.NextButtonBackground,
                 Type = "submit",
                 Value = "1",
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None)
@@ -195,9 +196,9 @@ namespace WebExpress.UI.Controls
 
             CancelButton = new ControlButtonLink()
             {
-                Text = "Abbrechen",
+                Text = context.I18N(Assembly.GetExecutingAssembly(), "webexpress.ui.form.cancel.label"),
                 Icon = new PropertyIcon(TypeIcon.Times),
-                BackgroundColor = new PropertyColorButton(TypeColorButton.Danger),
+                BackgroundColor = LayoutSchema.CancelButtonBackground,
                 TextColor = new PropertyColorText(TypeColorText.White),
                 HorizontalAlignment = TypeHorizontalAlignment.Right,
                 Uri = Uri
@@ -251,24 +252,24 @@ namespace WebExpress.UI.Controls
 
             foreach (var v in ValidationResults)
             {
-                var bgColor = new PropertyColorBackgroundAlert(TypeColorBackground.Default);
+                var bgColor = (PropertyColorBackground)new PropertyColorBackgroundAlert(TypeColorBackground.Default);
 
                 switch (v.Type)
                 {
                     case TypesInputValidity.Error:
-                        bgColor = new PropertyColorBackgroundAlert(TypeColorBackground.Danger);
+                        bgColor = LayoutSchema.ValidationErrorBackground;
                         break;
                     case TypesInputValidity.Warning:
-                        bgColor = new PropertyColorBackgroundAlert(TypeColorBackground.Warning);
+                        bgColor = LayoutSchema.ValidationWarningBackground;
                         break;
                     case TypesInputValidity.Success:
-                        bgColor = new PropertyColorBackgroundAlert(TypeColorBackground.Success);
+                        bgColor = LayoutSchema.ValidationSuccessBackground;
                         break;
                 }
 
                 html.Elements.Add(new ControlAlert()
                 {
-                    BackgroundColor = bgColor,
+                    BackgroundColor = (PropertyColorBackgroundAlert)bgColor,
                     Text = v.Text,
                     Dismissible = TypeDismissibleAlert.Dismissible,
                     Fade = TypeFade.FadeShow

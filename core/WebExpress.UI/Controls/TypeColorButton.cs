@@ -4,6 +4,7 @@
     {
         Default = 0,
         Primary = 1,
+        Secondary = 2,
         Success = 3,
         Info = 4,
         Warning = 5,
@@ -28,6 +29,8 @@
                 {
                     case TypeColorButton.Primary:
                         return "btn-outline-primary";
+                    case TypeColorButton.Secondary:
+                        return "btn-outline-secondary";
                     case TypeColorButton.Success:
                         return "btn-outline-success";
                     case TypeColorButton.Info:
@@ -46,6 +49,8 @@
                 {
                     case TypeColorButton.Primary:
                         return "btn-primary";
+                    case TypeColorButton.Secondary:
+                        return "btn-secondary";
                     case TypeColorButton.Success:
                         return "btn-success";
                     case TypeColorButton.Info:

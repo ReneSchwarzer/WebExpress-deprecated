@@ -113,9 +113,7 @@ namespace WebExpress.UI.Controls
             Fixed = TypeFixed.Top;
             Styles = new List<string>(new[] { "position: sticky; top: 0; z-index: 99;" });
             Padding = new PropertySpacingPadding(PropertySpacing.Space.Null);
-            BackgroundColor = new PropertyColorBackground(TypeColorBackground.Dark);
-
-            TextColor = new PropertyColorNavbar(TypeColorNavbar.Light);
+            BackgroundColor = LayoutSchema.HeaderBackground;
         }
 
         /// <summary>
@@ -128,7 +126,7 @@ namespace WebExpress.UI.Controls
             var hamburger = new List<IControlDropdownItem>(HamburgerPrimary);
             if (HamburgerPrimary.Count > 0 && HamburgerSecondary.Count > 0)
             {
-                hamburger.Add(new ControlDropdownDivider());
+                hamburger.Add(new ControlDropdownItemDivider());
             }
             hamburger.AddRange(HamburgerSecondary);
 
@@ -140,12 +138,12 @@ namespace WebExpress.UI.Controls
             quickcreate.AddRange(QuickCreateSecondary);
 
             var firstQuickcreate = (quickcreate.FirstOrDefault() as ControlLink);
-            firstQuickcreate.Render(context);
+            firstQuickcreate?.Render(context);
 
             var settings = new List<IControlDropdownItem>(SettingsPrimary);
             if (SettingsPrimary.Count > 0 && SettingsSecondary.Count > 0)
             {
-                settings.Add(new ControlDropdownDivider());
+                settings.Add(new ControlDropdownItemDivider());
             }
             settings.AddRange(SettingsSecondary);
 
@@ -169,7 +167,7 @@ namespace WebExpress.UI.Controls
                 new ControlLink("apptitle", new ControlText()
                 {
                     Text = Title,
-                    TextColor = new PropertyColorText(TypeColorText.White),
+                    TextColor = LayoutSchema.HeaderTitle,
                     Format = TypeFormatText.H1,
                     Padding = new PropertySpacingPadding(PropertySpacing.Space.One),
                     Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.Null)
@@ -180,7 +178,10 @@ namespace WebExpress.UI.Controls
                 },
                 new ControlNavigation("appnavigation", navigation)
                 {
-                    Layout = TypeLayoutTab.Default
+                    Layout = TypeLayoutTab.Default,
+                    ActiveColor = LayoutSchema.HeaderNavigationActiveBackground,
+                    ActiveTextColor = LayoutSchema.HeaderNavigationActive,
+                    LinkColor = LayoutSchema.HeaderNavigationLink
                 },
                 (quickcreate.Count > 1) ?
                 (IControl)new ControlSplitButtonLink("quickcreate", quickcreate.Skip(1))

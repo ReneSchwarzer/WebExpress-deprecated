@@ -5,6 +5,14 @@
         /// <summary>
         /// Konstruktor
         /// </summary>
+        public PropertyColorBackground()
+        {
+            SystemColor = (TypeColorBackground)TypeColor.Default;
+        }
+
+        /// <summary>
+        /// Konstruktor
+        /// </summary>
         /// <param name="color">Die Farbe</param>
         public PropertyColorBackground(TypeColorBackground color)
         {

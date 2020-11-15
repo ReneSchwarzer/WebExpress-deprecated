@@ -4,7 +4,7 @@ using WebExpress.Html;
 
 namespace WebExpress.UI.Controls
 {
-    public class ControlToolBar : Control
+    public class ControlToolbar : Control
     {
         /// <summary>
         /// Die horizontale Anordnung
@@ -42,7 +42,7 @@ namespace WebExpress.UI.Controls
         /// Konstruktor
         /// </summary>
         /// <param name="id">Die ID</param>
-        public ControlToolBar(string id = null)
+        public ControlToolbar(string id = null)
             : base(id)
         {
             Init();
@@ -53,7 +53,7 @@ namespace WebExpress.UI.Controls
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="items">Die Toolitems</param>
-        public ControlToolBar(string id = null, params IControlToolBarItem[] items)
+        public ControlToolbar(string id = null, params IControlToolBarItem[] items)
             : this(id)
         {
             Add(items);
@@ -63,7 +63,7 @@ namespace WebExpress.UI.Controls
         /// Konstruktor
         /// </summary>
         /// <param name="items">Die Toolitems</param>
-        public ControlToolBar(params IControlToolBarItem[] items)
+        public ControlToolbar(params IControlToolBarItem[] items)
             : this((string)null)
         {
             Add(items);
@@ -74,7 +74,9 @@ namespace WebExpress.UI.Controls
         /// </summary>
         private void Init()
         {
-            Classes.Add("navbar");
+            BackgroundColor = new PropertyColorBackground(TypeColorBackground.Warning);
+            Orientation = TypeOrientationToolBar.Default;
+            Padding = new PropertySpacingPadding(PropertySpacing.Space.Two, PropertySpacing.Space.None);
         }
 
         /// <summary>
@@ -108,9 +110,9 @@ namespace WebExpress.UI.Controls
                     Items.Select
                     (
                         x =>
-                        x == null || x is ControlDropdownDivider || x is ControlLine ?
+                        x == null || x is ControlDropdownItemDivider || x is ControlLine ?
                         new HtmlElementTextContentLi() { Class = "divider", Inline = true } :
-                        x is ControlDropdownHeader ?
+                        x is ControlDropdownItemHeader ?
                         x.Render(context) :
                         new HtmlElementTextContentLi(x.Render(context)) { Class = "nav-item" }
                     )

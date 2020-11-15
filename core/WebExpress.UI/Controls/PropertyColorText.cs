@@ -5,6 +5,14 @@
         /// <summary>
         /// Konstruktor
         /// </summary>
+        public PropertyColorText()
+        {
+            SystemColor = (TypeColorText)TypeColor.Default;
+        }
+
+        /// <summary>
+        /// Konstruktor
+        /// </summary>
         /// <param name="color">Die Farbe</param>
         public PropertyColorText(TypeColorText color)
         {

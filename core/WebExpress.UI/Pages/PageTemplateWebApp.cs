@@ -47,8 +47,6 @@ namespace WebExpress.UI.Pages
         /// </summary>
         public ControlWebAppSidebar Sidebar { get; protected set; } = new ControlWebAppSidebar("sidebar");
 
-
-
         /// <summary>
         /// Liefert oder setzt den Navigationsbereich
         /// </summary>
@@ -65,9 +63,9 @@ namespace WebExpress.UI.Pages
         public ControlPanel PageProperty { get; protected set; } = new ControlPanel("pageproperty");
 
         /// <summary>
-        /// Liefert oder setzt den Navigationsbereich
+        /// Liefert oder setzt den Werkzeugleiste
         /// </summary>
-        public ControlToolBar Toolbar { get; protected set; } = new ControlToolBar("toolbar");
+        public ControlToolbar Toolbar { get; protected set; } = new ControlToolbar("toolbar");
 
         /// <summary>
         /// Konstruktor
@@ -84,7 +82,7 @@ namespace WebExpress.UI.Pages
         {
             base.Init();
 
-            Header.BackgroundColor = new PropertyColorBackground(TypeColorBackground.Dark);
+            
             Header.Fixed = TypeFixed.Top;
             Header.Styles = new List<string>(new[] { "position: sticky; top: 0; z-index: 99;" });
 
@@ -93,17 +91,26 @@ namespace WebExpress.UI.Pages
 
             Breadcrumb.Uri = Uri;
             Breadcrumb.Margin = new PropertySpacingMargin(PropertySpacing.Space.Null);
+            Breadcrumb.BackgroundColor = LayoutSchema.BreadcrumbBackground;
 
-            Toast.BackgroundColor = new PropertyColorBackgroundAlert(TypeColorBackground.Warning);
+            Toast.BackgroundColor = LayoutSchema.ValidationWarningBackground;
 
-            Sidebar.BackgroundColor = new PropertyColorBackground(TypeColorBackground.Light);
+            Sidebar.BackgroundColor = LayoutSchema.SidebarBackground;
+
+            Toolbar.BackgroundColor = LayoutSchema.ToolbarBackground;
+            Content.BackgroundColor = LayoutSchema.ContentBackground;
 
             PageTitle.Text = Title;
             PageTitle.Format = TypeFormatText.H2;
             PageTitle.TextColor = new PropertyColorText(TypeColorText.Dark);
             PageTitle.Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None);
 
+            PageFunctions.BackgroundColor = new PropertyColorBackground(TypeColorBackground.Danger);
+
             Content.Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None);
+            Content.Width = TypeWidth.OneHundred;
+
+            Footer.BackgroundColor = LayoutSchema.FooterBackground;
         }
 
         /// <summary>
@@ -174,7 +181,8 @@ namespace WebExpress.UI.Pages
                     }
                 )
                 {
-
+                    BackgroundColor = LayoutSchema.MainBackground,
+                    Width = TypeWidth.OneHundred
                 }
             )
             {

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using WebExpress.Html;
 
 namespace WebExpress.UI.Controls
@@ -139,10 +140,10 @@ namespace WebExpress.UI.Controls
                 Class = "modal-body"
             };
 
-            var footerButton = new HtmlElementFieldButton(new HtmlText("Schließen"))
+            var footerButton = new HtmlElementFieldButton(new HtmlText(context.I18N(Assembly.GetExecutingAssembly(), "webexpress.ui.modal.close.label")))
             {
                 Type = "button",
-                Class = "btn btn-primary"
+                Class = Css.Concatenate("btn", LayoutSchema.CloseButtonBackground?.ToClass())
             };
             footerButton.AddUserAttribute("data-dismiss", "modal");
 

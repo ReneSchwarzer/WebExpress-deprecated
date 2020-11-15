@@ -3,7 +3,7 @@ using WebExpress.Html;
 
 namespace WebExpress.UI.Controls
 {
-    public class ControlDropdownHeader : Control, IControlDropdownItem, IControlSplitButtonItem
+    public class ControlDropdownItemHeader : Control, IControlDropdownItem
     {
         /// <summary>
         /// Liefert oder setzt die Text
@@ -14,7 +14,7 @@ namespace WebExpress.UI.Controls
         /// Konstruktor
         /// </summary>
         /// <param name="id">Die ID</param>
-        public ControlDropdownHeader(string id = null)
+        public ControlDropdownItemHeader(string id = null)
             : base(id)
         {
             Init();
@@ -25,7 +25,7 @@ namespace WebExpress.UI.Controls
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="text">Der Text</param>
-        public ControlDropdownHeader(string id, string text)
+        public ControlDropdownItemHeader(string id, string text)
             : base(id)
         {
             Text = text;
@@ -38,7 +38,6 @@ namespace WebExpress.UI.Controls
         /// </summary>
         private void Init()
         {
-            Classes.Add("dropdown-header");
         }
 
         /// <summary>
@@ -51,8 +50,8 @@ namespace WebExpress.UI.Controls
             return new HtmlElementTextContentLi(new HtmlText(Text))
             {
                 ID = ID,
-                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Class = Css.Concatenate("dropdown-header", GetClasses()),
+                Style = GetStyles(),
                 Role = Role
             };
         }

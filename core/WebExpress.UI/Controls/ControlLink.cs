@@ -6,7 +6,7 @@ using WebExpress.Pages;
 
 namespace WebExpress.UI.Controls
 {
-    public class ControlLink : Control, IControlLink, IControlNavigationItem, IControlDropdownItem, IControlSplitButtonItem
+    public class ControlLink : Control, IControlLink
     {
         /// <summary>
         /// Bestimmt ob der Link aktiv ist oder nicht
@@ -150,6 +150,7 @@ namespace WebExpress.UI.Controls
         {
             Content = new List<Control>();
             Params = new List<Parameter>();
+            TextColor = LayoutSchema.Link;
         }
 
         /// <summary>
