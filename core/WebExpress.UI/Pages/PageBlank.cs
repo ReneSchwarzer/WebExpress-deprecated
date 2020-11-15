@@ -20,7 +20,7 @@ namespace WebExpress.UI.Pages
         {
             Content = new List<Control>();
 
-            CssLinks.Add("/Assets/css/fontawesome.css");
+            CssLinks.Add("/Assets/css/fontawesome.min.css");
             CssLinks.Add("/Assets/css/bootstrap.min.css");
             CssLinks.Add("/Assets/css/express.css");
             CssLinks.Add("/Assets/css/express.form.css");

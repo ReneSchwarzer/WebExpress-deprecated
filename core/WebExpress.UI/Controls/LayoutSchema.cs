@@ -32,6 +32,16 @@ namespace WebExpress.UI.Controls
         public static PropertyColorText HeaderNavigationActive => new PropertyColorText(TypeColorText.Info);
 
         /// <summary>
+        /// Hintergrundfarbe einer Schaltfläche
+        /// </summary>
+        public static PropertyColorButton HeaderQuickCreateButtonBackground => new PropertyColorButton(TypeColorButton.Success);
+
+        /// <summary>
+        /// Hintergrundfarbe einer Schaltfläche
+        /// </summary>
+        public static TypeSizeButton HeaderQuickCreateButtonSize => TypeSizeButton.Small;
+
+        /// <summary>
         /// Farbe des Headers-Titels
         /// </summary>
         public static PropertyColorText NavigationLink => new PropertyColorText(TypeColorText.Primary);
@@ -82,9 +92,14 @@ namespace WebExpress.UI.Controls
         public static TypeSizeButton BreadcrumbSize => TypeSizeButton.Small;
 
         /// <summary>
-        /// Hintergrundfarbe des Content-Bereiches
+        /// Hintergrundfarbe der Werkzeugleiste
         /// </summary>
-        public static PropertyColorBackground ToolbarBackground => new PropertyColorBackground(TypeColorBackground.Secondary);
+        public static PropertyColorBackground ToolbarBackground => new PropertyColorBackground();
+
+        /// <summary>
+        /// Linkfarbe der Werkzeugleiste
+        /// </summary>
+        public static PropertyColorText ToolbarLink => new PropertyColorText(TypeColorText.Dark);
 
         /// <summary>
         /// Hintergrundfarbe des Main-Bereiches
@@ -95,6 +110,11 @@ namespace WebExpress.UI.Controls
         /// Hintergrundfarbe des Content-Bereiches
         /// </summary>
         public static PropertyColorBackground ContentBackground => new PropertyColorBackground();
+
+        /// <summary>
+        /// Hintergrundfarbe des Content-Bereiches
+        /// </summary>
+        public static PropertyColorBackground FormularBackground => new PropertyColorBackground(TypeColorBackground.Light);
 
         /// <summary>
         /// Hintergrundfarbe einer Schaltfläche

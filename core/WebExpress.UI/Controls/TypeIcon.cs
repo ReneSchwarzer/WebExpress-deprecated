@@ -21,6 +21,7 @@
         Clone,
         Code,
         Cog,
+        Copy,
         Comment,
         CommentAlt,
         Download,
@@ -39,6 +40,7 @@
         Image,
         Industry,
         Info,
+        LayerGroup,
         Lightbulb,
         Link,
         Map,
@@ -116,6 +118,8 @@
                     return "fas fa-code";
                 case TypeIcon.Cog:
                     return "fas fa-cog";
+                case TypeIcon.Copy:
+                    return "fas fa-copy";
                 case TypeIcon.Comment:
                     return "fas fa-comment";
                 case TypeIcon.CommentAlt:
@@ -152,6 +156,8 @@
                     return "fas fa-industry";
                 case TypeIcon.Info:
                     return "fas fa-info";
+                case TypeIcon.LayerGroup:
+                    return "fas fa-layer-group";
                 case TypeIcon.Lightbulb:
                     return "fas fa-lightbulb";
                 case TypeIcon.Link:

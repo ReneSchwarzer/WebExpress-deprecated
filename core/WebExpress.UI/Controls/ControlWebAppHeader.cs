@@ -188,7 +188,8 @@ namespace WebExpress.UI.Controls
                 {
                     Text = context.I18N(Assembly.GetExecutingAssembly(), "webexpress.ui.quickcreate.label", "Create"),
                     Uri = firstQuickcreate?.Uri,
-                    BackgroundColor = new PropertyColorButton(TypeColorButton.Primary),
+                    BackgroundColor = LayoutSchema.HeaderQuickCreateButtonBackground,
+                    Size = LayoutSchema.HeaderQuickCreateButtonSize,
                     Margin = new PropertySpacingMargin(PropertySpacing.Space.Auto, PropertySpacing.Space.None)
                 } :
                 (QuickCreatePrimary.Count > 0) ?
@@ -196,7 +197,8 @@ namespace WebExpress.UI.Controls
                 {
                     Text = context.I18N(Assembly.GetExecutingAssembly(), "webexpress.ui.quickcreate.label", "Create"),
                     Uri = firstQuickcreate?.Uri,
-                    BackgroundColor = new PropertyColorButton(TypeColorButton.Primary),
+                    BackgroundColor = LayoutSchema.HeaderQuickCreateButtonBackground,
+                    Size = LayoutSchema.HeaderQuickCreateButtonSize,
                     Margin = new PropertySpacingMargin(PropertySpacing.Space.Auto, PropertySpacing.Space.None)
                 } :
                 null,

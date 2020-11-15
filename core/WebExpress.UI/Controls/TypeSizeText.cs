@@ -38,9 +38,9 @@
                 case TypeSizeText.Large:
                     return "font-size:1.5rem;";
                 case TypeSizeText.Small:
-                    return "font-size:0.5rem;";
+                    return "font-size:0.75rem;";
                 case TypeSizeText.ExtraSmall:
-                    return "font-size:0.25rem;";
+                    return "font-size:0.55rem;";
             }
 
             return string.Empty;

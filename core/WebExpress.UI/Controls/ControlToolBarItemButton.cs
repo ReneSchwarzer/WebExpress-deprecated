@@ -18,6 +18,8 @@
         private void Init()
         {
             Classes.Add("nav-link");
+
+            TextColor = LayoutSchema.ToolbarLink;
         }
     }
 }
