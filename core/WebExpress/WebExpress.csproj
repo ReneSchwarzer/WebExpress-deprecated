@@ -12,6 +12,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Internationalization\de" />
+    <None Remove="Internationalization\en" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Internationalization\de" />
+    <EmbeddedResource Include="Internationalization\en" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Settings\" />
   </ItemGroup>
 

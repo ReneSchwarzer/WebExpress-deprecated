@@ -68,7 +68,7 @@ namespace WebExpress.UI.Controls
                         //{ 
                         //    Icon = path.Icon
                         //}.ToHtml(),
-                        new HtmlElementTextSemanticsA(path.Display)
+                        new HtmlElementTextSemanticsA(context.I18N(path.Display))
                         {
                             Href = path.ToString()
                         }

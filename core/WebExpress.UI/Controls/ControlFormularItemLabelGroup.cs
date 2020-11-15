@@ -61,8 +61,8 @@ namespace WebExpress.UI.Controls
             var input = Item as ControlFormularItemInput;
 
             var icon = new ControlIcon() { Icon = (Item as ControlFormularItemInput)?.Icon };
-            var label = new ControlFormularItemLabel(!string.IsNullOrEmpty(Item.ID) ? Item.ID + "_label" : string.Empty) { Text = input?.Label, FormularItem = Item };
-            var help = new ControlFormularItemHelpText(!string.IsNullOrEmpty(Item.ID) ? Item.ID + "_help" : string.Empty) { Text = input?.Help };
+            var label = new ControlFormularItemLabel(!string.IsNullOrEmpty(Item.ID) ? Item.ID + "_label" : string.Empty) { Text = context.I18N(input?.Label), FormularItem = Item };
+            var help = new ControlFormularItemHelpText(!string.IsNullOrEmpty(Item.ID) ? Item.ID + "_help" : string.Empty) { Text = context.I18N(input?.Help) };
             label.Initialize(context);
             help.Initialize(context);
 

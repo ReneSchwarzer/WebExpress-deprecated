@@ -55,43 +55,7 @@ namespace WebExpress.Plugins
 
             plugin.Init(configFileName);
 
-            // Internationalisierung
-            var assemblyName = typeof(T).Assembly.GetName().Name.ToLower();
-            var name = assemblyName + ".internationalization.";
-            var resources = typeof(T).Assembly.GetManifestResourceNames().Where(x => x.ToLower().Contains(name));
-
-            foreach (var languageResource in resources)
-            {
-                var language = languageResource.Split('.').LastOrDefault()?.ToLower();
-
-                if (!InternationalizationDictionary.Instance.ContainsKey(language))
-                {
-                    InternationalizationDictionary.Instance.Add(language, new InternationalizationDictionaryItem());
-                }
-
-                var dictItem = InternationalizationDictionary.Instance[language];
-
-                using (var stream = typeof(T).Assembly.GetManifestResourceStream(languageResource))
-                {
-                    using (var streamReader = new StreamReader(stream))
-                    {
-                        while (!streamReader.EndOfStream)
-                        {
-                            var line = streamReader.ReadLine();
-                            if (!line.StartsWith('#') && !string.IsNullOrWhiteSpace(line))
-                            {
-                                var split = line.Split('=');
-                                var key = assemblyName + ":" + split[0]?.Trim().ToLower();
-
-                                if (!dictItem.ContainsKey(key))
-                                {
-                                    dictItem.Add(key, string.Join("=", split.Skip(1)));
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            Internationalization.Internationalization.Add(plugin);
 
             return plugin;
         }

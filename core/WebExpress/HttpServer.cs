@@ -67,6 +67,8 @@ namespace WebExpress
             Queue = new Queue<TcpClient>();
             Plugins = new List<IPlugin>();
 
+            Internationalization.Internationalization.Add(typeof(HttpServer).Assembly);
+
             Context = new HttpServerContext(port, Environment.CurrentDirectory, Path.Combine(Environment.CurrentDirectory, "Config"), "", Log.Current, this);
         }
 
