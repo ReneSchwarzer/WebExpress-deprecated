@@ -157,7 +157,7 @@ namespace WebExpress.Workers
                             {
                                 Context.Log.Warning(MethodBase.GetCurrentMethod(), string.Format("Parameter '{0}' ist mehrfach in Uri '{1}' vorhanden", key, request.URL));
                             }
-                         }
+                        }
                         catch
                         {
                         }
@@ -174,7 +174,7 @@ namespace WebExpress.Workers
                             segment.Value = split[i++];
                         }
                     }
-                    
+
                     foreach (var segment in newUri.Path.Where(x => x is UriPathSegmentPage).Select(x => x as UriPathSegmentPage))
                     {
                         if (newUri.Variables.ContainsKey(segment.SegmentID))

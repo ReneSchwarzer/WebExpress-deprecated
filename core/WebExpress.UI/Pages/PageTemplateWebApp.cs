@@ -15,7 +15,7 @@ namespace WebExpress.UI.Pages
         /// <summary>
         /// Liefert oder setzt den Kopf
         /// </summary>
-        public ControlHeaderWebApp Header { get; protected set; } = new ControlHeaderWebApp("header");
+        public ControlWebAppHeader Header { get; protected set; } = new ControlWebAppHeader("header");
 
         /// <summary>
         /// Liefert oder setzt den Inhalt
@@ -45,22 +45,9 @@ namespace WebExpress.UI.Pages
         /// <summary>
         /// Liefert oder setzt die Sidebar
         /// </summary>
-        public ControlPanel Sidebar { get; protected set; } = new ControlPanel("sidebar");
+        public ControlWebAppSidebar Sidebar { get; protected set; } = new ControlWebAppSidebar("sidebar");
 
-        /// <summary>
-        /// Liefert oder setzt den Bereich in der Sidebar für erweiterte Inhalte
-        /// </summary>
-        public ControlPanel SidebarContent { get; protected set; } = new ControlPanel("sidebarcontent");
 
-        /// <summary>
-        /// Liefert oder setzt den Bereich für die Kopfzeile der Sidebar
-        /// </summary>
-        public ControlPanel SidebarHeader { get; protected set; } = new ControlPanel("sidebarheader");
-
-        /// <summary>
-        /// Liefert oder setzt den Navigationsbereich
-        /// </summary>
-        public ControlPanelNavbar SidebarNavigation { get; protected set; } = new ControlPanelNavbar("sidebarnavigation");
 
         /// <summary>
         /// Liefert oder setzt den Navigationsbereich
@@ -128,15 +115,30 @@ namespace WebExpress.UI.Pages
 
             var hamburgerPrimary = Context.Host.CreatePluginComponet<IPluginComponentHamburgerPrimary>();
             Header.HamburgerPrimary.AddRange(hamburgerPrimary.Where(x => x != null));
-            
+
             var hamburgerSecondary = Context.Host.CreatePluginComponet<IPluginComponentHamburgerSecondary>();
             Header.HamburgerSecondary.AddRange(hamburgerSecondary.Where(x => x != null));
+
+            var appNavigationPreferences = Context.Host.CreatePluginComponet<IPluginComponentAppNavigationPreferences>();
+            Header.NavigationPreferences.AddRange(appNavigationPreferences.Where(x => x != null));
 
             var appNavigationPrimary = Context.Host.CreatePluginComponet<IPluginComponentAppNavigationPrimary>();
             Header.NavigationPrimary.AddRange(appNavigationPrimary.Where(x => x != null));
 
             var appNavigationSecondary = Context.Host.CreatePluginComponet<IPluginComponentAppNavigationSecondary>();
             Header.NavigationSecondary.AddRange(appNavigationSecondary.Where(x => x != null));
+
+            var quickCreatePrimary = Context.Host.CreatePluginComponet<IPluginComponentQuickCreatePrimary>();
+            Header.QuickCreatePrimary.AddRange(quickCreatePrimary.Where(x => x != null));
+
+            var quickCreateSecondary = Context.Host.CreatePluginComponet<IPluginComponentQuickCreateSecondary>();
+            Header.QuickCreateSecondary.AddRange(quickCreateSecondary.Where(x => x != null));
+
+            var settingsPrimary = Context.Host.CreatePluginComponet<IPluginComponentSettingsPrimary>();
+            Header.SettingsPrimary.AddRange(settingsPrimary.Where(x => x != null));
+
+            var settingsSecondary = Context.Host.CreatePluginComponet<IPluginComponentSettingsSecondary>();
+            Header.SettingsSecondary.AddRange(settingsSecondary.Where(x => x != null));
 
         }
 
@@ -146,14 +148,6 @@ namespace WebExpress.UI.Pages
         /// <returns>Die Seite als HTML-Baum</returns>
         public override IHtmlNode Render()
         {
-
-
-            Header.Classes.Add("navbar");
-
-            Sidebar.Content.Add(SidebarHeader);
-            Sidebar.Content.Add(SidebarNavigation);
-            Sidebar.Content.Add(SidebarContent);
-
             var flexbox = new ControlPanelFlexbox
             (
                 Sidebar,

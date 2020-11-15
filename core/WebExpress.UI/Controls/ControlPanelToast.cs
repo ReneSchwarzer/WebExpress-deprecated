@@ -1,6 +1,4 @@
-﻿using WebExpress.Pages;
-
-namespace WebExpress.UI.Controls
+﻿namespace WebExpress.UI.Controls
 {
     public class ControlPanelToast : ControlPanel
     {

@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using WebExpress.Html;
-using WebExpress.Pages;
+﻿using WebExpress.Html;
 
 namespace WebExpress.UI.Controls
 {
@@ -207,7 +204,7 @@ namespace WebExpress.UI.Controls
                         Style = GetStyles(),
                         Role = Role
                     };
-                    break; 
+                    break;
                 case TypeFormatText.Strong:
                     html = new HtmlElementTextSemanticsStrong(new HtmlText(text))
                     {
@@ -221,7 +218,7 @@ namespace WebExpress.UI.Controls
                     html = new HtmlElementTextContentDiv(new HtmlText(text))
                     {
                         ID = ID,
-                        Class = Css.Concatenate("text-center",  GetClasses()),
+                        Class = Css.Concatenate("text-center", GetClasses()),
                         Style = GetStyles(),
                         Role = Role
                     };

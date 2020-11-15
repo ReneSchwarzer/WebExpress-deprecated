@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using WebExpress.Html;
-using WebExpress.Pages;
+﻿using WebExpress.Html;
 
 namespace WebExpress.UI.Controls
 {
@@ -27,11 +24,11 @@ namespace WebExpress.UI.Controls
             get => (TypeDismissibleAlert)GetProperty(TypeDismissibleAlert.Dismissible);
             set => SetProperty(value, () => value.ToClass());
         }
-        
+
         /// <summary>
         /// Liefert oder setzt ob der Fadereffekt verwendet werden soll
         /// </summary>
-        public TypeFade Fade 
+        public TypeFade Fade
         {
             get => (TypeFade)GetProperty(TypeFade.None);
             set => SetProperty(value, () => value.ToClass());
@@ -73,10 +70,10 @@ namespace WebExpress.UI.Controls
         {
             var head = new HtmlElementTextSemanticsStrong
             (
-                new HtmlText(Head), 
+                new HtmlText(Head),
                 new HtmlNbsp()
             );
-            
+
             var button = new HtmlElementFieldButton("&times;")
             {
                 Class = "close"
@@ -87,8 +84,8 @@ namespace WebExpress.UI.Controls
 
             return new HtmlElementTextContentDiv
             (
-                !string.IsNullOrWhiteSpace(Head) ? head : null, 
-                new HtmlText(Text), 
+                !string.IsNullOrWhiteSpace(Head) ? head : null,
+                new HtmlText(Text),
                 Dismissible != TypeDismissibleAlert.None ? button : null
             )
             {

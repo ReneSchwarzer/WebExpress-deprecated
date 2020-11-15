@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using WebExpress.Html;
-using WebExpress.Pages;
 
 namespace WebExpress.UI.Controls
 {
@@ -93,7 +91,7 @@ namespace WebExpress.UI.Controls
                     VerticalAlignment = Icon.IsUserIcon ? TypeVerticalAlignment.TextBottom : TypeVerticalAlignment.Default
                 }.Render(context));
             }
-            
+
             if (!string.IsNullOrWhiteSpace(Text))
             {
                 html.Elements.Add(new HtmlText(Text));

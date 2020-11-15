@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace WebExpress.Html
+﻿namespace WebExpress.Html
 {
     /// <summary>
     /// Hiermit können zusätzliche Medienspuren (z.B. Untertitel) für Elemente wie <video> oder<audio> angegeben werden. 

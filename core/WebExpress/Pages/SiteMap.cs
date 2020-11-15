@@ -56,8 +56,8 @@ namespace WebExpress.Pages
         public SiteMap(SiteMap siteMap)
         {
             Context = siteMap.Context;
-            
-            foreach(var v in siteMap.Pages)
+
+            foreach (var v in siteMap.Pages)
             {
                 Pages.Add(v.Key, new SiteMapPage(v.Value));
             }
@@ -209,7 +209,7 @@ namespace WebExpress.Pages
                         Display = segmentPage?.Display
                     });
                 }
-                
+
                 return uri;
             }
 

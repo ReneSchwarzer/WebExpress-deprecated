@@ -3,7 +3,7 @@
 [assembly: InternalsVisibleTo("WebExpress.Test")]
 namespace WebExpress.UI.Markdown
 {
-    
+
     internal class MarkdownToken
     {
         public int Position { get; set; }

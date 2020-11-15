@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WebExpress.UI.Controls
+﻿namespace WebExpress.UI.Controls
 {
     public class PropertySpacingMargin : PropertySpacing
     {
@@ -19,7 +15,7 @@ namespace WebExpress.UI.Controls
         /// </summary>
         /// <param name="size">Die Abstände</param>
         public PropertySpacingMargin(Space size)
-            :base(size)
+            : base(size)
         {
         }
 
@@ -29,7 +25,7 @@ namespace WebExpress.UI.Controls
         /// <param name="horizontal">Der horzontale Abstand</param>
         /// <param name="vertical">Der vertikale Abstand</param>
         public PropertySpacingMargin(Space horizontal, Space vertical)
-            :base(horizontal, vertical)
+            : base(horizontal, vertical)
         {
         }
 
@@ -41,7 +37,7 @@ namespace WebExpress.UI.Controls
         /// <param name="top">Der obere Abstand</param>
         /// <param name="bottom">Der untere Abstand</param>
         public PropertySpacingMargin(Space left, Space right, Space top, Space bottom)
-            :base(left, right, top, bottom)
+            : base(left, right, top, bottom)
         {
         }
 

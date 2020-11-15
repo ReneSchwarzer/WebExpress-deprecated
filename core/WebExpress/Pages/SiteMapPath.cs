@@ -1,6 +1,3 @@
-using System;
-using WebExpress.Workers;
-
 namespace WebExpress.Pages
 {
     public class SiteMapPath
@@ -31,9 +28,9 @@ namespace WebExpress.Pages
         /// </summary>
         /// <param name="path">Der zu kopierende Pfad</param>
         public SiteMapPath(SiteMapPath path)
-            :this(path.Path, path.IncludeSubPaths)
+            : this(path.Path, path.IncludeSubPaths)
         {
-           
+
         }
     }
 }

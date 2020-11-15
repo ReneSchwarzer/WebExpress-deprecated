@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using WebExpress.Html;
 using WebExpress.UI.Plugin;
 
@@ -8,7 +9,7 @@ namespace WebExpress.UI.Controls
     /// <summary>
     /// Header für eine WenApp
     /// </summary>
-    public class ControlHeaderWebApp : Control
+    public class ControlWebAppHeader : Control
     {
         /// <summary>
         /// Liefert oder setzt das Logo
@@ -33,6 +34,11 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt den den Bereich für die App-Navigation
         /// </summary>
+        public List<IPluginComponentAppNavigationPreferences> NavigationPreferences { get; protected set; } = new List<IPluginComponentAppNavigationPreferences>();
+
+        /// <summary>
+        /// Liefert oder setzt den den Bereich für die App-Navigation
+        /// </summary>
         public List<IPluginComponentAppNavigationPrimary> NavigationPrimary { get; protected set; } = new List<IPluginComponentAppNavigationPrimary>();
 
         /// <summary>
@@ -49,6 +55,16 @@ namespace WebExpress.UI.Controls
         /// Liefert oder setzt die Schaltfläche zum schnellen Erzeugen neuer Inhalte
         /// </summary>
         public List<IPluginComponentQuickCreateSecondary> QuickCreateSecondary { get; protected set; } = new List<IPluginComponentQuickCreateSecondary>();
+
+        /// <summary>
+        /// Liefert oder setzt die Einstellungen
+        /// </summary>
+        public List<IPluginComponentSettingsPrimary> SettingsPrimary { get; protected set; } = new List<IPluginComponentSettingsPrimary>();
+
+        /// <summary>
+        /// Liefert oder setzt die Einstellungen
+        /// </summary>
+        public List<IPluginComponentSettingsSecondary> SettingsSecondary { get; protected set; } = new List<IPluginComponentSettingsSecondary>();
 
         /// <summary>
         /// Liefert oder setzt die Farbe des Textes
@@ -77,13 +93,13 @@ namespace WebExpress.UI.Controls
             set => SetProperty(value, () => value.ToClass());
         }
 
-        
+
 
         /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="id">Die ID</param>
-        public ControlHeaderWebApp(string id = null)
+        public ControlWebAppHeader(string id = null)
             : base(id)
         {
             Init();
@@ -116,15 +132,26 @@ namespace WebExpress.UI.Controls
             }
             hamburger.AddRange(HamburgerSecondary);
 
-            var navigation = new List<IControlNavigationItem>(NavigationPrimary);
+            var navigation = new List<IControlNavigationItem>(NavigationPreferences);
+            navigation.AddRange(NavigationPrimary);
             navigation.AddRange(NavigationSecondary);
 
             var quickcreate = new List<IControlSplitButtonItem>(QuickCreatePrimary);
             quickcreate.AddRange(QuickCreateSecondary);
 
+            var firstQuickcreate = (quickcreate.FirstOrDefault() as ControlLink);
+            firstQuickcreate.Render(context);
+
+            var settings = new List<IControlDropdownItem>(SettingsPrimary);
+            if (SettingsPrimary.Count > 0 && SettingsSecondary.Count > 0)
+            {
+                settings.Add(new ControlDropdownDivider());
+            }
+            settings.AddRange(SettingsSecondary);
+
             var content = new ControlPanelFlexbox
             (
-                (hamburger.Count > 0) ? 
+                (hamburger.Count > 0) ?
                 (IControl)new ControlDropdown("logo", hamburger)
                 {
                     Image = Logo,
@@ -155,19 +182,30 @@ namespace WebExpress.UI.Controls
                 {
                     Layout = TypeLayoutTab.Default
                 },
-                (QuickCreateSecondary.Count > 0) ?
-                (IControl)new ControlSplitButton("quickcreate", QuickCreateSecondary)
+                (quickcreate.Count > 1) ?
+                (IControl)new ControlSplitButtonLink("quickcreate", quickcreate.Skip(1))
                 {
-                    Text = "Erstellen",
+                    Text = context.I18N(Assembly.GetExecutingAssembly(), "webexpress.ui.quickcreate.label", "Create"),
+                    Uri = firstQuickcreate?.Uri,
                     BackgroundColor = new PropertyColorButton(TypeColorButton.Primary),
                     Margin = new PropertySpacingMargin(PropertySpacing.Space.Auto, PropertySpacing.Space.None)
                 } :
                 (QuickCreatePrimary.Count > 0) ?
-                new ControlButton("quickcreate")
+                new ControlButtonLink("quickcreate")
                 {
-                    Text = "Erstellen",
+                    Text = context.I18N(Assembly.GetExecutingAssembly(), "webexpress.ui.quickcreate.label", "Create"),
+                    Uri = firstQuickcreate?.Uri,
                     BackgroundColor = new PropertyColorButton(TypeColorButton.Primary),
                     Margin = new PropertySpacingMargin(PropertySpacing.Space.Auto, PropertySpacing.Space.None)
+                } :
+                null,
+                (settings.Count > 0) ?
+                new ControlDropdown("settings", settings)
+                {
+                    Icon = new PropertyIcon(TypeIcon.Cog),
+                    AlighmentMenu = TypeAlighmentDropdownMenu.Right,
+                    BackgroundColor = new PropertyColorButton(TypeColorButton.Dark),
+                    Margin = new PropertySpacingMargin(PropertySpacing.Space.Auto, PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.None)
                 } :
                 null
             )
@@ -180,7 +218,7 @@ namespace WebExpress.UI.Controls
             {
                 ID = ID,
                 Class = Css.Concatenate("navbar", GetClasses()),
-                Style = GetStyles(),
+                Style = Style.Concatenate("display: block;", GetStyles()),
                 Role = Role
             };
         }

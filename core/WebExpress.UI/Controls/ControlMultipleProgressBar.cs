@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
-using WebExpress.Pages;
 
 namespace WebExpress.UI.Controls
 {
@@ -104,7 +103,7 @@ namespace WebExpress.UI.Controls
 
                 var c = new List<string>(barClass);
                 c.Add(v.BackgroundColor.ToClass());
-                
+
                 barClass.Add(v.Color.ToClass());
 
                 var bar = new HtmlElementTextContentDiv(new HtmlText(v.Text))

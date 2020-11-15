@@ -33,7 +33,7 @@ namespace WebExpress.Pages
         /// <param name="segment">Das Pfadsegment</param>
         /// <param name="display">Der Anzeigestring</param>
         /// <param name="create">Die Rückruffunktion</param>
-        public SiteMapPage(UriSegmentID id, string segment,string display, Func<UriPage, IWorker> create)
+        public SiteMapPage(UriSegmentID id, string segment, string display, Func<UriPage, IWorker> create)
         {
             ID = id;
             Segment = segment;
@@ -46,7 +46,7 @@ namespace WebExpress.Pages
         /// </summary>
         /// <param name="page">Die zu kopierende Seite</param>
         public SiteMapPage(SiteMapPage page)
-            :this(new UriSegmentID(page.ID), page.Segment, page.Display, page.Create)
+            : this(new UriSegmentID(page.ID), page.Segment, page.Display, page.Create)
         {
         }
     }

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
-using WebExpress.Pages;
 
 namespace WebExpress.UI.Controls
 {
@@ -83,7 +82,7 @@ namespace WebExpress.UI.Controls
         /// <param name="id">Die ID</param>
         /// <param name="text">Der Text</param>
         /// <param name="content">Der Inhalt</param>
-        public ControlModal(string id = null, params Control [] content)
+        public ControlModal(string id = null, params Control[] content)
             : this(id, string.Empty)
         {
             Content.AddRange(content);

@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using WebExpress.Html;
-using WebExpress.Pages;
+﻿using WebExpress.Html;
 
 namespace WebExpress.UI.Controls
 {
@@ -59,7 +56,7 @@ namespace WebExpress.UI.Controls
                 Style = GetStyles(),
             };
 
-            for (int i = 1; i <= Uri.Path.Count ; i++)
+            for (int i = 1; i <= Uri.Path.Count; i++)
             {
                 var path = Uri.Take(i);
 
@@ -71,9 +68,9 @@ namespace WebExpress.UI.Controls
                         //{ 
                         //    Icon = path.Icon
                         //}.ToHtml(),
-                        new HtmlElementTextSemanticsA(path.Display) 
-                        { 
-                            Href = path.ToString() 
+                        new HtmlElementTextSemanticsA(path.Display)
+                        {
+                            Href = path.ToString()
                         }
                     )
                     {

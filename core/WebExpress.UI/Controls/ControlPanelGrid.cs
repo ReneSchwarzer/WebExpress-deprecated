@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using WebExpress.Html;
-using WebExpress.Pages;
 
 namespace WebExpress.UI.Controls
 {
@@ -10,7 +8,7 @@ namespace WebExpress.UI.Controls
     /// </summary>
     public class ControlPanelGrid : ControlPanel
     {
-        
+
 
         /// <summary>
         /// Konstruktor

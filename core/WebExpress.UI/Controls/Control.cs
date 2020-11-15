@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using WebExpress.Html;
-using WebExpress.Messages;
-using WebExpress.Pages;
 
 namespace WebExpress.UI.Controls
 {
@@ -123,7 +121,7 @@ namespace WebExpress.UI.Controls
         /// Konstruktor
         /// </summary>
         /// <param name="id">Die ID</param>
-        public Control(string id=null)
+        public Control(string id = null)
         {
             ID = id;
 
@@ -224,7 +222,7 @@ namespace WebExpress.UI.Controls
             {
                 var item = Propertys[propertyName];
 
-                return (Enum)item.Item1; 
+                return (Enum)item.Item1;
             }
 
             return null;

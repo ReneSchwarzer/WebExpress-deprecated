@@ -11,7 +11,7 @@ namespace WebExpress.UI.Markdown
         /// <summary>
         /// Keine Zuordnung
         /// </summary>
-        None, 
+        None,
         /// <summary>
         /// '*'
         /// </summary>

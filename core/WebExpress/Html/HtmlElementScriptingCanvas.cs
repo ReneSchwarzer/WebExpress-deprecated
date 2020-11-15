@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace WebExpress.Html
 {
@@ -25,7 +24,7 @@ namespace WebExpress.Html
             get => Convert.ToInt32(GetAttribute("height"));
             set => SetAttribute("height", value.ToString());
         }
-        
+
         /// <summary>
         /// Konstruktor
         /// </summary>

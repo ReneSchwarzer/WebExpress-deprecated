@@ -8,7 +8,6 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using WebExpress.Config;
-using WebExpress.Html;
 using WebExpress.Messages;
 using WebExpress.Pages;
 using WebExpress.Plugins;
@@ -464,7 +463,7 @@ namespace WebExpress
 
                         return page.Render();
                     }
-                   
+
                     return response.Content;
                 }
             }

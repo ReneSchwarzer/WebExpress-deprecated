@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using WebExpress.Html;
-using WebExpress.Pages;
 
 namespace WebExpress.UI.Controls
 {
@@ -15,7 +13,7 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt den Tooltip
         /// </summary>
-        public string Title  { get; set; }
+        public string Title { get; set; }
 
         /// <summary>
         /// Konstruktor

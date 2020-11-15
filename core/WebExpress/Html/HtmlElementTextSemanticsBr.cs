@@ -3,7 +3,7 @@
     /// <summary>
     /// Bezeichnet einen Zeilenumbruch.
     /// </summary>
-    public class HtmlElementTextSemanticsBr : HtmlElement,IHtmlElementTextSemantics
+    public class HtmlElementTextSemanticsBr : HtmlElement, IHtmlElementTextSemantics
     {
         /// <summary>
         /// Konstruktor

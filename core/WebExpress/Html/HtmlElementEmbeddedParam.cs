@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace WebExpress.Html
+﻿namespace WebExpress.Html
 {
     /// <summary>
     /// Definiert Parameter für ein Plugin, das für die Darstellung eines 

@@ -88,7 +88,7 @@ namespace WebExpress.UI.Controls
             {
                 c.Add("border-top");
             }
-            else 
+            else
             {
                 c.Add("border-top-0");
             }

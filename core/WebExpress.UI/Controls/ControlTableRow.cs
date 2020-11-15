@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
-using WebExpress.Pages;
 
 namespace WebExpress.UI.Controls
 {
@@ -54,7 +53,7 @@ namespace WebExpress.UI.Controls
                     Classes.Add("table-light");
                     break;
                 case TypesLayoutTableRow.Dark:
-                   Classes.Add("table-dark");
+                    Classes.Add("table-dark");
                     break;
             }
 

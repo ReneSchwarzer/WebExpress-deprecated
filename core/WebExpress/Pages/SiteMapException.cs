@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace WebExpress.Pages
 {
@@ -11,7 +9,7 @@ namespace WebExpress.Pages
         /// </summary>
         /// <param name="massgae">Die Ausnahmenachricht</param>
         public SiteMapException(string massgae)
-            :base(massgae)
+            : base(massgae)
         {
 
         }

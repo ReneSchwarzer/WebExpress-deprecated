@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using WebExpress.Html;
-using WebExpress.Pages;
 
 namespace WebExpress.UI.Controls
 {
@@ -35,7 +33,7 @@ namespace WebExpress.UI.Controls
         /// Konstruktor
         /// </summary>
         /// <param name="content">Der Inhalt</param>
-        public ControlPanelCallout( params Control[] content)
+        public ControlPanelCallout(params Control[] content)
             : this()
         {
             Content.AddRange(content);
@@ -76,14 +74,14 @@ namespace WebExpress.UI.Controls
 
             if (Title != null)
             {
-                html.Elements.Add(new HtmlElementTextSemanticsSpan(new HtmlText(Title)) 
+                html.Elements.Add(new HtmlElementTextSemanticsSpan(new HtmlText(Title))
                 {
                     Class = "callout-title"
                 });
             }
 
-            html.Elements.Add(new HtmlElementTextContentDiv(from x in Content select x.Render(context)) 
-            { 
+            html.Elements.Add(new HtmlElementTextContentDiv(from x in Content select x.Render(context))
+            {
                 Class = "callout-body"
             });
 

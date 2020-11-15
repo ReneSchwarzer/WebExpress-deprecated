@@ -55,6 +55,8 @@
     <None Remove="Assets\js\popper.min.js" />
     <None Remove="Assets\js\summernote-bs4.min.js" />
     <None Remove="Assets\js\summernote-de-DE.js" />
+    <None Remove="Internationalization\de" />
+    <None Remove="Internationalization\en" />
   </ItemGroup>
 
   <ItemGroup>
@@ -182,6 +184,8 @@
     <EmbeddedResource Include="Assets\js\summernote-de-DE.js">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Internationalization\de" />
+    <EmbeddedResource Include="Internationalization\en" />
   </ItemGroup>
 
   <ItemGroup>

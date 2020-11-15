@@ -208,13 +208,13 @@ namespace WebExpress.UI.Controls
             var html = new HtmlElementTextContentDiv
             (
                 Modal != null ? (IHtmlNode)new HtmlList(button, Modal.Render(context)) : button,
-                dropdownButton, 
+                dropdownButton,
                 dropdownElements
             )
             {
                 Class = Css.Concatenate
                 (
-                    "btn-group ", 
+                    "btn-group ",
                     Margin.ToClass(),
                     (Block == TypeBlockButton.Block ? "btn-block" : "")
                 ),

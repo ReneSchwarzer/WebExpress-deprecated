@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
-using WebExpress.Pages;
 
 namespace WebExpress.UI.Controls
 {
@@ -12,16 +11,16 @@ namespace WebExpress.UI.Controls
         /// </summary>
         public virtual TypeLayoutFlexbox Layout
         {
-            get => (TypeLayoutFlexbox) GetProperty(TypeLayoutFlexbox.Default);
+            get => (TypeLayoutFlexbox)GetProperty(TypeLayoutFlexbox.Default);
             set => SetProperty(value, () => value.ToClass());
         }
-        
+
         /// <summary>
         /// Bestimmt, ob die horizentale Ausrichtung der Items
         /// </summary>
         public virtual TypeJustifiedFlexbox Justify
         {
-            get => (TypeJustifiedFlexbox) GetProperty(TypeJustifiedFlexbox.Start);
+            get => (TypeJustifiedFlexbox)GetProperty(TypeJustifiedFlexbox.Start);
             set => SetProperty(value, () => value.ToClass());
         }
 

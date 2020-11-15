@@ -5,7 +5,7 @@ namespace WebExpress.Html
     /// <summary>
     /// Markiert die Gruppe der Tabellenzeilen, die die Beschriftungen der Tabellenspalten enthalten.
     /// </summary>
-    public class HtmlElementTableThead : HtmlElement,IHtmlElementTable
+    public class HtmlElementTableThead : HtmlElement, IHtmlElementTable
     {
         /// <summary>
         /// Konstruktor

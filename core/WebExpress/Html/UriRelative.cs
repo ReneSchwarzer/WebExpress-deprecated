@@ -27,8 +27,8 @@ namespace WebExpress.Html
         /// <summary>
         /// Liefert den Anzeigestring der Uri
         /// </summary>
-        public virtual string Display 
-        { 
+        public virtual string Display
+        {
             get
             {
                 var last = Path.LastOrDefault();
@@ -77,7 +77,7 @@ namespace WebExpress.Html
             var query = fragment[0].Split('?');
             if (query.Count() == 2)
             {
-                foreach(var q in query[1].Split('&'))
+                foreach (var q in query[1].Split('&'))
                 {
                     var item = q.Split('=');
 

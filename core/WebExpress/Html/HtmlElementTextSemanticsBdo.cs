@@ -25,7 +25,7 @@ namespace WebExpress.Html
             get => GetAttribute("dir");
             set => SetAttribute("dir", value);
         }
-        
+
         /// <summary>
         /// Konstruktor
         /// </summary>

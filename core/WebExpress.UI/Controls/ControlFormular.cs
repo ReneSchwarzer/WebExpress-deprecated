@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
 using WebExpress.Messages;
-using WebExpress.Pages;
 
 namespace WebExpress.UI.Controls
 {
@@ -159,14 +158,14 @@ namespace WebExpress.UI.Controls
         {
             var renderContext = new RenderContextFormular(context, this);
             SubmitButton?.Initialize(renderContext);
-            
+
             if (EnableSubmitAndNextButton)
             {
                 SubmitAndNextButton?.Initialize(renderContext);
             }
 
             Items.ForEach(x => x.Initialize(renderContext));
-            
+
             if (CancelButton != null)
             {
                 CancelButton.Uri = RedirectUrl;
@@ -278,8 +277,8 @@ namespace WebExpress.UI.Controls
 
             foreach (var v in Items)
             {
-                html.Elements.Add(new ControlFormularItemLabelGroup(v) 
-                { 
+                html.Elements.Add(new ControlFormularItemLabelGroup(v)
+                {
                     //Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None)
                 }.Render(renderContext));
             }

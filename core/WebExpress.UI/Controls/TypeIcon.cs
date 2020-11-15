@@ -17,7 +17,7 @@
         CalendarPlus,
         Car,
         ChartBar,
-        Clock, 
+        Clock,
         Clone,
         Code,
         Cog,

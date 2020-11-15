@@ -1,6 +1,4 @@
-﻿using System;
-using WebExpress.Html;
-using WebExpress.Pages;
+﻿using WebExpress.Html;
 
 namespace WebExpress.UI.Controls
 {
@@ -104,7 +102,7 @@ namespace WebExpress.UI.Controls
         /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
-        { 
+        {
             if (Uri != null)
             {
                 return new HtmlElementTextSemanticsA(new HtmlText(Value.ToString()))
@@ -116,7 +114,7 @@ namespace WebExpress.UI.Controls
                     Role = Role
                 };
             }
-            
+
             return new HtmlElementTextSemanticsSpan(new HtmlText(Value.ToString()))
             {
                 ID = ID,

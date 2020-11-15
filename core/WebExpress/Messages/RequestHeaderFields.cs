@@ -46,6 +46,11 @@ namespace WebExpress.Messages
         public string AcceptEncoding { get; private set; }
 
         /// <summary>
+        /// Liefert oder setzt die erlaubten Sprachen
+        /// </summary>
+        public string AcceptLanguage { get; private set; }
+
+        /// <summary>
         /// Liefert oder setzt die Zugangsdaten Name und Passwort
         /// </summary>
         public RequestAuthorization Authorization { get; private set; }
@@ -76,7 +81,8 @@ namespace WebExpress.Messages
                 ContentType = GetOptionsValue(options, "Content-Type"),
                 ContentLanguage = GetOptionsValue(options, "Content-Language"),
                 UserEducation = GetOptionsValue(options, "User-Education"),
-                AcceptEncoding = GetOptionsValue(options, "Accept-Encoding")
+                AcceptEncoding = GetOptionsValue(options, "Accept-Encoding"),
+                AcceptLanguage = GetOptionsValue(options, "Accept-Language")
             };
 
             var authorization = GetOptionsValue(options, "Authorization");

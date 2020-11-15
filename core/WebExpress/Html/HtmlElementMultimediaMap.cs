@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace WebExpress.Html
+﻿namespace WebExpress.Html
 {
     /// <summary>
     /// Definiert in Verbindung mit dem <area>-Element eine Image Map.

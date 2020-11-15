@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
-using WebExpress.Pages;
 
 namespace WebExpress.UI.Controls
 {
@@ -12,16 +11,16 @@ namespace WebExpress.UI.Controls
         ///// </summary>
         //public new bool Value
         //{ 
-            //get => GetParam(Name) == "t" ? true : false;
-            //set
-            //{
-            //    var v = GetParam(Name);
+        //get => GetParam(Name) == "t" ? true : false;
+        //set
+        //{
+        //    var v = GetParam(Name);
 
-            //    if (string.IsNullOrWhiteSpace(v))
-            //    {
-            //        AddParam(Name, value ? "t" : "f", Formular.Scope);
-            //    }
-            //}
+        //    if (string.IsNullOrWhiteSpace(v))
+        //    {
+        //        AddParam(Name, value ? "t" : "f", Formular.Scope);
+        //    }
+        //}
         //}
 
         /// <summary>

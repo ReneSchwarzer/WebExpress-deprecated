@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
-using WebExpress.Pages;
 
 namespace WebExpress.UI.Controls
 {
@@ -95,20 +94,20 @@ namespace WebExpress.UI.Controls
 
             if (!string.IsNullOrWhiteSpace(HeaderImage))
             {
-                html.Elements.Add(new HtmlElementMultimediaImg() 
-                { 
-                    Src = HeaderImage, 
-                    Class = "card-img-top" 
+                html.Elements.Add(new HtmlElementMultimediaImg()
+                {
+                    Src = HeaderImage,
+                    Class = "card-img-top"
                 });
             }
 
             if (!string.IsNullOrWhiteSpace(Headline))
             {
-                Content.Insert(0, new ControlText() 
-                { 
-                    Text = Headline, 
-                    Classes = new List<string>(new[] { "card-title" }), 
-                    Format = TypeFormatText.H4 
+                Content.Insert(0, new ControlText()
+                {
+                    Text = Headline,
+                    Classes = new List<string>(new[] { "card-title" }),
+                    Format = TypeFormatText.H4
                 });
             }
 
@@ -116,10 +115,10 @@ namespace WebExpress.UI.Controls
 
             if (!string.IsNullOrWhiteSpace(FooterImage))
             {
-                html.Elements.Add(new HtmlElementMultimediaImg() 
-                { 
-                    Src = FooterImage, 
-                    Class = "card-img-top" 
+                html.Elements.Add(new HtmlElementMultimediaImg()
+                {
+                    Src = FooterImage,
+                    Class = "card-img-top"
                 });
             }
 

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace WebExpress.Html
+﻿namespace WebExpress.Html
 {
     /// <summary>
     /// Markiert eine Tondatei oder einen Audiostream.

@@ -31,7 +31,7 @@
             {
                 return SystemColor.ToClass();
             }
-            
+
             return null;
         }
 
@@ -77,7 +77,7 @@
                 {
                     return "border-color:" + UserColor + ";";
                 }
-                
+
                 return "background:" + UserColor + ";border-color:" + UserColor + ";";
             }
 

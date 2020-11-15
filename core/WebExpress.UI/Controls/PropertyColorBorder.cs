@@ -31,7 +31,7 @@
             {
                 return SystemColor.ToClass();
             }
-            
+
             return null;
         }
 

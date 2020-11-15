@@ -77,6 +77,15 @@ namespace WebExpress.UI.Controls
         }
 
         /// <summary>
+        /// Liefert oder setzt den Aktivierungsstatus der Schaltfläche
+        /// </summary>
+        public TypeAlighmentDropdownMenu AlighmentMenu
+        {
+            get => (TypeAlighmentDropdownMenu)GetProperty(TypeAlighmentDropdownMenu.Default);
+            set => SetProperty(value, () => value.ToClass());
+        }
+
+        /// <summary>
         /// Liefert oder setzt das Bild
         /// </summary>
         public IUri Image { get; set; }
@@ -182,7 +191,7 @@ namespace WebExpress.UI.Controls
         /// </summary>
         private void Init()
         {
-            Size = TypeSizeButton.Default; 
+            Size = TypeSizeButton.Default;
         }
 
         /// <summary>
@@ -204,7 +213,7 @@ namespace WebExpress.UI.Controls
             var html = new HtmlElementTextContentDiv()
             {
                 ID = ID,
-                Class = "dropdown",
+                Class = Css.Concatenate("dropdown", Margin.ToClass()),
                 Role = Role
             };
 
@@ -213,7 +222,7 @@ namespace WebExpress.UI.Controls
                 var button = new HtmlElementFieldButton()
                 {
                     ID = string.IsNullOrWhiteSpace(ID) ? "" : ID + "_btn",
-                    Class = Css.Concatenate("btn", GetClasses()),
+                    Class = Css.Concatenate("btn", Css.Remove(GetClasses(), Margin.ToClass())),
                     Style = GetStyles(),
                     DataToggle = "dropdown"
                 };
@@ -246,7 +255,7 @@ namespace WebExpress.UI.Controls
                 var button = new HtmlElementMultimediaImg()
                 {
                     ID = string.IsNullOrWhiteSpace(ID) ? "" : ID + "_btn",
-                    Class = Css.Concatenate("", GetClasses()),
+                    Class = Css.Concatenate("btn", Css.Remove(GetClasses(), Margin.ToClass())),
                     Style = GetStyles(),
                     Src = Image.ToString(),
                     Height = Height,
@@ -272,7 +281,11 @@ namespace WebExpress.UI.Controls
                     )
                 )
                 {
-                    Class = HorizontalAlignment == TypeHorizontalAlignment.Right ? "dropdown-menu dropdown-menu-right" : "dropdown-menu"
+                    Class = Css.Concatenate
+                    (
+                        HorizontalAlignment == TypeHorizontalAlignment.Right ? "dropdown-menu dropdown-menu-right" : "dropdown-menu",
+                        AlighmentMenu.ToClass()
+                    )
                 }
             );
 

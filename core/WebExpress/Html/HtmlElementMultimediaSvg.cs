@@ -12,7 +12,7 @@ namespace WebExpress.Html
         /// Liefert die Elemente
         /// </summary>
         public new List<IHtmlNode> Elements => base.Elements;
-        
+
         /// <summary>
         /// Liefert oder setzt die Weite
         /// </summary>
@@ -48,7 +48,7 @@ namespace WebExpress.Html
         {
 
         }
-        
+
         /// <summary>
         /// Konstruktor
         /// </summary>

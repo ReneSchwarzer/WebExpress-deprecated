@@ -1,8 +1,6 @@
-﻿using WebExpress.Html;
-
-namespace WebExpress.UI.Controls
+﻿namespace WebExpress.UI.Controls
 {
-    public class ControlMultipleProgressBarItem 
+    public class ControlMultipleProgressBarItem
     {
         /// <summary>
         /// Liefert oder setzt die Textfarbe

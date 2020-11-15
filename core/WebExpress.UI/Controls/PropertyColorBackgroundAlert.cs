@@ -16,7 +16,7 @@
         /// </summary>
         /// <param name="color">Die Farbe</param>
         public PropertyColorBackgroundAlert(string color)
-            :base(color)
+            : base(color)
         {
         }
 

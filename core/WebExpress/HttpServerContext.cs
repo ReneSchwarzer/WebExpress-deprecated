@@ -86,6 +86,6 @@ namespace WebExpress
         /// <summary>
         /// Liefert oder setzt den Host
         /// </summary>
-        public IHost Host  { get; protected set; }
+        public IHost Host { get; protected set; }
     }
 }

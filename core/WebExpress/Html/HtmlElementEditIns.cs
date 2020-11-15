@@ -25,7 +25,7 @@ namespace WebExpress.Html
             get => GetAttribute("cite");
             set => SetAttribute("cite", value);
         }
-        
+
         /// <summary>
         /// Liefert oder setzt die indiziert das Datum und die Uhrzeit, wann der Text geändert wurde. 
         /// Wenn der Wert nicht als Datum mit optionaler Zeitangabe erkannt werden kann, hat dieses Element keinen Bezug zur Zeit.
@@ -35,7 +35,7 @@ namespace WebExpress.Html
             get => GetAttribute("datetime");
             set => SetAttribute("datetime", value);
         }
-        
+
         /// <summary>
         /// Konstruktor
         /// </summary>

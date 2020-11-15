@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
-using WebExpress.Pages;
 
 namespace WebExpress.UI.Controls
 {
@@ -147,12 +146,12 @@ namespace WebExpress.UI.Controls
                 HorizontalAlignment = TypeHorizontalAlignment.Right,
                 Size = TypeSizeButton.Small
             };
-            setting.Add(new ControlLink() 
-            { 
-                Text = "Löschen", 
-                Icon = new PropertyIcon(TypeIcon.TrashAlt), 
-                TextColor = new PropertyColorText(TypeColorText.Danger), 
-                Uri = context.Page.Uri 
+            setting.Add(new ControlLink()
+            {
+                Text = "Löschen",
+                Icon = new PropertyIcon(TypeIcon.TrashAlt),
+                TextColor = new PropertyColorText(TypeColorText.Danger),
+                Uri = context.Page.Uri
             });
 
             var header = new HtmlElementTextContentDiv(setting.Render(context), profile.Render(context), headerText)
@@ -174,7 +173,7 @@ namespace WebExpress.UI.Controls
                 Text = likeText,
                 Uri = context.Page.Uri,
                 Size = TypeSizeButton.Small,
-                BackgroundColor =  new PropertyColorButton(TypeColorButton.Light),
+                BackgroundColor = new PropertyColorButton(TypeColorButton.Light),
                 Outline = true,
                 TextColor = new PropertyColorText(TypeColorText.Primary)
             };

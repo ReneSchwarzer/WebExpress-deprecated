@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace WebExpress.UI.Controls
+﻿namespace WebExpress.UI.Controls
 {
     public class PropertyGrid : IProperty
     {
@@ -40,7 +38,7 @@ namespace WebExpress.UI.Controls
         /// <returns>Die zum Rahmen gehörende CSS-KLasse</returns>
         public string ToClass()
         {
-            switch(Device)
+            switch (Device)
             {
                 case TypeDevice.Auto:
                     return "col" + Columns;

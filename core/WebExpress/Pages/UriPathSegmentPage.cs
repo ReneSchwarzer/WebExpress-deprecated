@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using WebExpress.Html;
+﻿using WebExpress.Html;
 
 namespace WebExpress.Pages
 {
@@ -24,7 +21,7 @@ namespace WebExpress.Pages
         /// <param name="segmentID">Die SegmentID</param>
         /// <param name="tag">Der Tag</param>
         public UriPathSegmentPage(string value, UriSegmentID segmentID, object tag = null)
-            :base(value, tag)
+            : base(value, tag)
         {
             SegmentID = segmentID;
             Display = Display;

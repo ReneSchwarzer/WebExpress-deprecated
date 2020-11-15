@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace WebExpress.Html
+﻿namespace WebExpress.Html
 {
     /// <summary>
     /// Ermöglicht es Autoren, alternative Medienressourcen (z.B. verschiedene Audio- oder Videoformate) 

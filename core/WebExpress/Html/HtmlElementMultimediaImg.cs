@@ -15,7 +15,7 @@ namespace WebExpress.Html
             get => GetAttribute("alt");
             set => SetAttribute("alt", value);
         }
-        
+
         /// <summary>
         /// Liefert oder setzt den ToolTip
         /// </summary>

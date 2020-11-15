@@ -1,8 +1,6 @@
-﻿using WebExpress.Html;
-
-namespace WebExpress.UI.Controls
+﻿namespace WebExpress.UI.Controls
 {
-    public class PropertyOnChange 
+    public class PropertyOnChange
     {
         /// <summary>
         /// Der System-Wert

@@ -15,7 +15,7 @@ namespace WebExpress.Pages
         /// <param name="id1">Die ID</param>
         /// <param name="id2">Die ID</param>
         /// <returns></returns>
-        public static bool operator == (UriSegmentID id1, UriSegmentID id2) => id1.Equals(id2);
+        public static bool operator ==(UriSegmentID id1, UriSegmentID id2) => id1.Equals(id2);
 
         /// <summary>
         /// Vergleichsoperator
@@ -23,7 +23,7 @@ namespace WebExpress.Pages
         /// <param name="id1">Die ID</param>
         /// <param name="id2">Die ID</param>
         /// <returns></returns>
-        public static bool operator != (UriSegmentID id1, UriSegmentID id2) => !id1.Equals(id2);
+        public static bool operator !=(UriSegmentID id1, UriSegmentID id2) => !id1.Equals(id2);
 
         /// <summary>
         /// Konstruktor
@@ -86,7 +86,7 @@ namespace WebExpress.Pages
         {
             return Value.GetHashCode();
         }
-        
+
         /// <summary>
         /// Wandelt die ID in einen String um
         /// </summary>
