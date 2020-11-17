@@ -175,7 +175,7 @@ namespace WebExpress.UI.Controls
             SubmitButton = new ControlFormularItemButton()
             {
                 Name = "submit_" + Name.ToLower(),
-                Text = context.I18N(Assembly.GetExecutingAssembly(), "webexpress.ui.form.submit.label"),
+                Text = context.I18N("org.webexpress", "webexpress.ui.form.submit.label"),
                 Icon = new PropertyIcon(TypeIcon.Save),
                 Color = LayoutSchema.SubmitButtonBackground,
                 Type = "submit",
@@ -186,7 +186,7 @@ namespace WebExpress.UI.Controls
             SubmitAndNextButton = new ControlFormularItemButton()
             {
                 Name = "next_" + Name.ToLower(),
-                Text = context.I18N(Assembly.GetExecutingAssembly(), "webexpress.ui.form.next.label"),
+                Text = context.I18N("org.webexpress", "webexpress.ui.form.next.label"),
                 Icon = new PropertyIcon(TypeIcon.Forward),
                 Color = LayoutSchema.NextButtonBackground,
                 Type = "submit",
@@ -196,7 +196,7 @@ namespace WebExpress.UI.Controls
 
             CancelButton = new ControlButtonLink()
             {
-                Text = context.I18N(Assembly.GetExecutingAssembly(), "webexpress.ui.form.cancel.label"),
+                Text = context.I18N("org.webexpress", "webexpress.ui.form.cancel.label"),
                 Icon = new PropertyIcon(TypeIcon.Times),
                 BackgroundColor = LayoutSchema.CancelButtonBackground,
                 TextColor = new PropertyColorText(TypeColorText.White),

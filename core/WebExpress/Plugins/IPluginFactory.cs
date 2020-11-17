@@ -6,6 +6,11 @@
     public interface IPluginFactory
     {
         /// <summary>
+        /// Liefert den Anwendungsnamen indem das Plugin aktiv ist. 
+        /// </summary>
+        string AppArtifactID { get; }
+
+        /// <summary>
         /// Liefert oder setzt die ID
         /// </summary>
         string ArtifactID { get; }

@@ -10,6 +10,16 @@ namespace WebExpress.Plugins
     public abstract class PluginFactory : IPluginFactory
     {
         /// <summary>
+        /// Liefert oder setzt den Namen des Plugins
+        /// </summary>
+        public virtual string PluginName => string.Join(".", ManufacturerID, ArtifactID);
+
+        /// <summary>
+        /// Liefert den Anwendungsnamen indem das Plugin aktiv ist. 
+        /// </summary>
+        public abstract string AppArtifactID { get; }
+
+        /// <summary>
         /// Liefert oder setzt die ID
         /// </summary>
         public abstract string ArtifactID { get; }
@@ -28,6 +38,11 @@ namespace WebExpress.Plugins
         /// Liefert oder setzt den Namen
         /// </summary>
         public abstract string Version { get; }
+
+        /// <summary>
+        /// Liefert das Icon des Plugins
+        /// </summary>
+        public abstract string Icon { get; }
 
         /// <summary>
         /// Liefert den Dateinamen der Konfigurationsdatei
@@ -51,11 +66,12 @@ namespace WebExpress.Plugins
         public IPlugin Create<T>(HttpServerContext context, string configFileName) where T : IPlugin, new()
         {
             var plugin = new T() { };
-            plugin.Context = new PluginContext(context, plugin);
+            var pluginContext = new PluginContext(context, this, configFileName);
 
-            plugin.Init(configFileName);
+            plugin.Init(pluginContext);
 
-            Internationalization.Internationalization.Add(plugin);
+            InternationalizationManager.Add(plugin, AppArtifactID);
+            PluginComponentManager.Add(plugin, AppArtifactID);
 
             return plugin;
         }

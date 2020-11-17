@@ -9,24 +9,22 @@ namespace WebExpress.UI.Controls
         /// </summary>
         /// <param name="context">Das Objekt, welches erweitert wird</param>
         /// <param name="key">Der Schlüssel</param>
-        /// <param name="fallback">Fallbackszenario, wenn der Schlüssel nicht gefunden wird</param>
         /// <returns>Der Wert des Schlüssels in der aktuellen Sprache</returns>
-        public static string I18N(this RenderContext context, string key, string fallback = null)
+        public static string I18N(this RenderContext context, string key)
         {
-            return Internationalization.InternationalizationExtensions.I18N(context?.Page, context?.Page.GetType().Assembly, key, fallback);
+            return Internationalization.InternationalizationExtensions.I18N(context?.Page, context?.Page.Context.AppArtifactID, key);
         }
 
         /// <summary>
         /// Internationalisierung
         /// </summary>
         /// <param name="context">Das Objekt, welches erweitert wird</param>
-        /// <param name="assembly">Das Assembly, indem sich der Schlüssel-Wertpaar befindet</param>
+        /// <param name="application">Die Anwendung, welche die Internationalisierungsdaten zugewiesen werden</param>
         /// <param name="key">Der Schlüssel</param>
-        /// <param name="fallback">Fallbackszenario, wenn der Schlüssel nicht gefunden wird</param>
         /// <returns>Der Wert des Schlüssels in der aktuellen Sprache</returns>
-        public static string I18N(this RenderContext context, Assembly assembly, string key, string fallback = null)
-        {
-            return Internationalization.InternationalizationExtensions.I18N(context?.Page, assembly, key, fallback);
+        public static string I18N(this RenderContext context, string application, string key)
+          {
+            return Internationalization.InternationalizationExtensions.I18N(context?.Page, application, key);
         }
     }
 }

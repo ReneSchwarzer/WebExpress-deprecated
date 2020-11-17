@@ -8,6 +8,11 @@ namespace Education
     public class WebExpressUIFactory : PluginFactory
     {
         /// <summary>
+        /// Liefert den Anwendungsnamen indem das Plugin aktiv ist. 
+        /// </summary>
+        public override string AppArtifactID => "org.WebExpress";
+
+        /// <summary>
         /// Liefert oder setzt die ID
         /// </summary>
         public override string ArtifactID => "UI";
@@ -26,6 +31,11 @@ namespace Education
         /// Liefert oder setzt den Namen
         /// </summary>
         public override string Version => Assembly.GetExecutingAssembly().GetName().Version.ToString();
+
+        /// <summary>
+        /// Liefert das Icon des Plugins
+        /// </summary>
+        public override string Icon => "/Asserts/img/WebExpress.UI.svg";
 
         /// <summary>
         /// Liefert den Dateinamen der Konfigurationsdatei

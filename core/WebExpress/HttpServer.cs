@@ -43,9 +43,9 @@ namespace WebExpress
         private readonly CancellationTokenSource clientTokenSource = new CancellationTokenSource();
 
         /// <summary>
-        /// Liefert oder setzt die Liste der Plugins
+        /// Liefert oder setzt die interne Liste der Plugins
         /// </summary>
-        public List<IPlugin> Plugins { get; private set; }
+        private List<IPlugin> Plugins { get; set; } = new List<IPlugin>();
 
         /// <summary>
         /// Liefert oder setzt die Konfiguration
@@ -65,9 +65,8 @@ namespace WebExpress
         {
             Port = port;
             Queue = new Queue<TcpClient>();
-            Plugins = new List<IPlugin>();
 
-            Internationalization.Internationalization.Add(typeof(HttpServer).Assembly);
+            Internationalization.InternationalizationManager.Add(typeof(HttpServer).Assembly, "webexpress");
 
             Context = new HttpServerContext(port, Environment.CurrentDirectory, Path.Combine(Environment.CurrentDirectory, "Config"), "", Log.Current, this);
         }
@@ -81,22 +80,6 @@ namespace WebExpress
             : this(port)
         {
             Context = new HttpServerContext(port, context.AssetBaseFolder, context.ConfigBaseFolder, context.UrlBasePath, context.Log, this);
-        }
-
-        /// <summary>
-        /// Registriert einen Worker 
-        /// </summary>
-        /// <param name="plugin"></param>
-        public void RegisterPlugin(IPlugin plugin)
-        {
-            Plugins.Add(plugin);
-            plugin.Context = new PluginContext(Context, plugin);
-            Context.Plugins.Add(plugin.Context);
-
-            if (Context != null && Context.Log != null)
-            {
-                Context.Log.Info(MethodInfo.GetCurrentMethod(), "Plugin '" + plugin.Name + "' wurde registriert");
-            }
         }
 
         /// <summary>
@@ -369,9 +352,10 @@ namespace WebExpress
                         Context,
                         Path.Combine(Context.ConfigBaseFolder, factory.ConfigFileName)
                     );
+
                     p.Run();
+
                     Plugins.Add(p);
-                    Context.Plugins.Add(p.Context);
                 }
             }
         }
@@ -406,33 +390,6 @@ namespace WebExpress
             }
 
             return null;
-        }
-
-        /// <summary>
-        /// Erstellt Instanzen aus den Typen der geladenen Plugins
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<T> CreatePluginComponet<T>() where T : IPluginComponent
-        {
-            var list = new List<T>();
-            var name = typeof(T).FullName;
-
-            foreach (var p in Plugins)
-            {
-                var assembly = p.GetType().Assembly;
-                var types = assembly.GetExportedTypes();
-
-                foreach (var t in types)
-                {
-                    if (t.IsClass && t.IsPublic && t.GetInterface(name) != null)
-                    {
-                        var result = (T)assembly.CreateInstance(t.FullName);
-                        list.Add(result);
-                    }
-                }
-            }
-
-            return list;
         }
 
         /// <summary>

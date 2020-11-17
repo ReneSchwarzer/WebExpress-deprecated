@@ -8,9 +8,14 @@ namespace WebExpress.Plugins
     public interface IPluginContext
     {
         /// <summary>
+        /// Liefert den Anwendungsnamen indem das Plugin aktiv ist. 
+        /// </summary>
+        string AppArtifactID { get; }
+
+        /// <summary>
         /// Liefert den Name des Plugins 
         /// </summary>
-        string Name { get; }
+        string PluginName { get; }
 
         /// <summary>
         /// Liefert die Version des Plugins 
@@ -43,18 +48,8 @@ namespace WebExpress.Plugins
         string IconUrl { get; set; }
 
         /// <summary>
-        /// Liefert das Sitemap
-        /// </summary>
-        ISiteMap SiteMap { get; }
-
-        /// <summary>
         /// Liefert das Log, zum schreiben von Statusnachrichten auf die Konsole und in eine Log-Datei
         /// </summary>
         Log Log { get; }
-
-        /// <summary>
-        /// Verweis auf dem Webserver
-        /// </summary>
-        IHost Host { get; }
     }
 }

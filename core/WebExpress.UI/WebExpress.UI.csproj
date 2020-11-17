@@ -144,4 +144,8 @@
     <ProjectReference Include="..\WebExpress\WebExpress.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Plugin\" />
+  </ItemGroup>
+
 </Project>

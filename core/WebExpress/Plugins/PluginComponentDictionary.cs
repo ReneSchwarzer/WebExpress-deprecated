@@ -1,24 +1,24 @@
 ﻿using System.Collections.Generic;
 
-namespace WebExpress.Internationalization
+namespace WebExpress.Plugins
 {
-    public class InternationalizationDictionary : Dictionary<string, InternationalizationDictionaryItem>
+    public class PluginComponentDictionary : Dictionary<string, PluginComponentDictionaryItem>
     {
         ///// <summary>
         ///// Instanz des einzigen Modells
         ///// </summary>
-        //private static InternationalizationDictionary _this = null;
+        //private static PluginComponentDictionary _this = null;
 
         ///// <summary>
         ///// Lifert die einzige Instanz der Modell-Klasse
         ///// </summary>
-        //public static InternationalizationDictionary Instance
+        //public static PluginComponentDictionary Instance
         //{
         //    get
         //    {
         //        if (_this == null)
         //        {
-        //            _this = new InternationalizationDictionary();
+        //            _this = new PluginComponentDictionary();
         //        }
 
         //        return _this;
@@ -28,7 +28,7 @@ namespace WebExpress.Internationalization
         ///// <summary>
         ///// Konstruktor
         ///// </summary>
-        //private InternationalizationDictionary()
+        //private PluginComponentDictionary()
         //{
 
         //}

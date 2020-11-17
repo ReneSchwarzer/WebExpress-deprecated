@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Reflection;
 using WebExpress.Html;
-using WebExpress.UI.Plugin;
 
 namespace WebExpress.UI.Controls
 {
@@ -24,47 +23,47 @@ namespace WebExpress.UI.Controls
         /// <summary>
         /// Liefert oder setzt die Elemente des Hamburgermenüs
         /// </summary>
-        public List<IPluginComponentHamburgerPrimary> HamburgerPrimary { get; private set; } = new List<IPluginComponentHamburgerPrimary>();
+        public List<IControlDropdownItem> HamburgerPrimary { get; private set; } = new List<IControlDropdownItem>();
 
         /// <summary>
         /// Liefert oder setzt die Elemente des Hamburgermenüs
         /// </summary>
-        public List<IPluginComponentHamburgerSecondary> HamburgerSecondary { get; private set; } = new List<IPluginComponentHamburgerSecondary>();
+        public List<IControlDropdownItem> HamburgerSecondary { get; private set; } = new List<IControlDropdownItem>();
 
         /// <summary>
         /// Liefert oder setzt den den Bereich für die App-Navigation
         /// </summary>
-        public List<IPluginComponentAppNavigationPreferences> NavigationPreferences { get; protected set; } = new List<IPluginComponentAppNavigationPreferences>();
+        public List<IControlNavigationItem> NavigationPreferences { get; protected set; } = new List<IControlNavigationItem>();
 
         /// <summary>
         /// Liefert oder setzt den den Bereich für die App-Navigation
         /// </summary>
-        public List<IPluginComponentAppNavigationPrimary> NavigationPrimary { get; protected set; } = new List<IPluginComponentAppNavigationPrimary>();
+        public List<IControlNavigationItem> NavigationPrimary { get; protected set; } = new List<IControlNavigationItem>();
 
         /// <summary>
         /// Liefert oder setzt den den Bereich für die App-Navigation
         /// </summary>
-        public List<IPluginComponentAppNavigationSecondary> NavigationSecondary { get; protected set; } = new List<IPluginComponentAppNavigationSecondary>();
+        public List<IControlNavigationItem> NavigationSecondary { get; protected set; } = new List<IControlNavigationItem>();
 
         /// <summary>
         /// Liefert oder setzt die Schaltfläche zum schnellen Erzeugen neuer Inhalte
         /// </summary>
-        public List<IPluginComponentQuickCreatePrimary> QuickCreatePrimary { get; protected set; } = new List<IPluginComponentQuickCreatePrimary>();
+        public List<IControlSplitButtonItem> QuickCreatePrimary { get; protected set; } = new List<IControlSplitButtonItem>();
 
         /// <summary>
         /// Liefert oder setzt die Schaltfläche zum schnellen Erzeugen neuer Inhalte
         /// </summary>
-        public List<IPluginComponentQuickCreateSecondary> QuickCreateSecondary { get; protected set; } = new List<IPluginComponentQuickCreateSecondary>();
+        public List<IControlSplitButtonItem> QuickCreateSecondary { get; protected set; } = new List<IControlSplitButtonItem>();
 
         /// <summary>
         /// Liefert oder setzt die Einstellungen
         /// </summary>
-        public List<IPluginComponentSettingsPrimary> SettingsPrimary { get; protected set; } = new List<IPluginComponentSettingsPrimary>();
+        public List<IControlDropdownItem> SettingsPrimary { get; protected set; } = new List<IControlDropdownItem>();
 
         /// <summary>
         /// Liefert oder setzt die Einstellungen
         /// </summary>
-        public List<IPluginComponentSettingsSecondary> SettingsSecondary { get; protected set; } = new List<IPluginComponentSettingsSecondary>();
+        public List<IControlDropdownItem> SettingsSecondary { get; protected set; } = new List<IControlDropdownItem>();
 
         /// <summary>
         /// Liefert oder setzt die Farbe des Textes
@@ -186,7 +185,7 @@ namespace WebExpress.UI.Controls
                 (quickcreate.Count > 1) ?
                 (IControl)new ControlSplitButtonLink("quickcreate", quickcreate.Skip(1))
                 {
-                    Text = context.I18N(Assembly.GetExecutingAssembly(), "webexpress.ui.quickcreate.label", "Create"),
+                    Text = context.I18N("org.webexpress", "webexpress.ui.quickcreate.label"),
                     Uri = firstQuickcreate?.Uri,
                     BackgroundColor = LayoutSchema.HeaderQuickCreateButtonBackground,
                     Size = LayoutSchema.HeaderQuickCreateButtonSize,
@@ -195,7 +194,7 @@ namespace WebExpress.UI.Controls
                 (QuickCreatePrimary.Count > 0) ?
                 new ControlButtonLink("quickcreate")
                 {
-                    Text = context.I18N(Assembly.GetExecutingAssembly(), "webexpress.ui.quickcreate.label", "Create"),
+                    Text = context.I18N("org.webexpress", "webexpress.ui.quickcreate.label"),
                     Uri = firstQuickcreate?.Uri,
                     BackgroundColor = LayoutSchema.HeaderQuickCreateButtonBackground,
                     Size = LayoutSchema.HeaderQuickCreateButtonSize,

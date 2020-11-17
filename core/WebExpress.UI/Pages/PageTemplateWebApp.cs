@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using WebExpress.Html;
+using WebExpress.Internationalization;
+using WebExpress.Plugins;
 using WebExpress.UI.Controls;
-using WebExpress.UI.Plugin;
 
 namespace WebExpress.UI.Pages
 {
@@ -82,12 +82,11 @@ namespace WebExpress.UI.Pages
         {
             base.Init();
 
-            
             Header.Fixed = TypeFixed.Top;
             Header.Styles = new List<string>(new[] { "position: sticky; top: 0; z-index: 99;" });
 
             Header.Logo = Uri.Root.Append(Context.IconUrl);
-            Header.Title = Context.Name;
+            Header.Title = this.I18N(Context.PluginName);
 
             Breadcrumb.Uri = Uri;
             Breadcrumb.Margin = new PropertySpacingMargin(PropertySpacing.Space.Null);
@@ -100,7 +99,7 @@ namespace WebExpress.UI.Pages
             Toolbar.BackgroundColor = LayoutSchema.ToolbarBackground;
             Content.BackgroundColor = LayoutSchema.ContentBackground;
 
-            PageTitle.Text = Title;
+            PageTitle.Text = this.I18N(Title);
             PageTitle.Format = TypeFormatText.H2;
             PageTitle.TextColor = new PropertyColorText(TypeColorText.Dark);
             PageTitle.Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None);
@@ -120,33 +119,15 @@ namespace WebExpress.UI.Pages
         {
             base.Process();
 
-            var hamburgerPrimary = Context.Host.CreatePluginComponet<IPluginComponentHamburgerPrimary>();
-            Header.HamburgerPrimary.AddRange(hamburgerPrimary.Where(x => x != null));
-
-            var hamburgerSecondary = Context.Host.CreatePluginComponet<IPluginComponentHamburgerSecondary>();
-            Header.HamburgerSecondary.AddRange(hamburgerSecondary.Where(x => x != null));
-
-            var appNavigationPreferences = Context.Host.CreatePluginComponet<IPluginComponentAppNavigationPreferences>();
-            Header.NavigationPreferences.AddRange(appNavigationPreferences.Where(x => x != null));
-
-            var appNavigationPrimary = Context.Host.CreatePluginComponet<IPluginComponentAppNavigationPrimary>();
-            Header.NavigationPrimary.AddRange(appNavigationPrimary.Where(x => x != null));
-
-            var appNavigationSecondary = Context.Host.CreatePluginComponet<IPluginComponentAppNavigationSecondary>();
-            Header.NavigationSecondary.AddRange(appNavigationSecondary.Where(x => x != null));
-
-            var quickCreatePrimary = Context.Host.CreatePluginComponet<IPluginComponentQuickCreatePrimary>();
-            Header.QuickCreatePrimary.AddRange(quickCreatePrimary.Where(x => x != null));
-
-            var quickCreateSecondary = Context.Host.CreatePluginComponet<IPluginComponentQuickCreateSecondary>();
-            Header.QuickCreateSecondary.AddRange(quickCreateSecondary.Where(x => x != null));
-
-            var settingsPrimary = Context.Host.CreatePluginComponet<IPluginComponentSettingsPrimary>();
-            Header.SettingsPrimary.AddRange(settingsPrimary.Where(x => x != null));
-
-            var settingsSecondary = Context.Host.CreatePluginComponet<IPluginComponentSettingsSecondary>();
-            Header.SettingsSecondary.AddRange(settingsSecondary.Where(x => x != null));
-
+            Header.HamburgerPrimary.AddRange(PluginComponentManager.CreatePluginComponents<IControlDropdownItem>("app.primary", Context.AppArtifactID));
+            Header.HamburgerSecondary.AddRange(PluginComponentManager.CreatePluginComponents<IControlDropdownItem>("app.secondary", Context.AppArtifactID));
+            Header.NavigationPreferences.AddRange(PluginComponentManager.CreatePluginComponents<IControlNavigationItem>("app.navigation.preferences", Context.AppArtifactID));
+            Header.NavigationPrimary.AddRange(PluginComponentManager.CreatePluginComponents<IControlNavigationItem>("app.navigation.primary", Context.AppArtifactID));
+            Header.NavigationSecondary.AddRange(PluginComponentManager.CreatePluginComponents<IControlNavigationItem>("app.navigation.secondary", Context.AppArtifactID));
+            Header.QuickCreatePrimary.AddRange(PluginComponentManager.CreatePluginComponents<IControlSplitButtonItem>("app.quickcreate.primary", Context.AppArtifactID));
+            Header.QuickCreatePrimary.AddRange(PluginComponentManager.CreatePluginComponents<IControlSplitButtonItem>("app.quickcreate.secondary", Context.AppArtifactID));
+            Header.SettingsPrimary.AddRange(PluginComponentManager.CreatePluginComponents<IControlDropdownItem>("app.settings.primary", Context.AppArtifactID));
+            Header.SettingsPrimary.AddRange(PluginComponentManager.CreatePluginComponents<IControlDropdownItem>("app.settings.secondary", Context.AppArtifactID));
         }
 
         /// <summary>

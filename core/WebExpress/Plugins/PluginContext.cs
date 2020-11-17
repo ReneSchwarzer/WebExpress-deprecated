@@ -6,79 +6,14 @@ namespace WebExpress.Plugins
     public class PluginContext : IPluginContext
     {
         /// <summary>
-        /// Liefert oder setzt den Verweis auf das Plugin
+        /// Liefert den Anwendungsnamen indem das Plugin aktiv ist. 
         /// </summary>
-        private IPlugin Plugin { get; set; }
-
-        /// <summary>
-        /// Konstruktor
-        /// </summary>
-        /// <param name="serverContext">Der Kontext des HTTP-Servers</param>
-        /// <param name="plugin">Das zugehörige Plugin</param>
-        public PluginContext(HttpServerContext serverContext, IPlugin plugin)
-        {
-            Plugin = plugin;
-            Name = plugin.Name;
-            Version = plugin.GetType().Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
-            HttpServerVersion = serverContext.Version;
-            IconUrl = plugin.Icon;
-            AssetBaseFolder = serverContext.AssetBaseFolder;
-            ConfigBaseFolder = serverContext.ConfigBaseFolder;
-
-            var urlBasePath = !string.IsNullOrWhiteSpace(serverContext?.UrlBasePath) ? serverContext?.UrlBasePath?.Trim() : string.Empty;
-
-            if (!string.IsNullOrWhiteSpace(urlBasePath) && !urlBasePath.StartsWith("/"))
-            {
-                urlBasePath = "/" + urlBasePath;
-            }
-
-            if (!string.IsNullOrWhiteSpace(urlBasePath) && urlBasePath.EndsWith("/"))
-            {
-                urlBasePath = urlBasePath.Substring(0, urlBasePath.Length - 1);
-            }
-
-            UrlBasePath = urlBasePath;
-
-            Log = serverContext.Log;
-            Host = serverContext.Host;
-        }
-
-        /// <summary>
-        /// Copy-Konstruktor
-        /// </summary>
-        /// <param name="context">Der Kontext des Plugins</param>
-        /// <param name="urlBasePath">Der Basispfad des Plugins</param>
-        public PluginContext(IPluginContext context, string urlBasePath)
-        {
-            Name = context.Name;
-            Version = context.Version;
-            HttpServerVersion = context.HttpServerVersion;
-            IconUrl = context.IconUrl;
-            AssetBaseFolder = context.AssetBaseFolder;
-            ConfigBaseFolder = context.ConfigBaseFolder;
-
-            urlBasePath = !string.IsNullOrWhiteSpace(urlBasePath) ? urlBasePath.Trim() : string.Empty;
-
-            if (!string.IsNullOrWhiteSpace(urlBasePath) && !urlBasePath.StartsWith("/"))
-            {
-                urlBasePath = "/" + urlBasePath;
-            }
-
-            if (!string.IsNullOrWhiteSpace(urlBasePath) && urlBasePath.EndsWith("/"))
-            {
-                urlBasePath = urlBasePath.Substring(0, urlBasePath.Length - 1);
-            }
-
-            UrlBasePath = context.UrlBasePath + urlBasePath;
-
-            Log = context.Log;
-            Host = context.Host;
-        }
+        public string AppArtifactID { get; protected set; }
 
         /// <summary>
         /// Liefert oder setzt den Name des Plugins 
         /// </summary>
-        public string Name { get; protected set; }
+        public string PluginName { get; protected set; }
 
         /// <summary>
         /// Liefert die Version des Plugins 
@@ -111,18 +46,72 @@ namespace WebExpress.Plugins
         public string IconUrl { get; set; }
 
         /// <summary>
-        /// Liefert das Sitemap
-        /// </summary>
-        public ISiteMap SiteMap => Plugin?.SiteMap;
-
-        /// <summary>
         /// Liefert oder setzt das Log, zum schreiben von Statusnachrichten auf die Konsole und in eine Log-Datei
         /// </summary>
         public Log Log { get; protected set; }
 
         /// <summary>
-        /// Verweis auf dem Webserver
+        /// Konstruktor
         /// </summary>
-        public IHost Host { get; protected set; }
+        /// <param name="serverContext">Der Kontext des HTTP-Servers</param>
+        /// <param name="factory">Die zugehörige Factory</param>
+        /// <param name="configFileName">Der Ort der Konfiguration</param>
+        public PluginContext(HttpServerContext serverContext, PluginFactory factory, string configFileName)
+        {
+            HttpServerVersion = serverContext.Version;
+            AssetBaseFolder = serverContext.AssetBaseFolder;
+            ConfigBaseFolder = configFileName;
+            Log = serverContext.Log;
+
+            AppArtifactID = factory?.AppArtifactID;
+            PluginName = factory?.PluginName;
+            Version = factory?.Version;
+            IconUrl = factory?.Icon;
+
+            var urlBasePath = !string.IsNullOrWhiteSpace(serverContext?.UrlBasePath) ? serverContext?.UrlBasePath?.Trim() : string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(urlBasePath) && !urlBasePath.StartsWith("/"))
+            {
+                urlBasePath = "/" + urlBasePath;
+            }
+
+            if (!string.IsNullOrWhiteSpace(urlBasePath) && urlBasePath.EndsWith("/"))
+            {
+                urlBasePath = urlBasePath.Substring(0, urlBasePath.Length - 1);
+            }
+
+            UrlBasePath = urlBasePath;
+        }
+
+        /// <summary>
+        /// Copy-Konstruktor
+        /// </summary>
+        /// <param name="context">Der Kontext des Plugins</param>
+        /// <param name="urlBasePath">Der Basispfad des Plugins</param>
+        public PluginContext(IPluginContext context, string urlBasePath)
+        {
+            AppArtifactID = context.AppArtifactID;
+            PluginName = context.PluginName;
+            Version = context.Version;
+            HttpServerVersion = context.HttpServerVersion;
+            IconUrl = context.IconUrl;
+            AssetBaseFolder = context.AssetBaseFolder;
+            ConfigBaseFolder = context.ConfigBaseFolder;
+            Log = context.Log;
+
+            urlBasePath = !string.IsNullOrWhiteSpace(urlBasePath) ? urlBasePath.Trim() : string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(urlBasePath) && !urlBasePath.StartsWith("/"))
+            {
+                urlBasePath = "/" + urlBasePath;
+            }
+
+            if (!string.IsNullOrWhiteSpace(urlBasePath) && urlBasePath.EndsWith("/"))
+            {
+                urlBasePath = urlBasePath.Substring(0, urlBasePath.Length - 1);
+            }
+
+            UrlBasePath = context.UrlBasePath + urlBasePath;
+        }
     }
 }

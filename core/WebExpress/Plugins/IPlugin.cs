@@ -20,8 +20,8 @@ namespace WebExpress.Plugins
         /// <summary>
         /// Initialisierung des Plugins. Hier können z.B. verwaltete Ressourcen geladen werden. 
         /// </summary>
-        /// <param name="configFileName">Der Dateiname der Konfiguration oder null</param>
-        void Init(string configFileName = null);
+        /// <param name="context">Der Kontext, welcher für die Ausführung des Plugins gilt</param>
+        void Init(IPluginContext context);
 
         /// <summary>
         /// Wird aufgerufen, wenn das Plugin mit der Arbeit beginnt
@@ -62,16 +62,6 @@ namespace WebExpress.Plugins
         /// <param name="response">Die Antwort</param>
         /// <returns>Die Antwort</returns>
         Response PostProcess(Request request, Response response);
-
-        /// <summary>
-        /// Liefert den Namen des Plugins
-        /// </summary>
-        string Name { get; }
-
-        /// <summary>
-        /// Liefert das Icon des Plugins
-        /// </summary>
-        string Icon { get; }
 
         /// <summary>
         /// Liefert oder setzt die Sitemap

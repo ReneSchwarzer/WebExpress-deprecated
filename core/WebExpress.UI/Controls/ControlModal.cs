@@ -140,7 +140,7 @@ namespace WebExpress.UI.Controls
                 Class = "modal-body"
             };
 
-            var footerButton = new HtmlElementFieldButton(new HtmlText(context.I18N(Assembly.GetExecutingAssembly(), "webexpress.ui.modal.close.label")))
+            var footerButton = new HtmlElementFieldButton(new HtmlText(context.I18N("org.webexpress", "webexpress.ui.modal.close.label")))
             {
                 Type = "button",
                 Class = Css.Concatenate("btn", LayoutSchema.CloseButtonBackground?.ToClass())

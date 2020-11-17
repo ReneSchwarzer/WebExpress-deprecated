@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using WebExpress.Plugins;
 using WebExpress.Workers;
 
 namespace WebExpress.UI
@@ -9,19 +10,16 @@ namespace WebExpress.UI
         /// Konstruktor
         /// </summary>
         public WebExpressUIPlugin()
-            : base("WebExpress.UI", "/Asserts/img/WebExpress.UI.svg")
         {
         }
 
         /// <summary>
-        /// Initialisierung des Prozesszustandes. Hier können z.B. verwaltete Ressourcen geladen werden. 
+        /// Initialisierung des Plugins. Hier können z.B. verwaltete Ressourcen geladen werden. 
         /// </summary>
-        /// <param name="configFileName">Der Dateiname der Konfiguration oder null</param>
-        public override void Init(string configFileName = null)
+        /// <param name="context">Der Kontext, welcher für die Ausführung des Plugins gilt</param>
+        public override void Init(IPluginContext context)
         {
-            base.Init(configFileName);
-
-            Context.Log.Info(MethodBase.GetCurrentMethod(), "Initialisierung WebExpress.UI-Plugin");
+            base.Init(context);
 
             // Ressourcen
             SiteMap.AddPage("Assets", "Assets", (x) => new WorkerRessource(x, Assembly.GetExecutingAssembly(), "WebExpress.UI"));

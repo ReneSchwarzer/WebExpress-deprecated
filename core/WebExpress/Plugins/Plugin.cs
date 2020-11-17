@@ -26,16 +26,6 @@ namespace WebExpress.Plugins
         public IPluginContext Context { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt den Namen des Plugins
-        /// </summary>
-        public string Name { get; private set; }
-
-        /// <summary>
-        /// Liefert das Icon des Plugins
-        /// </summary>
-        public string Icon { get; private set; }
-
-        /// <summary>
         /// Liefert oder setzt die Sitemap
         /// </summary>
         public ISiteMap SiteMap { get; private set; }
@@ -53,30 +43,22 @@ namespace WebExpress.Plugins
         /// <summary>
         /// Konstruktor
         /// </summary>
-        private Plugin()
+        public Plugin()
         {
 
-        }
-
-        /// <summary>
-        /// Konstruktor
-        /// </summary>
-        /// <param name="name">Name des Plugins</param>
-        /// <param name="icon">Das Icon des Plugins</param>
-        public Plugin(string name, string icon)
-            : this()
-        {
-            Name = name;
-            Icon = icon;
         }
 
         /// <summary>
         /// Initialisierung des Plugins. Hier können z.B. verwaltete Ressourcen geladen werden. 
         /// </summary>
-        /// <param name="configFileName">Der Dateiname der Konfiguration oder null</param>
-        public virtual void Init(string configFileName = null)
+        /// <param name="context">Der Kontext, welcher für die Ausführung des Plugins gilt</param>
+        public virtual void Init(IPluginContext context)
         {
-            Config = new PluginConfig(configFileName);
+            Context = context;
+
+            Context.Log.Info(MethodBase.GetCurrentMethod(), string.Format("Initialisierung {0}", context.PluginName));
+
+            Config = new PluginConfig(context?.ConfigBaseFolder);
 
             if (!string.IsNullOrWhiteSpace(Config?.UrlBasePath))
             {

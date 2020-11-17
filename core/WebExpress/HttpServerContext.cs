@@ -59,11 +59,6 @@ namespace WebExpress
         public string Version { get; protected set; }
 
         /// <summary>
-        /// Liefert oder setzt die Plugins
-        /// </summary>
-        public List<IPluginContext> Plugins { get; protected set; } = new List<IPluginContext>();
-
-        /// <summary>
         /// Liefert oder setzt das Daten-Basisverzeichnis
         /// </summary>
         public string AssetBaseFolder { get; protected set; }
