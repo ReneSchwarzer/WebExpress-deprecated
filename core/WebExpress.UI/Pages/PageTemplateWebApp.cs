@@ -3,6 +3,7 @@ using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.Plugins;
 using WebExpress.UI.Controls;
+using WebExpress.UI.Plugin;
 
 namespace WebExpress.UI.Pages
 {
@@ -119,15 +120,19 @@ namespace WebExpress.UI.Pages
         {
             base.Process();
 
-            Header.HamburgerPrimary.AddRange(PluginComponentManager.CreatePluginComponents<IControlDropdownItem>("app.primary", Context.AppArtifactID));
-            Header.HamburgerSecondary.AddRange(PluginComponentManager.CreatePluginComponents<IControlDropdownItem>("app.secondary", Context.AppArtifactID));
-            Header.NavigationPreferences.AddRange(PluginComponentManager.CreatePluginComponents<IControlNavigationItem>("app.navigation.preferences", Context.AppArtifactID));
-            Header.NavigationPrimary.AddRange(PluginComponentManager.CreatePluginComponents<IControlNavigationItem>("app.navigation.primary", Context.AppArtifactID));
-            Header.NavigationSecondary.AddRange(PluginComponentManager.CreatePluginComponents<IControlNavigationItem>("app.navigation.secondary", Context.AppArtifactID));
-            Header.QuickCreatePrimary.AddRange(PluginComponentManager.CreatePluginComponents<IControlSplitButtonItem>("app.quickcreate.primary", Context.AppArtifactID));
-            Header.QuickCreatePrimary.AddRange(PluginComponentManager.CreatePluginComponents<IControlSplitButtonItem>("app.quickcreate.secondary", Context.AppArtifactID));
-            Header.SettingsPrimary.AddRange(PluginComponentManager.CreatePluginComponents<IControlDropdownItem>("app.settings.primary", Context.AppArtifactID));
-            Header.SettingsPrimary.AddRange(PluginComponentManager.CreatePluginComponents<IControlDropdownItem>("app.settings.secondary", Context.AppArtifactID));
+            Header.HamburgerPrimary.AddRange(PluginComponentManager.CreatePluginComponents<IControlDropdownItem>(Section.AppPrimary, Context.AppArtifactID));
+            Header.HamburgerSecondary.AddRange(PluginComponentManager.CreatePluginComponents<IControlDropdownItem>(Section.AppSecondary, Context.AppArtifactID));
+            Header.NavigationPreferences.AddRange(PluginComponentManager.CreatePluginComponents<IControlNavigationItem>(Section.AppNavigationPreferences, Context.AppArtifactID));
+            Header.NavigationPrimary.AddRange(PluginComponentManager.CreatePluginComponents<IControlNavigationItem>(Section.AppNavigationPrimary, Context.AppArtifactID));
+            Header.NavigationSecondary.AddRange(PluginComponentManager.CreatePluginComponents<IControlNavigationItem>(Section.AppNavigationSecondary, Context.AppArtifactID));
+            Header.QuickCreatePrimary.AddRange(PluginComponentManager.CreatePluginComponents<IControlSplitButtonItem>(Section.AppQuickcreatePrimary, Context.AppArtifactID));
+            Header.QuickCreatePrimary.AddRange(PluginComponentManager.CreatePluginComponents<IControlSplitButtonItem>(Section.AppQuickcreateSecondary, Context.AppArtifactID));
+            Header.SettingsPrimary.AddRange(PluginComponentManager.CreatePluginComponents<IControlDropdownItem>(Section.AppSettingsPrimary, Context.AppArtifactID));
+            Header.SettingsPrimary.AddRange(PluginComponentManager.CreatePluginComponents<IControlDropdownItem>(Section.AppSettingsSecondary, Context.AppArtifactID));
+
+            Sidebar.Preferences.AddRange(PluginComponentManager.CreatePluginComponents<IControl>(Section.SidebarPreferences, Context.AppArtifactID));
+            Sidebar.Primary.AddRange(PluginComponentManager.CreatePluginComponents<IControl>(Section.SidebarPrimary, Context.AppArtifactID));
+            Sidebar.Secondary.AddRange(PluginComponentManager.CreatePluginComponents<IControl>(Section.SidebarSecondary, Context.AppArtifactID));
         }
 
         /// <summary>

@@ -1,4 +1,6 @@
-﻿using WebExpress.Html;
+﻿using System.Collections.Generic;
+using System.Linq;
+using WebExpress.Html;
 
 namespace WebExpress.UI.Controls
 {
@@ -13,14 +15,19 @@ namespace WebExpress.UI.Controls
         public ControlPanel Header { get; protected set; } = new ControlPanel("sidebarheader");
 
         /// <summary>
-        /// Liefert oder setzt den Bereich in der Sidebar für erweiterte Inhalte
+        /// Liefert oder setzt den den Bereich für Präferenzen
         /// </summary>
-        public ControlPanel Content { get; protected set; } = new ControlPanel("sidebarcontent");
+        public List<IControl> Preferences { get; protected set; } = new List<IControl>();
 
         /// <summary>
-        /// Liefert oder setzt den Navigationsbereich
+        /// Liefert oder setzt den den Primärbereich für die Steuerelemente
         /// </summary>
-        public ControlNavigation Navigation { get; protected set; } = new ControlNavigation("sidebarnavigation");
+        public List<IControl> Primary { get; protected set; } = new List<IControl>();
+        
+        /// <summary>
+        /// Liefert oder setzt den den sekundären Bereich für die Steuerelemente
+        /// </summary>
+        public List<IControl> Secondary { get; protected set; } = new List<IControl>();
 
         /// <summary>
         /// Konstruktor
@@ -39,13 +46,13 @@ namespace WebExpress.UI.Controls
         {
             BackgroundColor = LayoutSchema.SidebarBackground;
 
-            Navigation.Layout = TypeLayoutTab.Pill;
-            Navigation.Orientation = TypeOrientationTab.Vertical;
-            Navigation.GridColumn = new PropertyGrid(TypeDevice.Medium, 2);
+            //Navigation.Layout = TypeLayoutTab.Pill;
+            //Navigation.Orientation = TypeOrientationTab.Vertical;
+            //Navigation.GridColumn = new PropertyGrid(TypeDevice.Medium, 2);
             
-            Navigation.ActiveColor = LayoutSchema.SidebarNavigationActiveBackground;
-            Navigation.ActiveTextColor = LayoutSchema.SidebarNavigationActive;
-            Navigation.LinkColor = LayoutSchema.SidebarNavigationLink;
+            //Navigation.ActiveColor = LayoutSchema.SidebarNavigationActiveBackground;
+            //Navigation.ActiveTextColor = LayoutSchema.SidebarNavigationActive;
+            //Navigation.LinkColor = LayoutSchema.SidebarNavigationLink;
         }
 
         /// <summary>
@@ -55,12 +62,19 @@ namespace WebExpress.UI.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            if (Header.Content.Count == 0 && Navigation.Items.Count == 0 && Content.Content.Count == 0)
+            if (Header.Content.Count == 0 && Preferences.Count == 0 && Primary.Count == 0 && Secondary.Count == 0)
             {
                 return null;
             }
 
-            return new HtmlElementTextContentDiv(Header.Render(context), Navigation.Render(context), Content.Render(context))
+            var elements = new List<IHtmlNode>();
+            elements.Add(Header.Render(context));
+            elements.AddRange(Preferences.Select(x => x.Render(context)));
+            elements.AddRange(Primary.Select(x => x.Render(context)));
+            elements.AddRange(Secondary.Select(x => x.Render(context)));
+
+
+            return new HtmlElementTextContentDiv(elements)
             {
                 ID = ID,
                 Class = Css.Concatenate("navbar", GetClasses()),
