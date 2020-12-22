@@ -66,7 +66,7 @@ namespace WebExpress.Html
         {
             ToPreString(builder, deep);
 
-            foreach (var v in Elements)
+            foreach (var v in Elements.Where(x => x != null))
             {
                 v.ToString(builder, deep + 1);
             }

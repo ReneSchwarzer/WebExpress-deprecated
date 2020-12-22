@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using WebExpress.Pages;
-using WebExpress.Plugins;
+using WebExpress.Plugin;
+using WebExpress.WebResource;
 
 namespace WebExpress.Internationalization
 {
@@ -13,26 +14,61 @@ namespace WebExpress.Internationalization
     public class InternationalizationManager
     {
         /// <summary>
+        /// Liefert oder setzt die Standardsprache
+        /// </summary>
+        public static CultureInfo DefaultCulture { get; private set; }
+
+        /// <summary>
         /// Liefert oder setzt das Verzeichnis, indem die Internationalisierungs-Schlüssel-Wert-Paare gelistet sind
         /// </summary>
-        private static InternationalizationDictionary Dictionary { get; set; } = new InternationalizationDictionary();
+        private static InternationalizationDictionary Dictionary { get; } = new InternationalizationDictionary();
+
+        /// <summary>
+        /// Liefert oder setzt den Verweis auf Kontext des Hostes
+        /// </summary>
+        private static IHttpServerContext Context { get; set; }
+
+        /// <summary>
+        /// Initialisierung
+        /// </summary>
+        /// <param name="context">Der Verweis auf den Kontext des Hostes
+        internal static void Initialization(IHttpServerContext context)
+        {
+            Context = context;
+            DefaultCulture = Context.Culture;
+
+            Context.Log.Info(message: I18N("webexpress:internationalizationmanager.initialization"));
+        }
+
+        /// <summary>
+        /// Fügt die Internationalisierungs-Schlüssel-Wert-Paare aus dem angegebenen Plugin hinzu
+        /// </summary>
+        public static void Register()
+        {
+            foreach (var plugin in PluginManager.Plugins)
+            {
+                Register(plugin);
+            }
+        }
 
         /// <summary>
         /// Fügt die Internationalisierungs-Schlüssel-Wert-Paare aus dem angegebenen Plugin hinzu
         /// </summary>
         /// <param name="plugin">Das Plugin, welches die einzufügenden Schlüssel-Wert-Paare enthällt</param>
-        /// <param name="application">Die Anwendung, welche die Internationalisierungsdaten zugewiesen werden</param>
-        public static void Add(IPlugin plugin, string application)
+        public static void Register(IPluginContext plugin)
         {
-            Add(plugin.GetType().Assembly, application);
+            var pluginID = plugin.PluginID;
+            Register(plugin.Assembly, pluginID);
+
+            Context.Log.Info(message: I18N("webexpress:internationalizationmanager.register"), args: pluginID);
         }
 
         /// <summary>
         /// Fügt die Internationalisierungs-Schlüssel-Wert-Paare aus dem angegebenen Plugin hinzu
         /// </summary>
         /// <param name="assembly">Das Assembly, welches die einzufügenden Schlüssel-Wert-Paare enthällt</param>
-        /// <param name="application">Die Anwendung, welche die Internationalisierungsdaten zugewiesen werden</param>
-        internal static void Add(Assembly assembly, string application)
+        /// <param name="pluginID">Das Plufin, welche die Internationalisierungsdaten zugewiesen werden</param>
+        internal static void Register(Assembly assembly, string pluginID)
         {
             var assemblyName = assembly.GetName().Name.ToLower();
             var name = assemblyName + ".internationalization.";
@@ -44,28 +80,24 @@ namespace WebExpress.Internationalization
 
                 if (!Dictionary.ContainsKey(language))
                 {
-                    Dictionary.Add(language, new InternationalizationDictionaryItem());
+                    Dictionary.Add(language, new InternationalizationItem());
                 }
 
                 var dictItem = Dictionary[language];
 
-                using (var stream = assembly.GetManifestResourceStream(languageResource))
+                using var stream = assembly.GetManifestResourceStream(languageResource);
+                using var streamReader = new StreamReader(stream);
+                while (!streamReader.EndOfStream)
                 {
-                    using (var streamReader = new StreamReader(stream))
+                    var line = streamReader.ReadLine();
+                    if (!line.StartsWith('#') && !string.IsNullOrWhiteSpace(line))
                     {
-                        while (!streamReader.EndOfStream)
-                        {
-                            var line = streamReader.ReadLine();
-                            if (!line.StartsWith('#') && !string.IsNullOrWhiteSpace(line))
-                            {
-                                var split = line.Split('=');
-                                var key = application?.ToLower() + ":" + split[0]?.Trim().ToLower();
+                        var split = line.Split('=');
+                        var key = pluginID?.ToLower() + ":" + split[0]?.Trim().ToLower();
 
-                                if (!dictItem.ContainsKey(key))
-                                {
-                                    dictItem.Add(key, string.Join("=", split.Skip(1)));
-                                }
-                            }
+                        if (!dictItem.ContainsKey(key))
+                        {
+                            dictItem.Add(key, string.Join("=", split.Skip(1)));
                         }
                     }
                 }
@@ -78,7 +110,7 @@ namespace WebExpress.Internationalization
         /// <param name="plugin">Das Plugin, welches die zu entfernenden Schlüssel-Wert-Paare enthällt</param>
         public static void Remove(IPlugin plugin)
         {
-            Remove(plugin.GetType().Assembly, plugin.Context.AppArtifactID);
+            //Remove(plugin.GetType().Assembly, plugin.Context.ApplicationID);
         }
 
         /// <summary>
@@ -88,32 +120,31 @@ namespace WebExpress.Internationalization
         /// <param name="application">Die Anwendung, welche die Internationalisierungsdaten zugewiesen werden</param>
         internal static void Remove(Assembly assembly, string application)
         {
-            //var assemblyName = assembly.GetName().Name.ToLower();
-
-            //foreach (var language in InternationalizationDictionary.Instance.Keys)
-            //{
-            //    var dictItem = InternationalizationDictionary.Instance[language];
-            //    var items = dictItem.Keys.Where(x => x.StartsWith(assemblyName));
-
-            //    foreach (var key in dictItem.Keys.Where(x => !x.StartsWith(application + ":")))
-            //    {
-            //        dictItem.Remove(key);
-            //    }
-            //}
-
             throw new NotImplementedException("todo");
         }
 
         /// <summary>
         /// Internationalisierung
         /// </summary>
-        /// <param name="page">Das Objekt, welches erweitert wird</param>
-        /// <param name="application">Die Anwendung, welche die Internationalisierungsdaten zugewiesen werden</param>
+        /// <param name="obj">Das Objekt, welches erweitert wird</param>
         /// <param name="key">Der Schlüssel</param>
         /// <returns>Der Wert des Schlüssels in der aktuellen Sprache</returns>
-        public static string I18N(IPage page, string application, string key)
+        public static string I18N(II18N obj, string key)
         {
-            var language = page?.Request?.HeaderFields?.AcceptLanguage?.TrimStart().Substring(0, 2).ToLower();
+            return I18N(obj.Culture, obj.I18N_PluginID, key);
+        }
+
+        /// <summary>
+        /// Internationalisierung
+        /// </summary>
+        /// <param name="culture">Die Kultur</param>
+        /// <param name="pluginID">Die PluginID</param>
+        /// <param name="key">Der Schlüssel</param>
+        /// <returns>Der Wert des Schlüssels in der aktuellen Sprache</returns>
+        public static string I18N(CultureInfo culture, string pluginID, string key)
+        {
+            var language = culture.TwoLetterISOLanguageName;
+            var k = string.IsNullOrWhiteSpace(pluginID) ? key : $"{pluginID}:{key}";
 
             if (string.IsNullOrWhiteSpace(key))
             {
@@ -122,11 +153,10 @@ namespace WebExpress.Internationalization
 
             if (string.IsNullOrWhiteSpace(language) || language == "*")
             {
-                language = "en";
+                language = DefaultCulture.TwoLetterISOLanguageName;
             }
 
             var item = Dictionary[language];
-            var k = application?.ToLower() + ":" + key.ToLower();
 
             if (item.ContainsKey(k))
             {
@@ -134,6 +164,16 @@ namespace WebExpress.Internationalization
             }
 
             return key;
+        }
+
+        /// <summary>
+        /// Internationalisierung
+        /// </summary>
+        /// <param name="key">Der Schlüssel</param>
+        /// <returns>Der Wert des Schlüssels in der aktuellen Sprache</returns>
+        public static string I18N(string key)
+        {
+            return I18N(DefaultCulture, null, key);
         }
     }
 }

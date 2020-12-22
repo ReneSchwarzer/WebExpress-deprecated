@@ -56,8 +56,8 @@ namespace WebExpress
                     if (!string.IsNullOrEmpty(key))
                     {
                         var command = (from x in Commands
-                                       where x.FullName.Equals(key.Substring(1), StringComparison.OrdinalIgnoreCase) ||
-                                             x.ShortName.Equals(key.Substring(1), StringComparison.OrdinalIgnoreCase)
+                                       where x.FullName.Equals(key[1..], StringComparison.OrdinalIgnoreCase) ||
+                                             x.ShortName.Equals(key[1..], StringComparison.OrdinalIgnoreCase)
                                        select x).FirstOrDefault();
 
                         if (command != null)
@@ -78,8 +78,8 @@ namespace WebExpress
             if (!string.IsNullOrEmpty(key))
             {
                 var command = (from x in Commands
-                               where x.FullName.Equals(key.Substring(1), StringComparison.OrdinalIgnoreCase) ||
-                                     x.ShortName.Equals(key.Substring(1), StringComparison.OrdinalIgnoreCase)
+                               where x.FullName.Equals(key[1..], StringComparison.OrdinalIgnoreCase) ||
+                                     x.ShortName.Equals(key[1..], StringComparison.OrdinalIgnoreCase)
                                select x).FirstOrDefault();
 
                 if (command != null)
@@ -103,7 +103,7 @@ namespace WebExpress
             var v = from x in argumentDict
                     select "-" + x.Key + (string.IsNullOrWhiteSpace(x.Value) ? "" : " " + x.Value);
 
-            return string.Join(" ", v);
+            return string.Join(' ', v);
         }
 
         /// <summary>

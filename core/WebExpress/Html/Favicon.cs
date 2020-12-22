@@ -1,4 +1,6 @@
-﻿namespace WebExpress.Html
+﻿using WebExpress.Uri;
+
+namespace WebExpress.Html
 {
     public class Favicon
     {
@@ -28,6 +30,17 @@
         /// </summary>
         /// <param name="url">Die URL</param>
         /// <param name="mediatype">Den Mediatyp</param>
+        public Favicon(IUri url, TypeFavicon mediatype)
+        {
+            Url = url.ToString();
+            Mediatype = mediatype;
+        }
+
+        /// <summary>
+        /// Konstruktor
+        /// </summary>
+        /// <param name="url">Die URL</param>
+        /// <param name="mediatype">Den Mediatyp</param>
         public Favicon(string url, string mediatype)
         {
             Url = url;
@@ -45,6 +58,8 @@
                     break;
                 case "image/svg+xml":
                     Mediatype = TypeFavicon.SVG;
+                    break;
+                default:
                     break;
             }
         }
@@ -65,9 +80,9 @@
                     return "image/png";
                 case TypeFavicon.SVG:
                     return "image/svg+xml";
+                default:
+                    return "";
             }
-
-            return "";
         }
     }
 }

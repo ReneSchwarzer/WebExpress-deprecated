@@ -8,7 +8,8 @@
     <RuntimeIdentifiers>win10-x64;win-arm;linux-arm</RuntimeIdentifiers>
     <RepositoryUrl>https://github.com/ReneSchwarzer/WebExpress.git</RepositoryUrl>
     <Authors>Rene_Schwarzer@hotmail.de</Authors>
-    <PackageLicenseExpression>GNU General Public License v3.0</PackageLicenseExpression>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Company>Rene_Schwarzer@hotmail.de</Company>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Settings\" />
+    <Folder Include="Setting\" />
   </ItemGroup>
 
 </Project>

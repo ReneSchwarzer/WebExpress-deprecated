@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Version>0.0.0.1</Version>
+    <AssemblyVersion>0.0.0.1</AssemblyVersion>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <ApplicationIcon></ApplicationIcon>
+    <RuntimeIdentifiers>win10-x64;win-arm;linux-arm</RuntimeIdentifiers>
+    <RepositoryUrl>https://github.com/ReneSchwarzer/WebExpress.git</RepositoryUrl>
+    <Authors>Rene_Schwarzer@hotmail.de</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Internationalization\de" />
+    <None Remove="Internationalization\en" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Internationalization\de" />
+    <EmbeddedResource Include="Internationalization\en" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WebExpress.UI\WebExpress.UI.csproj" />
+    <ProjectReference Include="..\WebExpress\WebExpress.csproj" />
+  </ItemGroup>
+
+</Project>

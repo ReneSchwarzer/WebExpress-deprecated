@@ -43,7 +43,19 @@ namespace WebExpress.Html
         public IEnumerable<Favicon> Favicons
         {
             get => (from x in ElementFavicons select new Favicon(x.Href, x.Type)).ToList();
-            set { ElementFavicons.Clear(); ElementFavicons.AddRange(from x in value select new HtmlElementMetadataLink() { Href = x.Url, Rel = "icon", Type = x.GetMediatyp() }); }
+            set
+            {
+                ElementFavicons.Clear();
+                ElementFavicons.AddRange
+                (
+                    from x in value
+                    select new HtmlElementMetadataLink()
+                    {
+                        Href = x.Url,
+                        Rel = "icon",
+                        Type = x.GetMediatyp()
+                    });
+            }
         }
 
         /// <summary>

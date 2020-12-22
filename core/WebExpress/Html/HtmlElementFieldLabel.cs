@@ -24,7 +24,7 @@ namespace WebExpress.Html
         /// </summary>
         public string Text
         {
-            get => string.Join("", Elements.Where(x => x is HtmlText).Select(x => (x as HtmlText).Value));
+            get => string.Join(string.Empty, Elements.Where(x => x is HtmlText).Select(x => (x as HtmlText).Value));
             set { Elements.RemoveAll(x => x is HtmlText); Elements.Insert(0, new HtmlText(value)); }
         }
 

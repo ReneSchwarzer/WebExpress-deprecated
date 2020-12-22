@@ -11,7 +11,7 @@ namespace WebExpress.Html
         /// <returns>Die Css-Klassen als String</returns>
         public static string Concatenate(params string[] items)
         {
-            return string.Join(" ", items.Where(x => !string.IsNullOrWhiteSpace(x)).Distinct());
+            return string.Join(' ', items.Where(x => !string.IsNullOrWhiteSpace(x)).Distinct());
         }
 
         /// <summary>
@@ -22,7 +22,7 @@ namespace WebExpress.Html
         /// <returns>Die Css-Klassen als String</returns>
         public static string Remove(string css, params string[] remove)
         {
-            return string.Join(" ", css.Split(' ').Where(x => !remove.Contains(x)));
+            return string.Join(' ', css.Split(' ').Where(x => !remove.Contains(x)));
         }
     }
 }

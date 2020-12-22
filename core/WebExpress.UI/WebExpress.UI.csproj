@@ -7,7 +7,7 @@
     <RuntimeIdentifiers>win10-x64;win-arm;linux-arm</RuntimeIdentifiers>
     <RepositoryUrl>https://github.com/ReneSchwarzer/WebExpress.git</RepositoryUrl>
     <Authors>Rene_Schwarzer@hotmail.de</Authors>
-    <PackageLicenseExpression>GNU General Public License v3.0</PackageLicenseExpression>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,6 +19,7 @@
     <None Remove="Assets\css\fontawesome.min.css" />
     <None Remove="Assets\css\solid.css" />
     <None Remove="Assets\css\summernote-bs4.css" />
+    <None Remove="Assets\css\summernote-bs4.min.css" />
     <None Remove="Assets\fonts\fa-brands-400.eot" />
     <None Remove="Assets\fonts\fa-brands-400.svg" />
     <None Remove="Assets\fonts\fa-brands-400.ttf" />
@@ -34,10 +35,10 @@
     <None Remove="Assets\fonts\fa-solid-900.ttf" />
     <None Remove="Assets\fonts\fa-solid-900.woff" />
     <None Remove="Assets\fonts\fa-solid-900.woff2" />
-    <None Remove="Assets\fonts\summernote-bs4.css" />
     <None Remove="Assets\fonts\summernote.eot" />
     <None Remove="Assets\fonts\summernote.ttf" />
     <None Remove="Assets\fonts\summernote.woff" />
+    <None Remove="Assets\fonts\summernote.woff2" />
     <None Remove="Assets\img\Banner.png" />
     <None Remove="Assets\img\Favicon.png" />
     <None Remove="Assets\img\Icon16.png" />
@@ -51,6 +52,7 @@
     <None Remove="Assets\js\popper.min.js" />
     <None Remove="Assets\js\popper.min.js.map" />
     <None Remove="Assets\js\summernote-bs4.min.js" />
+    <None Remove="Assets\js\summernote-bs4.min.js.map" />
     <None Remove="Assets\js\summernote-de-DE.js" />
     <None Remove="Internationalization\de" />
     <None Remove="Internationalization\en" />
@@ -74,9 +76,7 @@
     <EmbeddedResource Include="Assets\css\solid.css">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Assets\css\summernote-bs4.css">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\css\summernote-bs4.min.css" />
     <EmbeddedResource Include="Assets\fonts\fa-brands-400.eot" />
     <EmbeddedResource Include="Assets\fonts\fa-brands-400.svg" />
     <EmbeddedResource Include="Assets\fonts\fa-brands-400.ttf" />
@@ -92,18 +92,10 @@
     <EmbeddedResource Include="Assets\fonts\fa-solid-900.ttf" />
     <EmbeddedResource Include="Assets\fonts\fa-solid-900.woff" />
     <EmbeddedResource Include="Assets\fonts\fa-solid-900.woff2" />
-    <EmbeddedResource Include="Assets\fonts\summernote-bs4.css">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Assets\fonts\summernote.eot">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Assets\fonts\summernote.ttf">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Assets\fonts\summernote.woff">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\fonts\summernote.eot" />
+    <EmbeddedResource Include="Assets\fonts\summernote.ttf" />
+    <EmbeddedResource Include="Assets\fonts\summernote.woff" />
+    <EmbeddedResource Include="Assets\fonts\summernote.woff2" />
     <EmbeddedResource Include="Assets\img\Banner.png" />
     <EmbeddedResource Include="Assets\img\Favicon.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
@@ -133,6 +125,7 @@
     <EmbeddedResource Include="Assets\js\summernote-bs4.min.js">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Assets\js\summernote-bs4.min.js.map" />
     <EmbeddedResource Include="Assets\js\summernote-de-DE.js">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>

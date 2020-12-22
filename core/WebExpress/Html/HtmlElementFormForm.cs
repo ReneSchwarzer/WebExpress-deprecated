@@ -29,6 +29,14 @@ namespace WebExpress.Html
         }
 
         /// <summary>
+        /// Liefert oder setzt die Zeichenkodierung
+        /// </summary>
+        public TypeEnctype Enctype
+        {
+            get => TypeEnctypeExtensions.Convert(GetAttribute("enctype"));
+            set => SetAttribute("enctype", value.Convert());
+        }
+        /// <summary>
         /// Liefert oder setzt den Methode Post oder get
         /// </summary>
         public string Method

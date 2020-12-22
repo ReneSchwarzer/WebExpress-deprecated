@@ -1,31 +1,28 @@
-﻿using System.Reflection;
-using WebExpress.Pages;
-
-namespace WebExpress.Internationalization
+﻿namespace WebExpress.Internationalization
 {
     public static class InternationalizationExtensions
     {
         /// <summary>
         /// Internationalisierung
         /// </summary>
-        /// <param name="page">Das Objekt, welches erweitert wird</param>
+        /// <param name="obj">Das Objekt, welches erweitert wird</param>
         /// <param name="key">Der Schlüssel</param>
         /// <returns>Der Wert des Schlüssels in der aktuellen Sprache</returns>
-        public static string I18N(this IPage page, string key)
+        public static string I18N(this II18N obj, string key)
         {
-            return I18N(page, page.Context.AppArtifactID, key);
+            return InternationalizationManager.I18N(obj, key);
         }
 
         /// <summary>
         /// Internationalisierung
         /// </summary>
-        /// <param name="page">Das Objekt, welches erweitert wird</param>
-        /// <param name="application">Die Anwendung, welche die Internationalisierungsdaten zugewiesen werden</param>
+        /// <param name="obj">Das Objekt, welches erweitert wird</param>
+        /// <param name="pluginID">Die PluginID</param>
         /// <param name="key">Der Schlüssel</param>
         /// <returns>Der Wert des Schlüssels in der aktuellen Sprache</returns>
-        public static string I18N(this IPage page, string application, string key)
+        public static string I18N(this II18N obj, string pluginID, string key)
         {
-            return InternationalizationManager.I18N(page, application, key);
+            return InternationalizationManager.I18N(obj.Culture, pluginID, key);
         }
     }
 }

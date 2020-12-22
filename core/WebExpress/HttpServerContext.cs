@@ -1,58 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System.Globalization;
 using System.Reflection;
-using WebExpress.Plugins;
+using WebExpress.Uri;
 
 namespace WebExpress
 {
     /// <summary>
     /// Der Kontext des Http-Servers
     /// </summary>
-    public class HttpServerContext
+    public class HttpServerContext : IHttpServerContext
     {
-        /// <summary>
-        /// Konstruktor
-        /// </summary>
-        /// <param name="port">Der Port</param>
-        /// <param name="plugins">Die Plugins</param>
-        /// <param name="assetBaseFolder">Daten-Basisverzeichnis</param>
-        /// <param name="configBaseFolder">Konfigurationserzeichnis</param>
-        /// <param name="urlBasePath">Der Basispfad des Servers</param>
-        /// <param name="log">Log</param>
-        /// <param name="host">Verweis auf den Host</param>
-        public HttpServerContext
-        (
-            int port,
-            string assetBaseFolder,
-            string configBaseFolder,
-            string urlBasePath,
-            Log log,
-            IHost host = null
-        )
-        {
-            var assembly = typeof(HttpServer).Assembly;
-            Version = assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
-
-            AssetBaseFolder = assetBaseFolder;
-            ConfigBaseFolder = configBaseFolder;
-
-            urlBasePath = !string.IsNullOrWhiteSpace(urlBasePath) ? urlBasePath.Trim() : string.Empty;
-
-            if (!string.IsNullOrWhiteSpace(urlBasePath) && !urlBasePath.StartsWith("/"))
-            {
-                urlBasePath = "/" + urlBasePath;
-            }
-
-            if (!string.IsNullOrWhiteSpace(urlBasePath) && urlBasePath.EndsWith("/"))
-            {
-                urlBasePath = urlBasePath.Substring(0, urlBasePath.Length - 1);
-            }
-
-            UrlBasePath = urlBasePath;
-
-            Log = log;
-            Host = host;
-        }
-
         /// <summary>
         /// Liefert die Version des Plugins 
         /// </summary>
@@ -61,17 +17,22 @@ namespace WebExpress
         /// <summary>
         /// Liefert oder setzt das Daten-Basisverzeichnis
         /// </summary>
-        public string AssetBaseFolder { get; protected set; }
+        public string AssetPath { get; protected set; }
 
         /// <summary>
         /// Liefert oder setzt das Konfigurationserzeichnis
         /// </summary>
-        public string ConfigBaseFolder { get; protected set; }
+        public string ConfigPath { get; protected set; }
 
         /// <summary>
         /// Liefert den Basispfad 
         /// </summary>
-        public string UrlBasePath { get; protected set; }
+        public IUri ContextPath { get; protected set; }
+
+        /// <summary>
+        /// Liefert oder setzt die Kultur
+        /// </summary>
+        public CultureInfo Culture { get; protected set; }
 
         /// <summary>
         /// Liefert oder setzt das Log, zum schreiben von Statusnachrichten auf die Konsole und in eine Log-Datei
@@ -79,8 +40,30 @@ namespace WebExpress
         public Log Log { get; protected set; }
 
         /// <summary>
-        /// Liefert oder setzt den Host
+        /// Konstruktor
         /// </summary>
-        public IHost Host { get; protected set; }
+        /// <param name="assetBaseFolder">Daten-Basisverzeichnis</param>
+        /// <param name="configBaseFolder">Konfigurationserzeichnis</param>
+        /// <param name="contextPath">Der Basispfad des Servers</param>
+        /// <param name="culture">Die Kultur</param>
+        /// <param name="log">Log</param>
+        public HttpServerContext
+        (
+            string assetBaseFolder,
+            string configBaseFolder,
+            IUri contextPath,
+            CultureInfo culture,
+            Log log
+        )
+        {
+            var assembly = typeof(HttpServer).Assembly;
+            Version = assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
+
+            AssetPath = assetBaseFolder;
+            ConfigPath = configBaseFolder;
+            ContextPath = contextPath;
+            Culture = culture;
+            Log = log;
+        }
     }
 }

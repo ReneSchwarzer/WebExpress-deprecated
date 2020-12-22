@@ -1,23 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using WebExpress.Application;
 using WebExpress.Config;
-using WebExpress.Messages;
-using WebExpress.Pages;
-using WebExpress.Plugins;
+using WebExpress.Internationalization;
+using WebExpress.Message;
+using WebExpress.Module;
+using WebExpress.Plugin;
+using WebExpress.Uri;
+using WebExpress.WebResource;
 
 namespace WebExpress
 {
     /// <summary>
     /// siehe RFC 2616
     /// </summary>
-    public class HttpServer : IHost
+    public class HttpServer : IHost, II18N
     {
         private const int ConnectionLimit = 100;
 
@@ -34,18 +38,17 @@ namespace WebExpress
         /// <summary>
         /// Warteschlange für noch nicht verarbeitete Anfragen
         /// </summary>
-        private Queue<TcpClient> Queue { get; set; }
+        private Queue<TcpClient> Queue { get; } = new Queue<TcpClient>();
 
         /// <summary>
-        /// Threadbeendigung
+        /// Threadbeendigung des Servers
         /// </summary>
-        private readonly CancellationTokenSource serverTokenSource = new CancellationTokenSource();
-        private readonly CancellationTokenSource clientTokenSource = new CancellationTokenSource();
+        private CancellationTokenSource ServerTokenSource { get; } = new CancellationTokenSource();
 
         /// <summary>
-        /// Liefert oder setzt die interne Liste der Plugins
+        /// Threadbeendigung des Clients
         /// </summary>
-        private List<IPlugin> Plugins { get; set; } = new List<IPlugin>();
+        private CancellationTokenSource ClientTokenSource { get; } = new CancellationTokenSource();
 
         /// <summary>
         /// Liefert oder setzt die Konfiguration
@@ -55,21 +58,17 @@ namespace WebExpress
         /// <summary>
         /// Liefert oder setzt den Kontext
         /// </summary>
-        public static HttpServerContext Context { get; protected set; }
+        public IHttpServerContext Context { get; protected set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Liefert die Kultur
         /// </summary>
-        /// <param name="port">Der Port auf dem der Server höhren soll</param>
-        public HttpServer(int port)
-        {
-            Port = port;
-            Queue = new Queue<TcpClient>();
+        public CultureInfo Culture { get; set; }
 
-            Internationalization.InternationalizationManager.Add(typeof(HttpServer).Assembly, "webexpress");
-
-            Context = new HttpServerContext(port, Environment.CurrentDirectory, Path.Combine(Environment.CurrentDirectory, "Config"), "", Log.Current, this);
-        }
+        /// <summary>
+        /// Liefert den I18N-Key
+        /// </summary>
+        public string I18N_PluginID => "webexpress";
 
         /// <summary>
         /// Konstruktor
@@ -77,9 +76,26 @@ namespace WebExpress
         /// <param name="port">Der Port auf dem der Server höhren soll</param>
         /// <param name="context">Der Serverkontext</param>
         public HttpServer(int port, HttpServerContext context)
-            : this(port)
         {
-            Context = new HttpServerContext(port, context.AssetBaseFolder, context.ConfigBaseFolder, context.UrlBasePath, context.Log, this);
+            Context = new HttpServerContext
+            (
+                context.AssetPath,
+                context.ConfigPath,
+                context.ContextPath,
+                context.Culture,
+                context.Log
+            );
+
+            Port = port;
+            Culture = Context.Culture;
+
+            InternationalizationManager.Register(typeof(HttpServer).Assembly, "webexpress");
+
+            InternationalizationManager.Initialization(Context);
+            PluginManager.Initialization(Context);
+            ApplicationManager.Initialization(Context);
+            ModuleManager.Initialization(Context);
+            ResourceManager.Initialization(Context);
         }
 
         /// <summary>
@@ -89,16 +105,34 @@ namespace WebExpress
         {
             if (Context != null && Context.Log != null)
             {
-                Context.Log.Info(MethodInfo.GetCurrentMethod(), "Starte HttpServer auf Port " + Port);
+                Context.Log.Info(message: this.I18N("httpserver.run"), args: Port);
             }
 
             if (Config != null)
             {
-                LoadPlugins(Config.Deployment);
-            }
-            else
-            {
-                //LoadPlugins(Environment.CurrentDirectory);
+                // Plugins laden
+                PluginManager.Register(Config.Deployment);
+
+                // Internationalisierung laden
+                InternationalizationManager.Register();
+
+                // Anwendungen laden
+                ApplicationManager.Register();
+
+                // Module laden
+                ModuleManager.Register();
+
+                // Ressourcen laden
+                ResourceManager.Register();
+
+                // Ausführung der Plugins starten
+                PluginManager.Boot();
+
+                // Ausführung der Anwendungen starten
+                ApplicationManager.Boot();
+
+                // Ausführung der Module starten
+                ModuleManager.Boot();
             }
 
             Listener = new TcpListener(IPAddress.Any, Port);
@@ -107,7 +141,7 @@ namespace WebExpress
             var task = Task.Factory.StartNew(() =>
             {
                 Run();
-            }, serverTokenSource.Token);
+            }, ServerTokenSource.Token);
 
         }
 
@@ -120,7 +154,7 @@ namespace WebExpress
             // Client-Task
             var clientTask = Task.Factory.StartNew(() =>
             {
-                while (!clientTokenSource.IsCancellationRequested)
+                while (!ClientTokenSource.IsCancellationRequested)
                 {
                     TcpClient client = null;
 
@@ -142,10 +176,10 @@ namespace WebExpress
                         Thread.Sleep(10);
                     }
                 }
-            }, clientTokenSource.Token);
+            }, ClientTokenSource.Token);
 
             // Server-Task
-            while (!serverTokenSource.IsCancellationRequested)
+            while (!ServerTokenSource.IsCancellationRequested)
             {
 
                 if (Listener == null)
@@ -176,19 +210,28 @@ namespace WebExpress
         }
 
         /// <summary>
-        /// Startet den HTTPServer
+        /// Stoppt den HTTPServer
         /// </summary>
         public void Stop()
         {
             // Laufende Threads beenden
-            clientTokenSource.Cancel();
-            serverTokenSource.Cancel();
+            ClientTokenSource.Cancel();
+            ServerTokenSource.Cancel();
 
             lock (Queue)
             {
                 Listener.Stop();
                 Listener = null;
             }
+
+            // Ausführung der Module beenden
+            ModuleManager.ShutDown();
+
+            // Ausführung der Anwendungen beenden
+            ApplicationManager.ShutDown();
+
+            // Ausführung der Plugins beenden
+            PluginManager.ShutDown();
         }
 
         /// <summary>
@@ -198,236 +241,127 @@ namespace WebExpress
         /// <param name="client">Der Client</param>
         private void HandleClient(TcpClient client)
         {
+            var stopwatch = Stopwatch.StartNew();
+
             Response response = new ResponseNotFound();
             var ip = client.Client.RemoteEndPoint;
 
             if (Context != null && Context.Log != null)
             {
-                Context.Log.Info(MethodBase.GetCurrentMethod(), ip + ": Client wurde verbunden");
+                Context.Log.Info(message: this.I18N("httpserver.connected"), args: ip);
             }
-
-            using (var reader = new StreamReader(client.GetStream()))
+    
+            using var stream = client.GetStream();
+            
+            try
             {
-                var requestStr = "";
+                var request = Request.Create(stream, ip.ToString());
 
-                try
+                Context.Log.Debug(message: this.I18N("httpserver.request"), args: new object[] { ip, $"{request?.Method} {request?.URL} {request?.Version}" });
+
+                var resource = ResourceManager.Find(request.URL.TrimEnd('/'));
+                if (resource != null && resource.Type != null)
                 {
-                    while (!reader.EndOfStream && reader.Peek() != 13)
+                    var type = resource.Type;
+                    var culture = new CultureInfo(request.HeaderFields?.AcceptLanguage?.TrimStart().Substring(0, 2).ToLower());
+                    if (type?.Assembly.CreateInstance(type?.FullName) is IResource instance)
                     {
-                        requestStr += reader.ReadLine() + "\n";
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Context.Log.Error(MethodBase.GetCurrentMethod(), ip + ": " + ex.Message);
-                }
-
-                Request request = null;
-
-                try
-                {
-                    Context.Log.Debug(MethodBase.GetCurrentMethod(), ip + ": Anfrage '" + requestStr + "'");
-
-                    if (!string.IsNullOrWhiteSpace(requestStr))
-                    {
-                        request = Request.Parse(requestStr, ip.ToString());
-                        if (request.HeaderFields.ContentLength > 0 && request.Method == RequestMethod.POST)
+                        if (instance is II18N i18n)
                         {
-                            var buf = new char[request.HeaderFields.ContentLength];
+                            i18n.Culture = culture;
+                        }
 
-                            reader.ReadLine();
-                            reader.Read(buf, 0, buf.Count());
+                        if (instance is Resource res)
+                        {
+                            res.Uri = new UriResource(resource.ModuleContext, request.URL, resource, culture);
+                            res.Context = resource.ModuleContext;
+                            res.ResourceContext = resource.ResourceContext;
+                        }
 
-                            var param = new string(buf).Replace('+', ' ');
+                        if (instance is IPage page)
+                        {
+                            page.Title = resource.Title;
 
-                            foreach (var v in param.Split('&'))
+                            foreach (var p in request.Param)
                             {
-                                var s = v.Split('=');
-                                request.AddParam(s[0], !string.IsNullOrWhiteSpace(s[1]) ? s[1] : string.Empty);
+                                page.AddParam(p.Value);
+                            }
+
+                            foreach (var v in resource.Variables)
+                            {
+                                page.AddParam(v.Key, v.Value, ParameterScope.Url);
                             }
                         }
 
-                        foreach (var p in Plugins)
-                        {
-                            response = p.PreProcess(request);
-                            if (response == null)
-                            {
-                                response = p.Process(request);
-                                response = p.PostProcess(request, response);
-                            }
+                        instance.Initialization();
+                        instance.PreProcess(request);
+                        response = instance.Process(request);
+                        response = instance.PostProcess(request, response);
 
-                            if (request != null && response != null && !(response is ResponseNotFound))
-                            {
-                                break;
-                            }
-                        }
-
-                        if (response is ResponseNotFound)
+                        if (instance is IPage)
                         {
-                            response.Content = GetStatusContent(request, response);
-                            response.HeaderFields.ContentLength = response.Content.ToString().Length;
+                            response.Content += $"<!--{ stopwatch.ElapsedMilliseconds } ms -->";
                         }
-                    }
-                    else
-                    {
-                        Context.Log.Debug(MethodBase.GetCurrentMethod(), ip + ": Unerwartete Anfrage '" + requestStr + "'");
-                        response = new ResponseInternalServerError();
-                        response.Content = GetStatusContent(request, response);
-                        response.HeaderFields.ContentLength = response.Content != null ? response.Content.ToString().Length : 0;
                     }
                 }
-                catch (RedirectException ex)
-                {
-                    if (ex.Permanet)
-                    {
-                        response = new ResponseRedirectPermanentlyMoved(ex.Url);
-                    }
 
+                if (response is ResponseNotFound)
+                {
+                    response.HeaderFields.ContentLength = response.Content.ToString().Length;
+                }
+            }
+            catch (RedirectException ex)
+            {
+                if (ex.Permanet)
+                {
+                    response = new ResponseRedirectPermanentlyMoved(ex.Url);
+                }
+                else
+                {
                     response = new ResponseRedirectTemporarilyMoved(ex.Url);
                 }
-                catch (Exception ex)
+            }
+            catch (Exception ex)
+            {
+                if (Context != null && Context.Log != null)
                 {
-                    if (Context != null && Context.Log != null)
-                    {
-                        Context.Log.Exception(MethodBase.GetCurrentMethod(), ex);
-                    }
-
-                    response = new ResponseInternalServerError();
-                    response.Content = GetStatusContent(request, response, ex.ToString());
-                    response.HeaderFields.ContentLength = response.Content != null ? response.Content.ToString().Length : 0;
+                    Context.Log.Exception(ex);
                 }
 
-                try
-                {
-                    using (var writer = new StreamWriter(client.GetStream()))
-                    {
-                        writer.Write(response.GetHeader());
-                        writer.Flush();
+                response = new ResponseInternalServerError();
+                response.HeaderFields.ContentLength = response.Content != null ? response.Content.ToString().Length : 0;
+            }
 
-                        if (response.Content is byte[])
-                        {
-                            using (var bw = new BinaryWriter(writer.BaseStream))
-                            {
-                                bw.Write((byte[])response.Content);
-                            }
-                        }
-                        else
-                        {
-                            writer.Write(response.Content ?? "");
-                        }
+            // Response an Client schicken
+            try
+            {
+                Context.Log.Info(message: "response: {0}", args: response.Status);
 
-                        writer.Flush();
-                    }
-                }
-                catch (Exception ex)
+                using var writer = new StreamWriter(client.GetStream());
+                writer.Write(response.GetHeader());
+                writer.Flush();
+
+                if (response.Content is byte[] content)
                 {
-                    Context.Log.Error(MethodBase.GetCurrentMethod(), ip + ": " + ex.Message);
+                    using var bw = new BinaryWriter(writer.BaseStream);
+                    bw.Write(content);
                 }
+                else
+                {
+                    writer.Write(response.Content ?? "");
+                }
+
+                writer.Flush();
+            }
+            catch (Exception ex)
+            {
+                Context.Log.Error(ip + ": " + ex.Message);
             }
 
             client.Close();
+            stopwatch.Stop();
 
-            Context.Log.Info(MethodBase.GetCurrentMethod(), ip + ": Anfrage wurde bearbeitet. Status=" + response.Status);
-        }
-
-        /// <summary>
-        /// Lädt und registriert die Plugins
-        /// </summary>
-        /// <param name="path">Das Verzeichnis, indem sich die Plugins befinden</param>
-        private void LoadPlugins(string path)
-        {
-            if (!File.Exists(path))
-            {
-                path = Environment.CurrentDirectory;
-            }
-
-            foreach (var plugin in Directory.EnumerateFiles(path, "*.dll", SearchOption.AllDirectories))
-            {
-                var factory = GetFactoryObjectFromAssembly(plugin);
-
-                if (factory != null)
-                {
-                    var p = factory.Create
-                    (
-                        Context,
-                        Path.Combine(Context.ConfigBaseFolder, factory.ConfigFileName)
-                    );
-
-                    p.Run();
-
-                    Plugins.Add(p);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Lädt die angegebene Assembly und gibt das darin enthaltene Factory-Objekt zurück
-        /// </summary>
-        /// <param name="assembly">Der Pfad und Dateiname, des zu ladenen Plugin</param>
-        private IPluginFactory GetFactoryObjectFromAssembly(string assembly)
-        {
-            try
-            {
-                var lib = Assembly.LoadFrom(assembly);
-                foreach (var type in lib.GetExportedTypes())
-                {
-                    if (type.IsClass && type.IsPublic && type.GetInterface("IPluginFactory") != null)
-                    {
-                        var result = (IPluginFactory)lib.CreateInstance(type.FullName);
-
-                        if (Context != null && Context.Log != null)
-                        {
-                            Context.Log.Info(MethodBase.GetCurrentMethod(), string.Format("'{0}.dll' wurde geladen. Version='{1}'", lib.GetName().Name, lib.GetName().Version.ToString()));
-                        }
-
-                        return result;
-                    }
-                }
-            }
-            catch
-            {
-
-            }
-
-            return null;
-        }
-
-        /// <summary>
-        /// Liefert die Statuspage
-        /// </summary>
-        /// <param name="request">Die Anfrage</param>
-        /// <param name="response">Die Statusantwort</param>
-        /// <param name="statusMessage">Der zusätzliche Statustext oder null</param>
-        /// <returns>Die passende Statuspage oder null</returns>
-        private object GetStatusContent(Request request, Response response, string statusMessage = null)
-        {
-            if (request == null)
-            {
-                return null;
-            }
-
-            foreach (var plugin in Plugins.OrderByDescending(x => x.Context.UrlBasePath.Length))
-            {
-                if (request.URL.StartsWith(plugin.Context.UrlBasePath, StringComparison.OrdinalIgnoreCase))
-                {
-                    var callbackCreatePage = plugin.StatusPages.ContainsKey(response.Status) ? plugin.StatusPages[response.Status] : null;
-
-                    if (callbackCreatePage != null)
-                    {
-                        var page = callbackCreatePage();
-                        page.StatusMessage = statusMessage;
-                        page.Context = plugin.Context;
-                        page.Init(new UriPage(request.URL, plugin.Context), null);
-                        page.Process();
-
-                        return page.Render();
-                    }
-
-                    return response.Content;
-                }
-            }
-
-            return response.Content;
+            Context.Log.Info(message: this.I18N("httpserver.request.done"), args: new object[] { ip, stopwatch.ElapsedMilliseconds, response.Status });
         }
     }
 }

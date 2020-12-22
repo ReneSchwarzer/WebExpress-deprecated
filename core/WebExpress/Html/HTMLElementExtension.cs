@@ -28,7 +28,7 @@ namespace WebExpress.Html
                     list.Add(cssClass.ToLower());
                 }
 
-                var css = string.Join(" ", list);
+                var css = string.Join(' ', list);
 
                 element.Class = css;
             }
@@ -55,7 +55,7 @@ namespace WebExpress.Html
                     list.Remove(cssClass.ToLower());
                 }
 
-                var css = string.Join(" ", list);
+                var css = string.Join(' ', list);
 
                 element.Class = css;
             }
@@ -82,7 +82,7 @@ namespace WebExpress.Html
                     list.Add(cssStyle.ToLower());
                 }
 
-                var css = string.Join(" ", list);
+                var css = string.Join(' ', list);
 
                 element.Style = css;
             }
@@ -109,7 +109,7 @@ namespace WebExpress.Html
                     list.Remove(cssStyle.ToLower());
                 }
 
-                var css = string.Join(" ", list);
+                var css = string.Join(' ', list);
 
                 element.Style = css;
             }

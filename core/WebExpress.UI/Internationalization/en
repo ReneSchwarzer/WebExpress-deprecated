@@ -1,6 +1,13 @@
 ﻿# Englisch
-webexpress.ui.quickcreate.label=Create
-webexpress.ui.form.submit.label=Submit
-webexpress.ui.form.next.label=Next
-webexpress.ui.form.cancel.label=Cancel
-webexpress.ui.modal.close.label=Close
+resourceasset.load={0}: File '{1}' has been loaded
+
+componentmanager.initialization=The component manager has been initialized.
+componentmanager.register=The component '{0}' has been registered in the section '{1}' of the  application '{2}'.
+componentmanager.error.application=The application is incorrect.
+componentmanager.error.section=The section is incorrect.
+
+
+form.submit.label=Submit
+form.next.label=Next
+form.cancel.label=Cancel
+modal.close.label=Close
