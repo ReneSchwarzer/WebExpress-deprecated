@@ -118,7 +118,7 @@ namespace WebExpress.Message
 
             foreach (var v in options)
             {
-                var match = Regex.Match(v, "^" + property + ": (.*)$", RegexOptions.IgnoreCase);
+                var match = Regex.Match(v, "^" + property + ": (.*)$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
                 if (match.Success && match.Groups.Count >= 2 && match.Groups[1].Success)
                 {
                     return match.Groups[1].Value;

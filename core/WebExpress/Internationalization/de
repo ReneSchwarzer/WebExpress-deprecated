@@ -15,6 +15,7 @@ app.done=Programmende
 
 httpserver.run=Starte HttpServer auf Port {0}.
 httpserver.connected={0}: Client wurde verbunden.
+httpserver.rejected={0}: Client wurde abgelehnt.
 httpserver.request={0}: Anfrage '{1}'
 httpserver.request.unexpected={0}: Unerwartete Anfrage '{1}'
 httpserver.request.done={0}: Anfrage wurde in {1} ms bearbeitet. Status = {2}

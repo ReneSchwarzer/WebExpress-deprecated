@@ -7,7 +7,7 @@ using WebExpress.Workers;
 
 namespace WebExpress.WebResource
 {
-    public interface IPage : IResource, II18N
+    public interface IPage : IResource
     {
         /// <summary>
         /// Liefert die Session
@@ -91,7 +91,7 @@ namespace WebExpress.WebResource
         /// </summary>
         /// <param name="name">Der Name des Parameters</param>
         /// <returns>Der Wert</returns>
-        string GetParam(string name);
+        string GetParamValue(string name);
 
         /// <summary>
         /// Liefert ein Parameter anhand seines Namens
@@ -99,7 +99,7 @@ namespace WebExpress.WebResource
         /// <param name="name">Der Name des Parameters</param>
         /// <param name="defaultValue">Standardwert</param>
         /// <returns>Der Wert</returns>
-        int GetParam(string name, int defaultValue);
+        int GetParamValue(string name, int defaultValue);
 
         /// <summary>
         /// Prüft, ob ein Parameter vorhanden ist

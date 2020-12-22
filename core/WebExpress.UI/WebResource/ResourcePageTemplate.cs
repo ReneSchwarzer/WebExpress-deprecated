@@ -14,6 +14,21 @@ namespace WebExpress.UI.WebResource
         /// </summary>
         public ResourcePageTemplate()
         {
+            var module = ModuleManager.GetModule("webexpress");
+            if (module != null)
+            {
+                CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/fontawesome.min.css")));
+                CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/bootstrap.min.css")));
+                CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/express.css")));
+                CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/express.form.css")));
+                CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/solid.css")));
+                CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/summernote-bs4.min.css")));
+
+                HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/jquery-3.5.1.min.js")));
+                HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/popper.min.js")));
+                HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/bootstrap.min.js")));
+                HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/summernote-bs4.min.js")));
+            }
         }
 
         /// <summary>

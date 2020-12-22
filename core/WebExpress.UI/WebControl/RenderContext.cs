@@ -19,17 +19,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Liefert die Kultur
         /// </summary>
-        public CultureInfo Culture 
-        {
-            get
-            {
-                return Page.Culture;
-            }
-            set
-            {
-
-            }
-        }
+        public CultureInfo Culture { get; set; }
 
         /// <summary>
         /// Konstruktor
@@ -38,6 +28,7 @@ namespace WebExpress.UI.WebControl
         public RenderContext(IPage page)
         {
             Page = page;
+            Culture = (Page as Resource).Culture;
         }
     }
 }

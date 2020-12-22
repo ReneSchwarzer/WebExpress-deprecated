@@ -113,6 +113,9 @@ namespace WebExpress.WebResource
                     case ".png":
                         response.HeaderFields.ContentType = "image/png";
                         break;
+                    case ".svg":
+                        response.HeaderFields.ContentType = "image/svg+xml";
+                        break;
                     case ".jpeg":
                     case ".jpg":
                         response.HeaderFields.ContentType = "image/jpg";

@@ -53,7 +53,7 @@ namespace WebExpress.Attribute
 
             var callBackDisplay = new Func<string, string, CultureInfo, string>((segment, moduleID, culture) =>
             {
-                var match = Regex.Match(segment, expression);
+                var match = Regex.Match(segment, expression, RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
                 if (match.Success && string.IsNullOrWhiteSpace(Display))
                 {
@@ -73,7 +73,7 @@ namespace WebExpress.Attribute
 
             var callBackValiables = new Func<string, IDictionary<string, string>>(segment =>
             {
-                var match = Regex.Match(segment, expression);
+                var match = Regex.Match(segment, expression, RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
                 if (match.Success)
                 {

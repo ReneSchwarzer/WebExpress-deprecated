@@ -57,8 +57,6 @@ namespace WebExpress.UI.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            Classes.Add("media");
-
             var img = new HtmlElementMultimediaImg()
             {
                 Src = Image?.ToString(),
@@ -89,8 +87,8 @@ namespace WebExpress.UI.WebControl
             var html = new HtmlElementTextContentDiv(img, body)
             {
                 ID = ID,
-                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Class = Css.Concatenate("media", GetClasses()),
+                Style = GetStyles(),
                 Role = Role
             };
 

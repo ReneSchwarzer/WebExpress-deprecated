@@ -59,10 +59,10 @@ namespace WebExpress.Message
         /// <summary>
         /// Extrahiert aus dem Stream die Http-Anfrage
         /// </summary>
-        /// <param name="stream">Der Stream</param>
-        /// <param name="client">Die IP</param>
+        /// <param name="reader">Der Reader</param>
+        /// <param name="client">Die Client-IP</param>
         /// <returns>Die Anfrage</returns>
-        public static Request Create(Stream stream, string client)
+        public static Request Create(BinaryReader reader, string client)
         {
             var capacity = 1024;
             var header = new List<string>();
@@ -74,7 +74,7 @@ namespace WebExpress.Message
             // Lese Header
             do
             {
-                readCount = stream.Read(buffer, 0, capacity);
+                readCount = reader.Read(buffer, 0, capacity);
 
                 for (var i = 0; i < readCount; i++)
                 {
@@ -104,14 +104,14 @@ namespace WebExpress.Message
                             // Lese neuen Content
                             do
                             {
-                                offset += stream.Read(content, offset - 1, content.Length - offset + 1);
+                                offset += reader.Read(content, offset - 1, content.Length - offset + 1);
                             }
                             while (offset < content.Length);
 
                             ParseRequestParams(request, content);
 
                             // Leerzeile lesen
-                            readCount = stream.Read(buffer, 0, capacity);
+                            readCount = reader.Read(buffer, 0, capacity);
                         }
 
                         return request;

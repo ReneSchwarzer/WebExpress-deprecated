@@ -78,7 +78,7 @@ namespace WebExpress.UI.WebControl
 
             if (context.Page.HasParam(Name))
             {
-                Value = context.Page.GetParam(Name);
+                Value = context.Page.GetParamValue(Name);
             }
         }
 

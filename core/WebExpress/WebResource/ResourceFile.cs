@@ -48,6 +48,7 @@ namespace WebExpress.WebResource
                 Data = System.IO.File.ReadAllBytes(path);
 
                 var response = base.Process(request);
+                response.HeaderFields.CacheControl = "public, max-age=31536000";
 
                 var extension = System.IO.Path.GetExtension(path);
                 extension = !string.IsNullOrWhiteSpace(extension) ? extension.ToLower() : "";
@@ -94,6 +95,9 @@ namespace WebExpress.WebResource
                         break;
                     case ".png":
                         response.HeaderFields.ContentType = "image/png";
+                        break;
+                    case ".svg":
+                        response.HeaderFields.ContentType = "image/svg+xml";
                         break;
                     case ".jpeg":
                     case ".jpg":
