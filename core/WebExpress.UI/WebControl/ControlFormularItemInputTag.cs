@@ -56,7 +56,7 @@ namespace WebExpress.UI.WebControl
                 list.AddRange(Value.Split(';', System.StringSplitOptions.RemoveEmptyEntries).Select(x => $"\"{ x.Trim() }\""));
             }
                         
-            context.Page.AddScript(ID, $"const tags = new Tags('#tag_{ ID }', '{ Name }', [{ string.Join(',', list) }]);");
+            context.Page.AddScript(ID, $"new Tags('#tag_{ ID }', '{ Name }', [{ string.Join(',', list) }]);");
         }
 
         /// <summary>

@@ -73,7 +73,7 @@ namespace WebExpress.UI.WebControl
                 for (int i = 1; i< resourceUri.Path.Count + 1; i++)
                 {
                     var path = resourceUri.Take(i);
-                    var display = path.Display;
+                    var display = context.I18N(path.Display);
                     var href = path.ToString();
 
                     html.Elements.Add

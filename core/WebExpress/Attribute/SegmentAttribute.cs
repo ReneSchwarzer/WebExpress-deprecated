@@ -1,4 +1,5 @@
 ﻿using System;
+using WebExpress.Internationalization;
 using WebExpress.WebResource;
 
 namespace WebExpress.Attribute
