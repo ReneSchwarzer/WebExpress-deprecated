@@ -114,8 +114,6 @@ namespace WebExpress.UI.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            //Classes.Add(HorizontalAlignment.ToClass());
-
             var items = (from x in Items select x.Render(context)).ToList();
 
             switch (Layout)
@@ -126,12 +124,6 @@ namespace WebExpress.UI.WebControl
                     items.ForEach(x => x.AddClass("list-group-item"));
                     break;
             }
-
-            if (!ShowBorder)
-            {
-                //items.ForEach(x => x.AddClass("border-0"));
-            }
-
 
             var html = new HtmlElementTextContentUl(items)
             {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using WebExpress.Html;
+using WebExpress.Uri;
 
 namespace WebExpress.UI.WebControl
 {
@@ -9,7 +10,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Liefert oder setzt das Avatarbild
         /// </summary>
-        public string Image { get; set; }
+        public IUri Image { get; set; }
 
         /// <summary>
         /// Liefert oder setzt den Namen des Users
@@ -55,8 +56,6 @@ namespace WebExpress.UI.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            Classes.Add("comment");
-
             var profile = new ControlAvatar()
             {
                 User = User,
@@ -141,8 +140,8 @@ namespace WebExpress.UI.WebControl
 
             var html = new HtmlElementTextContentDiv(header, body, option)
             {
-                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Class = Css.Concatenate("comment", GetClasses()),
+                Style = GetStyles(),
                 Role = Role
             };
 

@@ -1,0 +1,55 @@
+/*!
+ * Base on https://github.com/kurtobando/simple-tags
+ */
+.simpletags
+{
+	box-sizing:border-box !important;
+	/*margin:1em;*/
+	padding:0.5em;
+	/*display:-webkit-box;*/
+	display:flex !important;
+	flex-wrap:wrap !important; 
+	/*font-size:14px;
+	border-radius:5px;*/
+	height:auto;
+}
+
+.simpletags>ul
+{
+	list-style:none;
+	padding:0;
+	margin:0;
+	display:-webkit-box;
+	display:flex;
+	flex-wrap:wrap;
+}
+
+.simpletags ul li
+{
+	margin:0 .2em;
+	padding:.1em .3em;
+	color:#fff;
+	background-color:#007bff!important;
+	border-radius:5px
+}
+
+.simpletags ul li a
+{
+	margin:.5em .2em;
+	text-decoration:none;
+	cursor: pointer;
+	color:inherit;
+}
+
+.simpletags input
+{	
+	/*padding:.9em .0em;*/
+	box-sizing:border-box;
+	/*-webkit-box-flex:1;*/
+	flex-grow:1;
+	border:none;
+	outline:none;
+	font-size:inherit;
+	font-family:inherit;
+	color:inherit;
+}

@@ -94,6 +94,8 @@ namespace WebExpress.WebResource
         /// <param name="code">Der Code</param>
         public virtual void AddScript(string key, string code)
         {
+            if (key == null) return;
+
             var k = key.ToLower();
             if (Scripts.ContainsKey(k))
             {

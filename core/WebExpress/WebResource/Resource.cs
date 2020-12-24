@@ -8,7 +8,7 @@ using WebExpress.Workers;
 
 namespace WebExpress.WebResource
 {
-    public abstract class Resource : IResource, II18N
+    public abstract class Resource : IResource
     {
         /// <summary>
         /// Liefert oder setzt die Session

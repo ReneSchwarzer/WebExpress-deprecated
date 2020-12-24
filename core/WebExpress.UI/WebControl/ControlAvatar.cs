@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using WebExpress.Html;
+using WebExpress.Uri;
 
 namespace WebExpress.UI.WebControl
 {
@@ -8,12 +9,21 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Liefert oder setzt das Avatarbild
         /// </summary>
-        public string Image { get; set; }
+        public IUri Image { get; set; }
 
         /// <summary>
         /// Liefert oder setzt den Namen des Users
         /// </summary>
         public string User { get; set; }
+
+        /// <summary>
+        /// Liefert oder setzt die Größe
+        /// </summary>
+        public TypeSizeButton Size
+        {
+            get => (TypeSizeButton)GetProperty(TypeSizeButton.Default);
+            set => SetProperty(value, () => value.ToClass());
+        }
 
         /// <summary>
         /// Liefert oder setzt einen modalen Dialag
@@ -45,13 +55,11 @@ namespace WebExpress.UI.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            Classes.Add("profile");
-
             var img = null as HtmlElement;
 
-            if (!string.IsNullOrWhiteSpace(Image))
+            if (Image != null)
             {
-                img = new HtmlElementMultimediaImg() { Src = Image, Class = "" };
+                img = new HtmlElementMultimediaImg() { Src = Image.ToString(), Class = "" };
             }
             else if (!string.IsNullOrWhiteSpace(User))
             {
@@ -68,8 +76,8 @@ namespace WebExpress.UI.WebControl
             var html = new HtmlElementTextContentDiv(img, new HtmlText(User))
             {
                 ID = ID,
-                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Class = Css.Concatenate("profile", GetClasses()),
+                Style = GetStyles(),
                 Role = Role
             };
 
