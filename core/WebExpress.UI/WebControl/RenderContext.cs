@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using WebExpress.Internationalization;
+using WebExpress.Uri;
 using WebExpress.WebResource;
 
 namespace WebExpress.UI.WebControl
@@ -10,6 +11,11 @@ namespace WebExpress.UI.WebControl
         /// Die Seite, indem das Steuerelement gerendert wird
         /// </summary>
         public IPage Page { get; private set; }
+
+        /// <summary>
+        /// Die Uir der Seite
+        /// </summary>
+        public IUri Uri => Page?.Uri;
 
         /// <summary>
         /// Liefert die I18N-PluginID

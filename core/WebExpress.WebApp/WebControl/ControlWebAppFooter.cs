@@ -46,6 +46,7 @@ namespace WebExpress.WebApp.WebControl
         private void Init()
         {
             BackgroundColor = LayoutSchema.FooterBackground;
+            TextColor = LayoutSchema.FooterText;
 
             //Navigation.Layout = TypeLayoutTab.Pill;
             //Navigation.Orientation = TypeOrientationTab.Vertical;

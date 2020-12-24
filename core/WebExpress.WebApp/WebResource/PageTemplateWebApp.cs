@@ -25,7 +25,7 @@ namespace WebExpress.WebApp.WebResource
         /// <summary>
         /// Liefert oder setzt den Inhalt
         /// </summary>
-        public new ControlPanelMain Content { get; protected set; } = new ControlPanelMain("content");
+        public new ControlWebAppContent Content { get; protected set; } = new ControlWebAppContent("content");
 
         /// <summary>
         /// Liefert oder setzt den Fuß
@@ -51,26 +51,6 @@ namespace WebExpress.WebApp.WebResource
         /// Liefert oder setzt die Sidebar
         /// </summary>
         public ControlWebAppSidebar Sidebar { get; protected set; } = new ControlWebAppSidebar("sidebar");
-
-        /// <summary>
-        /// Liefert oder setzt den Navigationsbereich
-        /// </summary>
-        public ControlText PageTitle { get; protected set; } = new ControlText("pagetitle");
-
-        /// <summary>
-        /// Liefert oder setzt die Seitenfunktionen
-        /// </summary>
-        public ControlPanel PageFunctions { get; protected set; } = new ControlPanel("pagefunctions");
-
-        /// <summary>
-        /// Liefert oder setzt den Seiteneigenschaften
-        /// </summary>
-        public ControlWebAppProperty Property { get; protected set; } = new ControlWebAppProperty("property");
-
-        /// <summary>
-        /// Liefert oder setzt den Werkzeugleiste
-        /// </summary>
-        public ControlToolbar Toolbar { get; protected set; } = new ControlToolbar("toolbar");
 
         /// <summary>
         /// Konstruktor
@@ -101,18 +81,10 @@ namespace WebExpress.WebApp.WebResource
 
             Sidebar.BackgroundColor = LayoutSchema.SidebarBackground;
 
-            Toolbar.BackgroundColor = LayoutSchema.ToolbarBackground;
             Content.BackgroundColor = LayoutSchema.ContentBackground;
-
-            PageTitle.Text = this.I18N(Title);
-            PageTitle.Format = TypeFormatText.H2;
-            PageTitle.TextColor = new PropertyColorText(TypeColorText.Dark);
-            PageTitle.Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None);
-
-            PageFunctions.BackgroundColor = new PropertyColorBackground(TypeColorBackground.Danger);
-
             Content.Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None);
             Content.Width = TypeWidth.OneHundred;
+            Content.Height = TypeHeight.OneHundred;
 
             Footer.BackgroundColor = LayoutSchema.FooterBackground;
         }
@@ -141,9 +113,9 @@ namespace WebExpress.WebApp.WebResource
             Sidebar.Secondary.AddRange(ComponentManager.CreateComponent<IControl>(Context.ApplicationID, Section.SidebarSecondary, ResourceContext));
 
             // Property
-            Property.Preferences.AddRange(ComponentManager.CreateComponent<IControl>(Context.ApplicationID, Section.PropertyPreferences, ResourceContext));
-            Property.Primary.AddRange(ComponentManager.CreateComponent<IControl>(Context.ApplicationID, Section.PropertyPrimary, ResourceContext));
-            Property.Secondary.AddRange(ComponentManager.CreateComponent<IControl>(Context.ApplicationID, Section.PropertySecondary, ResourceContext));
+            Content.Property.Preferences.AddRange(ComponentManager.CreateComponent<IControl>(Context.ApplicationID, Section.PropertyPreferences, ResourceContext));
+            Content.Property.Primary.AddRange(ComponentManager.CreateComponent<IControl>(Context.ApplicationID, Section.PropertyPrimary, ResourceContext));
+            Content.Property.Secondary.AddRange(ComponentManager.CreateComponent<IControl>(Context.ApplicationID, Section.PropertySecondary, ResourceContext));
 
             // Footer
             Footer.Preferences.AddRange(ComponentManager.CreateComponent<IControl>(Context.ApplicationID, Section.FooterPreferences, ResourceContext));
@@ -160,38 +132,12 @@ namespace WebExpress.WebApp.WebResource
             var flexbox = new ControlPanelFlexbox
             (
                 Sidebar,
-                new ControlPanel
-                (
-                    Toolbar,
-                    new ControlPanelFlexbox
-                    (
-                        PageTitle,
-                        PageFunctions
-                    )
-                    {
-                        Layout = TypeLayoutFlexbox.Default,
-                        Align = TypeAlignFlexbox.Start
-                    },
-                    new ControlPanelFlexbox
-                    (
-                        Content,
-                        Property
-                    )
-                    {
-                        Layout = TypeLayoutFlexbox.Default,
-                        Align = TypeAlignFlexbox.Stretch
-                    }
-                )
-                {
-                    BackgroundColor = LayoutSchema.MainBackground,
-                    Width = TypeWidth.OneHundred
-                }
+                Content
             )
             {
                 Layout = TypeLayoutFlexbox.Default,
                 Align = TypeAlignFlexbox.Stretch
             };
-
 
             base.Content.Add(Header);
             base.Content.Add(Toast);

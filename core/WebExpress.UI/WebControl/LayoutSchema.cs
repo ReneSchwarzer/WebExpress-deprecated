@@ -78,6 +78,16 @@
         public static PropertyColorText SidebarNavigationLink => new PropertyColorText(TypeColorText.Dark);
 
         /// <summary>
+        /// Hintergrundfarbe des Headline-Bereiches
+        /// </summary>
+        public static PropertyColorBackground HeadlineBackground => new PropertyColorBackground();
+
+        /// <summary>
+        /// Hintergrundfarbe des Headline-Bereiches
+        /// </summary>
+        public static PropertyColorText HeadlineTitle => new PropertyColorText(TypeColorText.Dark);
+
+        /// <summary>
         /// Hintergrundfarbe des Property-Bereiches
         /// </summary>
         public static PropertyColorBackground PropertyBackground => new PropertyColorBackground(TypeColorBackground.Light);
@@ -116,11 +126,6 @@
         /// Linkfarbe der Werkzeugleiste
         /// </summary>
         public static PropertyColorText ToolbarLink => new PropertyColorText(TypeColorText.Dark);
-
-        /// <summary>
-        /// Hintergrundfarbe des Main-Bereiches
-        /// </summary>
-        public static PropertyColorBackground MainBackground => new PropertyColorBackground();
 
         /// <summary>
         /// Hintergrundfarbe des Content-Bereiches
@@ -175,6 +180,11 @@
         /// <summary>
         /// Hintergrundfarbe der Fußzeile
         /// </summary>
-        public static PropertyColorBackground FooterBackground => new PropertyColorBackground(TypeColorBackground.Dark);
+        public static PropertyColorBackground FooterBackground => new PropertyColorBackground(TypeColorBackground.Light);
+
+        /// <summary>
+        /// Textfarbe der Fußzeile
+        /// </summary>
+        public static PropertyColorText FooterText => new PropertyColorText(TypeColorText.Secondary);
     }
 }

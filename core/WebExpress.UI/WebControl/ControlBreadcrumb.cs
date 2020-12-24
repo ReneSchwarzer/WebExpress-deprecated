@@ -73,26 +73,30 @@ namespace WebExpress.UI.WebControl
                 for (int i = 1; i< resourceUri.Path.Count + 1; i++)
                 {
                     var path = resourceUri.Take(i);
-                    var display = context.I18N(path.Display);
-                    var href = path.ToString();
 
-                    html.Elements.Add
-                    (
-                        new HtmlElementTextContentLi
+                    if (path.Display != null)
+                    {
+                        var display = context.I18N(path.Display);
+                        var href = path.ToString();
+
+                        html.Elements.Add
                         (
-                            //new ControlIcon(Page)
-                            //{ 
-                            //    Icon = path.Icon
-                            //}.ToHtml(),
-                            new HtmlElementTextSemanticsA(display)
+                            new HtmlElementTextContentLi
+                            (
+                                //new ControlIcon(Page)
+                                //{ 
+                                //    Icon = path.Icon
+                                //}.ToHtml(),
+                                new HtmlElementTextSemanticsA(display)
+                                {
+                                    Href = href
+                                }
+                            )
                             {
-                                Href = href
+                                Class = "breadcrumb-item"
                             }
-                        )
-                        {
-                            Class = "breadcrumb-item"
-                        }
-                    );
+                        );
+                    }
                 }
             }
 
