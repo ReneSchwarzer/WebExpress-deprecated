@@ -76,15 +76,16 @@ namespace WebExpress.WebApp.WebResource
             Breadcrumb.Uri = Uri;
             Breadcrumb.Margin = new PropertySpacingMargin(PropertySpacing.Space.Null);
             Breadcrumb.BackgroundColor = LayoutSchema.BreadcrumbBackground;
+            Breadcrumb.Size = LayoutSchema.BreadcrumbSize;
 
             Toast.BackgroundColor = LayoutSchema.ValidationWarningBackground;
 
             Sidebar.BackgroundColor = LayoutSchema.SidebarBackground;
 
             Content.BackgroundColor = LayoutSchema.ContentBackground;
-            Content.Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None);
+            Content.Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.None);
             Content.Width = TypeWidth.OneHundred;
-            Content.Height = TypeHeight.OneHundred;
+            //Content.Height = TypeHeight.OneHundred;
 
             Footer.BackgroundColor = LayoutSchema.FooterBackground;
         }
@@ -136,7 +137,8 @@ namespace WebExpress.WebApp.WebResource
             )
             {
                 Layout = TypeLayoutFlexbox.Default,
-                Align = TypeAlignFlexbox.Stretch
+                Align = TypeAlignFlexbox.Stretch,
+                Height = TypeHeight.OneHundred
             };
 
             base.Content.Add(Header);

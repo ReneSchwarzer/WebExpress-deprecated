@@ -9,7 +9,7 @@ namespace WebExpress.Test.Message
         [Fact]
         public void Get_General()
         {
-            using var reader = new FileStream(Path.Combine("test", "general.get"), FileMode.Open);
+            using var reader = new BinaryReader(new FileStream(Path.Combine("test", "general.get"), FileMode.Open));
             var request = Request.Create(reader, "127.0.0.1");
 
             Assert.True
@@ -22,7 +22,7 @@ namespace WebExpress.Test.Message
         [Fact]
         public void Get_Less()
         {
-            using var reader = new FileStream(Path.Combine("test", "less.get"), FileMode.Open);
+            using var reader = new BinaryReader(new FileStream(Path.Combine("test", "less.get"), FileMode.Open));
             var request = Request.Create(reader, "127.0.0.1");
 
             Assert.True
@@ -35,7 +35,7 @@ namespace WebExpress.Test.Message
         [Fact]
         public void Get_Massive()
         {
-            using var reader = new FileStream(Path.Combine("test", "massive.get"), FileMode.Open);
+            using var reader = new BinaryReader(new FileStream(Path.Combine("test", "massive.get"), FileMode.Open));
             var request = Request.Create(reader, "127.0.0.1");
 
             Assert.True
@@ -48,7 +48,7 @@ namespace WebExpress.Test.Message
         [Fact]
         public void Get_Param()
         {
-            using var reader = new FileStream(Path.Combine("test", "param.get"), FileMode.Open);
+            using var reader = new BinaryReader(new FileStream(Path.Combine("test", "param.get"), FileMode.Open));
             var request = Request.Create(reader, "127.0.0.1");
             var param = request?.GetParamValue("a");
 

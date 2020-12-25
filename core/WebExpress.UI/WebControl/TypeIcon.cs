@@ -35,6 +35,7 @@
         Forward,
         GraduationCap,
         Hashtag,
+        Hdd,
         Home,
         InfoCircle,
         Image,
@@ -146,6 +147,8 @@
                     return "fas fa-graduation-cap";
                 case TypeIcon.Hashtag:
                     return "fas fa-hashtag";
+                case TypeIcon.Hdd:
+                    return "fas fa-hdd";
                 case TypeIcon.Home:
                     return "fas fa-home";
                 case TypeIcon.InfoCircle:

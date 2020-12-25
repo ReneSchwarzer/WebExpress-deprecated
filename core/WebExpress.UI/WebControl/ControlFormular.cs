@@ -62,12 +62,12 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Liefert oder setzt die Submit-Schaltfläche
         /// </summary>
-        public ControlFormularItemButton SubmitButton { get; protected set; }
+        public ControlFormularItemButton SubmitButton { get; } = new ControlFormularItemButton();
 
         /// <summary>
         /// Liefert oder setzt die Abbrechen-Schaltfläche
         /// </summary>
-        public ControlButtonLink CancelButton { get; set; }
+        public ControlButtonLink CancelButton { get; } = new ControlButtonLink();
 
         /// <summary>
         /// Speichern und weiter Schaltfläche anzeigen
@@ -77,7 +77,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Liefert oder setzt die Submit-Schaltfläche
         /// </summary>
-        public ControlFormularItemButton SubmitAndNextButton { get; protected set; }
+        public ControlFormularItemButton SubmitAndNextButton { get; } = new ControlFormularItemButton();
 
         /// <summary>
         /// Speichern und weiter Schaltfläche anzeigen
@@ -149,6 +149,26 @@ namespace WebExpress.UI.WebControl
             EnableCancelButton = true;
             Scope = ParameterScope.Local;
             Name = "Form";
+
+            SubmitButton.Name = "submit_" + ID?.ToLower();
+            SubmitButton.Icon = new PropertyIcon(TypeIcon.Save);
+            SubmitButton.Color = new PropertyColorButton(TypeColorButton.Success);
+            SubmitButton.Type = "submit";
+            SubmitButton.Value = "1";
+            SubmitButton.Margin = new PropertySpacingMargin(Layout == TypeLayoutFormular.Inline ? PropertySpacing.Space.Two : PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None);
+
+            SubmitAndNextButton.Name = "next_" + ID?.ToLower();
+            SubmitAndNextButton.Icon = new PropertyIcon(TypeIcon.Forward);
+            SubmitAndNextButton.Color = new PropertyColorButton(TypeColorButton.Success);
+            SubmitAndNextButton.Type = "submit";
+            SubmitAndNextButton.Value = "1";
+            SubmitAndNextButton.Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None);
+
+            CancelButton.Icon = new PropertyIcon(TypeIcon.Times);
+            CancelButton.BackgroundColor = new PropertyColorButton(TypeColorButton.Secondary);
+            CancelButton.TextColor = new PropertyColorText(TypeColorText.White);
+            CancelButton.HorizontalAlignment = TypeHorizontalAlignment.Right;
+            CancelButton.Uri = Uri;
         }
 
         /// <summary>
@@ -159,45 +179,25 @@ namespace WebExpress.UI.WebControl
         public override IHtmlNode Render(RenderContext context)
         {
             var renderContext = new RenderContextFormular(context, this);
-            
+
             Items.ForEach(x => x.Initialize(renderContext));
 
-            if (CancelButton != null)
-            {
-                CancelButton.Uri = RedirectUrl;
+            CancelButton.Uri = RedirectUrl;
+            
+            if (string.IsNullOrWhiteSpace(SubmitButton.Text))
+            { 
+                SubmitButton.Text = context.I18N("webexpress", "form.submit.label");
+            }
+            
+            if (string.IsNullOrWhiteSpace(SubmitAndNextButton.Text))
+            { 
+                SubmitAndNextButton.Text = context.I18N("webexpress", "form.next.label");
             }
 
-            SubmitButton = new ControlFormularItemButton()
+            if (string.IsNullOrWhiteSpace(CancelButton.Text))
             {
-                Name = "submit_" + Name.ToLower(),
-                Text = context.I18N("webexpress", "form.submit.label"),
-                Icon = new PropertyIcon(TypeIcon.Save),
-                Color = LayoutSchema.SubmitButtonBackground,
-                Type = "submit",
-                Value = "1",
-                Margin = new PropertySpacingMargin(Layout == TypeLayoutFormular.Inline ? PropertySpacing.Space.Two : PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None)
-            };
-
-            SubmitAndNextButton = new ControlFormularItemButton()
-            {
-                Name = "next_" + Name.ToLower(),
-                Text = context.I18N("webexpress", "form.next.label"),
-                Icon = new PropertyIcon(TypeIcon.Forward),
-                Color = LayoutSchema.NextButtonBackground,
-                Type = "submit",
-                Value = "1",
-                Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None)
-            };
-
-            CancelButton = new ControlButtonLink()
-            {
-                Text = context.I18N("webexpress", "form.cancel.label"),
-                Icon = new PropertyIcon(TypeIcon.Times),
-                BackgroundColor = LayoutSchema.CancelButtonBackground,
-                TextColor = new PropertyColorText(TypeColorText.White),
-                HorizontalAlignment = TypeHorizontalAlignment.Right,
-                Uri = Uri
-            };
+                CancelButton.Text = context.I18N("webexpress", "form.cancel.label");
+            }
 
             SubmitButton.Click += (s, e) =>
             {
@@ -260,13 +260,13 @@ namespace WebExpress.UI.WebControl
                 switch (v.Type)
                 {
                     case TypesInputValidity.Error:
-                        bgColor = LayoutSchema.ValidationErrorBackground;
+                        bgColor = new PropertyColorBackground(TypeColorBackground.Danger);
                         break;
                     case TypesInputValidity.Warning:
-                        bgColor = LayoutSchema.ValidationWarningBackground;
+                        bgColor = new PropertyColorBackground(TypeColorBackground.Warning);
                         break;
                     case TypesInputValidity.Success:
-                        bgColor = LayoutSchema.ValidationSuccessBackground;
+                        bgColor = new PropertyColorBackground(TypeColorBackground.Default);
                         break;
                 }
 

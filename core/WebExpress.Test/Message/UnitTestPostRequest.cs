@@ -9,7 +9,7 @@ namespace WebExpress.Test.Message
         [Fact]
         public void Post_TextPlain()
         {
-            using var reader = new FileStream(Path.Combine("test", "contentTypeTextPlain.post"), FileMode.Open);
+            using var reader = new BinaryReader(new FileStream(Path.Combine("test", "contentTypeTextPlain.post"), FileMode.Open));
             var request = Request.Create(reader, "127.0.0.1");
             var param = request?.GetParamValue("submit_manufactor");
 
@@ -23,7 +23,7 @@ namespace WebExpress.Test.Message
         [Fact]
         public void Post_Urlencoded()
         {
-            using var reader = new FileStream(Path.Combine("test", "contentTypeXwwwFormUrlencoded.post"), FileMode.Open);
+            using var reader = new BinaryReader(new FileStream(Path.Combine("test", "contentTypeXwwwFormUrlencoded.post"), FileMode.Open));
             var request = Request.Create(reader, "127.0.0.1");
             var param = request?.GetParamValue("submit_manufactor");
 
@@ -37,7 +37,7 @@ namespace WebExpress.Test.Message
         [Fact]
         public void Post_Multipart1()
         {
-            using var reader = new FileStream(Path.Combine("test", "contentTypeMultipartFormData1.post"), FileMode.Open);
+            using var reader = new BinaryReader(new FileStream(Path.Combine("test", "contentTypeMultipartFormData1.post"), FileMode.Open));
             var request = Request.Create(reader, "127.0.0.1");
             var param = request?.GetParamValue("submit_manufactor");
 
@@ -51,7 +51,7 @@ namespace WebExpress.Test.Message
         [Fact]
         public void Post_Multipart2()
         {
-            using var reader = new FileStream(Path.Combine("test", "contentTypeMultipartFormData2.post"), FileMode.Open);
+            using var reader = new BinaryReader(new FileStream(Path.Combine("test", "contentTypeMultipartFormData2.post"), FileMode.Open));
             var request = Request.Create(reader, "127.0.0.1");
             var param = request?.GetParamValue("submit_manufactor");
 
@@ -65,6 +65,20 @@ namespace WebExpress.Test.Message
                 file.Data.Length == 47788 && 
                 param != null && param == "1",
                 "Fehler in der Funktion Post_Multipart2"
+            );
+        }
+
+        [Fact]
+        public void Post_Multipart3()
+        {
+            using var reader = new BinaryReader(new FileStream(Path.Combine("test", "contentTypeMultipartFormData3.post"), FileMode.Open));
+            var request = Request.Create(reader, "127.0.0.1");
+            var param = request?.GetParamValue("submit_del");
+
+            Assert.True
+            (
+                param != null && param == "1",
+                "Fehler in der Funktion Post_Multipart3"
             );
         }
     }

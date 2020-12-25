@@ -44,6 +44,8 @@ namespace WebExpress.Html
         /// <returns>Des um die Kasse reduzierte HTML-Element</returns>
         public static IHtmlNode RemoveClass(this IHtmlNode html, string cssClass)
         {
+            if (cssClass == null) return html;
+
             if (html is HtmlElement)
             {
                 var element = html as HtmlElement;

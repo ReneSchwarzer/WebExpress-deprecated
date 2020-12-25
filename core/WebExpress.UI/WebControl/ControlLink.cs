@@ -151,7 +151,6 @@ namespace WebExpress.UI.WebControl
         {
             Content = new List<Control>();
             Params = new List<Parameter>();
-            TextColor = LayoutSchema.Link;
         }
 
         /// <summary>

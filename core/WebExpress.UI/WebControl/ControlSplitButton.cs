@@ -138,7 +138,7 @@ namespace WebExpress.UI.WebControl
         private void Init()
         {
             Size = TypeSizeButton.Default;
-            BackgroundColor = LayoutSchema.ButtonBackground;
+            //BackgroundColor = LayoutSchema.ButtonBackground;
         }
 
         /// <summary>

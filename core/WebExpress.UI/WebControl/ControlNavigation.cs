@@ -44,17 +44,17 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Liefert oder setzt die aktive Farbe
         /// </summary>
-        public PropertyColorBackground ActiveColor { get; set; }
+        public PropertyColorBackground ActiveColor { get; set; } = new PropertyColorBackground();
 
         /// <summary>
         /// Liefert oder setzt die aktive Farbe
         /// </summary>
-        public PropertyColorText ActiveTextColor { get; set; }
+        public PropertyColorText ActiveTextColor { get; set; } = new PropertyColorText();
 
         /// <summary>
         /// Liefert oder setzt die normale Farbe
         /// </summary>
-        public PropertyColorText LinkColor { get; set; }
+        public PropertyColorText LinkColor { get; set; } = new PropertyColorText();
 
         /// <summary>
         /// Liefert oder setzt die Listeneinträge
@@ -113,9 +113,9 @@ namespace WebExpress.UI.WebControl
         /// </summary>
         private void Init()
         {
-            ActiveColor = LayoutSchema.NavigationActiveBackground;
-            ActiveTextColor = LayoutSchema.NavigationActive;
-            LinkColor = LayoutSchema.NavigationLink;
+            //ActiveColor = LayoutSchema.NavigationActiveBackground;
+            //ActiveTextColor = LayoutSchema.NavigationActive;
+            //LinkColor = LayoutSchema.NavigationLink;
         }
 
         /// <summary>

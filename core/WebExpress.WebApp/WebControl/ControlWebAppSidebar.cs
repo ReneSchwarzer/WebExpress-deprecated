@@ -2,6 +2,7 @@
 using System.Linq;
 using WebExpress.Html;
 using WebExpress.UI.WebControl;
+using WebExpress.WebApp.WebResource;
 
 namespace WebExpress.WebApp.WebControl
 {
@@ -46,14 +47,7 @@ namespace WebExpress.WebApp.WebControl
         private void Init()
         {
             BackgroundColor = LayoutSchema.SidebarBackground;
-
-            //Navigation.Layout = TypeLayoutTab.Pill;
-            //Navigation.Orientation = TypeOrientationTab.Vertical;
-            //Navigation.GridColumn = new PropertyGrid(TypeDevice.Medium, 2);
-
-            //Navigation.ActiveColor = LayoutSchema.SidebarNavigationActiveBackground;
-            //Navigation.ActiveTextColor = LayoutSchema.SidebarNavigationActive;
-            //Navigation.LinkColor = LayoutSchema.SidebarNavigationLink;
+            Height = TypeHeight.OneHundred;
         }
 
         /// <summary>
@@ -80,7 +74,7 @@ namespace WebExpress.WebApp.WebControl
             return new HtmlElementTextContentDiv(elements)
             {
                 ID = ID,
-                Class = Css.Concatenate("navbar", GetClasses()),
+                Class = Css.Concatenate("sidebar", GetClasses()),
                 Style = Style.Concatenate("display: block;", GetStyles()),
                 Role = Role
             };

@@ -87,7 +87,7 @@ namespace WebExpress.UI.WebControl
                 Value = Value,
                 Name = Name,
                 Type = "file",
-                Class = Css.Concatenate("", GetClasses()),
+                Class = Css.Concatenate("form-control-file", GetClasses()),
                 Style = GetStyles(),
                 Role = Role,
                 Placeholder = Placeholder

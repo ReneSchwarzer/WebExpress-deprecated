@@ -52,7 +52,7 @@ namespace WebExpress.UI.WebControl
         /// </summary>
         private void Init()
         {
-            Size = LayoutSchema.BreadcrumbSize;
+            Size = TypeSizeButton.Small;
         }
 
         /// <summary>

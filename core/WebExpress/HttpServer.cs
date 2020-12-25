@@ -254,7 +254,7 @@ namespace WebExpress
 
                 if (!stream.DataAvailable)
                 {
-                    Context.Log.Debug(message: this.I18N("httpserver.rejected"), args: ip);
+                    //Context.Log.Debug(message: this.I18N("httpserver.rejected"), args: ip);
                     return;
                 }
 

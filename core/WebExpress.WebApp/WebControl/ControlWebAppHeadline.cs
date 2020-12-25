@@ -4,6 +4,7 @@ using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
+using WebExpress.WebApp.WebResource;
 
 namespace WebExpress.WebApp.WebControl
 {
@@ -58,17 +59,13 @@ namespace WebExpress.WebApp.WebControl
 
             var content = new ControlPanelFlexbox
             (
-                new ControlLink("title", new ControlText()
+                new ControlText()
                 {
                     Text = context.I18N(context.Page.Title),
                     TextColor = LayoutSchema.HeadlineTitle,
                     Format = TypeFormatText.H2,
                     Padding = new PropertySpacingPadding(PropertySpacing.Space.One),
                     Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.Null)
-                })
-                {
-                    Uri = context.Page.Uri.Root,
-                    Decoration = TypeTextDecoration.None
                 },
                 new ControlNavigation("functions", navigation)
                 {

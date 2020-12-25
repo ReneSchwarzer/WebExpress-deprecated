@@ -4,6 +4,7 @@ using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
+using WebExpress.WebApp.WebResource;
 
 namespace WebExpress.WebApp.WebControl
 {
@@ -154,15 +155,15 @@ namespace WebExpress.WebApp.WebControl
                 (IControl)new ControlDropdown("logo", hamburger)
                 {
                     Image = Logo,
-                    Width = 70,
-                    Height = 60,
+                    Width = 50,
+                    Height = 50,
                     Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None)
                 } :
                 new ControlImage("logo")
                 {
                     Uri = Logo,
-                    Width = 70,
-                    Height = 60,
+                    Width = 50,
+                    Height = 50,
                     Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None)
                 },
                 new ControlLink("apptitle", new ControlText()

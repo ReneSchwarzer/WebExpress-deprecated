@@ -41,9 +41,9 @@
             switch (Device)
             {
                 case TypeDevice.Auto:
-                    return "col" + Columns;
-                case TypeDevice.ExtraSmall:
                     return "col-" + Columns;
+                case TypeDevice.ExtraSmall:
+                    return "col-xs" + Columns;
                 case TypeDevice.Small:
                     return "col-sm-" + Columns;
                 case TypeDevice.Medium:

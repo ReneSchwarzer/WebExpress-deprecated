@@ -1,4 +1,6 @@
-﻿namespace WebExpress.UI.WebControl
+﻿using WebExpress.UI.WebControl;
+
+namespace WebExpress.WebApp.WebResource
 {
     public static class LayoutSchema
     {
@@ -90,7 +92,7 @@
         /// <summary>
         /// Hintergrundfarbe des Property-Bereiches
         /// </summary>
-        public static PropertyColorBackground PropertyBackground => new PropertyColorBackground(TypeColorBackground.Light);
+        public static PropertyColorBackground PropertyBackground => new PropertyColorBackground("#C6E2FF");
 
         /// <summary>
         /// Farbe des Property-Titels

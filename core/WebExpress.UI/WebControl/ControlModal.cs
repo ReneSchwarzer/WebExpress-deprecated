@@ -143,7 +143,7 @@ namespace WebExpress.UI.WebControl
             var footerButton = new HtmlElementFieldButton(new HtmlText(context.I18N("webexpress", "modal.close.label")))
             {
                 Type = "button",
-                Class = Css.Concatenate("btn", LayoutSchema.CloseButtonBackground?.ToClass())
+                Class = Css.Concatenate("btn", new PropertyColorButton(TypeColorButton.Primary).ToStyle())
             };
             footerButton.AddUserAttribute("data-dismiss", "modal");
 

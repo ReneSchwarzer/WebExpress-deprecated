@@ -95,23 +95,28 @@ namespace WebExpress.Message
                         var contentLength = request.HeaderFields.ContentLength;
                         if (contentLength > 0)
                         {
-                            var content = new byte[contentLength - 2]; // Leerzeile des Contentbereiches '\r\n' wird nicht mitgezählt
+                            var content = new byte[contentLength /*- 2*/]; // Leerzeile des Contentbereiches '\r\n' wird nicht mitgezählt
                             var offset = readCount - i;
 
                             // Lese bereits gelesenen Content
                             Buffer.BlockCopy(buffer, i + 1, content, 0, offset - 1);
 
-                            // Lese neuen Content
-                            do
+                            var b = Encoding.UTF8.GetString(buffer, 0, 1024);
+
+                            if (i + contentLength > buffer.Length)
                             {
-                                offset += reader.Read(content, offset - 1, content.Length - offset + 1);
+                                // Lese neuen Content
+                                do
+                                {
+                                    offset += reader.Read(content, offset - 1, content.Length - offset + 1);
+                                }
+                                while (offset < content.Length);
                             }
-                            while (offset < content.Length);
 
                             ParseRequestParams(request, content);
 
                             // Leerzeile lesen
-                            readCount = reader.Read(buffer, 0, capacity);
+                            //readCount = reader.Read(buffer, 0, capacity);
                         }
 
                         return request;

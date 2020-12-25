@@ -19,7 +19,7 @@
         {
             Classes.Add("nav-link");
 
-            TextColor = LayoutSchema.ToolbarLink;
+            //TextColor = LayoutSchema.ToolbarLink;
         }
     }
 }

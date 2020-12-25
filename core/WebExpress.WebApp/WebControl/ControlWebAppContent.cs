@@ -2,6 +2,7 @@
 using System.Linq;
 using WebExpress.Html;
 using WebExpress.UI.WebControl;
+using WebExpress.WebApp.WebResource;
 
 namespace WebExpress.WebApp.WebControl
 {
@@ -82,7 +83,8 @@ namespace WebExpress.WebApp.WebControl
             var flexbox = new ControlPanelFlexbox(panel, Property)
             {
                 Layout = TypeLayoutFlexbox.Default,
-                Align = TypeAlignFlexbox.Stretch
+                Align = TypeAlignFlexbox.Stretch,
+                Height = TypeHeight.OneHundred
             };
 
             var elements = new List<IHtmlNode>();
