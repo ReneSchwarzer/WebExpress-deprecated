@@ -12,11 +12,13 @@
         Bomb,
         Book,
         Bug,
+        Building,
         Calendar,
         CalendarMinus,
         CalendarPlus,
         Car,
         ChartBar,
+        City,
         Clock,
         Clone,
         Code,
@@ -24,6 +26,8 @@
         Copy,
         Comment,
         CommentAlt,
+        Door,
+        DoorOpen,
         Download,
         Edit,
         EuroSign,
@@ -52,6 +56,7 @@
         Plus,
         PowerOff,
         Print,
+        Road,
         Save,
         ShoppingBag,
         Star,
@@ -101,6 +106,8 @@
                     return "fas fa-book";
                 case TypeIcon.Bug:
                     return "fas fa-bug";
+                case TypeIcon.Building:
+                    return "fas fa-building";
                 case TypeIcon.Calendar:
                     return "fas fa-calendar";
                 case TypeIcon.CalendarMinus:
@@ -111,6 +118,8 @@
                     return "fas fa-car";
                 case TypeIcon.ChartBar:
                     return "fas fa-chart-bar";
+                case TypeIcon.City:
+                    return "fas fa-city";
                 case TypeIcon.Clock:
                     return "fas fa-clock";
                 case TypeIcon.Clone:
@@ -125,6 +134,10 @@
                     return "fas fa-comment";
                 case TypeIcon.CommentAlt:
                     return "fas fa-comment-alt";
+                case TypeIcon.Door:
+                    return "fas fa-door-closed";
+                case TypeIcon.DoorOpen:
+                    return "fas fa-door-open";
                 case TypeIcon.Download:
                     return "fas fa-upload";
                 case TypeIcon.Edit:
@@ -181,6 +194,8 @@
                     return "fas fa-power-off";
                 case TypeIcon.Print:
                     return "fas fa-print";
+                case TypeIcon.Road:
+                    return "fas fa-road";
                 case TypeIcon.Save:
                     return "fas fa-save";
                 case TypeIcon.ShoppingBag:

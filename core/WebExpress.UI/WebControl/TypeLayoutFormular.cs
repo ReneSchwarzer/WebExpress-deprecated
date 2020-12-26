@@ -7,7 +7,8 @@
     {
         Default,
         Inline,
-        Horizontal
+        Horizontal,
+        Mix
     }
 
     public static class TypeLayoutFormularExtensions

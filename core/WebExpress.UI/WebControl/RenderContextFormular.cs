@@ -5,6 +5,14 @@ namespace WebExpress.UI.WebControl
     public class RenderContextFormular : RenderContext
     {
         /// <summary>
+        /// Liefert oder setzt das Layout
+        /// </summary>
+        public virtual TypeLayoutFormular Layout
+        {
+            get => Formular.Layout;
+        }
+
+        /// <summary>
         /// Das Formular, indem das Steuerelement gerendert wird
         /// </summary>
         public ControlFormular Formular { get; private set; }

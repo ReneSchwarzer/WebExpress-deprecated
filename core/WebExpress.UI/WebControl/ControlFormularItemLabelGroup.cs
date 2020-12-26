@@ -58,7 +58,8 @@ namespace WebExpress.UI.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContextFormular context)
         {
-            var form = (context as RenderContextFormular)?.Formular;
+            var layout = (context as RenderContextFormular)?.Layout;
+            bool isGroup = context is RenderContextFormularGroup;
             var input = Item as ControlFormularItemInput;
 
             var icon = new ControlIcon() { Icon = (Item as ControlFormularItemInput)?.Icon };
@@ -67,18 +68,22 @@ namespace WebExpress.UI.WebControl
             label.Initialize(context);
             help.Initialize(context);
 
-            switch (form.Layout)
+            var lableClass = string.Empty;
+
+            switch (layout)
             {
                 case TypeLayoutFormular.Horizontal:
-                    icon.Classes.Add("col-form-label ml-3");
-                    label.Classes.Add("col-form-label");
-                    label.GridColumn = new PropertyGrid(TypeDevice.Small, 2);
+                    lableClass = isGroup ? "col-form-label" : "col-form-label col-sm-2";
                     help.Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None);
 
                     break;
                 case TypeLayoutFormular.Inline:
                     icon.Classes.Add("ml-3 mr-2");
-                    //label.Classes.Add("mr-2");
+                    help.Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None);
+
+                    break;
+                case TypeLayoutFormular.Mix:
+                    lableClass = isGroup ? "col-form-label" : "col-form-label col-sm-2";
                     help.Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None);
 
                     break;
@@ -110,7 +115,7 @@ namespace WebExpress.UI.WebControl
 
             var html = new HtmlElementFormFieldset()
             {
-                Class = Css.Concatenate(form?.Layout == TypeLayoutFormular.Horizontal ?
+                Class = Css.Concatenate(layout == TypeLayoutFormular.Horizontal ?
                     "form-group row" :
                     "form-group", GetClasses()),
                 Style = GetStyles()
@@ -118,26 +123,26 @@ namespace WebExpress.UI.WebControl
 
             if (icon.Icon != null)
             {
-                html.Elements.Add(icon.Render(context));
+                html.Elements.Add(new HtmlElementTextSemanticsSpan(icon.Render(context), label.Render(context)) { Class = lableClass + " ml-1" });
             }
             else
             {
-                //labelClasses.Add("ml-3");
+                label.Classes.Add(lableClass);
+                html.Elements.Add(label.Render(context));
             }
 
-            html.Elements.Add(label.Render(context));
-
-            //    new HtmlElementFieldLabel(label.Label)
-            //{
-            //    For = string.IsNullOrWhiteSpace(Item.ID) ? Item.ID : Item.Name,
-            //    Class = string.Join(" ", labelClasses.Where(x => !string.IsNullOrWhiteSpace(x)))
-            //});
-
-            if (form?.Layout == TypeLayoutFormular.Horizontal)
+            if (layout == TypeLayoutFormular.Horizontal)
             {
                 html.Elements.Add(new HtmlElementTextContentDiv(Item.Render(context))
                 {
-                    Class = "col-sm-7"
+                    Class = isGroup ? "col" : "col-sm-7"
+                });
+            }
+            else if (layout == TypeLayoutFormular.Mix)
+            {
+                html.Elements.Add(new HtmlElementTextContentDiv(Item.Render(context))
+                {
+                    Class = isGroup ? "col" : "col-sm-7"
                 });
             }
             else
