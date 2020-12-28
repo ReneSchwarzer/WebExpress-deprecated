@@ -8,21 +8,17 @@ using WebExpress.Uri;
 
 namespace WebExpress.UI.WebControl
 {
-    public class ControlFormular : Control
+    public class ControlFormular : Control, IControlFormular
     {
+        /// <summary>
+        /// Liefert oder setzt das Layout
+        /// </summary>
+        public virtual TypeLayoutFormular Layout { get; set; } = TypeLayoutFormular.Vertical;
+
         /// <summary>
         /// Event zum Validieren der Eingabewerte
         /// </summary>
         public event EventHandler<ValidationEventArgs> Validation;
-
-        /// <summary>
-        /// Liefert oder setzt das Layout
-        /// </summary>
-        public virtual TypeLayoutFormular Layout
-        {
-            get => (TypeLayoutFormular)GetProperty(TypeLayoutFormular.Default);
-            set => SetProperty(value, () => value.ToClass());
-        }
 
         /// <summary>
         /// Event wird ausgelöst, wenn das Formular geladen werden soll
@@ -42,7 +38,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Liefert oder setzt den Formularnamen
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; set; } = "Form";
 
         /// <summary>
         /// Liefert oder setzt die Ziel-Uri
@@ -72,7 +68,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Speichern und weiter Schaltfläche anzeigen
         /// </summary>
-        public bool EnableCancelButton { get; set; }
+        public bool EnableCancelButton { get; set; } = true;
 
         /// <summary>
         /// Liefert oder setzt die Submit-Schaltfläche
@@ -82,17 +78,17 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Speichern und weiter Schaltfläche anzeigen
         /// </summary>
-        public bool EnableSubmitAndNextButton { get; set; }
+        public bool EnableSubmitAndNextButton { get; set; } = false;
 
         /// <summary>
         /// Liefert oder setzt den Gültigkeitsbereich der Formulardaten
         /// </summary>
-        public ParameterScope Scope { get; set; }
+        public ParameterScope Scope { get; set; } = ParameterScope.Local;
 
         /// <summary>
         /// Liefert oder setzt die Formulareinträge
         /// </summary>
-        public List<ControlFormularItem> Items { get; private set; } = new List<ControlFormularItem>();
+        public ICollection<ControlFormularItem> Items { get; } = new List<ControlFormularItem>();
 
         /// <summary>
         /// Bestimmt ob die Eingabe gültig sind
@@ -100,9 +96,9 @@ namespace WebExpress.UI.WebControl
         public bool Valid { get; private set; }
 
         /// <summary>
-        /// Bestimmt ob die Eingabe gültig sind
+        /// Liefert die Validierungsergebnisse
         /// </summary>
-        public List<ValidationResult> ValidationResults { get; private set; }
+        public ICollection<ValidationResult> ValidationResults { get; } = new List<ValidationResult>();
 
         /// <summary>
         /// Konstruktor
@@ -111,7 +107,6 @@ namespace WebExpress.UI.WebControl
         public ControlFormular(string id = null)
             : base(id)
         {
-            Init();
         }
 
         /// <summary>
@@ -122,9 +117,8 @@ namespace WebExpress.UI.WebControl
         public ControlFormular(string id, params ControlFormularItem[] items)
             : base(id)
         {
-            Items.AddRange(items);
+            (Items as List<ControlFormularItem>).AddRange(items);
 
-            Init();
         }
 
         /// <summary>
@@ -132,30 +126,22 @@ namespace WebExpress.UI.WebControl
         /// </summary>
         /// <param name="items">Die Steuerelemente, welche dem Formular zugeordnet werden</param>
         public ControlFormular(params ControlFormularItem[] items)
-            : base(null as string)
+            : this(null, items)
         {
-            Items.AddRange(items);
-
-            Init();
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialisiert das Formular
         /// </summary>
-        private void Init()
-        {
-            ValidationResults = new List<ValidationResult>();
-
-            EnableCancelButton = true;
-            Scope = ParameterScope.Local;
-            Name = "Form";
-
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        public virtual void Initialize(RenderContext context)
+        { 
             SubmitButton.Name = "submit_" + ID?.ToLower();
             SubmitButton.Icon = new PropertyIcon(TypeIcon.Save);
             SubmitButton.Color = new PropertyColorButton(TypeColorButton.Success);
             SubmitButton.Type = "submit";
             SubmitButton.Value = "1";
-            SubmitButton.Margin = new PropertySpacingMargin(Layout == TypeLayoutFormular.Inline ? PropertySpacing.Space.Two : PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None);
+            SubmitButton.Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None);
 
             SubmitAndNextButton.Name = "next_" + ID?.ToLower();
             SubmitAndNextButton.Icon = new PropertyIcon(TypeIcon.Forward);
@@ -178,9 +164,11 @@ namespace WebExpress.UI.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var renderContext = new RenderContextFormular(context, this);
+            Initialize(context);
 
-            Items.ForEach(x => x.Initialize(renderContext));
+            var renderContext = new RenderContextFormular(context, this);
+            var items = Items as List<ControlFormularItem>;
+            items.ForEach(x => x.Initialize(renderContext));
 
             CancelButton.Uri = RedirectUrl;
             
@@ -279,14 +267,27 @@ namespace WebExpress.UI.WebControl
                 }.Render(renderContext));
             }
 
-            foreach (var v in Items)
+            var group = null as ControlFormularItemGroup;
+
+            switch (Layout)
             {
-                html.Elements.Add(new ControlFormularItemLabelGroup(v)
-                {
-                    //Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None)
-                }.Render(renderContext));
+                case TypeLayoutFormular.Horizontal:
+                    group = new ControlFormularItemGroupHorizontal();
+                    break;
+                case TypeLayoutFormular.Mix:
+                    group = new ControlFormularItemGroupMix();
+                    break;
+                default:
+                    group = new ControlFormularItemGroupVertical();
+                    break;
             }
 
+            foreach (var item in Items)
+            {
+                group.Items.Add(item);
+            }
+
+            html.Elements.Add(group.Render(renderContext));
             html.Elements.Add(button);
 
             if (EnableSubmitAndNextButton)
@@ -308,7 +309,7 @@ namespace WebExpress.UI.WebControl
         /// <param name="item">Das Formularelement</param>
         public void Add(params ControlFormularItem[] item)
         {
-            Items.AddRange(item);
+            (Items as List<ControlFormularItem>).AddRange(item);
         }
 
         /// <summary>
@@ -350,10 +351,11 @@ namespace WebExpress.UI.WebControl
         public virtual void Validate()
         {
             var valid = true;
+            var validationResults = ValidationResults as List<ValidationResult>;
 
-            ValidationResults.Clear();
+            validationResults.Clear();
 
-            foreach (var v in Items.Where(x => x is ControlFormularItemInput).Select(x => x as ControlFormularItemInput))
+            foreach (var v in Items.Where(x => x is IFormularValidation).Select(x => x as IFormularValidation))
             {
                 v.Validate();
 
@@ -362,13 +364,13 @@ namespace WebExpress.UI.WebControl
                     valid = false;
                 }
 
-                ValidationResults.AddRange(v.ValidationResults);
+                validationResults.AddRange(v.ValidationResults);
             }
 
             var args = new ValidationEventArgs() { Value = null };
             OnValidation(args);
 
-            ValidationResults.AddRange(args.Results);
+            validationResults.AddRange(args.Results);
 
             if (args.Results.Where(x => x.Type == TypesInputValidity.Error).Count() > 0)
             {

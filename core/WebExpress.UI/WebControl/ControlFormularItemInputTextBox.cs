@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
 using WebExpress.Html;
+using WebExpress.Module;
 using WebExpress.UI.Script;
+using WebExpress.Uri;
 
 namespace WebExpress.UI.WebControl
 {
@@ -93,9 +95,19 @@ namespace WebExpress.UI.WebControl
             Rows = 8;
             AutoInitialize = true;
 
-            if (context.Page.HasParam(Name))
+            if (Format == TypesEditTextFormat.Wysiwyg)
             {
-                Value = context?.Page.GetParamValue(Name);
+                var module = ModuleManager.GetModule("webexpress");
+                if (module != null)
+                {
+                    context.Page.CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/summernote-bs4.min.css")));
+                    context.Page.HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/summernote-bs4.min.js")));
+                }
+
+                if (context.Page.HasParam(Name))
+                {
+                    Value = context?.Page.GetParamValue(Name);
+                }
             }
         }
 

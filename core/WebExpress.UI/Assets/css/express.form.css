@@ -30,3 +30,95 @@
     border-color: #dc3545;
     box-shadow: 0px 0px 0px 0.2rem rgba(220, 53, 69, 0.25);
 }
+
+.form-group-horizontal
+{
+    display: table;
+    table-layout: auto;
+    border-spacing: 0.5em;
+    width: 100%;
+} 
+
+.form-group-horizontal > div
+{
+	display: table-row-group;
+}
+
+.form-group-horizontal > div > div
+{
+	display: table-row;
+}
+
+.form-group-horizontal > div > div > div
+{
+	display: table-cell;
+}
+
+.form-group-horizontal > div > div > div:first-child 
+{
+    width: 10%;
+    white-space: nowrap;
+}
+
+.form-group-mix
+{
+    display: table;
+    table-layout: auto;
+    border-spacing: 0.5em;
+    width: 100%;
+} 
+
+.form-group-mix > div
+{
+	display: table-row-group;
+}
+
+.form-group-mix > div > div
+{
+	display: table-row;
+}
+
+.form-group-mix > div > div > div
+{
+	display: table-cell;
+}
+
+.form-group-mix > div > div > div:first-child 
+{
+    width: 10%;
+    white-space: nowrap;
+}
+
+.form-group-column
+{
+    display: flex;
+} 
+
+.form-group-column > div
+{
+	margin-right: 0.5em; 
+}
+
+.form-group-column-horizontal
+{
+    display: flex;
+} 
+
+.form-group-column-horizontal > div
+{
+    display: flex;
+	margin-right: 0.5em; 
+    vertical-align: middle;
+}
+
+.form-group-column-mix
+{
+    display: flex;
+} 
+
+.form-group-column-mix > div
+{
+    display: flex;
+	margin-right: 0.5em; 
+    vertical-align: middle;
+}

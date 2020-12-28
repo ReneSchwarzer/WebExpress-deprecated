@@ -4,13 +4,9 @@
 .simpletags
 {
 	box-sizing:border-box !important;
-	/*margin:1em;*/
 	padding:0.5em;
-	/*display:-webkit-box;*/
 	display:flex !important;
 	flex-wrap:wrap !important; 
-	/*font-size:14px;
-	border-radius:5px;*/
 	height:auto;
 }
 
@@ -43,9 +39,7 @@
 
 .simpletags input
 {	
-	/*padding:.9em .0em;*/
 	box-sizing:border-box;
-	/*-webkit-box-flex:1;*/
 	flex-grow:1;
 	border:none;
 	outline:none;

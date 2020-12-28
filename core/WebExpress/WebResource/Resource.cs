@@ -223,6 +223,8 @@ namespace WebExpress.WebResource
         /// <returns>true wenn Parameter vorhanden ist, false sonst</returns>
         public bool HasParam(string name)
         {
+            if (string.IsNullOrWhiteSpace(name)) return false;
+
             if (Params.ContainsKey(name.ToLower()))
             {
                 return true;

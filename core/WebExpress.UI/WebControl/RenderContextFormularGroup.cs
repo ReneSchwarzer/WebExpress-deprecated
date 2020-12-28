@@ -10,14 +10,6 @@ namespace WebExpress.UI.WebControl
         public ControlFormularItemGroup Group { get; private set; }
 
         /// <summary>
-        /// Liefert oder setzt das Layout
-        /// </summary>
-        public override TypeLayoutFormular Layout
-        {
-            get => Group.Layout;
-        }
-
-        /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="page">Die Seite, indem das Steuerelement gerendert wird</param>

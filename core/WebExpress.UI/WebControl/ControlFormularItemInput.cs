@@ -7,7 +7,7 @@ namespace WebExpress.UI.WebControl
     /// <summary>
     /// Kennzeichnet ein Steuerelement, welches von Benutzer auszufüllen ist
     /// </summary>
-    public abstract class ControlFormularItemInput : ControlFormularItem, IControlFormularLabel
+    public abstract class ControlFormularItemInput : ControlFormularItem, IControlFormularLabel, IFormularValidation
     {
         /// <summary>
         /// Event zum Validieren der Eingabewerte
@@ -52,12 +52,11 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Bestimmt ob die Eingabe gültig sind
         /// </summary>
-        public List<ValidationResult> ValidationResults { get; private set; }
+        public ICollection<ValidationResult> ValidationResults { get; } = new List<ValidationResult>();
 
         /// <summary>
         /// Ermittelt das schwerwiegenste Validierungsergebnis
         /// </summary>
-        /// <returns>Das schwerwiegenste Validierungsergebnis</returns>
         public virtual TypesInputValidity ValidationResult
         {
             get
@@ -103,7 +102,6 @@ namespace WebExpress.UI.WebControl
         {
             Prepend = new List<Control>();
             Append = new List<Control>();
-            ValidationResults = new List<ValidationResult>();
             IsValidated = false;
         }
 
@@ -149,7 +147,7 @@ namespace WebExpress.UI.WebControl
                 var args = new ValidationEventArgs() { Value = Value };
                 OnValidation(args);
 
-                ValidationResults.AddRange(args.Results);
+                (ValidationResults as List<ValidationResult>).AddRange(args.Results);
             }
         }
     }

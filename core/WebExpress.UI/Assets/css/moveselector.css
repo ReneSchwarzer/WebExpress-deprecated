@@ -1,0 +1,28 @@
+.moveselector
+{
+	display: flex;
+	margin-bottom: 0.5em;
+}
+
+.moveselector > div
+{
+	display: block;
+	margin: auto;
+}
+
+.moveselector > ul
+{
+	height: 300px;
+	width: 40%;
+	overflow-y: auto;
+}
+
+.moveselector > ul > li
+{
+	cursor: pointer;
+}
+
+.moveselector > ul > li:first-child 
+{
+    cursor: default;
+}

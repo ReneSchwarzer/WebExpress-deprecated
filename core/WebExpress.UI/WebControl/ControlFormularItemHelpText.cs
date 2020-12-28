@@ -57,7 +57,7 @@ namespace WebExpress.UI.WebControl
             return new HtmlElementTextSemanticsSmall()
             {
                 Text = Text,
-                Class = Css.Concatenate("form-text", GetClasses()),
+                Class = Css.Concatenate("", GetClasses()),
                 Style = GetStyles(),
                 Role = Role
             };

@@ -5,9 +5,9 @@ using WebExpress.Html;
 namespace WebExpress.UI.WebControl
 {
     /// <summary>
-    /// Repräsentiert ein Paar aus einem Label und einem Formularsteuerelement
+    /// Gruppierung von Steuerelementen
     /// </summary>
-    public class ControlFormularItemGroup : ControlFormularItem
+    public abstract class ControlFormularItemGroup : ControlFormularItem, IFormularValidation
     {
         /// <summary>
         /// Liefert oder setzt die Formularitems
@@ -15,13 +15,14 @@ namespace WebExpress.UI.WebControl
         public ICollection<ControlFormularItem> Items { get; } = new List<ControlFormularItem>();
 
         /// <summary>
-        /// Liefert oder setzt das Layout
+        /// Bestimmt ob die Eingabe gültig sind
         /// </summary>
-        public virtual TypeLayoutFormular Layout
-        {
-            get => (TypeLayoutFormular)GetProperty(TypeLayoutFormular.Default);
-            set => SetProperty(value, () => value.ToClass());
-        }
+        public ICollection<ValidationResult> ValidationResults { get; } = new List<ValidationResult>();
+
+        /// <summary>
+        /// Ermittelt das schwerwiegenste Validierungsergebnis
+        /// </summary>
+        public virtual TypesInputValidity ValidationResult { get; }
 
         /// <summary>
         /// Konstruktor
@@ -59,77 +60,34 @@ namespace WebExpress.UI.WebControl
         /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         public override void Initialize(RenderContextFormular context)
         {
-            var grpupContex = new RenderContextFormularGroup(context, this);
+            var groupContex = new RenderContextFormularGroup(context, this);
 
             foreach (var item in Items)
             {
-                item.Initialize(grpupContex);
+                item.Initialize(groupContex);
             }
         }
 
         /// <summary>
-        /// In HTML konvertieren
+        /// Prüft das Eingabeelement auf Korrektheit der Daten
         /// </summary>
-        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
-        /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode Render(RenderContextFormular context)
+        public virtual void Validate()
         {
-            var form = (context as RenderContextFormular)?.Formular;
+            var validationResults = ValidationResults as List<ValidationResult>;
 
-            
+            validationResults.Clear();
 
-            var groupClass = string.Empty;
-            var lableClass = string.Empty;
-            var itemClass = string.Empty;
-
-            switch (form.Layout)
+            foreach (var v in Items.Where(x => x is IFormularValidation).Select(x => x as IFormularValidation))
             {
-                case TypeLayoutFormular.Horizontal:
-                    groupClass = "form-group row";
-                    lableClass = "col-form-label col-sm-2";
-                    break;
-                case TypeLayoutFormular.Inline:
-                    groupClass = "form-group";
-                    break;
-                default:
-                    groupClass = "form-group";
-                    break;
+                v.Validate();
+
+                if (v.ValidationResult == TypesInputValidity.Error)
+                {
+                    //valid = false;
+                }
+
+                validationResults.AddRange(v.ValidationResults);
             }
-
-            switch (Layout)
-            {
-                case TypeLayoutFormular.Horizontal:
-                    itemClass = "col-sm-7 ml-0 row";
-                    break;
-                case TypeLayoutFormular.Inline:
-                    itemClass = "col-sm-7 ml-0";
-                    break;
-                case TypeLayoutFormular.Mix:
-                    itemClass = "col-sm-7 ml-0 row";
-                    break;
-                default:
-                    itemClass = "col-sm-7 ml-0";
-                    break;
-            }
-
-            var label = new HtmlElementTextContentDiv()
-            {
-                Class = lableClass
-            };
-
-            var items = new HtmlElementTextContentDiv(Items.Select(x => new ControlFormularItemLabelGroup(x).Render(new RenderContextFormularGroup(context, this))))
-            {
-                Class = itemClass
-            };
-
-            var html = new HtmlElementTextContentDiv(label, items)
-            {
-                ID = ID,
-                Class = Css.Concatenate(groupClass, GetClasses()),
-                Style = GetStyles(),
-            };
-
-            return html;
         }
     }
 }

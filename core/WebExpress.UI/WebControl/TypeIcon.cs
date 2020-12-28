@@ -26,6 +26,7 @@
         Copy,
         Comment,
         CommentAlt,
+        Cubes,
         Door,
         DoorOpen,
         Download,
@@ -134,6 +135,8 @@
                     return "fas fa-comment";
                 case TypeIcon.CommentAlt:
                     return "fas fa-comment-alt";
+                case TypeIcon.Cubes:
+                    return "fas fa-cubes";
                 case TypeIcon.Door:
                     return "fas fa-door-closed";
                 case TypeIcon.DoorOpen:

@@ -10,4 +10,7 @@ componentmanager.error.section=The section is incorrect.
 form.submit.label=Submit
 form.next.label=Next
 form.cancel.label=Cancel
+form.moveselector.available=Available options
+form.moveselector.selected=Selected options
+
 modal.close.label=Close

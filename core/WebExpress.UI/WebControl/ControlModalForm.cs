@@ -12,7 +12,6 @@ namespace WebExpress.UI.WebControl
         /// </summary>
         public event EventHandler<ValidationEventArgs> Validation;
 
-
         /// <summary>
         /// Liefert oder setzt den Formularnamen
         /// </summary>
@@ -22,11 +21,6 @@ namespace WebExpress.UI.WebControl
         /// Liefert oder setzt die Ziel-Url
         /// </summary>
         public string Url { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt das Layout
-        /// </summary>
-        public TypeLayoutFormular Layout { get; set; }
 
         /// <summary>
         /// Liefert oder setzt den Gültigkeitsbereich der Formulardaten
