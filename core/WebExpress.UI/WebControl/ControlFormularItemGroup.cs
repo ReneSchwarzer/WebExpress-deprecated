@@ -20,9 +20,35 @@ namespace WebExpress.UI.WebControl
         public ICollection<ValidationResult> ValidationResults { get; } = new List<ValidationResult>();
 
         /// <summary>
+        /// Liefert oder setzt, ob das Formaulrelement validiert wurde
+        /// </summary>
+        private bool IsValidated { get; set; }
+
+        /// <summary>
         /// Ermittelt das schwerwiegenste Validierungsergebnis
         /// </summary>
-        public virtual TypesInputValidity ValidationResult { get; }
+        public virtual TypesInputValidity ValidationResult
+        {
+            get
+            {
+                var buf = ValidationResults;
+
+                if (buf.Where(x => x.Type == TypesInputValidity.Error).Count() > 0)
+                {
+                    return TypesInputValidity.Error;
+                }
+                else if (buf.Where(x => x.Type == TypesInputValidity.Warning).Count() > 0)
+                {
+                    return TypesInputValidity.Warning;
+                }
+                else if (buf.Where(x => x.Type == TypesInputValidity.Success).Count() > 0)
+                {
+                    return TypesInputValidity.Success;
+                }
+
+                return IsValidated ? TypesInputValidity.Success : TypesInputValidity.Default;
+            }
+        }
 
         /// <summary>
         /// Konstruktor
@@ -80,11 +106,6 @@ namespace WebExpress.UI.WebControl
             foreach (var v in Items.Where(x => x is IFormularValidation).Select(x => x as IFormularValidation))
             {
                 v.Validate();
-
-                if (v.ValidationResult == TypesInputValidity.Error)
-                {
-                    //valid = false;
-                }
 
                 validationResults.AddRange(v.ValidationResults);
             }

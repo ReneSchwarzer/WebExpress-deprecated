@@ -40,19 +40,19 @@ namespace WebExpress.UI.WebControl
         public List<Control> Prepend { get; private set; }
 
         /// <summary>
-        /// Liefert oder setzt, ob das Formaulrelement validiert wurde
-        /// </summary>
-        private bool IsValidated { get; set; }
-
-        /// <summary>
         /// Liefert oder setzt die Elemente, welche nach dem Steuerelement angezeigt werden
         /// </summary>
         public List<Control> Append { get; private set; }
 
         /// <summary>
+        /// Liefert oder setzt, ob das Formaulrelement validiert wurde
+        /// </summary>
+        private bool IsValidated { get; set; }
+
+        /// <summary>
         /// Bestimmt ob die Eingabe gültig sind
         /// </summary>
-        public ICollection<ValidationResult> ValidationResults { get; } = new List<ValidationResult>();
+        public virtual ICollection<ValidationResult> ValidationResults { get; } = new List<ValidationResult>();
 
         /// <summary>
         /// Ermittelt das schwerwiegenste Validierungsergebnis
@@ -104,27 +104,6 @@ namespace WebExpress.UI.WebControl
             Append = new List<Control>();
             IsValidated = false;
         }
-
-        ///// <summary>
-        ///// In HTML konvertieren
-        ///// </summary>
-        ///// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
-        ///// <returns>Das Control als HTML</returns>
-        //public override IHtmlNode Render(RenderContext context)
-        //{
-        //    //get => context.Page.GetParam(Name);
-        //    //set
-        //    //{
-        //    //    var v = GetParam(Name);
-
-        //    //    if (string.IsNullOrWhiteSpace(v))
-        //    //    {
-        //    //        AddParam(Name, value, Formular.Scope);
-        //    //    }
-        //    //}
-
-        //    return base.Render(context);
-        //}
 
         /// <summary>
         /// Löst das Validation-Event aus

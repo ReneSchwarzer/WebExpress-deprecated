@@ -43,12 +43,12 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Liefert oder setzt die Weiterleitungs-Url
         /// </summary>
-        public IUri RedirectUrl { get; set; }
+        public IUri RedirectUri { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Abbruchs-Url
         /// </summary>
-        public IUri BackUrl { get; set; }
+        public IUri BackUri { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Submit-Schaltfläche
@@ -148,9 +148,9 @@ namespace WebExpress.UI.WebControl
                 {
                     OnProcess();
 
-                    if (!string.IsNullOrWhiteSpace(RedirectUrl?.ToString()))
+                    if (!string.IsNullOrWhiteSpace(RedirectUri?.ToString()))
                     {
-                        context.Page.Redirecting(RedirectUrl);
+                        context.Page.Redirecting(RedirectUri);
                     }
                 }
             };

@@ -46,14 +46,14 @@ namespace WebExpress.UI.WebControl
         public IUri Uri { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Weiterleitungs-Url
+        /// Liefert oder setzt die Weiterleitungs-Uri
         /// </summary>
-        public IUri RedirectUrl { get; set; }
+        public IUri RedirectUri { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Abbruchs-Url
+        /// Liefert oder setzt die Abbruchs-Uri
         /// </summary>
-        public IUri BackUrl { get; set; }
+        public IUri BackUri { get => CancelButton.Uri; set => CancelButton.Uri = value; }
 
         /// <summary>
         /// Liefert oder setzt die Submit-Schaltfläche
@@ -107,6 +107,25 @@ namespace WebExpress.UI.WebControl
         public ControlFormular(string id = null)
             : base(id)
         {
+            SubmitButton.Name = "submit_" + ID?.ToLower();
+            SubmitButton.Icon = new PropertyIcon(TypeIcon.Save);
+            SubmitButton.Color = new PropertyColorButton(TypeColorButton.Success);
+            SubmitButton.Type = "submit";
+            SubmitButton.Value = "1";
+            SubmitButton.Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None);
+
+            SubmitAndNextButton.Name = "next_" + ID?.ToLower();
+            SubmitAndNextButton.Icon = new PropertyIcon(TypeIcon.Forward);
+            SubmitAndNextButton.Color = new PropertyColorButton(TypeColorButton.Success);
+            SubmitAndNextButton.Type = "submit";
+            SubmitAndNextButton.Value = "1";
+            SubmitAndNextButton.Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None);
+
+            CancelButton.Icon = new PropertyIcon(TypeIcon.Times);
+            CancelButton.BackgroundColor = new PropertyColorButton(TypeColorButton.Secondary);
+            CancelButton.TextColor = new PropertyColorText(TypeColorText.White);
+            CancelButton.HorizontalAlignment = TypeHorizontalAlignment.Right;
+            CancelButton.Uri = BackUri != null && !BackUri.Empty ? BackUri : Uri;
         }
 
         /// <summary>
@@ -115,7 +134,7 @@ namespace WebExpress.UI.WebControl
         /// <param name="id">Die ID</param>
         /// <param name="items">Die Steuerelemente, welche dem Formular zugeordnet werden</param>
         public ControlFormular(string id, params ControlFormularItem[] items)
-            : base(id)
+            : this(id)
         {
             (Items as List<ControlFormularItem>).AddRange(items);
 
@@ -136,25 +155,6 @@ namespace WebExpress.UI.WebControl
         /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         public virtual void Initialize(RenderContext context)
         { 
-            SubmitButton.Name = "submit_" + ID?.ToLower();
-            SubmitButton.Icon = new PropertyIcon(TypeIcon.Save);
-            SubmitButton.Color = new PropertyColorButton(TypeColorButton.Success);
-            SubmitButton.Type = "submit";
-            SubmitButton.Value = "1";
-            SubmitButton.Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None);
-
-            SubmitAndNextButton.Name = "next_" + ID?.ToLower();
-            SubmitAndNextButton.Icon = new PropertyIcon(TypeIcon.Forward);
-            SubmitAndNextButton.Color = new PropertyColorButton(TypeColorButton.Success);
-            SubmitAndNextButton.Type = "submit";
-            SubmitAndNextButton.Value = "1";
-            SubmitAndNextButton.Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None);
-
-            CancelButton.Icon = new PropertyIcon(TypeIcon.Times);
-            CancelButton.BackgroundColor = new PropertyColorButton(TypeColorButton.Secondary);
-            CancelButton.TextColor = new PropertyColorText(TypeColorText.White);
-            CancelButton.HorizontalAlignment = TypeHorizontalAlignment.Right;
-            CancelButton.Uri = Uri;
         }
 
         /// <summary>
@@ -169,20 +169,18 @@ namespace WebExpress.UI.WebControl
             var renderContext = new RenderContextFormular(context, this);
             var items = Items as List<ControlFormularItem>;
             items.ForEach(x => x.Initialize(renderContext));
-
-            CancelButton.Uri = RedirectUrl;
-            
+           
             if (string.IsNullOrWhiteSpace(SubmitButton.Text))
             { 
                 SubmitButton.Text = context.I18N("webexpress", "form.submit.label");
             }
             
-            if (string.IsNullOrWhiteSpace(SubmitAndNextButton.Text))
+            if (EnableSubmitAndNextButton && string.IsNullOrWhiteSpace(SubmitAndNextButton.Text))
             { 
                 SubmitAndNextButton.Text = context.I18N("webexpress", "form.next.label");
             }
 
-            if (string.IsNullOrWhiteSpace(CancelButton.Text))
+            if (EnableCancelButton && string.IsNullOrWhiteSpace(CancelButton.Text))
             {
                 CancelButton.Text = context.I18N("webexpress", "form.cancel.label");
             }
@@ -195,9 +193,9 @@ namespace WebExpress.UI.WebControl
                 {
                     OnProcess();
 
-                    if (!string.IsNullOrWhiteSpace(RedirectUrl?.ToString()))
+                    if (!string.IsNullOrWhiteSpace(RedirectUri?.ToString()))
                     {
-                        context.Page.Redirecting(RedirectUrl);
+                        context.Page.Redirecting(RedirectUri);
                     }
                 }
             };
@@ -243,24 +241,24 @@ namespace WebExpress.UI.WebControl
 
             foreach (var v in ValidationResults)
             {
-                var bgColor = (PropertyColorBackground)new PropertyColorBackgroundAlert(TypeColorBackground.Default);
+                var bgColor = new PropertyColorBackgroundAlert(TypeColorBackground.Default);
 
                 switch (v.Type)
                 {
                     case TypesInputValidity.Error:
-                        bgColor = new PropertyColorBackground(TypeColorBackground.Danger);
+                        bgColor = new PropertyColorBackgroundAlert(TypeColorBackground.Danger);
                         break;
                     case TypesInputValidity.Warning:
-                        bgColor = new PropertyColorBackground(TypeColorBackground.Warning);
+                        bgColor = new PropertyColorBackgroundAlert(TypeColorBackground.Warning);
                         break;
                     case TypesInputValidity.Success:
-                        bgColor = new PropertyColorBackground(TypeColorBackground.Default);
+                        bgColor = new PropertyColorBackgroundAlert(TypeColorBackground.Default);
                         break;
                 }
 
                 html.Elements.Add(new ControlAlert()
                 {
-                    BackgroundColor = (PropertyColorBackgroundAlert)bgColor,
+                    BackgroundColor = bgColor,
                     Text = v.Text,
                     Dismissible = TypeDismissibleAlert.Dismissible,
                     Fade = TypeFade.FadeShow
@@ -379,6 +377,5 @@ namespace WebExpress.UI.WebControl
 
             Valid = valid;
         }
-
     }
 }

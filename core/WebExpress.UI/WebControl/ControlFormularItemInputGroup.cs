@@ -13,6 +13,16 @@ namespace WebExpress.UI.WebControl
         public ControlFormularItemGroup Group { get; private set; }
 
         /// <summary>
+        /// Bestimmt ob die Eingabe gültig sind
+        /// </summary>
+        public override ICollection<ValidationResult> ValidationResults => Group != null ? Group.ValidationResults : new List<ValidationResult>();
+
+        /// <summary>
+        /// Ermittelt das schwerwiegenste Validierungsergebnis
+        /// </summary>
+        public override TypesInputValidity ValidationResult => Group != null ? Group.ValidationResult : TypesInputValidity.Default;
+ 
+        /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="id">Die ID</param>
@@ -41,6 +51,10 @@ namespace WebExpress.UI.WebControl
         /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         public override void Initialize(RenderContextFormular context)
         {
+            if (Group != null)
+            {
+                Group.Initialize(context);
+            }
         }
 
         /// <summary>

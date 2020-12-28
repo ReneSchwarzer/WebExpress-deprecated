@@ -1,24 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace WebExpress.UI.WebControl
 {
     public interface IFormularValidation
     {
         /// <summary>
-        /// Prüft das Eingabeelement auf Korrektheit der Daten
+        /// Liefert oder setzt, ob das Formaulrelement validiert wurde
         /// </summary>
-        void Validate();
+        //bool IsValidated { get; }
 
         /// <summary>
         /// Bestimmt ob die Eingabe gültig sind
         /// </summary>
-        ICollection<ValidationResult> ValidationResults { get;}
+        ICollection<ValidationResult> ValidationResults { get; }
 
         /// <summary>
         /// Ermittelt das schwerwiegenste Validierungsergebnis
         /// </summary>
         TypesInputValidity ValidationResult { get; }
+
+        /// <summary>
+        /// Prüft das Eingabeelement auf Korrektheit der Daten
+        /// </summary>
+        void Validate();
     }
 }

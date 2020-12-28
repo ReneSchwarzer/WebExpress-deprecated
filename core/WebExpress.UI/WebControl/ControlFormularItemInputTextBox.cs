@@ -95,6 +95,11 @@ namespace WebExpress.UI.WebControl
             Rows = 8;
             AutoInitialize = true;
 
+            if (context.Page.HasParam(Name))
+            {
+                Value = context?.Page.GetParamValue(Name);
+            }
+
             if (Format == TypesEditTextFormat.Wysiwyg)
             {
                 var module = ModuleManager.GetModule("webexpress");
@@ -102,11 +107,6 @@ namespace WebExpress.UI.WebControl
                 {
                     context.Page.CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/summernote-bs4.min.css")));
                     context.Page.HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/summernote-bs4.min.js")));
-                }
-
-                if (context.Page.HasParam(Name))
-                {
-                    Value = context?.Page.GetParamValue(Name);
                 }
             }
         }
