@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Version>0.0.0.1</Version>
     <AssemblyVersion>0.0.0.1</AssemblyVersion>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <ApplicationIcon></ApplicationIcon>
     <RuntimeIdentifiers>win10-x64;win-arm;linux-arm</RuntimeIdentifiers>
     <RepositoryUrl>https://github.com/ReneSchwarzer/WebExpress.git</RepositoryUrl>
