@@ -18,7 +18,7 @@ sudo mkdir -p /opt/wx
 sudo chmod +x /opt/wx
 
 
-cp -Rf WebExpress.App/bin/Debug/netcoreapp3.1/publish/* /opt/wx
+cp -Rf WebExpress.App/bin/Debug/net5.0/publish/* /opt/wx
 cp webexpress.sh /opt/wx
 sudo chmod +x /opt/wx/webexpress.sh
 
