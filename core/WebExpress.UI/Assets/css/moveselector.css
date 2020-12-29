@@ -4,25 +4,32 @@
 	margin-bottom: 0.5em;
 }
 
-.moveselector > div
+.moveselector-list
 {
-	display: block;
-	margin: auto;
-}
-
-.moveselector > ul
-{
-	height: 300px;
+	margin: 0;
 	width: 40%;
-	overflow-y: auto;
 }
 
-.moveselector > ul > li
+.moveselector-list > p
+{
+	cursor: default;
+	padding-left: 0.5em;
+}
+
+.moveselector-list > ul
+{
+	height: 250px;
+	overflow-y: auto;
+	cursor: default;
+}
+
+.moveselector-list > ul > li
 {
 	cursor: pointer;
 }
 
-.moveselector > ul > li:first-child 
+.moveselector-button
 {
-    cursor: default;
+	display: block;
+	margin: auto;
 }

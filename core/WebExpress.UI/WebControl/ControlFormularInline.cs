@@ -16,9 +16,14 @@ namespace WebExpress.UI.WebControl
         public event EventHandler<ValidationEventArgs> Validation;
 
         /// <summary>
-        /// Event wird ausgelöst, wenn das Formular geladen werden soll
+        /// Event wird ausgelöst, wenn das Formular initialisiert wurde
         /// </summary>
-        public event EventHandler InitFormular;
+        public event EventHandler InitializeFormular;
+
+        /// <summary>
+        /// Event wird ausgelöst, wenn die Daten des Formulars ermittelt werden müssen
+        /// </summary>
+        public event EventHandler FillFormular;
 
         /// <summary>
         /// Event wird ausgelöst, wenn das Formular verarbeitet werden soll
@@ -111,6 +116,8 @@ namespace WebExpress.UI.WebControl
         /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         public virtual void Initialize(RenderContext context)
         {
+            var renderContext = new RenderContextFormular(context, this);
+
             Scope = ParameterScope.Local;
             Name = "Form";
 
@@ -119,22 +126,15 @@ namespace WebExpress.UI.WebControl
             SubmitButton.Color = new PropertyColorButton(TypeColorButton.Success);
             SubmitButton.Type = "submit";
             SubmitButton.Value = "1";
-            SubmitButton.Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None);
+            SubmitButton.Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None);           
         }
 
         /// <summary>
-        /// In HTML konvertieren
+        /// Vorverarbeitung des Formulars
         /// </summary>
         /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
-        /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode Render(RenderContext context)
+        public virtual void PreProcess(RenderContext context)
         {
-            Initialize(context);
-
-            var renderContext = new RenderContextFormular(context, this);
-            var items = Items as List<ControlFormularItem>;
-            items.ForEach(x => x.Initialize(renderContext));
-
             if (string.IsNullOrWhiteSpace(SubmitButton.Text))
             {
                 SubmitButton.Text = context.I18N("webexpress", "form.submit.label");
@@ -154,14 +154,30 @@ namespace WebExpress.UI.WebControl
                     }
                 }
             };
+        }
 
+        /// <summary>
+        /// In HTML konvertieren
+        /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        /// <returns>Das Control als HTML</returns>
+        public override IHtmlNode Render(RenderContext context)
+        {
+            var renderContext = new RenderContextFormular(context, this);
+            var formName = $"form_{ Name }";
+
+            Initialize(context);
+            (Items as List<ControlFormularItem>).ForEach(x => x.Initialize(renderContext));
+            OnInitialize();
             SubmitButton.Initialize(renderContext);
 
-            // Prüfe ob Formular abgeschickt wurde
-            if (context.Page.HasParam(SubmitButton.Name))
+            // Prüfe ob Formular abgeschickt wurde -> Fomular mit Daten füllen 
+            if (!context.Page.HasParam(formName))
             {
-                OnInit();
+                OnFill();
             }
+
+            PreProcess(renderContext);
 
             var button = SubmitButton.Render(renderContext);
 
@@ -176,6 +192,12 @@ namespace WebExpress.UI.WebControl
                 Method = "post",
                 Enctype = TypeEnctype.None
             };
+
+            html.Elements.Add(new ControlFormularItemInputHidden(formName)
+            {
+                Value = Name
+
+            }.Render(renderContext));
 
             foreach (var item in Items)
             {
@@ -258,9 +280,17 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Löst das Laden-Event aus
         /// </summary>
-        protected virtual void OnInit()
+        protected virtual void OnInitialize()
         {
-            InitFormular?.Invoke(this, new EventArgs());
+            InitializeFormular?.Invoke(this, new EventArgs());
+        }
+
+        /// <summary>
+        /// Löst das Datenbereitstellungs-Event aus
+        /// </summary>
+        protected virtual void OnFill()
+        {
+            FillFormular?.Invoke(this, new EventArgs());
         }
 
         /// <summary>

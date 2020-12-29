@@ -135,7 +135,7 @@ namespace WebExpress
         private static Log m_this = new Log();
         private string m_path;
         private Thread m_workerThread;
-        private const int m_seperatorWidth = 130;
+        private const int m_seperatorWidth = 260;
 
         /// <summary>
         /// Lebenszyklus des Workerthreads beenden
@@ -464,8 +464,8 @@ namespace WebExpress
             {
                 lock (m_path)
                 {
-                    using var fs = new System.IO.FileStream(Filename, FileMode.Append);
-                    using var w = new System.IO.StreamWriter(fs, Encoding);
+                    using var fs = new FileStream(Filename, FileMode.Append);
+                    using var w = new StreamWriter(fs, Encoding);
                     foreach (var item in list)
                     {
                         var str = item.ToString();

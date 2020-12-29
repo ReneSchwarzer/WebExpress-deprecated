@@ -94,8 +94,6 @@ namespace WebExpress.UI.WebControl
 
             if (context.Page.HasParam(Name))
             {
-                Value = context.Page.GetParamValue(Name);
-
                 var value = context.Page.GetParamValue(Name);
 
                 if (!string.IsNullOrWhiteSpace(Value) && value == Value)

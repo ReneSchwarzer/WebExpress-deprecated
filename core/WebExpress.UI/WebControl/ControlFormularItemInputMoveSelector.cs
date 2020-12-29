@@ -97,17 +97,23 @@ namespace WebExpress.UI.WebControl
                 Role = "moveselector"
             };
 
-            var selectedList = new ControlList("listSelectedOptions") { Layout = TypeLayoutList.Flush };
+            var selectedHeader = new ControlText("selectedHeader") { Text = context.I18N("webexpress", "form.moveselector.selected"), TextColor = new PropertyColorText(TypeColorText.Muted), Format = TypeFormatText.Paragraph };
+            var selectedList = new ControlList("selectedOptions") { Layout = TypeLayoutList.Flush };
             var leftAllButton = new ControlButton("") { Text = "<<", BackgroundColor = new PropertyColorButton(TypeColorButton.Primary), Block = TypeBlockButton.Block };
             var leftButton = new ControlButton("") { Text = "<", BackgroundColor = new PropertyColorButton(TypeColorButton.Primary), Block = TypeBlockButton.Block };
             var rightButton = new ControlButton("") { Text = ">", BackgroundColor = new PropertyColorButton(TypeColorButton.Primary), Block = TypeBlockButton.Block };
             var rightAllButton = new ControlButton("") { Text = ">>", BackgroundColor = new PropertyColorButton(TypeColorButton.Primary), Block = TypeBlockButton.Block };
+            var availableHeader = new ControlText("availableHeader") { Text = context.I18N("webexpress", "form.moveselector.available"), TextColor = new PropertyColorText(TypeColorText.Muted), Format = TypeFormatText.Paragraph };
             var availableList = new ControlList("availableOptions") { Layout = TypeLayoutList.Flush };
             var sticky = new List<string>(new string[] { "position: sticky;" });
-            selectedList.Items.Add(new ControlListItem(new ControlText() { Text = context.I18N("webexpress", "form.moveselector.selected"), TextColor = new PropertyColorText(TypeColorText.Muted), Styles = sticky }) { });
-            availableList.Items.Add(new ControlListItem(new ControlText() { Text = context.I18N("webexpress", "form.moveselector.available"), TextColor = new PropertyColorText(TypeColorText.Muted) }) { });
+            
+            html.Elements.Add(new HtmlElementTextContentDiv
+            (
+                selectedHeader.Render(context),
+                selectedList.Render(context)
+            )
+            { Class = "moveselector-list" });
 
-            html.Elements.Add(selectedList.Render(context));
             html.Elements.Add(new HtmlElementTextContentDiv
             (
                 leftAllButton.Render(context),
@@ -115,8 +121,14 @@ namespace WebExpress.UI.WebControl
                 rightButton.Render(context),
                 rightAllButton.Render(context)
             )
-            { });
-            html.Elements.Add(availableList.Render(context));
+            { Class = "moveselector-button" });
+
+            html.Elements.Add(new HtmlElementTextContentDiv
+            (
+                availableHeader.Render(context),
+                availableList.Render(context)
+            ) 
+            { Class = "moveselector-list" });
 
             return html;
         }

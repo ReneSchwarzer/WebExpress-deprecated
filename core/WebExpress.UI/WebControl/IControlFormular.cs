@@ -16,9 +16,14 @@ namespace WebExpress.UI.WebControl
         event EventHandler<ValidationEventArgs> Validation;
 
         /// <summary>
-        /// Event wird ausgelöst, wenn das Formular geladen werden soll
+        /// Event wird ausgelöst, wenn das Formular initialisiert wurde
         /// </summary>
-        event EventHandler InitFormular;
+        event EventHandler InitializeFormular;
+        
+        /// <summary>
+        /// Event wird ausgelöst, wenn die Daten des Formulars ermittelt werden müssen
+        /// </summary>
+        event EventHandler FillFormular;
 
         /// <summary>
         /// Event wird ausgelöst, wenn das Formular verarbeitet werden soll
@@ -80,6 +85,12 @@ namespace WebExpress.UI.WebControl
         /// </summary>
         /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         void Initialize(RenderContext context);
+
+        /// <summary>
+        /// Vorverarbeitung des Formulars
+        /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        void PreProcess(RenderContext context);
 
         /// <summary>
         /// Fügt Formularsteuerelement dem Formular hinzu

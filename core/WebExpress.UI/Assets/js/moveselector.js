@@ -1,10 +1,10 @@
 function MoveSelector(element, id, options, selected)
 {
 	var DOMParent = document.querySelector(element);
-	var DOMSelectedList = DOMParent.firstElementChild;
-	var DOMSelectedListHeader = DOMSelectedList.firstElementChild;
-	var DOMAvailableList = DOMParent.lastElementChild;
-	var DOMAvailableListHeader = DOMAvailableList.firstElementChild;
+	var DOMSelectedListHeader = DOMParent.firstElementChild.children[0];
+	var DOMSelectedList = DOMParent.firstElementChild.children[1];
+	var DOMAvailableListHeader = DOMParent.lastElementChild.children[0];
+	var DOMAvailableList = DOMParent.lastElementChild.children[1];
 	var DOMLeftAllButton = DOMParent.children[1].children[0];
     var DOMLeftButton = DOMParent.children[1].children[1];
     var DOMRightButton = DOMParent.children[1].children[2];
@@ -54,8 +54,6 @@ function MoveSelector(element, id, options, selected)
 	{
 		DOMSelectedList.innerHTML = '';
 		DOMAvailableList.innerHTML = '';
-		DOMSelectedList.appendChild(DOMSelectedListHeader);
-		DOMAvailableList.appendChild(DOMAvailableListHeader);
 		
 		var comparison = (a, b) => a === b.id;
 		var relativeComplement = options.filter(b => selected.every(a => !comparison(a, b)));

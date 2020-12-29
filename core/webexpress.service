@@ -1,0 +1,12 @@
+[Unit]
+Description=WebExpress Server
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/wx/
+ExecStart=/opt/wx/webexpress.sh
+
+[Install]
+WantedBy=multi-user.target

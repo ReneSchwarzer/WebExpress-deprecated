@@ -395,7 +395,7 @@ namespace WebExpress.Message
                         foreach (var v in param.Split('&'))
                         {
                             var s = v.Split('=');
-                            request.AddParam(s[0], s.Count() > 1 ? s[1] : string.Empty);
+                            request.AddParam(s[0], s.Count() > 1 ? s[1]?.TrimEnd() : string.Empty);
                         }
 
                         break;
