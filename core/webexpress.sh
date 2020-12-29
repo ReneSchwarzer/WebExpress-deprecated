@@ -7,6 +7,6 @@ export DOTNET_CLI_TELEMETRY_OPTOUT=1
 dir=´pwd´
 
 cd /opt/wx
-./WebExpress.App
+./WebExpress.App -config webexpress.config.xml
 
 cd $dir
