@@ -379,7 +379,11 @@ namespace WebExpress
                     var statusPage = CreateStatusPage(response.Status, request, moduleContext, uri);
                     if (statusPage != null)
                     {
-                        statusPage.StatusMessage = $"<h4>Message</h4>{ex.Message}<br/><br/><h5>Source</h5>{ex.Source}<br/><br/><h5>StackTrace</h5>{ex.StackTrace}<br/><br/><h5>InnerException</h5>{ex.InnerException}";
+                        statusPage.StatusMessage = $"<h4>Message</h4>{ex.Message}<br/><br/>" +
+                            $"<h5>Source</h5>{ ex.Source }<br/><br/>" +
+                            $"<h5>StackTrace</h5>{ ex.StackTrace.Replace("\n", "<br/>\n") }<br/><br/>" +
+                            $"<h5>InnerException</h5>{ ex.InnerException.ToString().Replace("\n", "<br/>\n") }";
+
                         response.Content = statusPage;
                     }
                     else
