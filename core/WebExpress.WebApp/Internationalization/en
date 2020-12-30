@@ -1,3 +1,6 @@
 ﻿# Englisch
 
 header.quickcreate.label=Create
+
+status.400.title=Bad Request
+status.500.title=Internal Server Error

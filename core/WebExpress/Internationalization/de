@@ -50,5 +50,10 @@ resourcemanager.addresource=Die Ressource '{0}' wurde in der Sitemap des Moduls 
 resourcemanager.addresource.error=Die Ressource '{0}' konnte nicht hinzugefügt werden.
 resourcemanager.sitemap=Inhalt der Sitemap für das Modul '{0}':
 
+responsemanager.initialization=Der Responsemanagermanager wurde initialisiert.
+responsemanager.register=Status {0} wurde in der Anwendung '{1}' registriert und der Ressource '{2}' zugewiesen.
+responsemanager.duplicat=Der Status {0} wurde bereits in der Anwendung '{1}' registriert. Die Ressource '{2}' wird daher nicht verwendet.
+responsemanager.statuscode=Ein Statuscode wurde der Ressource '{0}' für die Andendung '{1}' nicht zugewiesen.
+
 resource.variable.duplicate=Variable '{0}' bereits vorhanden!
 

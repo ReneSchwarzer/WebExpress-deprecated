@@ -141,9 +141,11 @@ namespace WebExpress.Application
         /// <returns>Der Kontext der Anwendung oder null</returns>
         public static IApplicationContext GetApplcation(string applicationID)
         {
-            if (Dictionary.ContainsKey(applicationID?.ToLower()))
+            if (string.IsNullOrWhiteSpace(applicationID)) return null;
+
+            if (Dictionary.ContainsKey(applicationID.ToLower()))
             {
-                return Dictionary[applicationID?.ToLower()].Context;
+                return Dictionary[applicationID.ToLower()].Context;
             }
 
             return null;

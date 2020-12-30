@@ -143,7 +143,7 @@ namespace WebExpress.Internationalization
         /// <returns>Der Wert des Schlüssels in der aktuellen Sprache</returns>
         public static string I18N(CultureInfo culture, string pluginID, string key)
         {
-            var language = culture.TwoLetterISOLanguageName;
+            var language = culture?.TwoLetterISOLanguageName;
             var k = string.IsNullOrWhiteSpace(pluginID) ? key : $"{pluginID}:{key}";
 
             if (string.IsNullOrWhiteSpace(key))

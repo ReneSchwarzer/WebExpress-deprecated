@@ -1,3 +1,6 @@
 ﻿# Deutsch
 
 header.quickcreate.label=Erstellen
+
+status.400.title=Fehlerhafte Anfrage
+status.500.title=Interner Serverfehler
