@@ -60,7 +60,7 @@ namespace WebExpress.UI.WebControl
             var img = new HtmlElementMultimediaImg()
             {
                 Src = Image?.ToString(),
-                Class = "mr-3 mt-3 rounded-circle"
+                Class = "mr-3 mt-3 " // rounded-circle
             };
 
             if (ImageWidth > -1)

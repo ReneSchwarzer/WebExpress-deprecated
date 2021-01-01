@@ -261,7 +261,7 @@ namespace WebExpress
                 if (!stream.DataAvailable)
                 {
                     //Context.Log.Debug(message: this.I18N("httpserver.rejected"), args: ip);
-                    return;
+                    //return;
                 }
 
                 Context.Log.Info(message: this.I18N("httpserver.connected"), args: ip);
@@ -382,7 +382,7 @@ namespace WebExpress
                         statusPage.StatusMessage = $"<h4>Message</h4>{ex.Message}<br/><br/>" +
                             $"<h5>Source</h5>{ ex.Source }<br/><br/>" +
                             $"<h5>StackTrace</h5>{ ex.StackTrace.Replace("\n", "<br/>\n") }<br/><br/>" +
-                            $"<h5>InnerException</h5>{ ex.InnerException.ToString().Replace("\n", "<br/>\n") }";
+                            $"<h5>InnerException</h5>{ ex.InnerException?.ToString().Replace("\n", "<br/>\n") }";
 
                         response.Content = statusPage;
                     }
