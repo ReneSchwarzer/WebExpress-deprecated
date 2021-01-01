@@ -4,5 +4,5 @@
 export PATH=$PATH:/usr/share/dotnet-sdk/
 export DOTNET_ROOT=/usr/share/dotnet-sdk/ 
 
-dotnet build
-dotnet publish
+dotnet build --configuration Release
+#dotnet publish

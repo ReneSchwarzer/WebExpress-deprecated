@@ -11,12 +11,12 @@
         None,
 
         /// <summary>
-        ///  Parameter beziet sich auf einen Teil der URI
+        /// Parameter beziet sich auf einen Teil der URI
         /// </summary>
         Url,
 
         /// <summary>
-        ///  Parameter bezieht sich auf die Session
+        /// Parameter bezieht sich auf die Session
         /// </summary>
         Session,
 
