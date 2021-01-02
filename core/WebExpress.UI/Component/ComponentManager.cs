@@ -6,6 +6,7 @@ using WebExpress.Attribute;
 using WebExpress.Plugin;
 using WebExpress.UI.Attribute;
 using WebExpress.UI.Component;
+using WebExpress.UI.WebControl;
 using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.UI.Components
@@ -57,7 +58,7 @@ namespace WebExpress.UI.Components
         {
             var assemblyName = assembly.GetName().Name.ToLower();
 
-            foreach (var component in assembly.GetTypes().Where(x => x.IsClass && x.IsSealed && x.GetInterfaces().Contains(typeof(IComponent))))
+            foreach (var component in assembly.GetTypes().Where(x => x.IsClass && x.IsSealed && (x.GetInterfaces().Contains(typeof(IComponent)) || x.GetInterfaces().Contains(typeof(IComponentDynamic)))))
             {
                 var applicationID = string.Empty;
                 var pluginContext = new List<string>();
@@ -88,7 +89,13 @@ namespace WebExpress.UI.Components
                     }
                 }
 
-                if (!string.IsNullOrWhiteSpace(applicationID) && !string.IsNullOrWhiteSpace(section))
+                // Standard für Anwendung festlegen
+                if (string.IsNullOrWhiteSpace(applicationID))
+                {
+                    applicationID = "*";
+                }
+
+                if (!string.IsNullOrWhiteSpace(section))
                 {
                     // Komponenten registrieren
                     if (!Dictionary.ContainsKey(applicationID))
@@ -126,15 +133,6 @@ namespace WebExpress.UI.Components
                         Context.Log.Info(message: I18N("webexpress:componentmanager.register"), args: new object[] { component.Name, section, applicationID });
                     }
 
-                }
-                else if (string.IsNullOrWhiteSpace(applicationID) && string.IsNullOrWhiteSpace(section))
-                {
-                    Context.Log.Info(message: I18N("componentmanager.error.application"));
-                    Context.Log.Info(message: I18N("componentmanager.error.section"));
-                }
-                else if (string.IsNullOrWhiteSpace(applicationID))
-                {
-                    Context.Log.Info(message: I18N("componentmanager.error.application"));
                 }
                 else if (string.IsNullOrWhiteSpace(section))
                 {
@@ -183,15 +181,15 @@ namespace WebExpress.UI.Components
         /// <param name="application">Die ArtefactID der Anwendung (z.B. Webexpress)</param>
         /// <param name="resourceContext">Der Kontext der Ressource</param>
         /// <returns>Eine Liste mit Komponenten</returns>
-        public static IEnumerable<T> CreateComponent<T>(string application, string section, IReadOnlyList<string> resourceContext = null)
+        public static IEnumerable<T> CreateComponent<T>(string application, string section, IReadOnlyList<string> resourceContext = null) where T : IControl
         {
             var list = new List<T>();
-            var sectionKey = section?.ToLower();
             var app = application?.ToLower();
 
-            if (Dictionary.ContainsKey(app))
+            if (Dictionary.ContainsKey("*"))
             {
-                var dictItem = Dictionary[app];
+                var dictItem = Dictionary["*"];
+                var sectionKey = section?.ToLower();
 
                 if (dictItem.ContainsKey(sectionKey))
                 {
@@ -206,7 +204,55 @@ namespace WebExpress.UI.Components
 
                         if (dictItem.ContainsKey(sectionKey))
                         {
-                            list.AddRange(dictItem[sectionKey].Where(x => x.GetInterfaces().Contains(typeof(T))).Select(x => (T)x.Assembly.CreateInstance(x.FullName)));
+                            list.AddRange
+                            (
+                                dictItem[sectionKey].Where(x => x.GetInterfaces().Contains(typeof(T)))
+                                                    .Select(x => (T)x.Assembly.CreateInstance(x.FullName))
+                            );
+
+                            list.AddRange
+                            (
+                                dictItem[sectionKey].Where(x => x.GetInterfaces().Contains(typeof(IComponentDynamic)))
+                                                    .Select(x => (x.Assembly.CreateInstance(x.FullName) as IComponentDynamic).Create<T>())
+                                                    .SelectMany(x => x)
+                            );
+                        }
+                    }
+                }
+
+                if (app == "*") return list;
+            }
+
+            if (Dictionary.ContainsKey(app))
+            {
+                var dictItem = Dictionary[app];
+                var sectionKey = section?.ToLower();
+
+                if (dictItem.ContainsKey(sectionKey))
+                {
+                    list.AddRange(dictItem[sectionKey].Where(x => x.GetInterfaces().Contains(typeof(T))).Select(x => (T)x.Assembly.CreateInstance(x.FullName)));
+                }
+
+                if (resourceContext != null)
+                {
+                    foreach (var context in resourceContext)
+                    {
+                        sectionKey = string.Join(":", section?.ToLower(), context?.ToLower());
+
+                        if (dictItem.ContainsKey(sectionKey))
+                        {
+                            list.AddRange
+                            (
+                                dictItem[sectionKey].Where(x => x.GetInterfaces().Contains(typeof(T)))
+                                                    .Select(x => (T)x.Assembly.CreateInstance(x.FullName))
+                            );
+
+                            list.AddRange
+                            (
+                                dictItem[sectionKey].Where(x => x.GetInterfaces().Contains(typeof(IComponentDynamic)))
+                                                    .Select(x => (x.Assembly.CreateInstance(x.FullName) as IComponentDynamic).Create<T>())
+                                                    .SelectMany(x => x)
+                            );
                         }
                     }
                 }

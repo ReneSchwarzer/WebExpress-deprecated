@@ -15,7 +15,7 @@ namespace WebExpress.Plugin
         /// <summary>
         /// Liefert oder setzt den Verweis auf Kontext des Hostes
         /// </summary>
-        private static IHttpServerContext Context { get; set; }
+        public static IHttpServerContext Context { get; private set; }
 
         /// <summary>
         /// Liefert oder setzt das Verzeichnis, indem die Plugins gelistet sind
@@ -152,7 +152,16 @@ namespace WebExpress.Plugin
         }
 
         /// <summary>
-        /// Ermittelt das Plagin zu einer gegebenen ID
+        /// Ermittelt alle Plugins
+        /// </summary>
+        /// <returns>Die Auflistung der registrierten Plugins</returns>
+        public static IEnumerable<IPluginContext> GetPlugins()
+        {
+            return Dictionary.Values.Select(x => x.Context);
+        }
+
+        /// <summary>
+        /// Ermittelt das Plugin zu einer gegebenen ID
         /// </summary>
         /// <param name="pluginID">Die PluginID</param>
         /// <returns>Der Kontext des Plugins oder null</returns>

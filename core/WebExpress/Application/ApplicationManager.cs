@@ -135,6 +135,15 @@ namespace WebExpress.Application
         }
 
         /// <summary>
+        /// Ermittelt die registrierten Anwendungen 
+        /// </summary>
+        /// <returns>Eine Aufzählung mit allen registrierten Anwendungen</returns>
+        public static IEnumerable<IApplicationContext> GetApplcations()
+        {
+            return Dictionary.Values.Select(x => x.Context);
+        }
+
+        /// <summary>
         /// Ermittelt die Anwendung zu einer gegebenen ID
         /// </summary>
         /// <param name="applicationID">Die AnwendungsID</param>

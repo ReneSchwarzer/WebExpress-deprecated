@@ -19,6 +19,11 @@ namespace WebExpress.Plugin
         string PluginID { get; }
 
         /// <summary>
+        /// Liefert den Name des Plugins 
+        /// </summary>
+        string PluginName { get; }
+
+        /// <summary>
         /// Liefert oder setzt den Hersteller
         /// </summary>
         string Manufacturer { get; }

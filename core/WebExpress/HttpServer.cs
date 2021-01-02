@@ -438,7 +438,7 @@ namespace WebExpress
 
                 try
                 {
-                    culture = new CultureInfo(request.HeaderFields?.AcceptLanguage?.TrimStart().Substring(0, 2).ToLower());
+                    culture = new CultureInfo(request?.HeaderFields?.AcceptLanguage?.TrimStart().Substring(0, 2).ToLower());
                 }
                 catch
                 {
