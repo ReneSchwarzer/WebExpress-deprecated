@@ -54,7 +54,7 @@ namespace WebExpress.UI.WebControl
         {
             var icon = new HtmlElementTextSemanticsSpan()
             {
-                Class = Icon.ToClass()
+                Class = Icon?.ToClass()
             };
 
             var name = new HtmlElementTextSemanticsSpan(new HtmlText(Name))

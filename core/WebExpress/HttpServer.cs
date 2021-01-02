@@ -449,7 +449,7 @@ namespace WebExpress
                     statusPage = ResponseManager.Create(500, moduleContext?.ApplicationID);
                 }
 
-                if (statusPage == null && moduleContext != null && moduleContext.ApplicationID != "webexpress")
+                if (statusPage == null)
                 {
                     statusPage = ResponseManager.Create(500, "webexpress");
                 }

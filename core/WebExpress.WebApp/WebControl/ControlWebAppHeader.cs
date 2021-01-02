@@ -155,15 +155,15 @@ namespace WebExpress.WebApp.WebControl
                 (IControl)new ControlDropdown("logo", hamburger)
                 {
                     Image = Logo,
-                    Width = 50,
                     Height = 50,
-                    Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None)
+                    Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None),
+                    Styles = new List<string>() { "padding: 0.5em;" }
                 } :
                 new ControlImage("logo")
                 {
                     Uri = Logo,
-                    Width = 50,
                     Height = 50,
+                    Padding = new PropertySpacingPadding(PropertySpacing.Space.Two),
                     Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None)
                 },
                 new ControlLink("apptitle", new ControlText()
