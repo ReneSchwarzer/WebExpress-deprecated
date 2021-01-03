@@ -46,6 +46,7 @@
         Image,
         Industry,
         Info,
+        Key,
         LayerGroup,
         Lightbulb,
         Link,
@@ -76,7 +77,6 @@
         Upload,
         Users
     }
-
 
     public static class TypeIconExtensions
     {
@@ -175,6 +175,8 @@
                     return "fas fa-industry";
                 case TypeIcon.Info:
                     return "fas fa-info";
+                case TypeIcon.Key:
+                    return "fas fa-key";
                 case TypeIcon.LayerGroup:
                     return "fas fa-layer-group";
                 case TypeIcon.Lightbulb:

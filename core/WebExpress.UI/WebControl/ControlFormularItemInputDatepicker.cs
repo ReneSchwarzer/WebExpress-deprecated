@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 using WebExpress.Html;
+using WebExpress.Module;
+using WebExpress.Uri;
 
 namespace WebExpress.UI.WebControl
 {
@@ -36,10 +38,10 @@ namespace WebExpress.UI.WebControl
         /// </summary>
         public string Pattern { get; set; }
 
-        /// <summary>
-        /// Liefert den Initialisierungscode (JQuerry)
-        /// </summary>
-        public string InitializeCode => "$('#" + ID + " input').datepicker({ startDate: -3 });";
+        ///// <summary>
+        ///// Liefert den Initialisierungscode (JQuerry)
+        ///// </summary>
+        //public string InitializeCode => "$('#" + ID + " input').datepicker({ startDate: -3 });";
 
         /// <summary>
         /// Konstruktor
@@ -57,6 +59,16 @@ namespace WebExpress.UI.WebControl
         public override void Initialize(RenderContextFormular context)
         {
             AutoInitialize = true;
+
+            var module = ModuleManager.GetModule("webexpress");
+            if (module != null)
+            {
+                context.Page.HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/bootstrap-datepicker.min.js")));
+                context.Page.HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/locales_datepicker/bootstrap-datepicker." + context.Culture.TwoLetterISOLanguageName.ToLower() + ".min.js")));
+                context.Page.CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/bootstrap-datepicker3.min.css")));
+            }
+
+            context.Page.AddScript(ID, @"$('#" + ID + @"').datepicker({format: ""dd.mm.yyyy"", todayBtn: true, language: ""de"", zIndexOffset: 999});");
         }
 
         /// <summary>
@@ -71,34 +83,44 @@ namespace WebExpress.UI.WebControl
                 Value = context.Page.GetParamValue(Name);
             }
 
-            Classes.Add("form-control");
+            //if (Disabled)
+            //{
+            //    Classes.Add("disabled");
+            //}
 
-            if (Disabled)
-            {
-                Classes.Add("disabled");
-            }
+            //if (AutoInitialize)
+            //{
+            //    context.Page.AddScript(ID, InitializeCode);
+            //    AutoInitialize = false;
+            //}
 
-            if (AutoInitialize)
-            {
-                context.Page.AddScript(ID, InitializeCode);
-                AutoInitialize = false;
-            }
-
-            var html = new HtmlElementFieldInput()
+            var input = new HtmlElementFieldInput()
             {
                 ID = ID,
                 Name = Name,
-                DataProvide = "datepicker",
-                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Role = Role,
+                Type = "text",
+                Class = "form-control",
                 Value = Value
             };
-            html.AddUserAttribute("data-date-format", "dd.mm.yyyy");
-            html.AddUserAttribute("data-date-autoclose", "true");
-            html.AddUserAttribute("data-date-language", "de");
+            
+            //var span = new HtmlElementTextSemanticsSpan()
+            //{
+            //    Class = TypeIcon.Calendar.ToClass()
+            //};
 
-            return html;
+            //var div = new HtmlElementTextContentDiv(span)
+            //{
+            //    Class = "input-group-text"
+            //};
+
+            //var html = new HtmlElementTextContentDiv(input, div)
+            //{
+            //    ID = ID,
+            //    Class = "input-group",
+            //    //DataProvide = "datepicker"
+            //};
+
+            return input;
         }
 
         /// <summary>
@@ -106,17 +128,17 @@ namespace WebExpress.UI.WebControl
         /// </summary>
         public override void Validate()
         {
-            if (!string.IsNullOrWhiteSpace(Value))
-            {
-                try
-                {
-                    var date = Convert.ToDateTime(Value);
-                }
-                catch
-                {
-                    ValidationResults.Add(new ValidationResult() { Type = TypesInputValidity.Error, Text = "Der angegebene Wert kann nicht in ein Datum konvertiert werden!" });
-                }
-            }
+            //if (!string.IsNullOrWhiteSpace(Value))
+            //{
+            //    try
+            //    {
+            //        var date = Convert.ToDateTime(Value);
+            //    }
+            //    catch
+            //    {
+            //        ValidationResults.Add(new ValidationResult() { Type = TypesInputValidity.Error, Text = "Der angegebene Wert kann nicht in ein Datum konvertiert werden!" });
+            //    }
+            //}
 
             base.Validate();
         }
