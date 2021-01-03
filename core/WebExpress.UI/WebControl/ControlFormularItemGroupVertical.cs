@@ -108,7 +108,7 @@ namespace WebExpress.UI.WebControl
                 }
                 else
                 {
-                    html.Elements.Add(item.Render(context));
+                    html.Elements.Add(item?.Render(context));
                 }
             }
 

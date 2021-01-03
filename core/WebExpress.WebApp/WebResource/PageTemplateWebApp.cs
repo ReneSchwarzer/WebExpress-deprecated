@@ -117,6 +117,11 @@ namespace WebExpress.WebApp.WebResource
             Content.Property.Primary.AddRange(ComponentManager.CreateComponent<IControl>(Context.ApplicationID, Section.PropertyPrimary, ResourceContext));
             Content.Property.Secondary.AddRange(ComponentManager.CreateComponent<IControl>(Context.ApplicationID, Section.PropertySecondary, ResourceContext));
 
+            // Inhalt
+            Content.Preferences.AddRange(ComponentManager.CreateComponent<IControl>(Context.ApplicationID, Section.ContentPreferences, ResourceContext));
+            Content.Primary.AddRange(ComponentManager.CreateComponent<IControl>(Context.ApplicationID, Section.ContentPrimary, ResourceContext));
+            Content.Secondary.AddRange(ComponentManager.CreateComponent<IControl>(Context.ApplicationID, Section.ContentSecondary, ResourceContext));
+
             // Footer
             Footer.Preferences.AddRange(ComponentManager.CreateComponent<IControl>(Context.ApplicationID, Section.FooterPreferences, ResourceContext));
             Footer.Primary.AddRange(ComponentManager.CreateComponent<IControl>(Context.ApplicationID, Section.FooterPrimary, ResourceContext));

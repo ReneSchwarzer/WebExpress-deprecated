@@ -112,6 +112,8 @@ namespace WebExpress.UI.WebControl
         public ControlFormular(string id = null)
             : base(id)
         {
+            Name = id;
+
             SubmitButton.Name = "submit_" + ID?.ToLower();
             SubmitButton.Icon = new PropertyIcon(TypeIcon.Save);
             SubmitButton.Color = new PropertyColorButton(TypeColorButton.Success);
@@ -223,7 +225,7 @@ namespace WebExpress.UI.WebControl
             var formName = $"form_{ Name }";
 
             Initialize(context);
-            (Items as List<ControlFormularItem>).ForEach(x => x.Initialize(renderContext));
+            (Items as List<ControlFormularItem>).ForEach(x => x?.Initialize(renderContext));
             OnInitialize();
             SubmitButton.Initialize(renderContext);
             SubmitAndNextButton?.Initialize(renderContext);

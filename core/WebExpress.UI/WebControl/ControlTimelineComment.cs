@@ -133,7 +133,7 @@ namespace WebExpress.UI.WebControl
                 TextColor = new PropertyColorText(TypeColorText.Primary)
             };
 
-            var option = new HtmlElementTextContentDiv(like.Render(context))
+            var option = new HtmlElementTextContentDiv(Likes > 0 ? like.Render(context) : null)
             {
                 Class = "options"
             };

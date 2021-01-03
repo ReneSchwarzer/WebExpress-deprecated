@@ -81,6 +81,21 @@
         public const string PropertySecondary = "property.secondary";
 
         /// <summary>
+        /// Liefert oder setzt den content.preferences-Bereich
+        /// </summary>
+        public const string ContentPreferences = "content.preferences";
+
+        /// <summary>
+        /// Liefert oder setzt den content.primary-Bereich
+        /// </summary>
+        public const string ContentPrimary = "content.primary";
+
+        /// <summary>
+        /// Liefert oder setzt den content.secondary-Bereich
+        /// </summary>
+        public const string ContentSecondary = "content.secondary";
+
+        /// <summary>
         /// Liefert oder setzt den footer.preferences-Bereich
         /// </summary>
         public const string FooterPreferences = "footer.preferences";

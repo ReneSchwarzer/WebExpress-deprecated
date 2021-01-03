@@ -190,7 +190,7 @@
                 case TypeIcon.Microchip:
                     return "fas fa-microchip";
                 case TypeIcon.PaperPlane:
-                    return "paper-plane";
+                    return "fas fa-paper-plane";
                 case TypeIcon.PlayCircle:
                     return "fas fa-play-circle";
                 case TypeIcon.Plus:

@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using WebExpress.Html;
+using WebExpress.Uri;
 
 namespace WebExpress.UI.WebControl
 {
@@ -27,6 +28,11 @@ namespace WebExpress.UI.WebControl
         /// Liefert oder setzt den Wert
         /// </summary>
         public string Value { get; set; }
+
+        /// <summary>
+        /// Liefert oder setzt ein Link
+        /// </summary>
+        public IUri Uri { get; set; }
 
         /// <summary>
         /// Konstruktor
@@ -71,7 +77,7 @@ namespace WebExpress.UI.WebControl
             (
                 Icon != null && Icon.HasIcon ? icon : null,
                 name,
-                value
+                Uri != null ? new HtmlElementTextSemanticsA(value) { Href = Uri.ToString() } : value
             )
             {
                 ID = ID,
