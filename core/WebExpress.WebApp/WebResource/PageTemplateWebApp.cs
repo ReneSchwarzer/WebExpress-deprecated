@@ -85,7 +85,6 @@ namespace WebExpress.WebApp.WebResource
             Content.BackgroundColor = LayoutSchema.ContentBackground;
             Content.Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.None);
             Content.Width = TypeWidth.OneHundred;
-            //Content.Height = TypeHeight.OneHundred;
 
             Footer.BackgroundColor = LayoutSchema.FooterBackground;
         }
@@ -138,7 +137,7 @@ namespace WebExpress.WebApp.WebResource
             {
                 Layout = TypeLayoutFlexbox.Default,
                 Align = TypeAlignFlexbox.Stretch,
-                Height = TypeHeight.OneHundred
+                Styles = new List<string>() { "min-height: 85%;" }
             };
 
             base.Content.Add(Header);

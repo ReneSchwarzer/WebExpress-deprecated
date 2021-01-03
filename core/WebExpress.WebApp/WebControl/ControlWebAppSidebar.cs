@@ -47,7 +47,7 @@ namespace WebExpress.WebApp.WebControl
         private void Init()
         {
             BackgroundColor = LayoutSchema.SidebarBackground;
-            Height = TypeHeight.OneHundred;
+            //Height = TypeHeight.OneHundred;
         }
 
         /// <summary>

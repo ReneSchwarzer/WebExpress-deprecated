@@ -94,12 +94,12 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Liefert oder setzt die Höhe
         /// </summary>
-        public new int Height { get; set; }
+        public new int Height { get; set; } = -1;
 
         /// <summary>
         /// Liefert oder setzt die Weite
         /// </summary>
-        public new int Width { get; set; }
+        public new int Width { get; set; } = -1;
 
         /// <summary>
         /// Konstruktor
@@ -259,10 +259,18 @@ namespace WebExpress.UI.WebControl
                     Class = Css.Concatenate("btn", Css.Remove(GetClasses(), Margin.ToClass())),
                     Style = GetStyles(),
                     Src = Image.ToString(),
-                    Height = Height,
-                    Width = Width,
                     DataToggle = "dropdown"
                 };
+
+                if (Height > 0)
+                {
+                    button.Height = Height;
+                }
+
+                if (Width > 0)
+                {
+                    button.Width = Width;
+                }
 
                 html.Elements.Add(button);
             }
