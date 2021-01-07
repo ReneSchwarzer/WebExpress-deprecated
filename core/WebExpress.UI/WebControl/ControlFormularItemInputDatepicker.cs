@@ -60,6 +60,11 @@ namespace WebExpress.UI.WebControl
         {
             AutoInitialize = true;
 
+            if (context.Page.HasParam(Name))
+            {
+                Value = context.Page.GetParamValue(Name);
+            }
+
             var module = ModuleManager.GetModule("webexpress");
             if (module != null)
             {
@@ -78,10 +83,7 @@ namespace WebExpress.UI.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContextFormular context)
         {
-            if (context.Page.HasParam(Name))
-            {
-                Value = context.Page.GetParamValue(Name);
-            }
+            
 
             //if (Disabled)
             //{

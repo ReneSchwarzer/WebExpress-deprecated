@@ -136,83 +136,93 @@ namespace WebExpress.WebApp.WebControl
             navigation.AddRange(NavigationPrimary);
             navigation.AddRange(NavigationSecondary);
 
-            var quickcreate = new List<IControlSplitButtonItem>(QuickCreatePrimary);
-            quickcreate.AddRange(QuickCreateSecondary);
+            var quickcreateList = new List<IControlSplitButtonItem>(QuickCreatePrimary);
+            quickcreateList.AddRange(QuickCreateSecondary);
 
-            var firstQuickcreate = (quickcreate.FirstOrDefault() as ControlLink);
+            var firstQuickcreate = (quickcreateList.FirstOrDefault() as ControlLink);
             firstQuickcreate?.Render(context);
 
-            var settings = new List<IControlDropdownItem>(SettingsPrimary);
+            var settingsList = new List<IControlDropdownItem>(SettingsPrimary);
             if (SettingsPrimary.Count > 0 && SettingsSecondary.Count > 0)
             {
-                settings.Add(new ControlDropdownItemDivider());
+                settingsList.Add(new ControlDropdownItemDivider());
             }
-            settings.AddRange(SettingsSecondary);
+            settingsList.AddRange(SettingsSecondary);
+
+            var logo = (hamburger.Count > 0) ?
+            (IControl)new ControlDropdown("logo", hamburger)
+            {
+                Image = Logo,
+                Height = 50,
+                Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None),
+                Styles = new List<string>() { "padding: 0.5em;" }
+            } :
+            new ControlImage("logo")
+            {
+                Uri = Logo,
+                Height = 50,
+                Padding = new PropertySpacingPadding(PropertySpacing.Space.Two),
+                Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None)
+            };
+
+            var apptitle = new ControlLink("apptitle", new ControlText()
+            {
+                Text = Title,
+                TextColor = LayoutSchema.HeaderTitle,
+                Format = TypeFormatText.H1,
+                Padding = new PropertySpacingPadding(PropertySpacing.Space.One),
+                Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.Null)
+            })
+            {
+                Uri = context.Page.Uri?.Root,
+                Decoration = TypeTextDecoration.None
+            };
+
+            var appnavigation = new ControlNavigation("appnavigation", navigation)
+            {
+                Layout = TypeLayoutTab.Default,
+                ActiveColor = LayoutSchema.HeaderNavigationActiveBackground,
+                ActiveTextColor = LayoutSchema.HeaderNavigationActive,
+                LinkColor = LayoutSchema.HeaderNavigationLink
+            };
+
+            var quickcreate = (quickcreateList.Count > 1) ?
+            (IControl)new ControlSplitButtonLink("quickcreate", quickcreateList.Skip(1))
+            {
+                Text = context.I18N("webexpress.webapp", "header.quickcreate.label"),
+                Uri = firstQuickcreate?.Uri,
+                BackgroundColor = LayoutSchema.HeaderQuickCreateButtonBackground,
+                Size = LayoutSchema.HeaderQuickCreateButtonSize,
+                Margin = new PropertySpacingMargin(PropertySpacing.Space.Auto, PropertySpacing.Space.None)
+            } :
+            (QuickCreatePrimary.Count > 0) ?
+            new ControlButtonLink("quickcreate")
+            {
+                Text = context.I18N("webexpress.webapp", "header.quickcreate.label"),
+                Uri = firstQuickcreate?.Uri,
+                BackgroundColor = LayoutSchema.HeaderQuickCreateButtonBackground,
+                Size = LayoutSchema.HeaderQuickCreateButtonSize,
+                Margin = new PropertySpacingMargin(PropertySpacing.Space.Auto, PropertySpacing.Space.None)
+            } :
+            null;
+
+            var settings = (settingsList.Count > 0) ?
+            new ControlDropdown("settings", settingsList)
+            {
+                Icon = new PropertyIcon(TypeIcon.Cog),
+                AlighmentMenu = TypeAlighmentDropdownMenu.Right,
+                BackgroundColor = new PropertyColorButton(TypeColorButton.Dark),
+                Margin = new PropertySpacingMargin(PropertySpacing.Space.Auto, PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.None)
+            } :
+            null;
 
             var content = new ControlPanelFlexbox
             (
-                (hamburger.Count > 0) ?
-                (IControl)new ControlDropdown("logo", hamburger)
-                {
-                    Image = Logo,
-                    Height = 50,
-                    Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None),
-                    Styles = new List<string>() { "padding: 0.5em;" }
-                } :
-                new ControlImage("logo")
-                {
-                    Uri = Logo,
-                    Height = 50,
-                    Padding = new PropertySpacingPadding(PropertySpacing.Space.Two),
-                    Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None)
-                },
-                new ControlLink("apptitle", new ControlText()
-                {
-                    Text = Title,
-                    TextColor = LayoutSchema.HeaderTitle,
-                    Format = TypeFormatText.H1,
-                    Padding = new PropertySpacingPadding(PropertySpacing.Space.One),
-                    Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.Null)
-                })
-                {
-                    Uri = context.Page.Uri.Root,
-                    Decoration = TypeTextDecoration.None
-                },
-                new ControlNavigation("appnavigation", navigation)
-                {
-                    Layout = TypeLayoutTab.Default,
-                    ActiveColor = LayoutSchema.HeaderNavigationActiveBackground,
-                    ActiveTextColor = LayoutSchema.HeaderNavigationActive,
-                    LinkColor = LayoutSchema.HeaderNavigationLink
-                },
-                (quickcreate.Count > 1) ?
-                (IControl)new ControlSplitButtonLink("quickcreate", quickcreate.Skip(1))
-                {
-                    Text = context.I18N("webexpress.webapp", "header.quickcreate.label"),
-                    Uri = firstQuickcreate?.Uri,
-                    BackgroundColor = LayoutSchema.HeaderQuickCreateButtonBackground,
-                    Size = LayoutSchema.HeaderQuickCreateButtonSize,
-                    Margin = new PropertySpacingMargin(PropertySpacing.Space.Auto, PropertySpacing.Space.None)
-                } :
-                (QuickCreatePrimary.Count > 0) ?
-                new ControlButtonLink("quickcreate")
-                {
-                    Text = context.I18N("webexpress.webapp", "header.quickcreate.label"),
-                    Uri = firstQuickcreate?.Uri,
-                    BackgroundColor = LayoutSchema.HeaderQuickCreateButtonBackground,
-                    Size = LayoutSchema.HeaderQuickCreateButtonSize,
-                    Margin = new PropertySpacingMargin(PropertySpacing.Space.Auto, PropertySpacing.Space.None)
-                } :
-                null,
-                (settings.Count > 0) ?
-                new ControlDropdown("settings", settings)
-                {
-                    Icon = new PropertyIcon(TypeIcon.Cog),
-                    AlighmentMenu = TypeAlighmentDropdownMenu.Right,
-                    BackgroundColor = new PropertyColorButton(TypeColorButton.Dark),
-                    Margin = new PropertySpacingMargin(PropertySpacing.Space.Auto, PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.None)
-                } :
-                null
+                logo,
+                apptitle,
+                appnavigation,
+                quickcreate,
+                settings
             )
             {
                 Layout = TypeLayoutFlexbox.Default,
