@@ -82,72 +82,80 @@ namespace WebExpress.Plugin
         /// <param name="assembly">Das Assembly, indem sich das Plugins befindet</param>
         public static void Register(Assembly assembly)
         {
-            foreach (var type in assembly.GetExportedTypes())
+            try
             {
-                if (type.IsClass && type.IsSealed && type.GetInterface(typeof(IPlugin).Name) != null && type.Name.Equals("Plugin"))
+                foreach (var type in assembly.GetExportedTypes())
                 {
-                    var id = type.Name?.ToLower();
-                    var name = type.Assembly.GetCustomAttribute<AssemblyTitleAttribute>()?.Title;
-                    var icon = string.Empty;
-                    var description = type.Assembly.GetCustomAttribute<AssemblyDescriptionAttribute>()?.Description;
-
-                    foreach (var customAttribute in type.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IPluginAttribute))))
+                    if (type.IsClass && type.IsSealed && type.GetInterface(typeof(IPlugin).Name) != null && type.Name.Equals("Plugin"))
                     {
-                        if (customAttribute.AttributeType == typeof(IDAttribute))
+                        var id = type.Name?.ToLower();
+                        var name = type.Assembly.GetCustomAttribute<AssemblyTitleAttribute>()?.Title;
+                        var icon = string.Empty;
+                        var description = type.Assembly.GetCustomAttribute<AssemblyDescriptionAttribute>()?.Description;
+
+                        foreach (var customAttribute in type.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IPluginAttribute))))
                         {
-                            id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
+                            if (customAttribute.AttributeType == typeof(IDAttribute))
+                            {
+                                id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
+                            }
+
+                            if (customAttribute.AttributeType == typeof(NameAttribute))
+                            {
+                                name = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
+                            }
+
+                            if (customAttribute.AttributeType == typeof(IconAttribute))
+                            {
+                                icon = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
+                            }
+
+                            if (customAttribute.AttributeType == typeof(DescriptionAttribute))
+                            {
+                                description = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
+                            }
                         }
 
-                        if (customAttribute.AttributeType == typeof(NameAttribute))
+                        var context = new PluginContext()
                         {
-                            name = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
-                        }
+                            Assembly = type.Assembly,
+                            PluginID = id,
+                            PluginName = name,
+                            Manufacturer = type.Assembly.GetCustomAttribute<AssemblyCompanyAttribute>()?.Company,
+                            Copyright = type.Assembly.GetCustomAttribute<AssemblyCopyrightAttribute>()?.Copyright,
+                            Icon = UriRelative.Combine(Context.ContextPath, icon),
+                            Description = description,
+                            Version = type.Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion,
+                            Host = Context,
+                            Log = Context.Log
+                        };
 
-                        if (customAttribute.AttributeType == typeof(IconAttribute))
-                        {
-                            icon = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
-                        }
+                        var plugin = (IPlugin)type.Assembly.CreateInstance(type.FullName);
 
-                        if (customAttribute.AttributeType == typeof(DescriptionAttribute))
+                        if (!Dictionary.ContainsKey(id))
                         {
-                            description = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
+                            Dictionary.Add(id, new PluginItem()
+                            {
+                                Context = context,
+                                Plugin = plugin
+                            });
+
+                            Context.Log.Info(message: I18N("webexpress:pluginmanager.created"), args: id);
+                        }
+                        else
+                        {
+                            Context.Log.Warning(message: I18N("webexpress:pluginmanager.duplicate"), args: id);
                         }
                     }
-
-                    var context = new PluginContext()
-                    {
-                        Assembly = type.Assembly,
-                        PluginID = id,
-                        PluginName = name,
-                        Manufacturer = type.Assembly.GetCustomAttribute<AssemblyCompanyAttribute>()?.Company,
-                        Copyright = type.Assembly.GetCustomAttribute<AssemblyCopyrightAttribute>()?.Copyright,
-                        Icon = UriRelative.Combine(Context.ContextPath, icon),
-                        Description = description,
-                        Version = type.Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion,
-                        Log = Context.Log
-                    };
-
-                    var plugin = (IPlugin)type.Assembly.CreateInstance(type.FullName);
-
-                    if (!Dictionary.ContainsKey(id))
-                    {
-                        Dictionary.Add(id, new PluginItem()
-                        {
-                            Context = context,
-                            Plugin = plugin
-                        });
-
-                        Context.Log.Info(message: I18N("webexpress:pluginmanager.created"), args: id);
-                    }
-                    else
-                    {
-                        Context.Log.Warning(message: I18N("webexpress:pluginmanager.duplicate"), args: id);
-                    }
+                    //else
+                    //{
+                    //    Context.Log.Warning(message: I18N("webexpress:pluginmanager.notfound"), args: assembly.FullName);
+                    //}
                 }
-                //else
-                //{
-                //    Context.Log.Warning(message: I18N("webexpress:pluginmanager.notfound"), args: assembly.FullName);
-                //}
+            }
+            catch
+            {
+
             }
         }
 

@@ -52,5 +52,10 @@ namespace WebExpress.Plugin
         /// Liefert das Log, zum schreiben von Statusnachrichten auf die Konsole und in eine Log-Datei
         /// </summary>
         Log Log { get; }
+
+        /// <summary>
+        /// Liefert den Host-Kontext
+        /// </summary>
+        IHttpServerContext Host { get; }
     }
 }

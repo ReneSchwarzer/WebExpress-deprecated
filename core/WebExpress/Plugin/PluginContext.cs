@@ -51,6 +51,11 @@ namespace WebExpress.Plugin
         public Log Log { get; internal set; }
 
         /// <summary>
+        /// Liefert den Host-Kontext
+        /// </summary>
+        public IHttpServerContext Host { get; internal set; }
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         public PluginContext()
