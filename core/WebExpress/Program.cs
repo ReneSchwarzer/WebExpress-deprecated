@@ -115,6 +115,7 @@ namespace WebExpress
 
             var context = new HttpServerContext
             (
+                port,
                 string.IsNullOrWhiteSpace(config.AssetBase) ? Environment.CurrentDirectory : config.AssetBase,
                 Path.GetDirectoryName(configFile),
                 new UriRelative(config.ContextPath),

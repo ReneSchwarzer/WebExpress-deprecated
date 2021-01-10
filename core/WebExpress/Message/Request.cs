@@ -44,6 +44,11 @@ namespace WebExpress.Message
         public RequestHeaderFields HeaderFields { get; private set; }
 
         /// <summary>
+        /// Liefert den Inhalt
+        /// </summary>
+        public byte[] Content { get; private set; }
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         protected Request(RequestMethod type, string url, string version, RequestHeaderFields options, string client)
@@ -98,10 +103,10 @@ namespace WebExpress.Message
                             var content = new byte[contentLength /*- 2*/]; // Leerzeile des Contentbereiches '\r\n' wird nicht mitgezählt
                             var offset = readCount - i;
 
+                            //var b = Encoding.UTF8.GetString(buffer, 0, 1024);
+
                             // Lese bereits gelesenen Content
                             Buffer.BlockCopy(buffer, i + 1, content, 0, offset - 1);
-
-                            var b = Encoding.UTF8.GetString(buffer, 0, 1024);
 
                             if (i + contentLength > buffer.Length)
                             {
@@ -218,6 +223,7 @@ namespace WebExpress.Message
         private static void ParseRequestParams(Request request, byte[] content)
         {
             var contentType = request.HeaderFields.ContentType?.Split(';');
+            request.Content = content;
 
             switch (TypeEnctypeExtensions.Convert(contentType.FirstOrDefault()))
             {
@@ -228,7 +234,7 @@ namespace WebExpress.Message
                         var offset = 0;
                         int pos = 0;
                         var dispositions = new List<Tuple<int, int>>(); // Item1=Position, Item2=Länge
-                                                
+
                         // ermittle Dispositionen
                         for (var i = 0; i < content.Length; i++)
                         {
@@ -387,7 +393,7 @@ namespace WebExpress.Message
 
                         break;
                     }
-                default:
+                case TypeEnctype.UrLEncoded:
                     {
                         var str = Encoding.UTF8.GetString(content, 0, content.Length);
                         var param = str.Replace('+', ' ');
@@ -398,6 +404,11 @@ namespace WebExpress.Message
                             request.AddParam(s[0], s.Count() > 1 ? s[1]?.TrimEnd() : string.Empty);
                         }
 
+                        break;
+                    }
+                default:
+                    {
+                        
                         break;
                     }
             }

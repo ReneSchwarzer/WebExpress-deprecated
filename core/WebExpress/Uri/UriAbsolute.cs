@@ -9,7 +9,7 @@ namespace WebExpress.Uri
     public class UriAbsolute : UriRelative
     {
         /// <summary>
-        /// Die Zuständigkeit
+        /// Der Typ
         /// </summary>
         public UriScheme Scheme { get; set; }
 
@@ -43,9 +43,24 @@ namespace WebExpress.Uri
         }
 
         /// <summary>
+        /// Konstruktor
+        /// </summary>
+        /// <param name="scheme"></param>
+        /// <param name="authority">Die Zuständigkeit (z.B. user@example.com:8080)</param>
+        /// <param name="uri">Die Uri</param>
+        public UriAbsolute(UriScheme scheme, UriAuthority authority, UriRelative uri)
+        {
+            Scheme = scheme;
+            Authority = authority;
+            (Path as List<IUriPathSegment>).AddRange(uri.Path.Select(x => new UriPathSegment(x.Value, x.Tag) as IUriPathSegment));
+            (Query as List<UriQuerry>).AddRange(uri.Query.Select(x => new UriQuerry(x.Key, x.Value)));
+            Fragment = uri.Fragment;
+        }
+
+        /// <summary>
         /// Copy-Konstruktor
         /// </summary>
-        /// <param name="uri">Die zu kopierende Uir</param>
+        /// <param name="uri">Die zu kopierende Uri</param>
         public UriAbsolute(UriAbsolute uri)
         {
             Scheme = uri.Scheme;

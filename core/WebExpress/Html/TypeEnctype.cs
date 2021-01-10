@@ -12,7 +12,7 @@ namespace WebExpress.Html
         /// <summary>
         /// Alle Zeichen werden encoded (Spaces wird zu "+" koncertiert und spezalzeichen in der Hexrepräsentation) 
         /// </summary>
-        Default,
+        UrLEncoded,
         /// <summary>
         /// Keine Zeichen werden encodes. Wird verwendet, wenn Dateien übertragen werden
         /// </summary>
@@ -20,7 +20,11 @@ namespace WebExpress.Html
         /// <summary>
         /// Nur Space-Zeichen werden encodiert.
         /// </summary>
-        Text
+        Text,
+        /// <summary>
+        /// Nicht zuordbar
+        /// </summary>
+        Default
     }
 
     public static class TypeEnctypeExtensions
@@ -38,6 +42,8 @@ namespace WebExpress.Html
                     return TypeEnctype.None;
                 case "text/plain":
                     return TypeEnctype.Text;
+                case "application/x-www-form-urlencoded":
+                    return TypeEnctype.UrLEncoded;
             }
 
             return TypeEnctype.Default;

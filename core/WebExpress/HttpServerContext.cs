@@ -10,6 +10,11 @@ namespace WebExpress
     public class HttpServerContext : IHttpServerContext
     {
         /// <summary>
+        /// Liefert den Port
+        /// </summary>
+        public int Port { get; protected set; }
+
+        /// <summary>
         /// Liefert die Version des Plugins 
         /// </summary>
         public string Version { get; protected set; }
@@ -42,6 +47,7 @@ namespace WebExpress
         /// <summary>
         /// Konstruktor
         /// </summary>
+        /// <param name="port">Der Port</param>
         /// <param name="assetBaseFolder">Daten-Basisverzeichnis</param>
         /// <param name="configBaseFolder">Konfigurationserzeichnis</param>
         /// <param name="contextPath">Der Basispfad des Servers</param>
@@ -49,6 +55,7 @@ namespace WebExpress
         /// <param name="log">Log</param>
         public HttpServerContext
         (
+            int port,
             string assetBaseFolder,
             string configBaseFolder,
             IUri contextPath,
@@ -59,6 +66,7 @@ namespace WebExpress
             var assembly = typeof(HttpServer).Assembly;
             Version = assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
 
+            Port = port;
             AssetPath = assetBaseFolder;
             ConfigPath = configBaseFolder;
             ContextPath = contextPath;

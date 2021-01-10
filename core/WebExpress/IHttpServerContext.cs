@@ -9,17 +9,22 @@ namespace WebExpress
     public interface IHttpServerContext
     {
         /// <summary>
+        /// Liefert den Port
+        /// </summary>
+        int Port { get; }
+
+        /// <summary>
         /// Liefert die Version des Plugins 
         /// </summary>
         string Version { get; }
 
         /// <summary>
-        /// Liefert oder setzt das Daten-Basisverzeichnis
+        /// Liefert das Daten-Basisverzeichnis
         /// </summary>
         string AssetPath { get; }
 
         /// <summary>
-        /// Liefert oder setzt das Konfigurationserzeichnis
+        /// Liefert das Konfigurationserzeichnis
         /// </summary>
         string ConfigPath { get; }
 
@@ -34,7 +39,7 @@ namespace WebExpress
         CultureInfo Culture { get; }
 
         /// <summary>
-        /// Liefert oder setzt das Log, zum schreiben von Statusnachrichten auf die Konsole und in eine Log-Datei
+        /// Liefert das Log, zum schreiben von Statusnachrichten auf die Konsole und in eine Log-Datei
         /// </summary>
         Log Log { get; }
     }
