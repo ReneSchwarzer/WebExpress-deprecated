@@ -41,6 +41,21 @@
         public const string AppQuickcreateSecondary = "app.quickcreate.secondary";
 
         /// <summary>
+        /// Liefert oder setzt den app.help.preferences-Bereich
+        /// </summary>
+        public const string AppHelpPreferences = "app.help.preferences";
+
+        /// <summary>
+        /// Liefert oder setzt den app.help.primary-Bereich
+        /// </summary>
+        public const string AppHelpPrimary = "app.help.primary";
+
+        /// <summary>
+        /// Liefert oder setzt den app.help.secondary-Bereich
+        /// </summary>
+        public const string AppHelpSecondary = "app.help.secondary";
+
+        /// <summary>
         /// Liefert oder setzt den app.settings.primary-Bereich
         /// </summary>
         public const string AppSettingsPrimary = "app.settings.primary";

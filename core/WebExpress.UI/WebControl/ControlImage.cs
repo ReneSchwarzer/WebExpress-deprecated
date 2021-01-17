@@ -32,7 +32,6 @@ namespace WebExpress.UI.WebControl
         public ControlImage(string id = null)
             : base(id)
         {
-            Init();
         }
 
         /// <summary>
@@ -44,15 +43,6 @@ namespace WebExpress.UI.WebControl
             : base(id)
         {
             Uri = source;
-
-            Init();
-        }
-
-        /// <summary>
-        /// Initialisierung
-        /// </summary>
-        private void Init()
-        {
         }
 
         /// <summary>

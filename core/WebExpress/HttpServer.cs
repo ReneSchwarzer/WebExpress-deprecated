@@ -288,7 +288,7 @@ namespace WebExpress
                     }
                     else
                     {
-                        response.Content = $"<h4>{response.Status}</h2>Bad Request";
+                        response.Content = $"<h4>{response.Status}</h4>Bad Request";
                     }
 
                     response.HeaderFields.ContentLength = response.Content != null ? response.Content.ToString().Length : 0;
@@ -298,7 +298,7 @@ namespace WebExpress
                 {
                     Context.Log.Debug(message: this.I18N("httpserver.request"), args: new object[] { ip, $"{request?.Method} {request?.URL} {request?.Version}" });
 
-                    var resource = ResourceManager.Find(request.URL.TrimEnd('/'));
+                    var resource = ResourceManager.Find(request?.URL.TrimEnd('/'));
                     if (resource != null && resource.Type != null)
                     {
                         var type = resource.Type;
@@ -358,7 +358,17 @@ namespace WebExpress
 
                     if (response is ResponseNotFound)
                     {
-                        response.HeaderFields.ContentLength = response.Content.ToString().Length;
+                        var statusPage = CreateStatusPage(response.Status, request, moduleContext, uri);
+                        if (statusPage != null)
+                        {
+                            response.Content = statusPage;
+                        }
+                        else
+                        {
+                            response.Content = $"<h4>{ response.Status }</h4>";
+                        }
+
+                        response.HeaderFields.ContentLength = response.Content != null ? response.Content.ToString().Length : 0;
                     }
                 }
                 catch (RedirectException ex)
@@ -389,7 +399,7 @@ namespace WebExpress
                     }
                     else
                     {
-                        response.Content = $"<h4>{ response.Status }</h2> { ex }";
+                        response.Content = $"<h4>{ response.Status }</h4> { ex }";
                     }
 
                     response.HeaderFields.ContentLength = response.Content != null ? response.Content.ToString().Length : 0;
@@ -447,12 +457,17 @@ namespace WebExpress
 
                 if (moduleContext != null && !string.IsNullOrWhiteSpace(moduleContext.ApplicationID))
                 {
-                    statusPage = ResponseManager.Create(500, moduleContext?.ApplicationID);
+                    statusPage = ResponseManager.Create(statusCode, moduleContext?.ApplicationID);
                 }
 
                 if (statusPage == null)
                 {
-                    statusPage = ResponseManager.Create(500, "webexpress");
+                    statusPage = ResponseManager.Create(statusCode, "webexpress");
+                }
+
+                if (statusPage == null)
+                {
+                    return null;
                 }
 
                 statusPage.StatusCode = statusCode;

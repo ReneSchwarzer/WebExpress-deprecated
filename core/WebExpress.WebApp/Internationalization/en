@@ -1,6 +1,10 @@
 ﻿# Englisch
 
 header.quickcreate.label=Create
+header.help.label=Help
+header.setting.label=Settings
 
 status.400.title=Bad Request
+status.404.title=Resource not found
+status.404.description=The HTTP status code 404 means that the called resource cannot be found on the Web server. Either content has been removed or moved to a different URL. The following causes may be responsible for this: <ul><li>The URL is created incorrectly or incorrectly linked internally.</li><li>The URL was entered incorrectly.</li><li>The web server is not in operation.</li><li>The URL or content has been deleted or paged out.</li></ul>
 status.500.title=Internal Server Error

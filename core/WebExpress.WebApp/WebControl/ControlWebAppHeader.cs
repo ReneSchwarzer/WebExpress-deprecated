@@ -59,6 +59,21 @@ namespace WebExpress.WebApp.WebControl
         public List<IControlSplitButtonItem> QuickCreateSecondary { get; protected set; } = new List<IControlSplitButtonItem>();
 
         /// <summary>
+        /// Liefert oder setzt die Schaltfläche zur Hilfe
+        /// </summary>
+        public List<IControlDropdownItem> HelpPreferences { get; protected set; } = new List<IControlDropdownItem>();
+
+        /// <summary>
+        /// Liefert oder setzt die Schaltfläche zur Hilfe
+        /// </summary>
+        public List<IControlDropdownItem> HelpPrimary { get; protected set; } = new List<IControlDropdownItem>();
+
+        /// <summary>
+        /// Liefert oder setzt die Schaltfläche zur Hilfe
+        /// </summary>
+        public List<IControlDropdownItem> HelpSecondary { get; protected set; } = new List<IControlDropdownItem>();
+
+        /// <summary>
         /// Liefert oder setzt die Einstellungen
         /// </summary>
         public List<IControlDropdownItem> SettingsPrimary { get; protected set; } = new List<IControlDropdownItem>();
@@ -95,8 +110,6 @@ namespace WebExpress.WebApp.WebControl
             set => SetProperty(value, () => value.ToClass());
         }
 
-
-
         /// <summary>
         /// Konstruktor
         /// </summary>
@@ -125,7 +138,9 @@ namespace WebExpress.WebApp.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var hamburger = new List<IControlDropdownItem>(HamburgerPrimary);
+            var hamburger = new List<IControlDropdownItem>();
+            hamburger.Add(new ControlDropdownItemHeader() { Text = Title });
+            hamburger.AddRange(HamburgerPrimary);
             if (HamburgerPrimary.Count > 0 && HamburgerSecondary.Count > 0)
             {
                 hamburger.Add(new ControlDropdownItemDivider());
@@ -142,14 +157,30 @@ namespace WebExpress.WebApp.WebControl
             var firstQuickcreate = (quickcreateList.FirstOrDefault() as ControlLink);
             firstQuickcreate?.Render(context);
 
-            var settingsList = new List<IControlDropdownItem>(SettingsPrimary);
+            var helpList = new List<IControlDropdownItem>();
+            helpList.Add(new ControlDropdownItemHeader() { Text = context.I18N("webexpress.webapp", "header.help.label") });
+            helpList.AddRange(HelpPreferences);
+            if (HelpPreferences.Count > 0 && HelpPrimary.Count > 0)
+            {
+                helpList.Add(new ControlDropdownItemDivider());
+            }
+            helpList.AddRange(HelpPrimary);
+            if (HelpPrimary.Count > 0 && HelpSecondary.Count > 0)
+            {
+                helpList.Add(new ControlDropdownItemDivider());
+            }
+            helpList.AddRange(HelpSecondary);
+
+            var settingsList = new List<IControlDropdownItem>();
+            settingsList.Add(new ControlDropdownItemHeader() { Text = context.I18N("webexpress.webapp", "header.setting.label") });
+            settingsList.AddRange(SettingsPrimary);
             if (SettingsPrimary.Count > 0 && SettingsSecondary.Count > 0)
             {
                 settingsList.Add(new ControlDropdownItemDivider());
             }
             settingsList.AddRange(SettingsSecondary);
 
-            var logo = (hamburger.Count > 0) ?
+            var logo = (hamburger.Count > 1) ?
             (IControl)new ControlDropdown("logo", hamburger)
             {
                 Image = Logo,
@@ -206,13 +237,23 @@ namespace WebExpress.WebApp.WebControl
             } :
             null;
 
-            var settings = (settingsList.Count > 0) ?
+            var help = (helpList.Count > 1) ?
+            new ControlDropdown("help", helpList)
+            {
+                Icon = new PropertyIcon(TypeIcon.InfoCircle),
+                AlighmentMenu = TypeAlighmentDropdownMenu.Right,
+                BackgroundColor = new PropertyColorButton(TypeColorButton.Dark),
+                Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.None)
+            } :
+            null;
+
+            var settings = (settingsList.Count > 1) ?
             new ControlDropdown("settings", settingsList)
             {
                 Icon = new PropertyIcon(TypeIcon.Cog),
                 AlighmentMenu = TypeAlighmentDropdownMenu.Right,
                 BackgroundColor = new PropertyColorButton(TypeColorButton.Dark),
-                Margin = new PropertySpacingMargin(PropertySpacing.Space.Auto, PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.None)
+                Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.None)
             } :
             null;
 
@@ -222,6 +263,8 @@ namespace WebExpress.WebApp.WebControl
                 apptitle,
                 appnavigation,
                 quickcreate,
+                new ControlPanel() { Margin = new PropertySpacingMargin(PropertySpacing.Space.Auto, PropertySpacing.Space.None) },
+                help,
                 settings
             )
             {

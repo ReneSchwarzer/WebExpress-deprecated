@@ -1,6 +1,10 @@
 ﻿# Deutsch
 
 header.quickcreate.label=Erstellen
+header.help.label=Hilfe
+header.setting.label=Einstellungen
 
 status.400.title=Fehlerhafte Anfrage
+status.404.title=Ressource nicht gefunden
+status.404.description=Der HTTP-Statuscode 404 bedeutet, dass die aufgerufene Ressource auf dem Webserver nicht zu finden ist. Entweder wurden Inhalte der Webseite entfernt oder auf eine andere URL verlegt. Folgende Ursachen können hierfür verantwortlich sein: <ul><li>Die URL ist fehlerhaft angelegt oder falsch intern verlinkt.</li><li>Die URL wurde falsch eingegeben.</li><li>Der Webserver ist nicht in Betrieb.</li><li>Die URL oder die Inhalte wurden gelöscht oder ausgelagert.</li></ul>
 status.500.title=Interner Serverfehler

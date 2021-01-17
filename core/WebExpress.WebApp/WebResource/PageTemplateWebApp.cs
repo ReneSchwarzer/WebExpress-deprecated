@@ -104,8 +104,11 @@ namespace WebExpress.WebApp.WebResource
             Header.NavigationSecondary.AddRange(ComponentManager.CreateComponent<IControlNavigationItem>(Context.ApplicationID, Section.AppNavigationSecondary, ResourceContext));
             Header.QuickCreatePrimary.AddRange(ComponentManager.CreateComponent<IControlSplitButtonItem>(Context.ApplicationID, Section.AppQuickcreatePrimary, ResourceContext));
             Header.QuickCreatePrimary.AddRange(ComponentManager.CreateComponent<IControlSplitButtonItem>(Context.ApplicationID, Section.AppQuickcreateSecondary, ResourceContext));
+            Header.HelpPreferences.AddRange(ComponentManager.CreateComponent<IControlDropdownItem>(Context.ApplicationID, Section.AppHelpPreferences, ResourceContext));
+            Header.HelpPrimary.AddRange(ComponentManager.CreateComponent<IControlDropdownItem>(Context.ApplicationID, Section.AppHelpPrimary, ResourceContext));
+            Header.HelpSecondary.AddRange(ComponentManager.CreateComponent<IControlDropdownItem>(Context.ApplicationID, Section.AppHelpSecondary, ResourceContext));
             Header.SettingsPrimary.AddRange(ComponentManager.CreateComponent<IControlDropdownItem>(Context.ApplicationID, Section.AppSettingsPrimary, ResourceContext));
-            Header.SettingsPrimary.AddRange(ComponentManager.CreateComponent<IControlDropdownItem>(Context.ApplicationID, Section.AppSettingsSecondary, ResourceContext));
+            Header.SettingsSecondary.AddRange(ComponentManager.CreateComponent<IControlDropdownItem>(Context.ApplicationID, Section.AppSettingsSecondary, ResourceContext));
 
             // Sidebar
             Sidebar.Preferences.AddRange(ComponentManager.CreateComponent<IControl>(Context.ApplicationID, Section.SidebarPreferences, ResourceContext));

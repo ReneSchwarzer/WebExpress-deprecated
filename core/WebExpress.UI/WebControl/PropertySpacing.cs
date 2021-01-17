@@ -126,7 +126,7 @@
                 return prefix + "x-" + ConvertSize(Left) + " " + prefix + "y-" + ConvertSize(Top);
             }
             //
-            else if (Top != Space.None && Bottom != Space.None && Left == Space.None && Right == Space.None)
+            else if (Top != Space.None && Bottom == Space.None && Left == Space.None && Right == Space.None)
             {
                 return prefix + "t-" + ConvertSize(Top);
             }

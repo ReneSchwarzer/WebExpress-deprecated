@@ -82,8 +82,8 @@ namespace WebExpress.UI.WebControl
             return new HtmlElementScriptingCanvas()
             {
                 ID = ID,
-                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Class = Css.Concatenate("", GetClasses()),
+                Style = GetStyles(),
                 Role = Role
             };
         }

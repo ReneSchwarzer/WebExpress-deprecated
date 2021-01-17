@@ -73,6 +73,15 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
+        /// Fügt weitere Steuerelemente der Karte hinzu
+        /// </summary>
+        /// <param name="items">Die einzufügenden Steuerelemente</param>
+        public void Add(params Control[] items)
+        {
+            Content.AddRange(items);
+        }
+
+        /// <summary>
         /// In HTML konvertieren
         /// </summary>
         /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
