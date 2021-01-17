@@ -112,6 +112,7 @@ namespace WebExpress.UI.WebControl
         {
             var html = new HtmlElementFieldButton()
             {
+                ID = ID,
                 Name = Name,
                 Type = Type,
                 Value = Value,
