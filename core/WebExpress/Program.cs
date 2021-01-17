@@ -25,7 +25,7 @@ namespace WebExpress
         /// <summary>
         /// Liefert die Programmversion
         /// </summary>
-        public string Version => Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        public static string Version => Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
         /// <summary>
         /// Eintrittspunkt der Anwendung

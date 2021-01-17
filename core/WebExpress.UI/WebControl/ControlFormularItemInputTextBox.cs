@@ -144,52 +144,47 @@ namespace WebExpress.UI.WebControl
                 AutoInitialize = false;
             }
 
-            switch (Format)
+            return Format switch
             {
-                case TypesEditTextFormat.Multiline:
-                    return new HtmlElementFormTextarea()
-                    {
-                        ID = ID,
-                        Value = Value,
-                        Name = Name,
-                        Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                        Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
-                        Role = Role,
-                        Placeholder = Placeholder,
-                        Rows = Rows.ToString()
-                    };
-                case TypesEditTextFormat.Wysiwyg:
-                    return new HtmlElementFormTextarea()
-                    {
-                        ID = ID,
-                        Value = Value,
-                        Name = Name,
-                        Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                        Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
-                        Role = Role,
-                        Placeholder = Placeholder,
-                        Rows = Rows.ToString()
-                    };
-                default:
-                    return new HtmlElementFieldInput()
-                    {
-                        ID = ID,
-                        Value = Value,
-                        Name = Name,
-                        MinLength = MinLength?.ToString(),
-                        MaxLength = MaxLength?.ToString(),
-                        Required = Required,
-                        Pattern = Pattern,
-                        Type = "text",
-                        Disabled = Disabled,
-                        Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                        Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
-                        Role = Role,
-                        Placeholder = Placeholder
-                    };
-
-            }
-
+                TypesEditTextFormat.Multiline => new HtmlElementFormTextarea()
+                {
+                    ID = ID,
+                    Value = Value,
+                    Name = Name,
+                    Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                    Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                    Role = Role,
+                    Placeholder = Placeholder,
+                    Rows = Rows.ToString()
+                },
+                TypesEditTextFormat.Wysiwyg => new HtmlElementFormTextarea()
+                {
+                    ID = ID,
+                    Value = Value,
+                    Name = Name,
+                    Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                    Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                    Role = Role,
+                    Placeholder = Placeholder,
+                    Rows = Rows.ToString()
+                },
+                _ => new HtmlElementFieldInput()
+                {
+                    ID = ID,
+                    Value = Value,
+                    Name = Name,
+                    MinLength = MinLength?.ToString(),
+                    MaxLength = MaxLength?.ToString(),
+                    Required = Required,
+                    Pattern = Pattern,
+                    Type = "text",
+                    Disabled = Disabled,
+                    Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                    Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                    Role = Role,
+                    Placeholder = Placeholder
+                },
+            };
         }
 
         /// <summary>

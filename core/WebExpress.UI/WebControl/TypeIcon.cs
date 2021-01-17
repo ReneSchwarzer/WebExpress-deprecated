@@ -9,6 +9,8 @@
         AlignRight,
         At,
         Bars,
+        Bold,
+        Bolt,
         Bomb,
         Book,
         Bug,
@@ -62,6 +64,7 @@
         Save,
         ShoppingBag,
         Star,
+        StopCircle,
         Stopwatch,
         Sun,
         TachometerAlt,
@@ -87,157 +90,86 @@
         /// <returns>Die zum Icon gehörende CSS-KLasse</returns>
         public static string ToClass(this TypeIcon icon)
         {
-            switch (icon)
+            return icon switch
             {
-                case TypeIcon.AlignCenter:
-                    return "fas fa-align-center";
-                case TypeIcon.AlignJustify:
-                    return "fas fa-align-justify";
-                case TypeIcon.AlignLeft:
-                    return "fas fa-align-left";
-                case TypeIcon.AlignRight:
-                    return "fas fa-align-right";
-                case TypeIcon.At:
-                    return "fas fa-at";
-                case TypeIcon.Bars:
-                    return "fas fa-bars";
-                case TypeIcon.Bomb:
-                    return "fas fa-bomb";
-                case TypeIcon.Book:
-                    return "fas fa-book";
-                case TypeIcon.Bug:
-                    return "fas fa-bug";
-                case TypeIcon.Building:
-                    return "fas fa-building";
-                case TypeIcon.Calendar:
-                    return "fas fa-calendar";
-                case TypeIcon.CalendarMinus:
-                    return "fas fa-calendar-minus";
-                case TypeIcon.CalendarPlus:
-                    return "fas fa-calendar-plus";
-                case TypeIcon.Car:
-                    return "fas fa-car";
-                case TypeIcon.ChartBar:
-                    return "fas fa-chart-bar";
-                case TypeIcon.City:
-                    return "fas fa-city";
-                case TypeIcon.Clock:
-                    return "fas fa-clock";
-                case TypeIcon.Clone:
-                    return "fas fa-clone";
-                case TypeIcon.Code:
-                    return "fas fa-code";
-                case TypeIcon.Cog:
-                    return "fas fa-cog";
-                case TypeIcon.Copy:
-                    return "fas fa-copy";
-                case TypeIcon.Comment:
-                    return "fas fa-comment";
-                case TypeIcon.CommentAlt:
-                    return "fas fa-comment-alt";
-                case TypeIcon.Cubes:
-                    return "fas fa-cubes";
-                case TypeIcon.Door:
-                    return "fas fa-door-closed";
-                case TypeIcon.DoorOpen:
-                    return "fas fa-door-open";
-                case TypeIcon.Download:
-                    return "fas fa-upload";
-                case TypeIcon.Edit:
-                    return "fas fa-edit";
-                case TypeIcon.EuroSign:
-                    return "fas fa-euro-sign";
-                case TypeIcon.ExclamationTriangle:
-                    return "fas fa-exclamation-triangle";
-                case TypeIcon.Fire:
-                    return "fas fa-fire";
-                case TypeIcon.Folder:
-                    return "fas fa-folder";
-                case TypeIcon.FolderOpen:
-                    return "fas fa-folder-open";
-                case TypeIcon.Font:
-                    return "fas fa-font";
-                case TypeIcon.Forward:
-                    return "fas fa-forward";
-                case TypeIcon.GraduationCap:
-                    return "fas fa-graduation-cap";
-                case TypeIcon.Hashtag:
-                    return "fas fa-hashtag";
-                case TypeIcon.Hdd:
-                    return "fas fa-hdd";
-                case TypeIcon.Home:
-                    return "fas fa-home";
-                case TypeIcon.InfoCircle:
-                    return "fas fa-info-circle";
-                case TypeIcon.Image:
-                    return "fas fa-image";
-                case TypeIcon.Industry:
-                    return "fas fa-industry";
-                case TypeIcon.Info:
-                    return "fas fa-info";
-                case TypeIcon.Key:
-                    return "fas fa-key";
-                case TypeIcon.LayerGroup:
-                    return "fas fa-layer-group";
-                case TypeIcon.Lightbulb:
-                    return "fas fa-lightbulb";
-                case TypeIcon.Link:
-                    return "fas fa-link";
-                case TypeIcon.Map:
-                    return "fas fa-map";
-                case TypeIcon.MapMarker:
-                    return "fas fa-map-marker";
-                case TypeIcon.Microchip:
-                    return "fas fa-microchip";
-                case TypeIcon.PaperPlane:
-                    return "fas fa-paper-plane";
-                case TypeIcon.PlayCircle:
-                    return "fas fa-play-circle";
-                case TypeIcon.Plus:
-                    return "fas fa-plus";
-                case TypeIcon.PowerOff:
-                    return "fas fa-power-off";
-                case TypeIcon.Print:
-                    return "fas fa-print";
-                case TypeIcon.Road:
-                    return "fas fa-road";
-                case TypeIcon.Save:
-                    return "fas fa-save";
-                case TypeIcon.ShoppingBag:
-                    return "fas fa-shopping-bag";
-                case TypeIcon.Star:
-                    return "fas fa-star";
-                case TypeIcon.Stopwatch:
-                    return "fas fa-stopwatch";
-                case TypeIcon.Sun:
-                    return "fas fa-sun";
-                case TypeIcon.TachometerAlt:
-                    return "fas fa-tachometer-alt";
-                case TypeIcon.Tag:
-                    return "fas fa-tag";
-                case TypeIcon.Tags:
-                    return "fas fa-tags";
-                case TypeIcon.ThermometerQuarter:
-                    return "fas fa-thermometer-quarter";
-                case TypeIcon.Times:
-                    return "fas fa-times";
-                case TypeIcon.Trash:
-                    return "fas fa-trash";
-                case TypeIcon.TrashAlt:
-                    return "fas fa-trash-alt";
-                case TypeIcon.Truck:
-                    return "fas fa-truck";
-                case TypeIcon.ThumbsUp:
-                    return "fas fa-thumbs-up";
-                case TypeIcon.Undo:
-                    return "fas fa-undo";
-                case TypeIcon.Upload:
-                    return "fas fa-download";
-                case TypeIcon.Users:
-                    return "fas fa-users";
-            }
-
-            return string.Empty;
+                TypeIcon.AlignCenter => "fas fa-align-center",
+                TypeIcon.AlignJustify => "fas fa-align-justify",
+                TypeIcon.AlignLeft => "fas fa-align-left",
+                TypeIcon.AlignRight => "fas fa-align-right",
+                TypeIcon.At => "fas fa-at",
+                TypeIcon.Bars => "fas fa-bars",
+                TypeIcon.Bold => "fas fa-bold",
+                TypeIcon.Bolt => "fas fa-bolt",
+                TypeIcon.Bomb => "fas fa-bomb",
+                TypeIcon.Book => "fas fa-book",
+                TypeIcon.Bug => "fas fa-bug",
+                TypeIcon.Building => "fas fa-building",
+                TypeIcon.Calendar => "fas fa-calendar",
+                TypeIcon.CalendarMinus => "fas fa-calendar-minus",
+                TypeIcon.CalendarPlus => "fas fa-calendar-plus",
+                TypeIcon.Car => "fas fa-car",
+                TypeIcon.ChartBar => "fas fa-chart-bar",
+                TypeIcon.City => "fas fa-city",
+                TypeIcon.Clock => "fas fa-clock",
+                TypeIcon.Clone => "fas fa-clone",
+                TypeIcon.Code => "fas fa-code",
+                TypeIcon.Cog => "fas fa-cog",
+                TypeIcon.Copy => "fas fa-copy",
+                TypeIcon.Comment => "fas fa-comment",
+                TypeIcon.CommentAlt => "fas fa-comment-alt",
+                TypeIcon.Cubes => "fas fa-cubes",
+                TypeIcon.Door => "fas fa-door-closed",
+                TypeIcon.DoorOpen => "fas fa-door-open",
+                TypeIcon.Download => "fas fa-upload",
+                TypeIcon.Edit => "fas fa-edit",
+                TypeIcon.EuroSign => "fas fa-euro-sign",
+                TypeIcon.ExclamationTriangle => "fas fa-exclamation-triangle",
+                TypeIcon.Fire => "fas fa-fire",
+                TypeIcon.Folder => "fas fa-folder",
+                TypeIcon.FolderOpen => "fas fa-folder-open",
+                TypeIcon.Font => "fas fa-font",
+                TypeIcon.Forward => "fas fa-forward",
+                TypeIcon.GraduationCap => "fas fa-graduation-cap",
+                TypeIcon.Hashtag => "fas fa-hashtag",
+                TypeIcon.Hdd => "fas fa-hdd",
+                TypeIcon.Home => "fas fa-home",
+                TypeIcon.InfoCircle => "fas fa-info-circle",
+                TypeIcon.Image => "fas fa-image",
+                TypeIcon.Industry => "fas fa-industry",
+                TypeIcon.Info => "fas fa-info",
+                TypeIcon.Key => "fas fa-key",
+                TypeIcon.LayerGroup => "fas fa-layer-group",
+                TypeIcon.Lightbulb => "fas fa-lightbulb",
+                TypeIcon.Link => "fas fa-link",
+                TypeIcon.Map => "fas fa-map",
+                TypeIcon.MapMarker => "fas fa-map-marker",
+                TypeIcon.Microchip => "fas fa-microchip",
+                TypeIcon.PaperPlane => "fas fa-paper-plane",
+                TypeIcon.PlayCircle => "fas fa-play-circle",
+                TypeIcon.Plus => "fas fa-plus",
+                TypeIcon.PowerOff => "fas fa-power-off",
+                TypeIcon.Print => "fas fa-print",
+                TypeIcon.Road => "fas fa-road",
+                TypeIcon.Save => "fas fa-save",
+                TypeIcon.ShoppingBag => "fas fa-shopping-bag",
+                TypeIcon.Star => "fas fa-star",
+                TypeIcon.StopCircle => "fas fa-stop-circle",
+                TypeIcon.Stopwatch => "fas fa-stopwatch",
+                TypeIcon.Sun => "fas fa-sun",
+                TypeIcon.TachometerAlt => "fas fa-tachometer-alt",
+                TypeIcon.Tag => "fas fa-tag",
+                TypeIcon.Tags => "fas fa-tags",
+                TypeIcon.ThermometerQuarter => "fas fa-thermometer-quarter",
+                TypeIcon.Times => "fas fa-times",
+                TypeIcon.Trash => "fas fa-trash",
+                TypeIcon.TrashAlt => "fas fa-trash-alt",
+                TypeIcon.Truck => "fas fa-truck",
+                TypeIcon.ThumbsUp => "fas fa-thumbs-up",
+                TypeIcon.Undo => "fas fa-undo",
+                TypeIcon.Upload => "fas fa-download",
+                TypeIcon.Users => "fas fa-users",
+                _ => string.Empty,
+            };
         }
     }
 }

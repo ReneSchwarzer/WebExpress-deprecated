@@ -58,7 +58,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Liefert oder setzt die Submit-Schaltfläche
         /// </summary>
-        public ControlFormularItemButton SubmitButton { get; } = new ControlFormularItemButton();
+        public ControlFormularItemButton SubmitButton { get; private set; }
 
         /// <summary>
         /// Liefert oder setzt den Gültigkeitsbereich der Formulardaten
@@ -87,6 +87,15 @@ namespace WebExpress.UI.WebControl
         public ControlFormularInline(string id = null)
             : base(id)
         {
+            SubmitButton = new ControlFormularItemButton("submit_" + ID?.ToLower())
+            {
+                Name = "submit_" + ID?.ToLower(),
+                Icon = new PropertyIcon(TypeIcon.Save),
+                Color = new PropertyColorButton(TypeColorButton.Success),
+                Type = "submit",
+                Value = "1",
+                Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None)
+            };
         }
 
         /// <summary>
@@ -95,7 +104,7 @@ namespace WebExpress.UI.WebControl
         /// <param name="id">Die ID</param>
         /// <param name="items">Die Steuerelemente, welche dem Formular zugeordnet werden</param>
         public ControlFormularInline(string id, params ControlFormularItem[] items)
-            : base(id)
+            : this(id)
         {
             (Items as List<ControlFormularItem>).AddRange(items);
 
@@ -121,25 +130,6 @@ namespace WebExpress.UI.WebControl
             Scope = ParameterScope.Local;
             Name = "Form";
 
-            SubmitButton.Name = "submit_" + ID?.ToLower();
-            SubmitButton.Icon = new PropertyIcon(TypeIcon.Save);
-            SubmitButton.Color = new PropertyColorButton(TypeColorButton.Success);
-            SubmitButton.Type = "submit";
-            SubmitButton.Value = "1";
-            SubmitButton.Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None);           
-        }
-
-        /// <summary>
-        /// Vorverarbeitung des Formulars
-        /// </summary>
-        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
-        public virtual void PreProcess(RenderContext context)
-        {
-            if (string.IsNullOrWhiteSpace(SubmitButton.Text))
-            {
-                SubmitButton.Text = context.I18N("webexpress", "form.submit.label");
-            }
-
             SubmitButton.Click += (s, e) =>
             {
                 Validate();
@@ -154,6 +144,18 @@ namespace WebExpress.UI.WebControl
                     }
                 }
             };
+        }
+
+        /// <summary>
+        /// Vorverarbeitung des Formulars
+        /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        public virtual void PreProcess(RenderContext context)
+        {
+            if (string.IsNullOrWhiteSpace(SubmitButton.Text))
+            {
+                SubmitButton.Text = context.I18N("webexpress", "form.submit.label");
+            }
         }
 
         /// <summary>
@@ -201,9 +203,7 @@ namespace WebExpress.UI.WebControl
 
             foreach (var item in Items)
             {
-                var input = item as ControlFormularItemInput;
-
-                if (input != null)
+                if (item is ControlFormularItemInput input)
                 {
                     var icon = new ControlIcon() { Icon = input?.Icon };
                     var label = new ControlFormularItemLabel(!string.IsNullOrEmpty(item.ID) ? item.ID + "_label" : string.Empty);
@@ -329,7 +329,7 @@ namespace WebExpress.UI.WebControl
 
             validationResults.AddRange(args.Results);
 
-            if (args.Results.Where(x => x.Type == TypesInputValidity.Error).Count() > 0)
+            if (args.Results.Where(x => x.Type == TypesInputValidity.Error).Any())
             {
                 valid = false;
             }

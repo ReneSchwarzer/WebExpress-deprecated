@@ -51,14 +51,6 @@ namespace WebExpress.UI.WebControl
         public ControlAlert(string id = null)
             : base(id)
         {
-            Init();
-        }
-
-        /// <summary>
-        /// Initialisierung
-        /// </summary>
-        private void Init()
-        {
         }
 
         /// <summary>

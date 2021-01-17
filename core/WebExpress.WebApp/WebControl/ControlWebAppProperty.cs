@@ -56,12 +56,11 @@ namespace WebExpress.WebApp.WebControl
                 return null;
             }
 
-            var elements = new List<IHtmlNode>();
-            elements.AddRange(Preferences.Select(x => x.Render(context)));
-            elements.AddRange(Primary.Select(x => x.Render(context)));
-            elements.AddRange(Secondary.Select(x => x.Render(context)));
+            var preferences = new HtmlElementTextContentDiv(Preferences.Select(x => x.Render(context)));
+            var primary = new HtmlElementTextContentDiv(Primary.Select(x => x.Render(context)));
+            var secondary = new HtmlElementTextContentDiv(Secondary.Select(x => x.Render(context)));
 
-            return new HtmlElementTextContentDiv(elements)
+            return new HtmlElementTextContentDiv(preferences, primary, secondary)
             {
                 ID = ID,
                 Class = Css.Concatenate("proterty", GetClasses()),

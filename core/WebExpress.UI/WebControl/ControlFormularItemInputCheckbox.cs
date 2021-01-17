@@ -1,28 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
+using WebExpress.Internationalization;
 
 namespace WebExpress.UI.WebControl
 {
     public class ControlFormularItemInputCheckbox : ControlFormularItemInput
     {
-        ///// <summary>
-        ///// Liefert oder setzt den Wert der TextBox
-        ///// </summary>
-        //public new bool Value
-        //{ 
-        //get => GetParam(Name) == "t" ? true : false;
-        //set
-        //{
-        //    var v = GetParam(Name);
-
-        //    if (string.IsNullOrWhiteSpace(v))
-        //    {
-        //        AddParam(Name, value ? "t" : "f", Formular.Scope);
-        //    }
-        //}
-        //}
-
         /// <summary>
         /// Liefert oder setzt ob die Checkbox in einer neuen Zeile angezeigt werden soll
         /// </summary>
@@ -45,6 +30,7 @@ namespace WebExpress.UI.WebControl
         public ControlFormularItemInputCheckbox(string id = null)
             : base(id)
         {
+            Value = "false";
         }
 
         /// <summary>
@@ -53,6 +39,10 @@ namespace WebExpress.UI.WebControl
         /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         public override void Initialize(RenderContextFormular context)
         {
+            if (context.Page.HasParam(Name))
+            {
+                Value = context.Page.GetParamValue(Name).Equals("on", StringComparison.OrdinalIgnoreCase) ? "true" : "false";
+            }
         }
 
         /// <summary>
@@ -62,21 +52,6 @@ namespace WebExpress.UI.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContextFormular context)
         {
-            var c = new List<string>
-            {
-                "checkbox"
-            };
-
-            if (Inline)
-            {
-                c.Add("form-check-inline");
-            }
-
-            if (Disabled)
-            {
-                c.Add("disabled");
-            }
-
             var html = new HtmlElementTextContentDiv
             (
                 new HtmlElementFieldLabel
@@ -87,18 +62,17 @@ namespace WebExpress.UI.WebControl
                         Pattern = Pattern,
                         Type = "checkbox",
                         Disabled = Disabled,
-                        Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                        Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                         //Role = Role,
-                        //Checked = Value
+                        Checked = Value.Equals("true") 
                     },
-                    new HtmlText(string.IsNullOrWhiteSpace(Description) ? string.Empty : "&nbsp;" + Description)
+                    new HtmlText(string.IsNullOrWhiteSpace(Description) ? string.Empty : "&nbsp;" + context.I18N(Description))
                 )
                 {
                 }
             )
             {
-                Class = string.Join(" ", c.Where(x => !string.IsNullOrWhiteSpace(x)))
+                Class = Css.Concatenate("checkbox", GetClasses()),
+                Style = GetStyles(),
             };
 
             return html;

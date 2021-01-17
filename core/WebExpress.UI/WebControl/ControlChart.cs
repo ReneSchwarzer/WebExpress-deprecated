@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using WebExpress.Html;
@@ -45,6 +46,16 @@ namespace WebExpress.UI.WebControl
         public new int Height { get; set; }
 
         /// <summary>
+        /// Liefert oder setzt das Minimum
+        /// </summary>
+        public float Minimum { get; set; } = float.MinValue;
+
+        /// <summary>
+        /// Liefert oder setzt das Maximum
+        /// </summary>
+        public float Maximum { get; set; } = float.MaxValue;
+
+        /// <summary>
         /// Liefert oder setzt die Daten
         /// </summary>
         public ICollection<ControlChartDataset> Data { get; set; } = new List<ControlChartDataset>();
@@ -89,7 +100,10 @@ namespace WebExpress.UI.WebControl
                 buf.Append($"backgroundColor:{ (v.BackgroundColor.Count <= 1 ? v.BackgroundColor.Select(x => $"'{ x }'").FirstOrDefault()?.ToString() : $"[ { string.Join(",", v.BackgroundColor.Select(x => $"'{ x }'"))} ]")},");
                 buf.Append($"borderColor:{ (v.BorderColor.Count <= 1 ? v.BorderColor.Select(x => $"'{ x }'").FirstOrDefault()?.ToString() : $"[ { string.Join(",", v.BorderColor.Select(x => $"'{ x }'"))} ]")},");
                 buf.Append($"data:[");
-                buf.Append(string.Join(",", v.Data));
+                if (v.Data != null)
+                {
+                    buf.Append(string.Join(",", v.Data.Select(x => x.ToString(CultureInfo.InvariantCulture))));
+                }
                 buf.Append($"],");
                 if (Type == TypeChart.Line)
                 {
@@ -103,12 +117,15 @@ namespace WebExpress.UI.WebControl
             builder.Append("},");
             builder.Append("options:{");
             builder.Append("responsive:true,");
-            builder.Append($"title:{{display:true,text:'{ Title }'}},");
+            builder.Append($"title:{{display:{ (string.IsNullOrWhiteSpace(Title) ? "false" : "true") },text:'{ Title }'}},");
             builder.Append("tooltips:{mode:'index',intersect:false},");
             builder.Append("hover:{mode:'nearest',intersect:true},");
             if (Type == TypeChart.Line || Type == TypeChart.Bar)
             {
-                builder.Append($"scales:{{xAxes:[{{display: true,scaleLabel:{{display:true,labelString:'{ TitleX }'}}}}],yAxes:[{{display:true,scaleLabel:{{display:true,labelString:'{ TitleY }'}}}}]}}");
+                builder.Append($"scales:{{");
+                builder.Append($"xAxes:[{{display: true,scaleLabel:{{display:true,labelString:'{ TitleX }'}}}}],");
+                builder.Append($"yAxes:[{{display:true,ticks:{{{ (Minimum != float.MinValue ? $"min:{ Minimum },suggestedMin:{ Minimum }," : "") }{ (Maximum != float.MaxValue ? $"max:{ Maximum },suggestedMax:{ Maximum }," : "") }}},scaleLabel:{{display:true,labelString:'{ TitleY }'}}}}]");
+                builder.Append($"}}");
             }
             builder.Append("}};");
 

@@ -41,14 +41,6 @@ namespace WebExpress.UI.WebControl
         public ControlAttribute(string id = null)
             : base(id)
         {
-            Init();
-        }
-
-        /// <summary>
-        /// Initialisierung
-        /// </summary>
-        private void Init()
-        {
         }
 
         /// <summary>
@@ -65,11 +57,13 @@ namespace WebExpress.UI.WebControl
 
             var name = new HtmlElementTextSemanticsSpan(new HtmlText(Name))
             {
+                ID = string.IsNullOrWhiteSpace(ID) ? string.Empty : $"{ID}_name", 
                 Class = NameColor?.ToClass()
             };
 
             var value = new HtmlElementTextSemanticsSpan(new HtmlText(Value))
             {
+                ID = string.IsNullOrWhiteSpace(ID) ? string.Empty : $"{ID}_value",
                 Class = NameColor?.ToClass()
             };
 

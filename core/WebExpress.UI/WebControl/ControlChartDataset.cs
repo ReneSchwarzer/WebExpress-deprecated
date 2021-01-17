@@ -17,7 +17,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Liefert oder setzt die Daten
         /// </summary>
-        public int[] Data { get; set; }
+        public float[] Data { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Hintergrundfarbe

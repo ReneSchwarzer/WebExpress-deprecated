@@ -17,7 +17,7 @@ namespace WebExpress.WebResource
         /// <summary>
         /// Liefert oder setzt das Stammverzeichnis
         /// </summary>
-        public string RootDirectory { get; private set; }
+        public string RootDirectory { get; protected set; }
 
         /// <summary>
         /// Konstruktor
@@ -36,7 +36,7 @@ namespace WebExpress.WebResource
         {
             lock (Gard)
             {
-                var url = ""; // request.URL[Context.ContextPath.ToString().Length..];
+                var url = request.URL[Context.ContextPath.ToString().Length..];
 
                 var path = System.IO.Path.GetFullPath(RootDirectory + url);
 
