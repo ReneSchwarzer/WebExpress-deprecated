@@ -17,6 +17,16 @@ namespace WebExpress.Test.Uri
             );
         }
 
-       
+        [Fact]
+        public void New_1()
+        {
+            var uri = new UriAbsolute("http://vila/assets/img/vila.svg");
+
+            Assert.True
+            (
+                uri.Scheme == UriScheme.Http,
+                "Fehler in der Funktion New_1 der UriRelative"
+            );
+        }
     }
 }
