@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace WebExpress.Uri
 {
@@ -8,6 +10,11 @@ namespace WebExpress.Uri
     /// </summary>
     public class UriAbsolute : UriRelative
     {
+        /// <summary>
+        /// Pattern der Uri
+        /// </summary>
+        private const string Pattern = "^([a-z0-9+.-]+):(?://(?:((?:[a-z0-9-._~!$&'()*+,;=:]|%[0-9A-F]{2})*)@)?((?:[a-z0-9-._~!$&'()*+,;=]|%[0-9A-F]{2})*)(?::(\\d*))?(.*)?)$";
+
         /// <summary>
         /// Der Typ
         /// </summary>
@@ -40,6 +47,36 @@ namespace WebExpress.Uri
         /// </summary>
         public UriAbsolute()
         {
+        }
+
+        /// <summary>
+        /// Konstruktor
+        /// </summary>
+        /// <param name="url">Die Url</param>
+        public UriAbsolute(string url)
+        {
+            var match = Regex.Match(url, Pattern);
+
+            try
+            {
+                Scheme = (UriScheme)Enum.Parse(typeof(UriScheme), match.Groups[1].Value, true);
+            }
+            catch
+            {
+
+            }
+
+            Authority = new UriAuthority() 
+            { 
+                User = match.Groups[2].Value,
+                Host = match.Groups[3].Value,
+                Port = Convert.ToInt32(match.Groups[4].Value)
+            };
+
+            var uri = new UriRelative(match.Groups[5].Value);
+            (Path as List<IUriPathSegment>).AddRange(uri.Path.Select(x => new UriPathSegment(x.Value, x.Tag) as IUriPathSegment));
+            (Query as List<UriQuerry>).AddRange(uri.Query.Select(x => new UriQuerry(x.Key, x.Value)));
+            Fragment = uri.Fragment;
         }
 
         /// <summary>

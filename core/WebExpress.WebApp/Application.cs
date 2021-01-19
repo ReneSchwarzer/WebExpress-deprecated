@@ -5,6 +5,7 @@ using WebExpress.UI.Components;
 namespace WebExpress.WebApp
 {
     [ID("Webexpress")]
+    [ContextPath("wx")]
     public sealed class Application : IApplication
     {
         /// <summary>
