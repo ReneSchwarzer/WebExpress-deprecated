@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Reflection;
 using WebExpress.Uri;
 
@@ -9,6 +10,11 @@ namespace WebExpress
     /// </summary>
     public class HttpServerContext : IHttpServerContext
     {
+        /// <summary>
+        /// Liefert die Uri
+        /// </summary>
+        public IUri Uri { get; protected set; }
+
         /// <summary>
         /// Liefert den Port
         /// </summary>
@@ -47,6 +53,7 @@ namespace WebExpress
         /// <summary>
         /// Konstruktor
         /// </summary>
+        /// <param name="uri">Die Uri des Servers</param>
         /// <param name="port">Der Port</param>
         /// <param name="assetBaseFolder">Daten-Basisverzeichnis</param>
         /// <param name="configBaseFolder">Konfigurationserzeichnis</param>
@@ -55,6 +62,7 @@ namespace WebExpress
         /// <param name="log">Log</param>
         public HttpServerContext
         (
+            IUri uri,
             int port,
             string assetBaseFolder,
             string configBaseFolder,
@@ -66,6 +74,7 @@ namespace WebExpress
             var assembly = typeof(HttpServer).Assembly;
             Version = assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
 
+            Uri = uri ?? new UriAbsolute(UriScheme.Http, new UriAuthority() { Host = Environment.MachineName, Port = port != 80 ? port : null }, null);
             Port = port;
             AssetPath = assetBaseFolder;
             ConfigPath = configBaseFolder;

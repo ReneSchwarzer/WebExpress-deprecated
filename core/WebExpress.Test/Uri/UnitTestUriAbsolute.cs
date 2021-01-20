@@ -28,5 +28,18 @@ namespace WebExpress.Test.Uri
                 "Fehler in der Funktion New_1 der UriRelative"
             );
         }
+
+        [Fact]
+        public void New_2()
+        {
+            var uri = new UriAbsolute("http://localhost");
+
+            Assert.True
+            (
+                uri.Scheme == UriScheme.Http &&
+                uri.Authority.Host == "localhost",
+                "Fehler in der Funktion New_2 der UriRelative"
+            );
+        }
     }
 }

@@ -9,6 +9,11 @@ namespace WebExpress
     public interface IHttpServerContext
     {
         /// <summary>
+        /// Liefert die Uri
+        /// </summary>
+        IUri Uri { get; }
+
+        /// <summary>
         /// Liefert den Port
         /// </summary>
         int Port { get; }

@@ -79,6 +79,7 @@ namespace WebExpress
         {
             Context = new HttpServerContext
             (
+                context.Uri,
                 port,
                 context.AssetPath,
                 context.ConfigPath,

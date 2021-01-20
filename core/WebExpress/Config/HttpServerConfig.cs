@@ -9,12 +9,27 @@ namespace WebExpress.Config
     [XmlRoot("config", IsNullable = false)]
     public sealed class HttpServerConfig
     {
+        /// <summary>
+        /// Die Konfiguarationsversion
+        /// </summary>
         [XmlAttribute("version", DataType = "int")]
         public int Version { get; set; }
 
+        /// <summary>
+        /// Die Uri des Webservers
+        /// </summary>
+        [XmlElement("uri")]
+        public string Uri { get; set; }
+
+        /// <summary>
+        /// Der Port des Webservers
+        /// </summary>
         [XmlElement("port", DataType = "int")]
         public int Port { get; set; }
 
+        /// <summary>
+        /// Das Verbindungslimit
+        /// </summary>
         [XmlElement("connectionlimit", DataType = "int")]
         public int ConnectionLimit { get; set; }
 

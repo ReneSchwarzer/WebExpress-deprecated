@@ -55,6 +55,8 @@ namespace WebExpress.Uri
         /// <param name="url">Die Url</param>
         public UriAbsolute(string url)
         {
+            if (url == null) return;
+
             var match = Regex.Match(url, Pattern);
 
             try
@@ -85,13 +87,17 @@ namespace WebExpress.Uri
         /// <param name="scheme"></param>
         /// <param name="authority">Die Zuständigkeit (z.B. user@example.com:8080)</param>
         /// <param name="uri">Die Uri</param>
-        public UriAbsolute(UriScheme scheme, UriAuthority authority, UriRelative uri)
+        public UriAbsolute(UriScheme scheme, UriAuthority authority, IUri uri)
         {
             Scheme = scheme;
             Authority = authority;
-            (Path as List<IUriPathSegment>).AddRange(uri.Path.Select(x => new UriPathSegment(x.Value, x.Tag) as IUriPathSegment));
-            (Query as List<UriQuerry>).AddRange(uri.Query.Select(x => new UriQuerry(x.Key, x.Value)));
-            Fragment = uri.Fragment;
+
+            if (uri != null)
+            {
+                (Path as List<IUriPathSegment>).AddRange(uri.Path.Select(x => new UriPathSegment(x.Value, x.Tag) as IUriPathSegment));
+                (Query as List<UriQuerry>).AddRange(uri.Query.Select(x => new UriQuerry(x.Key, x.Value)));
+                Fragment = uri.Fragment;
+            }
         }
 
         /// <summary>
