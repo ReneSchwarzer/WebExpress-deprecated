@@ -66,6 +66,8 @@ namespace WebExpress.UI.WebControl
             {
                 TypeSizeUnit.Pixel => "px",
                 TypeSizeUnit.Percent => "%",
+                TypeSizeUnit.Em => "em",
+                TypeSizeUnit.Rem => "rem",
                 _ => string.Empty
             };
 
