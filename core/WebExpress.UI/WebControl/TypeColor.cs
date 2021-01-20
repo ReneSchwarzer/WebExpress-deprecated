@@ -29,33 +29,21 @@
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
         public static string ToClass(this TypeColor color)
         {
-            switch (color)
+            return color switch
             {
-                case TypeColor.Primary:
-                    return "primary";
-                case TypeColor.Secondary:
-                    return "secondary";
-                case TypeColor.Success:
-                    return "success";
-                case TypeColor.Info:
-                    return "info";
-                case TypeColor.Warning:
-                    return "warning";
-                case TypeColor.Danger:
-                    return "danger";
-                case TypeColor.Light:
-                    return "light";
-                case TypeColor.Dark:
-                    return "dark";
-                case TypeColor.White:
-                    return "white";
-                case TypeColor.Transparent:
-                    return "transparent";
-                case TypeColor.Mute:
-                    return "mute";
-            }
-
-            return string.Empty;
+                TypeColor.Primary => "primary",
+                TypeColor.Secondary => "secondary",
+                TypeColor.Success => "success",
+                TypeColor.Info => "info",
+                TypeColor.Warning => "warning",
+                TypeColor.Danger => "danger",
+                TypeColor.Light => "light",
+                TypeColor.Dark => "dark",
+                TypeColor.White => "white",
+                TypeColor.Transparent => "transparent",
+                TypeColor.Mute => "mute",
+                _ => string.Empty,
+            };
         }
     }
 }

@@ -75,27 +75,19 @@
         /// </summary>
         /// <param name="size"></param>
         /// <returns>Die Stringrepräsentation</returns>
-        protected string ConvertSize(Space size)
+        protected static string ConvertSize(Space size)
         {
-            switch (size)
+            return size switch
             {
-                case Space.Null:
-                    return "0";
-                case Space.One:
-                    return "1";
-                case Space.Two:
-                    return "2";
-                case Space.Three:
-                    return "3";
-                case Space.Four:
-                    return "4";
-                case Space.Five:
-                    return "5";
-                case Space.Auto:
-                    return "auto";
-            }
-
-            return string.Empty;
+                Space.Null => "0",
+                Space.One => "1",
+                Space.Two => "2",
+                Space.Three => "3",
+                Space.Four => "4",
+                Space.Five => "5",
+                Space.Auto => "auto",
+                _ => string.Empty,
+            };
         }
 
         /// <summary>

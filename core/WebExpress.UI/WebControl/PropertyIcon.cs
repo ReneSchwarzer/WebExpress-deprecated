@@ -15,6 +15,11 @@ namespace WebExpress.UI.WebControl
         public IUri UserIcon { get; protected set; }
 
         /// <summary>
+        /// Die Größe des Icons (nur bei Benutzerdefinierten Icons)
+        /// </summary>
+        public PropertySizeIcon Size { get; protected set; }
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="icon">Das System-Icon</param>
@@ -27,10 +32,11 @@ namespace WebExpress.UI.WebControl
         /// Konstruktor
         /// </summary>
         /// <param name="icon">Das benutzerdefinierte Icon</param>
-        public PropertyIcon(IUri icon)
+        public PropertyIcon(IUri icon, PropertySizeIcon size = null)
         {
             SystemIcon = TypeIcon.None;
             UserIcon = icon;
+            Size = size;
         }
 
         /// <summary>
@@ -53,6 +59,11 @@ namespace WebExpress.UI.WebControl
         /// <returns>Das zum Icon gehörende CSS-Style</returns>
         public virtual string ToStyle()
         {
+            if (SystemIcon == TypeIcon.None)
+            {
+                return Size?.ToStyle();
+            }
+
             return null;
         }
 

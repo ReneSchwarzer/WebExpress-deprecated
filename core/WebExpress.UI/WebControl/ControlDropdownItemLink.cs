@@ -11,16 +11,8 @@ namespace WebExpress.UI.WebControl
         public ControlDropdownItemLink(string id = null)
             : base(id)
         {
-            Init();
         }
-
-        /// <summary>
-        /// Initialisierung
-        /// </summary>
-        private void Init()
-        {
-        }
-
+ 
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
