@@ -33,7 +33,7 @@ namespace WebExpress
         /// <param name="args">Aufrufsargumente</param>
         public int Execution(string[] args)
         {
-            var port = 80;
+            var port = -1;
 
             // Aufrufsargumente vorbereiten 
             ArgumentParser.Current.Register(new ArgumentParserCommand() { FullName = "help", ShortName = "h" });
@@ -116,7 +116,7 @@ namespace WebExpress
             var context = new HttpServerContext
             (
                 !string.IsNullOrWhiteSpace(config.Uri) ? new UriAbsolute(config.Uri) : null,
-                port,
+                port > 0 ? port : config.Port,
                 string.IsNullOrWhiteSpace(config.AssetBase) ? Environment.CurrentDirectory : config.AssetBase,
                 Path.GetDirectoryName(configFile),
                 new UriRelative(config.ContextPath),
@@ -124,7 +124,7 @@ namespace WebExpress
                 Log.Current
             );
 
-            HttpServer = new HttpServer(port, context)
+            HttpServer = new HttpServer(context.Port, context)
             {
                 Config = config
             };
@@ -144,7 +144,7 @@ namespace WebExpress
             HttpServer.Context.Log.Info(message: I18N("webexpress:app.configuration"), args: Path.GetFileName(configFile));
             HttpServer.Context.Log.Info(message: I18N("webexpress:app.logdirectory"), args: Path.GetDirectoryName(HttpServer.Context.Log.Filename));
             HttpServer.Context.Log.Info(message: I18N("webexpress:app.log"), args: Path.GetFileName(HttpServer.Context.Log.Filename));
-            HttpServer.Context.Log.Info(message: I18N("webexpress:app.port"), args: port);
+            HttpServer.Context.Log.Info(message: I18N("webexpress:app.port"), args: context.Port);
             HttpServer.Context.Log.Seperator('=');
 
             Console.CancelKeyPress += OnCancel;
