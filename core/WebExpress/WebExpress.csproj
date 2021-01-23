@@ -1,18 +1,29 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Version>1.4.0.0</Version>
-    <AssemblyVersion>1.4.0.0</AssemblyVersion>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Version>1.4.3.0</Version>
+    <AssemblyVersion>1.4.3.0</AssemblyVersion>
+    <TargetFramework>net5.0</TargetFramework>
     <ApplicationIcon>Rocket.ico</ApplicationIcon>
     <RuntimeIdentifiers>win10-x64;win-arm;linux-arm</RuntimeIdentifiers>
     <RepositoryUrl>https://github.com/ReneSchwarzer/WebExpress.git</RepositoryUrl>
     <Authors>Rene_Schwarzer@hotmail.de</Authors>
-    <PackageLicenseExpression>GNU General Public License v3.0</PackageLicenseExpression>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Company>Rene_Schwarzer@hotmail.de</Company>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Settings\" />
+    <None Remove="Internationalization\de" />
+    <None Remove="Internationalization\en" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Internationalization\de" />
+    <EmbeddedResource Include="Internationalization\en" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Setting\" />
   </ItemGroup>
 
 </Project>

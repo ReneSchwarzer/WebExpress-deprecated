@@ -1,0 +1,15 @@
+﻿# Deutsch
+resourceasset.load={0}: Datei '{1}' wurde geladen
+
+componentmanager.initialization=Der Komponentenmanager wurde initialisiert.
+componentmanager.register=Die Komponente '{0}' wurde in der Sektion '{1}' der Anwendung '{2}' registriert.
+componentmanager.error.section=Die Angabe der Sektion ist fehlerhaft.
+
+
+form.submit.label=Speichern
+form.next.label=Speichern und weiter
+form.cancel.label=Abbrechen
+form.moveselector.available=Verfügbare Optionen
+form.moveselector.selected=Ausgewählte Optionen
+
+modal.close.label=Schließen

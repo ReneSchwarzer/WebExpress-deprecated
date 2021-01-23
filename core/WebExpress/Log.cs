@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
-using WebExpress.Settings;
+using WebExpress.Setting;
 
 namespace WebExpress
 {
@@ -135,7 +135,7 @@ namespace WebExpress
         private static Log m_this = new Log();
         private string m_path;
         private Thread m_workerThread;
-        private const int m_seperatorWidth = 130;
+        private const int m_seperatorWidth = 260;
 
         /// <summary>
         /// Lebenszyklus des Workerthreads beenden
@@ -225,44 +225,16 @@ namespace WebExpress
         /// Fügt eine Nachricht dem Log hinzu.
         /// </summary>
         /// <param name="level">Das Level</param>
-        /// <param name="instance">Methode, die loggen möchte</param>
         /// <param name="message">Die Nachricht</param>
-        protected virtual void Add(Level level, string instance, string message)
+        /// <param name="instance">Methode, die loggen möchte</param>
+        /// <param name="line">Die Zeilennummer</param>
+        /// <param name="file">Die Quelldatei</param>
+        protected virtual void Add(Level level, string message, [CallerMemberName] string instance = null, [CallerLineNumber] int? line = null, [CallerFilePath] string file = null)
         {
-            foreach (var l in message.Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries))
+            foreach (var l in message?.Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries))
             {
                 var item = new LogItem(level, instance, l, TimePattern);
-                //Console.WriteLine(item.ToString().Length > m_seperatorWidth ? item.ToString().Substring(0, m_seperatorWidth - 3) + "..." : item.ToString());
-
-                lock (m_queue)
-                {
-                    m_queue.Enqueue(item);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Fügt eine Nachricht dem Log hinzu.
-        /// </summary>
-        /// <param name="level">Das Level</param>
-        /// <param name="instance">Methode, die loggen möchte</param>
-        /// <param name="message">Die Nachricht</param>
-        protected virtual void Add(Level level, MethodBase instance, string message)
-        {
-            LogItem item = null;
-
-            foreach (var l in message.Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries))
-            {
-#if DEBUG
-                item = new LogItem(level, (instance != null) ? (instance.DeclaringType.Name + "." + instance.Name) : "", l, TimePattern);
-#else
-                if (level == Level.Debug) return;
-                item = new LogItem(level, (instance != null) ? instance.DeclaringType.Name : "", l, TimePattern);
-#endif
-
-                //#if DEBUG
-                //Console.WriteLine(item.ToString().Length > m_seperatorWidth ? item.ToString().Substring(0, m_seperatorWidth - 3) + "..." : item.ToString());
-                //#endif
+                Console.WriteLine(item.ToString().Length > m_seperatorWidth ? item.ToString().Substring(0, m_seperatorWidth - 3) + "..." : item.ToString());
 
                 lock (m_queue)
                 {
@@ -285,37 +257,44 @@ namespace WebExpress
         /// <param name="sepChar">Die Nachricht</param>
         public void Seperator(char sepChar)
         {
-            Add(Level.Seperartor, (string)null, "".PadRight(m_seperatorWidth, sepChar));
+            Add(Level.Seperartor, "".PadRight(m_seperatorWidth, sepChar));
         }
 
         /// <summary>
         /// Logt eine Info-Nachricht
         /// </summary>
-        /// <param name="instance">Methode, die loggen möchte</param>
         /// <param name="message">Die Loggnachricht</param>
-        public void Info(MethodBase instance, string message)
+        /// <param name="instance">Methode, die loggen möchte</param>
+        /// <param name="line">Die Zeilennummer</param>
+        /// <param name="file">Die Quelldatei</param>
+        public void Info(string message, [CallerMemberName] string instance = null, [CallerLineNumber] int? line = null, [CallerFilePath] string file = null)
         {
-            Add(Level.Info, instance, message);
+            Add(Level.Info, message, instance, line, file);
         }
 
         /// <summary>
         /// Logt eine Info-Nachricht
         /// </summary>
-        /// <param name="instance">Methode, die loggen möchte</param>
         /// <param name="message">Die Loggnachricht</param>
-        public void Info(string instance, string message)
+        /// <param name="instance">Methode, die loggen möchte</param>
+        /// <param name="line">Die Zeilennummer</param>
+        /// <param name="file">Die Quelldatei</param>
+        /// <param name="args">Parameter für die Formatierung der Nachricht</param>
+        public void Info(string message, [CallerMemberName] string instance = null, [CallerLineNumber] int? line = null, [CallerFilePath] string file = null, params object[] args)
         {
-            Add(Level.Info, instance, message);
+            Add(Level.Info, string.Format(message, args), instance, line, file);
         }
 
         /// <summary>
         /// Logt eine Warnungs-Nachricht
         /// </summary>
-        /// <param name="instance">Methode, die loggen möchte</param>
         /// <param name="message">Die Nachricht</param>
-        public void Warning(MethodBase instance, string message)
+        /// <param name="instance">Methode, die loggen möchte</param>
+        /// <param name="line">Die Zeilennummer</param>
+        /// <param name="file">Die Quelldatei</param>
+        public void Warning(string message, [CallerMemberName] string instance = null, [CallerLineNumber] int? line = null, [CallerFilePath] string file = null)
         {
-            Add(Level.Warning, instance, message);
+            Add(Level.Warning, message, instance, line, file);
 
             WarningCount++;
         }
@@ -323,11 +302,14 @@ namespace WebExpress
         /// <summary>
         /// Logt eine Warnungs-Nachricht
         /// </summary>
+        /// <param name="message">Die Loggnachricht</param>
         /// <param name="instance">Methode, die loggen möchte</param>
-        /// <param name="message">Die Nachricht</param>
-        public void Warning(string instance, string message)
+        /// <param name="line">Die Zeilennummer</param>
+        /// <param name="file">Die Quelldatei</param>
+        /// <param name="args">Parameter für die Formatierung der Nachricht</param>
+        public void Warning(string message, [CallerMemberName] string instance = null, [CallerLineNumber] int? line = null, [CallerFilePath] string file = null, params object[] args)
         {
-            Add(Level.Warning, instance, message);
+            Add(Level.Warning, string.Format(message, args), instance, line, file);
 
             WarningCount++;
         }
@@ -335,11 +317,13 @@ namespace WebExpress
         /// <summary>
         /// Logt eine Fehler-Nachricht
         /// </summary>
-        /// <param name="instance">Methode, die loggen möchte</param>
         /// <param name="message">Die Nachricht</param>
-        public void Error(MethodBase instance, string message)
+        /// <param name="instance">Methode, die loggen möchte</param>
+        /// <param name="line">Die Zeilennummer</param>
+        /// <param name="file">Die Quelldatei</param>
+        public void Error(string message, [CallerMemberName] string instance = null, [CallerLineNumber] int? line = null, [CallerFilePath] string file = null)
         {
-            Add(Level.Error, instance, message);
+            Add(Level.Error, message, instance, line, file);
 
             ErrorCount++;
         }
@@ -347,24 +331,43 @@ namespace WebExpress
         /// <summary>
         /// Logt eine Fehler-Nachricht
         /// </summary>
+        /// <param name="message">Die Loggnachricht</param>
         /// <param name="instance">Methode, die loggen möchte</param>
-        /// <param name="message">Die Nachricht</param>
-        public void Error(string instance, string message)
+        /// <param name="line">Die Zeilennummer</param>
+        /// <param name="file">Die Quelldatei</param>
+        /// <param name="args">Parameter für die Formatierung der Nachricht</param>
+        public void Error(string message, [CallerMemberName] string instance = null, [CallerLineNumber] int? line = null, [CallerFilePath] string file = null, params object[] args)
         {
-            Add(Level.Error, instance, message);
+            Add(Level.Error, string.Format(message, args), instance, line, file);
 
             ErrorCount++;
         }
 
+        /// <summary>
+        /// Logt eine Fehler-Nachricht
+        /// </summary>
+        /// <param name="message">Die Nachricht</param>
+        /// <param name="instance">Methode, die loggen möchte</param>
+        /// <param name="line">Die Zeilennummer</param>
+        /// <param name="file">Die Quelldatei</param>
+        public void FatalError(string message, [CallerMemberName] string instance = null, [CallerLineNumber] int? line = null, [CallerFilePath] string file = null)
+        {
+            Add(Level.FatalError, message, instance, line, file);
+
+            ErrorCount++;
+        }
 
         /// <summary>
         /// Logt eine Fehler-Nachricht
         /// </summary>
+        /// <param name="message">Die Loggnachricht</param>
         /// <param name="instance">Methode, die loggen möchte</param>
-        /// <param name="message">Die Nachricht</param>
-        public void FatalError(MethodBase instance, string message)
+        /// <param name="line">Die Zeilennummer</param>
+        /// <param name="file">Die Quelldatei</param>
+        /// <param name="args">Parameter für die Formatierung der Nachricht</param>
+        public void FatalError(string message, [CallerMemberName] string instance = null, [CallerLineNumber] int? line = null, [CallerFilePath] string file = null, params object[] args)
         {
-            Add(Level.FatalError, instance, message);
+            Add(Level.FatalError, string.Format(message, args), instance, line, file);
 
             ErrorCount++;
         }
@@ -372,15 +375,17 @@ namespace WebExpress
         /// <summary>
         /// Logt eine Exception-Nachricht
         /// </summary>
-        /// <param name="instance">Methode, die loggen möchte</param>
         /// <param name="ex">Ausnahmebeschreibung</param>
-        public void Exception(MethodBase instance, Exception ex)
+        /// <param name="instance">Methode, die loggen möchte</param>
+        /// <param name="line">Die Zeilennummer</param>
+        /// <param name="file">Die Quelldatei</param>
+        public void Exception(Exception ex, [CallerMemberName] string instance = null, [CallerLineNumber] int? line = null, [CallerFilePath] string file = null)
         {
             lock (m_queue)
             {
-                Add(Level.Exception, instance, ex.Message.Trim());
+                Add(Level.Exception, ex?.Message.Trim(), instance, line, file);
 #if DEBUG
-                Add(Level.Exception, instance, ex.StackTrace != null ? ex.StackTrace.Trim() : ex.Message.Trim());
+                Add(Level.Exception, ex?.StackTrace != null ? ex?.StackTrace.Trim() : ex?.Message.Trim(), instance, line, file);
 #endif
                 ExceptionCount++;
                 ErrorCount++;
@@ -388,39 +393,32 @@ namespace WebExpress
         }
 
         /// <summary>
-        /// Logt eine Exception-Nachricht
+        /// Logt eine Debug-Nachricht
         /// </summary>
+        /// <param name="message">Die Nachricht</param>
         /// <param name="instance">Methode, die loggen möchte</param>
-        /// <param name="ex">Ausnahmebeschreibung</param>
-        public void Exception(string instance, string ex)
+        /// <param name="line">Die Zeilennummer</param>
+        /// <param name="file">Die Quelldatei</param>
+        public void Debug(string message, [CallerMemberName] string instance = null, [CallerLineNumber] int? line = null, [CallerFilePath] string file = null)
         {
-            lock (m_queue)
-            {
-                Add(Level.Exception, instance, ex);
-
-                ExceptionCount++;
-                ErrorCount++;
-            }
+#if DEBUG
+            Add(Level.Debug, message, instance, line, file);
+#endif
         }
 
         /// <summary>
         /// Logt eine Debug-Nachricht
         /// </summary>
+        /// <param name="message">Die Loggnachricht</param>
         /// <param name="instance">Methode, die loggen möchte</param>
-        /// <param name="message">Die Nachricht</param>
-        public void Debug(MethodBase instance, string message)
+        /// <param name="line">Die Zeilennummer</param>
+        /// <param name="file">Die Quelldatei</param>
+        /// <param name="args">Parameter für die Formatierung der Nachricht</param>
+        public void Debug(string message, [CallerMemberName] string instance = null, [CallerLineNumber] int? line = null, [CallerFilePath] string file = null, params object[] args)
         {
-            Add(Level.Debug, instance, message);
-        }
-
-        /// <summary>
-        /// Logt eine Debug-Nachricht
-        /// </summary>
-        /// <param name="instance">Methode, die loggen möchte</param>
-        /// <param name="message">Die Nachricht</param>
-        public void Debug(string instance, string message)
-        {
-            Add(Level.Debug, instance, message);
+#if DEBUG
+            Add(Level.Debug, string.Format(message, args), instance, line, file);
+#endif
         }
 
         /// <summary>
@@ -466,17 +464,12 @@ namespace WebExpress
             {
                 lock (m_path)
                 {
-                    using (var fs = new System.IO.FileStream(Filename, FileMode.Append))
+                    using var fs = new FileStream(Filename, FileMode.Append);
+                    using var w = new StreamWriter(fs, Encoding);
+                    foreach (var item in list)
                     {
-                        using (var w = new System.IO.StreamWriter(fs, Encoding))
-                        {
-                            foreach (var item in list)
-                            {
-                                var str = item.ToString();
-                                w.WriteLine(str);
-                            }
-
-                        }
+                        var str = item.ToString();
+                        w.WriteLine(str);
                     }
                 }
             }

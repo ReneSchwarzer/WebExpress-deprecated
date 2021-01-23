@@ -6,8 +6,8 @@
     public interface IHost
     {
         /// <summary>
-        /// Der Kontext
+        /// Liefert den Kontext
         /// </summary>
-        static HttpServerContext Context { get; }
+        public IHttpServerContext Context { get; }
     }
 }

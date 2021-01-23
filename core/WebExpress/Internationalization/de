@@ -1,0 +1,59 @@
+﻿# Deutsch
+
+app.startup=Programmstart
+app.version=Programmversion: {0}
+app.arguments=Argumente: {0}
+app.workingdirectory=Arbeitsverzeichnis: {0}
+app.configurationdirectory=Konfigurationsverzeichnis: {0}
+app.configuration=Konfiguration: {0}
+app.logdirectory=Logverzeichnis: {0}
+app.log=Log: {0}
+app.port=Port: {0}
+app.errors={0} Fehler
+app.warnings={0} Warnung(en)
+app.done=Programmende
+
+httpserver.run=Starte HttpServer auf Port {0}.
+httpserver.connected={0}: Client wurde verbunden.
+httpserver.rejected={0}: Client wurde abgelehnt.
+httpserver.request={0}: Anfrage '{1}'
+httpserver.request.unexpected={0}: Unerwartete Anfrage '{1}'
+httpserver.request.done={0}: Anfrage wurde in {1} ms bearbeitet. Status = {2}
+
+internationalizationmanager.initialization=Der Internationalisierungsmanager wurde initialisiert.
+internationalizationmanager.register=Das Plugin '{0}' wurde im Internationalizationmanager registriert.
+
+pluginmanager.initialization=Der Pluginmanager wurde initialisiert.
+pluginmanager.load={0}.dll wird geladen. Version = '{1}'
+pluginmanager.created=Das Plugin '{0}' wurde erstellt und im PluginManager registriert.
+pluginmanager.duplicate=Das Plugin '{0}' wurde bereits im PluginManager registriert.
+pluginmanager.notavailable=Das Plugin '{0}' ist im PluginManager nicht vorhanden.
+pluginmanager.plugin.initialization=Das Plugin '{0}' wurde initialisiert.
+pluginmanager.plugin.processing.start=Das Plugin '{0}' wird ausgeführt.
+pluginmanager.plugin.processing.end=Die Ausführung des Plugin '{0}' wurde beendet.
+
+applicationmanager.initialization=Der Anwendungsmanager wurde initialisiert.
+applicationmanager.register=Die Anwendung '{0}' wurde erstellt und im Anwendungsmanager registriert.
+applicationmanager.duplicate=Die Anwendung '{0}' wurde bereits im Anwendungsmanager registriert.
+
+modulemanager.initialization=Der Modulmanager wurde initialisiert.
+modulemanager.register=Das Modul '{0}' wurde der Anwendung '{1}' zugewiesen und im Modulmanager registriert.
+modulemanager.duplicat=Das Modul '{0}' wurde bereits in der Anwendung '{1}' registriert.
+modulemanager.applicationnotfound=Das Modul '{0}' konnte nicht der Anwendung '{1}' zugewiesen werden.
+modulemanager.applicationless=Das Modul '{0}' besitz keine Angaben zur Anwendung.
+
+resourcemanager.initialization=Der Ressourcenmanager wurde initialisiert.
+resourcemanager.register={0} Ressource(n) wurden dem Modul '{1}' zugewiesen.
+resourcemanager.modulenotfound=Das Modul '{1}' wurde nicht gefunden, welches in der Ressource '{0}' angegeben wurde.
+resourcemanager.moduleless=Die Ressource '{0}' besitz keine Angaben zum Modul.
+resourcemanager.addresource=Die Ressource '{0}' wurde in der Sitemap des Moduls '{1}' registriert.
+resourcemanager.addresource.error=Die Ressource '{0}' konnte nicht hinzugefügt werden.
+resourcemanager.sitemap=Inhalt der Sitemap für das Modul '{0}':
+
+responsemanager.initialization=Der Responsemanagermanager wurde initialisiert.
+responsemanager.register=Status {0} wurde in der Anwendung '{1}' registriert und der Ressource '{2}' zugewiesen.
+responsemanager.duplicat=Der Status {0} wurde bereits in der Anwendung '{1}' registriert. Die Ressource '{2}' wird daher nicht verwendet.
+responsemanager.statuscode=Ein Statuscode wurde der Ressource '{0}' für die Andendung '{1}' nicht zugewiesen.
+
+resource.variable.duplicate=Variable '{0}' bereits vorhanden!
+

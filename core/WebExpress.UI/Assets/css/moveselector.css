@@ -1,0 +1,35 @@
+.moveselector
+{
+	display: flex;
+	margin-bottom: 0.5em;
+}
+
+.moveselector-list
+{
+	margin: 0;
+	width: 40%;
+}
+
+.moveselector-list > p
+{
+	cursor: default;
+	padding-left: 0.5em;
+}
+
+.moveselector-list > ul
+{
+	height: 250px;
+	overflow-y: auto;
+	cursor: default;
+}
+
+.moveselector-list > ul > li
+{
+	cursor: pointer;
+}
+
+.moveselector-button
+{
+	display: block;
+	margin: auto;
+}

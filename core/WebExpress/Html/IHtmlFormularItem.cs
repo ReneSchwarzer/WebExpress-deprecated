@@ -1,6 +1,6 @@
 ﻿namespace WebExpress.Html
 {
-    public interface IHtmlFormularItem
+    public interface IHtmlFormularItem : IHtmlElementForm
     {
     }
 }

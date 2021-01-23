@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Reflection;
-
+using System.Runtime.CompilerServices;
 
 namespace WebExpress
 {
@@ -11,35 +10,42 @@ namespace WebExpress
     {
         public string Status { get; set; }
 
-        protected MethodBase Instance { get; set; }
+        protected string Instance { get; set; }
+        protected int Line { get; set; }
+        protected string File { get; set; }
 
         protected Log Log { get; set; }
 
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="instance">Methode, die loggen möchte</param>
+        /// <param name="log">Der Logeintrag</param>
         /// <param name="name">Der Name</param>
         /// <param name="additionalHeading">Die zusätzliche Überschrift oder null</param>
-        public LogFrame(Log log, MethodBase instance, string name, string additionalHeading = null)
+        /// <param name="instance">Methode, die loggen möchte</param>
+        /// <param name="line">Die Zeilennummer</param>
+        /// <param name="file">Die Quelldatei</param>
+        public LogFrame(Log log, string name, string additionalHeading = null, [CallerMemberName] string instance = null, [CallerLineNumber] int? line = null, [CallerFilePath] string file = null)
         {
             Instance = instance;
             Status = string.Format("{0} abgeschlossen. ", name);
 
             Log = log;
             Log.Seperator();
-            Log.Info(Instance, string.Format("Beginne mit {0}", name) + (!string.IsNullOrWhiteSpace(additionalHeading) ? " " + additionalHeading : ""));
-            Log.Info(Instance, "".PadRight(80, '-'));
+            Log.Info(string.Format("Beginne mit {0}", name) + (!string.IsNullOrWhiteSpace(additionalHeading) ? " " + additionalHeading : ""), instance, line, file);
+            Log.Info("".PadRight(80, '-'), instance, line, file);
         }
 
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="instance">Methode, die loggen möchte</param>
         /// <param name="name">Der Name</param>
         /// <param name="additionalHeading">Die zusätzliche Überschrift oder null</param>
-        public LogFrame(MethodBase instance, string name, string additionalHeading = null)
-            : this(Log.Current, instance, name, additionalHeading)
+        /// <param name="instance">Methode, die loggen möchte</param>
+        /// <param name="line">Die Zeilennummer</param>
+        /// <param name="file">Die Quelldatei</param>
+        public LogFrame(string name, string additionalHeading = null, [CallerMemberName] string instance = null, [CallerLineNumber] int? line = null, [CallerFilePath] string file = null)
+            : this(Log.Current, name, additionalHeading, instance, line, file)
         {
         }
 
@@ -50,8 +56,8 @@ namespace WebExpress
         /// <returns>Die Ausgabedaten</returns>
         public virtual void Dispose()
         {
-            Log.Info(Instance, "".PadRight(80, '='));
-            Log.Info(Instance, Status);
+            Log.Info("".PadRight(80, '='), Instance, Line, File);
+            Log.Info(Status, Instance, Line, File);
         }
     }
 }

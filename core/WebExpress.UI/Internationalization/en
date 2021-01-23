@@ -1,0 +1,15 @@
+﻿# Englisch
+resourceasset.load={0}: File '{1}' has been loaded
+
+componentmanager.initialization=The component manager has been initialized.
+componentmanager.register=The component '{0}' has been registered in the section '{1}' of the  application '{2}'.
+componentmanager.error.section=The section is incorrect.
+
+
+form.submit.label=Submit
+form.next.label=Next
+form.cancel.label=Cancel
+form.moveselector.available=Available options
+form.moveselector.selected=Selected options
+
+modal.close.label=Close
