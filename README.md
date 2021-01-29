@@ -11,5 +11,8 @@ https://popper.js.org/ (MIT)
 https://github.com/kurtobando/simple-tags (MIT)
 https://github.com/uxsolutions/bootstrap-datepicker (Apache 2.0)
 
+# Einrichtung 
+siehe https://github.com/ReneSchwarzer/WebExpress/blob/master/doc/Anwenderhandbuch.docx
+
 #Stichwörter
 #Raspberry #Raspbian #IoT #NETCore #WebExpress
