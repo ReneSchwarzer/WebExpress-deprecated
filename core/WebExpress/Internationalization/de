@@ -19,6 +19,7 @@ httpserver.rejected={0}: Client wurde abgelehnt.
 httpserver.request={0}: Anfrage '{1}'
 httpserver.request.unexpected={0}: Unerwartete Anfrage '{1}'
 httpserver.request.done={0}: Anfrage wurde in {1} ms bearbeitet. Status = {2}
+httpserver.connectionlimit=Das Limit für gleichzeitige Anfragen wurde überschritten.
 
 internationalizationmanager.initialization=Der Internationalisierungsmanager wurde initialisiert.
 internationalizationmanager.register=Das Plugin '{0}' wurde im Internationalizationmanager registriert.

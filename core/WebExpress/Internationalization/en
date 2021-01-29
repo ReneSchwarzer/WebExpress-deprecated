@@ -19,6 +19,7 @@ httpserver.rejected={0}: Client rejected.
 httpserver.request={0}: Request '{1}'
 httpserver.unexpected.request={0}: Unexpected request '{1}'
 httpserver.request.done={0}: Request has been processed in {1} ms. Status = {2}
+httpserver.connectionlimit=The limit for concurrent requests has been exceeded.
 
 internationalizationmanager.initialization=The internationalization manager has been initialized.
 internationalizationmanager.register=The plugin '{0}' is registered in the internationalization manager.

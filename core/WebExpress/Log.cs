@@ -195,7 +195,10 @@ namespace WebExpress
             };
 
             // Ausführung des Workerthreads beginnen
-            m_workerThread.Start();
+            if (LogModus != Modus.Off)
+            {
+                m_workerThread.Start();
+            }
         }
 
         /// <summary>
