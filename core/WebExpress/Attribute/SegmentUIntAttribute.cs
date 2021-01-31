@@ -43,8 +43,10 @@ namespace WebExpress.Attribute
 
             var callBackValiables = new Func<string, IDictionary<string, string>>(segment =>
             {
-                var dict = new Dictionary<string, string>();
-                dict.Add(VariableName, segment);
+                var dict = new Dictionary<string, string>
+                {
+                    { VariableName, segment }
+                };
 
                 return dict;
             });

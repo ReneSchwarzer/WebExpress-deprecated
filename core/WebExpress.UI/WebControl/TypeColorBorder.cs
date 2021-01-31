@@ -24,31 +24,20 @@
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
         public static string ToClass(this TypeColorBorder layout)
         {
-            switch (layout)
+            return layout switch
             {
-                case TypeColorBorder.Primary:
-                    return "border-primary";
-                case TypeColorBorder.Secondary:
-                    return "border-secondary";
-                case TypeColorBorder.Success:
-                    return "border-success";
-                case TypeColorBorder.Info:
-                    return "border-info";
-                case TypeColorBorder.Warning:
-                    return "border-warning";
-                case TypeColorBorder.Danger:
-                    return "border-danger";
-                case TypeColorBorder.Light:
-                    return "border-light";
-                case TypeColorBorder.Dark:
-                    return "border-dark";
-                case TypeColorBorder.White:
-                    return "border-white";
-                case TypeColorBorder.Transparent:
-                    return "border-transparent";
-            }
-
-            return string.Empty;
+                TypeColorBorder.Primary => "border-primary",
+                TypeColorBorder.Secondary => "border-secondary",
+                TypeColorBorder.Success => "border-success",
+                TypeColorBorder.Info => "border-info",
+                TypeColorBorder.Warning => "border-warning",
+                TypeColorBorder.Danger => "border-danger",
+                TypeColorBorder.Light => "border-light",
+                TypeColorBorder.Dark => "border-dark",
+                TypeColorBorder.White => "border-white",
+                TypeColorBorder.Transparent => "border-transparent",
+                _ => string.Empty,
+            };
         }
     }
 }

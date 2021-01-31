@@ -24,31 +24,20 @@
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
         public static string ToClass(this TypeColorBackgroundList layout)
         {
-            switch (layout)
+            return layout switch
             {
-                case TypeColorBackgroundList.Primary:
-                    return "list-group-item-primary";
-                case TypeColorBackgroundList.Secondary:
-                    return "list-group-item-secondary";
-                case TypeColorBackgroundList.Success:
-                    return "list-group-item-success";
-                case TypeColorBackgroundList.Info:
-                    return "list-group-item-info";
-                case TypeColorBackgroundList.Warning:
-                    return "list-group-item-warning";
-                case TypeColorBackgroundList.Danger:
-                    return "list-group-item-danger";
-                case TypeColorBackgroundList.Light:
-                    return "list-group-item-light";
-                case TypeColorBackgroundList.Dark:
-                    return "list-group-item-dark";
-                case TypeColorBackgroundList.White:
-                    return "bg-white";
-                case TypeColorBackgroundList.Transparent:
-                    return "bg-transparent";
-            }
-
-            return string.Empty;
+                TypeColorBackgroundList.Primary => "list-group-item-primary",
+                TypeColorBackgroundList.Secondary => "list-group-item-secondary",
+                TypeColorBackgroundList.Success => "list-group-item-success",
+                TypeColorBackgroundList.Info => "list-group-item-info",
+                TypeColorBackgroundList.Warning => "list-group-item-warning",
+                TypeColorBackgroundList.Danger => "list-group-item-danger",
+                TypeColorBackgroundList.Light => "list-group-item-light",
+                TypeColorBackgroundList.Dark => "list-group-item-dark",
+                TypeColorBackgroundList.White => "bg-white",
+                TypeColorBackgroundList.Transparent => "bg-transparent",
+                _ => string.Empty,
+            };
         }
     }
 }

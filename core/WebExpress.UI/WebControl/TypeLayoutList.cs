@@ -18,19 +18,14 @@
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
         public static string ToClass(this TypeLayoutList layout)
         {
-            switch (layout)
+            return layout switch
             {
-                case TypeLayoutList.Group:
-                    return "list-group";
-                case TypeLayoutList.Simple:
-                    return "list-unstyled";
-                case TypeLayoutList.Flush:
-                    return "list-group list-group-flush";
-                case TypeLayoutList.Horizontal:
-                    return "list-group list-group-horizontal";
-            }
-
-            return string.Empty;
+                TypeLayoutList.Group => "list-group",
+                TypeLayoutList.Simple => "list-unstyled",
+                TypeLayoutList.Flush => "list-group list-group-flush",
+                TypeLayoutList.Horizontal => "list-group list-group-horizontal",
+                _ => string.Empty,
+            };
         }
     }
 }

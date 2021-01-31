@@ -23,23 +23,16 @@
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
         public static string ToClass(this TypeVerticalAlignment color)
         {
-            switch (color)
+            return color switch
             {
-                case TypeVerticalAlignment.Baseline:
-                    return "align-baseline";
-                case TypeVerticalAlignment.Top:
-                    return "align-top";
-                case TypeVerticalAlignment.Middle:
-                    return "align-middle";
-                case TypeVerticalAlignment.Bottom:
-                    return "align-bottom";
-                case TypeVerticalAlignment.TextTop:
-                    return "align-text-top";
-                case TypeVerticalAlignment.TextBottom:
-                    return "align-text-bottom";
-            }
-
-            return string.Empty;
+                TypeVerticalAlignment.Baseline => "align-baseline",
+                TypeVerticalAlignment.Top => "align-top",
+                TypeVerticalAlignment.Middle => "align-middle",
+                TypeVerticalAlignment.Bottom => "align-bottom",
+                TypeVerticalAlignment.TextTop => "align-text-top",
+                TypeVerticalAlignment.TextBottom => "align-text-bottom",
+                _ => string.Empty,
+            };
         }
     }
 }

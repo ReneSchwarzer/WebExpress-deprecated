@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Version>1.4.3.0</Version>
-    <AssemblyVersion>1.4.3.0</AssemblyVersion>
+    <Version>1.4.4.0</Version>
+    <AssemblyVersion>1.4.4.0</AssemblyVersion>
     <TargetFramework>net5.0</TargetFramework>
     <RuntimeIdentifiers>win10-x64;win-arm;linux-arm</RuntimeIdentifiers>
     <RepositoryUrl>https://github.com/ReneSchwarzer/WebExpress.git</RepositoryUrl>
@@ -29,18 +29,7 @@
     <None Remove="Assets\css\solid.css" />
     <None Remove="Assets\css\summernote-bs4.css" />
     <None Remove="Assets\css\summernote-bs4.min.css" />
-    <None Remove="Assets\fonts\fa-brands-400.eot" />
-    <None Remove="Assets\fonts\fa-brands-400.svg" />
-    <None Remove="Assets\fonts\fa-brands-400.ttf" />
-    <None Remove="Assets\fonts\fa-brands-400.woff" />
-    <None Remove="Assets\fonts\fa-brands-400.woff2" />
-    <None Remove="Assets\fonts\fa-regular-400.eot" />
-    <None Remove="Assets\fonts\fa-regular-400.svg" />
-    <None Remove="Assets\fonts\fa-regular-400.ttf" />
-    <None Remove="Assets\fonts\fa-regular-400.woff" />
-    <None Remove="Assets\fonts\fa-regular-400.woff2" />
     <None Remove="Assets\fonts\fa-solid-900.eot" />
-    <None Remove="Assets\fonts\fa-solid-900.svg" />
     <None Remove="Assets\fonts\fa-solid-900.ttf" />
     <None Remove="Assets\fonts\fa-solid-900.woff" />
     <None Remove="Assets\fonts\fa-solid-900.woff2" />
@@ -57,7 +46,6 @@
     <None Remove="Assets\js\bootstrap-datepicker.js" />
     <None Remove="Assets\js\bootstrap-datepicker.min.js" />
     <None Remove="Assets\js\bootstrap.min.js" />
-    <None Remove="Assets\js\bootstrap.min.js.map" />
     <None Remove="Assets\js\Chart.min.js" />
     <None Remove="Assets\js\jquery-3.5.1.min.js" />
     <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker-en-CA.min.js" />
@@ -146,10 +134,8 @@
     <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.zh-TW.min.js" />
     <None Remove="Assets\js\moveselector.js" />
     <None Remove="Assets\js\popper.min.js" />
-    <None Remove="Assets\js\popper.min.js.map" />
     <None Remove="Assets\js\simpletags.js" />
     <None Remove="Assets\js\summernote-bs4.min.js" />
-    <None Remove="Assets\js\summernote-bs4.min.js.map" />
     <None Remove="Assets\js\summernote-de-DE.js" />
     <None Remove="Internationalization\de" />
     <None Remove="Internationalization\en" />
@@ -177,18 +163,7 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Assets\css\summernote-bs4.min.css" />
-    <EmbeddedResource Include="Assets\fonts\fa-brands-400.eot" />
-    <EmbeddedResource Include="Assets\fonts\fa-brands-400.svg" />
-    <EmbeddedResource Include="Assets\fonts\fa-brands-400.ttf" />
-    <EmbeddedResource Include="Assets\fonts\fa-brands-400.woff" />
-    <EmbeddedResource Include="Assets\fonts\fa-brands-400.woff2" />
-    <EmbeddedResource Include="Assets\fonts\fa-regular-400.eot" />
-    <EmbeddedResource Include="Assets\fonts\fa-regular-400.svg" />
-    <EmbeddedResource Include="Assets\fonts\fa-regular-400.ttf" />
-    <EmbeddedResource Include="Assets\fonts\fa-regular-400.woff" />
-    <EmbeddedResource Include="Assets\fonts\fa-regular-400.woff2" />
     <EmbeddedResource Include="Assets\fonts\fa-solid-900.eot" />
-    <EmbeddedResource Include="Assets\fonts\fa-solid-900.svg" />
     <EmbeddedResource Include="Assets\fonts\fa-solid-900.ttf" />
     <EmbeddedResource Include="Assets\fonts\fa-solid-900.woff" />
     <EmbeddedResource Include="Assets\fonts\fa-solid-900.woff2" />
@@ -212,7 +187,6 @@
     <EmbeddedResource Include="Assets\js\bootstrap.min.js">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Assets\js\bootstrap.min.js.map" />
     <EmbeddedResource Include="Assets\js\Chart.min.js" />
     <EmbeddedResource Include="Assets\js\jquery-3.5.1.min.js" />
     <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.en.min.js" />
@@ -299,9 +273,6 @@
     <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.vi.min.js" />
     <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.zh-CN.min.js" />
     <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.zh-TW.min.js" />
-    <EmbeddedResource Include="Assets\js\popper.min.js.map">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
     <EmbeddedResource Include="Assets\js\popper.min.js">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -310,7 +281,6 @@
     <EmbeddedResource Include="Assets\js\summernote-bs4.min.js">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Assets\js\summernote-bs4.min.js.map" />
     <EmbeddedResource Include="Assets\js\summernote-de-DE.js">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -320,6 +290,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WebExpress\WebExpress.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Assets\js\popper.min.js.map">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

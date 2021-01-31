@@ -19,15 +19,12 @@
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
         public static string ToClass(this TypePanelGridRow layout)
         {
-            switch (layout)
+            return layout switch
             {
-                case TypePanelGridRow.Auto:
-                    return "container";
-                case TypePanelGridRow.Fluid:
-                    return "container-fluid";
-            }
-
-            return string.Empty;
+                TypePanelGridRow.Auto => "container",
+                TypePanelGridRow.Fluid => "container-fluid",
+                _ => string.Empty,
+            };
         }
     }
 }

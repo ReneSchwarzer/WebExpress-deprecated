@@ -31,19 +31,14 @@
         /// <returns>Der zur Größe gehörende CSS-Style</returns>
         public static string ToStyle(this TypeSizeText size)
         {
-            switch (size)
+            return size switch
             {
-                case TypeSizeText.ExtraLarge:
-                    return "font-size:2rem;";
-                case TypeSizeText.Large:
-                    return "font-size:1.5rem;";
-                case TypeSizeText.Small:
-                    return "font-size:0.75rem;";
-                case TypeSizeText.ExtraSmall:
-                    return "font-size:0.55rem;";
-            }
-
-            return string.Empty;
+                TypeSizeText.ExtraLarge => "font-size:2rem;",
+                TypeSizeText.Large => "font-size:1.5rem;",
+                TypeSizeText.Small => "font-size:0.75rem;",
+                TypeSizeText.ExtraSmall => "font-size:0.55rem;",
+                _ => string.Empty,
+            };
         }
     }
 }

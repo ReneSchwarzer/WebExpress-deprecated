@@ -25,27 +25,18 @@
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
         public static string ToClass(this TypeColorLine color)
         {
-            switch (color)
+            return color switch
             {
-                case TypeColorLine.Primary:
-                    return "bg-primary";
-                case TypeColorLine.Secondary:
-                    return "bg-secondary";
-                case TypeColorLine.Success:
-                    return "bg-success";
-                case TypeColorLine.Info:
-                    return "bg-info";
-                case TypeColorLine.Warning:
-                    return "bg-warning";
-                case TypeColorLine.Danger:
-                    return "bg-danger";
-                case TypeColorLine.Light:
-                    return "bg-light";
-                case TypeColorLine.Dark:
-                    return "bg-dark";
-            }
-
-            return string.Empty;
+                TypeColorLine.Primary => "bg-primary",
+                TypeColorLine.Secondary => "bg-secondary",
+                TypeColorLine.Success => "bg-success",
+                TypeColorLine.Info => "bg-info",
+                TypeColorLine.Warning => "bg-warning",
+                TypeColorLine.Danger => "bg-danger",
+                TypeColorLine.Light => "bg-light",
+                TypeColorLine.Dark => "bg-dark",
+                _ => string.Empty,
+            };
         }
     }
 }

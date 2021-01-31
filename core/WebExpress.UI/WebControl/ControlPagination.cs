@@ -44,22 +44,6 @@ namespace WebExpress.UI.WebControl
             : base(id)
         {
             MaxDisplayCount = 5;
-
-            Init();
-        }
-
-        /// <summary>
-        /// Initialisierung
-        /// </summary>
-        private void Init()
-        {
-            //AddParam("count");
-            //AddParam("size", ParameterScope.Session);
-            //AddParam("offset", ParameterScope.Local);
-
-            ////Count = GetParam("count", 0);
-            //Size = GetParam("size", 50);
-            //Offset = GetParam("offset", 0);
         }
 
         /// <summary>

@@ -15,7 +15,7 @@ namespace WebExpress.Test.Markdown
             var markdown = "# Überschrift 1\nHallo Welt!";
 
             var md = new UI.Markdown.Markdown();
-            var result = md.Transform(markdown);
+            var result = UI.Markdown.Markdown.Transform(markdown);
 
             Assert.True
             (
@@ -30,7 +30,7 @@ namespace WebExpress.Test.Markdown
             var markdown = File.ReadAllText("test\\WebExpress.md");
 
             var md = new UI.Markdown.Markdown();
-            var result = md.Transform(markdown);
+            var result = UI.Markdown.Markdown.Transform(markdown);
 
             Assert.True
             (

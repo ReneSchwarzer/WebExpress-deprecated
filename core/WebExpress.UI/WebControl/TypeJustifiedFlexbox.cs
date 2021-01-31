@@ -19,21 +19,15 @@
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
         public static string ToClass(this TypeJustifiedFlexbox layout)
         {
-            switch (layout)
+            return layout switch
             {
-                case TypeJustifiedFlexbox.Start:
-                    return "justify-content-start";
-                case TypeJustifiedFlexbox.End:
-                    return "justify-content-end";
-                case TypeJustifiedFlexbox.Center:
-                    return "justify-content-center";
-                case TypeJustifiedFlexbox.Between:
-                    return "justify-content-between";
-                case TypeJustifiedFlexbox.Around:
-                    return "justify-content-around";
-            }
-
-            return string.Empty;
+                TypeJustifiedFlexbox.Start => "justify-content-start",
+                TypeJustifiedFlexbox.End => "justify-content-end",
+                TypeJustifiedFlexbox.Center => "justify-content-center",
+                TypeJustifiedFlexbox.Between => "justify-content-between",
+                TypeJustifiedFlexbox.Around => "justify-content-around",
+                _ => string.Empty,
+            };
         }
     }
 

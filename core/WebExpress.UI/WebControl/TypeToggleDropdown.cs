@@ -15,13 +15,11 @@
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
         public static string ToClass(this TypeToggleDropdown layout)
         {
-            switch (layout)
+            return layout switch
             {
-                case TypeToggleDropdown.Toggle:
-                    return "dropdown-toggle";
-            }
-
-            return string.Empty;
+                TypeToggleDropdown.Toggle => "dropdown-toggle",
+                _ => string.Empty,
+            };
         }
     }
 }

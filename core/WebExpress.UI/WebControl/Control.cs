@@ -147,16 +147,6 @@ namespace WebExpress.UI.WebControl
             BackgroundColor = new PropertyColorBackground(TypeColorBackground.Default);
             Padding = new PropertySpacingPadding(PropertySpacing.Space.None);
             Margin = new PropertySpacingMargin(PropertySpacing.Space.None);
-
-            Init();
-        }
-
-        /// <summary>
-        /// Initialisierung
-        /// </summary>
-        private void Init()
-        {
-
         }
 
         ///// <summary>

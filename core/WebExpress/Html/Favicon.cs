@@ -70,19 +70,14 @@ namespace WebExpress.Html
         /// <returns></returns>
         public string GetMediatyp()
         {
-            switch (Mediatype)
+            return Mediatype switch
             {
-                case TypeFavicon.ICON:
-                    return "image/x-icon";
-                case TypeFavicon.JPG:
-                    return "image/jpg";
-                case TypeFavicon.PNG:
-                    return "image/png";
-                case TypeFavicon.SVG:
-                    return "image/svg+xml";
-                default:
-                    return "";
-            }
+                TypeFavicon.ICON => "image/x-icon",
+                TypeFavicon.JPG => "image/jpg",
+                TypeFavicon.PNG => "image/png",
+                TypeFavicon.SVG => "image/svg+xml",
+                _ => "",
+            };
         }
     }
 }

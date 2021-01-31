@@ -44,7 +44,6 @@ namespace WebExpress.UI.WebControl
         public ControlText(string id = null)
             : base(id)
         {
-            Init();
         }
 
         /// <summary>
@@ -56,15 +55,6 @@ namespace WebExpress.UI.WebControl
             : base(id)
         {
             Text = value.ToString();
-
-            Init();
-        }
-
-        /// <summary>
-        /// Initialisierung
-        /// </summary>
-        private void Init()
-        {
         }
 
         /// <summary>
@@ -74,8 +64,8 @@ namespace WebExpress.UI.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var html = null as HtmlElement;
             var text = Text;
+            HtmlElement html;
 
             switch (Format)
             {
@@ -323,7 +313,7 @@ namespace WebExpress.UI.WebControl
                     };
                     break;
                 case TypeFormatText.Markdown:
-                    return new Markdown.Markdown().Transform(text);
+                    return Markdown.Markdown.Transform(text);
                 default:
                     html = new HtmlElementTextContentDiv(new HtmlText(Text))
                     {

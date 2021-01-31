@@ -16,13 +16,11 @@
         /// <returns>Der String</returns>
         public static string ToValue(this TypeOnChange value)
         {
-            switch (value)
+            return value switch
             {
-                case TypeOnChange.Submit:
-                    return "this.form.submit()";
-            }
-
-            return string.Empty;
+                TypeOnChange.Submit => "this.form.submit()",
+                _ => string.Empty,
+            };
         }
     }
 }

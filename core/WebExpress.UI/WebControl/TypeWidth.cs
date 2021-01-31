@@ -21,19 +21,14 @@
         /// <returns>Die zur Anordnung gehörende CSS-KLasse</returns>
         public static string ToClass(this TypeWidth width)
         {
-            switch (width)
+            return width switch
             {
-                case TypeWidth.TwentyFive:
-                    return "w-25";
-                case TypeWidth.Fifty:
-                    return "w-50";
-                case TypeWidth.SeventyFive:
-                    return "w-75";
-                case TypeWidth.OneHundred:
-                    return "w-100";
-            }
-
-            return string.Empty;
+                TypeWidth.TwentyFive => "w-25",
+                TypeWidth.Fifty => "w-50",
+                TypeWidth.SeventyFive => "w-75",
+                TypeWidth.OneHundred => "w-100",
+                _ => string.Empty,
+            };
         }
     }
 }

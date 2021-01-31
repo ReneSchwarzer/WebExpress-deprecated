@@ -89,19 +89,19 @@ namespace WebExpress.Uri
             if (uri == null) return;
 
             var fragment = uri.TrimEnd('/').Split('#');
-            if (fragment.Count() == 2)
+            if (fragment.Length == 2)
             {
                 Fragment = fragment[1];
             }
 
             var query = fragment[0].Split('?');
-            if (query.Count() == 2)
+            if (query.Length == 2)
             {
                 foreach (var q in query[1].Split('&'))
                 {
                     var item = q.Split('=');
 
-                    Query.Add(new UriQuerry(item[0], item.Count() > 1 ? item[1] : null));
+                    Query.Add(new UriQuerry(item[0], item.Length > 1 ? item[1] : null));
                 }
             }
 
@@ -213,7 +213,7 @@ namespace WebExpress.Uri
         /// <returns>true wenn erfolgreich, false sonst</returns>
         public virtual bool Contains(string segment)
         {
-            return Path.Where(x => x.Value.Equals(segment, StringComparison.OrdinalIgnoreCase)).Count() > 0;
+            return Path.Where(x => x.Value.Equals(segment, StringComparison.OrdinalIgnoreCase)).Any();
         }
 
         /// <summary>

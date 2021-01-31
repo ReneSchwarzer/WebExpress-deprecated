@@ -26,29 +26,19 @@
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
         public static string ToClass(this TypeColorProgress color)
         {
-            switch (color)
+            return color switch
             {
-                case TypeColorProgress.Primary:
-                    return "bg-primary";
-                case TypeColorProgress.Secondary:
-                    return "bg-secondary";
-                case TypeColorProgress.Success:
-                    return "bg-success";
-                case TypeColorProgress.Info:
-                    return "bg-info";
-                case TypeColorProgress.Warning:
-                    return "bg-warning";
-                case TypeColorProgress.Danger:
-                    return "bg-danger";
-                case TypeColorProgress.Light:
-                    return "bg-light";
-                case TypeColorProgress.Dark:
-                    return "bg-dark";
-                case TypeColorProgress.White:
-                    return "bg-white";
-            }
-
-            return string.Empty;
+                TypeColorProgress.Primary => "bg-primary",
+                TypeColorProgress.Secondary => "bg-secondary",
+                TypeColorProgress.Success => "bg-success",
+                TypeColorProgress.Info => "bg-info",
+                TypeColorProgress.Warning => "bg-warning",
+                TypeColorProgress.Danger => "bg-danger",
+                TypeColorProgress.Light => "bg-light",
+                TypeColorProgress.Dark => "bg-dark",
+                TypeColorProgress.White => "bg-white",
+                _ => string.Empty,
+            };
         }
     }
 }

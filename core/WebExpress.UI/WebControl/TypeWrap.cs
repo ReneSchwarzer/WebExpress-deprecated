@@ -17,17 +17,13 @@
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
         public static string ToClass(this TypeWrap layout)
         {
-            switch (layout)
+            return layout switch
             {
-                case TypeWrap.Nowrap:
-                    return "flex-nowrap";
-                case TypeWrap.Wrap:
-                    return "flex-wrap";
-                case TypeWrap.Reverse:
-                    return "flex-wrap-reverse";
-            }
-
-            return string.Empty;
+                TypeWrap.Nowrap => "flex-nowrap",
+                TypeWrap.Wrap => "flex-wrap",
+                TypeWrap.Reverse => "flex-wrap-reverse",
+                _ => string.Empty,
+            };
         }
     }
 

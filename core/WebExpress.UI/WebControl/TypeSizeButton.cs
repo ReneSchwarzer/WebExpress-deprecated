@@ -19,15 +19,12 @@
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
         public static string ToClass(this TypeSizeButton size)
         {
-            switch (size)
+            return size switch
             {
-                case TypeSizeButton.Large:
-                    return "btn-lg";
-                case TypeSizeButton.Small:
-                    return "btn-sm";
-            }
-
-            return string.Empty;
+                TypeSizeButton.Large => "btn-lg",
+                TypeSizeButton.Small => "btn-sm",
+                _ => string.Empty,
+            };
         }
     }
 }

@@ -21,19 +21,14 @@
         /// <returns>Die zur Anordnung gehörende CSS-KLasse</returns>
         public static string ToClass(this TypeDirection direction)
         {
-            switch (direction)
+            return direction switch
             {
-                case TypeDirection.Vertical:
-                    return "flex-column";
-                case TypeDirection.VerticalReverse:
-                    return "flex-column-reverse";
-                case TypeDirection.Horizontal:
-                    return "flex-row";
-                case TypeDirection.HorizontalReverse:
-                    return "flex-row-reverse";
-            }
-
-            return string.Empty;
+                TypeDirection.Vertical => "flex-column",
+                TypeDirection.VerticalReverse => "flex-column-reverse",
+                TypeDirection.Horizontal => "flex-row",
+                TypeDirection.HorizontalReverse => "flex-row-reverse",
+                _ => string.Empty,
+            };
         }
     }
 }

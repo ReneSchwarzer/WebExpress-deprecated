@@ -20,15 +20,12 @@
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
         public static string ToClass(this TypeHorizontalAlignmentTab alignment)
         {
-            switch (alignment)
+            return alignment switch
             {
-                case TypeHorizontalAlignmentTab.Center:
-                    return "justify-content-center";
-                case TypeHorizontalAlignmentTab.Right:
-                    return "justify-content-end";
-            }
-
-            return string.Empty;
+                TypeHorizontalAlignmentTab.Center => "justify-content-center",
+                TypeHorizontalAlignmentTab.Right => "justify-content-end",
+                _ => string.Empty,
+            };
         }
     }
 }

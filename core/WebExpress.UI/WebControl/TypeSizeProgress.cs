@@ -31,19 +31,14 @@
         /// <returns>Der zur Größe gehörende CSS-Style</returns>
         public static string ToStyle(this TypeSizeProgress size)
         {
-            switch (size)
+            return size switch
             {
-                case TypeSizeProgress.ExtraLarge:
-                    return "height:40px;";
-                case TypeSizeProgress.Large:
-                    return "height:27px;";
-                case TypeSizeProgress.Small:
-                    return "height:10px;";
-                case TypeSizeProgress.ExtraSmall:
-                    return "height:2px;";
-            }
-
-            return string.Empty;
+                TypeSizeProgress.ExtraLarge => "height:40px;",
+                TypeSizeProgress.Large => "height:27px;",
+                TypeSizeProgress.Small => "height:10px;",
+                TypeSizeProgress.ExtraSmall => "height:2px;",
+                _ => string.Empty,
+            };
         }
     }
 }

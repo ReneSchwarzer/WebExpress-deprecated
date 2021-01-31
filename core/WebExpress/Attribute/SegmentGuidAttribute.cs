@@ -77,8 +77,10 @@ namespace WebExpress.Attribute
 
                 if (match.Success)
                 {
-                    var dict = new Dictionary<string, string>();
-                    dict.Add(VariableName, match.Groups[2].ToString());
+                    var dict = new Dictionary<string, string>
+                    {
+                        { VariableName, match.Groups[2].ToString() }
+                    };
 
                     return dict;
                 }

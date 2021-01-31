@@ -16,13 +16,11 @@
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
         public static string ToClass(this TypeOrientationTab layout)
         {
-            switch (layout)
+            return layout switch
             {
-                case TypeOrientationTab.Vertical:
-                    return "flex-column";
-            }
-
-            return string.Empty;
+                TypeOrientationTab.Vertical => "flex-column",
+                _ => string.Empty,
+            };
         }
     }
 }

@@ -18,13 +18,11 @@
         /// <returns>Die zur Anordnung gehörende CSS-KLasse</returns>
         public static string ToClass(this TypeAlighmentDropdownMenu direction)
         {
-            switch (direction)
+            return direction switch
             {
-                case TypeAlighmentDropdownMenu.Right:
-                    return "dropdown-menu-right";
-            }
-
-            return string.Empty;
+                TypeAlighmentDropdownMenu.Right => "dropdown-menu-right",
+                _ => string.Empty,
+            };
         }
     }
 }

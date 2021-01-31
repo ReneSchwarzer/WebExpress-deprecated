@@ -70,10 +70,9 @@ namespace WebExpress.UI.WebControl
             
             foreach (var item in Items)
             {
-                var input = item as ControlFormularItemInput;
-                var row = new HtmlElementTextContentDiv() {};
+                var row = new HtmlElementTextContentDiv() { };
 
-                if (input != null)
+                if (item is ControlFormularItemInput input)
                 {
                     var icon = new ControlIcon() { Icon = input?.Icon };
                     var label = new ControlFormularItemLabel(!string.IsNullOrEmpty(item.ID) ? item.ID + "_label" : string.Empty);

@@ -15,13 +15,11 @@
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
         public static string ToClass(this TypeDismissibleAlert layout)
         {
-            switch (layout)
+            return layout switch
             {
-                case TypeDismissibleAlert.Dismissible:
-                    return "alert-dismissible";
-            }
-
-            return string.Empty;
+                TypeDismissibleAlert.Dismissible => "alert-dismissible",
+                _ => string.Empty,
+            };
         }
     }
 }

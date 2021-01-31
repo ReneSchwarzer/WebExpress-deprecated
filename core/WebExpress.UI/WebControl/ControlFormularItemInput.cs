@@ -63,15 +63,15 @@ namespace WebExpress.UI.WebControl
             {
                 var buf = ValidationResults;
 
-                if (buf.Where(x => x.Type == TypesInputValidity.Error).Count() > 0)
+                if (buf.Where(x => x.Type == TypesInputValidity.Error).Any())
                 {
                     return TypesInputValidity.Error;
                 }
-                else if (buf.Where(x => x.Type == TypesInputValidity.Warning).Count() > 0)
+                else if (buf.Where(x => x.Type == TypesInputValidity.Warning).Any())
                 {
                     return TypesInputValidity.Warning;
                 }
-                else if (buf.Where(x => x.Type == TypesInputValidity.Success).Count() > 0)
+                else if (buf.Where(x => x.Type == TypesInputValidity.Success).Any())
                 {
                     return TypesInputValidity.Success;
                 }

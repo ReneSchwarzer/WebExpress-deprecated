@@ -5,7 +5,7 @@ namespace WebExpress.Test.Uri
 {
     public class UnitTestUriRelativeTake
     {
-        private UriRelative Uri = new UriRelative("/a/b/c");
+        private readonly UriRelative Uri = new UriRelative("/a/b/c");
 
         [Fact]
         public void Take_0()

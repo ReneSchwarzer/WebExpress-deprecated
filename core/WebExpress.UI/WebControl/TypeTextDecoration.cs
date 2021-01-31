@@ -15,13 +15,11 @@
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
         public static string ToClass(this TypeTextDecoration layout)
         {
-            switch (layout)
+            return layout switch
             {
-                case TypeTextDecoration.None:
-                    return "text-decoration-none";
-            }
-
-            return string.Empty;
+                TypeTextDecoration.None => "text-decoration-none",
+                _ => string.Empty,
+            };
         }
     }
 }

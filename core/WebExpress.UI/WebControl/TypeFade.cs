@@ -17,17 +17,13 @@
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
         public static string ToClass(this TypeFade layout)
         {
-            switch (layout)
+            return layout switch
             {
-                case TypeFade.FadeIn:
-                    return "fade in";
-                case TypeFade.FadeOut:
-                    return "fade out";
-                case TypeFade.FadeShow:
-                    return "fade show";
-            }
-
-            return string.Empty;
+                TypeFade.FadeIn => "fade in",
+                TypeFade.FadeOut => "fade out",
+                TypeFade.FadeShow => "fade show",
+                _ => string.Empty,
+            };
         }
     }
 }

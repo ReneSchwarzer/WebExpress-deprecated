@@ -14,7 +14,7 @@ namespace WebExpress.UI.Markdown
         /// </summary>
         /// <param name="text">Der zu pardende Text</param>
         /// <returns>Die Html-Umwandlung</returns>
-        public IHtmlNode Transform(string text)
+        public static IHtmlNode Transform(string text)
         {
             var lines = SplitLines(text);
             var stack = new Stack<MarkdownMorpheme>();
@@ -38,7 +38,7 @@ namespace WebExpress.UI.Markdown
         /// </summary>
         /// <param name="text">Die zu prüfende Zeile</param>
         /// <returns>Die geprüfte und bestimmte Zeile</returns>
-        private MarkdownMorphemes ConvertLine(string text)
+        private static MarkdownMorphemes ConvertLine(string text)
         {
             if (string.IsNullOrWhiteSpace(text))
             {
@@ -70,7 +70,7 @@ namespace WebExpress.UI.Markdown
         /// </summary>
         /// <param name="token">Das Token</param>
         /// <returns>Das Fragment</returns>
-        private MarkdownFragment GetFragment(MarkdownToken token)
+        private static MarkdownFragment GetFragment(MarkdownToken token)
         {
             var state = MarkdownTokenState.None;
             var orign = token.Position;
@@ -1310,7 +1310,7 @@ namespace WebExpress.UI.Markdown
             return new MarkdownFragment()
             {
                 Type = morpheme,
-                Text = token.Text.Substring(orign, position - orign)
+                Text = token.Text[orign..position]
             };
         }
 
@@ -1319,14 +1319,12 @@ namespace WebExpress.UI.Markdown
         /// </summary>
         /// <param name="text">Der Eingabetext</param>
         /// <returns>Der in Zeilen aufgeteilte Eingabetext</returns>
-        private IEnumerable<string> SplitLines(string text)
+        private static IEnumerable<string> SplitLines(string text)
         {
-            using (var tr = new StringReader(text))
+            using var tr = new StringReader(text);
+            while (tr.ReadLine() is string line)
             {
-                while (tr.ReadLine() is string line)
-                {
-                    yield return line;
-                }
+                yield return line;
             }
         }
     }

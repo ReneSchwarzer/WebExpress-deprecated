@@ -19,21 +19,15 @@
         /// <returns>Der Klartext des Targets</returns>
         public static string ToStringValue(this TypeTarget target)
         {
-            switch (target)
+            return target switch
             {
-                case TypeTarget.Blank:
-                    return "_blank";
-                case TypeTarget.Self:
-                    return "_self";
-                case TypeTarget.Parent:
-                    return "_parent";
-                case TypeTarget.Top:
-                    return "_top";
-                case TypeTarget.Framename:
-                    return "_framename";
-            }
-
-            return string.Empty;
+                TypeTarget.Blank => "_blank",
+                TypeTarget.Self => "_self",
+                TypeTarget.Parent => "_parent",
+                TypeTarget.Top => "_top",
+                TypeTarget.Framename => "_framename",
+                _ => string.Empty,
+            };
         }
     }
 }

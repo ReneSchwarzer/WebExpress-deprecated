@@ -15,13 +15,11 @@
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
         public static string ToClass(this TypeJustifiedTab layout)
         {
-            switch (layout)
+            return layout switch
             {
-                case TypeJustifiedTab.Justified:
-                    return "nav-justified";
-            }
-
-            return string.Empty;
+                TypeJustifiedTab.Justified => "nav-justified",
+                _ => string.Empty,
+            };
         }
     }
 }

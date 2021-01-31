@@ -24,31 +24,20 @@
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
         public static string ToClass(this TypeColorBackgroundAlert layout)
         {
-            switch (layout)
+            return layout switch
             {
-                case TypeColorBackgroundAlert.Primary:
-                    return "bg-primary";
-                case TypeColorBackgroundAlert.Secondary:
-                    return "bg-secondary";
-                case TypeColorBackgroundAlert.Success:
-                    return "alert-success";
-                case TypeColorBackgroundAlert.Info:
-                    return "alert-info";
-                case TypeColorBackgroundAlert.Warning:
-                    return "alert-warning";
-                case TypeColorBackgroundAlert.Danger:
-                    return "alert-danger";
-                case TypeColorBackgroundAlert.Light:
-                    return "alert-light";
-                case TypeColorBackgroundAlert.Dark:
-                    return "alert-dark";
-                case TypeColorBackgroundAlert.White:
-                    return "bg-white";
-                case TypeColorBackgroundAlert.Transparent:
-                    return "bg-transparent";
-            }
-
-            return string.Empty;
+                TypeColorBackgroundAlert.Primary => "bg-primary",
+                TypeColorBackgroundAlert.Secondary => "bg-secondary",
+                TypeColorBackgroundAlert.Success => "alert-success",
+                TypeColorBackgroundAlert.Info => "alert-info",
+                TypeColorBackgroundAlert.Warning => "alert-warning",
+                TypeColorBackgroundAlert.Danger => "alert-danger",
+                TypeColorBackgroundAlert.Light => "alert-light",
+                TypeColorBackgroundAlert.Dark => "alert-dark",
+                TypeColorBackgroundAlert.White => "bg-white",
+                TypeColorBackgroundAlert.Transparent => "bg-transparent",
+                _ => string.Empty,
+            };
         }
     }
 }

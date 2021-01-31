@@ -36,7 +36,6 @@ namespace WebExpress.UI.WebControl
         public ControlPanel(string id = null)
             : base(id)
         {
-            Init();
         }
 
         /// <summary>
@@ -80,13 +79,6 @@ namespace WebExpress.UI.WebControl
             : base(id)
         {
             Content = content;
-        }
-
-        /// <summary>
-        /// Initialisierung
-        /// </summary>
-        private void Init()
-        {
         }
 
         /// <summary>

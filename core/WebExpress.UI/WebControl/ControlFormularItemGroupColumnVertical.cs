@@ -72,7 +72,6 @@ namespace WebExpress.UI.WebControl
 
             foreach (var item in Items)
             {
-                var input = item as ControlFormularItemInput;
                 var div = new HtmlElementTextContentDiv() { Style = "" };
                 var width = -1;
 
@@ -90,7 +89,7 @@ namespace WebExpress.UI.WebControl
                     div.Style = $"width: { width }%";
                 }
 
-                if (input != null)
+                if (item is ControlFormularItemInput input)
                 {
                     var icon = new ControlIcon() { Icon = input?.Icon };
                     var label = new ControlFormularItemLabel(!string.IsNullOrEmpty(item.ID) ? item.ID + "_label" : string.Empty);

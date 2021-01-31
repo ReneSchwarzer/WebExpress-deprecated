@@ -112,7 +112,7 @@ namespace WebExpress.UI.WebControl
         public ControlFormular(string id = null)
             : base(id)
         {
-            Name = id;
+            Name = !string.IsNullOrEmpty(id) ? id : "form";
 
             SubmitButton.Name = "submit_" + ID?.ToLower();
             SubmitButton.Icon = new PropertyIcon(TypeIcon.Save);
@@ -248,7 +248,7 @@ namespace WebExpress.UI.WebControl
                 Class = GetClasses(),
                 Style = GetStyles(),
                 Role = Role,
-                Name = Name.ToLower(),
+                Name = Name?.ToLower(),
                 Action = Uri?.ToString(),
                 Method = "post",
                 Enctype = TypeEnctype.None
@@ -288,19 +288,12 @@ namespace WebExpress.UI.WebControl
 
             var group = null as ControlFormularItemGroup;
 
-            switch (Layout)
+            group = Layout switch
             {
-                case TypeLayoutFormular.Horizontal:
-                    group = new ControlFormularItemGroupHorizontal();
-                    break;
-                case TypeLayoutFormular.Mix:
-                    group = new ControlFormularItemGroupMix();
-                    break;
-                default:
-                    group = new ControlFormularItemGroupVertical();
-                    break;
-            }
-
+                TypeLayoutFormular.Horizontal => new ControlFormularItemGroupHorizontal(),
+                TypeLayoutFormular.Mix => new ControlFormularItemGroupMix(),
+                _ => new ControlFormularItemGroupVertical(),
+            };
             foreach (var item in Items)
             {
                 group.Items.Add(item);
@@ -399,7 +392,7 @@ namespace WebExpress.UI.WebControl
 
             validationResults.AddRange(args.Results);
 
-            if (args.Results.Where(x => x.Type == TypesInputValidity.Error).Count() > 0)
+            if (args.Results.Where(x => x.Type == TypesInputValidity.Error).Any())
             {
                 valid = false;
             }

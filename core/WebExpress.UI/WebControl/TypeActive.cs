@@ -16,15 +16,12 @@
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
         public static string ToClass(this TypeActive layout)
         {
-            switch (layout)
+            return layout switch
             {
-                case TypeActive.Active:
-                    return "active";
-                case TypeActive.Disabled:
-                    return "disabled";
-            }
-
-            return string.Empty;
+                TypeActive.Active => "active",
+                TypeActive.Disabled => "disabled",
+                _ => string.Empty,
+            };
         }
     }
 }

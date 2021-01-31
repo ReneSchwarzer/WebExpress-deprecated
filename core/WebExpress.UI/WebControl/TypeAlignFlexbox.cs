@@ -19,21 +19,15 @@
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
         public static string ToClass(this TypeAlignFlexbox layout)
         {
-            switch (layout)
+            return layout switch
             {
-                case TypeAlignFlexbox.Start:
-                    return "align-items-start";
-                case TypeAlignFlexbox.End:
-                    return "align-items-end";
-                case TypeAlignFlexbox.Center:
-                    return "align-items-center";
-                case TypeAlignFlexbox.Baseline:
-                    return "align-items-baseline";
-                case TypeAlignFlexbox.Stretch:
-                    return "align-items-stretch";
-            }
-
-            return string.Empty;
+                TypeAlignFlexbox.Start => "align-items-start",
+                TypeAlignFlexbox.End => "align-items-end",
+                TypeAlignFlexbox.Center => "align-items-center",
+                TypeAlignFlexbox.Baseline => "align-items-baseline",
+                TypeAlignFlexbox.Stretch => "align-items-stretch",
+                _ => string.Empty,
+            };
         }
     }
 

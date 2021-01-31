@@ -18,13 +18,11 @@
         /// <returns>Die zum Block gehörende CSS-KLasse</returns>
         public static string ToClass(this TypeBlockButton block)
         {
-            switch (block)
+            return block switch
             {
-                case TypeBlockButton.Block:
-                    return "btn-block";
-            }
-
-            return string.Empty;
+                TypeBlockButton.Block => "btn-block",
+                _ => string.Empty,
+            };
         }
     }
 }

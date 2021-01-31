@@ -27,31 +27,20 @@
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
         public static string ToClass(this TypeColorBackground color)
         {
-            switch (color)
+            return color switch
             {
-                case TypeColorBackground.Primary:
-                    return "bg-primary";
-                case TypeColorBackground.Secondary:
-                    return "bg-secondary";
-                case TypeColorBackground.Success:
-                    return "bg-success";
-                case TypeColorBackground.Info:
-                    return "bg-info";
-                case TypeColorBackground.Warning:
-                    return "bg-warning";
-                case TypeColorBackground.Danger:
-                    return "bg-danger";
-                case TypeColorBackground.Light:
-                    return "bg-light";
-                case TypeColorBackground.Dark:
-                    return "bg-dark";
-                case TypeColorBackground.White:
-                    return "bg-white";
-                case TypeColorBackground.Transparent:
-                    return "bg-transparent";
-            }
-
-            return string.Empty;
+                TypeColorBackground.Primary => "bg-primary",
+                TypeColorBackground.Secondary => "bg-secondary",
+                TypeColorBackground.Success => "bg-success",
+                TypeColorBackground.Info => "bg-info",
+                TypeColorBackground.Warning => "bg-warning",
+                TypeColorBackground.Danger => "bg-danger",
+                TypeColorBackground.Light => "bg-light",
+                TypeColorBackground.Dark => "bg-dark",
+                TypeColorBackground.White => "bg-white",
+                TypeColorBackground.Transparent => "bg-transparent",
+                _ => string.Empty,
+            };
         }
     }
 }

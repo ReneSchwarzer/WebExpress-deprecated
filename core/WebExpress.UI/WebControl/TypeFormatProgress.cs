@@ -20,17 +20,13 @@
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
         public static string ToClass(this TypeFormatProgress layout)
         {
-            switch (layout)
+            return layout switch
             {
-                case TypeFormatProgress.Colored:
-                    return "progress-bar";
-                case TypeFormatProgress.Striped:
-                    return "progress-bar progress-bar-striped";
-                case TypeFormatProgress.Animated:
-                    return "progress-bar progress-bar-striped progress-bar-animated";
-            }
-
-            return string.Empty;
+                TypeFormatProgress.Colored => "progress-bar",
+                TypeFormatProgress.Striped => "progress-bar progress-bar-striped",
+                TypeFormatProgress.Animated => "progress-bar progress-bar-striped progress-bar-animated",
+                _ => string.Empty,
+            };
         }
     }
 }

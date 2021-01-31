@@ -15,13 +15,11 @@
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
         public static string ToClass(this TypePillBadge layout)
         {
-            switch (layout)
+            return layout switch
             {
-                case TypePillBadge.Pill:
-                    return "badge-pill";
-            }
-
-            return string.Empty;
+                TypePillBadge.Pill => "badge-pill",
+                _ => string.Empty,
+            };
         }
     }
 }

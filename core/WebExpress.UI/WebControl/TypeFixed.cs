@@ -16,15 +16,12 @@
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
         public static string ToClass(this TypeFixed layout)
         {
-            switch (layout)
+            return layout switch
             {
-                case TypeFixed.Top:
-                    return "fixed-top";
-                case TypeFixed.Bottom:
-                    return "fixed-bottom";
-            }
-
-            return string.Empty;
+                TypeFixed.Top => "fixed-top",
+                TypeFixed.Bottom => "fixed-bottom",
+                _ => string.Empty,
+            };
         }
     }
 }

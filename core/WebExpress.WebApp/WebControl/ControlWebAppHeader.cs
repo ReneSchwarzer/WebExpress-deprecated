@@ -138,13 +138,18 @@ namespace WebExpress.WebApp.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var hamburger = new List<IControlDropdownItem>();
-            hamburger.Add(new ControlDropdownItemHeader() { Text = Title });
+            var hamburger = new List<IControlDropdownItem>
+            {
+                new ControlDropdownItemHeader() { Text = Title }
+            };
+
             hamburger.AddRange(HamburgerPrimary);
+            
             if (HamburgerPrimary.Count > 0 && HamburgerSecondary.Count > 0)
             {
                 hamburger.Add(new ControlDropdownItemDivider());
             }
+
             hamburger.AddRange(HamburgerSecondary);
 
             var navigation = new List<IControlNavigationItem>(NavigationPreferences);
@@ -157,8 +162,10 @@ namespace WebExpress.WebApp.WebControl
             var firstQuickcreate = (quickcreateList.FirstOrDefault() as ControlLink);
             firstQuickcreate?.Render(context);
 
-            var helpList = new List<IControlDropdownItem>();
-            helpList.Add(new ControlDropdownItemHeader() { Text = context.I18N("webexpress.webapp", "header.help.label") });
+            var helpList = new List<IControlDropdownItem>
+            {
+                new ControlDropdownItemHeader() { Text = context.I18N("webexpress.webapp", "header.help.label") }
+            };
             helpList.AddRange(HelpPreferences);
             if (HelpPreferences.Count > 0 && HelpPrimary.Count > 0)
             {
@@ -171,8 +178,10 @@ namespace WebExpress.WebApp.WebControl
             }
             helpList.AddRange(HelpSecondary);
 
-            var settingsList = new List<IControlDropdownItem>();
-            settingsList.Add(new ControlDropdownItemHeader() { Text = context.I18N("webexpress.webapp", "header.setting.label") });
+            var settingsList = new List<IControlDropdownItem>
+            {
+                new ControlDropdownItemHeader() { Text = context.I18N("webexpress.webapp", "header.setting.label") }
+            };
             settingsList.AddRange(SettingsPrimary);
             if (SettingsPrimary.Count > 0 && SettingsSecondary.Count > 0)
             {

@@ -24,31 +24,20 @@
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
         public static string ToClass(this TypeColorNavbar layout)
         {
-            switch (layout)
+            return layout switch
             {
-                case TypeColorNavbar.Primary:
-                    return "navbar-primary";
-                case TypeColorNavbar.Secondary:
-                    return "navbar-secondary";
-                case TypeColorNavbar.Success:
-                    return "navbar-success";
-                case TypeColorNavbar.Info:
-                    return "navbar-info";
-                case TypeColorNavbar.Warning:
-                    return "navbar-warning";
-                case TypeColorNavbar.Danger:
-                    return "navbar-danger";
-                case TypeColorNavbar.Light:
-                    return "navbar-light";
-                case TypeColorNavbar.Dark:
-                    return "navbar-dark";
-                case TypeColorNavbar.White:
-                    return "navbar-white";
-                case TypeColorNavbar.Transparent:
-                    return "navbar-transparent";
-            }
-
-            return string.Empty;
+                TypeColorNavbar.Primary => "navbar-primary",
+                TypeColorNavbar.Secondary => "navbar-secondary",
+                TypeColorNavbar.Success => "navbar-success",
+                TypeColorNavbar.Info => "navbar-info",
+                TypeColorNavbar.Warning => "navbar-warning",
+                TypeColorNavbar.Danger => "navbar-danger",
+                TypeColorNavbar.Light => "navbar-light",
+                TypeColorNavbar.Dark => "navbar-dark",
+                TypeColorNavbar.White => "navbar-white",
+                TypeColorNavbar.Transparent => "navbar-transparent",
+                _ => string.Empty,
+            };
         }
     }
 }

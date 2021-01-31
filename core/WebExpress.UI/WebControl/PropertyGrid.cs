@@ -38,23 +38,16 @@
         /// <returns>Die zum Rahmen gehörende CSS-KLasse</returns>
         public string ToClass()
         {
-            switch (Device)
+            return Device switch
             {
-                case TypeDevice.Auto:
-                    return "col";
-                case TypeDevice.ExtraSmall:
-                    return "col-" + Columns;
-                case TypeDevice.Small:
-                    return "col-sm-" + Columns;
-                case TypeDevice.Medium:
-                    return "col-md-" + Columns;
-                case TypeDevice.Large:
-                    return "col-lg-" + Columns;
-                case TypeDevice.ExtraLarge:
-                    return "col-xl-" + Columns;
-            }
-
-            return null;
+                TypeDevice.Auto => "col",
+                TypeDevice.ExtraSmall => "col-" + Columns,
+                TypeDevice.Small => "col-sm-" + Columns,
+                TypeDevice.Medium => "col-md-" + Columns,
+                TypeDevice.Large => "col-lg-" + Columns,
+                TypeDevice.ExtraLarge => "col-xl-" + Columns,
+                _ => null,
+            };
         }
 
         /// <summary>

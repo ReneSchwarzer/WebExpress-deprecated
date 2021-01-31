@@ -19,15 +19,12 @@
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
         public static string ToClass(this TypePanelContainer layout)
         {
-            switch (layout)
+            return layout switch
             {
-                case TypePanelContainer.Default:
-                    return "container";
-                case TypePanelContainer.Fluid:
-                    return "container-fluid";
-            }
-
-            return string.Empty;
+                TypePanelContainer.Default => "container",
+                TypePanelContainer.Fluid => "container-fluid",
+                _ => string.Empty,
+            };
         }
     }
 }

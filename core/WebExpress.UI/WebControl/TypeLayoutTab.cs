@@ -20,15 +20,12 @@
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
         public static string ToClass(this TypeLayoutTab layout)
         {
-            switch (layout)
+            return layout switch
             {
-                case TypeLayoutTab.Tab:
-                    return "nav-tabs";
-                case TypeLayoutTab.Pill:
-                    return "nav-pills";
-            }
-
-            return string.Empty;
+                TypeLayoutTab.Tab => "nav-tabs",
+                TypeLayoutTab.Pill => "nav-pills",
+                _ => string.Empty,
+            };
         }
     }
 }

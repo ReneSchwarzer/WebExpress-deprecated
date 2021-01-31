@@ -16,15 +16,12 @@
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
         public static string ToClass(this TypeLayoutFlexbox layout)
         {
-            switch (layout)
+            return layout switch
             {
-                case TypeLayoutFlexbox.Default:
-                    return "d-flex";
-                case TypeLayoutFlexbox.Inline:
-                    return "d-inline-flex";
-            }
-
-            return string.Empty;
+                TypeLayoutFlexbox.Default => "d-flex",
+                TypeLayoutFlexbox.Inline => "d-inline-flex",
+                _ => string.Empty,
+            };
         }
     }
 }

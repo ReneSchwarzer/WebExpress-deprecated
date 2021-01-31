@@ -101,8 +101,10 @@ namespace WebExpress.UI.WebControl
                     "width: " + v.Value + "%;"
                 };
 
-                var c = new List<string>(barClass);
-                c.Add(v.BackgroundColor.ToClass());
+                var c = new List<string>(barClass)
+                {
+                    v.BackgroundColor.ToClass()
+                };
 
                 barClass.Add(v.Color.ToClass());
 

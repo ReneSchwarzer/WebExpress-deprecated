@@ -15,13 +15,11 @@
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
         public static string ToClass(this TypeSticky layout)
         {
-            switch (layout)
+            return layout switch
             {
-                case TypeSticky.Top:
-                    return "sticky-top";
-            }
-
-            return string.Empty;
+                TypeSticky.Top => "sticky-top",
+                _ => string.Empty,
+            };
         }
     }
 }

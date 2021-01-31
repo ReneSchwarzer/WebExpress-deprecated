@@ -87,9 +87,11 @@ namespace WebExpress.WebApp.WebControl
                 Height = TypeHeight.OneHundred
             };
 
-            var elements = new List<IHtmlNode>();
-            elements.Add(Toolbar.Render(context));
-            elements.Add(flexbox.Render(context));
+            var elements = new List<IHtmlNode>
+            {
+                Toolbar.Render(context),
+                flexbox.Render(context)
+            };
 
             return new HtmlElementTextContentDiv(elements)
             {

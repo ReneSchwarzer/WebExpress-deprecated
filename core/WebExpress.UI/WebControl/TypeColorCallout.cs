@@ -22,27 +22,18 @@
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
         public static string ToClass(this TypeColorCallout layout)
         {
-            switch (layout)
+            return layout switch
             {
-                case TypeColorCallout.Primary:
-                    return "callout-primary";
-                case TypeColorCallout.Secondary:
-                    return "callout-secondary";
-                case TypeColorCallout.Success:
-                    return "callout-success";
-                case TypeColorCallout.Info:
-                    return "callout-info";
-                case TypeColorCallout.Warning:
-                    return "callout-warning";
-                case TypeColorCallout.Danger:
-                    return "callout-danger";
-                case TypeColorCallout.Light:
-                    return "callout-light";
-                case TypeColorCallout.Dark:
-                    return "callout-dark";
-            }
-
-            return string.Empty;
+                TypeColorCallout.Primary => "callout-primary",
+                TypeColorCallout.Secondary => "callout-secondary",
+                TypeColorCallout.Success => "callout-success",
+                TypeColorCallout.Info => "callout-info",
+                TypeColorCallout.Warning => "callout-warning",
+                TypeColorCallout.Danger => "callout-danger",
+                TypeColorCallout.Light => "callout-light",
+                TypeColorCallout.Dark => "callout-dark",
+                _ => string.Empty,
+            };
         }
     }
 }

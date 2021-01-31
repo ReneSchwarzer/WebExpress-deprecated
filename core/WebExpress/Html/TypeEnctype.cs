@@ -36,17 +36,13 @@ namespace WebExpress.Html
         /// <returns>Die umgewandelte Kodierung</returns>
         public static TypeEnctype Convert(string enctype )
         {
-            switch(enctype?.ToLower())
+            return (enctype?.ToLower()) switch
             {
-                case "multipart/form-data":
-                    return TypeEnctype.None;
-                case "text/plain":
-                    return TypeEnctype.Text;
-                case "application/x-www-form-urlencoded":
-                    return TypeEnctype.UrLEncoded;
-            }
-
-            return TypeEnctype.Default;
+                "multipart/form-data" => TypeEnctype.None,
+                "text/plain" => TypeEnctype.Text,
+                "application/x-www-form-urlencoded" => TypeEnctype.UrLEncoded,
+                _ => TypeEnctype.Default,
+            };
         }
 
 
@@ -57,15 +53,12 @@ namespace WebExpress.Html
         /// <returns>Die umgewandelte Kodierung</returns>
         public static string Convert(this TypeEnctype enctype)
         {
-            switch (enctype)
+            return enctype switch
             {
-                case TypeEnctype.None:
-                    return "multipart/form-data";
-                case TypeEnctype.Text:
-                    return "text/plain";
-            }
-
-            return "application/x-www-form-urlencoded";
+                TypeEnctype.None => "multipart/form-data",
+                TypeEnctype.Text => "text/plain",
+                _ => "application/x-www-form-urlencoded",
+            };
         }
     }
 }

@@ -189,7 +189,7 @@ namespace WebExpress.WebResource
 
                 if (requestUri.StartsWith(contextPath))
                 {
-                    var uri = new UriRelative(requestUri.ToString().Substring(contextPath.ToString().Length));
+                    var uri = new UriRelative(requestUri.ToString()[contextPath.ToString().Length..]);
                     var result = root.Find(uri);
 
                     if (result != null)

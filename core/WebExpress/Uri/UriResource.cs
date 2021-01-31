@@ -87,7 +87,7 @@ namespace WebExpress.Uri
         internal UriResource(IModuleContext context, string url, SearchResult node, CultureInfo culture)
             : this(context.ContextPath, new UriRelative())
         {
-            var uri = new UriRelative(url.Substring(context.ContextPath.ToString().Length));
+            var uri = new UriRelative(url[context.ContextPath.ToString().Length..]);
             var uriPath = uri.Path as List<IUriPathSegment>;
             var nodePath = node.Path as List<SitemapNode>;
 

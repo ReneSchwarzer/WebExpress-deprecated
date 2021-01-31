@@ -24,31 +24,20 @@
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
         public static string ToClass(this TypeColorBackgroundBadge layout)
         {
-            switch (layout)
+            return layout switch
             {
-                case TypeColorBackgroundBadge.Primary:
-                    return "badge-primary";
-                case TypeColorBackgroundBadge.Secondary:
-                    return "bg-secondary";
-                case TypeColorBackgroundBadge.Success:
-                    return "badge-success";
-                case TypeColorBackgroundBadge.Info:
-                    return "badge-info";
-                case TypeColorBackgroundBadge.Warning:
-                    return "badge-warning";
-                case TypeColorBackgroundBadge.Danger:
-                    return "badge-danger";
-                case TypeColorBackgroundBadge.Light:
-                    return "badge-light";
-                case TypeColorBackgroundBadge.Dark:
-                    return "badge-dark";
-                case TypeColorBackgroundBadge.White:
-                    return "bg-white";
-                case TypeColorBackgroundBadge.Transparent:
-                    return "bg-transparent";
-            }
-
-            return string.Empty;
+                TypeColorBackgroundBadge.Primary => "badge-primary",
+                TypeColorBackgroundBadge.Secondary => "bg-secondary",
+                TypeColorBackgroundBadge.Success => "badge-success",
+                TypeColorBackgroundBadge.Info => "badge-info",
+                TypeColorBackgroundBadge.Warning => "badge-warning",
+                TypeColorBackgroundBadge.Danger => "badge-danger",
+                TypeColorBackgroundBadge.Light => "badge-light",
+                TypeColorBackgroundBadge.Dark => "badge-dark",
+                TypeColorBackgroundBadge.White => "bg-white",
+                TypeColorBackgroundBadge.Transparent => "bg-transparent",
+                _ => string.Empty,
+            };
         }
     }
 }

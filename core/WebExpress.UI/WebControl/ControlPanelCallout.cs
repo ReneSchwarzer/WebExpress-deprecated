@@ -26,7 +26,6 @@ namespace WebExpress.UI.WebControl
         public ControlPanelCallout(string id = null)
             : base(id)
         {
-            Init();
         }
 
         /// <summary>
@@ -48,13 +47,6 @@ namespace WebExpress.UI.WebControl
             : this(id)
         {
             Content.AddRange(content);
-        }
-
-        /// <summary>
-        /// Initialisierung
-        /// </summary>
-        private void Init()
-        {
         }
 
         /// <summary>

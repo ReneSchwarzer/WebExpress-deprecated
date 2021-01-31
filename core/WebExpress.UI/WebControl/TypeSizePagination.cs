@@ -19,15 +19,12 @@
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
         public static string ToClass(this TypeSizePagination size)
         {
-            switch (size)
+            return size switch
             {
-                case TypeSizePagination.Large:
-                    return "pagination-lg";
-                case TypeSizePagination.Small:
-                    return "pagination-sm";
-            }
-
-            return string.Empty;
+                TypeSizePagination.Large => "pagination-lg",
+                TypeSizePagination.Small => "pagination-sm",
+                _ => string.Empty,
+            };
         }
     }
 }

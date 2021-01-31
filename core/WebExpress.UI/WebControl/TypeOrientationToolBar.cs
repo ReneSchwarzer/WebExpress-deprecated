@@ -16,13 +16,11 @@
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
         public static string ToClass(this TypeOrientationToolBar layout)
         {
-            switch (layout)
+            return layout switch
             {
-                case TypeOrientationToolBar.Horizontal:
-                    return string.Empty;
-            }
-
-            return "navbar-expand-sm";
+                TypeOrientationToolBar.Horizontal => string.Empty,
+                _ => "navbar-expand-sm",
+            };
         }
     }
 }

@@ -19,15 +19,12 @@
         /// <returns>Die zum Layout gehörende CSS-KLasse</returns>
         public static string ToClass(this TypeHorizontalAlignment alignment)
         {
-            switch (alignment)
+            return alignment switch
             {
-                case TypeHorizontalAlignment.Left:
-                    return "float-left";
-                case TypeHorizontalAlignment.Right:
-                    return "float-right";
-            }
-
-            return string.Empty;
+                TypeHorizontalAlignment.Left => "float-left",
+                TypeHorizontalAlignment.Right => "float-right",
+                _ => string.Empty,
+            };
         }
     }
 }

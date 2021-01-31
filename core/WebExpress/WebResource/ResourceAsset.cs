@@ -137,7 +137,7 @@ namespace WebExpress.WebResource
         /// <param name="file">Die Datei</param>
         /// <param name="assembly">Das Assembly</param>
         /// <returns></returns>
-        private byte[] GetData(string file, Assembly assembly, IEnumerable<string> resources)
+        private static byte[] GetData(string file, Assembly assembly, IEnumerable<string> resources)
         {
             var item = resources.Where(x => x.Equals(file, System.StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
             if (item == null)
