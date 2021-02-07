@@ -135,6 +135,7 @@
     <None Remove="Assets\js\moveselector.js" />
     <None Remove="Assets\js\popper.min.js" />
     <None Remove="Assets\js\simpletags.js" />
+    <None Remove="Assets\js\split.min.js" />
     <None Remove="Assets\js\summernote-bs4.min.js" />
     <None Remove="Assets\js\summernote-de-DE.js" />
     <None Remove="Internationalization\de" />
@@ -278,6 +279,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Assets\js\moveselector.js" />
     <EmbeddedResource Include="Assets\js\simpletags.js" />
+    <EmbeddedResource Include="Assets\js\split.min.js" />
     <EmbeddedResource Include="Assets\js\summernote-bs4.min.js">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>

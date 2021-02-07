@@ -137,14 +137,17 @@ namespace WebExpress.WebApp.WebResource
         /// <returns>Die Seite als HTML-Baum</returns>
         public override IHtmlNode Render()
         {
-            var flexbox = new ControlPanelFlexbox
+            var split = new ControlPanelSplit
             (
-                Sidebar,
-                Content
+                "split",
+                new Control[] { Sidebar },
+                new Control[] { Content }
             )
             {
-                Layout = TypeLayoutFlexbox.Default,
-                Align = TypeAlignFlexbox.Stretch,
+                Orientation = TypeOrientationSplit.Horizontal,
+                SplitterColor = LayoutSchema.SplitterColor,
+                Panel1InitialSize = 20,
+                Panel1MinSize = 150,
                 Styles = new List<string>() { "min-height: 85%;" }
             };
 
@@ -152,7 +155,7 @@ namespace WebExpress.WebApp.WebResource
             base.Content.Add(Toast);
             base.Content.Add(Breadcrumb);
             base.Content.Add(SearchOptions);
-            base.Content.Add(flexbox);
+            base.Content.Add(Sidebar.HasContent ? split : Content);
             base.Content.Add(Footer);
 
             return base.Render();

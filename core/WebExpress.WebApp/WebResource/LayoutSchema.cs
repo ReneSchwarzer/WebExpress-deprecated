@@ -78,7 +78,12 @@ namespace WebExpress.WebApp.WebResource
         /// Farbe des Sidbar-Titels
         /// </summary>
         public static PropertyColorText SidebarNavigationLink => new PropertyColorText(TypeColorText.Dark);
-
+        
+        /// <summary>
+        /// Farbe des Splitters
+        /// </summary>
+        public static PropertyColorBackground SplitterColor => new PropertyColorBackground(TypeColorBackground.Light);
+        
         /// <summary>
         /// Hintergrundfarbe des Headline-Bereiches
         /// </summary>

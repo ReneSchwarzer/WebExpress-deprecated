@@ -49,7 +49,6 @@ namespace WebExpress.UI.WebControl
         public ControlPanelFlexbox(string id = null)
             : base(id)
         {
-            Init();
         }
 
         /// <summary>
@@ -60,7 +59,6 @@ namespace WebExpress.UI.WebControl
         public ControlPanelFlexbox(string id, params IControl[] content)
             : base(id, content)
         {
-            Init();
         }
 
         /// <summary>
@@ -70,7 +68,6 @@ namespace WebExpress.UI.WebControl
         public ControlPanelFlexbox(params IControl[] content)
             : base(null, content)
         {
-            Init();
         }
 
         /// <summary>
@@ -81,7 +78,6 @@ namespace WebExpress.UI.WebControl
         public ControlPanelFlexbox(string id, IEnumerable<IControl> content)
             : base(id, content)
         {
-            Init();
         }
 
         /// <summary>
@@ -90,14 +86,6 @@ namespace WebExpress.UI.WebControl
         /// <param name="items">Die Listeneinträge</param>
         public ControlPanelFlexbox(IEnumerable<IControl> content)
             : base(null, content)
-        {
-            Init();
-        }
-
-        /// <summary>
-        /// Initialisierung
-        /// </summary>
-        private void Init()
         {
         }
 

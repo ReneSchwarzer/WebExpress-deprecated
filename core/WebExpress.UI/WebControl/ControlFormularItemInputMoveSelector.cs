@@ -105,7 +105,6 @@ namespace WebExpress.UI.WebControl
             var rightAllButton = new ControlButton("") { Text = ">>", BackgroundColor = new PropertyColorButton(TypeColorButton.Primary), Block = TypeBlockButton.Block };
             var availableHeader = new ControlText("availableHeader") { Text = context.I18N("webexpress", "form.moveselector.available"), TextColor = new PropertyColorText(TypeColorText.Muted), Format = TypeFormatText.Paragraph };
             var availableList = new ControlList("availableOptions") { Layout = TypeLayoutList.Flush };
-            var sticky = new List<string>(new string[] { "position: sticky;" });
             
             html.Elements.Add(new HtmlElementTextContentDiv
             (
@@ -138,29 +137,7 @@ namespace WebExpress.UI.WebControl
         /// </summary>
         public override void Validate()
         {
-            //if (Disabled)
-            //{
-            //    return;
-            //}
-
-            //if (Required && string.IsNullOrWhiteSpace(base.Value))
-            //{
-            //    ValidationResults.Add(new ValidationResult() { Type = TypesInputValidity.Error, Text = "Das Textfeld darf nicht leer sein!" });
-
-            //    return;
-            //}
-
-            //if (!string.IsNullOrWhiteSpace(MinLength?.ToString()) && Convert.ToInt32(MinLength) > base.Value.Length)
-            //{
-            //    ValidationResults.Add(new ValidationResult() { Type = TypesInputValidity.Error, Text = "Der Text entsprcht nicht der minimalen Länge von " + MinLength + "!" });
-            //}
-
-            //if (!string.IsNullOrWhiteSpace(MaxLength?.ToString()) && Convert.ToInt32(MaxLength) < base.Value.Length)
-            //{
-            //    ValidationResults.Add(new ValidationResult() { Type = TypesInputValidity.Error, Text = "Der Text ist größer als die maximalen Länge von " + MaxLength + "!" });
-            //}
-
-            //base.Validate();
+            base.Validate();
         }
     }
 }

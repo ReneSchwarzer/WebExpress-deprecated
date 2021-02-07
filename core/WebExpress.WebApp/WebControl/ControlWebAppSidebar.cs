@@ -32,6 +32,11 @@ namespace WebExpress.WebApp.WebControl
         public List<IControl> Secondary { get; protected set; } = new List<IControl>();
 
         /// <summary>
+        /// Bestimmt, ob Content vorhanden ist
+        /// </summary>
+        public bool HasContent => Preferences.Any() || Primary.Any() || Secondary.Any();
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="id">Die ID</param>

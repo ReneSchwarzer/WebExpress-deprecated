@@ -193,3 +193,31 @@
 {
 
 }
+
+.split
+{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.splitter 
+{
+    background-repeat: no-repeat;
+    background-position: 50%;
+}
+
+.splitter.splitter-horizontal
+{
+    float: left;
+    cursor: ew-resize;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAkSURBVChTYzxz5kw/AxCYmJgUwthMIIJ8MGomEIyaidNMBgYANc83sUCD+ssAAAAASUVORK5CYII');
+}
+
+.splitter.splitter-vertical
+{
+    cursor: ns-resize;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAFCAYAAABSIVz6AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAhSURBVChTYzxz5kw/AxCYmJgUgmh68ZlAxIgCIy2oGRgAUTM97WZuFTcAAAAASUVORK5CYII');
+}
