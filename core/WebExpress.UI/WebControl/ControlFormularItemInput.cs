@@ -50,6 +50,11 @@ namespace WebExpress.UI.WebControl
         private bool IsValidated { get; set; }
 
         /// <summary>
+        /// Liefert oder setzt ein Objekt, welches mit dem Steuerelement verknüft ist
+        /// </summary>
+        public object Tag { get; set; }
+
+        /// <summary>
         /// Bestimmt ob die Eingabe gültig sind
         /// </summary>
         public virtual ICollection<ValidationResult> ValidationResults { get; } = new List<ValidationResult>();
