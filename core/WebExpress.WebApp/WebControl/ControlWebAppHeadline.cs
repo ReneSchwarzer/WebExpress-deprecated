@@ -16,17 +16,17 @@ namespace WebExpress.WebApp.WebControl
         /// <summary>
         /// Liefert oder setzt den den Bereich für die App-Navigation
         /// </summary>
-        public List<IControlNavigationItem> Preferences { get; protected set; } = new List<IControlNavigationItem>();
+        public List<IControl> Preferences { get; protected set; } = new List<IControl>();
 
         /// <summary>
         /// Liefert oder setzt den den Bereich für die App-Navigation
         /// </summary>
-        public List<IControlNavigationItem> Primary { get; protected set; } = new List<IControlNavigationItem>();
+        public List<IControl> Primary { get; protected set; } = new List<IControl>();
 
         /// <summary>
         /// Liefert oder setzt den den Bereich für die App-Navigation
         /// </summary>
-        public List<IControlNavigationItem> Secondary { get; protected set; } = new List<IControlNavigationItem>();
+        public List<IControl> Secondary { get; protected set; } = new List<IControl>();
 
         /// <summary>
         /// Konstruktor
@@ -53,10 +53,6 @@ namespace WebExpress.WebApp.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var navigation = new List<IControlNavigationItem>(Preferences);
-            navigation.AddRange(Primary);
-            navigation.AddRange(Secondary);
-
             var content = new ControlPanelFlexbox
             (
                 new ControlText()
@@ -66,19 +62,17 @@ namespace WebExpress.WebApp.WebControl
                     Format = TypeFormatText.H2,
                     Padding = new PropertySpacingPadding(PropertySpacing.Space.One),
                     Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.Null)
-                },
-                new ControlNavigation("functions", navigation)
-                {
-                    Layout = TypeLayoutTab.Default,
-                    ActiveColor = LayoutSchema.HeaderNavigationActiveBackground,
-                    ActiveTextColor = LayoutSchema.HeaderNavigationActive,
-                    LinkColor = LayoutSchema.HeaderNavigationLink
                 }
             )
             {
                 Layout = TypeLayoutFlexbox.Default,
-                Align = TypeAlignFlexbox.Center
+                Align = TypeAlignFlexbox.Center,
+                Justify = TypeJustifiedFlexbox.Between
             };
+
+            content.Content.AddRange(Preferences);
+            content.Content.AddRange(Primary);
+            content.Content.AddRange(Secondary);
 
             return new HtmlElementSectionHeader(content.Render(context))
             {
