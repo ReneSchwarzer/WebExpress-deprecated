@@ -60,7 +60,7 @@ namespace WebExpress.UI.WebControl
             var inner = new HtmlElementTextContentDiv() { Class = "carousel-inner" };
             foreach (var v in Items)
             {
-                var i = new HtmlElementTextContentDiv(v.Control.Render(context)) { Class = index == 0 ? "carousel-item active" : "carousel-item" };
+                var i = new HtmlElementTextContentDiv(v?.Control.Render(context)) { Class = index == 0 ? "carousel-item active" : "carousel-item" };
 
                 if (!string.IsNullOrWhiteSpace(v.Headline) || !string.IsNullOrWhiteSpace(v.Text))
                 {

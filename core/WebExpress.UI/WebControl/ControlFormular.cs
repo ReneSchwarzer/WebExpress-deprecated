@@ -286,6 +286,11 @@ namespace WebExpress.UI.WebControl
                 
             }.Render(renderContext));
 
+            foreach (var item in Items.Where(x => x is ControlFormularItemInputHidden))
+            {
+                html.Elements.Add(item.Render(renderContext));
+            }
+
             var group = null as ControlFormularItemGroup;
 
             group = Layout switch
@@ -294,7 +299,7 @@ namespace WebExpress.UI.WebControl
                 TypeLayoutFormular.Mix => new ControlFormularItemGroupMix(),
                 _ => new ControlFormularItemGroupVertical(),
             };
-            foreach (var item in Items)
+            foreach (var item in Items.Where(x => !(x is ControlFormularItemInputHidden)))
             {
                 group.Items.Add(item);
             }
