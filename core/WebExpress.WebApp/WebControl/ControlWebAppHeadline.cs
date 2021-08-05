@@ -86,7 +86,7 @@ namespace WebExpress.WebApp.WebControl
             var epilog = new ControlPanelFlexbox(Secondary) { Layout = TypeLayoutFlexbox.Default, Align = TypeAlignFlexbox.Center, Justify = TypeJustifiedFlexbox.End };
             if (MorePreferences.Count() > 0 || MorePrimary.Count() > 0 || MoreSecondary.Count() > 0)
             {
-                var more = new ControlDropdown()
+                var more = new ControlDropdown("more")
                 {
                     Text = context.I18N("webexpress.webapp", "headline.more"),
                     TextColor = LayoutSchema.HeadlineTitle,
