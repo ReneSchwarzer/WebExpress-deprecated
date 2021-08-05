@@ -27,26 +27,26 @@ namespace WebExpress.WebApp.WebControl
         /// Liefert oder setzt den Bereich für die App-Navigation
         /// </summary>
         public List<IControl> Primary { get; protected set; } = new List<IControl>();
-
-        /// <summary>
-        /// Liefert oder setzt den Bereich für die App-Navigation
-        /// </summary>
-        public List<IControl> MoreSecondary { get; protected set; } = new List<IControl>();
-
-        /// <summary>
-        /// Liefert oder setzt den Bereich für die App-Navigation
-        /// </summary>
-        public List<IControl> MorePreferences { get; protected set; } = new List<IControl>();
-
-        /// <summary>
-        /// Liefert oder setzt den Bereich für die App-Navigation
-        /// </summary>
-        public List<IControl> MorePrimary { get; protected set; } = new List<IControl>();
-
+        
         /// <summary>
         /// Liefert oder setzt den Bereich für die App-Navigation
         /// </summary>
         public List<IControl> Secondary { get; protected set; } = new List<IControl>();
+
+        /// <summary>
+        /// Liefert oder setzt den Bereich für die App-Navigation
+        /// </summary>
+        public List<IControlDropdownItem> MorePreferences { get; protected set; } = new List<IControlDropdownItem>();
+
+        /// <summary>
+        /// Liefert oder setzt den Bereich für die App-Navigation
+        /// </summary>
+        public List<IControlDropdownItem> MorePrimary { get; protected set; } = new List<IControlDropdownItem>();
+        
+        /// <summary>
+        /// Liefert oder setzt den Bereich für die App-Navigation
+        /// </summary>
+        public List<IControlDropdownItem> MoreSecondary { get; protected set; } = new List<IControlDropdownItem>();
 
         /// <summary>
         /// Konstruktor
@@ -86,13 +86,40 @@ namespace WebExpress.WebApp.WebControl
             var epilog = new ControlPanelFlexbox(Secondary) { Layout = TypeLayoutFlexbox.Default, Align = TypeAlignFlexbox.Center, Justify = TypeJustifiedFlexbox.End };
             if (MorePreferences.Count() > 0 || MorePrimary.Count() > 0 || MoreSecondary.Count() > 0)
             {
-                epilog.Content.Add(new ControlDropdown()
+                var more = new ControlDropdown()
                 {
                     Text = context.I18N("webexpress.webapp", "headline.more"),
                     TextColor = LayoutSchema.HeadlineTitle,
                     Padding = new PropertySpacingPadding(PropertySpacing.Space.One),
                     Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.Null)
-                });
+                };
+
+                foreach (var v in MorePreferences)
+                {
+                    more.Add(v);
+                }
+
+                if (MorePrimary.Count > 0 || MoreSecondary.Count > 0)
+                {
+                    more.AddSeperator();
+                }
+
+                foreach (var v in MorePrimary)
+                {
+                    more.Add(v);
+                }
+
+                if (MorePrimary.Count() > 0 && MoreSecondary.Count > 0)
+                {
+                    more.AddSeperator();
+                }
+
+                foreach (var v in MoreSecondary)
+                {
+                    more.Add(v);
+                }
+
+                epilog.Content.Add(more);
             }
 
             var content = new ControlPanelFlexbox
