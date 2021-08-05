@@ -96,6 +96,11 @@
         public const string PropertySecondary = "property.secondary";
 
         /// <summary>
+        /// Liefert oder setzt den headline.prologue-Bereich
+        /// </summary>
+        public const string HeadlinePrologue = "headline.prologue";
+
+        /// <summary>
         /// Liefert oder setzt den headline.preferences-Bereich
         /// </summary>
         public const string HeadlinePreferences = "headline.preferences";

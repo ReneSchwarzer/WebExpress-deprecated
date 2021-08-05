@@ -116,6 +116,7 @@ namespace WebExpress.WebApp.WebResource
             Sidebar.Secondary.AddRange(ComponentManager.CreateComponent<IControl>(Context.ApplicationID, Section.SidebarSecondary, ResourceContext));
 
             // Headline
+            Content.Headline.Prologue.AddRange(ComponentManager.CreateComponent<IControl>(Context.ApplicationID, Section.HeadlinePrologue, ResourceContext));
             Content.Headline.Preferences.AddRange(ComponentManager.CreateComponent<IControl>(Context.ApplicationID, Section.HeadlinePreferences, ResourceContext));
             Content.Headline.Primary.AddRange(ComponentManager.CreateComponent<IControl>(Context.ApplicationID, Section.HeadlinePrimary, ResourceContext));
             Content.Headline.Secondary.AddRange(ComponentManager.CreateComponent<IControl>(Context.ApplicationID, Section.HeadlineSecondary, ResourceContext));
