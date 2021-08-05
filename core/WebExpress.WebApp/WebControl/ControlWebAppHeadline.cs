@@ -31,6 +31,21 @@ namespace WebExpress.WebApp.WebControl
         /// <summary>
         /// Liefert oder setzt den Bereich für die App-Navigation
         /// </summary>
+        public List<IControl> MoreSecondary { get; protected set; } = new List<IControl>();
+
+        /// <summary>
+        /// Liefert oder setzt den Bereich für die App-Navigation
+        /// </summary>
+        public List<IControl> MorePreferences { get; protected set; } = new List<IControl>();
+
+        /// <summary>
+        /// Liefert oder setzt den Bereich für die App-Navigation
+        /// </summary>
+        public List<IControl> MorePrimary { get; protected set; } = new List<IControl>();
+
+        /// <summary>
+        /// Liefert oder setzt den Bereich für die App-Navigation
+        /// </summary>
         public List<IControl> Secondary { get; protected set; } = new List<IControl>();
 
         /// <summary>
@@ -58,7 +73,7 @@ namespace WebExpress.WebApp.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var prologue = new ControlPanelFlexbox(Prologue) { Layout = TypeLayoutFlexbox.Default, Justify = TypeJustifiedFlexbox.Start };
+            var prologue = new ControlPanelFlexbox(Prologue) { Layout = TypeLayoutFlexbox.Default, Align = TypeAlignFlexbox.Center, Justify = TypeJustifiedFlexbox.Start };
             prologue.Content.Add(new ControlText()
             {
                 Text = context.I18N(context.Page.Title),
@@ -68,12 +83,24 @@ namespace WebExpress.WebApp.WebControl
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.Null)
             });
 
+            var epilog = new ControlPanelFlexbox(Secondary) { Layout = TypeLayoutFlexbox.Default, Align = TypeAlignFlexbox.Center, Justify = TypeJustifiedFlexbox.End };
+            if (MorePreferences.Count() > 0 || MorePrimary.Count() > 0 || MoreSecondary.Count() > 0)
+            {
+                epilog.Content.Add(new ControlDropdown()
+                {
+                    Text = context.I18N("webexpress.webapp", "headline.more"),
+                    TextColor = LayoutSchema.HeadlineTitle,
+                    Padding = new PropertySpacingPadding(PropertySpacing.Space.One),
+                    Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.Null)
+                });
+            }
+
             var content = new ControlPanelFlexbox
             (
                 prologue,
-                new ControlPanelFlexbox(Preferences) { Layout = TypeLayoutFlexbox.Default, Justify = TypeJustifiedFlexbox.End },
-                new ControlPanelFlexbox(Primary) { Layout = TypeLayoutFlexbox.Default, Justify = TypeJustifiedFlexbox.End },
-                new ControlPanelFlexbox(Secondary) { Layout = TypeLayoutFlexbox.Default, Justify = TypeJustifiedFlexbox.End }
+                new ControlPanelFlexbox(Preferences) { Layout = TypeLayoutFlexbox.Default, Align = TypeAlignFlexbox.Center, Justify = TypeJustifiedFlexbox.End },
+                new ControlPanelFlexbox(Primary) { Layout = TypeLayoutFlexbox.Default, Align = TypeAlignFlexbox.Center, Justify = TypeJustifiedFlexbox.End },
+                epilog
             )
             {
                 Layout = TypeLayoutFlexbox.Default,

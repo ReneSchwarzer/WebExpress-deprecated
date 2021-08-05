@@ -116,6 +116,21 @@
         public const string HeadlineSecondary = "headline.secondary";
 
         /// <summary>
+        /// Liefert oder setzt den more.preferences-Bereich
+        /// </summary>
+        public const string MorePreferences = "more.preferences";
+
+        /// <summary>
+        /// Liefert oder setzt den more.primary-Bereich
+        /// </summary>
+        public const string MorePrimary = "more.primary";
+
+        /// <summary>
+        /// Liefert oder setzt den more.secondary-Bereich
+        /// </summary>
+        public const string MoreSecondary = "more.secondary";
+
+        /// <summary>
         /// Liefert oder setzt den content.preferences-Bereich
         /// </summary>
         public const string ContentPreferences = "content.preferences";

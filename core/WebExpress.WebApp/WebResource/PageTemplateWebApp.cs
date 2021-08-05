@@ -120,6 +120,9 @@ namespace WebExpress.WebApp.WebResource
             Content.Headline.Preferences.AddRange(ComponentManager.CreateComponent<IControl>(Context.ApplicationID, Section.HeadlinePreferences, ResourceContext));
             Content.Headline.Primary.AddRange(ComponentManager.CreateComponent<IControl>(Context.ApplicationID, Section.HeadlinePrimary, ResourceContext));
             Content.Headline.Secondary.AddRange(ComponentManager.CreateComponent<IControl>(Context.ApplicationID, Section.HeadlineSecondary, ResourceContext));
+            Content.Headline.MorePreferences.AddRange(ComponentManager.CreateComponent<IControl>(Context.ApplicationID, Section.MorePreferences, ResourceContext));
+            Content.Headline.MorePrimary.AddRange(ComponentManager.CreateComponent<IControl>(Context.ApplicationID, Section.MorePrimary, ResourceContext));
+            Content.Headline.MoreSecondary.AddRange(ComponentManager.CreateComponent<IControl>(Context.ApplicationID, Section.MoreSecondary, ResourceContext));
 
             // Property
             Content.Property.Preferences.AddRange(ComponentManager.CreateComponent<IControl>(Context.ApplicationID, Section.PropertyPreferences, ResourceContext));
