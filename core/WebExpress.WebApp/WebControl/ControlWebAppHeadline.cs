@@ -82,6 +82,7 @@ namespace WebExpress.WebApp.WebControl
                 Padding = new PropertySpacingPadding(PropertySpacing.Space.One),
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.Null)
             });
+            prologue.Content.AddRange(Preferences);
 
             var epilog = new ControlPanelFlexbox(Secondary) { Layout = TypeLayoutFlexbox.Default, Align = TypeAlignFlexbox.Center, Justify = TypeJustifiedFlexbox.End };
             if (MorePreferences.Count() > 0 || MorePrimary.Count() > 0 || MoreSecondary.Count() > 0)
@@ -89,6 +90,7 @@ namespace WebExpress.WebApp.WebControl
                 var more = new ControlDropdown("more")
                 {
                     Text = context.I18N("webexpress.webapp", "headline.more"),
+                    Size = new TypeSizeButton(TypeSizeButton.Large),
                     TextColor = LayoutSchema.HeadlineTitle,
                     Padding = new PropertySpacingPadding(PropertySpacing.Space.One),
                     Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.Null)
@@ -125,7 +127,6 @@ namespace WebExpress.WebApp.WebControl
             var content = new ControlPanelFlexbox
             (
                 prologue,
-                new ControlPanelFlexbox(Preferences) { Layout = TypeLayoutFlexbox.Default, Align = TypeAlignFlexbox.Center, Justify = TypeJustifiedFlexbox.End },
                 new ControlPanelFlexbox(Primary) { Layout = TypeLayoutFlexbox.Default, Align = TypeAlignFlexbox.Center, Justify = TypeJustifiedFlexbox.End },
                 epilog
             )
