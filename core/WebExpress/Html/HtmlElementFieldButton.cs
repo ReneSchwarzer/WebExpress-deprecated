@@ -69,6 +69,15 @@ namespace WebExpress.Html
         }
 
         /// <summary>
+        /// Liefert oder setzt den Tooltip
+        /// </summary>
+        public string Title
+        {
+            get => GetAttribute("title");
+            set => SetAttribute("title", value);
+        }
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         public HtmlElementFieldButton()

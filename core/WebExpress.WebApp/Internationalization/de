@@ -4,7 +4,7 @@ header.quickcreate.label=Erstellen
 header.help.label=Hilfe
 header.setting.label=Einstellungen
 
-headline.more=...
+headline.more.title=Weitere Optionen
 
 status.400.title=Fehlerhafte Anfrage
 status.404.title=Ressource nicht gefunden

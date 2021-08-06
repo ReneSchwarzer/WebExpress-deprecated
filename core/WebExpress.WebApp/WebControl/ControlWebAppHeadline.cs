@@ -89,7 +89,8 @@ namespace WebExpress.WebApp.WebControl
             {
                 var more = new ControlDropdown("more")
                 {
-                    Text = context.I18N("webexpress.webapp", "headline.more"),
+                    Title = context.I18N("webexpress.webapp", "headline.more.title"),
+                    Icon = new PropertyIcon(TypeIcon.EllipsisHorizontal),
                     TextColor = LayoutSchema.HeadlineTitle,
                     Padding = new PropertySpacingPadding(PropertySpacing.Space.One),
                     Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.Null)

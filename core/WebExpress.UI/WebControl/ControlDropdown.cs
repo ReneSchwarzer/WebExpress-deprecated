@@ -59,6 +59,11 @@ namespace WebExpress.UI.WebControl
         public string Text { get; set; }
 
         /// <summary>
+        /// Liefert oder setzt den ToolTip
+        /// </summary>
+        public string Title { get; set; }
+
+        /// <summary>
         /// Liefert oder setzt den Wert
         /// </summary>
         public string Value { get; set; }
@@ -225,6 +230,7 @@ namespace WebExpress.UI.WebControl
                     ID = string.IsNullOrWhiteSpace(ID) ? "" : ID + "_btn",
                     Class = Css.Concatenate("btn", Css.Remove(GetClasses(), Margin.ToClass())),
                     Style = GetStyles(),
+                    Title = Title,
                     DataToggle = "dropdown"
                 };
 
