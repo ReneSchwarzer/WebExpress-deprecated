@@ -292,7 +292,7 @@ namespace WebExpress.UI.WebControl
                         new HtmlElementTextContentLi() { Class = "dropdown-divider", Inline = true } :
                         x is ControlDropdownItemHeader ?
                         x.Render(context) :
-                        new HtmlElementTextContentLi(x.Render(context)) { Class = "dropdown-item" }
+                        new HtmlElementTextContentLi(x.Render(context)) { Class = "dropdown-item " + ((x as ControlDropdownItemLink).Active == TypeActive.Disabled ? "disabled" : "") }
                     )
                 )
                 {
