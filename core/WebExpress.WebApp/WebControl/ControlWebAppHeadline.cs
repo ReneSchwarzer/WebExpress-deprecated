@@ -101,7 +101,7 @@ namespace WebExpress.WebApp.WebControl
                     more.Add(v);
                 }
 
-                if (MorePrimary.Count > 0 || MoreSecondary.Count > 0)
+                if (MorePreferences.Count > 0 && (MorePrimary.Count > 0 || MoreSecondary.Count > 0))
                 {
                     more.AddSeperator();
                 }
