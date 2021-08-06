@@ -90,7 +90,6 @@ namespace WebExpress.WebApp.WebControl
                 var more = new ControlDropdown("more")
                 {
                     Text = context.I18N("webexpress.webapp", "headline.more"),
-                    Size = new TypeSizeButton(TypeSizeButton.Large),
                     TextColor = LayoutSchema.HeadlineTitle,
                     Padding = new PropertySpacingPadding(PropertySpacing.Space.One),
                     Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.Null)
