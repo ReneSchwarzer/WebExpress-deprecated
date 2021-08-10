@@ -3,6 +3,7 @@
 header.quickcreate.label=Erstellen
 header.help.label=Hilfe
 header.setting.label=Einstellungen
+header.setting.systeminformation.label=System Informationen
 
 headline.more.title=Weitere Optionen
 
@@ -10,3 +11,17 @@ status.400.title=Fehlerhafte Anfrage
 status.404.title=Ressource nicht gefunden
 status.404.description=Der HTTP-Statuscode 404 bedeutet, dass die aufgerufene Ressource auf dem Webserver nicht zu finden ist. Entweder wurden Inhalte der Webseite entfernt oder auf eine andere URL verlegt. Folgende Ursachen können hierfür verantwortlich sein: <ul><li>Die URL ist fehlerhaft angelegt oder falsch intern verlinkt.</li><li>Die URL wurde falsch eingegeben.</li><li>Der Webserver ist nicht in Betrieb.</li><li>Die URL oder die Inhalte wurden gelöscht oder ausgelagert.</li></ul>
 status.500.title=Interner Serverfehler
+
+setting.systeminformation.group.server.label=Server Info
+setting.systeminformation.group.server.version=Programmversion:
+setting.systeminformation.group.server.systemdate=Systemdatum:
+setting.systeminformation.group.server.systemtime=Systemzeit:
+setting.systeminformation.group.server.basisurl=Basis URL:
+setting.systeminformation.group.server.currentdirectory=Ausführungsverzeichnis:
+setting.systeminformation.group.server.memory=Verwendeter Hauptspeicher:
+setting.systeminformation.group.environment.label=Umgebung
+setting.systeminformation.group.environment.operatingsystem=Betriebssystem:
+setting.systeminformation.group.environment.machinename=Gerätename:
+setting.systeminformation.group.environment.processorcount=Anzahl der logischen Prozessoren:
+setting.systeminformation.group.environment.64bit=64bit-System:
+setting.systeminformation.group.environment.username=Benutzername:

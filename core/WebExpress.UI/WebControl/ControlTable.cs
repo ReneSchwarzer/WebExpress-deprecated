@@ -105,6 +105,18 @@ namespace WebExpress.UI.WebControl
         /// Fügt eine Zeile hinzu
         /// </summary>
         /// <param name="cells">Die Zellen der Zeile</param>
+        public void AddRow(params Control[] cells)
+        {
+            var r = new ControlTableRow(null);
+            r.Cells.AddRange(cells);
+
+            Rows.Add(r);
+        }
+
+        /// <summary>
+        /// Fügt eine Zeile hinzu
+        /// </summary>
+        /// <param name="cells">Die Zellen der Zeile</param>
         /// <param name="cssClass">Die Css-Klasse</param>
         public void AddRow(Control[] cells, string cssClass = null)
         {

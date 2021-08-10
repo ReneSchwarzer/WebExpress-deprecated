@@ -8,9 +8,7 @@ using WebExpress.WebApp.Components;
 
 namespace WebExpress.WebApp.WebControl
 {
-    [Section(Section.AppSettingsSecondary)]
-    //[Application("webexpress")]
-    public sealed class ControlHeaderSettingsSystemInformation : ControlDropdownItemLink, IComponent
+    public abstract class ControlHeaderSettingsSystemInformation : ControlDropdownItemLink, IComponent
     {
         /// <summary>
         /// Konstruktor
