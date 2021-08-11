@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
@@ -23,6 +24,7 @@ namespace WebExpress.WebApp.WebResource
         /// </summary>
         public override void Process()
         {
+            var dict = new Dictionary<string, List<SitemapNode>>();
             var sitemap = ResourceManager.GetSitemap(Context.ModuleID);
             var settings = new ControlNavigation()
             {
@@ -33,18 +35,40 @@ namespace WebExpress.WebApp.WebResource
 
             foreach (var page in sitemap.Where(x => x.Type != null && x.Type.GetInterface(typeof(IPageSetting).Name) != null))
             {
-                var uri = new UriResource(Context.ContextPath, page.ExpressionPath);
-                var iconType = page.Type.CustomAttributes.Where(x => x.AttributeType == typeof(SettingIconAttribute)).FirstOrDefault();
-                var iconValue = iconType?.ConstructorArguments.FirstOrDefault().Value;
-                var icon = iconValue != null ? iconValue?.GetType() == typeof(int) ? new PropertyIcon((TypeIcon)Enum.Parse(typeof(TypeIcon), iconValue?.ToString())) : new PropertyIcon(new UriRelative(iconValue?.ToString())) : null; 
+                var group = page.Type.CustomAttributes.Where(x => x.AttributeType == typeof(SettingGroupAttribute)).FirstOrDefault();
+                var groupValue = group?.ConstructorArguments.FirstOrDefault().Value?.ToString();
+                groupValue = string.IsNullOrWhiteSpace(groupValue) ? string.Empty : groupValue.ToString();
 
-                settings.Items.Add(new ControlNavigationItemLink()
+                if (!dict.ContainsKey(groupValue))
                 {
-                    Text = this.I18N(page.Title),
-                    Icon = icon,
-                    Uri = uri,
-                    Active = page.Title == Uri.Display ? TypeActive.Active : TypeActive.None
-                });
+                    dict.Add(groupValue, new List<SitemapNode>());
+                }
+                
+                dict[groupValue].Add(page);
+            }
+
+            foreach (var group in dict.OrderBy(x => x.Key))
+            {
+                if (!string.IsNullOrWhiteSpace(group.Key))
+                {
+                    settings.Items.Add(new ControlNavigationItemHeader() { Text = this.I18N(group.Key) });
+                }
+
+                foreach (var page in group.Value)
+                {
+                    var uri = new UriResource(Context.ContextPath, page.ExpressionPath);
+                    var iconType = page.Type.CustomAttributes.Where(x => x.AttributeType == typeof(SettingIconAttribute)).FirstOrDefault();
+                    var iconValue = iconType?.ConstructorArguments.FirstOrDefault().Value;
+                    var icon = iconValue != null ? iconValue?.GetType() == typeof(int) ? new PropertyIcon((TypeIcon)Enum.Parse(typeof(TypeIcon), iconValue?.ToString())) : new PropertyIcon(new UriRelative(iconValue?.ToString())) : null; 
+
+                    settings.Items.Add(new ControlNavigationItemLink()
+                    {
+                        Text = this.I18N(page.Title),
+                        Icon = icon,
+                        Uri = uri,
+                        Active = page.Title == Uri.Display ? TypeActive.Active : TypeActive.None
+                    });
+                }
             }
 
             Sidebar.Primary.Add(settings);
