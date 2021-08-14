@@ -35,16 +35,20 @@ namespace WebExpress.WebApp.WebResource
 
             foreach (var page in sitemap.Where(x => x.Type != null && x.Type.GetInterface(typeof(IPageSetting).Name) != null))
             {
+                var hide = page.Type.CustomAttributes.Where(x => x.AttributeType == typeof(SettingHideAttribute)).FirstOrDefault();
                 var group = page.Type.CustomAttributes.Where(x => x.AttributeType == typeof(SettingGroupAttribute)).FirstOrDefault();
                 var groupValue = group?.ConstructorArguments.FirstOrDefault().Value?.ToString();
                 groupValue = string.IsNullOrWhiteSpace(groupValue) ? string.Empty : groupValue.ToString();
 
-                if (!dict.ContainsKey(groupValue))
+                if (hide != null)
                 {
-                    dict.Add(groupValue, new List<SitemapNode>());
+                    if (!dict.ContainsKey(groupValue))
+                    {
+                        dict.Add(groupValue, new List<SitemapNode>());
+                    }
+
+                    dict[groupValue].Add(page);
                 }
-                
-                dict[groupValue].Add(page);
             }
 
             foreach (var group in dict.OrderBy(x => x.Key))
