@@ -40,7 +40,7 @@ namespace WebExpress.WebApp.WebResource
                 var groupValue = group?.ConstructorArguments.FirstOrDefault().Value?.ToString();
                 groupValue = string.IsNullOrWhiteSpace(groupValue) ? string.Empty : groupValue.ToString();
 
-                if (hide != null)
+                if (hide == null)
                 {
                     if (!dict.ContainsKey(groupValue))
                     {
