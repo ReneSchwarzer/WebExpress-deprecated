@@ -17,6 +17,19 @@ namespace WebExpress.UI.WebControl
         public List<ControlTreeItem> Children { get; private set; } = new List<ControlTreeItem>();
 
         /// <summary>
+        /// Ermittelt ob ein untergeordneter Baumknoten aktiv ist
+        /// </summary>
+        public bool IsAnyChildrenActive
+        {
+            get
+            {
+                if (Active == TypeActive.Active) return true;
+
+                return Children.Where(x => x.IsAnyChildrenActive).Count() > 0;
+            }
+        }
+
+        /// <summary>
         /// Liefert oder setzt die Ativitätsstatus des Listenelements
         /// </summary>
         public TypeActive Active
@@ -114,6 +127,10 @@ namespace WebExpress.UI.WebControl
             {
                 var expander = new HtmlElementTextSemanticsSpan();
                 expander.Class = Css.Concatenate("tree-treeview-expander", Children.Count > 0 ? "tree-treeview-angle" : "tree-treeview-dot");
+                if (Children.Count > 0 && Expand != TypeExpandTree.Collapse)
+                {
+                    expander.Class = Css.Concatenate("tree-treeview-angle-down", expander.Class);
+                }
 
                 container = new HtmlElementTextContentDiv(expander, content.Count() > 1 ? new HtmlElementTextContentDiv(content) : content.FirstOrDefault());
                 container.Class = Css.Concatenate("tree-treeview-container");

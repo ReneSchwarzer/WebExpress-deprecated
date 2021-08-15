@@ -221,6 +221,10 @@ namespace WebExpress.UI.WebControl
                         
             var expander = new HtmlElementTextSemanticsSpan();
             expander.Class = Css.Concatenate("tree-treeview-expander", Children.Count > 0 ? "tree-treeview-angle" : "tree-treeview-dot");
+            if (Children.Count > 0 && Expand != TypeExpandTree.Collapse)
+            {
+                expander.Class = Css.Concatenate("tree-treeview-angle-down", expander.Class);
+            }
             var container = new HtmlElementTextContentDiv(expander, link);
             container.Class = Css.Concatenate("tree-treeview-container");
 
