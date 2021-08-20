@@ -66,6 +66,11 @@
         public const string AppSettingsSecondary = "app.settings.secondary";
 
         /// <summary>
+        /// Liefert oder setzt den sidebar.header-Bereich
+        /// </summary>
+        public const string SidebarHeader = "sidebar.header";
+
+        /// <summary>
         /// Liefert oder setzt den sidebar.preferences-Bereich
         /// </summary>
         public const string SidebarPreferences = "sidebar.preferences";

@@ -241,24 +241,21 @@ namespace WebExpress.UI.Components
 
                         if (dictItem.ContainsKey(sectionKey))
                         {
-                            list.AddRange
-                            (
-                                dictItem[sectionKey].Where(x => x.GetInterfaces().Contains(typeof(T)))
-                                                    .Select(x => (T)x.Assembly.CreateInstance(x.FullName))
-                            );
+                            var item = dictItem[sectionKey].Where(x => x.GetInterfaces().Contains(typeof(T)))
+                                                    .Select(x => (T)x.Assembly.CreateInstance(x.FullName)).ToList();
 
-                            list.AddRange
-                            (
-                                dictItem[sectionKey].Where(x => x.GetInterfaces().Contains(typeof(IComponentDynamic)))
-                                                    .Select(x => (x.Assembly.CreateInstance(x.FullName) as IComponentDynamic).Create<T>())
-                                                    .SelectMany(x => x)
-                            );
+                            var itemDynamic = dictItem[sectionKey].Where(x => x.GetInterfaces().Contains(typeof(IComponentDynamic)))
+                                                   .Select(x => (x.Assembly.CreateInstance(x.FullName) as IComponentDynamic).Create<T>())
+                                                   .SelectMany(x => x);
+
+                            list.AddRange(item);
+                            list.AddRange(itemDynamic);
                         }
                     }
                 }
             }
 
-            return list;
+            return list.Distinct(new ComponentComparer<T>());
         }
     }
 }

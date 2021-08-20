@@ -14,7 +14,7 @@ namespace WebExpress.WebApp.WebControl
         /// <summary>
         /// Liefert oder setzt den Bereich für die Kopfzeile der Sidebar
         /// </summary>
-        public ControlPanel Header { get; protected set; } = new ControlPanel("sidebarheader");
+        public List<IControl> Header { get; protected set; } = new List<IControl>();
 
         /// <summary>
         /// Liefert oder setzt den den Bereich für Präferenzen
@@ -62,19 +62,16 @@ namespace WebExpress.WebApp.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            if (Header.Content.Count == 0 && Preferences.Count == 0 && Primary.Count == 0 && Secondary.Count == 0)
+            if (Header.Count == 0 && Preferences.Count == 0 && Primary.Count == 0 && Secondary.Count == 0)
             {
                 return null;
             }
 
-            var elements = new List<IHtmlNode>
-            {
-                Header.Render(context)
-            };
+            var elements = new List<IHtmlNode>();
+            elements.AddRange(Header.Select(x => x.Render(context)));
             elements.AddRange(Preferences.Select(x => x.Render(context)));
             elements.AddRange(Primary.Select(x => x.Render(context)));
             elements.AddRange(Secondary.Select(x => x.Render(context)));
-
 
             return new HtmlElementTextContentDiv(elements)
             {

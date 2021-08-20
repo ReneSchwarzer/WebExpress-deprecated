@@ -5,6 +5,11 @@ namespace WebExpress.UI.WebControl
     public class ControlNavigationItemLink : ControlLink, IControlNavigationItem
     {
         /// <summary>
+        /// Verhindert den Zeilenumbruch
+        /// </summary>
+        public bool NoWrap { get; set; }
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="id">Die ID</param>
@@ -20,7 +25,14 @@ namespace WebExpress.UI.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            return base.Render(context);
+            var html = base.Render(context);
+
+            if (NoWrap)
+            {
+                html.AddClass("text-nowrap");
+            }
+
+            return html;
         }
     }
 }

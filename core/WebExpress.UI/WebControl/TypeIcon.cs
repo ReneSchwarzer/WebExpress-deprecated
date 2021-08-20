@@ -82,6 +82,7 @@
         Save,
         ShoppingBag,
         Star,
+        StarHalf,
         StopCircle,
         Stopwatch,
         Sun,
@@ -96,7 +97,8 @@
         ThumbsUp,
         Undo,
         Upload,
-        Users
+        Users,
+        Wrench
     }
 
     public static class TypeIconExtensions
@@ -189,6 +191,7 @@
                 TypeIcon.Save => "fas fa-save",
                 TypeIcon.ShoppingBag => "fas fa-shopping-bag",
                 TypeIcon.Star => "fas fa-star",
+                TypeIcon.StarHalf => "fas fa-star-half-alt",
                 TypeIcon.StopCircle => "fas fa-stop-circle",
                 TypeIcon.Stopwatch => "fas fa-stopwatch",
                 TypeIcon.Sun => "fas fa-sun",
@@ -204,6 +207,7 @@
                 TypeIcon.Undo => "fas fa-undo",
                 TypeIcon.Upload => "fas fa-download",
                 TypeIcon.Users => "fas fa-users",
+                TypeIcon.Wrench => "fas fa-wrench",
                 _ => string.Empty,
             };
         }

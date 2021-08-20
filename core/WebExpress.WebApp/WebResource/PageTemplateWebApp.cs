@@ -111,6 +111,7 @@ namespace WebExpress.WebApp.WebResource
             Header.SettingsSecondary.AddRange(ComponentManager.CreateComponent<IControlDropdownItem>(Context.ApplicationID, Section.AppSettingsSecondary, ResourceContext));
 
             // Sidebar
+            Sidebar.Header.AddRange(ComponentManager.CreateComponent<IControl>(Context.ApplicationID, Section.SidebarHeader, ResourceContext));
             Sidebar.Preferences.AddRange(ComponentManager.CreateComponent<IControl>(Context.ApplicationID, Section.SidebarPreferences, ResourceContext));
             Sidebar.Primary.AddRange(ComponentManager.CreateComponent<IControl>(Context.ApplicationID, Section.SidebarPrimary, ResourceContext));
             Sidebar.Secondary.AddRange(ComponentManager.CreateComponent<IControl>(Context.ApplicationID, Section.SidebarSecondary, ResourceContext));
