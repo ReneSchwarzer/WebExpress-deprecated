@@ -210,6 +210,8 @@ namespace WebExpress.WebResource
         /// <returns>Die Ressource oder null</returns>
         public static SitemapNode FindByID(string id)
         {
+            if (string.IsNullOrWhiteSpace(id)) return null;
+
             foreach (var module in Dictionary)
             {
                 var item = module.Value.Root.FindItem(id);

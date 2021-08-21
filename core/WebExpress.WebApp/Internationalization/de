@@ -13,6 +13,7 @@ status.404.description=Der HTTP-Statuscode 404 bedeutet, dass die aufgerufene Re
 status.500.title=Interner Serverfehler
 
 pagesettingmanager.initialization=Der Einstellungsseitenmanager wurde inizialisiert.
+pagesettingmanager.register=AppID:{0} | Kontext:{1} | Sektion:{2} | Gruppe:{3} | Seite:[ID:{4}, Type:{5}, Hidden:{6}] wurde dem Einstellungsseitenmanager hinzugefügt.
 
 setting.systeminformation.group.server.label=Server Info
 setting.systeminformation.group.server.version=Programmversion:

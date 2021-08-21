@@ -56,7 +56,7 @@ namespace WebExpress.WebApp.WebResource
 
                     if (firstPage != null)
                     {
-                        var page = ResourceManager.FindByID(firstPage.Page.ID);
+                        var page = ResourceManager.FindByID(firstPage?.Page.ID);
 
                         settingTab.Items.Add(new ControlNavigationItemLink()
                         {

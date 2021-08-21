@@ -13,6 +13,8 @@ status.404.description=The HTTP status code 404 means that the called resource c
 status.500.title=Internal Server Error
 
 pagesettingmanager.initialization=The settings page manager has been initialized.
+pagesettingmanager.register=AppID:{0} | Context:{1} | Section:{2} | Grupe:{3} | Page:[ID:{4}, Type:{5}, Hidden:{6}] added to the settings page manager.
+
 
 setting.systeminformation.group.server.label=Server info
 setting.systeminformation.group.server.version=Version:

@@ -125,6 +125,18 @@ namespace WebExpress.WebApp.SettingPage
 
                 // Seite in das Dictionary einfügen
                 Dictionary.AddPage(applicationID, context, section, group, page);
+
+                // Anwendung wurde nicht gefunden
+                Context.Log.Warning(message: I18N("webexpress.webapp:pagesettingmanager.register"), args: new object[] 
+                { 
+                    applicationID, 
+                    context, 
+                    section.ToString(), 
+                    group == null? group : "null", 
+                    page.ID, 
+                    page.Icon != null ? page.Icon.ToString() : "null",  
+                    page.Hide.ToString() 
+                });
             }
         }
 
