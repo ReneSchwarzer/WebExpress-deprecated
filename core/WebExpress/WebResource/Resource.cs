@@ -11,6 +11,11 @@ namespace WebExpress.WebResource
     public abstract class Resource : IResource
     {
         /// <summary>
+        /// Liefert die RessourcenID
+        /// </summary>
+        public string ID { get; internal set; }
+
+        /// <summary>
         /// Liefert oder setzt die Session
         /// </summary>
         public Session Session { get; private set; }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using WebExpress.Attribute;
 using WebExpress.Plugin;
@@ -158,6 +159,16 @@ namespace WebExpress.Application
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Ermittelt die Anwendung zu einem gegebenen Assembly
+        /// </summary>
+        /// <param name="applicationAssembly">Das Assembly, zudem der Anwendungskontext ermittelt werden soll</param>
+        /// <returns>Der Kontext der Anwendung oder null</returns>
+        public static IApplicationContext GetApplcation(Assembly applicationAssembly)
+        {
+            return Dictionary.Values.Where(x => x.Context.Assembly == applicationAssembly).Select(x => x.Context).FirstOrDefault();
         }
 
         /// <summary>

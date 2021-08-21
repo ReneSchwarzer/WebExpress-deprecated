@@ -12,7 +12,7 @@ using static WebExpress.Internationalization.InternationalizationManager;
 namespace WebExpress.UI.Components
 {
     /// <summary>
-    /// Internationalisierung
+    /// Komponentenverwaltung
     /// </summary>
     public class ComponentManager
     {

@@ -49,6 +49,11 @@ namespace WebExpress.WebApp.WebControl
         public List<IControlDropdownItem> MoreSecondary { get; protected set; } = new List<IControlDropdownItem>();
 
         /// <summary>
+        /// Liefert oder setzt den Bereich für die Metadaten
+        /// </summary>
+        public List<IControl> Metadata { get; protected set; } = new List<IControl>();
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="id">Die ID</param>
@@ -136,7 +141,20 @@ namespace WebExpress.WebApp.WebControl
                 Justify = TypeJustifiedFlexbox.Between
             };
 
-            return new HtmlElementSectionHeader(content.Render(context))
+            var metadata = new HtmlElementTextContentDiv
+            (
+                Metadata.Select(x => x.Render(context))
+            )
+            {
+                Class = Css.Concatenate("ml-2 mr-2 mb-3 text-secondary"),
+                Style = Style.Concatenate("font-size:0.75rem;")
+            };
+
+            return new HtmlElementSectionHeader
+            (
+                content.Render(context),
+                Metadata.Count > 0 ? metadata : null
+            )
             {
                 ID = ID,
                 Class = Css.Concatenate("", GetClasses()),

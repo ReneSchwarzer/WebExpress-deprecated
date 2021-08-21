@@ -18,6 +18,26 @@ namespace WebExpress.UI.WebControl
         {
         }
 
+        ///// <summary>
+        ///// Konstruktor
+        ///// </summary>
+        ///// <param name="id">Die ID</param>
+        //public ControlNavigationItemLink(string id = null, params Control[] controls)
+        //    : this(id)
+        //{
+        //    Content.AddRange(controls);
+        //}
+
+        ///// <summary>
+        ///// Konstruktor
+        ///// </summary>
+        ///// <param name="id">Die ID</param>
+        //public ControlNavigationItemLink(params Control[] controls)
+        //    : this(null, controls)
+        //{
+
+        //}
+
         /// <summary>
         /// In HTML konvertieren
         /// </summary>

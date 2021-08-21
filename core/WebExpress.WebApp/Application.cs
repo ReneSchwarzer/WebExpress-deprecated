@@ -1,6 +1,7 @@
 ﻿using WebExpress.Application;
 using WebExpress.Attribute;
 using WebExpress.UI.Components;
+using WebExpress.WebApp.SettingPage;
 
 namespace WebExpress.WebApp
 {
@@ -22,6 +23,7 @@ namespace WebExpress.WebApp
         public void Initialization(IApplicationContext context)
         {
             ComponentManager.Register(context.ApplicationID);
+            SettingPageManager.Register(context.ApplicationID);
         }
 
         /// <summary>

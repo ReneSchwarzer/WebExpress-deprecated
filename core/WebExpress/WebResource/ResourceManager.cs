@@ -202,7 +202,27 @@ namespace WebExpress.WebResource
             // 404
             return null;
         }
- 
+
+        /// <summary>
+        /// Sucht die Ressource anhand seiner ID
+        /// </summary>
+        /// <param name="uri">Die ID</param>
+        /// <returns>Die Ressource oder null</returns>
+        public static SitemapNode FindByID(string id)
+        {
+            foreach (var module in Dictionary)
+            {
+                var item = module.Value.Root.FindItem(id);
+                if (item != null)
+                {
+                    return item;
+                }
+            }
+
+            // 404
+            return null;
+        }
+
         /// <summary>
         /// Liefert die Sitemap eines Ressourceneintrages
         /// </summary>

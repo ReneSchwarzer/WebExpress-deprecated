@@ -8,6 +8,11 @@ namespace WebExpress.WebResource
     public class SearchResult
     {
         /// <summary>
+        /// Liefert die SeitenID
+        /// </summary>
+        public string ID { get; internal set; }
+
+        /// <summary>
         /// Liefert der Ressourcentitel
         /// </summary>
         public string Title { get; internal set; }
@@ -41,6 +46,7 @@ namespace WebExpress.WebResource
         /// <summary>
         /// Konstruktor
         /// </summary>
+        /// <param name="id">Die SeitenID</param>
         /// <param name="title">Der Ressourcentitel</param>
         /// <param name="type">Der Ressorcen-Typ</param>
         /// <param name="moduleContext">Den Modulkontext</param>
@@ -49,6 +55,7 @@ namespace WebExpress.WebResource
         /// <param name="variables">Variablen-Wert-Paare</param>
         public SearchResult
         (
+            string id,
             string title,
             Type type,
             IModuleContext moduleContext,
@@ -57,6 +64,7 @@ namespace WebExpress.WebResource
             IDictionary<string, string> variables
         )
         {
+            ID = id;
             Title = title;
             Type = type;
             ModuleContext = moduleContext;

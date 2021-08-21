@@ -9,6 +9,7 @@ using WebExpress.Plugin;
 using WebExpress.WebResource;
 using WebExpress.Uri;
 using static WebExpress.Internationalization.InternationalizationManager;
+using System.Reflection;
 
 namespace WebExpress.Module
 {
@@ -172,6 +173,20 @@ namespace WebExpress.Module
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Ermittelt den Modulkontext zu einem gegebenen Assembly
+        /// </summary>
+        /// <param name="moduleAssembly">Das Assembly, zudem der Modulkontext ermittelt werden soll</param>
+        /// <returns>Der Kontext des ersten passenden Moduls oder null</returns>
+        public static IModuleContext GetApplcation(Assembly moduleAssembly)
+        {
+            return Dictionary.Values
+                .Select(x => x.Context)
+                .Where(x => x.Assembly == moduleAssembly)
+                .Select(x => x)
+                .FirstOrDefault();
         }
 
         /// <summary>

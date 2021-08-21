@@ -265,6 +265,7 @@ namespace WebExpress
                 var resource = ResourceManager.Find(request?.URL.TrimEnd('/'));
                 if (resource != null && resource.Type != null)
                 {
+                    var id = resource.ID;
                     var type = resource.Type;
                     var culture = Culture;
                     moduleContext = resource.ModuleContext;
@@ -287,6 +288,7 @@ namespace WebExpress
 
                         if (instance is Resource res)
                         {
+                            res.ID = id;
                             res.Request = request;
                             res.Uri = uri;
                             res.Context = resource.ModuleContext;

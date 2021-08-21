@@ -9,6 +9,11 @@ namespace WebExpress.WebResource
     public interface IResource: II18N
     {
         /// <summary>
+        /// Liefert die RessourcenID
+        /// </summary>
+        string ID { get; }
+
+        /// <summary>
         /// Liefert die URL, auf dem der Worker reagiert
         /// </summary>
         IUri Uri { get; }

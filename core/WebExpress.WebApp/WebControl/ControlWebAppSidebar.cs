@@ -34,7 +34,7 @@ namespace WebExpress.WebApp.WebControl
         /// <summary>
         /// Bestimmt, ob Content vorhanden ist
         /// </summary>
-        public bool HasContent => Preferences.Any() || Primary.Any() || Secondary.Any();
+        public bool HasContent => Header.Any() || Preferences.Any() || Primary.Any() || Secondary.Any();
 
         /// <summary>
         /// Konstruktor
@@ -62,7 +62,7 @@ namespace WebExpress.WebApp.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            if (Header.Count == 0 && Preferences.Count == 0 && Primary.Count == 0 && Secondary.Count == 0)
+            if (!HasContent)
             {
                 return null;
             }

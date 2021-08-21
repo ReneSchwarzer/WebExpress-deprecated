@@ -43,6 +43,11 @@ namespace WebExpress.WebApp.WebResource
         public ControlBreadcrumb Breadcrumb { get; protected set; } = new ControlBreadcrumb("breadcrumb");
 
         /// <summary>
+        /// Liefert oder setzt den Bereich für Prolog
+        /// </summary>
+        public ControlPanel Prologue { get; protected set; } = new ControlPanel("prologue");
+
+        /// <summary>
         /// Liefert oder setzt den den Bereich für die Suchoptionen
         /// </summary>
         public ControlPanel SearchOptions { get; protected set; } = new ControlPanel("searchoptions");
@@ -124,6 +129,7 @@ namespace WebExpress.WebApp.WebResource
             Content.Headline.MorePreferences.AddRange(ComponentManager.CreateComponent<IControlDropdownItem>(Context.ApplicationID, Section.MorePreferences, ResourceContext));
             Content.Headline.MorePrimary.AddRange(ComponentManager.CreateComponent<IControlDropdownItem>(Context.ApplicationID, Section.MorePrimary, ResourceContext));
             Content.Headline.MoreSecondary.AddRange(ComponentManager.CreateComponent<IControlDropdownItem>(Context.ApplicationID, Section.MoreSecondary, ResourceContext));
+            Content.Headline.Metadata.AddRange(ComponentManager.CreateComponent<IControl>(Context.ApplicationID, Section.Metadata, ResourceContext));
 
             // Property
             Content.Property.Preferences.AddRange(ComponentManager.CreateComponent<IControl>(Context.ApplicationID, Section.PropertyPreferences, ResourceContext));
@@ -164,6 +170,7 @@ namespace WebExpress.WebApp.WebResource
             base.Content.Add(Header);
             base.Content.Add(Toast);
             base.Content.Add(Breadcrumb);
+            base.Content.Add(Prologue);
             base.Content.Add(SearchOptions);
             base.Content.Add(Sidebar.HasContent ? split : Content);
             base.Content.Add(Footer);

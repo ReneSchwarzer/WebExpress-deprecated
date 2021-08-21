@@ -10,7 +10,7 @@ namespace WebExpress.WebResource
     public class SitemapNode
     {
         /// <summary>
-        /// Liefert oder setzt die SeitenID
+        /// Liefert oder setzt die RessourcenID
         /// </summary>
         public string ID { get; internal set; }
 
@@ -306,6 +306,7 @@ namespace WebExpress.WebResource
             {
                 return new SearchResult
                 (
+                    ID,
                     Title,
                     Type,
                     ModuleContext,
@@ -318,6 +319,7 @@ namespace WebExpress.WebResource
             {
                 return new SearchResult
                 (
+                    ID,
                     Title,
                     Type,
                     ModuleContext,

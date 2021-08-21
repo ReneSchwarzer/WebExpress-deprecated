@@ -1,6 +1,6 @@
 ﻿using WebExpress.Attribute;
 using WebExpress.Plugin;
-using WebExpress.UI.Components;
+using WebExpress.WebApp.SettingPage;
 
 namespace WebExpress.WebApp
 {
@@ -20,7 +20,7 @@ namespace WebExpress.WebApp
         /// <param name="context">Der Kontext, welcher für die Ausführung des Plugins gilt</param>
         public void Initialization(IPluginContext context)
         {
-            
+            SettingPageManager.Initialization(context);
         }
 
         /// <summary>
