@@ -99,16 +99,19 @@ namespace WebExpress.WebApp.WebResource
                 {
                     if (!page.Hide)
                     {
-                        var reessource = ResourceManager.FindByID(page.ID);
+                        var reessource = ResourceManager.FindByID(page?.ID);
 
-                        control.Items.Add(new ControlNavigationItemLink()
+                        if (reessource != null)
                         {
-                            Text = this.I18N(reessource.Title),
-                            Icon = page.Icon,
-                            Uri = new UriResource(Context.ContextPath, reessource.ExpressionPath),
-                            Active = page.ID == ID ? TypeActive.Active : TypeActive.None,
-                            NoWrap = true
-                        });
+                            control.Items.Add(new ControlNavigationItemLink()
+                            {
+                                Text = this.I18N(reessource.Title),
+                                Icon = page.Icon,
+                                Uri = new UriResource(Context.ContextPath, reessource.ExpressionPath),
+                                Active = page.ID == ID ? TypeActive.Active : TypeActive.None,
+                                NoWrap = true
+                            });
+                        }
                     }
                 }
 

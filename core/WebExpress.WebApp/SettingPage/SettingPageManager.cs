@@ -130,12 +130,12 @@ namespace WebExpress.WebApp.SettingPage
                 Context.Log.Warning(message: I18N("webexpress.webapp:pagesettingmanager.register"), args: new object[] 
                 { 
                     applicationID, 
-                    context, 
+                    context != null ? context : "null", 
                     section.ToString(), 
-                    group == null? group : "null", 
-                    page.ID, 
-                    page.Icon != null ? page.Icon.ToString() : "null",  
-                    page.Hide.ToString() 
+                    group != null ? group : "null", 
+                    page?.ID != null ? page?.ID : "null", 
+                    page?.Page != null ? page.Page.ToString() : "null",  
+                    page?.Hide != null ? page?.Hide.ToString() : "null"
                 });
             }
         }

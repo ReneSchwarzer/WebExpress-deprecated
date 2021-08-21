@@ -358,7 +358,7 @@ namespace WebExpress.WebResource
                 oneLevel ? Children : GetPreOrder()
             );
 
-            return list.Where(x => x.ID.Equals(id, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+            return list.Where(x => x.ID.Equals(id, StringComparison.OrdinalIgnoreCase))?.FirstOrDefault();
         }
 
         /// <summary>
