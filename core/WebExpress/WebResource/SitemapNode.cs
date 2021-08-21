@@ -187,11 +187,6 @@ namespace WebExpress.WebResource
         {
             get
             {
-                //if (Parent == null)
-                //{
-                //    return "/";
-                //}
-
                 var list = new List<string>
                 (
                     new string[] { ID }

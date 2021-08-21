@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
@@ -99,18 +100,25 @@ namespace WebExpress.WebApp.WebResource
                 {
                     if (!page.Hide)
                     {
-                        var reessource = ResourceManager.FindByID(page?.ID);
-
-                        if (reessource != null)
+                        try
                         {
-                            control.Items.Add(new ControlNavigationItemLink()
+                            var reessource = ResourceManager.FindByID(page?.ID);
+
+                            if (reessource != null)
                             {
-                                Text = this.I18N(reessource.Title),
-                                Icon = page.Icon,
-                                Uri = new UriResource(Context.ContextPath, reessource.ExpressionPath),
-                                Active = page.ID == ID ? TypeActive.Active : TypeActive.None,
-                                NoWrap = true
-                            });
+                                control.Items.Add(new ControlNavigationItemLink()
+                                {
+                                    Text = this.I18N(reessource.Title),
+                                    Icon = page.Icon,
+                                    Uri = new UriResource(Context.ContextPath, reessource.ExpressionPath),
+                                    Active = page.ID == ID ? TypeActive.Active : TypeActive.None,
+                                    NoWrap = true
+                                });
+                            }
+                        } 
+                        catch (Exception ex)
+                        {
+                            Context.Log.Error(message: ex.Message);
                         }
                     }
                 }
