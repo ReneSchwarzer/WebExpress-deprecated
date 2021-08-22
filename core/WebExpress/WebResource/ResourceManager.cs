@@ -206,15 +206,16 @@ namespace WebExpress.WebResource
         /// <summary>
         /// Sucht die Ressource anhand seiner ID
         /// </summary>
+        /// <param name="applicationID">Die AnwendungsID</param>
         /// <param name="uri">Die ID</param>
         /// <returns>Die Ressource oder null</returns>
-        public static SitemapNode FindByID(string id)
+        public static SitemapNode FindByID(string applicationID, string id)
         {
             if (string.IsNullOrWhiteSpace(id)) return null;
 
             foreach (var module in Dictionary)
             {
-                var item = module.Value.Root.FindItem(id);
+                var item = module.Value.Root.FindItem(applicationID, id);
                 if (item != null)
                 {
                     return item;

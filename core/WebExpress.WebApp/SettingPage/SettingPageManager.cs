@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using WebExpress.Attribute;
@@ -8,6 +9,7 @@ using WebExpress.UI.WebControl;
 using WebExpress.Uri;
 using WebExpress.WebApp.Attribute;
 using WebExpress.WebApp.WebResource;
+using WebExpress.WebResource;
 using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.WebApp.SettingPage
@@ -119,6 +121,7 @@ namespace WebExpress.WebApp.SettingPage
                 {
                     ID = id,
                     Page = settingPageType,
+                    Node = ResourceManager.FindByID(applicationID, id),
                     Icon = icon,
                     Hide = hide
                 };
@@ -126,17 +129,21 @@ namespace WebExpress.WebApp.SettingPage
                 // Seite in das Dictionary einfügen
                 Dictionary.AddPage(applicationID, context, section, group, page);
 
-                // Anwendung wurde nicht gefunden
-                Context.Log.Warning(message: I18N("webexpress.webapp:pagesettingmanager.register"), args: new object[] 
-                { 
-                    applicationID, 
-                    context != null ? context : "null", 
-                    section.ToString(), 
-                    group != null ? group : "null", 
-                    page?.ID != null ? page?.ID : "null", 
-                    page?.Page != null ? page.Page.ToString() : "null",  
-                    page?.Hide != null ? page?.Hide.ToString() : "null"
-                });
+                // Logging
+                var log = new List<string>
+                {
+                    I18N("webexpress.webapp:pagesettingmanager.register"),
+                    "    ApplicationID    = " + applicationID,
+                    "    SettingContext   = " + (context != null ? context : "null"),
+                    "    SettingSection   = " + section.ToString(),
+                    "    SettingGroup     = " + (group != null ? group : "null"),
+                    "    SettingPage.ID   = " + (page?.ID != null ? page?.ID : "null"),
+                    "    SettingPage.Page = " + (page?.Page != null ? page.Page.ToString() : "null"),
+                    "    SettingPage.Node = " + (page?.Node != null ? page.Node?.ToString() : "null"),
+                    "    SettingPage.Hide = " + (page?.Hide != null ? page?.Hide.ToString() : "null")
+                };
+
+                Context.Log.Warning(string.Join(Environment.NewLine, log));
             }
         }
 

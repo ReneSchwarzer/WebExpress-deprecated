@@ -357,6 +357,28 @@ namespace WebExpress.WebResource
         }
 
         /// <summary>
+        /// Sucht ein Item anahnd der ID
+        /// </summary>
+        /// <param name="applicationID">Die AnwendungsID</param>
+        /// <param name="id">Die ID des gesuchten Items</param>
+        /// <param name="oneLevel">Die Suche beschränkt sich auf die nächste Ebene</param>
+        /// <returns>Das Item oder null</returns>
+        public SitemapNode FindItem(string applicationID, string id, bool oneLevel = false)
+        {
+            var list = new List<SitemapNode>
+            (
+                oneLevel ? Children : GetPreOrder()
+            );
+
+            return list.Where
+            (
+                x =>
+                x.ModuleContext.ApplicationID.Equals(applicationID, StringComparison.OrdinalIgnoreCase) && 
+                x.ID.Equals(id, StringComparison.OrdinalIgnoreCase)
+            )?.FirstOrDefault();
+        }
+
+        /// <summary>
         /// In String umwandeln
         /// </summary>
         /// <returns>Der Baumknoten in seiner Stringrepräsentation</returns>

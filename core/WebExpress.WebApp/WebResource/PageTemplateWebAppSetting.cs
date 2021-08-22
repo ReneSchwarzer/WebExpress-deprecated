@@ -1,11 +1,9 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
 using WebExpress.WebApp.Attribute;
 using WebExpress.WebApp.SettingPage;
-using WebExpress.WebResource;
 
 namespace WebExpress.WebApp.WebResource
 {
@@ -57,11 +55,9 @@ namespace WebExpress.WebApp.WebResource
 
                     if (firstPage != null)
                     {
-                        var page = ResourceManager.FindByID(firstPage?.Page.ID);
-
                         settingTab.Items.Add(new ControlNavigationItemLink()
                         {
-                            Uri = new UriResource(Context.ContextPath, page.ExpressionPath),
+                            Uri = new UriResource(Context.ContextPath, firstPage.Page.Node?.ExpressionPath),
                             Text = context.Name,
                             Active = path.Context == context.ContextName ? TypeActive.Active : TypeActive.None,
                         });
@@ -100,26 +96,14 @@ namespace WebExpress.WebApp.WebResource
                 {
                     if (!page.Hide)
                     {
-                        try
+                        control.Items.Add(new ControlNavigationItemLink()
                         {
-                            var reessource = ResourceManager.FindByID(page?.ID);
-
-                            if (reessource != null)
-                            {
-                                control.Items.Add(new ControlNavigationItemLink()
-                                {
-                                    Text = this.I18N(reessource.Title),
-                                    Icon = page.Icon,
-                                    Uri = new UriResource(Context.ContextPath, reessource.ExpressionPath),
-                                    Active = page.ID == ID ? TypeActive.Active : TypeActive.None,
-                                    NoWrap = true
-                                });
-                            }
-                        } 
-                        catch (Exception ex)
-                        {
-                            Context.Log.Error(message: ex.Message);
-                        }
+                            Text = this.I18N(page.Node?.Title),
+                            Icon = page.Icon,
+                            Uri = new UriResource(Context.ContextPath, page.Node?.ExpressionPath),
+                            Active = page.ID.Equals(ID, System.StringComparison.OrdinalIgnoreCase) ? TypeActive.Active : TypeActive.None,
+                            NoWrap = true
+                        });
                     }
                 }
 
