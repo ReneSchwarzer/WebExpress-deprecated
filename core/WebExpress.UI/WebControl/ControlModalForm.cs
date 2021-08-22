@@ -1,50 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Linq;
 using WebExpress.Html;
-using WebExpress.Message;
+using WebExpress.Internationalization;
 
 namespace WebExpress.UI.WebControl
 {
     public class ControlModalForm : ControlModal
     {
         /// <summary>
-        /// Event zum Validieren der Eingabewerte
+        /// Liefert das Formular
         /// </summary>
-        public event EventHandler<ValidationEventArgs> Validation;
-
-        /// <summary>
-        /// Liefert oder setzt den Formularnamen
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt die Ziel-Url
-        /// </summary>
-        public string Url { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt den Gültigkeitsbereich der Formulardaten
-        /// </summary>
-        public ParameterScope Scope { get; set; }
-
-        /// <summary>
-        /// Bestimmt ob die Eingabe gültig sind
-        /// </summary>
-        public bool Valid { get; private set; }
-
-        /// <summary>
-        /// Bestimmt ob die Eingabe gültig sind
-        /// </summary>
-        public List<ValidationResult> ValidationResults { get; private set; }
+        public ControlFormular Formular { get; private set; }
 
         /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="id">Die ID</param>
-        public ControlModalForm(string id)
-            : base(id)
+        public ControlModalForm(string id = null)
+            : this(id, string.Empty, null)
         {
-            Init();
+
         }
 
         /// <summary>
@@ -53,11 +27,20 @@ namespace WebExpress.UI.WebControl
         /// <param name="id">Die ID</param>
         /// <param name="name">Der Formularname</param>
         public ControlModalForm(string id, string name)
-            : base(id, string.Empty)
+            : this(id, name, null)
         {
-            Init();
 
-            Name = name;
+        }
+
+        /// <summary>
+        /// Konstruktor
+        /// </summary>
+        /// <param name="id">Die ID</param>
+        /// <param name="content">Die Formularsteuerelemente</param>
+        public ControlModalForm(string id, params ControlFormularItem[] content)
+            : this(id, string.Empty, content)
+        {
+
         }
 
         /// <summary>
@@ -65,33 +48,23 @@ namespace WebExpress.UI.WebControl
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="name">Der Name</param>
-        /// <param name="content">Der Inhalt</param>
-        public ControlModalForm(string id, string name, params Control[] content)
-            : base(id, string.Empty, content)
+        /// <param name="content">Die Formularsteuerelemente</param>
+        public ControlModalForm(string id, string name, params ControlFormularItem[] content)
+            : base("modal_" + id, string.Empty, content)
         {
-            Init();
+            Formular = new ControlFormular("form_" + id, content)
+            {
+                EnableCancelButton = false,
+                EnableSubmitAndNextButton = false
+            };
 
-            Name = name;
-        }
-
-        /// <summary>
-        /// Konstruktor
-        /// </summary>
-        /// <param name="id">Die ID</param>
-        /// <param name="name">Der Name</param>
-        /// <param name="content">Der Inhalt</param>
-        public ControlModalForm(string id, string name, IEnumerable<Control> content)
-            : base(id, string.Empty, content)
-        {
-            Init();
-
-            Name = name;
-        }
-
-        /// <summary>
-        /// Initialisierung
-        private void Init()
-        {
+            Formular.Validated += (s, e) =>
+            {
+                if (!e.Valid)
+                {
+                    ShowIfCreated = true;
+                }
+            };
         }
 
         /// <summary>
@@ -101,6 +74,13 @@ namespace WebExpress.UI.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
+            if (!Formular.Valid)
+            {
+                Fade = false;
+            }
+
+            var form = Formular.Render(context) as HtmlElementFormForm;
+
             Classes.Add("modal");
 
             if (Fade)
@@ -116,12 +96,14 @@ namespace WebExpress.UI.WebControl
             var headerButtonLabel = new HtmlElementTextSemanticsSpan(new HtmlText("&times;"))
             {
             };
+
             headerButtonLabel.AddUserAttribute("aria-hidden", "true");
 
             var headerButton = new HtmlElementFieldButton(headerButtonLabel)
             {
                 Class = "close"
             };
+
             headerButton.AddUserAttribute("aria-label", "close");
             headerButton.AddUserAttribute("data-dismiss", "modal");
 
@@ -130,46 +112,39 @@ namespace WebExpress.UI.WebControl
                 Class = "modal-header"
             };
 
-            var body = new HtmlElementTextContentDiv()
+            var formElements = form.Elements.Where(x => !(x is HtmlElementFieldButton));
+
+            var body = new HtmlElementTextContentDiv(formElements)
             {
                 Class = "modal-body"
             };
 
-            //foreach (var v in Content)
-            //{
-            //    body.Elements.Add(new FormularLabelGroup(v as FormularItem)
-            //    {
+            var footer = null as HtmlElementTextContentDiv;
 
-            //    }.ToHtml(page, this));
-            //}
-
-            var footerButtonOK = new HtmlElementFieldButton(new HtmlText("OK"))
+            var submitFooterButton = new ControlFormularItemButton()
             {
+                Name = "submit_" + Formular?.ID?.ToLower(),
+                Text = context.I18N("webexpress", "form.submit.label"),
+                Icon = new PropertyIcon(TypeIcon.Save),
+                Color = new PropertyColorButton(TypeColorButton.Success),
                 Type = "submit",
-                Class = "btn btn-success"
+                Value = "1",
+                Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None)
             };
-            //footerButtonOK.AddUserAttribute("data-dismiss", "modal");
-
-            var footerButtonCancel = new HtmlElementFieldButton(new HtmlText("Abbrechen"))
+           
+            var cancelFooterButton = new HtmlElementFieldButton(new HtmlText(context.I18N("webexpress", "modal.close.label")))
             {
                 Type = "button",
-                Class = "btn btn-danger"
+                Class = Css.Concatenate("btn", new PropertyColorButton(TypeColorButton.Primary).ToStyle())
             };
-            footerButtonCancel.AddUserAttribute("data-dismiss", "modal");
+            cancelFooterButton.AddUserAttribute("data-dismiss", "modal");
 
-            var footer = new HtmlElementTextContentDiv(footerButtonOK, footerButtonCancel)
+            footer = new HtmlElementTextContentDiv(submitFooterButton.Render(new RenderContextFormular(context, Formular)), cancelFooterButton)
             {
-                Class = "modal-footer"
+                Class = "modal-footer d-flex justify-content-between"
             };
 
-            var form = new HtmlElementFormForm(header, body, footer)
-            {
-                Action = "#" + ID,
-                Method = "post",
-                Name = "form_" + ID
-            };
-
-            var content = new HtmlElementTextContentDiv(form)
+            var content = new HtmlElementTextContentDiv(header, body, footer)
             {
                 Class = "modal-content"
             };
@@ -183,8 +158,8 @@ namespace WebExpress.UI.WebControl
             var html = new HtmlElementTextContentDiv(dialog)
             {
                 ID = ID,
-                Class = GetClasses(),
-                Style = GetStyles(),
+                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Role = "dialog"
             };
 
@@ -200,57 +175,25 @@ namespace WebExpress.UI.WebControl
                 context.Page.AddScript(ID + "_hidden", hidden);
             }
 
-            return html;
+            if (ShowIfCreated)
+            {
+                var show = "$('#" + ID + "').modal('show');";
+                context.Page.AddScript(ID + "_showifcreated", show);
+            }
+
+            form.Elements.Clear();
+            form.Elements.Add(html);
+
+            return form;
         }
 
         /// <summary>
-        /// Wird aufgerufen, wenn die Daten des Formulars zu laden sind
+        /// Fügt eine Formularsteuerelement hinzu
         /// </summary>
-        protected virtual void OnLoad()
+        /// <param name="item">Das Formularelement</param>
+        public void Add(params ControlFormularItem[] item)
         {
-
-        }
-
-        /// <summary>
-        /// Wird aufgerufen, wenn die Daten des Formulars zu speichern sind
-        /// </summary>
-        protected virtual void OnSave()
-        {
-
-        }
-
-        /// <summary>
-        /// Löst das Validation-Event aus
-        /// </summary>
-        /// <param name="e">Das Eventargument</param>
-        protected virtual void OnValidation(ValidationEventArgs e)
-        {
-            Validation?.Invoke(this, e);
-        }
-
-        /// <summary>
-        /// Prüft das Eingabeelement auf Korrektheit der Daten
-        /// </summary>
-        public virtual void Validate()
-        {
-            var valid = true;
-
-            //foreach (var v in Items.Where(x => x is ControlFormularItemInput).Select(x => x as ControlFormularItemInput))
-            //{
-            //    v.Validate();
-
-            //    if (v.ValidationResult == TypesInputValidity.Error)
-            //    {
-            //        valid = false;
-            //    }
-            //}
-
-            //var args = new ValidationEventArgs() { Value = null };
-            //OnValidation(args);
-
-            //ValidationResults.AddRange(args.Results);
-
-            Valid = valid;
+            Formular.Add(item);
         }
     }
 }

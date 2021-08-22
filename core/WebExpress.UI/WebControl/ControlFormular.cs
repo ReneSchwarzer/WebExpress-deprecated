@@ -21,6 +21,11 @@ namespace WebExpress.UI.WebControl
         public event EventHandler<ValidationEventArgs> Validation;
 
         /// <summary>
+        /// Event nach Abschluss der Validation
+        /// </summary>
+        public event EventHandler<ValidationResultEventArgs> Validated;
+
+        /// <summary>
         /// Event wird ausgelöst, wenn das Formular initialisiert wurde
         /// </summary>
         public event EventHandler InitializeFormular;
@@ -321,7 +326,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Fügt eine Textbox binzu
+        /// Fügt eine Formularsteuerelement hinzu
         /// </summary>
         /// <param name="item">Das Formularelement</param>
         public void Add(params ControlFormularItem[] item)
@@ -371,6 +376,15 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
+        /// Löst das Validated-Event aus
+        /// </summary>
+        /// <param name="e">Das Eventargument</param>
+        protected virtual void OnValidated(ValidationResultEventArgs e)
+        {
+            Validated?.Invoke(this, e);
+        }
+
+        /// <summary>
         /// Prüft das Eingabeelement auf Korrektheit der Daten
         /// </summary>
         public virtual void Validate()
@@ -403,6 +417,11 @@ namespace WebExpress.UI.WebControl
             }
 
             Valid = valid;
+
+            var validatedArgs = new ValidationResultEventArgs(Valid);
+            validatedArgs.Results.AddRange(validationResults);
+            
+            OnValidated(validatedArgs);
         }
     }
 }

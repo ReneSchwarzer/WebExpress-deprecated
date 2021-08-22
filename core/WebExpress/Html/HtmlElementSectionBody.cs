@@ -28,8 +28,13 @@ namespace WebExpress.Html
             get => (from x in ElementScriptLinks select x.Src).ToList();
             set
             {
-                ElementScriptLinks.Clear(); ElementScriptLinks.AddRange(from x in value
-                                                                        select new HtmlElementScriptingScript() { Language = "javascript", Src = x, Type = "text/javascript" });
+                ElementScriptLinks.Clear(); 
+                ElementScriptLinks.AddRange(from x in value select new HtmlElementScriptingScript() 
+                { 
+                    Language = "javascript", 
+                    Src = x, 
+                    Type = "text/javascript" 
+                });
             }
         }
 
@@ -76,9 +81,9 @@ namespace WebExpress.Html
                 v.ToString(builder, deep + 1);
             }
 
-            if (Scripts.Count > 0)
+            foreach (var script in Scripts)
             {
-                new HtmlElementScriptingScript(string.Join(Environment.NewLine, from x in Scripts select x)).ToString(builder, deep + 1);
+                new HtmlElementScriptingScript(script).ToString(builder, deep + 1);
             }
 
             ToPostString(builder, deep, true);

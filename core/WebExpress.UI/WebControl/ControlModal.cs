@@ -23,6 +23,11 @@ namespace WebExpress.UI.WebControl
         public string Header { get; set; }
 
         /// <summary>
+        /// Bestimmt, ob das Modal beim Laden des Steuerelementes angezeigt werden soll oder erst nach Nutzeraufforderung
+        /// </summary>
+        public bool ShowIfCreated { get; set; }
+
+        /// <summary>
         /// Liefert oder setzt den JQuerryCode, welcher beim anzeigen des Modal-Dialoges ausgefürt werden soll
         /// </summary>
         public string OnShownCode { get; set; }
@@ -140,6 +145,8 @@ namespace WebExpress.UI.WebControl
                 Class = "modal-body"
             };
 
+            var footer = null as HtmlElementTextContentDiv;
+
             var footerButton = new HtmlElementFieldButton(new HtmlText(context.I18N("webexpress", "modal.close.label")))
             {
                 Type = "button",
@@ -147,7 +154,7 @@ namespace WebExpress.UI.WebControl
             };
             footerButton.AddUserAttribute("data-dismiss", "modal");
 
-            var footer = new HtmlElementTextContentDiv(footerButton)
+            footer = new HtmlElementTextContentDiv(footerButton)
             {
                 Class = "modal-footer"
             };
@@ -181,6 +188,12 @@ namespace WebExpress.UI.WebControl
             {
                 var hidden = "$('#" + ID + "').on('hidden.bs.modal', function() { " + OnHiddenCode + " });";
                 context.Page.AddScript(ID + "_hidden", hidden);
+            }
+
+            if (ShowIfCreated)
+            {
+                var show = "$('#" + ID + "').modal('show');";
+                context.Page.AddScript(ID + "_showifcreated", show);
             }
 
             return html;
