@@ -213,9 +213,9 @@ namespace WebExpress.WebResource
         {
             if (string.IsNullOrWhiteSpace(id)) return null;
 
-            foreach (var module in Dictionary)
+            foreach (var module in Dictionary.Where(x => x.Key.ApplicationID.Equals(applicationID, StringComparison.OrdinalIgnoreCase)))
             {
-                var item = module.Value.Root.FindItem(applicationID, id);
+                var item = module.Value.Root.FindItem(id);
                 if (item != null)
                 {
                     return item;

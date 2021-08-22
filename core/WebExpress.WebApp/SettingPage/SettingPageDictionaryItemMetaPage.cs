@@ -12,9 +12,9 @@ namespace WebExpress.WebApp.SettingPage
         public string ID { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Seite
+        /// Liefert oder setzt den Seitenklasse
         /// </summary>
-        public Type Page { get; set; }
+        public Type Type { get; set; }
         
         /// <summary>
         /// Liefert oder setzt die den Sitemapeintrag zu der Seite

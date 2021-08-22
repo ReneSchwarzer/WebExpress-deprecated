@@ -120,7 +120,7 @@ namespace WebExpress.WebApp.SettingPage
                 var page = new SettingPageDictionaryItemMetaPage()
                 {
                     ID = id,
-                    Page = settingPageType,
+                    Type = settingPageType,
                     Node = ResourceManager.FindByID(applicationID, id),
                     Icon = icon,
                     Hide = hide
@@ -138,7 +138,7 @@ namespace WebExpress.WebApp.SettingPage
                     "    SettingSection   = " + section.ToString(),
                     "    SettingGroup     = " + (group != null ? group : "null"),
                     "    SettingPage.ID   = " + (page?.ID != null ? page?.ID : "null"),
-                    "    SettingPage.Page = " + (page?.Page != null ? page.Page.ToString() : "null"),
+                    "    SettingPage.Type = " + (page?.Type != null ? page.Type.ToString() : "null"),
                     "    SettingPage.Node = " + (page?.Node != null ? page.Node?.ToString() : "null"),
                     "    SettingPage.Hide = " + (page?.Hide != null ? page?.Hide.ToString() : "null")
                 };
