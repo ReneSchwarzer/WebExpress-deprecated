@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using WebExpress.Html;
 using WebExpress.Internationalization;
+using WebExpress.Uri;
 
 namespace WebExpress.UI.WebControl
 {
@@ -124,19 +125,20 @@ namespace WebExpress.UI.WebControl
             var submitFooterButton = new ControlFormularItemButton()
             {
                 Name = "submit_" + Formular?.ID?.ToLower(),
-                Text = context.I18N("webexpress", "form.submit.label"),
-                Icon = new PropertyIcon(TypeIcon.Save),
-                Color = new PropertyColorButton(TypeColorButton.Success),
+                Text = Formular.SubmitButton.Text,
+                Icon = Formular.SubmitButton.Icon,
+                Color = Formular.SubmitButton.Color,
                 Type = "submit",
                 Value = "1",
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None)
             };
-           
-            var cancelFooterButton = new HtmlElementFieldButton(new HtmlText(context.I18N("webexpress", "modal.close.label")))
+
+            var cancelFooterButton = new ControlButtonLink()
             {
-                Type = "button",
-                Class = Css.Concatenate("btn", new PropertyColorButton(TypeColorButton.Primary).ToStyle())
-            };
+                Text = context.I18N("webexpress", "modal.close.label") //,
+                //Uri = new UriFragment()
+            }.Render(context) as HtmlElement;
+
             cancelFooterButton.AddUserAttribute("data-dismiss", "modal");
 
             footer = new HtmlElementTextContentDiv(submitFooterButton.Render(new RenderContextFormular(context, Formular)), cancelFooterButton)

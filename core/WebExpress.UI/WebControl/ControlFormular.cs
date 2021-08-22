@@ -148,8 +148,10 @@ namespace WebExpress.UI.WebControl
         public ControlFormular(string id, params ControlFormularItem[] items)
             : this(id)
         {
-            (Items as List<ControlFormularItem>).AddRange(items);
-
+            if (items != null)
+            {
+                (Items as List<ControlFormularItem>).AddRange(items);
+            }
         }
 
         /// <summary>
@@ -422,6 +424,14 @@ namespace WebExpress.UI.WebControl
             validatedArgs.Results.AddRange(validationResults);
             
             OnValidated(validatedArgs);
+        }
+
+        /// <summary>
+        /// Weist an, die initialen Formaulardaten erneut zu laden
+        /// </summary>
+        public void Reset()
+        {
+            OnFill();
         }
     }
 }

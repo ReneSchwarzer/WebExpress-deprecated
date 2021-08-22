@@ -67,7 +67,10 @@ namespace WebExpress.UI.WebControl
         public ControlModal(string id, string header, params Control[] content)
             : this(id, header)
         {
-            Content.AddRange(content);
+            if (content != null)
+            {
+                Content.AddRange(content);
+            }
         }
 
         /// <summary>
