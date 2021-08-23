@@ -5,6 +5,7 @@ using WebExpress.UI.Components;
 namespace WebExpress.UI
 {
     [ID("webexpress")]
+    [Name("WebExpress")]
     public sealed class Plugin : IPlugin
     {
         /// <summary>

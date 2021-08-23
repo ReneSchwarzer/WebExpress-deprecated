@@ -5,7 +5,6 @@ componentmanager.initialization=Der Komponentenmanager wurde initialisiert.
 componentmanager.register=Die Komponente '{0}' wurde in der Sektion '{1}' der Anwendung '{2}' registriert.
 componentmanager.error.section=Die Angabe der Sektion ist fehlerhaft.
 
-
 form.submit.label=Speichern
 form.next.label=Speichern und weiter
 form.cancel.label=Abbrechen

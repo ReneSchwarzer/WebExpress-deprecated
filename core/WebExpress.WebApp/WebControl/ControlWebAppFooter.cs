@@ -12,11 +12,6 @@ namespace WebExpress.WebApp.WebControl
     public class ControlWebAppFooter : Control
     {
         /// <summary>
-        /// Liefert oder setzt den Bereich für die Kopfzeile der Sidebar
-        /// </summary>
-        public ControlPanel Header { get; protected set; } = new ControlPanel("sidebarheader");
-
-        /// <summary>
         /// Liefert oder setzt den den Bereich für Präferenzen
         /// </summary>
         public List<IControl> Preferences { get; protected set; } = new List<IControl>();
@@ -57,24 +52,15 @@ namespace WebExpress.WebApp.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            if (Header.Content.Count == 0 && Preferences.Count == 0 && Primary.Count == 0 && Secondary.Count == 0)
-            {
-                return null;
-            }
-
-            var elements = new List<IHtmlNode>
-            {
-                Header.Render(context)
-            };
-            elements.AddRange(Preferences.Select(x => x.Render(context)));
-            elements.AddRange(Primary.Select(x => x.Render(context)));
-            elements.AddRange(Secondary.Select(x => x.Render(context)));
-
+            var elements = new List<IHtmlNode>();
+            elements.Add(new HtmlElementTextContentDiv(Preferences.Select(x => x.Render(context))));
+            elements.Add(new HtmlElementTextContentDiv(Primary.Select(x => x.Render(context))) { Class = "justify-content-center" } );
+            elements.Add(new HtmlElementTextContentDiv(Secondary.Select(x => x.Render(context))));
 
             return new HtmlElementTextContentDiv(elements)
             {
                 ID = ID,
-                Class = Css.Concatenate("footer", GetClasses()),
+                Class = Css.Concatenate("footer d-flex justify-content-between align-items-stretch", GetClasses()),
                 Style = Style.Concatenate("display: block;", GetStyles()),
                 Role = Role
             };
