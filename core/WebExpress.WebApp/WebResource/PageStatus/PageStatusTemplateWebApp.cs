@@ -8,12 +8,12 @@ using WebExpress.Uri;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebResource;
 
-namespace WebExpress.WebApp.WebResource
+namespace WebExpress.WebApp.WebResource.PageStatus
 {
     /// <summary>
     /// Statusseite
     /// </summary>
-    public abstract class StatusPageTemplateWebApp : ResourcePageTemplate, IPageStatus
+    public abstract class PageStatusTemplateWebApp : ResourcePageTemplate, IPageStatus
     {
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace WebExpress.WebApp.WebResource
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public StatusPageTemplateWebApp()
+        public PageStatusTemplateWebApp()
         {
         }
 

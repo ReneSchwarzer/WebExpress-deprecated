@@ -3,7 +3,7 @@ using System.Reflection;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
 
-namespace WebExpress.WebApp.WebResource
+namespace WebExpress.WebApp.WebResource.PageSetting
 {
     /// <summary>
     /// Einstellungsseite mit Systeminformationen

@@ -5,7 +5,7 @@ using WebExpress.Uri;
 using WebExpress.WebApp.Attribute;
 using WebExpress.WebApp.SettingPage;
 
-namespace WebExpress.WebApp.WebResource
+namespace WebExpress.WebApp.WebResource.PageSetting
 {
     /// <summary>
     /// Seite, welche für Einstellungen verwendet werden kann

@@ -8,7 +8,7 @@ using WebExpress.Plugin;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
 using WebExpress.WebApp.Attribute;
-using WebExpress.WebApp.WebResource;
+using WebExpress.WebApp.WebResource.PageSetting;
 using WebExpress.WebResource;
 using static WebExpress.Internationalization.InternationalizationManager;
 

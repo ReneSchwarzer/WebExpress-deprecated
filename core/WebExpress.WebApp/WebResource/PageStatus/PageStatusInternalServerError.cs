@@ -1,22 +1,21 @@
 ﻿using WebExpress.Attribute;
 using WebExpress.Html;
 using WebExpress.Internationalization;
-using WebExpress.UI.WebResource;
 
-namespace WebExpress.WebApp.WebResource
+namespace WebExpress.WebApp.WebResource.PageStatus
 {
     /// <summary>
     /// Statusseite
     /// </summary>
-    [StatusCode(400)]
-    public sealed class StatusPageBadRequest : StatusPageTemplateWebApp
+    [StatusCode(500)]
+    public sealed class PageStatusInternalServerError : PageStatusTemplateWebApp
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public StatusPageBadRequest()
+        public PageStatusInternalServerError()
         {
-            
+
         }
 
         /// <summary>
@@ -26,7 +25,7 @@ namespace WebExpress.WebApp.WebResource
         {
             base.Initialization();
 
-            StatusTitle = this.I18N("webexpress.webapp", "status.400.title");
+            StatusTitle = this.I18N("webexpress.webapp", "status.500.title");
 
             Title = $"{ StatusCode } - { StatusTitle }";
         }
