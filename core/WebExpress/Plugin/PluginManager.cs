@@ -123,6 +123,7 @@ namespace WebExpress.Plugin
                             PluginName = name,
                             Manufacturer = type.Assembly.GetCustomAttribute<AssemblyCompanyAttribute>()?.Company,
                             Copyright = type.Assembly.GetCustomAttribute<AssemblyCopyrightAttribute>()?.Copyright,
+                            //License = type.Assembly.GetCustomAttribute<AssemblyLicenseAttribute>()?.Copyright,
                             Icon = UriRelative.Combine(Context.ContextPath, icon),
                             Description = description,
                             Version = type.Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion,

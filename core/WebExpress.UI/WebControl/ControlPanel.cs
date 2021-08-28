@@ -51,6 +51,16 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Konstruktor
         /// </summary>
+        /// <param name="content">Der Inhalt</param>
+        public ControlPanel(ICollection<IControl> content)
+            : this()
+        {
+            Content.AddRange(content.Where(x => x != null));
+        }
+
+        /// <summary>
+        /// Konstruktor
+        /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="content">Der Inhalt</param>
         public ControlPanel(string id, params IControl[] content)

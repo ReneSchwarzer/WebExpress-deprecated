@@ -41,6 +41,11 @@ namespace WebExpress.Plugin
         public string Version { get; internal set; }
 
         /// <summary>
+        /// Liefert oder setzt die Lizenz-Informationen
+        /// </summary>
+        public string License { get; internal set; }
+
+        /// <summary>
         /// Liefert das Icon des Plugins
         /// </summary>
         public IUri Icon { get; internal set; }

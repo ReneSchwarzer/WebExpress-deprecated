@@ -51,3 +51,12 @@ setting.logfile.switchon.label=Aktivieren
 setting.logfile.switchon.header=Logging aktivieren
 setting.logfile.switchon.description=Das Aktivieren ist nur bis zum nächsten Neustart gültig. Für ein dauerhaftes Aktivieren ändern Sie die Einstellungen in der Konfigurationsdatei.
 setting.logfile.switchon.success=Das Logging wurde aktiviert.
+
+setting.plugin.label=Installierte Anwendungen
+setting.plugin.name.label=Name
+setting.plugin.version.label=Version
+setting.plugin.manufacturer.label=Hersteller: {0}
+setting.plugin.copyright.label=Copyright: {0}
+setting.plugin.license.label=Lizenz: {0}
+setting.plugin.description.label=Beschreibung: {0}
+setting.plugin.modules.label=Module

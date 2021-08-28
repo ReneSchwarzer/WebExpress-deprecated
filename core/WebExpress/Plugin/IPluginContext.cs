@@ -44,6 +44,11 @@ namespace WebExpress.Plugin
         string Copyright { get; }
 
         /// <summary>
+        /// Liefert oder setzt die Lizenz-Informationen
+        /// </summary>
+        string License { get; }
+
+        /// <summary>
         /// Liefert das Icon des Plugins
         /// </summary>
         IUri Icon { get; }
