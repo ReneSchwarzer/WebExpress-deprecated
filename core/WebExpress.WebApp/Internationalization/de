@@ -15,6 +15,10 @@ status.500.title=Interner Serverfehler
 pagesettingmanager.initialization=Der Einstellungsseitenmanager wurde inizialisiert.
 pagesettingmanager.register=Eine Einsteuungsseite wurde dem Einstellungsseitenmanager hinzugefügt.
 
+confirm.label=Bestätigung
+confirm.header=Bestätigung einholen
+confirm.description=Sind Sie sicher das Sie das tun möchten?
+
 delete.label=Löschen
 delete.header=Löschen bestätigen
 delete.description=Möchten Sie wirklich löschen?

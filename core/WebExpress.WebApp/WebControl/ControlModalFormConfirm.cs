@@ -5,12 +5,27 @@ using WebExpress.UI.WebControl;
 
 namespace WebExpress.WebApp.WebControl
 {
-    public class ControlModalFormDelete : ControlModalForm
+    public class ControlModalFormConfirm : ControlModalForm
     {
         /// <summary>
         /// Event wird ausgelöst, wenn das Löschen bestätigt wurde
         /// </summary>
-        public event EventHandler Delete;
+        public event EventHandler Confirm;
+
+        /// <summary>
+        /// Liefert oder setzt das Icon
+        /// </summary>
+        public PropertyIcon Icon { get; set; }
+
+        /// <summary>
+        /// Liefert oder setzt die Farbe der Schaltfläche
+        /// </summary>
+        public PropertyColorButton ButtonColor { get; set; }
+
+        /// <summary>
+        /// Liefert oder setzt die Beschriftung der Schaltfläche
+        /// </summary>
+        public string ButtonLabel { get; set; }
 
         /// <summary>
         /// Liefert oder setzt den Inhalt
@@ -21,7 +36,7 @@ namespace WebExpress.WebApp.WebControl
         /// Konstruktor
         /// </summary>
         /// <param name="id">Die ID</param>
-        public ControlModalFormDelete(string id = null)
+        public ControlModalFormConfirm(string id = null)
             : this(id, null)
         {
 
@@ -32,7 +47,7 @@ namespace WebExpress.WebApp.WebControl
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="content">Die Formularsteuerelemente</param>
-        public ControlModalFormDelete(string id, params ControlFormularItem[] content)
+        public ControlModalFormConfirm(string id, params ControlFormularItem[] content)
             : base(id, string.Empty, content)
         {
             Init();
@@ -45,16 +60,16 @@ namespace WebExpress.WebApp.WebControl
         {
             Formular.ProcessFormular += (s, e) =>
             {
-                OnDelete();
+                OnConfirm();
             };
         }
 
         /// <summary>
-        /// Löst das Delete-Event aus
+        /// Löst das Confirm-Event aus
         /// </summary>
-        protected virtual void OnDelete()
+        protected virtual void OnConfirm()
         {
-            Delete?.Invoke(this, new EventArgs());
+            Confirm?.Invoke(this, new EventArgs());
         }
 
         /// <summary>
@@ -66,18 +81,28 @@ namespace WebExpress.WebApp.WebControl
         {
             if (string.IsNullOrWhiteSpace(Header))
             {
-                Header = context.Page.I18N("webexpress.webapp", "delete.header");
+                Header = context.Page.I18N("webexpress.webapp", "confirm.header");
+            }
+            
+            if (string.IsNullOrWhiteSpace(ButtonLabel))
+            {
+                ButtonLabel = context.Page.I18N("webexpress.webapp", "confirm.label");
             }
 
             if (Content == null)
             {
-                Content = new ControlFormularItemStaticText() { Text = context.Page.I18N("webexpress.webapp", "delete.description") };
+                Content = new ControlFormularItemStaticText() { Text = context.Page.I18N("webexpress.webapp", "confirm.description") };
+            }
+            
+            if (ButtonColor == null)
+            {
+                ButtonColor = new PropertyColorButton(TypeColorButton.Primary);
             }
 
             Formular.RedirectUri = context.Uri;
-            Formular.SubmitButton.Text = context.Page.I18N("webexpress.webapp", "delete.label");
-            Formular.SubmitButton.Icon = new PropertyIcon(TypeIcon.TrashAlt);
-            Formular.SubmitButton.Color = new PropertyColorButton(TypeColorButton.Danger);
+            Formular.SubmitButton.Text = ButtonLabel;
+            Formular.SubmitButton.Icon = Icon;
+            Formular.SubmitButton.Color = ButtonColor;
             Formular.Add(Content);
             
             return base.Render(context);

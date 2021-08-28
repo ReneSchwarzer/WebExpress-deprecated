@@ -15,6 +15,10 @@ status.500.title=Internal Server Error
 pagesettingmanager.initialization=The settings page manager has been initialized.
 pagesettingmanager.register=A settings page has been added to the settings page manager.
 
+confirm.label=Confirm
+confirm.header=Get confirmation
+confirm.description=Are you sure you want to do that??
+
 delete.label=Delete
 delete.header=Confirm Delete
 delete.description=Are you sure you want to delete?

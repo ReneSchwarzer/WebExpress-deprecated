@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using WebExpress.Internationalization;
 using WebExpress.Message;
 using WebExpress.UI.WebControl;
@@ -37,26 +36,27 @@ namespace WebExpress.WebApp.WebResource.PageSetting
             var file = new FileInfo(Context.Log.Filename);
             var fileSize = string.Format(new FileSizeFormatProvider() { Culture = Culture }, "{0:fs}", file.Exists ? file.Length : 0);
 
-            var deleteForm = new ControlModalFormDelete("delte_log") 
-            { 
+            var deleteForm = new ControlModalFormConfirmDelete("delte_log")
+            {
                 Header = this.I18N("webexpress.webapp", "setting.logfile.delete.header"),
                 Content = new ControlFormularItemStaticText() { Text = this.I18N("webexpress.webapp", "setting.logfile.delete.description") }
             };
 
-            deleteForm.Delete += (s, e) =>
+            deleteForm.Confirm += (s, e) =>
             {
                 File.Delete(Context.Log.Filename);
             };
 
-            var switchOnForm = new ControlModalForm("swichon_log", new ControlFormularItemStaticText() { Text = this.I18N("webexpress.webapp", "setting.logfile.switchon.description") })
+            var switchOnForm = new ControlModalFormConfirm("swichon_log")
             {
                 Header = this.I18N("webexpress.webapp", "setting.logfile.switchon.header"),
+                Content = new ControlFormularItemStaticText() { Text = this.I18N("webexpress.webapp", "setting.logfile.switchon.description") },
+                Icon = new PropertyIcon(TypeIcon.PowerOff),
+                ButtonColor = new PropertyColorButton(TypeColorButton.Success),
+                ButtonLabel = this.I18N("webexpress.webapp", "setting.logfile.switchon.label")
             };
 
-            switchOnForm.Formular.Uri = Uri;
-            switchOnForm.Formular.SubmitButton.Text = this.I18N("webexpress.webapp", "setting.logfile.switchon.label");
-            switchOnForm.Formular.SubmitButton.Icon = new PropertyIcon(TypeIcon.PowerOff);
-            switchOnForm.Formular.ProcessFormular += (s, e) =>
+            switchOnForm.Confirm += (s, e) =>
             {
                 Context.Log.LogModus = Log.Modus.Override;
                 Context.Log.Info(this.I18N("webexpress.webapp", "setting.logfile.switchon.success"));
@@ -66,24 +66,24 @@ namespace WebExpress.WebApp.WebResource.PageSetting
             info.AddRow
             (
                 new ControlText() { Text = this.I18N("webexpress.webapp", "setting.logfile.path") }, new ControlText() { Text = Context.Log.Filename, Format = TypeFormatText.Code },
-                DownloadUri != null && file.Exists ? new ControlButtonLink() 
-                { 
-                    Text = this.I18N("webexpress.webapp", "setting.logfile.download"), 
-                    Icon = new PropertyIcon(TypeIcon.Download), 
-                    BackgroundColor = new PropertyColorButton(TypeColorButton.Primary), 
-                    Uri = DownloadUri 
+                DownloadUri != null && file.Exists ? new ControlButtonLink()
+                {
+                    Text = this.I18N("webexpress.webapp", "setting.logfile.download"),
+                    Icon = new PropertyIcon(TypeIcon.Download),
+                    BackgroundColor = new PropertyColorButton(TypeColorButton.Primary),
+                    Uri = DownloadUri
                 } : new ControlPanel()
             );
 
             info.AddRow
             (
                 new ControlText() { Text = this.I18N("webexpress.webapp", "setting.logfile.size") }, new ControlText() { Text = file.Exists ? fileSize : "n.a.", Format = TypeFormatText.Code },
-                file.Exists ? new ControlButton() 
-                { 
-                    Text = this.I18N("webexpress.webapp", "setting.logfile.delete.label"), 
-                    Modal = deleteForm, 
-                    Icon = new PropertyIcon(TypeIcon.TrashAlt), 
-                    BackgroundColor = new PropertyColorButton(TypeColorButton.Danger) 
+                file.Exists ? new ControlButton()
+                {
+                    Text = this.I18N("webexpress.webapp", "setting.logfile.delete.label"),
+                    Modal = deleteForm,
+                    Icon = new PropertyIcon(TypeIcon.TrashAlt),
+                    BackgroundColor = new PropertyColorButton(TypeColorButton.Danger)
                 } : new ControlPanel()
             );
 
@@ -106,15 +106,15 @@ namespace WebExpress.WebApp.WebResource.PageSetting
             {
                 var content = File.ReadLines(Context.Log.Filename).TakeLast(100);
 
-                Content.Primary.Add(new ControlText() 
-                { 
-                    Text = this.I18N("webexpress.webapp", "setting.logfile.extract"), 
-                    Format = TypeFormatText.H2 
+                Content.Primary.Add(new ControlText()
+                {
+                    Text = this.I18N("webexpress.webapp", "setting.logfile.extract"),
+                    Format = TypeFormatText.H3
                 });
 
-                Content.Primary.Add(new ControlText() 
-                { 
-                    Text = string.Join("<br/>", content.Reverse()), 
+                Content.Primary.Add(new ControlText()
+                {
+                    Text = string.Join("<br/>", content.Reverse()),
                     Format = TypeFormatText.Code
                 });
             }
