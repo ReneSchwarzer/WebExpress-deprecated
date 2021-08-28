@@ -15,6 +15,10 @@ status.500.title=Interner Serverfehler
 pagesettingmanager.initialization=Der Einstellungsseitenmanager wurde inizialisiert.
 pagesettingmanager.register=Eine Einsteuungsseite wurde dem Einstellungsseitenmanager hinzugefügt.
 
+delete.label=Löschen
+delete.header=Löschen bestätigen
+delete.description=Möchten Sie wirklich löschen?
+
 setting.systeminformation.group.server.label=Server Info
 setting.systeminformation.group.server.version=Programmversion:
 setting.systeminformation.group.server.systemdate=Systemdatum:
@@ -28,3 +32,18 @@ setting.systeminformation.group.environment.machinename=Gerätename:
 setting.systeminformation.group.environment.processorcount=Anzahl der logischen Prozessoren:
 setting.systeminformation.group.environment.64bit=64bit-System:
 setting.systeminformation.group.environment.username=Benutzername:
+
+setting.logfile.label=Logdatei:
+setting.logfile.path=Speicherort:
+setting.logfile.size=Dateigröße:
+setting.logfile.modus=Logmodus:
+setting.logfile.level=Loglevel:
+setting.logfile.extract=Auszug
+setting.logfile.download=Herunterladen
+setting.logfile.delete.label=Löschen
+setting.logfile.delete.header=Logfile löschen
+setting.logfile.delete.description=Möchten Sie die Logdatei wirklich löschen? 
+setting.logfile.switchon.label=Aktivieren
+setting.logfile.switchon.header=Logging aktivieren
+setting.logfile.switchon.description=Das Aktivieren ist nur bis zum nächsten Neustart gültig. Für ein dauerhaftes Aktivieren ändern Sie die Einstellungen in der Konfigurationsdatei.
+setting.logfile.switchon.success=Das Logging wurde aktiviert.

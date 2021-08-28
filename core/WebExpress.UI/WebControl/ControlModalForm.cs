@@ -26,9 +26,9 @@ namespace WebExpress.UI.WebControl
         /// Konstruktor
         /// </summary>
         /// <param name="id">Die ID</param>
-        /// <param name="name">Der Formularname</param>
-        public ControlModalForm(string id, string name)
-            : this(id, name, null)
+        /// <param name="header">Die Überschrift</param>
+        public ControlModalForm(string id, string header)
+            : this(id, header, null)
         {
 
         }
@@ -48,9 +48,9 @@ namespace WebExpress.UI.WebControl
         /// Konstruktor
         /// </summary>
         /// <param name="id">Die ID</param>
-        /// <param name="name">Der Name</param>
+        /// <param name="header">Die Überschrift</param>
         /// <param name="content">Die Formularsteuerelemente</param>
-        public ControlModalForm(string id, string name, params ControlFormularItem[] content)
+        public ControlModalForm(string id, string header, params ControlFormularItem[] content)
             : base("modal_" + id, string.Empty, content)
         {
             Formular = new ControlFormular("form_" + id, content)

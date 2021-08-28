@@ -15,6 +15,9 @@ status.500.title=Internal Server Error
 pagesettingmanager.initialization=The settings page manager has been initialized.
 pagesettingmanager.register=A settings page has been added to the settings page manager.
 
+delete.label=Delete
+delete.header=Confirm Delete
+delete.description=Are you sure you want to delete?
 
 setting.systeminformation.group.server.label=Server info
 setting.systeminformation.group.server.version=Version:
@@ -29,3 +32,18 @@ setting.systeminformation.group.environment.machinename=Machine name:
 setting.systeminformation.group.environment.processorcount=Logical processor count:
 setting.systeminformation.group.environment.64bit=64bit:
 setting.systeminformation.group.environment.username=User name:
+
+setting.logfile.label=log:
+setting.logfile.path=Location:
+setting.logfile.size=File size:
+setting.logfile.modus=Log mode:
+setting.logfile.level=Log level:
+setting.logfile.extract=Extract
+setting.logfile.download=Download
+setting.logfile.delete.label=Delete
+setting.logfile.delete.header=Delete log file
+setting.logfile.delete.description=Do you really want to delete the log file?
+setting.logfile.switchon.label=Activate
+setting.logfile.switchon.header=Enable logging
+setting.logfile.switchon.description=Activation is only valid until the next restart. To enable it permanently, change the settings in the configuration file. 
+setting.logfile.switchon.success=Logging has been enabled.

@@ -1,0 +1,126 @@
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using WebExpress.Internationalization;
+using WebExpress.Message;
+using WebExpress.UI.WebControl;
+using WebExpress.Uri;
+using WebExpress.WebApp.WebControl;
+
+namespace WebExpress.WebApp.WebResource.PageSetting
+{
+    /// <summary>
+    /// Einstellungsseite mit Systeminformationen
+    /// </summary>
+    public abstract class PageTemplateWebAppSettingLog : PageTemplateWebAppSetting
+    {
+        /// <summary>
+        /// Liefert oder setzt die Uri zum Download des Losfiles. Null wenn kein Logfiledownlod erfolgen soll
+        /// </summary>
+        public IUri DownloadUri { get; set; }
+
+        /// <summary>
+        /// Konstruktor
+        /// </summary>
+        public PageTemplateWebAppSettingLog()
+        {
+            Icon = new PropertyIcon(TypeIcon.FileMedicalAlt);
+        }
+
+        /// <summary>
+        /// Vorverarbeitung
+        /// </summary>
+        /// <param name="request">Die Anfrage</param>
+        public override void PreProcess(Request request)
+        {
+            var file = new FileInfo(Context.Log.Filename);
+            var fileSize = string.Format(new FileSizeFormatProvider() { Culture = Culture }, "{0:fs}", file.Exists ? file.Length : 0);
+
+            var deleteForm = new ControlModalFormDelete("delte_log") 
+            { 
+                Header = this.I18N("webexpress.webapp", "setting.logfile.delete.header"),
+                Content = new ControlFormularItemStaticText() { Text = this.I18N("webexpress.webapp", "setting.logfile.delete.description") }
+            };
+
+            deleteForm.Delete += (s, e) =>
+            {
+                File.Delete(Context.Log.Filename);
+            };
+
+            var switchOnForm = new ControlModalForm("swichon_log", new ControlFormularItemStaticText() { Text = this.I18N("webexpress.webapp", "setting.logfile.switchon.description") })
+            {
+                Header = this.I18N("webexpress.webapp", "setting.logfile.switchon.header"),
+            };
+
+            switchOnForm.Formular.Uri = Uri;
+            switchOnForm.Formular.SubmitButton.Text = this.I18N("webexpress.webapp", "setting.logfile.switchon.label");
+            switchOnForm.Formular.SubmitButton.Icon = new PropertyIcon(TypeIcon.PowerOff);
+            switchOnForm.Formular.ProcessFormular += (s, e) =>
+            {
+                Context.Log.LogModus = Log.Modus.Override;
+                Context.Log.Info(this.I18N("webexpress.webapp", "setting.logfile.switchon.success"));
+            };
+
+            var info = new ControlTable() { Striped = false };
+            info.AddRow
+            (
+                new ControlText() { Text = this.I18N("webexpress.webapp", "setting.logfile.path") }, new ControlText() { Text = Context.Log.Filename, Format = TypeFormatText.Code },
+                DownloadUri != null && file.Exists ? new ControlButtonLink() 
+                { 
+                    Text = this.I18N("webexpress.webapp", "setting.logfile.download"), 
+                    Icon = new PropertyIcon(TypeIcon.Download), 
+                    BackgroundColor = new PropertyColorButton(TypeColorButton.Primary), 
+                    Uri = DownloadUri 
+                } : new ControlPanel()
+            );
+
+            info.AddRow
+            (
+                new ControlText() { Text = this.I18N("webexpress.webapp", "setting.logfile.size") }, new ControlText() { Text = file.Exists ? fileSize : "n.a.", Format = TypeFormatText.Code },
+                file.Exists ? new ControlButton() 
+                { 
+                    Text = this.I18N("webexpress.webapp", "setting.logfile.delete.label"), 
+                    Modal = deleteForm, 
+                    Icon = new PropertyIcon(TypeIcon.TrashAlt), 
+                    BackgroundColor = new PropertyColorButton(TypeColorButton.Danger) 
+                } : new ControlPanel()
+            );
+
+            info.AddRow
+            (
+                new ControlText() { Text = this.I18N("webexpress.webapp", "setting.logfile.modus") }, new ControlText() { Text = Context.Log.LogModus.ToString(), Format = TypeFormatText.Code },
+                Context.Log.LogModus == Log.Modus.Off ? new ControlButton()
+                {
+                    Text = this.I18N("webexpress.webapp", "setting.logfile.switchon.label"),
+                    Modal = switchOnForm,
+                    Icon = new PropertyIcon(TypeIcon.PowerOff),
+                    BackgroundColor = new PropertyColorButton(TypeColorButton.Success)
+                } : new ControlPanel()
+            );
+
+            Content.Primary.Add(new ControlText() { Text = this.I18N("webexpress.webapp", "setting.logfile.label"), TextColor = new PropertyColorText(TypeColorText.Info), Margin = new PropertySpacingMargin(PropertySpacing.Space.Two) });
+            Content.Primary.Add(info);
+
+            if (file.Exists)
+            {
+                var content = File.ReadLines(Context.Log.Filename).TakeLast(100);
+
+                Content.Primary.Add(new ControlText() 
+                { 
+                    Text = this.I18N("webexpress.webapp", "setting.logfile.extract"), 
+                    Format = TypeFormatText.H2 
+                });
+
+                Content.Primary.Add(new ControlText() 
+                { 
+                    Text = string.Join("<br/>", content.Reverse()), 
+                    Format = TypeFormatText.Code
+                });
+            }
+
+            base.PreProcess(request);
+        }
+    }
+}
+
