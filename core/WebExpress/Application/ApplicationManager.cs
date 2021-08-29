@@ -16,7 +16,7 @@ namespace WebExpress.Application
         /// <summary>
         /// Liefert oder setzt den Verweis auf Kontext des Hostes
         /// </summary>
-        private static IHttpServerContext Context { get; set; }
+        public static IHttpServerContext Context { get; private set; }
 
         /// <summary>
         /// Liefert oder setzt das Verzeichnis, indem die Anwendungen gelistet sind

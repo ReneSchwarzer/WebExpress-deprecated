@@ -165,7 +165,7 @@ namespace WebExpress.Uri
         public override string ToString()
         {
             var scheme = Scheme.ToString("g").ToLower() + ":";
-            var authority = Authority.ToString();
+            var authority = Authority?.ToString();
 
             return Scheme switch
             {
