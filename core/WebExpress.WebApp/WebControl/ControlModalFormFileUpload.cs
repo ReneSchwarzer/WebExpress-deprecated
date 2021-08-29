@@ -1,17 +1,24 @@
 ﻿using System;
 using WebExpress.Html;
 using WebExpress.Internationalization;
+using WebExpress.Message;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
+using WebExpress.WebResource;
 
 namespace WebExpress.WebApp.WebControl
 {
-    public class ControlModalFormConfirm : ControlModalForm
+    public class ControlModalFormFileUpload : ControlModalForm
     {
         /// <summary>
-        /// Event wird ausgelöst, wenn das Löschen bestätigt wurde
+        /// Event wird ausgelöst, wenn das Hochladen bestätigt wurde
         /// </summary>
-        public event EventHandler Confirm;
+        public event EventHandler Upload;
+
+        /// <summary>
+        /// Liefert oder setzt das Dokument
+        /// </summary>
+        public ControlFormularItemInputFile File { get; set; }
 
         /// <summary>
         /// Liefert oder setzt das Icon
@@ -31,7 +38,12 @@ namespace WebExpress.WebApp.WebControl
         /// <summary>
         /// Liefert oder setzt den Inhalt
         /// </summary>
-        public new ControlFormularItem Content { get; set; }
+        public new ControlFormularItem Prologue { get; set; }
+
+        /// <summary>
+        /// Liefert oder setzt den Inhalt
+        /// </summary>
+        public new ControlFormularItem Epilogue { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Weiterleitungs-Uri
@@ -42,7 +54,7 @@ namespace WebExpress.WebApp.WebControl
         /// Konstruktor
         /// </summary>
         /// <param name="id">Die ID</param>
-        public ControlModalFormConfirm(string id = null)
+        public ControlModalFormFileUpload(string id = null)
             : this(id, null)
         {
 
@@ -53,7 +65,7 @@ namespace WebExpress.WebApp.WebControl
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="content">Die Formularsteuerelemente</param>
-        public ControlModalFormConfirm(string id, params ControlFormularItem[] content)
+        public ControlModalFormFileUpload(string id, params ControlFormularItem[] content)
             : base(id, string.Empty, content)
         {
             Init();
@@ -66,16 +78,16 @@ namespace WebExpress.WebApp.WebControl
         {
             Formular.ProcessFormular += (s, e) =>
             {
-                OnConfirm();
+                OnUpload();
             };
         }
 
         /// <summary>
-        /// Löst das Confirm-Event aus
+        /// Löst das Upload-Event aus
         /// </summary>
-        protected virtual void OnConfirm()
+        protected virtual void OnUpload()
         {
-            Confirm?.Invoke(this, new EventArgs());
+            Upload?.Invoke(this, new EventArgs());
         }
 
         /// <summary>
@@ -85,21 +97,39 @@ namespace WebExpress.WebApp.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
+            File = new ControlFormularItemInputFile()
+            {
+                Name = "file",
+                //Label = "inventoryexpress.media.form.image.label",
+                Help = context.Page.I18N("webexpress.webapp", "fileupload.file.description"),
+                //Icon = new PropertyIcon(TypeIcon.Image),
+                //AcceptFile = new string[] { "image/*, video/*, audio/*, .pdf, .doc, .docx, .txt" },
+                Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.Three)
+            };
+
+            File.Validation += (s, e) =>
+            {
+                if (!((context.Page as Resource).GetParam((s as ControlFormularItemInputFile).Name) is ParameterFile))
+                {
+                    e.Results.Add(new ValidationResult() { Type = TypesInputValidity.Error, Text = context.Page.I18N("webexpress.webapp", "fileupload.file.validation.error.nofile") });
+                }
+            };
+
             if (string.IsNullOrWhiteSpace(Header))
             {
-                Header = context.Page.I18N("webexpress.webapp", "confirm.header");
+                Header = context.Page.I18N("webexpress.webapp", "fileupload.header");
             }
             
             if (string.IsNullOrWhiteSpace(ButtonLabel))
             {
-                ButtonLabel = context.Page.I18N("webexpress.webapp", "confirm.label");
+                ButtonLabel = context.Page.I18N("webexpress.webapp", "fileupload.label");
             }
 
-            if (Content == null)
+            if (ButtonIcon == null)
             {
-                Content = new ControlFormularItemStaticText() { Text = context.Page.I18N("webexpress.webapp", "confirm.description") };
+                ButtonIcon = new PropertyIcon(TypeIcon.Upload);
             }
-            
+
             if (ButtonColor == null)
             {
                 ButtonColor = new PropertyColorButton(TypeColorButton.Primary);
@@ -109,7 +139,10 @@ namespace WebExpress.WebApp.WebControl
             Formular.SubmitButton.Text = ButtonLabel;
             Formular.SubmitButton.Icon = ButtonIcon;
             Formular.SubmitButton.Color = ButtonColor;
-            Formular.Add(Content);
+
+            Formular.Add(Prologue);
+            Formular.Add(File);
+            Formular.Add(Epilogue);
             
             return base.Render(context);
         }

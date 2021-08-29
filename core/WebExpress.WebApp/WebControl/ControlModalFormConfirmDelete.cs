@@ -56,9 +56,9 @@ namespace WebExpress.WebApp.WebControl
                 Content = new ControlFormularItemStaticText() { Text = context.Page.I18N("webexpress.webapp", "delete.description") };
             }
 
-            if (Icon == null)
+            if (ButtonIcon == null)
             {
-                Icon = new PropertyIcon(TypeIcon.TrashAlt);
+                ButtonIcon = new PropertyIcon(TypeIcon.TrashAlt);
             }
 
             if (ButtonColor == null)

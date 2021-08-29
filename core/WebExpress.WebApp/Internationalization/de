@@ -19,6 +19,12 @@ confirm.label=Bestätigung
 confirm.header=Bestätigung einholen
 confirm.description=Sind Sie sicher das Sie das tun möchten?
 
+fileupload.label=Hochladen
+fileupload.header=Dokument hochladen
+fileupload.file.label=Dokument
+fileupload.file.description=Bitte wählen Sie ein Dokument von Ihrem lokalen Gerät aus.
+fileupload.file.validation.error.nofile=Es wurde kein Dokument angegeben.
+
 delete.label=Löschen
 delete.header=Löschen bestätigen
 delete.description=Möchten Sie wirklich löschen?

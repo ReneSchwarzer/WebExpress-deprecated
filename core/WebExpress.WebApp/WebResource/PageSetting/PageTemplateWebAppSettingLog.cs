@@ -51,7 +51,7 @@ namespace WebExpress.WebApp.WebResource.PageSetting
             {
                 Header = this.I18N("webexpress.webapp", "setting.logfile.switchon.header"),
                 Content = new ControlFormularItemStaticText() { Text = this.I18N("webexpress.webapp", "setting.logfile.switchon.description") },
-                Icon = new PropertyIcon(TypeIcon.PowerOff),
+                ButtonIcon = new PropertyIcon(TypeIcon.PowerOff),
                 ButtonColor = new PropertyColorButton(TypeColorButton.Success),
                 ButtonLabel = this.I18N("webexpress.webapp", "setting.logfile.switchon.label")
             };

@@ -17,7 +17,13 @@ pagesettingmanager.register=A settings page has been added to the settings page 
 
 confirm.label=Confirm
 confirm.header=Get confirmation
-confirm.description=Are you sure you want to do that??
+confirm.description=Are you sure you want to do that?
+
+fileupload.label=Upload
+fileupload.header=Upload document
+fileupload.file.label=Document
+fileupload.file.description=Please select a document from your local device.
+fileupload.file.validation.error.nofile=No document was specified.
 
 delete.label=Delete
 delete.header=Confirm Delete
