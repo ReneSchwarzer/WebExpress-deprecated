@@ -35,7 +35,7 @@ namespace WebExpress.WebApp.WebResource.PageSetting
             foreach (var application in ApplicationManager.Applications.Where(x => !x.ApplicationID.StartsWith("webexpress", StringComparison.OrdinalIgnoreCase)))
             {
                 var plugin = PluginManager.GetPlugin(application.PluginID);
-                var mudules = ModuleManager.Modules.Where(x => x.ApplicationID.Equals(application.ApplicationID, StringComparison.OrdinalIgnoreCase));
+                var mudules = ModuleManager.Modules.Where(x => x.ApplicationID.Equals(application.ApplicationID, StringComparison.OrdinalIgnoreCase)).ToList();
 
                 plugins.AddRow
                 (
@@ -93,7 +93,7 @@ namespace WebExpress.WebApp.WebResource.PageSetting
                                 (
                                     new ControlText()
                                     {
-                                        Text = $"{ this.I18N(plugin.PluginID, m.ModuleName) } - { this.I18N(plugin.PluginID, m.Description) }" ,
+                                        Text = $"{ this.I18N(m.PluginID, m.ModuleName) } - { this.I18N(m.PluginID, m.Description) }" ,
                                         Format = TypeFormatText.Default,
                                         TextColor = new PropertyColorText(TypeColorText.Secondary),
                                         Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.Null),
