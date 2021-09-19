@@ -57,15 +57,6 @@ namespace WebExpress.UI.WebControl
             {
                 Value = context?.Page.GetParamValue(Name);
             }
-
-            var list = new List<string>();
-            
-            if (Value!=null)
-            {
-                list.AddRange(Value.Split(';', System.StringSplitOptions.RemoveEmptyEntries).Select(x => $"\"{ x.Trim() }\""));
-            }
-                        
-            context.Page.AddScript(ID, $"new Tags('#tag_{ ID }', '{ Name }', [{ string.Join(',', list) }]);");
         }
 
         /// <summary>
@@ -75,7 +66,14 @@ namespace WebExpress.UI.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContextFormular context)
         {
-            //Classes.Add("form-control");
+            var list = new List<string>();
+
+            if (Value != null)
+            {
+                list.AddRange(Value.Split(';', System.StringSplitOptions.RemoveEmptyEntries).Select(x => $"\"{ x.Trim() }\""));
+            }
+
+            context.Page.AddScript(ID, $"new Tags('#tag_{ ID }', '{ Name }', [{ string.Join(',', list) }]);");
 
             if (Disabled)
             {
