@@ -2,7 +2,8 @@
 using System.Linq;
 using WebExpress.Html;
 using WebExpress.UI.WebControl;
-using WebExpress.WebApp.WebResource;
+using WebExpress.WebApp.WebPage;
+using WebExpress.WebPage;
 
 namespace WebExpress.WebApp.WebControl
 {

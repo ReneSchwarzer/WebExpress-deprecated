@@ -1,6 +1,4 @@
 ﻿using WebExpress.Message;
-using WebExpress.Module;
-using WebExpress.Uri;
 
 namespace WebExpress.WebResource
 {
@@ -28,6 +26,15 @@ namespace WebExpress.WebResource
         }
 
         /// <summary>
+        /// Initialisierung
+        /// </summary>
+        /// <param name="context">Der Kontext</param>
+        public override void Initialization(IResourceContext context)
+        {
+            base.Initialization(context);
+        }
+
+        /// <summary>
         /// Verarbeitung
         /// </summary>
         /// <param name="request">Die Anfrage</param>
@@ -36,7 +43,7 @@ namespace WebExpress.WebResource
         {
             lock (Gard)
             {
-                var url = request.URL[Context.ContextPath.ToString().Length..];
+                var url = request.Uri.ToString()[Context.ContextPath.ToString().Length..];
 
                 var path = System.IO.Path.GetFullPath(RootDirectory + url);
 
@@ -108,7 +115,7 @@ namespace WebExpress.WebResource
                         break;
                 }
 
-                Context.Log.Debug(request.Client + ": Datei '" + request.URL + "' wurde geladen.");
+                Context.Log.Debug(request.Client + ": Datei '" + request.Uri + "' wurde geladen.");
 
                 return response;
             }

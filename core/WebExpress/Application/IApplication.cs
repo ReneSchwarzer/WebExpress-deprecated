@@ -1,5 +1,4 @@
 ﻿using System;
-using WebExpress.Config;
 
 namespace WebExpress.Application
 {

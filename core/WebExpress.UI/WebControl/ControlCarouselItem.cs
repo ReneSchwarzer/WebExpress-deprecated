@@ -1,6 +1,4 @@
-﻿using WebExpress.Html;
-
-namespace WebExpress.UI.WebControl
+﻿namespace WebExpress.UI.WebControl
 {
     /// <summary>
     /// Erstellt eine Slideshowelement
@@ -28,6 +26,6 @@ namespace WebExpress.UI.WebControl
         public ControlCarouselItem()
         {
         }
-        
+
     }
 }

@@ -10,7 +10,7 @@
         /// <summary>
         /// Setzt oder liefert die Optionen
         /// </summary>
-        public ResponseHeaderFields HeaderFields { get; private set; }
+        public ResponseHeaderFields HeaderFields { get; } = new ResponseHeaderFields();
 
         /// <summary>
         /// Setzt oder liefert den Content
@@ -32,7 +32,6 @@
         /// </summary>
         protected Response()
         {
-            HeaderFields = new ResponseHeaderFields();
         }
 
         /// <summary>

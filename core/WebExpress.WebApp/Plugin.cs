@@ -5,6 +5,9 @@ using WebExpress.WebApp.SettingPage;
 namespace WebExpress.WebApp
 {
     [ID("webexpress.webapp")]
+    [Name("WebExpress.WebApp")]
+    [Description("plugin.description")]
+    [Icon("/assets/img/Logo.png")]
     public sealed class Plugin : IPlugin
     {
         /// <summary>

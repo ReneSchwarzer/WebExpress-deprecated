@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using WebExpress.Html;
 using WebExpress.Internationalization;
 
@@ -80,7 +79,7 @@ namespace WebExpress.UI.WebControl
                 {
                     width = Distribution.Skip(offset).Take(1).FirstOrDefault();
                     div.Style = $"width: { width }%";
-                    max = max - width;
+                    max -= width;
 
                     offset++;
                 }
@@ -96,7 +95,7 @@ namespace WebExpress.UI.WebControl
                     var label = new ControlFormularItemLabel(!string.IsNullOrEmpty(item.ID) ? item.ID + "_label" : string.Empty);
                     var help = new ControlFormularItemHelpText(!string.IsNullOrEmpty(item.ID) ? item.ID + "_help" : string.Empty);
                     //var fieldset = new HtmlElementFormFieldset() { Class = "form-group" };
-                    var row = new HtmlElementTextContentDiv() { Class = ""};
+                    var row = new HtmlElementTextContentDiv() { Class = "" };
                     var body = new HtmlElementTextContentDiv(row) { Class = "form-group" };
                     var table = new HtmlElementTextContentDiv(body) { Class = "form-group-horizontal" };
 
@@ -106,7 +105,7 @@ namespace WebExpress.UI.WebControl
                     label.Text = context.I18N(input?.Label);
                     label.FormularItem = item;
                     help.Text = context.I18N(input?.Help);
-                    
+
                     if (icon.Icon != null)
                     {
                         icon.Classes.Add("mr-2 pt-1");

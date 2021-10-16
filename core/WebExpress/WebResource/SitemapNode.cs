@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using WebExpress.Internationalization;
 using WebExpress.Module;
 using WebExpress.Uri;
+using WebExpress.WebPage;
 
 namespace WebExpress.WebResource
 {
@@ -30,9 +32,14 @@ namespace WebExpress.WebResource
         public Type Type { get; internal set; }
 
         /// <summary>
-        /// Liefert oder setzt den Modulkontext
+        /// Liefert die Instanz der Ressource
         /// </summary>
-        public IModuleContext ModuleContext { get; internal set; }
+        private IResource Instance { get; set; }
+
+        /// <summary>
+        /// Liefert oder setzt den Kontext
+        /// </summary>
+        public IResourceContext Context { get; internal set; }
 
         /// <summary>
         /// Liefert oder setzt den Kontext indem die Ressource existiert
@@ -268,8 +275,9 @@ namespace WebExpress.WebResource
         /// Sucht ein Item anahnd der ID
         /// </summary>
         /// <param name="uri">Der Pfad zu der Ressource</param>
+        /// <param name="context">Der Suchkontext</param>
         /// <returns>Das Item oder null</returns>
-        public SearchResult Find(IUri uri)
+        public SearchResult Find(IUri uri, SearchContext context)
         {
             if (uri == null || uri.Path.Count == 0)
             {
@@ -304,7 +312,8 @@ namespace WebExpress.WebResource
                     ID,
                     Title,
                     Type,
-                    ModuleContext,
+                    CreateInstance(context),
+                    Context,
                     ResourceContext,
                     Path,
                     variables
@@ -317,7 +326,8 @@ namespace WebExpress.WebResource
                     ID,
                     Title,
                     Type,
-                    ModuleContext,
+                    CreateInstance(context),
+                    Context,
                     ResourceContext,
                     Path,
                     variables
@@ -327,7 +337,7 @@ namespace WebExpress.WebResource
             {
                 foreach (var child in Children)
                 {
-                    var result = child.Find(next);
+                    var result = child.Find(next, context);
 
                     if (result != null)
                     {
@@ -353,7 +363,39 @@ namespace WebExpress.WebResource
                 oneLevel ? Children : GetPreOrder()
             );
 
-            return list.Where(x => x.ID.Equals(id, StringComparison.OrdinalIgnoreCase))?.FirstOrDefault();
+            return list.Where(x => x.ID != null && x.ID.Equals(id, StringComparison.OrdinalIgnoreCase))?.FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Erstellt eine neue Instanz oder wenn caching aktiv ist wird eine eventuell bestehende Instanz zurückgegeben
+        /// </summary>
+        /// <param name="context">Der Suchkontext</param>
+        /// <returns>Die Instanz</returns>
+        public IResource CreateInstance(SearchContext context)
+        {
+            if (Instance == null)
+            {
+                Instance = Type?.Assembly.CreateInstance(Type?.FullName) as IResource;
+
+                if (Instance is II18N i18n)
+                {
+                    i18n.Culture = context.Culture;
+                }
+                
+                if (Instance is Resource resorce)
+                {
+                    resorce.ID = ID;
+                }
+
+                if (Instance is IPage page)
+                {
+                    page.Title = Title;
+                }
+
+                Instance.Initialization(Context);
+            }
+
+            return Instance;
         }
 
         /// <summary>

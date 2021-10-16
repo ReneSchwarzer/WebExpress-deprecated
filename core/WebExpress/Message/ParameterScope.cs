@@ -21,13 +21,8 @@
         Session,
 
         /// <summary>
-        /// Parameter bezieht sich auf seitenübergreifende Url-Parameter (?) 
+        /// Parameter bezieht sich auf Url-Parameter (GET oder POST)
         /// </summary>
-        Global,
-
-        /// <summary>
-        /// Parameter bezieht sich auf seiteninterne Url-Parameter (?)
-        /// </summary>
-        Local
+        Parameter
     }
 }

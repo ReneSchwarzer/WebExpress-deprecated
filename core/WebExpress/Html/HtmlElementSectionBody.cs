@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -28,13 +27,14 @@ namespace WebExpress.Html
             get => (from x in ElementScriptLinks select x.Src).ToList();
             set
             {
-                ElementScriptLinks.Clear(); 
-                ElementScriptLinks.AddRange(from x in value select new HtmlElementScriptingScript() 
-                { 
-                    Language = "javascript", 
-                    Src = x, 
-                    Type = "text/javascript" 
-                });
+                ElementScriptLinks.Clear();
+                ElementScriptLinks.AddRange(from x in value
+                                            select new HtmlElementScriptingScript()
+                                            {
+                                                Language = "javascript",
+                                                Src = x,
+                                                Type = "text/javascript"
+                                            });
             }
         }
 

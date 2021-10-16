@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace WebExpress.Uri
 {
@@ -31,7 +29,7 @@ namespace WebExpress.Uri
         /// Referenziert eine Stelle innerhalb einer Ressource (z.B. #Anker)
         /// </summary>
         public string Fragment { get; set; }
-        
+
         public string Display { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         /// <summary>

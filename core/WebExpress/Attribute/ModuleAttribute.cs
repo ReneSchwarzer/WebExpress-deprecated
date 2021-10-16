@@ -1,8 +1,9 @@
-﻿using System;
-
-namespace WebExpress.Attribute
+﻿namespace WebExpress.Attribute
 {
-    public class ModuleAttribute : System.Attribute, IResourceAttribute
+    /// <summary>
+    /// Angabe der ModulID
+    /// </summary>
+    public class ModuleAttribute : System.Attribute, IResourceAttribute, IModuleAttribute
     {
         /// <summary>
         /// Konstruktor

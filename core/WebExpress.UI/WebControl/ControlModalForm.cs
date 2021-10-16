@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using WebExpress.Html;
 using WebExpress.Internationalization;
-using WebExpress.Uri;
+using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebControl
 {
@@ -135,8 +135,7 @@ namespace WebExpress.UI.WebControl
 
             var cancelFooterButton = new ControlButtonLink()
             {
-                Text = context.I18N("webexpress", "modal.close.label") //,
-                //Uri = new UriFragment()
+                Text = context.I18N("webexpress.ui", "modal.close.label")
             }.Render(context) as HtmlElement;
 
             cancelFooterButton.AddUserAttribute("data-dismiss", "modal");
@@ -168,19 +167,19 @@ namespace WebExpress.UI.WebControl
             if (!string.IsNullOrWhiteSpace(OnShownCode))
             {
                 var shown = "$('#" + ID + "').on('shown.bs.modal', function(e) { " + OnShownCode + " });";
-                context.Page.AddScript(ID + "_shown", shown);
+                context.VisualTree.AddScript(ID + "_shown", shown);
             }
 
             if (!string.IsNullOrWhiteSpace(OnHiddenCode))
             {
                 var hidden = "$('#" + ID + "').on('hidden.bs.modal', function() { " + OnHiddenCode + " });";
-                context.Page.AddScript(ID + "_hidden", hidden);
+                context.VisualTree.AddScript(ID + "_hidden", hidden);
             }
 
             if (ShowIfCreated)
             {
                 var show = "$('#" + ID + "').modal('show');";
-                context.Page.AddScript(ID + "_showifcreated", show);
+                context.VisualTree.AddScript(ID + "_showifcreated", show);
             }
 
             form.Elements.Clear();

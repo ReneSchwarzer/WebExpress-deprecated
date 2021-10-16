@@ -3,6 +3,7 @@ using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
+using WebExpress.WebPage;
 
 namespace WebExpress.WebApp.WebControl
 {
@@ -89,7 +90,7 @@ namespace WebExpress.WebApp.WebControl
             {
                 Header = context.Page.I18N("webexpress.webapp", "confirm.header");
             }
-            
+
             if (string.IsNullOrWhiteSpace(ButtonLabel))
             {
                 ButtonLabel = context.Page.I18N("webexpress.webapp", "confirm.label");
@@ -99,18 +100,18 @@ namespace WebExpress.WebApp.WebControl
             {
                 Content = new ControlFormularItemStaticText() { Text = context.Page.I18N("webexpress.webapp", "confirm.description") };
             }
-            
+
             if (ButtonColor == null)
             {
                 ButtonColor = new PropertyColorButton(TypeColorButton.Primary);
             }
 
-            Formular.RedirectUri = RedirectUri != null ? RedirectUri : context.Uri;
+            Formular.RedirectUri = RedirectUri ?? context.Uri;
             Formular.SubmitButton.Text = ButtonLabel;
             Formular.SubmitButton.Icon = ButtonIcon;
             Formular.SubmitButton.Color = ButtonColor;
             Formular.Add(Content);
-            
+
             return base.Render(context);
         }
     }

@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using WebExpress.Application;
 using WebExpress.Attribute;
 using WebExpress.Plugin;
-using WebExpress.WebResource;
 using WebExpress.Uri;
 using static WebExpress.Internationalization.InternationalizationManager;
-using System.Reflection;
 
 namespace WebExpress.Module
 {
@@ -28,7 +27,7 @@ namespace WebExpress.Module
         /// <summary>
         /// Liefert alle gespeicherten Module
         /// </summary>
-        public static ICollection<IModuleContext> Modules => Dictionary.Values.Select(x => x.Context).ToList();
+        public static ICollection<IModuleContext> Modules => Dictionary.Values.SelectMany(x => x.Values).Select(x => x.Context).ToList();
 
         /// <summary>
         /// Initialisierung
@@ -108,19 +107,22 @@ namespace WebExpress.Module
                     }
                 }
 
-                // Zugehörige Anwendung ermitteln. 
-                var application = ApplicationManager.GetApplcation(applicationID);
                 if (string.IsNullOrWhiteSpace(applicationID))
                 {
                     // Es wurde keine Anwendung angebgeben
                     Context.Log.Warning(message: I18N("webexpress:modulemanager.applicationless"), args: id);
                 }
-                else if (application == null)
+
+                // Zugehörige Anwendungen ermitteln. 
+                var applications = ApplicationManager.GetApplcations(applicationID);
+
+                if (!applications.Any())
                 {
                     // Anwendung wurde nicht gefunden
                     Context.Log.Warning(message: I18N("webexpress:modulemanager.applicationnotfound"), args: new object[] { id, applicationID });
                 }
-                else if (application != null && application.ApplicationID.Equals(applicationID, StringComparison.OrdinalIgnoreCase))
+
+                foreach (var application in applications)
                 {
                     var cp = UriRelative.Combine(Context.ContextPath, application.ContextPath);
 
@@ -142,10 +144,18 @@ namespace WebExpress.Module
                     // Modul erstellen
                     var module = (IModule)type.Assembly.CreateInstance(type.FullName);
 
-                    if (!Dictionary.ContainsKey(id))
+                    if (!Dictionary.ContainsKey(application))
                     {
-                        Dictionary.Add(id, new ModuleItem()
+                        Dictionary.Add(application, new Dictionary<string, ModuleItem>());
+                    }
+
+                    var item = Dictionary[application];
+
+                    if (!item.ContainsKey(id))
+                    {
+                        item.Add(id, new ModuleItem()
                         {
+                            Application = application,
                             Context = context,
                             Module = module
                         });
@@ -163,13 +173,41 @@ namespace WebExpress.Module
         /// <summary>
         /// Ermittelt das Modul zu einer gegebenen ID
         /// </summary>
+        /// <param name="application">Der Kontext der Anwendung</param>
         /// <param name="moduleID">Die ModulID</param>
         /// <returns>Der Kontext des Moduls oder null</returns>
-        public static IModuleContext GetModule(string moduleID)
+        public static IModuleContext GetModule(IApplicationContext application, string moduleID)
         {
-            if (Dictionary.ContainsKey(moduleID?.ToLower()))
+            var item = Dictionary.ContainsKey(application) ? Dictionary[application] : null;
+
+            if (item != null && item.ContainsKey(moduleID?.ToLower()))
             {
-                return Dictionary[moduleID?.ToLower()].Context;
+                return item[moduleID?.ToLower()].Context;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Ermittelt das Modul zu einer gegebenen ID
+        /// </summary>
+        /// <param name="applicationID">Die AnwendungsID</param>
+        /// <param name="moduleID">Die ModulID</param>
+        /// <returns>Der Kontext des Moduls oder null</returns>
+        public static IModuleContext GetModule(string applicationID, string moduleID)
+        {
+            var application = ApplicationManager.GetApplcation(applicationID);
+
+            if (application == null)
+            {
+                return null;
+            }
+
+            var item = Dictionary.ContainsKey(application) ? Dictionary[application] : null;
+
+            if (item != null && item.ContainsKey(moduleID?.ToLower()))
+            {
+                return item[moduleID?.ToLower()].Context;
             }
 
             return null;
@@ -183,6 +221,7 @@ namespace WebExpress.Module
         public static IModuleContext GetApplcation(Assembly moduleAssembly)
         {
             return Dictionary.Values
+                .SelectMany(x => x.Values)
                 .Select(x => x.Context)
                 .Where(x => x.Assembly == moduleAssembly)
                 .Select(x => x)
@@ -195,22 +234,22 @@ namespace WebExpress.Module
         internal static void Boot()
         {
             // Piugins initialisieren
-            foreach (var module in Dictionary.Values)
+            foreach (var module in Dictionary.Values.SelectMany(x => x.Values))
             {
                 module.Module.Initialization(module.Context);
-                //Context.Log.Info(message: I18N("webexpress:modulemanager.module.initialization"), args: application.Context.PluginID);
+                Context.Log.Info(message: I18N("webexpress:modulemanager.module.initialization"), args: new[] { module.Context.ApplicationID, module.Context.PluginID });
             }
 
             // Plugins nebenläufig ausführen
-            foreach (var module in Dictionary.Values)
+            foreach (var module in Dictionary.Values.SelectMany(x => x.Values))
             {
                 Task.Run(() =>
                 {
-                    //Context.Log.Info(message: I18N("webexpress:modulemanager.module.processing.start"), args: plugin.Context.PluginID);
+                    Context.Log.Info(message: I18N("webexpress:modulemanager.module.processing.start"), args: new[] { module.Context.ApplicationID, module.Context.PluginID });
 
                     module.Module.Run();
 
-                    //Context.Log.Info(message: I18N("webexpress:modulemanager.module.processing.end"), args: plugin.Context.PluginID);
+                    Context.Log.Info(message: I18N("webexpress:modulemanager.module.processing.end"), args: new[] { module.Context.ApplicationID, module.Context.PluginID });
                 });
             }
         }

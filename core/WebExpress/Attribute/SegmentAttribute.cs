@@ -1,6 +1,4 @@
-﻿using System;
-using WebExpress.Internationalization;
-using WebExpress.WebResource;
+﻿using WebExpress.WebResource;
 
 namespace WebExpress.Attribute
 {
@@ -33,7 +31,7 @@ namespace WebExpress.Attribute
         /// <returns>Das Pfadsegment</returns>
         public IPathSegment ToPathSegment()
         {
-            return new PathSegmentConstant(Segment, Display) {  };
+            return new PathSegmentConstant(Segment, Display) { };
         }
     }
 }

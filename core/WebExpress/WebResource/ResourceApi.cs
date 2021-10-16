@@ -1,6 +1,4 @@
 ﻿using WebExpress.Message;
-using WebExpress.Module;
-using WebExpress.Uri;
 
 namespace WebExpress.WebResource
 {
@@ -22,8 +20,10 @@ namespace WebExpress.WebResource
         /// <summary>
         /// Initialisierung
         /// </summary>
-        public override void Initialization()
+        /// <param name="context">Der Kontext</param>
+        public override void Initialization(IResourceContext context)
         {
+            base.Initialization(context);
         }
 
         /// <summary>

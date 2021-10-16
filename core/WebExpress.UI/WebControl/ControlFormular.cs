@@ -5,6 +5,7 @@ using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.Message;
 using WebExpress.Uri;
+using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebControl
 {
@@ -91,11 +92,6 @@ namespace WebExpress.UI.WebControl
         public bool EnableSubmitAndNextButton { get; set; } = false;
 
         /// <summary>
-        /// Liefert oder setzt den Gültigkeitsbereich der Formulardaten
-        /// </summary>
-        public ParameterScope Scope { get; set; } = ParameterScope.Local;
-
-        /// <summary>
         /// Liefert oder setzt die Formulareinträge
         /// </summary>
         public ICollection<ControlFormularItem> Items { get; } = new List<ControlFormularItem>();
@@ -170,20 +166,32 @@ namespace WebExpress.UI.WebControl
         public virtual void Initialize(RenderContext context)
         {
             var renderContext = new RenderContextFormular(context, this);
-            
+
             if (string.IsNullOrWhiteSpace(SubmitButton.Text))
             {
-                SubmitButton.Text = context.I18N("webexpress", "form.submit.label");
+                SubmitButton.Text = context.I18N("webexpress.ui", "form.submit.label");
+            }
+            else
+            {
+                SubmitButton.Text = context.I18N(SubmitButton.Text);
             }
 
             if (EnableSubmitAndNextButton && string.IsNullOrWhiteSpace(SubmitAndNextButton.Text))
             {
-                SubmitAndNextButton.Text = context.I18N("webexpress", "form.next.label");
+                SubmitAndNextButton.Text = context.I18N("webexpress.ui", "form.next.label");
+            }
+            else
+            {
+                SubmitAndNextButton.Text = context.I18N(SubmitAndNextButton.Text);
             }
 
             if (EnableCancelButton && string.IsNullOrWhiteSpace(CancelButton.Text))
             {
-                CancelButton.Text = context.I18N("webexpress", "form.cancel.label");
+                CancelButton.Text = context.I18N("webexpress.ui", "form.cancel.label");
+            }
+            else
+            {
+                CancelButton.Text = context.I18N(CancelButton.Text);
             }
 
             SubmitButton.Click += (s, e) =>
@@ -238,7 +246,7 @@ namespace WebExpress.UI.WebControl
             SubmitAndNextButton?.Initialize(renderContext);
 
             // Prüfe ob Formular abgeschickt wurde
-            if (!context.Page.HasParam(formName))
+            if (!context.Request.HasParameter(formName))
             {
                 OnFill();
             }
@@ -290,7 +298,7 @@ namespace WebExpress.UI.WebControl
             html.Elements.Add(new ControlFormularItemInputHidden(formName)
             {
                 Value = Name
-                
+
             }.Render(renderContext));
 
             foreach (var item in Items.Where(x => x is ControlFormularItemInputHidden))
@@ -422,7 +430,7 @@ namespace WebExpress.UI.WebControl
 
             var validatedArgs = new ValidationResultEventArgs(Valid);
             validatedArgs.Results.AddRange(validationResults);
-            
+
             OnValidated(validatedArgs);
         }
 

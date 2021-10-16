@@ -97,7 +97,7 @@ namespace WebExpress.Message
             {
                 sb.AppendLine("Content-Disposition: " + ContentDisposition);
             }
-            
+
             if (!string.IsNullOrWhiteSpace(CacheControl))
             {
                 sb.AppendLine("Cache-Control: " + CacheControl);

@@ -39,7 +39,7 @@ namespace WebExpress.Uri
         /// <summary>
         /// Liefert den Anzeigestring der Uri
         /// </summary>
-        public string Display { get { return Uri.Display; } set { Uri.Display = value; }  }
+        public string Display { get { return Uri.Display; } set { Uri.Display = value; } }
 
         /// <summary>
         /// Ermittelt, ob die Uri leer ist
@@ -84,12 +84,37 @@ namespace WebExpress.Uri
         /// <param name="context">Der Kontext des Moduls</param>
         /// <param name="url">Die eigentliche Uri, welche vom Webbrowser aufgerufen wurde</param>
         /// <param name="node">Der Knoten der Sitemap</param>
-        internal UriResource(IModuleContext context, string url, SearchResult node, CultureInfo culture)
-            : this(context.ContextPath, new UriRelative())
+        /// <param name="culture">Die Kultur</param>
+        internal UriResource(IModuleContext context, IUri url, SitemapNode node, CultureInfo culture)
+            : this(context, url.ToString(), node?.Path, culture)
+        {
+        }
+
+        /// <summary>
+        /// Konstruktor
+        /// </summary>
+        /// <param name="context">Der Kontext des Moduls</param>
+        /// <param name="url">Die eigentliche Uri, welche vom Webbrowser aufgerufen wurde</param>
+        /// <param name="node">Der Knoten der Sitemap</param>
+        /// <param name="culture">Die Kultur</param>
+        internal UriResource(IModuleContext context, IUri url, SearchResult node, CultureInfo culture)
+            : this(context, url.ToString(), node?.Path, culture)
+        {
+        }
+
+        /// <summary>
+        /// Konstruktor
+        /// </summary>
+        /// <param name="context">Der Kontext des Moduls</param>
+        /// <param name="url">Die eigentliche Uri, welche vom Webbrowser aufgerufen wurde</param>
+        /// <param name="node">Der Knoten der Sitemap</param>
+        /// <param name="culture">Die Kultur</param>
+        internal UriResource(IModuleContext context, string url, ICollection<SitemapNode> path, CultureInfo culture)
+    : this(context.ContextPath, new UriRelative())
         {
             var uri = new UriRelative(url[context.ContextPath.ToString().Length..]);
             var uriPath = uri.Path as List<IUriPathSegment>;
-            var nodePath = node.Path as List<SitemapNode>;
+            var nodePath = path as List<SitemapNode>;
 
             for (var i = 0; i < uriPath.Count; i++)
             {
@@ -106,7 +131,6 @@ namespace WebExpress.Uri
                     Uri.Path.Add(item);
                 }
             }
-
         }
 
         /// <summary>

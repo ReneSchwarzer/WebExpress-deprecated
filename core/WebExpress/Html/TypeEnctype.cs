@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WebExpress.Html
+﻿namespace WebExpress.Html
 {
     /// <summary>
     /// Legt fest, wie die Daten encoded werden, wenn sie zum Server übertragen werden.
@@ -34,7 +30,7 @@ namespace WebExpress.Html
         /// </summary>
         /// <param name="enctype">Die Kodierung</param>
         /// <returns>Die umgewandelte Kodierung</returns>
-        public static TypeEnctype Convert(string enctype )
+        public static TypeEnctype Convert(string enctype)
         {
             return (enctype?.ToLower()) switch
             {

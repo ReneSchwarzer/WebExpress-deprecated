@@ -63,7 +63,7 @@ namespace WebExpress.Attribute
                 {
                     return string.Format
                     (
-                        InternationalizationManager.I18N(culture, moduleID, Display), 
+                        InternationalizationManager.I18N(culture, moduleID, Display),
                         DisplayFormat == Format.Simple ? match.Groups[7].ToString() : match.Groups[2].ToString()
                     );
                 }

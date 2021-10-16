@@ -46,17 +46,14 @@ namespace WebExpress.UI.WebControl
         /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         public override void Initialize(RenderContextFormular context)
         {
-            var module = ModuleManager.GetModule("webexpress");
+            var module = ModuleManager.GetModule(context.ApplicationID, "webexpress.ui");
             if (module != null)
             {
-                context.Page.HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/simpletags.js")));
-                context.Page.CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/simpletags.css")));
+                context.VisualTree.HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/simpletags.js")));
+                context.VisualTree.CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/simpletags.css")));
             }
 
-            if (context.Page.HasParam(Name))
-            {
-                Value = context?.Page.GetParamValue(Name);
-            }
+            Value = context?.Request.GetParameter(Name)?.Value;
         }
 
         /// <summary>
@@ -73,7 +70,7 @@ namespace WebExpress.UI.WebControl
                 list.AddRange(Value.Split(';', System.StringSplitOptions.RemoveEmptyEntries).Select(x => $"\"{ x.Trim() }\""));
             }
 
-            context.Page.AddScript(ID, $"new Tags('#tag_{ ID }', '{ Name }', [{ string.Join(',', list) }]);");
+            context.VisualTree.AddScript(ID, $"new Tags('#tag_{ ID }', '{ Name }', [{ string.Join(',', list) }]);");
 
             if (Disabled)
             {
@@ -110,29 +107,6 @@ namespace WebExpress.UI.WebControl
         /// </summary>
         public override void Validate()
         {
-            //if (Disabled)
-            //{
-            //    return;
-            //}
-
-            //if (Required && string.IsNullOrWhiteSpace(base.Value))
-            //{
-            //    ValidationResults.Add(new ValidationResult() { Type = TypesInputValidity.Error, Text = "Das Textfeld darf nicht leer sein!" });
-
-            //    return;
-            //}
-
-            //if (!string.IsNullOrWhiteSpace(MinLength?.ToString()) && Convert.ToInt32(MinLength) > base.Value.Length)
-            //{
-            //    ValidationResults.Add(new ValidationResult() { Type = TypesInputValidity.Error, Text = "Der Text entsprcht nicht der minimalen Länge von " + MinLength + "!" });
-            //}
-
-            //if (!string.IsNullOrWhiteSpace(MaxLength?.ToString()) && Convert.ToInt32(MaxLength) < base.Value.Length)
-            //{
-            //    ValidationResults.Add(new ValidationResult() { Type = TypesInputValidity.Error, Text = "Der Text ist größer als die maximalen Länge von " + MaxLength + "!" });
-            //}
-
-            //base.Validate();
         }
     }
 }

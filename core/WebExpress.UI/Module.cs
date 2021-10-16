@@ -3,8 +3,13 @@ using WebExpress.Module;
 
 namespace WebExpress.UI
 {
-    [ID("webexpress")]
-    [Application("webexpress")]
+    [ID("webexpress.ui")]
+    [Application("*")]
+    [Name("module.name")]
+    [Description("module.description")]
+    [Icon("/assets/img/Logo.png")]
+    [AssetPath("/")]
+    [ContextPath("/wxui")]
     public sealed class Module : IModule
     {
         /// <summary>

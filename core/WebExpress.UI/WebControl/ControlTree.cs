@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
+using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebControl
 {
@@ -134,7 +135,7 @@ namespace WebExpress.UI.WebControl
 
             if (Layout == TypeLayoutTree.TreeView)
             {
-                context.Page.AddScript("treeview", @"var toggler = document.getElementsByClassName(""tree-treeview-angle"");
+                context.VisualTree.AddScript("treeview", @"var toggler = document.getElementsByClassName(""tree-treeview-angle"");
                 for (var i = 0; i < toggler.length; i++)
                 {
                     toggler[i].addEventListener(""click"", function() {

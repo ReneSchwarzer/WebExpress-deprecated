@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using WebExpress.Html;
+﻿using WebExpress.Html;
 using WebExpress.Module;
 using WebExpress.Uri;
 
@@ -60,20 +58,17 @@ namespace WebExpress.UI.WebControl
         {
             AutoInitialize = true;
 
-            if (context.Page.HasParam(Name))
-            {
-                Value = context.Page.GetParamValue(Name);
-            }
+            Value = context?.Request.GetParameter(Name)?.Value;
 
-            var module = ModuleManager.GetModule("webexpress");
+            var module = ModuleManager.GetModule(context.ApplicationID, "webexpress.ui");
             if (module != null)
             {
-                context.Page.HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/bootstrap-datepicker.min.js")));
-                context.Page.HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/locales_datepicker/bootstrap-datepicker." + context.Culture.TwoLetterISOLanguageName.ToLower() + ".min.js")));
-                context.Page.CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/bootstrap-datepicker3.min.css")));
+                context.VisualTree.HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/bootstrap-datepicker.min.js")));
+                context.VisualTree.HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/locales_datepicker/bootstrap-datepicker." + context.Culture.TwoLetterISOLanguageName.ToLower() + ".min.js")));
+                context.VisualTree.CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/bootstrap-datepicker3.min.css")));
             }
 
-            context.Page.AddScript(ID, @"$('#" + ID + @"').datepicker({format: ""dd.mm.yyyy"", todayBtn: true, language: ""de"", zIndexOffset: 999});");
+            context.VisualTree.AddScript(ID, @"$('#" + ID + @"').datepicker({format: ""dd.mm.yyyy"", todayBtn: true, language: ""de"", zIndexOffset: 999});");
         }
 
         /// <summary>
@@ -83,7 +78,7 @@ namespace WebExpress.UI.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContextFormular context)
         {
-            
+
 
             //if (Disabled)
             //{
@@ -104,7 +99,7 @@ namespace WebExpress.UI.WebControl
                 Class = "form-control",
                 Value = Value
             };
-            
+
             //var span = new HtmlElementTextSemanticsSpan()
             //{
             //    Class = TypeIcon.Calendar.ToClass()

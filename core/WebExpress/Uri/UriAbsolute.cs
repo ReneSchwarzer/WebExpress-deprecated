@@ -68,8 +68,8 @@ namespace WebExpress.Uri
                 Scheme = UriScheme.Http;
             }
 
-            Authority = new UriAuthority() 
-            { 
+            Authority = new UriAuthority()
+            {
                 User = match.Groups[2].Value,
                 Host = match.Groups[3].Value,
                 Port = !string.IsNullOrWhiteSpace(match.Groups[4].Value) ? Convert.ToInt32(match.Groups[4].Value) : null

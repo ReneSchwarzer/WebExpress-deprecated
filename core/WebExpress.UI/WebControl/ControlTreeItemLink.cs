@@ -3,7 +3,7 @@ using System.Linq;
 using WebExpress.Html;
 using WebExpress.Message;
 using WebExpress.Uri;
-using WebExpress.WebResource;
+using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebControl
 {
@@ -113,50 +113,12 @@ namespace WebExpress.UI.WebControl
         {
             var dict = new Dictionary<string, Parameter>();
 
-            // Übernahme der Parameter von der Seite
-            foreach (var v in page.Params)
-            {
-                if (v.Value.Scope == ParameterScope.Global)
-                {
-                    if (!dict.ContainsKey(v.Key.ToLower()))
-                    {
-                        dict.Add(v.Key.ToLower(), v.Value);
-                    }
-                    else
-                    {
-                        dict[v.Key.ToLower()] = v.Value;
-                    }
-                }
-                else if (string.IsNullOrWhiteSpace(Uri?.ToString()))
-                {
-                    if (!dict.ContainsKey(v.Key.ToLower()))
-                    {
-                        dict.Add(v.Key.ToLower(), v.Value);
-                    }
-                    else
-                    {
-                        dict[v.Key.ToLower()] = v.Value;
-                    }
-                }
-            }
-
             // Übernahme der Parameter des Link
             if (Params != null)
             {
                 foreach (var v in Params)
                 {
-                    if (v.Scope == ParameterScope.Global)
-                    {
-                        if (!dict.ContainsKey(v.Key.ToLower()))
-                        {
-                            dict.Add(v.Key.ToLower(), v);
-                        }
-                        else
-                        {
-                            dict[v.Key.ToLower()] = v;
-                        }
-                    }
-                    else if (string.IsNullOrWhiteSpace(Uri?.ToString()))
+                    if (string.IsNullOrWhiteSpace(Uri?.ToString()))
                     {
                         if (!dict.ContainsKey(v.Key.ToLower()))
                         {
@@ -218,15 +180,20 @@ namespace WebExpress.UI.WebControl
             {
                 link.AddUserAttribute("data-toggle", "tooltip");
             }
-                        
-            var expander = new HtmlElementTextSemanticsSpan();
-            expander.Class = Css.Concatenate("tree-treeview-expander", Children.Count > 0 ? "tree-treeview-angle" : "tree-treeview-dot");
+
+            var expander = new HtmlElementTextSemanticsSpan
+            {
+                Class = Css.Concatenate("tree-treeview-expander", Children.Count > 0 ? "tree-treeview-angle" : "tree-treeview-dot")
+            };
+
             if (Children.Count > 0 && Expand != TypeExpandTree.Collapse)
             {
                 expander.Class = Css.Concatenate("tree-treeview-angle-down", expander.Class);
             }
-            var container = new HtmlElementTextContentDiv(expander, link);
-            container.Class = Css.Concatenate("tree-treeview-container");
+            var container = new HtmlElementTextContentDiv(expander, link)
+            {
+                Class = Css.Concatenate("tree-treeview-container")
+            };
 
             var html = new HtmlElementTextContentLi(Layout == TypeLayoutTreeItem.TreeView ? container : link)
             {

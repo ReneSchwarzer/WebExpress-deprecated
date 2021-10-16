@@ -1,5 +1,4 @@
 ﻿using WebExpress.Application;
-using WebExpress.WebResource;
 
 namespace WebExpress.Module
 {
@@ -21,6 +20,6 @@ namespace WebExpress.Module
         /// <summary>
         /// Die zugehörige Anwendung
         /// </summary>
-        public ApplicationItem Application { get; set; }
+        public IApplicationContext Application { get; set; }
     }
 }

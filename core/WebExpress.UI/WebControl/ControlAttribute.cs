@@ -1,6 +1,8 @@
 ﻿using System.Linq;
 using WebExpress.Html;
+using WebExpress.Internationalization;
 using WebExpress.Uri;
+using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebControl
 {
@@ -55,13 +57,13 @@ namespace WebExpress.UI.WebControl
                 Class = Icon?.ToClass()
             };
 
-            var name = new HtmlElementTextSemanticsSpan(new HtmlText(Name))
+            var name = new HtmlElementTextSemanticsSpan(new HtmlText(context.I18N(Name)))
             {
-                ID = string.IsNullOrWhiteSpace(ID) ? string.Empty : $"{ID}_name", 
+                ID = string.IsNullOrWhiteSpace(ID) ? string.Empty : $"{ID}_name",
                 Class = NameColor?.ToClass()
             };
 
-            var value = new HtmlElementTextSemanticsSpan(new HtmlText(Value))
+            var value = new HtmlElementTextSemanticsSpan(new HtmlText(context.I18N(Value)))
             {
                 ID = string.IsNullOrWhiteSpace(ID) ? string.Empty : $"{ID}_value",
                 Class = NameColor?.ToClass()

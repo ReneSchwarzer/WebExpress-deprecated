@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-
-namespace WebExpress.Plugin
+﻿namespace WebExpress.Plugin
 {
     /// <summary>
     /// Repräsentiert ein Plugineintrag

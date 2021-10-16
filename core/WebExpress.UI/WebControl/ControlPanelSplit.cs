@@ -3,6 +3,7 @@ using System.Linq;
 using WebExpress.Html;
 using WebExpress.Module;
 using WebExpress.Uri;
+using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebControl
 {
@@ -35,7 +36,7 @@ namespace WebExpress.UI.WebControl
         /// Die minimale Größe der linken oder des oberen Bereiches im ControlPanelSplit
         /// </summary>
         public int Panel1MinSize { get; set; }
-        
+
         /// <summary>
         /// Die initiale Größe der linken oder des oberen Bereiches im ControlPanelSplit in %
         /// </summary>
@@ -94,10 +95,10 @@ namespace WebExpress.UI.WebControl
         /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         public void Initialize(RenderContext context)
         {
-            var module = ModuleManager.GetModule("webexpress");
+            var module = ModuleManager.GetModule(context.ApplicationID, "webexpress.ui");
             if (module != null)
             {
-                 context.Page.HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/split.min.js")));
+                context.VisualTree.HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/split.min.js")));
             }
 
             Border = new PropertyBorder(true);
@@ -120,11 +121,11 @@ namespace WebExpress.UI.WebControl
                 init2 = 100 - Panel1InitialSize;
             }
 
-            context.Page.AddScript
+            context.VisualTree.AddScript
             (
                 ID, @"Split(['#" + ID + "-p1', '#" + ID + @"-p2'], {
                     sizes: [" + init1 + "," + init2 + @"],
-                    minSize: [" + Panel1MinSize + ","+ Panel2MinSize + @"],
+                    minSize: [" + Panel1MinSize + "," + Panel2MinSize + @"],
                     direction: '" + Orientation.ToString().ToLower() + @"',
                     gutter: function (index, direction) 
                     {

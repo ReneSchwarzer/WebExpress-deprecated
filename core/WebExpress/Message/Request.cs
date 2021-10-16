@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using WebExpress.Html;
+using WebExpress.Session;
+using WebExpress.Uri;
 
 namespace WebExpress.Message
 {
@@ -21,7 +23,7 @@ namespace WebExpress.Message
         /// <summary>
         /// Setzt oder liefert die URL
         /// </summary>
-        public string URL { get; private set; }
+        public IUri Uri { get; internal set; }
 
         /// <summary>
         /// Setzt oder liefert den Client
@@ -31,7 +33,12 @@ namespace WebExpress.Message
         /// <summary>
         /// Setzt oder liefert die Parameter
         /// </summary>
-        internal Dictionary<string, Parameter> Param { get; private set; }
+        private ParameterDictionary Param { get; } = new ParameterDictionary();
+
+        /// <summary>
+        /// Liefert die Session
+        /// </summary>
+        public Session.Session Session { get; private set; }
 
         /// <summary>
         /// Setzt oder liefert die HTTP-Version
@@ -54,8 +61,7 @@ namespace WebExpress.Message
         protected Request(RequestMethod type, string url, string version, RequestHeaderFields options, string client)
         {
             Method = type;
-            URL = url;
-            Param = new Dictionary<string, Parameter>();
+            Uri = new UriRelative(url);
             Version = version;
             HeaderFields = options;
             Client = client;
@@ -124,6 +130,8 @@ namespace WebExpress.Message
                             //readCount = reader.Read(buffer, 0, capacity);
                         }
 
+                        ParseSessionParams(request);
+
                         return request;
                     }
                     else
@@ -136,7 +144,12 @@ namespace WebExpress.Message
             while (!(readCount < capacity));
 
             // Ohne Content
-            return Request.Parse(header, client);
+            {
+                var request = Request.Parse(header, client);
+                ParseSessionParams(request);
+
+                return request;
+            }
         }
 
         /// <summary>
@@ -208,7 +221,7 @@ namespace WebExpress.Message
                     var regex = new Regex("[=]{1}");
                     var kv = regex.Split(v, 2);
 
-                    req.AddParam(kv[0], kv.Count() > 1 ? kv[1] : "");
+                    req.AddParameter(new Parameter(kv[0], kv.Count() > 1 ? kv[1] : string.Empty) { Scope = ParameterScope.Url });
                 }
             }
 
@@ -316,13 +329,13 @@ namespace WebExpress.Message
                                 {
                                     var value = Encoding.UTF8.GetString(content, item.Item1 + offset, item.Item2 - offset - 2);
 
-                                    var param = new Parameter(name, value.TrimEnd()) { Scope = ParameterScope.Local };
-                                    request.AddParam(param);
+                                    var param = new Parameter(name, value.TrimEnd()) { Scope = ParameterScope.Parameter };
+                                    request.AddParameter(param);
                                 }
                                 else
                                 {
-                                    var param = new Parameter(name, string.Empty) { Scope = ParameterScope.Local };
-                                    request.AddParam(param);
+                                    var param = new Parameter(name, string.Empty) { Scope = ParameterScope.Parameter };
+                                    request.AddParameter(param);
                                 }
                             }
                             else
@@ -333,13 +346,13 @@ namespace WebExpress.Message
                                     var bytes = new byte[item.Item2 - offset - 2];
                                     Buffer.BlockCopy(content, item.Item1 + offset, bytes, 0, item.Item2 - offset - 2);
 
-                                    var param = new ParameterFile(name, filename) { Scope = ParameterScope.Local, ContentType = contenttype, Data = bytes };
-                                    request.AddParam(param);
+                                    var param = new ParameterFile(name, filename) { Scope = ParameterScope.Parameter, ContentType = contenttype, Data = bytes };
+                                    request.AddParameter(param);
                                 }
                                 else
                                 {
-                                    var param = new Parameter(name, filename) { Scope = ParameterScope.Local };
-                                    request.AddParam(param);
+                                    var param = new Parameter(name, filename) { Scope = ParameterScope.Parameter };
+                                    request.AddParameter(param);
                                 }
                             }
                         }
@@ -376,8 +389,8 @@ namespace WebExpress.Message
                             var match = Regex.Match(v, @"([\w-]*)=(.*)", RegexOptions.Compiled);
                             if (match.Groups[1].Success && match.Groups[2].Success)
                             {
-                                last = new Parameter(match.Groups[1].ToString().Trim(), match.Groups[2].ToString().Trim()) { Scope = ParameterScope.Local };
-                                request.AddParam(last);
+                                last = new Parameter(match.Groups[1].ToString().Trim(), match.Groups[2].ToString().Trim()) { Scope = ParameterScope.Parameter };
+                                request.AddParameter(last);
                             }
                             else if (last != null)
                             {
@@ -401,43 +414,70 @@ namespace WebExpress.Message
                         foreach (var v in param.Split('&'))
                         {
                             var s = v.Split('=');
-                            request.AddParam(s[0], s.Count() > 1 ? s[1]?.TrimEnd() : string.Empty);
+                            request.AddParameter(new Parameter
+                            (
+                                s[0], 
+                                s.Count() > 1 ? s[1]?.TrimEnd() : string.Empty
+                            )
+                            { 
+                                Scope = ParameterScope.Parameter 
+                            });
                         }
 
                         break;
                     }
                 default:
                     {
-                        
+
                         break;
                     }
             }
         }
 
         /// <summary>
-        /// Fügt ein Parameter hinzu
+        /// Ermittelt den die Parameter aus der Session
         /// </summary>
-        /// <param name="name">Der Parametername</param>
-        /// <param name="value">Der Wert</param>
-        public void AddParam(string name, string value)
+        /// <param name="request">Die Anfrage</param>
+        private static void ParseSessionParams(Request request)
         {
-            var decode = System.Web.HttpUtility.UrlDecode(value);
+            if (request == null) return;
 
-            if (!Param.ContainsKey(name.ToLower()))
+            request.Session = SessionManager.Session(request);
+
+            var property = request.Session.GetProperty<SessionPropertyParameter>();
+            if (property != null && property.Params != null)
             {
-                Param.Add(name.ToLower(), new Parameter(name.ToLower(), decode) { Scope = ParameterScope.None });
-            }
-            else
-            {
-                Param[name.ToLower()] = new Parameter(name.ToLower(), decode) { Scope = ParameterScope.None };
+                foreach (var param in property.Params)
+                {
+                    request.AddParameter(new Parameter(param.Key?.ToLower(), param.Value.Value) { Scope = ParameterScope.Session });
+                }
             }
         }
+
+        ///// <summary>
+        ///// Fügt ein Parameter hinzu
+        ///// </summary>
+        ///// <param name="name">Der Parametername</param>
+        ///// <param name="value">Der Wert</param>
+        //private void AddParameter(string name, string value)
+        //{
+        //    var decode = System.Web.HttpUtility.UrlDecode(value);
+
+        //    if (!Param.ContainsKey(name.ToLower()))
+        //    {
+        //        Param.Add(name.ToLower(), new Parameter(name.ToLower(), decode) { Scope = ParameterScope.None });
+        //    }
+        //    else
+        //    {
+        //        Param[name.ToLower()] = new Parameter(name.ToLower(), decode) { Scope = ParameterScope.None };
+        //    }
+        //}
 
         /// <summary>
         /// Fügt ein Parameter hinzu
         /// </summary>
         /// <param name="param">Der Parameter</param>
-        public void AddParam(Parameter param)
+        public void AddParameter(Parameter param)
         {
             if (!Param.ContainsKey(param.Key.ToLower()))
             {
@@ -454,9 +494,9 @@ namespace WebExpress.Message
         /// </summary>
         /// <param name="name">Der Name des Parameters</param>
         /// <returns>Der Wert</returns>
-        public Parameter GetParam(string name)
+        public Parameter GetParameter(string name)
         {
-            if (HasParam(name))
+            if (HasParameter(name))
             {
                 return Param[name.ToLower()];
             }
@@ -465,21 +505,11 @@ namespace WebExpress.Message
         }
 
         /// <summary>
-        /// Liefert ein Parameter anhand seines Namens
-        /// </summary>
-        /// <param name="name">Der Name des Parameters</param>
-        /// <returns>Der Wert</returns>
-        public string GetParamValue(string name)
-        {
-            return GetParam(name)?.Value;
-        }
-
-        /// <summary>
         /// Prüft, ob ein Parameter vorhanden ist
         /// </summary>
         /// <param name="name">Der Name des Parameters</param>
         /// <returns>true wenn Parameter vorhanden ist, false sonst</returns>
-        public bool HasParam(string name)
+        public bool HasParameter(string name)
         {
             return Param.ContainsKey(name.ToLower());
         }

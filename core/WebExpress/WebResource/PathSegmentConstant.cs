@@ -1,6 +1,5 @@
-﻿using WebExpress.Module;
+﻿using System.Globalization;
 using WebExpress.Internationalization;
-using System.Globalization;
 
 namespace WebExpress.WebResource
 {

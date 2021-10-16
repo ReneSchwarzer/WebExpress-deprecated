@@ -1,4 +1,9 @@
 ﻿# Englisch
+plugin.name=WebExpress.WebApp
+plugin.description=Provides basic components of a web application.
+
+module.name=WebExpress.WebApp
+module.description=Provides basic components of a web application.
 
 header.quickcreate.label=Create
 header.help.label=Help
@@ -57,6 +62,7 @@ setting.logfile.switchon.label=Activate
 setting.logfile.switchon.header=Enable logging
 setting.logfile.switchon.description=Activation is only valid until the next restart. To enable it permanently, change the settings in the configuration file. 
 setting.logfile.switchon.success=Logging has been enabled.
+setting.plugin.label=Plugins
 
 setting.plugin.label=Installed Applications
 setting.plugin.name.label=Name

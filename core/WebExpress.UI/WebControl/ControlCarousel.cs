@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using WebExpress.Html;
+using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebControl
 {
@@ -68,11 +69,11 @@ namespace WebExpress.UI.WebControl
                     (
                         new HtmlElementSectionH3() { Text = v.Headline },
                         new HtmlElementTextContentP() { Text = v.Text }
-                    ) 
-                    { 
-                        Class = "carousel-caption" 
+                    )
+                    {
+                        Class = "carousel-caption"
                     };
-                    
+
                     i.Elements.Add(caption);
                 }
 

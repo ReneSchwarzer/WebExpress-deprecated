@@ -1,8 +1,12 @@
 ﻿using System.Collections.Generic;
+using WebExpress.Application;
 
 namespace WebExpress.Module
 {
-    internal class ModuleDictionary : Dictionary<string, ModuleItem>
+    /// <summary>
+    /// Anwendung -> ID -> Item
+    /// </summary>
+    internal class ModuleDictionary : Dictionary<IApplicationContext, Dictionary<string, ModuleItem>>
     {
     }
 }

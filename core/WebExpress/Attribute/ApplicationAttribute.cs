@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace WebExpress.Attribute
+﻿namespace WebExpress.Attribute
 {
     public class ApplicationAttribute : System.Attribute, IModuleAttribute
     {

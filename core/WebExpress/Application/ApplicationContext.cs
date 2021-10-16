@@ -1,5 +1,4 @@
-﻿using System.IO;
-using System.Reflection;
+﻿using System.Reflection;
 using WebExpress.Uri;
 
 namespace WebExpress.Application
@@ -9,7 +8,7 @@ namespace WebExpress.Application
         /// <summary>
         /// Das Assembly, welches die Anwednung enthällt
         /// </summary>
-        public Assembly Assembly { get; internal set;  }
+        public Assembly Assembly { get; internal set; }
 
         /// <summary>
         /// Liefert die ID des Plugins
@@ -25,7 +24,7 @@ namespace WebExpress.Application
         /// Liefert den Anwendungsnamen. 
         /// </summary>
         public string ApplicationName { get; internal set; }
-        
+
         /// <summary>
         /// Liefert oder setzt die Beschreibung
         /// </summary>

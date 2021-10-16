@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
+using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebControl
 {
@@ -25,7 +26,7 @@ namespace WebExpress.UI.WebControl
             {
                 if (Active == TypeActive.Active) return true;
 
-                return Children.Where(x => x.IsAnyChildrenActive).Count() > 0;
+                return Children.Where(x => x.IsAnyChildrenActive).Any();
             }
         }
 
@@ -125,15 +126,20 @@ namespace WebExpress.UI.WebControl
 
             if (Layout == TypeLayoutTreeItem.TreeView)
             {
-                var expander = new HtmlElementTextSemanticsSpan();
-                expander.Class = Css.Concatenate("tree-treeview-expander", Children.Count > 0 ? "tree-treeview-angle" : "tree-treeview-dot");
+                var expander = new HtmlElementTextSemanticsSpan
+                {
+                    Class = Css.Concatenate("tree-treeview-expander", Children.Count > 0 ? "tree-treeview-angle" : "tree-treeview-dot")
+                };
+
                 if (Children.Count > 0 && Expand != TypeExpandTree.Collapse)
                 {
                     expander.Class = Css.Concatenate("tree-treeview-angle-down", expander.Class);
                 }
 
-                container = new HtmlElementTextContentDiv(expander, content.Count() > 1 ? new HtmlElementTextContentDiv(content) : content.FirstOrDefault());
-                container.Class = Css.Concatenate("tree-treeview-container");
+                container = new HtmlElementTextContentDiv(expander, content.Count() > 1 ? new HtmlElementTextContentDiv(content) : content.FirstOrDefault())
+                {
+                    Class = Css.Concatenate("tree-treeview-container")
+                };
             }
             else
             {
@@ -161,16 +167,16 @@ namespace WebExpress.UI.WebControl
                         break;
                 }
 
-                var ul = new HtmlElementTextContentUl(items) 
+                var ul = new HtmlElementTextContentUl(items)
                 {
                     Class = Css.Concatenate(Layout switch
                     {
                         TypeLayoutTreeItem.TreeView => "tree-treeview-node",
-                        TypeLayoutTreeItem.Simple => "tree-simple-node", 
-                        _ => Layout.ToClass() 
+                        TypeLayoutTreeItem.Simple => "tree-simple-node",
+                        _ => Layout.ToClass()
                     }, Expand.ToClass())
                 };
-                
+
                 html.Elements.Add(ul);
             }
 

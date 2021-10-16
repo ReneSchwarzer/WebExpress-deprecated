@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using WebExpress.Application;
+using WebExpress.Module;
 
 namespace WebExpress.Message
 {
-    public class ResponseDictionary : Dictionary<IApplicationContext, Dictionary<int, Type>>
+    public class ResponseDictionary : Dictionary<IModuleContext, Dictionary<int, Type>>
     {
     }
 }

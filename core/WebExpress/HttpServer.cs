@@ -13,6 +13,7 @@ using WebExpress.Message;
 using WebExpress.Module;
 using WebExpress.Plugin;
 using WebExpress.Uri;
+using WebExpress.WebPage;
 using WebExpress.WebResource;
 
 namespace WebExpress
@@ -212,169 +213,113 @@ namespace WebExpress
         /// <param name="client">Der Client</param>
         private void HandleClient(TcpClient client)
         {
-            var stopwatch = Stopwatch.StartNew();
-
             Response response = new ResponseNotFound();
             var request = null as Request;
             var ip = client.Client.RemoteEndPoint;
             using var stream = client.GetStream();
             var reader = new BinaryReader(stream);
             var writer = new StreamWriter(stream);
-            var moduleContext = null as IModuleContext;
-            var uri = null as IUri;
+            var stopwatch = Stopwatch.StartNew();
+            var culture = Culture;
 
-            if (!stream.DataAvailable)
-            {
-                //Context.Log.Debug(message: this.I18N("httpserver.rejected"), args: ip);
-                //return;
-            }
+            //if (!stream.DataAvailable)
+            //{
+            //    //Context.Log.Debug(message: this.I18N("httpserver.rejected"), args: ip);
+            //    //return;
+            //}
 
             Context.Log.Info(message: this.I18N("httpserver.connected"), args: ip);
-
 
             try
             {
                 request = Request.Create(reader, ip.ToString());
+                stopwatch.Restart();
             }
             catch (Exception ex)
             {
                 Context.Log.Exception(ex);
-            }
-
-            if (request == null)
-            {
-                response = new ResponseBadRequest();
-                var statusPage = CreateStatusPage(response.Status, request, moduleContext, uri);
-                if (statusPage != null)
-                {
-                    statusPage.StatusMessage = "";
-                    response.Content = statusPage;
-                }
-                else
-                {
-                    response.Content = $"<h4>{response.Status}</h4>Bad Request";
-                }
-
-                response.HeaderFields.ContentLength = response.Content != null ? response.Content.ToString().Length : 0;
             }
 
             try
             {
-                Context.Log.Debug(message: this.I18N("httpserver.request"), args: new object[] { ip, $"{request?.Method} {request?.URL} {request?.Version}" });
+                culture = new CultureInfo(request?.HeaderFields?.AcceptLanguage?.TrimStart().Substring(0, 2).ToLower());
+            }
+            catch
+            {
+            }
 
-                var resource = ResourceManager.Find(request?.URL.TrimEnd('/'));
-                if (resource != null && resource.Type != null)
+            // Anfrage behandeln
+            if (request != null)
+            {
+                try
                 {
-                    var id = resource.ID;
-                    var type = resource.Type;
-                    var culture = Culture;
-                    moduleContext = resource.ModuleContext;
-                    uri = new UriResource(resource.ModuleContext, request.URL, resource, culture);
+                    Context.Log.Debug(message: this.I18N("httpserver.request"), args: new object[] { ip, $"{request?.Method} {request?.Uri} {request?.Version}" });
 
-                    try
+                    // Suche Seite in Sitemap
+                    var resource = ResourceManager.Find(request?.Uri.ToString().TrimEnd('/'), new SearchContext()
                     {
-                        culture = new CultureInfo(request.HeaderFields?.AcceptLanguage?.TrimStart().Substring(0, 2).ToLower());
-                    }
-                    catch
-                    {
-                    }
+                        Culture = culture,
+                        Uri = request.Uri
+                    });
 
-                    if (type?.Assembly.CreateInstance(type?.FullName) is IResource instance)
+                    var moduleContext = ModuleManager.GetModule(resource.Context.ApplicationID, resource.Context.ModuleID);
+                    request.Uri = new UriResource(moduleContext, request.Uri, resource, culture);
+                    
+                    // Ressource ausführen
+                    if (resource != null)
                     {
-                        if (instance is II18N i18n)
+                        resource.Instance.PreProcess(request);
+                        response = resource.Instance.Process(request);
+                        response = resource.Instance.PostProcess(request, response);
+
+                        if (resource.Instance is IPage)
                         {
-                            i18n.Culture = culture;
+                            response.Content += $"<!-- { stopwatch.ElapsedMilliseconds } ms -->";
                         }
 
-                        if (instance is Resource res)
+                        if (response is ResponseNotFound)
                         {
-                            res.ID = id;
-                            res.Request = request;
-                            res.Uri = uri;
-                            res.Context = resource.ModuleContext;
-                            res.ResourceContext = resource.ResourceContext;
-
-                            foreach (var p in request.Param)
-                            {
-                                res.AddParam(p.Value);
-                            }
-
-                            foreach (var v in resource.Variables)
-                            {
-                                res.AddParam(v.Key, v.Value, ParameterScope.Url);
-                            }
+                            response = CreateStatusPage<ResponseNotFound>(string.Empty, request, resource.Context);
                         }
-
-                        if (instance is IPage page)
-                        {
-                            page.Title = resource.Title;
-                        }
-
-                        instance.Initialization();
-                        instance.PreProcess(request);
-                        response = instance.Process(request);
-                        response = instance.PostProcess(request, response);
-
-                        if (instance is IPage)
-                        {
-                            response.Content += $"<!--{ stopwatch.ElapsedMilliseconds } ms -->";
-                        }
-                    }
-                }
-
-                if (response is ResponseNotFound)
-                {
-                    var statusPage = CreateStatusPage(response.Status, request, moduleContext, uri);
-                    if (statusPage != null)
-                    {
-                        response.Content = statusPage;
                     }
                     else
                     {
-                        response.Content = $"<h4>{ response.Status }</h4>";
+                        // Seite nicht gefunden
+                        response = CreateStatusPage<ResponseNotFound>(string.Empty, request);
                     }
+                }
+                catch (RedirectException ex)
+                {
+                    if (ex.Permanet)
+                    {
+                        response = new ResponseRedirectPermanentlyMoved(ex.Url);
+                    }
+                    else
+                    {
+                        response = new ResponseRedirectTemporarilyMoved(ex.Url);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Context.Log.Exception(ex);
 
-                    response.HeaderFields.ContentLength = response.Content != null ? response.Content.ToString().Length : 0;
+                    var message = $"<h4>Message</h4>{ ex.Message }<br/><br/>" +
+                            $"<h5>Source</h5>{ ex.Source }<br/><br/>" +
+                            $"<h5>StackTrace</h5>{ ex.StackTrace.Replace("\n", "<br/>\n") }<br/><br/>" +
+                            $"<h5>InnerException</h5>{ ex.InnerException?.ToString().Replace("\n", "<br/>\n") }";
+
+                    response = CreateStatusPage<ResponseInternalServerError>(message, request);
                 }
             }
-            catch (RedirectException ex)
+            else
             {
-                if (ex.Permanet)
-                {
-                    response = new ResponseRedirectPermanentlyMoved(ex.Url);
-                }
-                else
-                {
-                    response = new ResponseRedirectTemporarilyMoved(ex.Url);
-                }
-            }
-            catch (Exception ex)
-            {
-                Context.Log.Exception(ex);
-
-                response = new ResponseInternalServerError();
-                var statusPage = CreateStatusPage(response.Status, request, moduleContext, uri);
-                if (statusPage != null)
-                {
-                    statusPage.StatusMessage = $"<h4>Message</h4>{ ex.Message }<br/><br/>" +
-                        $"<h5>Source</h5>{ ex.Source }<br/><br/>" +
-                        $"<h5>StackTrace</h5>{ ex.StackTrace.Replace("\n", "<br/>\n") }<br/><br/>" +
-                        $"<h5>InnerException</h5>{ ex.InnerException?.ToString().Replace("\n", "<br/>\n") }";
-
-                    response.Content = statusPage;
-                }
-                else
-                {
-                    response.Content = $"<h4>{ response.Status }</h4> { ex }";
-                }
-
-                response.HeaderFields.ContentLength = response.Content != null ? response.Content.ToString().Length : 0;
+                // Anfrage fehlerhaft
+                response = CreateStatusPage<ResponseBadRequest>(string.Empty, request);
             }
 
             // Response an Client schicken
             try
             {
-
                 writer.Write(response.GetHeader());
                 writer.Flush();
 
@@ -403,63 +348,47 @@ namespace WebExpress
         /// <summary>
         /// Erstellt eine Statusseite
         /// </summary>
-        /// <param name="statusCode">Der Statuscode</param>
+        /// <param name="massage">Die Fehlernachricht</param>
+        /// <param name="request">Die Anfrage</param>
+        /// <param name="context">Der Kontext der aufgerufenen Ressource oder null</param>
         /// <returns></returns>
-        private IPageStatus CreateStatusPage(int statusCode, Request request, IModuleContext moduleContext, IUri uri)
+        private Response CreateStatusPage<T>(string massage, Request request, IResourceContext context = null) where T : Response, new()
         {
+            var response = new T() as Response;
+            var culture = Culture;
+            var statusPage = null as IPageStatus;
+            var moduleContext = ResponseManager.GetDefaultModule(response.Status, request?.Uri.ToString(), context?.ModuleID);
+
             try
             {
-                var culture = Culture;
-                var statusPage = null as IPageStatus;
+                culture = new CultureInfo(request?.HeaderFields?.AcceptLanguage?.TrimStart().Substring(0, 2).ToLower());
+            }
+            catch
+            {
+            }
 
-                try
-                {
-                    culture = new CultureInfo(request?.HeaderFields?.AcceptLanguage?.TrimStart().Substring(0, 2).ToLower());
-                }
-                catch
-                {
-                }
+            statusPage = ResponseManager.Create(massage, response.Status, moduleContext, request?.Uri);
 
-                if (moduleContext != null && !string.IsNullOrWhiteSpace(moduleContext.ApplicationID))
-                {
-                    statusPage = ResponseManager.Create(statusCode, moduleContext?.ApplicationID);
-                }
-
-                if (statusPage == null)
-                {
-                    statusPage = ResponseManager.Create(statusCode, "webexpress");
-                }
-
-                if (statusPage == null)
-                {
-                    return null;
-                }
-
-                statusPage.StatusCode = statusCode;
-
+            if (statusPage != null)
+            {
                 if (statusPage is II18N i18n)
                 {
                     i18n.Culture = culture;
                 }
 
-                if (statusPage is Resource res)
+                if (statusPage is Resource resource)
                 {
-                    res.Request = request;
-                    res.Uri = uri;
-                    res.Context = moduleContext;
+                    resource.Initialization(new ResourceContext(moduleContext));
                 }
 
-                statusPage.Initialization();
-                statusPage.Process();
+                statusPage.PreProcess(request);
+                response = statusPage.Process(request);
+                statusPage.PostProcess(request, response);
 
-                return statusPage;
-            }
-            catch
-            {
-
+                return response;
             }
 
-            return null;
+            return response;
         }
     }
 }

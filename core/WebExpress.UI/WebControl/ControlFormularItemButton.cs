@@ -92,9 +92,9 @@ namespace WebExpress.UI.WebControl
             Disabled = false;
             Size = TypeSizeButton.Default;
 
-            if (context.Page.HasParam(Name))
+            if (context.Request.HasParameter(Name))
             {
-                var value = context.Page.GetParamValue(Name);
+                var value = context.Request.GetParameter(Name)?.Value;
 
                 if (!string.IsNullOrWhiteSpace(Value) && value == Value)
                 {

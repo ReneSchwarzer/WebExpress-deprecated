@@ -162,6 +162,27 @@ namespace WebExpress.Application
         }
 
         /// <summary>
+        /// Ermittelt die Anwendungen zu den gegebenen IDs
+        /// </summary>
+        /// <param name="applications">Die Anwendungen als Kommaseperierte Liste oder * für alle Anwendungskontexte</param>
+        /// <returns>Die Kontexte der Anwendungen</returns>
+        public static IEnumerable<IApplicationContext> GetApplcations(string applications)
+        {
+            if (string.IsNullOrWhiteSpace(applications))
+            {
+                return new List<IApplicationContext>();
+            }
+            else if (applications.Trim().Equals("*"))
+            {
+                return Dictionary.Values.Select(x => x.Context);
+            }
+
+            var applicationIDs = applications.Split(',').Select(x => x?.Trim().ToLower());
+
+            return Dictionary.Where(x => applicationIDs.Contains(x.Key)).Select(x => x.Value.Context);
+        }
+
+        /// <summary>
         /// Ermittelt die Anwendung zu einem gegebenen Assembly
         /// </summary>
         /// <param name="applicationAssembly">Das Assembly, zudem der Anwendungskontext ermittelt werden soll</param>
@@ -180,7 +201,7 @@ namespace WebExpress.Application
             foreach (var application in Dictionary.Values)
             {
                 application.Application.Initialization(application.Context);
-                //Context.Log.Info(message: I18N("webexpress:pluginmanager.plugin.initialization"), args: application.Context.PluginID);
+                Context.Log.Info(message: I18N("webexpress:applicationmanager.application.initialization"), args: application.Context.ApplicationID);
             }
 
             // Plugins nebenläufig ausführen
@@ -188,11 +209,11 @@ namespace WebExpress.Application
             {
                 Task.Run(() =>
                 {
-                    //Context.Log.Info(message: I18N("webexpress:pluginmanager.plugin.processing.start"), args: plugin.Context.PluginID);
+                    Context.Log.Info(message: I18N("webexpress:applicationmanager.application.processing.start"), args: application.Context.ApplicationID);
 
                     application.Application.Run();
 
-                    //Context.Log.Info(message: I18N("webexpress:pluginmanager.plugin.processing.end"), args: plugin.Context.PluginID);
+                    Context.Log.Info(message: I18N("webexpress:applicationmanager.application.processing.end"), args: application.Context.ApplicationID);
                 });
             }
         }

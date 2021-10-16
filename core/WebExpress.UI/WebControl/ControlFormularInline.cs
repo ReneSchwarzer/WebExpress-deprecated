@@ -5,6 +5,7 @@ using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.Message;
 using WebExpress.Uri;
+using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebControl
 {
@@ -127,7 +128,6 @@ namespace WebExpress.UI.WebControl
         {
             var renderContext = new RenderContextFormular(context, this);
 
-            Scope = ParameterScope.Local;
             Name = "Form";
 
             SubmitButton.Click += (s, e) =>
@@ -154,7 +154,7 @@ namespace WebExpress.UI.WebControl
         {
             if (string.IsNullOrWhiteSpace(SubmitButton.Text))
             {
-                SubmitButton.Text = context.I18N("webexpress", "form.submit.label");
+                SubmitButton.Text = context.I18N("webexpress.ui", "form.submit.label");
             }
         }
 
@@ -174,7 +174,7 @@ namespace WebExpress.UI.WebControl
             SubmitButton.Initialize(renderContext);
 
             // Prüfe ob Formular abgeschickt wurde -> Fomular mit Daten füllen 
-            if (!context.Page.HasParam(formName))
+            if (!context.Request.HasParameter(formName))
             {
                 OnFill();
             }

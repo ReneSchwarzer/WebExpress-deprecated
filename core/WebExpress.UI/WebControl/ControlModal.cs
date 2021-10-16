@@ -2,6 +2,7 @@
 using System.Linq;
 using WebExpress.Html;
 using WebExpress.Internationalization;
+using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebControl
 {
@@ -150,7 +151,7 @@ namespace WebExpress.UI.WebControl
 
             var footer = null as HtmlElementTextContentDiv;
 
-            var footerButton = new HtmlElementFieldButton(new HtmlText(context.I18N("webexpress", "modal.close.label")))
+            var footerButton = new HtmlElementFieldButton(new HtmlText(context.I18N("webexpress.ui", "modal.close.label")))
             {
                 Type = "button",
                 Class = Css.Concatenate("btn", new PropertyColorButton(TypeColorButton.Primary).ToStyle())
@@ -184,19 +185,19 @@ namespace WebExpress.UI.WebControl
             if (!string.IsNullOrWhiteSpace(OnShownCode))
             {
                 var shown = "$('#" + ID + "').on('shown.bs.modal', function(e) { " + OnShownCode + " });";
-                context.Page.AddScript(ID + "_shown", shown);
+                context.VisualTree.AddScript(ID + "_shown", shown);
             }
 
             if (!string.IsNullOrWhiteSpace(OnHiddenCode))
             {
                 var hidden = "$('#" + ID + "').on('hidden.bs.modal', function() { " + OnHiddenCode + " });";
-                context.Page.AddScript(ID + "_hidden", hidden);
+                context.VisualTree.AddScript(ID + "_hidden", hidden);
             }
 
             if (ShowIfCreated)
             {
                 var show = "$('#" + ID + "').modal('show');";
-                context.Page.AddScript(ID + "_showifcreated", show);
+                context.VisualTree.AddScript(ID + "_showifcreated", show);
             }
 
             return html;

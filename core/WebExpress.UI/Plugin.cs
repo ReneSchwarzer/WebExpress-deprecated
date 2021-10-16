@@ -1,11 +1,13 @@
 ﻿using WebExpress.Attribute;
 using WebExpress.Plugin;
-using WebExpress.UI.Components;
+using WebExpress.UI.WebComponent;
 
 namespace WebExpress.UI
 {
-    [ID("webexpress")]
-    [Name("WebExpress")]
+    [ID("webexpress.ui")]
+    [Name("WebExpress.UI")]
+    [Description("plugin.description")]
+    [Icon("/assets/img/Logo.png")]
     public sealed class Plugin : IPlugin
     {
         /// <summary>

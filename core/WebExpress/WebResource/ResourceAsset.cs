@@ -3,8 +3,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using WebExpress.Message;
-using WebExpress.Module;
-using WebExpress.Uri;
 using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.WebResource
@@ -35,9 +33,10 @@ namespace WebExpress.WebResource
         /// <summary>
         /// Initialisierung
         /// </summary>
-        public override void Initialization()
+        /// <param name="context">Der Kontext</param>
+        public override void Initialization(IResourceContext context)
         {
-            base.Initialization();
+            base.Initialization(context);
 
             AssetDirectory = Context.Assembly.GetName().Name;
         }
@@ -52,12 +51,13 @@ namespace WebExpress.WebResource
             lock (Gard)
             {
                 var assembly = Context.Assembly;
+                var buf = assembly.GetManifestResourceNames().ToList();
                 var resources = assembly.GetManifestResourceNames().Where(x => x.StartsWith(AssetDirectory, System.StringComparison.OrdinalIgnoreCase));
-                var url = request.URL[Context.ContextPath.ToString().Length..];
+                var url = request.Uri.ToString()[Context.ContextPath.ToString().Length..];
                 var fileName = Path.GetFileName(url);
                 var file = string.Join('.', AssetDirectory.Trim('.'), url.Replace("/", ".").Trim('.'));
 
-                Data = GetData(file, assembly, resources);
+                Data = GetData(file, assembly, resources.ToList());
 
                 if (Data == null)
                 {
@@ -125,7 +125,7 @@ namespace WebExpress.WebResource
                         break;
                 }
 
-                Context.Log.Debug(string.Format(I18N("webexpress:resourceasset.load"), request.Client, request.URL));
+                Context.Log.Debug(string.Format(I18N("webexpress.ui:resourceasset.load"), request.Client, request.Uri));
 
                 return response;
             }

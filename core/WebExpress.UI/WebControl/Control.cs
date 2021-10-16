@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using WebExpress.Html;
+using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebControl
 {
@@ -129,6 +130,11 @@ namespace WebExpress.UI.WebControl
         public string OnClick { get; set; }
 
         /// <summary>
+        /// Bestimmt, ob das Steuerelement aktiv ist und gerendert wird
+        /// </summary>
+        public bool Enable { get; set; } = true;
+
+        /// <summary>
         /// In HTML konvertieren
         /// </summary>
         /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
@@ -148,58 +154,6 @@ namespace WebExpress.UI.WebControl
             Padding = new PropertySpacingPadding(PropertySpacing.Space.None);
             Margin = new PropertySpacingMargin(PropertySpacing.Space.None);
         }
-
-        ///// <summary>
-        ///// Fügt ein Parameter hinzu. Der Wert wird aus dem Request ermittelt
-        ///// </summary>
-        ///// <param name="name">Der Name des Parametern</param>
-        ///// <param name="scope">Der Gültigkeitsbereich des Parameters</param>
-        //public void AddParam(string name, ParameterScope scope = ParameterScope.Global)
-        //{
-        //    Page.AddParam(name.ToLower(), scope);
-        //}
-
-        ///// <summary>
-        ///// Fügt ein Parameter hinzu.
-        ///// </summary>
-        ///// <param name="name">Der Name des Parametern</param>
-        ///// <param name="value">Der Wert</param>
-        ///// <param name="scope">Der Gültigkeitsbereich des Parameters</param>
-        //public void AddParam(string name, string value, ParameterScope scope = ParameterScope.Global)
-        //{
-        //    Page.AddParam(name.ToLower(), value, scope);
-        //}
-
-        ///// <summary>
-        ///// Fügt ein Parameter hinzu. 
-        ///// </summary>
-        ///// <param name="param">Der Parameter</param>
-        ///// <param name="scope">Der Gültigkeitsbereich des Parameters</param>
-        //public void AddParam(Parameter param)
-        //{
-        //    Page.AddParam(param);
-        //}
-
-        ///// <summary>
-        ///// Liefert ein Parameter anhand seines Namens
-        ///// </summary>
-        ///// <param name="name">Der Name des Parameters</param>
-        ///// <returns>Der Wert</returns>
-        //public string GetParam(string name)
-        //{
-        //    return Page.GetParam(name?.ToLower());
-        //}
-
-        ///// <summary>
-        ///// Liefert ein Parameter anhand seines Namens
-        ///// </summary>
-        ///// <param name="name">Der Name des Parameters</param>
-        ///// <param name="defaultValue">Standardwert</param>
-        ///// <returns>Der Wert</returns>
-        //public int GetParam(string name, int defaultValue)
-        //{
-        //    return Page.GetParam(name?.ToLower(), defaultValue);
-        //}
 
         /// <summary>
         /// Liefert eine Property

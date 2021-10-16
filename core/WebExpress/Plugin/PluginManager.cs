@@ -200,13 +200,13 @@ namespace WebExpress.Plugin
             foreach (var plugin in Dictionary.Values)
             {
                 Task.Run(() =>
-               {
-                   Context.Log.Info(message: I18N("webexpress:pluginmanager.plugin.processing.start"), args: plugin.Context.PluginID);
+                {
+                    Context.Log.Info(message: I18N("webexpress:pluginmanager.plugin.processing.start"), args: plugin.Context.PluginID);
 
-                   plugin.Plugin.Run();
+                    plugin.Plugin.Run();
 
-                   Context.Log.Info(message: I18N("webexpress:pluginmanager.plugin.processing.end"), args: plugin.Context.PluginID);
-               });
+                    Context.Log.Info(message: I18N("webexpress:pluginmanager.plugin.processing.end"), args: plugin.Context.PluginID);
+                });
             }
         }
 

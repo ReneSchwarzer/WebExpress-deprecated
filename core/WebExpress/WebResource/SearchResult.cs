@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using WebExpress.Internationalization;
-using WebExpress.Module;
 
 namespace WebExpress.WebResource
 {
@@ -23,9 +22,14 @@ namespace WebExpress.WebResource
         public Type Type { get; internal set; }
 
         /// <summary>
-        /// Liefert oder setzt den Modulkontext
+        /// Liefert die Instanz
         /// </summary>
-        public IModuleContext ModuleContext { get; internal set; }
+        public IResource Instance { get; internal set; }
+
+        /// <summary>
+        /// Liefert oder setzt den Kontext
+        /// </summary>
+        public IResourceContext Context { get; internal set; }
 
         /// <summary>
         /// Liefert oder setzt den Kontext indem die Ressource existiert
@@ -49,7 +53,8 @@ namespace WebExpress.WebResource
         /// <param name="id">Die SeitenID</param>
         /// <param name="title">Der Ressourcentitel</param>
         /// <param name="type">Der Ressorcen-Typ</param>
-        /// <param name="moduleContext">Den Modulkontext</param>
+        /// <param name="instance">Die Instanz</param>
+        /// <param name="context">Den Kontext</param>
         /// <param name="resourceContext">Den Kontext indem die Ressource existiert</param>
         /// <param name="path">Der Pfad</param>
         /// <param name="variables">Variablen-Wert-Paare</param>
@@ -58,7 +63,8 @@ namespace WebExpress.WebResource
             string id,
             string title,
             Type type,
-            IModuleContext moduleContext,
+            IResource instance,
+            IResourceContext context,
             IReadOnlyList<string> resourceContext,
             ICollection<SitemapNode> path,
             IDictionary<string, string> variables
@@ -67,7 +73,8 @@ namespace WebExpress.WebResource
             ID = id;
             Title = title;
             Type = type;
-            ModuleContext = moduleContext;
+            Instance = instance;
+            Context = context;
             ResourceContext = resourceContext;
             Path = path;
 
@@ -90,7 +97,7 @@ namespace WebExpress.WebResource
                     }
                     else
                     {
-                        ModuleContext.Log.Warning(message: InternationalizationManager.I18N(InternationalizationManager.DefaultCulture, "webexpress", "resource.variable.duplicate"), args: v.Key);
+                        Context.Log.Warning(message: InternationalizationManager.I18N(InternationalizationManager.DefaultCulture, "webexpress", "resource.variable.duplicate"), args: v.Key);
                     }
                 }
             }

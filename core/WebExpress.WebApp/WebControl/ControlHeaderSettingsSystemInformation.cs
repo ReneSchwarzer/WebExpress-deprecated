@@ -1,10 +1,8 @@
-﻿using WebExpress.Attribute;
-using WebExpress.Html;
+﻿using WebExpress.Html;
 using WebExpress.Internationalization;
-using WebExpress.UI.Attribute;
-using WebExpress.UI.Component;
+using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
-using WebExpress.WebApp.Components;
+using WebExpress.WebPage;
 
 namespace WebExpress.WebApp.WebControl
 {
@@ -35,7 +33,7 @@ namespace WebExpress.WebApp.WebControl
         public override IHtmlNode Render(RenderContext context)
         {
             Text = context.I18N("systeminformation.label");
-            Uri = context.Page.Uri.Root.Append("settings/systeminformation");
+            Uri = context.Request.Uri.Root.Append("settings/systeminformation");
             //Active = context.Page is IPageSettings ? TypeActive.Active : TypeActive.None;
             Icon = new PropertyIcon(TypeIcon.InfoCircle);
 

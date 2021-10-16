@@ -31,10 +31,7 @@ namespace WebExpress.UI.WebControl
         /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         public override void Initialize(RenderContextFormular context)
         {
-            if (context.Page.HasParam(Name))
-            {
-                Value = context?.Page.GetParamValue(Name);
-            }
+            Value = context?.Request.GetParameter(Name)?.Value;
         }
 
         /// <summary>

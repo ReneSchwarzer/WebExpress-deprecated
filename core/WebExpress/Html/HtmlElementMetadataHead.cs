@@ -80,7 +80,7 @@ namespace WebExpress.Html
         /// <summary>
         /// Liefert oder setzt die Scripte  
         /// </summary>
-        public List<string> Scripts
+        public IEnumerable<string> Scripts
         {
             get => (from x in ElementScripts select x.Code).ToList();
             set { ElementScripts.Clear(); ElementScripts.AddRange(from x in value select new HtmlElementScriptingScript(x)); }
@@ -130,7 +130,7 @@ namespace WebExpress.Html
         /// <summary>
         /// Liefert oder setzt die Metadaten
         /// </summary>
-        public List<KeyValuePair<string, string>> Meta
+        public IEnumerable<KeyValuePair<string, string>> Meta
         {
             get => (from x in ElementMeta select new KeyValuePair<string, string>(x.Key, x.Value)).ToList();
             set

@@ -66,8 +66,8 @@ namespace WebExpress.UI.WebControl
                 Style = GetStyles(),
             };
 
-            var body = new HtmlElementTextContentDiv() {};
-            
+            var body = new HtmlElementTextContentDiv() { };
+
             foreach (var item in Items)
             {
                 var row = new HtmlElementTextContentDiv() { };

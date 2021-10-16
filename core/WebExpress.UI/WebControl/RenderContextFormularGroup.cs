@@ -1,4 +1,4 @@
-﻿using WebExpress.WebResource;
+﻿using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebControl
 {
@@ -12,22 +12,11 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die Seite, indem das Steuerelement gerendert wird</param>
-        /// <param name="formular">Das Formular, indem das Steuerelement gerendert wird</param>
-        /// <param name="group">Die Gruppe</param>
-        public RenderContextFormularGroup(IPage page, ControlFormular formular, ControlFormularItemGroup group)
-            : base(page, formular)
-        {
-        }
-
-        /// <summary>
-        /// Konstruktor
-        /// </summary>
         /// <param name="context">Der Kontext, indem das Steuerelement gerendert wird</param>
         /// <param name="formular">Das Formular, indem das Steuerelement gerendert wird</param>
         /// <param name="group">Die Gruppe</param>
         public RenderContextFormularGroup(RenderContext context, ControlFormular formular, ControlFormularItemGroup group)
-            : base(context?.Page, formular)
+            : base(context, formular)
         {
         }
 
@@ -37,7 +26,7 @@ namespace WebExpress.UI.WebControl
         /// <param name="context">Der Kontext, indem das Steuerelement gerendert wird</param>
         /// <param name="group">Die Gruppe</param>
         public RenderContextFormularGroup(RenderContextFormular context, ControlFormularItemGroup group)
-            : base(context.Page, context.Formular)
+            : base(context)
         {
             Group = group;
         }

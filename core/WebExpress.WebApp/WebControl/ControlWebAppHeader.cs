@@ -4,7 +4,8 @@ using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
-using WebExpress.WebApp.WebResource;
+using WebExpress.WebApp.WebPage;
+using WebExpress.WebPage;
 
 namespace WebExpress.WebApp.WebControl
 {
@@ -144,7 +145,7 @@ namespace WebExpress.WebApp.WebControl
             };
 
             hamburger.AddRange(HamburgerPrimary);
-            
+
             if (HamburgerPrimary.Count > 0 && HamburgerSecondary.Count > 0)
             {
                 hamburger.Add(new ControlDropdownItemDivider());
@@ -214,7 +215,7 @@ namespace WebExpress.WebApp.WebControl
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.Null)
             })
             {
-                Uri = context.Page.Uri?.Root,
+                Uri = context.Request.Uri?.Root,
                 Decoration = TypeTextDecoration.None
             };
 

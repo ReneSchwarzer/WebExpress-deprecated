@@ -5,7 +5,7 @@
     /// </summary>
     public enum TypeSizeUnit
     {
-        Pixel = 0, 
+        Pixel = 0,
         Percent = 1,
         Em = 2,
         Rem = 3

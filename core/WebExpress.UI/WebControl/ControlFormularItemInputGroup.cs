@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using WebExpress.Html;
 
 namespace WebExpress.UI.WebControl
@@ -21,7 +19,7 @@ namespace WebExpress.UI.WebControl
         /// Ermittelt das schwerwiegenste Validierungsergebnis
         /// </summary>
         public override TypesInputValidity ValidationResult => Group != null ? Group.ValidationResult : TypesInputValidity.Default;
- 
+
         /// <summary>
         /// Konstruktor
         /// </summary>

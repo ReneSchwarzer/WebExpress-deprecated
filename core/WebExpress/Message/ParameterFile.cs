@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace WebExpress.Message
+﻿namespace WebExpress.Message
 {
     public class ParameterFile : Parameter
     {
@@ -32,7 +30,7 @@ namespace WebExpress.Message
         {
             Key = key.ToLower();
             Value = value;
-            Scope = ParameterScope.Global;
+            Scope = ParameterScope.Parameter;
         }
 
         /// <summary>
@@ -45,7 +43,7 @@ namespace WebExpress.Message
         {
             Key = key.ToLower();
             Value = value.ToString();
-            Scope = ParameterScope.Global;
+            Scope = ParameterScope.Parameter;
         }
 
         /// <summary>
@@ -58,7 +56,7 @@ namespace WebExpress.Message
         {
             Key = key.ToLower();
             Value = value.ToString();
-            Scope = ParameterScope.Global;
+            Scope = ParameterScope.Parameter;
         }
     }
 }

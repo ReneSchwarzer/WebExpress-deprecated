@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace WebExpress.Attribute
+﻿namespace WebExpress.Attribute
 {
     public class DescriptionAttribute : System.Attribute, IPluginAttribute, IApplicationAttribute, IModuleAttribute
     {

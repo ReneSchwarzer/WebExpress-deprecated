@@ -250,7 +250,7 @@ namespace WebExpress.Uri
             (uri.Path as List<IUriPathSegment>).AddRange(uris.Where(x => !string.IsNullOrWhiteSpace(x))
                             .SelectMany(x => x.Split('/', StringSplitOptions.RemoveEmptyEntries))
                             .Select(x => new UriPathSegment(x) as IUriPathSegment));
-                            
+
             return uri;
         }
 
@@ -263,7 +263,7 @@ namespace WebExpress.Uri
         {
             var uri = new UriRelative();
             (uri.Path as List<IUriPathSegment>).AddRange(uris.Where(x => x != null).SelectMany(x => x.Path));
-            
+
             return uri;
         }
 
@@ -279,7 +279,7 @@ namespace WebExpress.Uri
             (copy.Path as List<IUriPathSegment>).AddRange(uris.Where(x => !string.IsNullOrWhiteSpace(x))
                     .SelectMany(x => x.Split('/', StringSplitOptions.RemoveEmptyEntries))
                     .Select(x => new UriPathSegment(x) as IUriPathSegment));
-            
+
 
             return copy;
         }

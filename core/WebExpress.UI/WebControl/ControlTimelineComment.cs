@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Linq;
 using WebExpress.Html;
 using WebExpress.Uri;
+using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebControl
 {
@@ -126,7 +126,7 @@ namespace WebExpress.UI.WebControl
             {
                 Icon = new PropertyIcon(TypeIcon.ThumbsUp),
                 Text = likeText,
-                Uri = context.Page.Uri,
+                Uri = context.Request.Uri,
                 Size = TypeSizeButton.Small,
                 BackgroundColor = new PropertyColorButton(TypeColorButton.Light),
                 Outline = true,

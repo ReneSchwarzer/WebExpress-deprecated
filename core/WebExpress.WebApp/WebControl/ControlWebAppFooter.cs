@@ -2,7 +2,8 @@
 using System.Linq;
 using WebExpress.Html;
 using WebExpress.UI.WebControl;
-using WebExpress.WebApp.WebResource;
+using WebExpress.WebApp.WebPage;
+using WebExpress.WebPage;
 
 namespace WebExpress.WebApp.WebControl
 {
@@ -52,10 +53,12 @@ namespace WebExpress.WebApp.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var elements = new List<IHtmlNode>();
-            elements.Add(new HtmlElementTextContentDiv(Preferences.Select(x => x.Render(context))));
-            elements.Add(new HtmlElementTextContentDiv(Primary.Select(x => x.Render(context))) { Class = "justify-content-center" } );
-            elements.Add(new HtmlElementTextContentDiv(Secondary.Select(x => x.Render(context))));
+            var elements = new List<IHtmlNode>
+            {
+                new HtmlElementTextContentDiv(Preferences.Select(x => x.Render(context))),
+                new HtmlElementTextContentDiv(Primary.Select(x => x.Render(context))) { Class = "justify-content-center" },
+                new HtmlElementTextContentDiv(Secondary.Select(x => x.Render(context)))
+            };
 
             return new HtmlElementTextContentDiv(elements)
             {

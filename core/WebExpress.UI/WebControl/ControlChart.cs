@@ -5,6 +5,7 @@ using System.Text;
 using WebExpress.Html;
 using WebExpress.Module;
 using WebExpress.Uri;
+using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebControl
 {
@@ -75,11 +76,11 @@ namespace WebExpress.UI.WebControl
         /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         public void Initialize(RenderContext context)
         {
-            var module = ModuleManager.GetModule("webexpress");
+            var module = ModuleManager.GetModule(context.ApplicationID, "webexpress.ui");
             if (module != null)
             {
-                context.Page.HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/Chart.min.js")));
-                context.Page.CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/Chart.min.css")));
+                context.VisualTree.HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/Chart.min.js")));
+                context.VisualTree.CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/Chart.min.css")));
             }
 
             var builder = new StringBuilder();
@@ -131,7 +132,7 @@ namespace WebExpress.UI.WebControl
 
             builder.AppendLine($"var chart_{ ID } = new Chart(document.getElementById('{ ID }').getContext('2d'), config_{ ID });");
 
-            context.Page.AddScript($"chart_{ ID }", builder.ToString());
+            context.VisualTree.AddScript($"chart_{ ID }", builder.ToString());
         }
 
         /// <summary>

@@ -1,6 +1,4 @@
 ﻿using WebExpress.Message;
-using WebExpress.Module;
-using WebExpress.Uri;
 
 namespace WebExpress.WebResource
 {

@@ -95,18 +95,15 @@ namespace WebExpress.UI.WebControl
             Rows = 8;
             AutoInitialize = true;
 
-            if (context.Page.HasParam(Name))
-            {
-                Value = context?.Page.GetParamValue(Name);
-            }
+            Value = context?.Request.GetParameter(Name)?.Value;
 
             if (Format == TypesEditTextFormat.Wysiwyg)
             {
-                var module = ModuleManager.GetModule("webexpress");
+                var module = ModuleManager.GetModule(context.ApplicationID, "webexpress.ui");
                 if (module != null)
                 {
-                    context.Page.CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/summernote-bs4.min.css")));
-                    context.Page.HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/summernote-bs4.min.js")));
+                    context.VisualTree.CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/summernote-bs4.min.css")));
+                    context.VisualTree.HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/summernote-bs4.min.js")));
                 }
             }
         }
@@ -140,7 +137,7 @@ namespace WebExpress.UI.WebControl
 
             if (AutoInitialize && Format == TypesEditTextFormat.Wysiwyg && !string.IsNullOrWhiteSpace(ID))
             {
-                context.Page.AddScript(ID, InitializeCode);
+                context.VisualTree.AddScript(ID, InitializeCode);
                 AutoInitialize = false;
             }
 

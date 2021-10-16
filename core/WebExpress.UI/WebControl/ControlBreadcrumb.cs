@@ -1,6 +1,7 @@
 ﻿using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.Uri;
+using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebControl
 {
@@ -70,7 +71,7 @@ namespace WebExpress.UI.WebControl
 
             if (Uri is UriResource resourceUri)
             {
-                for (int i = 1; i< resourceUri.Path.Count + 1; i++)
+                for (int i = 1; i < resourceUri.Path.Count + 1; i++)
                 {
                     var path = resourceUri.Take(i);
 

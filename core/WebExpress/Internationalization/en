@@ -24,6 +24,9 @@ httpserver.connectionlimit=The limit for concurrent requests has been exceeded.
 internationalizationmanager.initialization=The internationalization manager has been initialized.
 internationalizationmanager.register=The plugin '{0}' is registered in the internationalization manager.
 
+schedulermanager.initialization=The schedule manager manager has been initialized.
+schedulermanager.register=The plugin '{0}' is registered in the schedule manager manager.
+
 pluginmanager.initialization=The plugin manager has been initialized.
 pluginmanager.load={0}.dll is loading. Version = '{1}'
 pluginmanager.created=The plugin '{0}' was created and registered in the plugin manager.
@@ -36,24 +39,31 @@ pluginmanager.plugin.processing.end=The running of the plugin '{0}' has been sto
 applicationmanager.initialization=The application manager has been initialized.
 applicationmanager.registerapplication=The application '{0}' has been created and registered in the application manager.
 applicationmanager.duplicateapplication=The application '{0}' has already been registered in the application manager.
+applicationmanager.application.initialization=The application'{0}' has been initialized.
+applicationmanager.application.processing.start=The application '{0}' is running.
+applicationmanager.application.processing.end=The running of the application '{0}' has been stopped.
 
 modulemanager.initialization=The module manager has been initialized.
 modulemanager.register=The module '{0}' has been assigned to the application '{1}' and registered in the module manager.
 modulemanager.duplicate=The module '{0}' has already been registered in the application '{1}'.
 modulemanager.applicationnotfound=The module '{0}' could not be assigned to the application '{1}'.
 modulemanager.applicationless=The module '{0}' does not have any information about the application.
+pluginmanager.module.initialization=The module '{1}' of the application '{0}' has been initialized.
+pluginmanager.module.processing.start=The module '{1}' of the application '{0}' is running.
+pluginmanager.module.processing.end=The running of the module '{1}' of the application '{0}' has been stopped.
 
 resourcemanager.initialization=The resource manager has been initialized.
 resourcemanager.register={0} resource(s) have been assigned to the module '{1}'.
 resourcemanager.modulenotfound=The module '{1}' could not be found, which was specified in the resource '{0}'.
 resourcemanager.moduleless=The resource '{0}' does not have any information about the module.
-resourcemanager.addresource=The Resource '{0}' has been registered in the sitemap of the module '{1}'.
+resourcemanager.wrongmodule=The {2} resource is not part of the module {1} of the application {0}.
+resourcemanager.addresource=The Resource '{0}' has been registered in the sitemap of the module '{2}' of the '{1}' application.
 resourcemanager.addresource.error=The Resource '{0}' could not be added.
 resourcemanager.sitemap=Sitemap content for the '{0}' application:
 
 responsemanager.initialization=The response managermanager has been initialized.
-responsemanager.register=Status {0} has been registered in the application '{1}' and assigned to the resource '{2}'.
-responsemanager.duplicat=The status {0} has already been registered in the application '{1}'. Therefore, the resource '{2}' is not used.
-responsemanager.statuscode=A status code has not been assigned to the  resource '{0}' for the application '{1}'.
+responsemanager.register=Status {0} has been registered in the module '{2}' of the application '{1}' and assigned to the resource '{3}'.
+responsemanager.duplicat=The status {0} has already been registered in the module '{2}' of the application '{1}'. Therefore, the resource '{3}' is not used.
+responsemanager.statuscode=A status code has not been assigned to the  resource '{2}' for the module '{1}' of the application '{0}'.
 
 resource.variable.duplicate=Variable '{0}' already exists!

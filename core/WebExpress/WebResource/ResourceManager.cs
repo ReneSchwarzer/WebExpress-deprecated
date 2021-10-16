@@ -51,6 +51,7 @@ namespace WebExpress.WebResource
             var assembly = moduleContext?.Assembly;
             var contextPath = moduleContext.ContextPath;
             var root = new SitemapNode() { Dummy = true };
+            var applicationID = moduleContext?.ApplicationID;
 
             foreach (var resource in assembly.GetTypes().Where(x => x.IsClass == true && x.IsSealed && x.GetInterface(typeof(IResource).Name) != null))
             {
@@ -102,7 +103,7 @@ namespace WebExpress.WebResource
                 }
 
                 // Zugehöriges Modul ermitteln. 
-                var module = ModuleManager.GetModule(moduleID);
+                var module = ModuleManager.GetModule(moduleContext.ApplicationID, moduleID);
                 if (string.IsNullOrEmpty(moduleID))
                 {
                     // Es wurde kein Modul angebgeben
@@ -113,6 +114,11 @@ namespace WebExpress.WebResource
                     // Modul wurde nicht gefunden 
                     Context.Log.Warning(message: I18N("webexpress:resourcemanager.modulenotfound"), args: new object[] { id, moduleID });
                 }
+                else if (!module.ModuleID.Equals(moduleContext.ModuleID, StringComparison.OrdinalIgnoreCase))
+                {
+                    // Ressource gehört nicht zum Modul
+                    Context.Log.Warning(message: I18N("webexpress:resourcemanager.wrongmodule"), args: new object[] { applicationID, moduleID, id });
+                }
                 else if (paths.Count == 0 || (paths.Count == 1 && string.IsNullOrWhiteSpace(paths.FirstOrDefault())))
                 {
                     // Root setzen
@@ -121,13 +127,13 @@ namespace WebExpress.WebResource
                         root.ID = id;
                         root.Title = title;
                         root.Type = resource;
-                        root.ModuleContext = moduleContext;
+                        root.Context = new ResourceContext(moduleContext) { Context = resourceContext };
                         root.ResourceContext = resourceContext;
                         root.IncludeSubPaths = includeSubPaths;
                         root.PathSegment = segment.ToPathSegment();
                         root.Dummy = false;
 
-                        Context.Log.Info(message: I18N("webexpress:resourcemanager.addresource"), args: new object[] { "ROOT", moduleID });
+                        Context.Log.Info(message: I18N("webexpress:resourcemanager.addresource"), args: new object[] { "ROOT", applicationID, moduleID });
                     }
                 }
                 else
@@ -137,7 +143,7 @@ namespace WebExpress.WebResource
                         var uri = new UriRelative(p);
                         var skip = uri.Skip(1);
 
-                        Context.Log.Info(message: I18N("webexpress:resourcemanager.addresource"), args: new object[] { id, moduleID });
+                        Context.Log.Info(message: I18N("webexpress:resourcemanager.addresource"), args: new object[] { id, applicationID, moduleID });
 
                         // Ressourceneintrag erstellen und Eigenschaften setzen
                         var node = root.Insert(skip, id);
@@ -147,7 +153,7 @@ namespace WebExpress.WebResource
                             node.PathSegment = segment.ToPathSegment();
                             node.Title = title;
                             node.Type = resource;
-                            node.ModuleContext = moduleContext;
+                            node.Context = new ResourceContext(moduleContext) { Context = resourceContext };
                             node.ResourceContext = resourceContext;
                             node.IncludeSubPaths = includeSubPaths;
                         }
@@ -178,8 +184,9 @@ namespace WebExpress.WebResource
         /// Sucht die zur URL gehörende Ressource
         /// </summary>
         /// <param name="uri">Die Uri</param>
+        /// <param name="context">Der Suchkontext</param>
         /// <returns>Die Ressource oder null</returns>
-        public static SearchResult Find(string url)
+        public static SearchResult Find(string url, SearchContext context)
         {
             foreach (var module in Dictionary)
             {
@@ -190,7 +197,7 @@ namespace WebExpress.WebResource
                 if (requestUri.StartsWith(contextPath))
                 {
                     var uri = new UriRelative(requestUri.ToString()[contextPath.ToString().Length..]);
-                    var result = root.Find(uri);
+                    var result = root.Find(uri, context);
 
                     if (result != null)
                     {
@@ -229,11 +236,12 @@ namespace WebExpress.WebResource
         /// <summary>
         /// Liefert die Sitemap eines Ressourceneintrages
         /// </summary>
+        /// <param name="applicationID">Die AnwendungsID</param>
         /// <param name="moduleID">Die ModulID</param>
         /// <returns>Die Sitemap als pre-order-Liste</returns>
-        public static ICollection<SitemapNode> GetSitemap(string moduleID)
+        public static ICollection<SitemapNode> GetSitemap(string applicationID, string moduleID)
         {
-            var module = ModuleManager.GetModule(moduleID);
+            var module = ModuleManager.GetModule(applicationID, moduleID);
 
             if (Dictionary.ContainsKey(module))
             {

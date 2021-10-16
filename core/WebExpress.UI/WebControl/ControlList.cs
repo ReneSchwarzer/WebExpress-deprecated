@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
+using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebControl
 {
@@ -114,7 +115,7 @@ namespace WebExpress.UI.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var items = (from x in Items select x.Render(context)).ToList();
+            var items = Items.Where(x => x.Enable).Select(x => x.Render(context)).ToList();
 
             switch (Layout)
             {

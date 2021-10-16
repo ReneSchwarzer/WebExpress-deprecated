@@ -3,8 +3,8 @@ using System.Linq;
 using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
-using WebExpress.Uri;
-using WebExpress.WebApp.WebResource;
+using WebExpress.WebApp.WebPage;
+using WebExpress.WebPage;
 
 namespace WebExpress.WebApp.WebControl
 {
@@ -27,7 +27,7 @@ namespace WebExpress.WebApp.WebControl
         /// Liefert oder setzt den Bereich für die App-Navigation
         /// </summary>
         public List<IControl> Primary { get; protected set; } = new List<IControl>();
-        
+
         /// <summary>
         /// Liefert oder setzt den Bereich für die App-Navigation
         /// </summary>
@@ -42,7 +42,7 @@ namespace WebExpress.WebApp.WebControl
         /// Liefert oder setzt den Bereich für die App-Navigation
         /// </summary>
         public List<IControlDropdownItem> MorePrimary { get; protected set; } = new List<IControlDropdownItem>();
-        
+
         /// <summary>
         /// Liefert oder setzt den Bereich für die App-Navigation
         /// </summary>

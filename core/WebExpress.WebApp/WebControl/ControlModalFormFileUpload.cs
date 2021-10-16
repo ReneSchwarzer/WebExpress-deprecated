@@ -4,6 +4,7 @@ using WebExpress.Internationalization;
 using WebExpress.Message;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
+using WebExpress.WebPage;
 using WebExpress.WebResource;
 
 namespace WebExpress.WebApp.WebControl
@@ -38,12 +39,12 @@ namespace WebExpress.WebApp.WebControl
         /// <summary>
         /// Liefert oder setzt den Inhalt
         /// </summary>
-        public new ControlFormularItem Prologue { get; set; }
+        public ControlFormularItem Prologue { get; set; }
 
         /// <summary>
         /// Liefert oder setzt den Inhalt
         /// </summary>
-        public new ControlFormularItem Epilogue { get; set; }
+        public ControlFormularItem Epilogue { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Weiterleitungs-Uri
@@ -109,7 +110,7 @@ namespace WebExpress.WebApp.WebControl
 
             File.Validation += (s, e) =>
             {
-                if (!((context.Page as Resource).GetParam((s as ControlFormularItemInputFile).Name) is ParameterFile))
+                if (!(context.Request.GetParameter((s as ControlFormularItemInputFile).Name) is ParameterFile))
                 {
                     e.Results.Add(new ValidationResult() { Type = TypesInputValidity.Error, Text = context.Page.I18N("webexpress.webapp", "fileupload.file.validation.error.nofile") });
                 }
@@ -119,7 +120,7 @@ namespace WebExpress.WebApp.WebControl
             {
                 Header = context.Page.I18N("webexpress.webapp", "fileupload.header");
             }
-            
+
             if (string.IsNullOrWhiteSpace(ButtonLabel))
             {
                 ButtonLabel = context.Page.I18N("webexpress.webapp", "fileupload.label");
@@ -135,7 +136,7 @@ namespace WebExpress.WebApp.WebControl
                 ButtonColor = new PropertyColorButton(TypeColorButton.Primary);
             }
 
-            Formular.RedirectUri = RedirectUri != null ? RedirectUri : context.Uri;
+            Formular.RedirectUri = RedirectUri ?? context.Uri;
             Formular.SubmitButton.Text = ButtonLabel;
             Formular.SubmitButton.Icon = ButtonIcon;
             Formular.SubmitButton.Color = ButtonColor;
@@ -143,7 +144,7 @@ namespace WebExpress.WebApp.WebControl
             Formular.Add(Prologue);
             Formular.Add(File);
             Formular.Add(Epilogue);
-            
+
             return base.Render(context);
         }
     }

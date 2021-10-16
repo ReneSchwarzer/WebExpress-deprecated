@@ -2,8 +2,8 @@
 using System.Linq;
 using WebExpress.Html;
 using WebExpress.Message;
-using WebExpress.WebResource;
 using WebExpress.Uri;
+using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebControl
 {
@@ -113,50 +113,12 @@ namespace WebExpress.UI.WebControl
         {
             var dict = new Dictionary<string, Parameter>();
 
-            // Übernahme der Parameter von der Seite
-            foreach (var v in page.Params)
-            {
-                if (v.Value.Scope == ParameterScope.Global)
-                {
-                    if (!dict.ContainsKey(v.Key.ToLower()))
-                    {
-                        dict.Add(v.Key.ToLower(), v.Value);
-                    }
-                    else
-                    {
-                        dict[v.Key.ToLower()] = v.Value;
-                    }
-                }
-                else if (string.IsNullOrWhiteSpace(Uri?.ToString()))
-                {
-                    if (!dict.ContainsKey(v.Key.ToLower()))
-                    {
-                        dict.Add(v.Key.ToLower(), v.Value);
-                    }
-                    else
-                    {
-                        dict[v.Key.ToLower()] = v.Value;
-                    }
-                }
-            }
-
             // Übernahme der Parameter des Link
             if (Params != null)
             {
                 foreach (var v in Params)
                 {
-                    if (v.Scope == ParameterScope.Global)
-                    {
-                        if (!dict.ContainsKey(v.Key.ToLower()))
-                        {
-                            dict.Add(v.Key.ToLower(), v);
-                        }
-                        else
-                        {
-                            dict[v.Key.ToLower()] = v;
-                        }
-                    }
-                    else if (string.IsNullOrWhiteSpace(Uri?.ToString()))
+                    if (v.Scope == ParameterScope.Parameter)
                     {
                         if (!dict.ContainsKey(v.Key.ToLower()))
                         {

@@ -1,4 +1,10 @@
 ﻿# Deutsch
+plugin.name=WebExpress.UI
+plugin.description=Stellt Basiskomponenten bereit.
+
+module.name=WebExpress.UI
+module.description=Stellt Basiskomponenten bereit.
+
 resourceasset.load={0}: Datei '{1}' wurde geladen
 
 componentmanager.initialization=Der Komponentenmanager wurde initialisiert.

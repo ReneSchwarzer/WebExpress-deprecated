@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using WebExpress.Message;
 
-namespace WebExpress.Workers
+namespace WebExpress.Session
 {
     public class SessionPropertyParameter : SessionProperty
     {

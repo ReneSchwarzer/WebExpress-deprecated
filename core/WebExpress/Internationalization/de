@@ -24,37 +24,47 @@ httpserver.connectionlimit=Das Limit für gleichzeitige Anfragen wurde überschr
 internationalizationmanager.initialization=Der Internationalisierungsmanager wurde initialisiert.
 internationalizationmanager.register=Das Plugin '{0}' wurde im Internationalizationmanager registriert.
 
+schedulermanager.initialization=Der Schedulemanager wurde initialisiert.
+schedulermanager.register=Das Plugin '{0}' wurde im Schedulemanager registriert.
+
 pluginmanager.initialization=Der Pluginmanager wurde initialisiert.
 pluginmanager.load={0}.dll wird geladen. Version = '{1}'
 pluginmanager.created=Das Plugin '{0}' wurde erstellt und im PluginManager registriert.
 pluginmanager.duplicate=Das Plugin '{0}' wurde bereits im PluginManager registriert.
 pluginmanager.notavailable=Das Plugin '{0}' ist im PluginManager nicht vorhanden.
-pluginmanager.plugin.initialization=Das Plugin '{0}' wurde initialisiert.
+pluginmanager.plugin.initialization=Das Plugin '{0}'wurde initialisiert.
 pluginmanager.plugin.processing.start=Das Plugin '{0}' wird ausgeführt.
 pluginmanager.plugin.processing.end=Die Ausführung des Plugin '{0}' wurde beendet.
 
 applicationmanager.initialization=Der Anwendungsmanager wurde initialisiert.
 applicationmanager.register=Die Anwendung '{0}' wurde erstellt und im Anwendungsmanager registriert.
 applicationmanager.duplicate=Die Anwendung '{0}' wurde bereits im Anwendungsmanager registriert.
+applicationmanager.application.initialization=Die Anwendung '{0}' wurde initialisiert.
+applicationmanager.application.processing.start=Die Anwendung '{0}' wird ausgeführt.
+applicationmanager.application.processing.end=Die Ausführung der Anwendung '{0}' wurde beendet.
 
 modulemanager.initialization=Der Modulmanager wurde initialisiert.
 modulemanager.register=Das Modul '{0}' wurde der Anwendung '{1}' zugewiesen und im Modulmanager registriert.
 modulemanager.duplicat=Das Modul '{0}' wurde bereits in der Anwendung '{1}' registriert.
 modulemanager.applicationnotfound=Das Modul '{0}' konnte nicht der Anwendung '{1}' zugewiesen werden.
 modulemanager.applicationless=Das Modul '{0}' besitz keine Angaben zur Anwendung.
+modulemanager.module.initialization=Das Modul '{1}' der Anwendung {0} wurde initialisiert.
+modulemanager.module.processing.start=Das Modul '{1}' der Anwendung {0} wird ausgeführt.
+modulemanager.module.processing.end=Die Ausführung des Modul '{1}' der Anwendung {0} wurde beendet.
 
 resourcemanager.initialization=Der Ressourcenmanager wurde initialisiert.
 resourcemanager.register={0} Ressource(n) wurden dem Modul '{1}' zugewiesen.
 resourcemanager.modulenotfound=Das Modul '{1}' wurde nicht gefunden, welches in der Ressource '{0}' angegeben wurde.
 resourcemanager.moduleless=Die Ressource '{0}' besitz keine Angaben zum Modul.
-resourcemanager.addresource=Die Ressource '{0}' wurde in der Sitemap des Moduls '{1}' registriert.
+resourcemanager.wrongmodule=Die Ressource '{2}' ist kein Teil des Moduls {1} der Anwendung {0}.
+resourcemanager.addresource=Die Ressource '{0}' wurde in der Sitemap des Moduls '{2}' der Anwendung '{1}' registriert.
 resourcemanager.addresource.error=Die Ressource '{0}' konnte nicht hinzugefügt werden.
 resourcemanager.sitemap=Inhalt der Sitemap für das Modul '{0}':
 
 responsemanager.initialization=Der Responsemanagermanager wurde initialisiert.
-responsemanager.register=Status {0} wurde in der Anwendung '{1}' registriert und der Ressource '{2}' zugewiesen.
-responsemanager.duplicat=Der Status {0} wurde bereits in der Anwendung '{1}' registriert. Die Ressource '{2}' wird daher nicht verwendet.
-responsemanager.statuscode=Ein Statuscode wurde der Ressource '{0}' für die Andendung '{1}' nicht zugewiesen.
+responsemanager.register=Status {0} wurde im Module '{2}' der Anwendung '{1}' registriert und der Ressource '{3}' zugewiesen.
+responsemanager.duplicat=Der Status {0} wurde bereits im Module '{2}' der Anwendung '{1}' registriert registriert. Die Ressource '{3}' wird daher nicht verwendet.
+responsemanager.statuscode=Ein Statuscode wurde der Ressource '{2}' für das Modul '{1}' der Andendung '{0}' nicht zugewiesen.
 
 resource.variable.duplicate=Variable '{0}' bereits vorhanden!
 

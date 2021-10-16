@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using WebExpress.Html;
 using WebExpress.Internationalization;
 
@@ -80,7 +79,7 @@ namespace WebExpress.UI.WebControl
                 {
                     width = Distribution.Skip(offset).Take(1).FirstOrDefault();
                     div.Style = $"width: { width }%";
-                    max = max - width;
+                    max -= width;
 
                     offset++;
                 }
@@ -89,7 +88,7 @@ namespace WebExpress.UI.WebControl
                     width = max / (Items.Count - offset);
                     div.Style = $"width: { width }%";
                 }
-                
+
                 if (item is ControlFormularItemInput input)
                 {
                     var icon = new ControlIcon() { Icon = input?.Icon };

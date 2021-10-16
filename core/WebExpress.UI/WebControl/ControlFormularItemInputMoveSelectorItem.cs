@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WebExpress.UI.WebControl
+﻿namespace WebExpress.UI.WebControl
 {
     public class ControlFormularItemInputMoveSelectorItem
     {

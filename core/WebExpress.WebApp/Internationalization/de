@@ -1,4 +1,9 @@
 ﻿# Deutsch
+plugin.name=WebExpress.WebApp
+plugin.description=Stellt Basiskomponenten einer Webanwendung bereit.
+
+module.name=WebExpress.WebApp
+module.description=Stellt Basiskomponenten einer Webanwendung bereit.
 
 header.quickcreate.label=Erstellen
 header.help.label=Hilfe
@@ -42,6 +47,7 @@ setting.systeminformation.group.environment.machinename=Gerätename:
 setting.systeminformation.group.environment.processorcount=Anzahl der logischen Prozessoren:
 setting.systeminformation.group.environment.64bit=64bit-System:
 setting.systeminformation.group.environment.username=Benutzername:
+setting.plugin.label=Plugins
 
 setting.logfile.label=Logdatei:
 setting.logfile.path=Speicherort:

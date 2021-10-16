@@ -1,4 +1,4 @@
-﻿namespace WebExpress.Workers
+﻿namespace WebExpress.Session
 {
     public abstract class AuthorizationService
     {

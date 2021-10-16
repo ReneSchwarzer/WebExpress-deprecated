@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using WebExpress.WebResource;
+﻿using WebExpress.WebResource;
 
 namespace WebExpress.Attribute
 {

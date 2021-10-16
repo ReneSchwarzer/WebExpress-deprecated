@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using WebExpress.Html;
-using WebExpress.Internationalization;
 using WebExpress.Message;
 using WebExpress.Uri;
+using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebControl
 {
@@ -19,7 +17,7 @@ namespace WebExpress.UI.WebControl
         /// Event wird ausgelöst, wenn das Formular initialisiert wurde
         /// </summary>
         event EventHandler InitializeFormular;
-        
+
         /// <summary>
         /// Event wird ausgelöst, wenn die Daten des Formulars ermittelt werden müssen
         /// </summary>
@@ -59,11 +57,6 @@ namespace WebExpress.UI.WebControl
         /// Liefert oder setzt die Submit-Schaltfläche
         /// </summary>
         ControlFormularItemButton SubmitButton { get; }
-
-        /// <summary>
-        /// Liefert oder setzt den Gültigkeitsbereich der Formulardaten
-        /// </summary>
-        ParameterScope Scope { get; }
 
         /// <summary>
         /// Liefert oder setzt die Formulareinträge

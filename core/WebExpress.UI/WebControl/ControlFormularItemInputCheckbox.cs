@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using WebExpress.Html;
 using WebExpress.Internationalization;
 
@@ -39,10 +37,9 @@ namespace WebExpress.UI.WebControl
         /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         public override void Initialize(RenderContextFormular context)
         {
-            if (context.Page.HasParam(Name))
-            {
-                Value = context.Page.GetParamValue(Name).Equals("on", StringComparison.OrdinalIgnoreCase) ? "true" : "false";
-            }
+            var value = context.Request.GetParameter(Name)?.Value;
+
+            Value = string.IsNullOrWhiteSpace(value) || !value.Equals("on", StringComparison.OrdinalIgnoreCase) ? "false" : "true";
         }
 
         /// <summary>
@@ -63,7 +60,7 @@ namespace WebExpress.UI.WebControl
                         Type = "checkbox",
                         Disabled = Disabled,
                         //Role = Role,
-                        Checked = Value.Equals("true") 
+                        Checked = Value.Equals("true")
                     },
                     new HtmlText(string.IsNullOrWhiteSpace(Description) ? string.Empty : "&nbsp;" + context.I18N(Description))
                 )

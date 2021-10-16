@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace WebExpress.Workers
+namespace WebExpress.Session
 {
     public class Session
     {
@@ -14,6 +14,11 @@ namespace WebExpress.Workers
         /// Liefert oder setzt die Erstellungszeit
         /// </summary>
         public DateTime Created { get; private set; }
+
+        /// <summary>
+        /// Liefert oder setzt die Zeit des letzten Zugriffes
+        /// </summary>
+        public DateTime Updated { get; set; }
 
         /// <summary>
         /// Liefert oder setzt Eingenschaften zur Session
@@ -35,6 +40,7 @@ namespace WebExpress.Workers
         {
             ID = id;
             Created = DateTime.Now;
+            Updated = DateTime.Now;
 
             Properties = new Dictionary<Type, ISessionProperty>();
         }
@@ -53,6 +59,7 @@ namespace WebExpress.Workers
                     return Properties[typeof(T)] as T;
                 }
             }
+
             return default;
         }
 

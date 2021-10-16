@@ -36,7 +36,7 @@ namespace WebExpress.Message
         {
             Key = key.ToLower();
             Value = value;
-            Scope = ParameterScope.Global;
+            Scope = ParameterScope.None;
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace WebExpress.Message
         {
             Key = key.ToLower();
             Value = value.ToString();
-            Scope = ParameterScope.Global;
+            Scope = ParameterScope.None;
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace WebExpress.Message
         {
             Key = key.ToLower();
             Value = value.ToString();
-            Scope = ParameterScope.Global;
+            Scope = ParameterScope.None;
         }
 
         /// <summary>
