@@ -2,7 +2,6 @@
 using WebExpress.Internationalization;
 using WebExpress.Message;
 using WebExpress.Uri;
-using WebExpress.WebPage;
 using WebExpress.WebResource;
 
 namespace WebExpress.WebPage
@@ -12,27 +11,31 @@ namespace WebExpress.WebPage
         /// <summary>
         /// Die Seite, indem das Steuerelement gerendert wird
         /// </summary>
-        public IPage Page { get; private set; }
+        public IPage Page { get; internal set; }
 
         /// <summary>
         /// Liefert die Anfrage
         /// </summary>
-        public Request Request { get; private set; }
+        public Request Request { get; internal set; }
 
         /// <summary>
         /// Die Uir der Seite
         /// </summary>
-        public IUri Uri => Page?.Uri;
+        public IUri Uri => Request?.Uri;
 
         /// <summary>
         /// Liefert die I18N-PluginID
         /// </summary>
-        public string I18N_PluginID => Page.Context.PluginID;
+        public string I18N_PluginID => Page?.Context.PluginID;
 
         /// <summary>
         /// Liefert die Kultur
         /// </summary>
-        public CultureInfo Culture { get; set; }
+        public CultureInfo Culture 
+        {
+            get { return Page?.Culture; }
+            set { } 
+        }
 
         /// <summary>
         /// Liefert die AnwendungsID
@@ -42,7 +45,14 @@ namespace WebExpress.WebPage
         /// <summary>
         /// Liefert oder setzt die Inhalte einer Seite
         /// </summary>
-        public IVisualTree VisualTree { get; private set; }
+        public IVisualTree VisualTree { get; protected set; }
+
+        /// <summary>
+        /// Konstruktor
+        /// </summary>
+        public RenderContext()
+        {
+        }
 
         /// <summary>
         /// Konstruktor
@@ -65,15 +75,6 @@ namespace WebExpress.WebPage
         public RenderContext(RenderContext context)
             : this(context?.Page, context?.Request, context?.VisualTree)
         {
-        }
-
-        /// <summary>
-        /// Liefert den Visualisierungsbaum
-        /// </summary>
-        /// <returns>Der Visualisierungsbaum</returns>
-        public T GetVisualTree<T>() where T : IVisualTree
-        {
-            return (T)VisualTree; 
         }
     }
 }

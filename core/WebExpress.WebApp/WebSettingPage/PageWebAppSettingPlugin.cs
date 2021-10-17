@@ -7,10 +7,11 @@ using WebExpress.Module;
 using WebExpress.Plugin;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.Attribute;
+using WebExpress.WebApp.WebPage;
 using WebExpress.WebPage;
 using WebExpress.WebResource;
 
-namespace WebExpress.WebApp.WebPage.PageSetting
+namespace WebExpress.WebApp.WebSettingPage
 {
     /// <summary>
     /// Einstellungsseite mit Informationen zu den aktiven Plugins
@@ -25,12 +26,12 @@ namespace WebExpress.WebApp.WebPage.PageSetting
     [SettingContext("inventoryexpress.setting.general.label")]
     [Module("webexpress.webapp")]
     [Context("admin")]
-    public sealed class PageTemplateWebAppSettingPlugin : PageTemplateWebAppSetting
+    public sealed class PageWebAppSettingPlugin : PageWebAppSetting
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public PageTemplateWebAppSettingPlugin()
+        public PageWebAppSettingPlugin()
         {
             Icon = new PropertyIcon(TypeIcon.PuzzlePiece);
         }
@@ -48,10 +49,10 @@ namespace WebExpress.WebApp.WebPage.PageSetting
         /// Vorverarbeitung
         /// </summary>
         /// <param name="context">Der Kontext zum Rendern der Seite</param>
-        public override void Process(RenderContext context)
+        public override void Process(RenderContextWebApp context)
         {
             base.Process(context);
-            var visualTree = context.GetVisualTree<VisualTreeWebApp>();
+            var visualTree = context.VisualTree;
 
             var plugins = new ControlTable() { Striped = false };
             plugins.AddColumn("");

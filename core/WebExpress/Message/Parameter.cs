@@ -8,17 +8,17 @@ namespace WebExpress.Message
         /// <summary>
         /// liefert oder setzt den Gültigkeitsbereich des Parameters
         /// </summary>
-        public ParameterScope Scope { get; set; }
+        public ParameterScope Scope { get; private set; }
 
         /// <summary>
         /// Der Schlüssel
         /// </summary>
-        public string Key { get; set; }
+        public string Key { get; private set; }
 
         /// <summary>
         /// Der Wert
         /// </summary>
-        public string Value { get; set; }
+        public string Value { get; internal set; }
 
         /// <summary>
         /// Konstruktor
@@ -32,11 +32,18 @@ namespace WebExpress.Message
         /// </summary>
         /// <param name="key">Der Schlüssel</param>
         /// <param name="value">Der Wert</param>
-        public Parameter(string key, string value)
+        /// <param name="scope">Der Gültigkeitsbereich des Parameters</param>
+        public Parameter(string key, string value, ParameterScope scope)
         {
             Key = key.ToLower();
             Value = value;
-            Scope = ParameterScope.None;
+            Scope = scope;
+
+            if (scope == ParameterScope.Parameter)
+            {
+                var decode = System.Web.HttpUtility.UrlDecode(value);
+                Value = decode;
+            }
         }
 
         /// <summary>
@@ -44,11 +51,12 @@ namespace WebExpress.Message
         /// </summary>
         /// <param name="key">Der Schlüssel</param>
         /// <param name="value">Der Wert</param>
-        public Parameter(string key, int value)
+        /// <param name="scope">Der Gültigkeitsbereich des Parameters</param>
+        public Parameter(string key, int value, ParameterScope scope)
         {
             Key = key.ToLower();
             Value = value.ToString();
-            Scope = ParameterScope.None;
+            Scope = scope;
         }
 
         /// <summary>
@@ -56,11 +64,12 @@ namespace WebExpress.Message
         /// </summary>
         /// <param name="key">Der Schlüssel</param>
         /// <param name="value">Der Wert</param>
-        public Parameter(string key, char value)
+        /// <param name="scope">Der Gültigkeitsbereich des Parameters</param>
+        public Parameter(string key, char value, ParameterScope scope)
         {
             Key = key.ToLower();
             Value = value.ToString();
-            Scope = ParameterScope.None;
+            Scope = scope;
         }
 
         /// <summary>

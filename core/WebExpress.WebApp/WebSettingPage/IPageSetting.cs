@@ -1,4 +1,4 @@
-﻿namespace WebExpress.WebApp.WebPage.PageSetting
+﻿namespace WebExpress.WebApp.WebSettingPage
 {
     /// <summary>
     /// Kennzeichnet eine Klasse als Einstellungsseite

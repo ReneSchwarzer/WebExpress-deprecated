@@ -79,7 +79,7 @@ namespace WebExpress.UI.WebControl
                     (
                         new ControlLink()
                         {
-                            Params = Parameter.Create(new Parameter("offset", PageOffset - 1) { Scope = ParameterScope.Parameter }),
+                            Params = Parameter.Create(new Parameter("offset", PageOffset - 1, ParameterScope.Parameter)),
                             Classes = new List<string>(new[] { "page-link", "fas fa-angle-left", "border-0" })
                         }.Render(context)
                     )
@@ -140,7 +140,7 @@ namespace WebExpress.UI.WebControl
                             new ControlLink(null, (v + 1).ToString())
                             {
                                 BackgroundColor = BackgroundColor,
-                                Params = Parameter.Create(new Parameter("offset", v) { Scope = ParameterScope.Parameter }),
+                                Params = Parameter.Create(new Parameter("offset", v, ParameterScope.Parameter)),
                                 Classes = new List<string>() { Css.Concatenate("page-link border-0") },
                                 Styles = new List<string>() { Style.Concatenate("", BackgroundColor.ToStyle()) }
                             }.Render(context)
@@ -158,7 +158,7 @@ namespace WebExpress.UI.WebControl
                         (
                             new ControlLink(null, (v + 1).ToString())
                             {
-                                Params = Parameter.Create(new Parameter("offset", v) { Scope = ParameterScope.Parameter }),
+                                Params = Parameter.Create(new Parameter("offset", v, ParameterScope.Parameter)),
                                 Classes = new List<string>(new[] { "page-link border-0" })
                             }.Render(context)
                         )
@@ -177,7 +177,7 @@ namespace WebExpress.UI.WebControl
                     (
                         new ControlLink()
                         {
-                            Params = Parameter.Create(new Parameter("offset", PageOffset + 1) { Scope = ParameterScope.Parameter }),
+                            Params = Parameter.Create(new Parameter("offset", PageOffset + 1, ParameterScope.Parameter)),
                             Classes = new List<string>(new[] { "page-link", "fas fa-angle-right", "border-0" })
                         }.Render(context)
                     )

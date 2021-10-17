@@ -1,6 +1,5 @@
 ﻿using WebExpress.Internationalization;
 using WebExpress.Message;
-using WebExpress.Uri;
 
 namespace WebExpress.WebResource
 {
@@ -10,11 +9,6 @@ namespace WebExpress.WebResource
         /// Liefert die RessourcenID
         /// </summary>
         string ID { get; }
-
-        /// <summary>
-        /// Liefert die URL, auf dem der Worker reagiert
-        /// </summary>
-        IUri Uri { get; }
 
         /// <summary>
         /// Liefert oder setzt den Kontext indem die Ressource existiert

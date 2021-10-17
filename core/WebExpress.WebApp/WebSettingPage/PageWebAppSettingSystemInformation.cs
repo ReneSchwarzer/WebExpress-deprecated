@@ -2,20 +2,21 @@
 using System.Reflection;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
+using WebExpress.WebApp.WebPage;
 using WebExpress.WebPage;
 using WebExpress.WebResource;
 
-namespace WebExpress.WebApp.WebPage.PageSetting
+namespace WebExpress.WebApp.WebSettingPage
 {
     /// <summary>
     /// Einstellungsseite mit Systeminformationen
     /// </summary>
-    public abstract class PageTemplateWebAppSettingSystemInformation : PageTemplateWebAppSetting
+    public abstract class PageWebAppSettingSystemInformation : PageWebAppSetting
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public PageTemplateWebAppSettingSystemInformation()
+        public PageWebAppSettingSystemInformation()
         {
             Icon = new PropertyIcon(TypeIcon.InfoCircle);
         }
@@ -33,11 +34,11 @@ namespace WebExpress.WebApp.WebPage.PageSetting
         /// Verarbeitung
         /// </summary>
         /// <param name="context">Der Kontext zum Rendern der Seite</param>
-        public override void Process(RenderContext context)
+        public override void Process(RenderContextWebApp context)
         {
             base.Process(context);
 
-            var visualTree = context.GetVisualTree<VisualTreeWebApp>();
+            var visualTree = context.VisualTree;
 
             var version = typeof(HttpServer).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
             var memory = 0.0;
@@ -50,7 +51,7 @@ namespace WebExpress.WebApp.WebPage.PageSetting
             server.AddRow(new ControlText() { Text = this.I18N("webexpress.webapp", "setting.systeminformation.group.server.version") }, new ControlText() { Text = version, Format = TypeFormatText.Code });
             server.AddRow(new ControlText() { Text = this.I18N("webexpress.webapp", "setting.systeminformation.group.server.systemdate") }, new ControlText() { Text = DateTime.Now.ToString(Culture.DateTimeFormat.LongDatePattern), Format = TypeFormatText.Code });
             server.AddRow(new ControlText() { Text = this.I18N("webexpress.webapp", "setting.systeminformation.group.server.systemtime") }, new ControlText() { Text = DateTime.Now.ToString(Culture.DateTimeFormat.LongTimePattern), Format = TypeFormatText.Code });
-            server.AddRow(new ControlText() { Text = this.I18N("webexpress.webapp", "setting.systeminformation.group.server.basisurl") }, new ControlText() { Text = Uri.Root.ToString(), Format = TypeFormatText.Code });
+            server.AddRow(new ControlText() { Text = this.I18N("webexpress.webapp", "setting.systeminformation.group.server.basisurl") }, new ControlText() { Text = context.Uri.Root.ToString(), Format = TypeFormatText.Code });
             server.AddRow(new ControlText() { Text = this.I18N("webexpress.webapp", "setting.systeminformation.group.server.currentdirectory") }, new ControlText() { Text = Environment.CurrentDirectory, Format = TypeFormatText.Code });
             server.AddRow(new ControlText() { Text = this.I18N("webexpress.webapp", "setting.systeminformation.group.server.memory") }, new ControlText() { Text = memory.ToString(Culture) + " MB", Format = TypeFormatText.Code });
 

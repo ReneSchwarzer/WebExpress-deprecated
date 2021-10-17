@@ -24,9 +24,6 @@ httpserver.connectionlimit=Das Limit für gleichzeitige Anfragen wurde überschr
 internationalizationmanager.initialization=Der Internationalisierungsmanager wurde initialisiert.
 internationalizationmanager.register=Das Plugin '{0}' wurde im Internationalizationmanager registriert.
 
-schedulermanager.initialization=Der Schedulemanager wurde initialisiert.
-schedulermanager.register=Das Plugin '{0}' wurde im Schedulemanager registriert.
-
 pluginmanager.initialization=Der Pluginmanager wurde initialisiert.
 pluginmanager.load={0}.dll wird geladen. Version = '{1}'
 pluginmanager.created=Das Plugin '{0}' wurde erstellt und im PluginManager registriert.
@@ -47,7 +44,7 @@ modulemanager.initialization=Der Modulmanager wurde initialisiert.
 modulemanager.register=Das Modul '{0}' wurde der Anwendung '{1}' zugewiesen und im Modulmanager registriert.
 modulemanager.duplicat=Das Modul '{0}' wurde bereits in der Anwendung '{1}' registriert.
 modulemanager.applicationnotfound=Das Modul '{0}' konnte nicht der Anwendung '{1}' zugewiesen werden.
-modulemanager.applicationless=Das Modul '{0}' besitz keine Angaben zur Anwendung.
+modulemanager.applicationless=Das Modul '{0}' besitzt keine Angaben zur Anwendung.
 modulemanager.module.initialization=Das Modul '{1}' der Anwendung {0} wurde initialisiert.
 modulemanager.module.processing.start=Das Modul '{1}' der Anwendung {0} wird ausgeführt.
 modulemanager.module.processing.end=Die Ausführung des Modul '{1}' der Anwendung {0} wurde beendet.
@@ -55,7 +52,7 @@ modulemanager.module.processing.end=Die Ausführung des Modul '{1}' der Anwendun
 resourcemanager.initialization=Der Ressourcenmanager wurde initialisiert.
 resourcemanager.register={0} Ressource(n) wurden dem Modul '{1}' zugewiesen.
 resourcemanager.modulenotfound=Das Modul '{1}' wurde nicht gefunden, welches in der Ressource '{0}' angegeben wurde.
-resourcemanager.moduleless=Die Ressource '{0}' besitz keine Angaben zum Modul.
+resourcemanager.moduleless=Die Ressource '{0}' besitzt keine Angaben zum Modul.
 resourcemanager.wrongmodule=Die Ressource '{2}' ist kein Teil des Moduls {1} der Anwendung {0}.
 resourcemanager.addresource=Die Ressource '{0}' wurde in der Sitemap des Moduls '{2}' der Anwendung '{1}' registriert.
 resourcemanager.addresource.error=Die Ressource '{0}' konnte nicht hinzugefügt werden.
@@ -65,6 +62,14 @@ responsemanager.initialization=Der Responsemanagermanager wurde initialisiert.
 responsemanager.register=Status {0} wurde im Module '{2}' der Anwendung '{1}' registriert und der Ressource '{3}' zugewiesen.
 responsemanager.duplicat=Der Status {0} wurde bereits im Module '{2}' der Anwendung '{1}' registriert registriert. Die Ressource '{3}' wird daher nicht verwendet.
 responsemanager.statuscode=Ein Statuscode wurde der Ressource '{2}' für das Modul '{1}' der Andendung '{0}' nicht zugewiesen.
+
+schedulermanager.initialization=Der Schedulemanager wurde initialisiert.
+schedulermanager.register=Das Plugin '{0}' wurde im Schedulemanager registriert.
+schedulermanager.job.register=Der Job '{2}' wurden dem Modul '{1}' der Anwendung '{0}' zugewiesen.
+schedulermanager.modulenotfound=Das Modul '{0}' wurde nicht gefunden.
+schedulermanager.moduleless=Der Job '{0}' besitzt keine Angaben zum Modul.
+schedulermanager.wrongmodule=Der Job '{2}' ist kein Teil des Moduls {1} der Anwendung {0}.
+schedulermanager.job.process=Der Job '{0}' wird ausgeführt.
 
 resource.variable.duplicate=Variable '{0}' bereits vorhanden!
 

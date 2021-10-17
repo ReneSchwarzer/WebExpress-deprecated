@@ -1,4 +1,4 @@
-﻿namespace WebExpress.WebApp.WebComponents
+﻿namespace WebExpress.WebApp.WebComponent
 {
     /// <summary>
     /// Definition von Schlüsseln zur Identifikation von Sektionen in Wen-Seiten, welche durch Komponenten besezt werden können.

@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
 
-namespace WebExpress.Scheduler
+namespace WebExpress.WebJob
 {
-    public class ScheduleIContext : ISchedulerContext
+    public class JobContext : IJobContext
     {
         /// <summary>
         /// Das Assembly, welches das Modul enthällt
@@ -18,6 +18,11 @@ namespace WebExpress.Scheduler
         /// Liefert die JobID. 
         /// </summary>
         public string JobID { get; internal set; }
+
+        /// <summary>
+        /// Liefert die Cron-Werte
+        /// </summary>
+        public Cron Cron { get; internal set; }
 
         /// <summary>
         /// Liefert oder setzt das Log, zum schreiben von Statusnachrichten auf die Konsole und in eine Log-Datei

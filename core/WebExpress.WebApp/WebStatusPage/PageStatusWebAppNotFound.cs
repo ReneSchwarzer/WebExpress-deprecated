@@ -3,18 +3,18 @@ using WebExpress.Internationalization;
 using WebExpress.Message;
 using WebExpress.WebResource;
 
-namespace WebExpress.WebApp.WebPage.PageStatus
+namespace WebExpress.WebApp.WebStatusPage
 {
     /// <summary>
     /// Statusseite
     /// </summary>
-    [StatusCode(500)]
-    public sealed class PageStatusInternalServerError : PageStatusTemplateWebApp<ResponseInternalServerError>
+    [StatusCode(404)]
+    public sealed class PageStatusWebAppNotFound : PageStatusWebApp<ResponseNotFound>
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public PageStatusInternalServerError()
+        public PageStatusWebAppNotFound()
         {
 
         }
@@ -27,9 +27,11 @@ namespace WebExpress.WebApp.WebPage.PageStatus
         {
             base.Initialization(context);
 
-            StatusTitle = this.I18N("webexpress.webapp", "status.500.title");
+            StatusTitle = this.I18N("webexpress.webapp", "status.404.title");
 
             Title = $"{ StatusCode } - { StatusTitle }";
+
+            StatusMessage = this.I18N("webexpress.webapp", "status.404.description");
         }
     }
 }

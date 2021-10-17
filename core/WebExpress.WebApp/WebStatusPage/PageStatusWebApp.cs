@@ -6,15 +6,16 @@ using WebExpress.UI.WebControl;
 using WebExpress.UI.WebPage;
 using WebExpress.Uri;
 using WebExpress.WebApp.WebControl;
+using WebExpress.WebApp.WebPage;
 using WebExpress.WebPage;
 using WebExpress.WebResource;
 
-namespace WebExpress.WebApp.WebPage.PageStatus
+namespace WebExpress.WebApp.WebStatusPage
 {
     /// <summary>
     /// Statusseite
     /// </summary>
-    public abstract class PageStatusTemplateWebApp<T> : PageControl<VisualTreeWebApp>, IPageStatus where T : Response, new()
+    public abstract class PageStatusWebApp<T> : PageControl<RenderContextWebApp>, IPageStatus where T : Response, new()
     {
         /// <summary>
         /// Liefert oder setzt den Statuscode
@@ -44,7 +45,7 @@ namespace WebExpress.WebApp.WebPage.PageStatus
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public PageStatusTemplateWebApp()
+        public PageStatusWebApp()
         {
         }
 
@@ -69,11 +70,11 @@ namespace WebExpress.WebApp.WebPage.PageStatus
         /// Verarbeitung
         /// </summary>
         /// <param name="context">Der Kontext zum Rendern der Seite</param>
-        public override void Process(RenderContext context)
+        public override void Process(RenderContextWebApp context)
         {
             base.Process(context);
 
-            var visualTree = context.GetVisualTree<VisualTreeWebApp>();
+            var visualTree = context.VisualTree;
 
             var statusCode = new ControlText()
             {

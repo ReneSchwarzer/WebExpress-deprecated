@@ -221,7 +221,7 @@ namespace WebExpress.Message
                     var regex = new Regex("[=]{1}");
                     var kv = regex.Split(v, 2);
 
-                    req.AddParameter(new Parameter(kv[0], kv.Count() > 1 ? kv[1] : string.Empty) { Scope = ParameterScope.Url });
+                    req.AddParameter(new Parameter(kv[0], kv.Count() > 1 ? kv[1] : string.Empty, ParameterScope.Parameter));
                 }
             }
 
@@ -329,12 +329,12 @@ namespace WebExpress.Message
                                 {
                                     var value = Encoding.UTF8.GetString(content, item.Item1 + offset, item.Item2 - offset - 2);
 
-                                    var param = new Parameter(name, value.TrimEnd()) { Scope = ParameterScope.Parameter };
+                                    var param = new Parameter(name, value.TrimEnd(), ParameterScope.Parameter);
                                     request.AddParameter(param);
                                 }
                                 else
                                 {
-                                    var param = new Parameter(name, string.Empty) { Scope = ParameterScope.Parameter };
+                                    var param = new Parameter(name, string.Empty, ParameterScope.Parameter);
                                     request.AddParameter(param);
                                 }
                             }
@@ -346,12 +346,12 @@ namespace WebExpress.Message
                                     var bytes = new byte[item.Item2 - offset - 2];
                                     Buffer.BlockCopy(content, item.Item1 + offset, bytes, 0, item.Item2 - offset - 2);
 
-                                    var param = new ParameterFile(name, filename) { Scope = ParameterScope.Parameter, ContentType = contenttype, Data = bytes };
+                                    var param = new ParameterFile(name, filename, ParameterScope.Parameter) { ContentType = contenttype, Data = bytes };
                                     request.AddParameter(param);
                                 }
                                 else
                                 {
-                                    var param = new Parameter(name, filename) { Scope = ParameterScope.Parameter };
+                                    var param = new Parameter(name, filename, ParameterScope.Parameter);
                                     request.AddParameter(param);
                                 }
                             }
@@ -389,7 +389,7 @@ namespace WebExpress.Message
                             var match = Regex.Match(v, @"([\w-]*)=(.*)", RegexOptions.Compiled);
                             if (match.Groups[1].Success && match.Groups[2].Success)
                             {
-                                last = new Parameter(match.Groups[1].ToString().Trim(), match.Groups[2].ToString().Trim()) { Scope = ParameterScope.Parameter };
+                                last = new Parameter(match.Groups[1].ToString().Trim(), match.Groups[2].ToString().Trim(), ParameterScope.Parameter);
                                 request.AddParameter(last);
                             }
                             else if (last != null)
@@ -416,12 +416,10 @@ namespace WebExpress.Message
                             var s = v.Split('=');
                             request.AddParameter(new Parameter
                             (
-                                s[0], 
-                                s.Count() > 1 ? s[1]?.TrimEnd() : string.Empty
-                            )
-                            { 
-                                Scope = ParameterScope.Parameter 
-                            });
+                                s[0],
+                                s.Count() > 1 ? s[1]?.TrimEnd() : string.Empty,
+                                ParameterScope.Parameter
+                            ));
                         }
 
                         break;
@@ -449,29 +447,22 @@ namespace WebExpress.Message
             {
                 foreach (var param in property.Params)
                 {
-                    request.AddParameter(new Parameter(param.Key?.ToLower(), param.Value.Value) { Scope = ParameterScope.Session });
+                    request.AddParameter(new Parameter(param.Key?.ToLower(), param.Value.Value, ParameterScope.Session));
                 }
             }
         }
 
-        ///// <summary>
-        ///// Fügt ein Parameter hinzu
-        ///// </summary>
-        ///// <param name="name">Der Parametername</param>
-        ///// <param name="value">Der Wert</param>
-        //private void AddParameter(string name, string value)
-        //{
-        //    var decode = System.Web.HttpUtility.UrlDecode(value);
-
-        //    if (!Param.ContainsKey(name.ToLower()))
-        //    {
-        //        Param.Add(name.ToLower(), new Parameter(name.ToLower(), decode) { Scope = ParameterScope.None });
-        //    }
-        //    else
-        //    {
-        //        Param[name.ToLower()] = new Parameter(name.ToLower(), decode) { Scope = ParameterScope.None };
-        //    }
-        //}
+        /// <summary>
+        /// Fügt mehrere Parameter hinzu
+        /// </summary>
+        /// <param name="param">Die Parameter</param>
+        public void AddParameter(IEnumerable<Parameter> param)
+        {
+            foreach(var p in param)
+            {
+                AddParameter(p);
+            }
+        }
 
         /// <summary>
         /// Fügt ein Parameter hinzu

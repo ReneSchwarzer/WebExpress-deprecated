@@ -1,6 +1,8 @@
 ﻿using WebExpress.Attribute;
+using WebExpress.Internationalization;
+using WebExpress.WebJob;
 
-namespace WebExpress.WebApp.Job
+namespace WebExpress.WebApp.WebJob
 {
     /// <summary>
     /// Job zur zyklischen Reinigung der Session. Nicht mehr benutzte Sessions werden entfernt.
@@ -8,14 +10,16 @@ namespace WebExpress.WebApp.Job
     /// </summary>
     //[Job("30", "0", "1", "*", "*")]
     [Job("*", "*", "*", "*", "*")]
-    internal sealed class JobSessionCleaning : WebExpress.Job.Job
+    [Module("webexpress.webapp")]
+    internal sealed class JobSessionCleaning : Job
     {
         /// <summary>
         /// Initialisierung
         /// </summary>
-        public override void Initialization()
+        /// <param name="context">Der Kontext indem der Job ausgeführt wird</param>
+        public override void Initialization(JobContext context)
         {
-
+            base.Initialization(context);
         }
 
         /// <summary>
@@ -23,7 +27,7 @@ namespace WebExpress.WebApp.Job
         /// </summary>
         public override void Process()
         {
-
+            Context.Log.Info(message: string.Format(this.I18N("job.sessioncleaning.process"), Context.JobID));
         }
     }
 }

@@ -9,7 +9,7 @@ namespace WebExpress.UI.WebPage
     /// <summary>
     /// Seite, welche aus Steuerelemente (Controls) aufgebaut wird
     /// </summary>
-    public abstract class PageControl<T> : ResourcePage<T> where T : VisualTreeControl, new()
+    public abstract class PageControl<T> : Page<T> where T : RenderContextControl, new()
     {
         /// <summary>
         /// Liefert oder setzt die Links auf die zu verwendenden JavaScript-Dateien, welche im Header eingefügt werden
@@ -68,7 +68,7 @@ namespace WebExpress.UI.WebPage
         /// Verarbeitung
         /// </summary>
         /// <param name="context">Der Kontext zum Rendern der Seite</param>
-        public override void Process(RenderContext context)
+        public override void Process(T context)
         {
             context.VisualTree.CssLinks.AddRange(CssLinks);
             context.VisualTree.HeaderScriptLinks.AddRange(HeaderScriptLinks);

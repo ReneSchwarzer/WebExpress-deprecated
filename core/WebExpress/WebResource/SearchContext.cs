@@ -6,7 +6,7 @@ namespace WebExpress.WebResource
 {
     public class SearchContext
     {
-         /// <summary>
+        /// <summary>
         /// Liefert die Kultur
         /// </summary>
         public CultureInfo Culture { get; internal set; }

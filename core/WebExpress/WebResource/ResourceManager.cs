@@ -69,34 +69,27 @@ namespace WebExpress.WebResource
                     {
                         id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
-
-                    if (customAttribute.AttributeType.GetInterfaces().Contains(typeof(ISegmentAttribute)))
+                    else if (customAttribute.AttributeType.GetInterfaces().Contains(typeof(ISegmentAttribute)))
                     {
-                        //segment = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                         segment = resource.GetCustomAttributes(customAttribute.AttributeType, false).FirstOrDefault() as ISegmentAttribute;
                     }
-
-                    if (customAttribute.AttributeType == typeof(TitleAttribute))
+                    else if (customAttribute.AttributeType == typeof(TitleAttribute))
                     {
                         title = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
-
-                    if (customAttribute.AttributeType == typeof(PathAttribute))
+                    else if (customAttribute.AttributeType == typeof(PathAttribute))
                     {
                         paths.Add(customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString());
                     }
-
-                    if (customAttribute.AttributeType == typeof(IncludeSubPathsAttribute))
+                    else if (customAttribute.AttributeType == typeof(IncludeSubPathsAttribute))
                     {
                         includeSubPaths = Convert.ToBoolean(customAttribute.ConstructorArguments.FirstOrDefault().Value);
                     }
-
-                    if (customAttribute.AttributeType == typeof(ModuleAttribute))
+                    else if (customAttribute.AttributeType == typeof(ModuleAttribute))
                     {
                         moduleID = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
                     }
-
-                    if (customAttribute.AttributeType == typeof(ContextAttribute))
+                    else if (customAttribute.AttributeType == typeof(ContextAttribute))
                     {
                         resourceContext.Add(customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower());
                     }

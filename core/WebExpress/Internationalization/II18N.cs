@@ -5,7 +5,7 @@ namespace WebExpress.Internationalization
     public interface II18N
     {
         /// <summary>
-        /// Liefert die Kultur
+        /// Liefert oder setzt die Kultur
         /// </summary>
         CultureInfo Culture { get; set; }
 

@@ -5,14 +5,15 @@ using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
 using WebExpress.WebApp.WebControl;
+using WebExpress.WebApp.WebPage;
 using WebExpress.WebPage;
 
-namespace WebExpress.WebApp.WebPage.PageSetting
+namespace WebExpress.WebApp.WebSettingPage
 {
     /// <summary>
     /// Einstellungsseite mit Systeminformationen
     /// </summary>
-    public abstract class PageTemplateWebAppSettingLog : PageTemplateWebAppSetting
+    public abstract class PageWebAppSettingLog : PageWebAppSetting
     {
         /// <summary>
         /// Liefert oder setzt die Uri zum Download des Losfiles. Null wenn kein Logfiledownlod erfolgen soll
@@ -22,7 +23,7 @@ namespace WebExpress.WebApp.WebPage.PageSetting
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public PageTemplateWebAppSettingLog()
+        public PageWebAppSettingLog()
         {
             Icon = new PropertyIcon(TypeIcon.FileMedicalAlt);
         }
@@ -31,11 +32,11 @@ namespace WebExpress.WebApp.WebPage.PageSetting
         /// Vorverarbeitung
         /// </summary>
         /// <param name="context">Der Kontext zum Rendern der Seite</param>
-        public override void Process(RenderContext context)
+        public override void Process(RenderContextWebApp context)
         {
             base.Process(context);
 
-            var visualTree = context.GetVisualTree<VisualTreeWebApp>();
+            var visualTree = context.VisualTree;
 
             var file = new FileInfo(Context.Log.Filename);
             var fileSize = string.Format(new FileSizeFormatProvider() { Culture = Culture }, "{0:fs}", file.Exists ? file.Length : 0);

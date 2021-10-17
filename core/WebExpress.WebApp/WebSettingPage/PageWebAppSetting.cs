@@ -4,14 +4,15 @@ using WebExpress.UI.WebControl;
 using WebExpress.Uri;
 using WebExpress.WebApp.Attribute;
 using WebExpress.WebApp.SettingPage;
+using WebExpress.WebApp.WebPage;
 using WebExpress.WebPage;
 
-namespace WebExpress.WebApp.WebPage.PageSetting
+namespace WebExpress.WebApp.WebSettingPage
 {
     /// <summary>
     /// Seite, welche für Einstellungen verwendet werden kann
     /// </summary>
-    public abstract class PageTemplateWebAppSetting : PageTemplateWebApp, IPageSetting
+    public abstract class PageWebAppSetting : PageWebApp, IPageSetting
     {
         /// <summary>
         /// Das Symbol der Einstellungsseite
@@ -22,11 +23,11 @@ namespace WebExpress.WebApp.WebPage.PageSetting
         /// Verarbeitung
         /// </summary>
         /// <param name="context">Der Kontext zum Rendern der Seite</param>
-        public override void Process(RenderContext context)
+        public override void Process(RenderContextWebApp context)
         {
             base.Process(context);
 
-            var visualTree = context.GetVisualTree<VisualTreeWebApp>();
+            var visualTree = context.VisualTree;
 
             var path = SettingPageManager.FindPage(Context.ApplicationID, ID);
             if (path != null)

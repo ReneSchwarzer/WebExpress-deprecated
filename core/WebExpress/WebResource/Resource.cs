@@ -1,8 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Globalization;
 using WebExpress.Message;
-using WebExpress.Session;
-using WebExpress.Uri;
 
 namespace WebExpress.WebResource
 {
@@ -12,11 +9,6 @@ namespace WebExpress.WebResource
         /// Liefert die RessourcenID
         /// </summary>
         public string ID { get; internal set; }
-
-        /// <summary>
-        /// Liefert oder setzt die URL, auf dem der Worker reagiert
-        /// </summary>
-        public IUri Uri { get; internal set; }
 
         /// <summary>
         /// Liefert oder setzt den Modulkontext indem die Ressource existiert

@@ -3,18 +3,18 @@ using WebExpress.Internationalization;
 using WebExpress.Message;
 using WebExpress.WebResource;
 
-namespace WebExpress.WebApp.WebPage.PageStatus
+namespace WebExpress.WebApp.WebStatusPage
 {
     /// <summary>
     /// Statusseite
     /// </summary>
     [StatusCode(400)]
-    public sealed class PageStatusBadRequest : PageStatusTemplateWebApp<ResponseBadRequest>
+    public sealed class PageStatusWebAppBadRequest : PageStatusWebApp<ResponseBadRequest>
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public PageStatusBadRequest()
+        public PageStatusWebAppBadRequest()
         {
 
         }

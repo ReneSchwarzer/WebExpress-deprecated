@@ -4,7 +4,7 @@ using WebExpress.Internationalization;
 using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
 using WebExpress.UI.WebPage;
-using WebExpress.WebApp.WebComponents;
+using WebExpress.WebApp.WebComponent;
 using WebExpress.WebPage;
 using WebExpress.WebResource;
 
@@ -14,7 +14,7 @@ namespace WebExpress.WebApp.WebPage
     /// Seite, die aus einem vertikal angeordneten Kopf-, Inhalt- und Fuss-Bereich besteht
     /// siehe doc/PageTemplateWebApp.vsdx
     /// </summary>
-    public abstract class PageTemplateWebApp : PageControl<VisualTreeWebApp>
+    public abstract class PageWebApp : PageControl<RenderContextWebApp>
     {
         // Anwendung
         private IApplicationContext Application { get; set; }
@@ -67,7 +67,7 @@ namespace WebExpress.WebApp.WebPage
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public PageTemplateWebApp()
+        public PageWebApp()
         {
         }
 
@@ -131,16 +131,16 @@ namespace WebExpress.WebApp.WebPage
         /// Verarbeitung
         /// </summary>
         /// <param name="context">Der Kontext zum Rendern der Seite</param>
-        public override void Process(RenderContext context)
+        public override void Process(RenderContextWebApp context)
         {
             base.Process(context);
 
-            var visualTree = context.GetVisualTree<VisualTreeWebApp>();
+            var visualTree = context.VisualTree;
 
             visualTree.Header.Logo = Application?.Icon;
             visualTree.Header.Title = this.I18N(Application?.ApplicationName);
 
-            visualTree.Breadcrumb.Uri = Uri;
+            visualTree.Breadcrumb.Uri = context.Uri;
 
             // Header
             visualTree.Header.HamburgerPrimary.AddRange(HeaderHamburgerPrimary);

@@ -8,7 +8,7 @@ namespace WebExpress.WebPage
     /// Der Prototyp einer Webseite
     /// </summary>
     /// <typeparam name="T">Eine Implementation des Visualisierungsbaumes</typeparam>
-    public abstract class ResourcePage<T> : Resource, IPage where T : IVisualTree, new()
+    public abstract class Page<T> : Resource, IPage where T : RenderContext, new()
     {
         /// <summary>
         /// Liefert oder setzt den Titel
@@ -20,7 +20,7 @@ namespace WebExpress.WebPage
         /// </summary>
         /// <param name="uri">Die Uri</param>
         /// <param name="context">Der Kontext</param>
-        public ResourcePage()
+        public Page()
         {
 
         }
@@ -51,8 +51,12 @@ namespace WebExpress.WebPage
         /// <returns>Die Antwort</returns>
         public override Response Process(Request request)
         {
-            var context = new RenderContext(this, request, new T());
-
+            var context = new T()
+            {
+                Page = this,
+                Request = request
+            };
+            
             Process(context);
 
             return new ResponseOK()
@@ -65,6 +69,6 @@ namespace WebExpress.WebPage
         /// Verarbeitung
         /// </summary>
         /// <param name="context">Der Kontext zum Rendern der Seite</param>
-        public abstract void Process(RenderContext context);
+        public abstract void Process(T context);
     }
 }

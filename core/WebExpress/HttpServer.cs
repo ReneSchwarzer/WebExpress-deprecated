@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
@@ -15,6 +16,7 @@ using WebExpress.Plugin;
 using WebExpress.Uri;
 using WebExpress.WebPage;
 using WebExpress.WebResource;
+using WebExpress.WebJob;
 
 namespace WebExpress
 {
@@ -94,6 +96,7 @@ namespace WebExpress
             ModuleManager.Initialization(Context);
             ResourceManager.Initialization(Context);
             ResponseManager.Initialization(Context);
+            ScheduleManager.Initialization(Context);
         }
 
         /// <summary>
@@ -126,6 +129,9 @@ namespace WebExpress
                 // Statusseiten
                 ResponseManager.Register();
 
+                // Jobs
+                ScheduleManager.Register();
+
                 // Ausführung der Plugins starten
                 PluginManager.Boot();
 
@@ -134,6 +140,9 @@ namespace WebExpress
 
                 // Ausführung der Module starten
                 ModuleManager.Boot();
+
+                // Ausführung des Terminplaners starten
+                ScheduleManager.Boot();
             }
 
             Listener = new TcpListener(IPAddress.Any, Port);
@@ -204,6 +213,9 @@ namespace WebExpress
 
             // Ausführung der Plugins beenden
             PluginManager.ShutDown();
+
+            // Ausführung des Terminplaners beenden
+            ScheduleManager.ShutDown();
         }
 
         /// <summary>
@@ -264,7 +276,8 @@ namespace WebExpress
 
                     var moduleContext = ModuleManager.GetModule(resource.Context.ApplicationID, resource.Context.ModuleID);
                     request.Uri = new UriResource(moduleContext, request.Uri, resource, culture);
-                    
+                    request.AddParameter(resource.Variables.Select(x => new Parameter(x.Key, x.Value, ParameterScope.Url)));
+
                     // Ressource ausführen
                     if (resource != null)
                     {

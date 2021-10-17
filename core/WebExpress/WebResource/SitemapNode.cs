@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using WebExpress.Internationalization;
-using WebExpress.Module;
 using WebExpress.Uri;
 using WebExpress.WebPage;
 
@@ -381,7 +380,7 @@ namespace WebExpress.WebResource
                 {
                     i18n.Culture = context.Culture;
                 }
-                
+
                 if (Instance is Resource resorce)
                 {
                     resorce.ID = ID;

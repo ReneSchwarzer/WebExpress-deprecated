@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using WebExpress.Message;
-using WebExpress.Uri;
+﻿using WebExpress.Uri;
 using WebExpress.WebResource;
 
 namespace WebExpress.WebPage

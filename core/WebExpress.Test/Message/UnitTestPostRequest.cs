@@ -11,7 +11,7 @@ namespace WebExpress.Test.Message
         {
             using var reader = new BinaryReader(new FileStream(Path.Combine("test", "contentTypeTextPlain.post"), FileMode.Open));
             var request = Request.Create(reader, "127.0.0.1");
-            var param = request?.GetParamValue("submit_manufactor");
+            var param = request?.GetParameter("submit_manufactor")?.Value;
 
             Assert.True
             (
@@ -25,9 +25,9 @@ namespace WebExpress.Test.Message
         {
             using var reader = new BinaryReader(new FileStream(Path.Combine("test", "contentTypeTextPlain_Umlaut.post"), FileMode.Open));
             var request = Request.Create(reader, "127.0.0.1");
-            var a = request?.GetParamValue("a");
-            var b = request?.GetParamValue("b");
-            var s = request?.GetParamValue("submit_");
+            var a = request?.GetParameter("a")?.Value;
+            var b = request?.GetParameter("b")?.Value;
+            var s = request?.GetParameter("submit_")?.Value;
 
             Assert.True
             (
@@ -43,7 +43,7 @@ namespace WebExpress.Test.Message
         {
             using var reader = new BinaryReader(new FileStream(Path.Combine("test", "contentTypeXwwwFormUrlencoded.post"), FileMode.Open));
             var request = Request.Create(reader, "127.0.0.1");
-            var param = request?.GetParamValue("submit_manufactor");
+            var param = request?.GetParameter("submit_manufactor")?.Value;
 
             Assert.True
             (
@@ -57,9 +57,9 @@ namespace WebExpress.Test.Message
         {
             using var reader = new BinaryReader(new FileStream(Path.Combine("test", "contentTypeXwwwFormUrlencoded_Umlaut.post"), FileMode.Open));
             var request = Request.Create(reader, "127.0.0.1");
-            var a = request?.GetParamValue("a");
-            var b = request?.GetParamValue("b");
-            var s = request?.GetParamValue("submit_");
+            var a = request?.GetParameter("a")?.Value;
+            var b = request?.GetParameter("b")?.Value;
+            var s = request?.GetParameter("submit_")?.Value;
 
             Assert.True
             (
@@ -75,7 +75,7 @@ namespace WebExpress.Test.Message
         {
             using var reader = new BinaryReader(new FileStream(Path.Combine("test", "contentTypeMultipartFormData1.post"), FileMode.Open));
             var request = Request.Create(reader, "127.0.0.1");
-            var param = request?.GetParamValue("submit_manufactor");
+            var param = request?.GetParameter("submit_manufactor")?.Value;
 
             Assert.True
             (
@@ -89,9 +89,9 @@ namespace WebExpress.Test.Message
         {
             using var reader = new BinaryReader(new FileStream(Path.Combine("test", "contentTypeMultipartFormData2.post"), FileMode.Open));
             var request = Request.Create(reader, "127.0.0.1");
-            var param = request?.GetParamValue("submit_manufactor");
+            var param = request?.GetParameter("submit_manufactor")?.Value;
 
-            var file = request?.GetParam("image") as ParameterFile;
+            var file = request?.GetParameter("image") as ParameterFile;
 
             var temp = Path.Combine(Path.GetTempPath(), file.Value);
             File.WriteAllBytes(temp, file.Data);
@@ -109,7 +109,7 @@ namespace WebExpress.Test.Message
         {
             using var reader = new BinaryReader(new FileStream(Path.Combine("test", "contentTypeMultipartFormData3.post"), FileMode.Open));
             var request = Request.Create(reader, "127.0.0.1");
-            var param = request?.GetParamValue("submit_del");
+            var param = request?.GetParameter("submit_del")?.Value;
 
             Assert.True
             (
@@ -123,9 +123,9 @@ namespace WebExpress.Test.Message
         {
             using var reader = new BinaryReader(new FileStream(Path.Combine("test", "contentTypeMultipartFormData_Umlaut.post"), FileMode.Open));
             var request = Request.Create(reader, "127.0.0.1");
-            var a = request?.GetParamValue("a");
-            var b = request?.GetParamValue("b");
-            var s = request?.GetParamValue("submit_");
+            var a = request?.GetParameter("a")?.Value;
+            var b = request?.GetParameter("b")?.Value;
+            var s = request?.GetParameter("submit_")?.Value;
 
             Assert.True
             (

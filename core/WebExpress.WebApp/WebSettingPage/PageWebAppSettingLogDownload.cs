@@ -2,17 +2,17 @@
 using WebExpress.Message;
 using WebExpress.WebResource;
 
-namespace WebExpress.WebApp.WebPage.PageSetting
+namespace WebExpress.WebApp.WebSettingPage
 {
     /// <summary>
     /// Download der Logdatei
     /// </summary>
-    public abstract class PageTemplateWebAppSettingLogDownload : ResourceBinary
+    public abstract class PageWebAppSettingLogDownload : ResourceBinary
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public PageTemplateWebAppSettingLogDownload()
+        public PageWebAppSettingLogDownload()
         {
         }
 

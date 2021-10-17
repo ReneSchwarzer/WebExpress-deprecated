@@ -5,7 +5,6 @@ using WebExpress.Message;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
 using WebExpress.WebPage;
-using WebExpress.WebResource;
 
 namespace WebExpress.WebApp.WebControl
 {

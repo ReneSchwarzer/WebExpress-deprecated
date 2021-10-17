@@ -25,12 +25,10 @@
         /// </summary>
         /// <param name="key">Der Schlüssel</param>
         /// <param name="value">Der Wert</param>
-        public ParameterFile(string key, string value)
-            : base(key, value)
+        /// <param name="scope">Der Gültigkeitsbereich des Parameters</param>
+        public ParameterFile(string key, string value, ParameterScope scope)
+            : base(key, value, scope)
         {
-            Key = key.ToLower();
-            Value = value;
-            Scope = ParameterScope.Parameter;
         }
 
         /// <summary>
@@ -38,12 +36,10 @@
         /// </summary>
         /// <param name="key">Der Schlüssel</param>
         /// <param name="value">Der Wert</param>
-        public ParameterFile(string key, int value)
-            : base(key, value)
+        /// <param name="scope">Der Gültigkeitsbereich des Parameters</param>
+        public ParameterFile(string key, int value, ParameterScope scope)
+            : base(key, value, scope)
         {
-            Key = key.ToLower();
-            Value = value.ToString();
-            Scope = ParameterScope.Parameter;
         }
 
         /// <summary>
@@ -51,12 +47,10 @@
         /// </summary>
         /// <param name="key">Der Schlüssel</param>
         /// <param name="value">Der Wert</param>
-        public ParameterFile(string key, char value)
-            : base(key, value)
+        /// <param name="scope">Der Gültigkeitsbereich des Parameters</param>
+        public ParameterFile(string key, char value, ParameterScope scope)
+            : base(key, value, scope)
         {
-            Key = key.ToLower();
-            Value = value.ToString();
-            Scope = ParameterScope.Parameter;
         }
     }
 }

@@ -1,27 +1,25 @@
 ﻿using System;
-using WebExpress.Module;
-using WebExpress.Scheduler;
 
-namespace WebExpress.Schedule
+namespace WebExpress.WebJob
 {
     /// <summary>
     /// Repräsentiert ein Termineintrag im Terminausführungsverzeichnis
     /// </summary>
-    internal class ScheduleItem
+    internal class ScheduleDictionaryItem
     {
         /// <summary>
         /// Der zum Modul zugehörige Kontext
         /// </summary>
-        public ISchedulerContext Context { get; set; }
-
-        /// <summary>
-        /// Das Modul
-        /// </summary>
-        public IModule Module { get; set; }
+        public IJobContext Context { get; set; }
 
         /// <summary>
         /// Liefert oder setzt den Typ
         /// </summary>
         public Type Type { get; internal set; }
+
+        /// <summary>
+        /// Liefert die Instance
+        /// </summary>
+        public IJob Instance { get; internal set; }
     }
 }
