@@ -70,6 +70,8 @@ schedulermanager.modulenotfound=Das Modul '{0}' wurde nicht gefunden.
 schedulermanager.moduleless=Der Job '{0}' besitzt keine Angaben zum Modul.
 schedulermanager.wrongmodule=Der Job '{2}' ist kein Teil des Moduls {1} der Anwendung {0}.
 schedulermanager.job.process=Der Job '{0}' wird ausgeführt.
+schedulermanager.cron.parseerror=Syntaxfehler in der Zeitangabe eines Jobs. Der Wert '{0}' kann nicht verarbeitet werden.
+schedulermanager.cron.range=Syntaxfehler in der Zeitangabe eines Jobs. Der Wert '{0}' ist außerhalb des gültigen Bereiches.
 
 resource.variable.duplicate=Variable '{0}' bereits vorhanden!
 

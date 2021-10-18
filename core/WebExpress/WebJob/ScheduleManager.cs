@@ -121,7 +121,7 @@ namespace WebExpress.WebJob
                         Assembly = assembly,
                         JobID = id,
                         PluginID = module.PluginID,
-                        Cron = new Cron(minute, hour, day, month, weekday),
+                        Cron = new Cron(Context, minute, hour, day, month, weekday),
                         Log = module.Log
                     };
 

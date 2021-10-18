@@ -24,14 +24,19 @@ namespace WebExpress.WebJob
         public int Hour => DateTime.Hour;
 
         /// <summary>
-        /// Der Tag 0-31
+        /// Der Tag 1-31
         /// </summary>
         public int Day => DateTime.Day;
 
         /// <summary>
-        /// Der Monat 0-12
+        /// Der Monat 1-12
         /// </summary>
         public int Month => DateTime.Month;
+
+        /// <summary>
+        /// Der Wochentag 0-6 (Sonntag-Sonnabend)
+        /// </summary>
+        public int Weekday => (int)DateTime.DayOfWeek;
 
         /// <summary>
         /// Konstruktor

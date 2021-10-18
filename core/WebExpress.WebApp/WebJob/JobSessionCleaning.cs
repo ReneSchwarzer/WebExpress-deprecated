@@ -1,5 +1,4 @@
 ﻿using WebExpress.Attribute;
-using WebExpress.Internationalization;
 using WebExpress.WebJob;
 
 namespace WebExpress.WebApp.WebJob
@@ -27,7 +26,7 @@ namespace WebExpress.WebApp.WebJob
         /// </summary>
         public override void Process()
         {
-            Context.Log.Info(message: string.Format(this.I18N("job.sessioncleaning.process"), Context.JobID));
+            //Context.Log.Info(message: string.Format(this.I18N("job.sessioncleaning.process"), Context.JobID));
         }
     }
 }
