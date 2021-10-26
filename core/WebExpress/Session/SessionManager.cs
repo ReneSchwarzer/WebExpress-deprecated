@@ -46,7 +46,10 @@ namespace WebExpress.Session
                 // keine oder ungültige Session => Neue Session vergeben
                 session = new Session(guid);
 
-                Dictionary[guid] = session;
+                lock (Dictionary)
+                {
+                    Dictionary[guid] = session;
+                }
             }
 
             return session;

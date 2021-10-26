@@ -1,5 +1,6 @@
 ﻿using WebExpress.Html;
 using WebExpress.WebPage;
+using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.UI.WebControl
 {
@@ -65,7 +66,7 @@ namespace WebExpress.UI.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var text = Text;
+            var text = I18N(context.Culture, Text);
             HtmlElement html;
 
             switch (Format)

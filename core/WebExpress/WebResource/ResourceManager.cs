@@ -51,7 +51,7 @@ namespace WebExpress.WebResource
             var assembly = moduleContext?.Assembly;
             var contextPath = moduleContext.ContextPath;
             var root = new SitemapNode() { Dummy = true };
-            var applicationID = moduleContext?.ApplicationID;
+            var applicationID = moduleContext?.Application.ApplicationID;
 
             foreach (var resource in assembly.GetTypes().Where(x => x.IsClass == true && x.IsSealed && x.GetInterface(typeof(IResource).Name) != null))
             {
@@ -62,6 +62,7 @@ namespace WebExpress.WebResource
                 var includeSubPaths = false;
                 var moduleID = string.Empty;
                 var resourceContext = new List<string>();
+                var optional = false;
 
                 foreach (var customAttribute in resource.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IResourceAttribute))))
                 {
@@ -93,10 +94,20 @@ namespace WebExpress.WebResource
                     {
                         resourceContext.Add(customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower());
                     }
+                    else if (customAttribute.AttributeType == typeof(OptionalAttribute))
+                    {
+                        optional = true;
+                    }
+                }
+
+                // Prüfe ob eine optionale Ressource
+                if (optional && !(moduleContext.Application.Options.Contains($"{moduleID}.*".ToLower()) || moduleContext.Application.Options.Contains($"{moduleID}.{id}".ToLower())))
+                {
+                    continue;
                 }
 
                 // Zugehöriges Modul ermitteln. 
-                var module = ModuleManager.GetModule(moduleContext.ApplicationID, moduleID);
+                var module = ModuleManager.GetModule(moduleContext.Application.ApplicationID, moduleID);
                 if (string.IsNullOrEmpty(moduleID))
                 {
                     // Es wurde kein Modul angebgeben
@@ -213,7 +224,7 @@ namespace WebExpress.WebResource
         {
             if (string.IsNullOrWhiteSpace(id)) return null;
 
-            foreach (var module in Dictionary.Where(x => x.Key.ApplicationID.Equals(applicationID, StringComparison.OrdinalIgnoreCase)))
+            foreach (var module in Dictionary.Where(x => x.Key.Application.ApplicationID.Equals(applicationID, StringComparison.OrdinalIgnoreCase)))
             {
                 var item = module.Value.Root.FindItem(id);
                 if (item != null)

@@ -130,8 +130,8 @@ namespace WebExpress.Module
                     var context = new ModuleContext()
                     {
                         Assembly = assembly,
-                        PluginID = pluginContext.PluginID,
-                        ApplicationID = application.ApplicationID,
+                        Plugin = pluginContext,
+                        Application = application,
                         ModuleID = id,
                         ModuleName = name,
                         Description = description,
@@ -173,6 +173,25 @@ namespace WebExpress.Module
         /// <summary>
         /// Ermittelt das Modul zu einer gegebenen ID
         /// </summary>
+        /// <param name="module">Der Kontext des Moduls</param>
+        /// <returns>Der Kontext des Moduls oder null</returns>
+        public static IModuleContext GetModule(IModuleContext module)
+        {
+            if (module == null) return null;
+
+            var item = Dictionary.ContainsKey(module.Application) ? Dictionary[module.Application] : null;
+
+            if (item != null && item.ContainsKey(module.ModuleID?.ToLower()))
+            {
+                return item[module.ModuleID?.ToLower()].Context;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Ermittelt das Modul zu einer gegebenen ID
+        /// </summary>
         /// <param name="application">Der Kontext der Anwendung</param>
         /// <param name="moduleID">Die ModulID</param>
         /// <returns>Der Kontext des Moduls oder null</returns>
@@ -196,6 +215,11 @@ namespace WebExpress.Module
         /// <returns>Der Kontext des Moduls oder null</returns>
         public static IModuleContext GetModule(string applicationID, string moduleID)
         {
+            if (string.IsNullOrWhiteSpace(applicationID) || string.IsNullOrWhiteSpace(moduleID))
+            {
+                return null;
+            }
+
             var application = ApplicationManager.GetApplcation(applicationID);
 
             if (application == null)
@@ -237,7 +261,7 @@ namespace WebExpress.Module
             foreach (var module in Dictionary.Values.SelectMany(x => x.Values))
             {
                 module.Module.Initialization(module.Context);
-                Context.Log.Info(message: I18N("webexpress:modulemanager.module.initialization"), args: new[] { module.Context.ApplicationID, module.Context.PluginID });
+                Context.Log.Info(message: I18N("webexpress:modulemanager.module.initialization"), args: new[] { module.Context.Application.ApplicationID, module.Context.Plugin.PluginID });
             }
 
             // Plugins nebenläufig ausführen
@@ -245,11 +269,11 @@ namespace WebExpress.Module
             {
                 Task.Run(() =>
                 {
-                    Context.Log.Info(message: I18N("webexpress:modulemanager.module.processing.start"), args: new[] { module.Context.ApplicationID, module.Context.PluginID });
+                    Context.Log.Info(message: I18N("webexpress:modulemanager.module.processing.start"), args: new[] { module.Context.Application.ApplicationID, module.Context.Plugin.PluginID });
 
                     module.Module.Run();
 
-                    Context.Log.Info(message: I18N("webexpress:modulemanager.module.processing.end"), args: new[] { module.Context.ApplicationID, module.Context.PluginID });
+                    Context.Log.Info(message: I18N("webexpress:modulemanager.module.processing.end"), args: new[] { module.Context.Application.ApplicationID, module.Context.Plugin.PluginID });
                 });
             }
         }

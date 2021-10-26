@@ -75,6 +75,8 @@ namespace WebExpress.UI.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
+            var classes = Classes.ToList();
+
             if (!Formular.Valid)
             {
                 Fade = false;
@@ -82,11 +84,11 @@ namespace WebExpress.UI.WebControl
 
             var form = Formular.Render(context) as HtmlElementFormForm;
 
-            Classes.Add("modal");
+            classes.Add("modal");
 
             if (Fade)
             {
-                Classes.Add("fade");
+                classes.Add("fade");
             }
 
             var headerText = new HtmlElementSectionH4(Header)
@@ -159,7 +161,7 @@ namespace WebExpress.UI.WebControl
             var html = new HtmlElementTextContentDiv(dialog)
             {
                 ID = ID,
-                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Role = "dialog"
             };

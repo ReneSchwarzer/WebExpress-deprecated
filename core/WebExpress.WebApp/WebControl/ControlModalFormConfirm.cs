@@ -110,6 +110,7 @@ namespace WebExpress.WebApp.WebControl
             Formular.SubmitButton.Text = ButtonLabel;
             Formular.SubmitButton.Icon = ButtonIcon;
             Formular.SubmitButton.Color = ButtonColor;
+            Formular.Items.Clear();
             Formular.Add(Content);
 
             return base.Render(context);

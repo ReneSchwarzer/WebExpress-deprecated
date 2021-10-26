@@ -12,6 +12,6 @@ namespace WebExpress.Internationalization
         /// <summary>
         /// Liefert den I18N-Key
         /// </summary>
-        string I18N_PluginID { get; }
+        string I18NKey { get; }
     }
 }

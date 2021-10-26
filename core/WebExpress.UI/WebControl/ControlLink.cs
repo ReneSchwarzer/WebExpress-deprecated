@@ -4,6 +4,7 @@ using WebExpress.Html;
 using WebExpress.Message;
 using WebExpress.Uri;
 using WebExpress.WebPage;
+using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.UI.WebControl
 {
@@ -162,7 +163,6 @@ namespace WebExpress.UI.WebControl
         {
             var dict = new Dictionary<string, Parameter>();
 
-
             // Übernahme der Parameter des Link
             if (Params != null)
             {
@@ -202,7 +202,7 @@ namespace WebExpress.UI.WebControl
                 Role = Role,
                 Href = Uri?.ToString() + (param.Length > 0 ? "?" + param : string.Empty),
                 Target = Target,
-                Title = Title,
+                Title = I18N(context.Culture, Title),
                 OnClick = OnClick
             };
 
@@ -224,7 +224,7 @@ namespace WebExpress.UI.WebControl
 
             if (!string.IsNullOrWhiteSpace(Text))
             {
-                html.Elements.Add(new HtmlText(Text));
+                html.Elements.Add(new HtmlText(I18N(context.Culture, Text)));
             }
 
             if (Modal != null)

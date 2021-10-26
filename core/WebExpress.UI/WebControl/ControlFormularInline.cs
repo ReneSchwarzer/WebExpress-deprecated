@@ -132,7 +132,7 @@ namespace WebExpress.UI.WebControl
 
             SubmitButton.Click += (s, e) =>
             {
-                Validate();
+                Validate(context);
 
                 if (Valid)
                 {
@@ -305,7 +305,8 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Prüft das Eingabeelement auf Korrektheit der Daten
         /// </summary>
-        public virtual void Validate()
+        /// <param name="context">Der Kontext, indem die Eingaben validiert werden</param>
+        public virtual void Validate(RenderContext context)
         {
             var valid = true;
             var validationResults = ValidationResults as List<ValidationResult>;
@@ -314,7 +315,7 @@ namespace WebExpress.UI.WebControl
 
             foreach (var v in Items.Where(x => x is IFormularValidation).Select(x => x as IFormularValidation))
             {
-                v.Validate();
+                v.Validate(context);
 
                 if (v.ValidationResult == TypesInputValidity.Error)
                 {
@@ -324,7 +325,7 @@ namespace WebExpress.UI.WebControl
                 validationResults.AddRange(v.ValidationResults);
             }
 
-            var args = new ValidationEventArgs() { Value = null };
+            var args = new ValidationEventArgs() { Value = null, Context = context };
             OnValidation(args);
 
             validationResults.AddRange(args.Results);

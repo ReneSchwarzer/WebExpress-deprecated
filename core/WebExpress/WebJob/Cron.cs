@@ -147,8 +147,8 @@ namespace WebExpress.WebJob
             return Minute.Contains(clock.Minute) &&
                    Hour.Contains(clock.Hour) &&
                    Day.Contains(clock.Day) &&
-                   Month.Contains(clock.Month) && 
-                   Weekday.Contains(clock.Weekday); 
+                   Month.Contains(clock.Month) &&
+                   Weekday.Contains(clock.Weekday);
         }
     }
 }

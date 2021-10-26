@@ -1,19 +1,32 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using WebExpress.Attribute;
 using WebExpress.Internationalization;
+using WebExpress.Message;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
+using WebExpress.WebApp.Attribute;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebApp.WebPage;
-using WebExpress.WebPage;
 
 namespace WebExpress.WebApp.WebSettingPage
 {
     /// <summary>
     /// Einstellungsseite mit Systeminformationen
     /// </summary>
-    public abstract class PageWebAppSettingLog : PageWebAppSetting
+    [ID("SettingLog")]
+    [Title("webexpress.webapp:setting.titel.log.label")]
+    [Segment("log", "webexpress.webapp:setting.titel.log.label")]
+    [Path("/Setting")]
+    [SettingSection(SettingSection.Secondary)]
+    [SettingIcon(TypeIcon.FileMedicalAlt)]
+    [SettingGroup("webexpress.webapp:setting.group.system.label")]
+    [SettingContext("webexpress.webapp:setting.tab.general.label")]
+    [Module("webexpress.webapp")]
+    [Context("admin")]
+    [Optional]
+    public sealed class PageWebAppSettingLog : PageWebAppSetting
     {
         /// <summary>
         /// Liefert oder setzt die Uri zum Download des Losfiles. Null wenn kein Logfiledownlod erfolgen soll
@@ -31,12 +44,21 @@ namespace WebExpress.WebApp.WebSettingPage
         /// <summary>
         /// Vorverarbeitung
         /// </summary>
+        /// <param name="request">Die Anfrage</param>
+        public override void PreProcess(Request request)
+        {
+            DownloadUri = request.Uri.Append("download");
+
+            base.PreProcess(request);
+        }
+
+        /// <summary>
+        /// Vorverarbeitung
+        /// </summary>
         /// <param name="context">Der Kontext zum Rendern der Seite</param>
         public override void Process(RenderContextWebApp context)
         {
             base.Process(context);
-
-            var visualTree = context.VisualTree;
 
             var file = new FileInfo(Context.Log.Filename);
             var fileSize = string.Format(new FileSizeFormatProvider() { Culture = Culture }, "{0:fs}", file.Exists ? file.Length : 0);
@@ -104,20 +126,20 @@ namespace WebExpress.WebApp.WebSettingPage
                 } : new ControlPanel()
             );
 
-            visualTree.Content.Primary.Add(new ControlText() { Text = this.I18N("webexpress.webapp", "setting.logfile.label"), TextColor = new PropertyColorText(TypeColorText.Info), Margin = new PropertySpacingMargin(PropertySpacing.Space.Two) });
-            visualTree.Content.Primary.Add(info);
+            context.VisualTree.Content.Primary.Add(new ControlText() { Text = this.I18N("webexpress.webapp", "setting.logfile.label"), TextColor = new PropertyColorText(TypeColorText.Info), Margin = new PropertySpacingMargin(PropertySpacing.Space.Two) });
+            context.VisualTree.Content.Primary.Add(info);
 
             if (file.Exists)
             {
                 var content = File.ReadLines(Context.Log.Filename).TakeLast(100);
 
-                visualTree.Content.Primary.Add(new ControlText()
+                context.VisualTree.Content.Primary.Add(new ControlText()
                 {
                     Text = this.I18N("webexpress.webapp", "setting.logfile.extract"),
                     Format = TypeFormatText.H3
                 });
 
-                visualTree.Content.Primary.Add(new ControlText()
+                context.VisualTree.Content.Primary.Add(new ControlText()
                 {
                     Text = string.Join("<br/>", content.Reverse()),
                     Format = TypeFormatText.Code

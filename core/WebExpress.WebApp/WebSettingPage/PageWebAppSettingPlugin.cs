@@ -4,11 +4,9 @@ using WebExpress.Application;
 using WebExpress.Attribute;
 using WebExpress.Internationalization;
 using WebExpress.Module;
-using WebExpress.Plugin;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.Attribute;
 using WebExpress.WebApp.WebPage;
-using WebExpress.WebPage;
 using WebExpress.WebResource;
 
 namespace WebExpress.WebApp.WebSettingPage
@@ -17,15 +15,16 @@ namespace WebExpress.WebApp.WebSettingPage
     /// Einstellungsseite mit Informationen zu den aktiven Plugins
     /// </summary>
     [ID("SettingPlugin")]
-    [Title("setting.plugin.label")]
-    [Segment("plugin", "inventoryexpress.setting.plugin.label")]
+    [Title("webexpress.webapp:setting.titel.plugin.label")]
+    [Segment("plugin", "webexpress.webapp:setting.titel.plugin.label")]
     [Path("/Setting")]
     [SettingSection(SettingSection.Secondary)]
     [SettingIcon(TypeIcon.PuzzlePiece)]
-    [SettingGroup("inventoryexpress.setting.system.label")]
-    [SettingContext("inventoryexpress.setting.general.label")]
+    [SettingGroup("webexpress.webapp:setting.group.system.label")]
+    [SettingContext("webexpress.webapp:setting.tab.general.label")]
     [Module("webexpress.webapp")]
     [Context("admin")]
+    [Optional]
     public sealed class PageWebAppSettingPlugin : PageWebAppSetting
     {
         /// <summary>
@@ -52,7 +51,6 @@ namespace WebExpress.WebApp.WebSettingPage
         public override void Process(RenderContextWebApp context)
         {
             base.Process(context);
-            var visualTree = context.VisualTree;
 
             var plugins = new ControlTable() { Striped = false };
             plugins.AddColumn("");
@@ -61,8 +59,8 @@ namespace WebExpress.WebApp.WebSettingPage
 
             foreach (var application in ApplicationManager.Applications.Where(x => !x.ApplicationID.StartsWith("webexpress", StringComparison.OrdinalIgnoreCase)))
             {
-                var plugin = PluginManager.GetPlugin(application.PluginID);
-                var mudules = ModuleManager.Modules.Where(x => x.ApplicationID.Equals(application.ApplicationID, StringComparison.OrdinalIgnoreCase)).ToList();
+                var plugin = application.Plugin;
+                var mudules = ModuleManager.Modules.Where(x => x.Application.ApplicationID.Equals(application.ApplicationID, StringComparison.OrdinalIgnoreCase)).ToList();
 
                 plugins.AddRow
                 (
@@ -121,7 +119,7 @@ namespace WebExpress.WebApp.WebSettingPage
                                 (
                                     new ControlText()
                                     {
-                                        Text = $"{ this.I18N(m.PluginID, m.ModuleName) } - { this.I18N(m.PluginID, m.Description) }",
+                                        Text = $"{ this.I18N(m.Plugin.PluginID, m.ModuleName) } - { this.I18N(m.Plugin.PluginID, m.Description) }",
                                         Format = TypeFormatText.Default,
                                         TextColor = new PropertyColorText(TypeColorText.Secondary),
                                         Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.Null),
@@ -140,8 +138,8 @@ namespace WebExpress.WebApp.WebSettingPage
                 );
             }
 
-            visualTree.Content.Primary.Add(new ControlText() { Text = this.I18N("webexpress.webapp", "setting.plugin.label"), TextColor = new PropertyColorText(TypeColorText.Info), Margin = new PropertySpacingMargin(PropertySpacing.Space.Two) });
-            visualTree.Content.Primary.Add(plugins);
+            context.VisualTree.Content.Primary.Add(new ControlText() { Text = this.I18N("webexpress.webapp", "setting.plugin.label"), TextColor = new PropertyColorText(TypeColorText.Info), Margin = new PropertySpacingMargin(PropertySpacing.Space.Two) });
+            context.VisualTree.Content.Primary.Add(plugins);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebControl
 {
@@ -122,17 +123,25 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Prüft das Eingabeelement auf Korrektheit der Daten
         /// </summary>
-        public virtual void Validate()
+        /// <param name="context">Der Kontext, indem die Eingaben validiert werden</param>
+        public virtual void Validate(RenderContext context)
         {
             IsValidated = true;
 
-            if (!Disabled)
+            if (ValidationResults is List<ValidationResult> validationResults)
             {
-                var args = new ValidationEventArgs() { Value = Value };
-                OnValidation(args);
+                validationResults.Clear();
 
-                (ValidationResults as List<ValidationResult>).AddRange(args.Results);
+                if (!Disabled)
+                {
+                    var args = new ValidationEventArgs() { Value = Value, Context = context };
+                    OnValidation(args);
+
+                    validationResults.AddRange(args.Results);
+                }
             }
+
+
         }
     }
 }

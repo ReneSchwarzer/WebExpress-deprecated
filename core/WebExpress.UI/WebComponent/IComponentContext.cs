@@ -1,8 +1,12 @@
 ﻿using System.Reflection;
+using WebExpress.Application;
+using WebExpress.Internationalization;
+using WebExpress.Module;
+using WebExpress.Plugin;
 
 namespace WebExpress.UI.WebComponent
 {
-    public interface IComponentContext
+    public interface IComponentContext : II18N
     {
         /// <summary>
         /// Das Assembly, welches die Komponente enthällt
@@ -10,19 +14,19 @@ namespace WebExpress.UI.WebComponent
         Assembly Assembly { get; }
 
         /// <summary>
-        /// Liefert die ID des Plugins
+        /// Liefert den Kontext des zugehörigen Plugins
         /// </summary>
-        string PluginID { get; }
+        IPluginContext Plugin { get; }
 
         /// <summary>
-        /// Liefert den AnwendungsID. 
+        /// Liefert den Kontext der zugehörigen Anwendung 
         /// </summary>
-        string ApplicationID { get; }
+        IApplicationContext Application { get; }
 
         /// <summary>
-        /// Liefert die ModulID. 
+        /// Liefert das zugehörige Modul
         /// </summary>
-        string ModuleID { get; }
+        IModuleContext Module { get; }
 
         /// <summary>
         /// Liefert oder setzt das Log, zum schreiben von Statusnachrichten auf die Konsole und in eine Log-Datei

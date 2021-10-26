@@ -1,6 +1,7 @@
 ﻿using WebExpress.Html;
 using WebExpress.Module;
 using WebExpress.Uri;
+using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebControl
 {
@@ -60,7 +61,7 @@ namespace WebExpress.UI.WebControl
 
             Value = context?.Request.GetParameter(Name)?.Value;
 
-            var module = ModuleManager.GetModule(context.ApplicationID, "webexpress.ui");
+            var module = ModuleManager.GetModule(context.Application, "webexpress.ui");
             if (module != null)
             {
                 context.VisualTree.HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/bootstrap-datepicker.min.js")));
@@ -123,21 +124,10 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Prüft das Eingabeelement auf Korrektheit der Daten
         /// </summary>
-        public override void Validate()
+        /// <param name="context">Der Kontext, indem die Eingaben validiert werden</param>
+        public override void Validate(RenderContext context)
         {
-            //if (!string.IsNullOrWhiteSpace(Value))
-            //{
-            //    try
-            //    {
-            //        var date = Convert.ToDateTime(Value);
-            //    }
-            //    catch
-            //    {
-            //        ValidationResults.Add(new ValidationResult() { Type = TypesInputValidity.Error, Text = "Der angegebene Wert kann nicht in ein Datum konvertiert werden!" });
-            //    }
-            //}
-
-            base.Validate();
+            base.Validate(context);
         }
     }
 }

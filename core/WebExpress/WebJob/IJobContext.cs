@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using WebExpress.Plugin;
 
 namespace WebExpress.WebJob
 {
@@ -10,9 +11,9 @@ namespace WebExpress.WebJob
         Assembly Assembly { get; }
 
         /// <summary>
-        /// Liefert die ID des Plugins
+        /// Liefert den Kontext des zugehörigen Plugins
         /// </summary>
-        string PluginID { get; }
+        IPluginContext Plugin { get; }
 
         /// <summary>
         /// Liefert die JobID. 

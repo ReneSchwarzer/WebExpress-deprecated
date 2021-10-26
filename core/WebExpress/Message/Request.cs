@@ -458,7 +458,7 @@ namespace WebExpress.Message
         /// <param name="param">Die Parameter</param>
         public void AddParameter(IEnumerable<Parameter> param)
         {
-            foreach(var p in param)
+            foreach (var p in param)
             {
                 AddParameter(p);
             }

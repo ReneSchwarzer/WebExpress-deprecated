@@ -4,6 +4,7 @@ using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.Module;
 using WebExpress.Uri;
+using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebControl
 {
@@ -41,7 +42,7 @@ namespace WebExpress.UI.WebControl
         /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         public override void Initialize(RenderContextFormular context)
         {
-            var module = ModuleManager.GetModule(context.ApplicationID, "webexpress.ui");
+            var module = ModuleManager.GetModule(context.Application, "webexpress.ui");
             if (module != null)
             {
                 context.VisualTree.CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/moveselector.css")));
@@ -132,9 +133,10 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Prüft das Eingabeelement auf Korrektheit der Daten
         /// </summary>
-        public override void Validate()
+        /// <param name="context">Der Kontext, indem die Eingaben validiert werden</param>
+        public override void Validate(RenderContext context)
         {
-            base.Validate();
+            base.Validate(context);
         }
     }
 }

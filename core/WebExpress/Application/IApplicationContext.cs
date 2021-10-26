@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿using System.Collections.Generic;
+using System.Reflection;
+using WebExpress.Plugin;
 using WebExpress.Uri;
 
 namespace WebExpress.Application
@@ -14,9 +16,9 @@ namespace WebExpress.Application
         Assembly Assembly { get; }
 
         /// <summary>
-        /// Liefert die ID des Plugins
+        /// Liefert den Kontext des zugehörigen Plugins
         /// </summary>
-        string PluginID { get; }
+        IPluginContext Plugin { get; }
 
         /// <summary>
         /// Liefert den AnwendungsID. 
@@ -32,6 +34,11 @@ namespace WebExpress.Application
         /// Liefert oder setzt die Beschreibung
         /// </summary>
         string Description { get; }
+
+        /// <summary>
+        /// Liefert die verwendeten Optionen
+        /// </summary>
+        IReadOnlyCollection<string> Options { get; }
 
         /// <summary>
         /// Liefert das Dokumentenverzeichnis. Dieser wird in dem AssetPath des Servers eingehangen.

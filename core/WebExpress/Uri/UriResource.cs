@@ -110,8 +110,10 @@ namespace WebExpress.Uri
         /// <param name="node">Der Knoten der Sitemap</param>
         /// <param name="culture">Die Kultur</param>
         internal UriResource(IModuleContext context, string url, ICollection<SitemapNode> path, CultureInfo culture)
-    : this(context.ContextPath, new UriRelative())
+            : this(context?.ContextPath, new UriRelative())
         {
+            if (context == null) return;
+
             var uri = new UriRelative(url[context.ContextPath.ToString().Length..]);
             var uriPath = uri.Path as List<IUriPathSegment>;
             var nodePath = path as List<SitemapNode>;

@@ -1,7 +1,8 @@
-﻿using WebExpress.Html;
-using WebExpress.Internationalization;
+﻿using System;
+using WebExpress.Html;
 using WebExpress.Uri;
 using WebExpress.WebPage;
+using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.UI.WebControl
 {
@@ -25,6 +26,16 @@ namespace WebExpress.UI.WebControl
             get => (TypeSizeButton)GetProperty(TypeSizeButton.Default);
             set => SetProperty(value, () => value.ToClass());
         }
+
+        /// <summary>
+        /// Liefet oder setzt ein Präfix, welcher statisch vor den Links angezeigt wird.
+        /// </summary>
+        public string Prefix { get; set; }
+
+        /// <summary>
+        /// Bestimmt wie viele Links angezeigt werden sollen. Es wird am Anfang der Linkkette abgeschniiten.
+        /// </summary>
+        public ushort TakeLast { get; set; } = ushort.MaxValue;
 
         /// <summary>
         /// Konstruktor
@@ -69,15 +80,53 @@ namespace WebExpress.UI.WebControl
                 Style = GetStyles(),
             };
 
+            if (!string.IsNullOrWhiteSpace(Prefix))
+            {
+                html.Elements.Add
+                (
+                    new HtmlElementTextSemanticsSpan(new HtmlText(I18N(context.Culture, Prefix))) { Class = "mr-2" }
+                );
+            }
+
             if (Uri is UriResource resourceUri)
             {
-                for (int i = 1; i < resourceUri.Path.Count + 1; i++)
+                //foreach (var part in resourceUri.Path.TakeLast((int)TakeLast))
+                //{
+                //    if (part.Display != null)
+                //    {
+                //        var display = I18N(context.Culture, part.Display);
+                //        var href = part.ToString();
+
+                //        html.Elements.Add
+                //        (
+                //            new HtmlElementTextContentLi
+                //            (
+                //                //new ControlIcon(Page)
+                //                //{ 
+                //                //    Icon = path.Icon
+                //                //}.ToHtml(),
+                //                new HtmlElementTextSemanticsA(display)
+                //                {
+                //                    Href = href
+                //                }
+                //            )
+                //            {
+                //                Class = "breadcrumb-item"
+                //            }
+                //        );
+                //    }
+                //}
+
+                var takeLast = Math.Min(TakeLast, resourceUri.Path.Count);
+                var from = resourceUri.Path.Count - takeLast;
+
+                for (int i = from + 1; i < resourceUri.Path.Count + 1; i++)
                 {
                     var path = resourceUri.Take(i);
 
                     if (path.Display != null)
                     {
-                        var display = context.I18N(path.Display);
+                        var display = I18N(context.Culture, path.Display);
                         var href = path.ToString();
 
                         html.Elements.Add

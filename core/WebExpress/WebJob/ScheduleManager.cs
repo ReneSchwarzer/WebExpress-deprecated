@@ -89,7 +89,7 @@ namespace WebExpress.WebJob
                 }
 
                 // Zugehöriges Modul ermitteln. 
-                var module = ModuleManager.GetModule(moduleContext.ApplicationID, moduleID);
+                var module = ModuleManager.GetModule(moduleContext.Application, moduleID);
                 if (string.IsNullOrEmpty(moduleID))
                 {
                     // Es wurde kein Modul angebgeben
@@ -103,7 +103,7 @@ namespace WebExpress.WebJob
                 else if (!module.ModuleID.Equals(moduleContext.ModuleID, StringComparison.OrdinalIgnoreCase))
                 {
                     // Ressource gehört nicht zum Modul
-                    Context.Log.Warning(message: I18N("webexpress:schedulermanager.wrongmodule"), args: new object[] { module.ApplicationID, module.ModuleID, id });
+                    Context.Log.Warning(message: I18N("webexpress:schedulermanager.wrongmodule"), args: new object[] { module.Application.ApplicationID, module.ModuleID, id });
                 }
                 else
                 {
@@ -120,7 +120,7 @@ namespace WebExpress.WebJob
                     {
                         Assembly = assembly,
                         JobID = id,
-                        PluginID = module.PluginID,
+                        Plugin = module.Plugin,
                         Cron = new Cron(Context, minute, hour, day, month, weekday),
                         Log = module.Log
                     };
@@ -134,7 +134,7 @@ namespace WebExpress.WebJob
                         Instance = instance
                     });
 
-                    Context.Log.Info(message: I18N("webexpress:schedulermanager.job.register"), args: new object[] { module.ApplicationID, module.ModuleID, id });
+                    Context.Log.Info(message: I18N("webexpress:schedulermanager.job.register"), args: new object[] { module.Application.ApplicationID, module.ModuleID, id });
                 }
             }
         }
@@ -165,7 +165,7 @@ namespace WebExpress.WebJob
         {
             foreach (var clock in Clock.Synchronize())
             {
-                foreach(var item in Dictionary.Values.SelectMany(x => x))
+                foreach (var item in Dictionary.Values.SelectMany(x => x))
                 {
                     if (item.Context.Cron.Matching(Clock))
                     {

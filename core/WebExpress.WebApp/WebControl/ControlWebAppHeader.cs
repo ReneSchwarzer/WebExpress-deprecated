@@ -215,7 +215,7 @@ namespace WebExpress.WebApp.WebControl
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.Null)
             })
             {
-                Uri = context.Request.Uri?.Root,
+                Uri = context?.Page?.Context?.Application?.ContextPath,
                 Decoration = TypeTextDecoration.None
             };
 

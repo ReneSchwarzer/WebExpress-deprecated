@@ -80,16 +80,16 @@ namespace WebExpress.Message
                     if (!item.ContainsKey(statusCode))
                     {
                         item.Add(statusCode, resource);
-                        Context.Log.Info(message: I18N("webexpress:responsemanager.register"), args: new object[] { statusCode, moduleContext.ApplicationID, moduleContext.ModuleID, resource.Name });
+                        Context.Log.Info(message: I18N("webexpress:responsemanager.register"), args: new object[] { statusCode, moduleContext.Application.ApplicationID, moduleContext.ModuleID, resource.Name });
                     }
                     else
                     {
-                        Context.Log.Info(message: I18N("webexpress:responsemanager.duplicat"), args: new object[] { statusCode, moduleContext.ApplicationID, moduleContext.ModuleID, resource.Name });
+                        Context.Log.Info(message: I18N("webexpress:responsemanager.duplicat"), args: new object[] { statusCode, moduleContext.Application.ApplicationID, moduleContext.ModuleID, resource.Name });
                     }
                 }
                 else
                 {
-                    Context.Log.Info(message: I18N("webexpress:responsemanager.statuscode"), args: new object[] { moduleContext.ApplicationID, moduleContext.ModuleID, resource.Name });
+                    Context.Log.Info(message: I18N("webexpress:responsemanager.statuscode"), args: new object[] { moduleContext.Application.ApplicationID, moduleContext.ModuleID, resource.Name });
                 }
             }
         }
@@ -108,7 +108,7 @@ namespace WebExpress.Message
             {
                 if (module == null)
                 {
-                    module = GetDefaultModule(status, uri?.ToString(), module?.ModuleID);
+                    module = GetDefaultModule(status, uri?.ToString(), module);
                 }
 
                 if (module != null && Dictionary.ContainsKey(module))
@@ -138,31 +138,31 @@ namespace WebExpress.Message
         /// </summary>
         /// <param name="status">Der Status</param>
         /// <param name="uri">Die URI</param>
-        /// <param name="moduleID">Die ModulID oder null</param>
+        /// <param name="module">Der Kontext des Moduls</param>
         /// <returns>Die erste gefunde Statusseite zu den gegebenen Status oder null</returns>
-        public static IModuleContext GetDefaultModule(int status, string uri, string moduleID)
+        public static IModuleContext GetDefaultModule(int status, string uri, IModuleContext module)
         {
             var applications = ApplicationManager.GetApplcations().Where(x => uri != null && uri.StartsWith(x.ContextPath.ToString()));
 
             // 1. Bevorzugte Statusseite 
-            var mudules = Dictionary.Where(x => applications.Select(x => x.ApplicationID).Contains(x.Key.ApplicationID))
-                .Where(x => x.Key.ModuleID.Equals(moduleID, StringComparison.OrdinalIgnoreCase))
+            var modules = Dictionary.Where(x => applications.Select(x => x.ApplicationID).Contains(x.Key.Application.ApplicationID))
+                .Where(x => x.Key.ModuleID.Equals(module?.ModuleID, StringComparison.OrdinalIgnoreCase))
                 .Where(x => x.Value.ContainsKey(status));
 
-            var module = mudules.FirstOrDefault();
+            var mod = modules.FirstOrDefault();
 
-            if (module.Key != null)
+            if (mod.Key != null)
             {
-                return module.Key;
+                return mod.Key;
             }
 
             // 2. Wenn nicht vorhanden alternativ verfügbarte Statusseite
-            mudules = Dictionary.Where(x => applications.Select(x => x.ApplicationID).Contains(x.Key.ApplicationID))
+            modules = Dictionary.Where(x => applications.Select(x => x.ApplicationID).Contains(x.Key.Application.ApplicationID))
                 .Where(x => x.Value.ContainsKey(status));
 
-            module = mudules.FirstOrDefault();
+            mod = modules.FirstOrDefault();
 
-            return module.Key;
+            return mod.Key;
         }
     }
 }

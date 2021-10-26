@@ -1,5 +1,6 @@
 ﻿using WebExpress.Html;
 using WebExpress.WebPage;
+using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.UI.WebControl
 {
@@ -17,7 +18,6 @@ namespace WebExpress.UI.WebControl
         public ControlNavigationItemHeader(string id = null)
             : base(id)
         {
-            Init();
         }
 
         /// <summary>
@@ -29,15 +29,6 @@ namespace WebExpress.UI.WebControl
             : base(id)
         {
             Text = text;
-
-            Init();
-        }
-
-        /// <summary>
-        /// Initialisierung
-        /// </summary>
-        private void Init()
-        {
         }
 
         /// <summary>
@@ -47,7 +38,7 @@ namespace WebExpress.UI.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            return new HtmlElementTextContentLi(new HtmlText(Text))
+            return new HtmlElementTextContentLi(new HtmlText(I18N(context.Culture, Text)))
             {
                 ID = ID,
                 Class = Css.Concatenate("dropdown-header", GetClasses()),

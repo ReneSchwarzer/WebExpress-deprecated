@@ -1,4 +1,6 @@
 ﻿using System.Reflection;
+using WebExpress.Application;
+using WebExpress.Plugin;
 using WebExpress.Uri;
 
 namespace WebExpress.Module
@@ -11,14 +13,14 @@ namespace WebExpress.Module
         Assembly Assembly { get; }
 
         /// <summary>
-        /// Liefert die ID des Plugins
+        /// Liefert den Kontext des zugehörigen Plugins
         /// </summary>
-        string PluginID { get; }
+        IPluginContext Plugin { get; }
 
         /// <summary>
-        /// Liefert den AnwendungsID. 
+        /// Liefert den Kontext der zugehörigen Anwendung 
         /// </summary>
-        string ApplicationID { get; }
+        IApplicationContext Application { get; }
 
         /// <summary>
         /// Liefert die ModulID. 

@@ -34,6 +34,7 @@ delete.label=Löschen
 delete.header=Löschen bestätigen
 delete.description=Möchten Sie wirklich löschen?
 
+setting.label=Einstellungen:
 setting.systeminformation.group.server.label=Server Info
 setting.systeminformation.group.server.version=Programmversion:
 setting.systeminformation.group.server.systemdate=Systemdatum:
@@ -47,7 +48,14 @@ setting.systeminformation.group.environment.machinename=Gerätename:
 setting.systeminformation.group.environment.processorcount=Anzahl der logischen Prozessoren:
 setting.systeminformation.group.environment.64bit=64bit-System:
 setting.systeminformation.group.environment.username=Benutzername:
-setting.plugin.label=Plugins
+
+setting.tab.general.label=Allgemein
+
+setting.group.system.label=System
+
+setting.titel.plugin.label=Plugins
+setting.titel.systeminformation.label=Systeminformationen
+setting.titel.log.label=Log
 
 setting.logfile.label=Logdatei:
 setting.logfile.path=Speicherort:

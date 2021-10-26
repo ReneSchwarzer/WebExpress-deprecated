@@ -18,7 +18,7 @@ namespace WebExpress.WebResource
         /// <summary>
         /// Liefert die I18N-PluginID
         /// </summary>
-        public string I18N_PluginID => Context?.PluginID;
+        public string I18NKey => Context?.Plugin.PluginID;
 
         /// <summary>
         /// Liefert die Kultur

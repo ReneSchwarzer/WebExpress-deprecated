@@ -2,6 +2,7 @@
 {
     public enum TypeFavicon
     {
+        Default,
         ICON,
         PNG,
         JPG,

@@ -179,10 +179,10 @@ namespace WebExpress.WebJob
             {
                 return true;
             }
-            
-            return Minute == (obj as Clock).Minute && 
-                   Hour == (obj as Clock).Hour && 
-                   Day == (obj as Clock).Day && 
+
+            return Minute == (obj as Clock).Minute &&
+                   Hour == (obj as Clock).Hour &&
+                   Day == (obj as Clock).Day &&
                    Month == (obj as Clock).Month;
         }
 

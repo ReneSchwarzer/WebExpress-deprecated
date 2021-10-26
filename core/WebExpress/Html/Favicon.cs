@@ -30,6 +30,16 @@ namespace WebExpress.Html
         /// </summary>
         /// <param name="url">Die URL</param>
         /// <param name="mediatype">Den Mediatyp</param>
+        public Favicon(IUri url)
+        {
+            Url = url.ToString();
+        }
+
+        /// <summary>
+        /// Konstruktor
+        /// </summary>
+        /// <param name="url">Die URL</param>
+        /// <param name="mediatype">Den Mediatyp</param>
         public Favicon(IUri url, TypeFavicon mediatype)
         {
             Url = url.ToString();

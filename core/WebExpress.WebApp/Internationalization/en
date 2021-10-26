@@ -34,6 +34,7 @@ delete.label=Delete
 delete.header=Confirm Delete
 delete.description=Are you sure you want to delete?
 
+setting.label=Settings:
 setting.systeminformation.group.server.label=Server info
 setting.systeminformation.group.server.version=Version:
 setting.systeminformation.group.server.systemdate=System date:
@@ -62,7 +63,14 @@ setting.logfile.switchon.label=Activate
 setting.logfile.switchon.header=Enable logging
 setting.logfile.switchon.description=Activation is only valid until the next restart. To enable it permanently, change the settings in the configuration file. 
 setting.logfile.switchon.success=Logging has been enabled.
-setting.plugin.label=Plugins
+
+setting.tab.general.label=General
+
+setting.group.system.label=System
+
+setting.titel.plugin.label=Plugins
+setting.titel.systeminformation.label=System information
+setting.titel.log.label=Log
 
 setting.plugin.label=Installed Applications
 setting.plugin.name.label=Name

@@ -66,6 +66,7 @@ namespace WebExpress.Application
                 var description = string.Empty;
                 var contextPath = string.Empty;
                 var assetPath = string.Empty;
+                var options = new List<string>();
 
                 // Attribute ermitteln
                 foreach (var customAttribute in type.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IApplicationAttribute))))
@@ -74,30 +75,29 @@ namespace WebExpress.Application
                     {
                         id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
                     }
-
-                    if (customAttribute.AttributeType == typeof(NameAttribute))
+                    else if (customAttribute.AttributeType == typeof(NameAttribute))
                     {
                         name = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
-
-                    if (customAttribute.AttributeType == typeof(IconAttribute))
+                    else if (customAttribute.AttributeType == typeof(IconAttribute))
                     {
                         icon = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
-
-                    if (customAttribute.AttributeType == typeof(DescriptionAttribute))
+                    else if (customAttribute.AttributeType == typeof(DescriptionAttribute))
                     {
                         description = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
-
-                    if (customAttribute.AttributeType == typeof(ContextPathAttribute))
+                    else if (customAttribute.AttributeType == typeof(ContextPathAttribute))
                     {
                         contextPath = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
-
-                    if (customAttribute.AttributeType == typeof(AssetPathAttribute))
+                    else if (customAttribute.AttributeType == typeof(AssetPathAttribute))
                     {
                         assetPath = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
+                    }
+                    else if (customAttribute.AttributeType == typeof(OptionAttribute))
+                    {
+                        options.Add(customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower());
                     }
                 }
 
@@ -105,10 +105,11 @@ namespace WebExpress.Application
                 var context = new ApplicationContext()
                 {
                     Assembly = assembly,
-                    PluginID = pluginContext.PluginID,
+                    Plugin = pluginContext,
                     ApplicationID = id,
                     ApplicationName = name,
                     Description = description,
+                    Options = options,
                     Icon = UriRelative.Combine(Context.ContextPath, contextPath, icon),
                     AssetPath = Path.Combine(Context.AssetPath, assetPath),
                     ContextPath = UriRelative.Combine(Context.ContextPath, contextPath),

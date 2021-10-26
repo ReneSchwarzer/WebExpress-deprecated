@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
+using WebExpress.Application;
 using WebExpress.Module;
+using WebExpress.Plugin;
 using WebExpress.Uri;
 
 namespace WebExpress.WebResource
@@ -13,19 +15,19 @@ namespace WebExpress.WebResource
         public Assembly Assembly { get; private set; }
 
         /// <summary>
-        /// Liefert die ID des Plugins
+        /// Liefert das zugehörige Plugins
         /// </summary>
-        public string PluginID { get; private set; }
+        public IPluginContext Plugin { get; private set; }
 
         /// <summary>
-        /// Liefert den AnwendungsID. 
+        /// Liefert den Kontext der zugehörigen Anwendung 
         /// </summary>
-        public string ApplicationID { get; private set; }
+        public IApplicationContext Application { get; private set; }
 
         /// <summary>
-        /// Liefert die ModulID. 
+        /// Liefert das zugehörige Modul. 
         /// </summary>
-        public string ModuleID { get; private set; }
+        public IModuleContext Module { get; private set; }
 
         /// <summary>
         /// Liefert oder setzt den Kontextpfad Dieser wird in dem ContextPath des Servers eingehangen.
@@ -49,9 +51,9 @@ namespace WebExpress.WebResource
         internal ResourceContext(IModuleContext moduleContext)
         {
             Assembly = moduleContext?.Assembly;
-            PluginID = moduleContext?.PluginID;
-            ApplicationID = moduleContext?.ApplicationID;
-            ModuleID = moduleContext?.ModuleID;
+            Plugin = moduleContext?.Plugin;
+            Application = moduleContext?.Application;
+            Module = moduleContext;
             ContextPath = moduleContext?.ContextPath;
             Log = moduleContext?.Log;
         }

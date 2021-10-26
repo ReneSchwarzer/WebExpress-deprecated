@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using WebExpress.Application;
 using WebExpress.Internationalization;
 using WebExpress.Message;
 using WebExpress.Uri;
@@ -26,21 +27,21 @@ namespace WebExpress.WebPage
         /// <summary>
         /// Liefert die I18N-PluginID
         /// </summary>
-        public string I18N_PluginID => Page?.Context.PluginID;
+        public string I18NKey => Page?.Context.Plugin.PluginID;
 
         /// <summary>
         /// Liefert die Kultur
         /// </summary>
-        public CultureInfo Culture 
+        public CultureInfo Culture
         {
             get { return Page?.Culture; }
-            set { } 
+            set { }
         }
 
         /// <summary>
-        /// Liefert die AnwendungsID
+        /// Liefert den Kontext der zugehörigen Anwendung
         /// </summary>
-        public string ApplicationID => Page?.Context?.ApplicationID;
+        public IApplicationContext Application => Page?.Context?.Application;
 
         /// <summary>
         /// Liefert oder setzt die Inhalte einer Seite

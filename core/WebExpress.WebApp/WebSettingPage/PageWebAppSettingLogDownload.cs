@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using WebExpress.Attribute;
 using WebExpress.Message;
 using WebExpress.WebResource;
 
@@ -7,7 +8,13 @@ namespace WebExpress.WebApp.WebSettingPage
     /// <summary>
     /// Download der Logdatei
     /// </summary>
-    public abstract class PageWebAppSettingLogDownload : ResourceBinary
+    [ID("SettingLogDownload")]
+    [Segment("download", "")]
+    [Path("/Setting/SettingLog")]
+    [Module("webexpress.webapp")]
+    [Context("admin")]
+    [Optional]
+    public sealed class PageWebAppSettingLogDownload : ResourceBinary
     {
         /// <summary>
         /// Konstruktor

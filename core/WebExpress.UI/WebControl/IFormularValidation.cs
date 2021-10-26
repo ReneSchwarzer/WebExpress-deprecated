@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebControl
 {
@@ -22,6 +23,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Prüft das Eingabeelement auf Korrektheit der Daten
         /// </summary>
-        void Validate();
+        /// <param name="context">Der Kontext, indem die Eingaben validiert werden</param>
+        void Validate(RenderContext context);
     }
 }

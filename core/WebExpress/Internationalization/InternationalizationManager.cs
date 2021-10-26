@@ -130,7 +130,18 @@ namespace WebExpress.Internationalization
         /// <returns>Der Wert des Schlüssels in der aktuellen Sprache</returns>
         public static string I18N(II18N obj, string key)
         {
-            return I18N(obj.Culture, obj.I18N_PluginID, key);
+            return I18N(obj.Culture, obj.I18NKey, key);
+        }
+
+        /// <summary>
+        /// Internationalisierung
+        /// </summary>
+        /// <param name="culture">Die Kultur</param>
+        /// <param name="key">Der Schlüssel</param>
+        /// <returns>Der Wert des Schlüssels in der aktuellen Sprache</returns>
+        public static string I18N(CultureInfo culture, string key)
+        {
+            return I18N(culture, null, key);
         }
 
         /// <summary>

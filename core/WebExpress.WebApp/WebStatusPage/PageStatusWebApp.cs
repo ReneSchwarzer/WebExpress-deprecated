@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using WebExpress.Application;
-using WebExpress.Internationalization;
-using WebExpress.Message;
+﻿using WebExpress.Message;
 using WebExpress.UI.WebControl;
 using WebExpress.UI.WebPage;
 using WebExpress.Uri;
@@ -56,14 +53,6 @@ namespace WebExpress.WebApp.WebStatusPage
         public override void Initialization(IResourceContext context)
         {
             base.Initialization(context);
-
-            var application = ApplicationManager.GetApplcation(Context?.ApplicationID);
-
-            Header.Fixed = TypeFixed.Top;
-            Header.Styles = new List<string>(new[] { "position: sticky; top: 0; z-index: 99;" });
-
-            Header.Logo = application?.Icon;
-            Header.Title = this.I18N(application.PluginID, application?.ApplicationName);
         }
 
         /// <summary>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using WebExpress.Application;
 using WebExpress.Attribute;
 using WebExpress.Module;
 using WebExpress.Plugin;
@@ -42,10 +43,10 @@ namespace WebExpress.WebApp.SettingPage
         /// <summary>
         /// Fügt Anwendungs-Einträge aus allen geladenen Plugins hinzu
         /// </summary>
-        /// <param name="applicationID">Die Anwendung, welche die Komponenten zugewiesen werden</param>
-        public static void Register(string applicationID)
+        /// <param name="application">Die Anwendung, welche die Komponenten zugewiesen werden</param>
+        public static void Register(IApplicationContext application)
         {
-            foreach (var module in ModuleManager.Modules.Where(x => x.ApplicationID.Equals(applicationID, StringComparison.OrdinalIgnoreCase)))
+            foreach (var module in ModuleManager.Modules.Where(x => x.Application.Equals(application)))
             {
                 Register(module);
             }
@@ -62,15 +63,15 @@ namespace WebExpress.WebApp.SettingPage
 
             foreach (var settingPageType in module.Assembly.GetTypes().Where(x => x.IsClass && x.IsSealed && (x.GetInterfaces().Contains(typeof(IPageSetting)))))
             {
-                //var applicationID = string.Empty;
                 var id = settingPageType.Name?.ToLower();
                 var context = null as string;
                 var group = null as string;
                 var section = SettingSection.Primary;
                 var hide = false;
                 var icon = null as PropertyIcon;
+                var optional = false;
 
-                //// Attribute ermitteln
+                // Attribute ermitteln
                 foreach (var customAttribute in settingPageType.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IResourceAttribute))))
                 {
                     if (customAttribute.AttributeType == typeof(IDAttribute))
@@ -98,14 +99,17 @@ namespace WebExpress.WebApp.SettingPage
                         var iconAttribute = customAttribute.ConstructorArguments.FirstOrDefault().Value;
                         icon = iconAttribute?.GetType() == typeof(int) ? new PropertyIcon((TypeIcon)Enum.Parse(typeof(TypeIcon), iconAttribute?.ToString())) : new PropertyIcon(new UriRelative(iconAttribute?.ToString()));
                     }
+                    else if (customAttribute.AttributeType == typeof(OptionalAttribute))
+                    {
+                        optional = true;
+                    }
                 }
 
-                // Standard für Anwendung festlegen
-                //if (string.IsNullOrWhiteSpace(applicationID))
-                //{
-                //    var moduleContext = ModuleManager.GetApplcation(module.Assembly);
-                //    applicationID = moduleContext.ApplicationID ?? "*";
-                //}
+                // Prüfe ob eine optionale Ressource
+                if (optional && !(module.Application.Options.Contains($"{module.ModuleID}.*".ToLower()) || module.Application.Options.Contains($"{module.ModuleID}.{id}".ToLower())))
+                {
+                    continue;
+                }
 
                 // Seite mit Metainformationen erzeugen
                 var page = new SettingPageDictionaryItemMetaPage()
@@ -113,19 +117,19 @@ namespace WebExpress.WebApp.SettingPage
                     ID = id,
                     ModuleContext = module,
                     Type = settingPageType,
-                    Node = ResourceManager.FindByID(module.ApplicationID, id),
+                    Node = ResourceManager.FindByID(module.Application.ApplicationID, id),
                     Icon = icon,
                     Hide = hide
                 };
 
                 // Seite in das Dictionary einfügen
-                Dictionary.AddPage(module.ApplicationID, context, section, group, page);
+                Dictionary.AddPage(module.Application.ApplicationID, context, section, group, page);
 
                 // Logging
                 var log = new List<string>
                 {
                     I18N("webexpress.webapp:pagesettingmanager.register"),
-                    "    ApplicationID    = " + module?.ApplicationID,
+                    "    ApplicationID    = " + module?.Application.ApplicationID,
                     "    ModuleID         = " + module?.ModuleID,
                     "    SettingContext   = " + context ?? "null",
                     "    SettingSection   = " + section.ToString(),

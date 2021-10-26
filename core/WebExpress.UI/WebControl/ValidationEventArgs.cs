@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebControl
 {
@@ -16,14 +17,18 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Liefert oder setzt die Validierungsnachrichten
         /// </summary>
-        public List<ValidationResult> Results { get; private set; }
+        public List<ValidationResult> Results { get; } = new List<ValidationResult>();
+
+        /// <summary>
+        /// Der Kontext, indem die Validierung stattfindet
+        /// </summary>
+        public RenderContext Context { get; set; }
 
         /// <summary>
         /// Konstruktor
         /// </summary>
         public ValidationEventArgs()
         {
-            Results = new List<ValidationResult>();
         }
     }
 }

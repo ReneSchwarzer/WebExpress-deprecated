@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
-using WebExpress.Application;
+using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
 using WebExpress.UI.WebPage;
 using WebExpress.WebApp.WebComponent;
-using WebExpress.WebPage;
 using WebExpress.WebResource;
 
 namespace WebExpress.WebApp.WebPage
@@ -16,9 +15,6 @@ namespace WebExpress.WebApp.WebPage
     /// </summary>
     public abstract class PageWebApp : PageControl<RenderContextWebApp>
     {
-        // Anwendung
-        private IApplicationContext Application { get; set; }
-
         // Header
         private List<IControlDropdownItem> HeaderHamburgerPrimary { get; } = new List<IControlDropdownItem>();
         private List<IControlDropdownItem> HeaderHamburgerSecondary { get; } = new List<IControlDropdownItem>();
@@ -79,52 +75,50 @@ namespace WebExpress.WebApp.WebPage
         {
             base.Initialization(context);
 
-            Application = ApplicationManager.GetApplcation(context.ApplicationID);
-
             // Header
-            HeaderHamburgerPrimary.AddRange(ComponentManager.CreateComponent<IControlDropdownItem>(context.ApplicationID, Section.AppPrimary, context.Context));
-            HeaderHamburgerSecondary.AddRange(ComponentManager.CreateComponent<IControlDropdownItem>(context.ApplicationID, Section.AppSecondary, context.Context));
-            HeaderNavigationPreferences.AddRange(ComponentManager.CreateComponent<IControlNavigationItem>(context.ApplicationID, Section.AppNavigationPreferences, context.Context));
-            HeaderNavigationPrimary.AddRange(ComponentManager.CreateComponent<IControlNavigationItem>(context.ApplicationID, Section.AppNavigationPrimary, context.Context));
-            HeaderNavigationSecondary.AddRange(ComponentManager.CreateComponent<IControlNavigationItem>(context.ApplicationID, Section.AppNavigationSecondary, context.Context));
-            HeaderQuickCreatePrimary.AddRange(ComponentManager.CreateComponent<IControlSplitButtonItem>(context.ApplicationID, Section.AppQuickcreatePrimary, context.Context));
-            HeaderQuickCreateSecondary.AddRange(ComponentManager.CreateComponent<IControlSplitButtonItem>(context.ApplicationID, Section.AppQuickcreateSecondary, context.Context));
-            HeaderHelpPreferences.AddRange(ComponentManager.CreateComponent<IControlDropdownItem>(context.ApplicationID, Section.AppHelpPreferences, context.Context));
-            HeaderHelpPrimary.AddRange(ComponentManager.CreateComponent<IControlDropdownItem>(context.ApplicationID, Section.AppHelpPrimary, context.Context));
-            HeaderHelpSecondary.AddRange(ComponentManager.CreateComponent<IControlDropdownItem>(context.ApplicationID, Section.AppHelpSecondary, context.Context));
-            HeaderSettingsPrimary.AddRange(ComponentManager.CreateComponent<IControlDropdownItem>(context.ApplicationID, Section.AppSettingsPrimary, context.Context));
-            HeaderSettingsSecondary.AddRange(ComponentManager.CreateComponent<IControlDropdownItem>(context.ApplicationID, Section.AppSettingsSecondary, context.Context));
+            HeaderHamburgerPrimary.AddRange(ComponentManager.CreateComponent<IControlDropdownItem>(context.Application, Section.AppPrimary, context.Context));
+            HeaderHamburgerSecondary.AddRange(ComponentManager.CreateComponent<IControlDropdownItem>(context.Application, Section.AppSecondary, context.Context));
+            HeaderNavigationPreferences.AddRange(ComponentManager.CreateComponent<IControlNavigationItem>(context.Application, Section.AppNavigationPreferences, context.Context));
+            HeaderNavigationPrimary.AddRange(ComponentManager.CreateComponent<IControlNavigationItem>(context.Application, Section.AppNavigationPrimary, context.Context));
+            HeaderNavigationSecondary.AddRange(ComponentManager.CreateComponent<IControlNavigationItem>(context.Application, Section.AppNavigationSecondary, context.Context));
+            HeaderQuickCreatePrimary.AddRange(ComponentManager.CreateComponent<IControlSplitButtonItem>(context.Application, Section.AppQuickcreatePrimary, context.Context));
+            HeaderQuickCreateSecondary.AddRange(ComponentManager.CreateComponent<IControlSplitButtonItem>(context.Application, Section.AppQuickcreateSecondary, context.Context));
+            HeaderHelpPreferences.AddRange(ComponentManager.CreateComponent<IControlDropdownItem>(context.Application, Section.AppHelpPreferences, context.Context));
+            HeaderHelpPrimary.AddRange(ComponentManager.CreateComponent<IControlDropdownItem>(context.Application, Section.AppHelpPrimary, context.Context));
+            HeaderHelpSecondary.AddRange(ComponentManager.CreateComponent<IControlDropdownItem>(context.Application, Section.AppHelpSecondary, context.Context));
+            HeaderSettingsPrimary.AddRange(ComponentManager.CreateComponent<IControlDropdownItem>(context.Application, Section.AppSettingsPrimary, context.Context));
+            HeaderSettingsSecondary.AddRange(ComponentManager.CreateComponent<IControlDropdownItem>(context.Application, Section.AppSettingsSecondary, context.Context));
 
             // Sidebar
-            SidebarHeader.AddRange(ComponentManager.CreateComponent<IControl>(context.ApplicationID, Section.SidebarHeader, context.Context));
-            SidebarPreferences.AddRange(ComponentManager.CreateComponent<IControl>(context.ApplicationID, Section.SidebarPreferences, context.Context));
-            SidebarPrimary.AddRange(ComponentManager.CreateComponent<IControl>(context.ApplicationID, Section.SidebarPrimary, context.Context));
-            SidebarSecondary.AddRange(ComponentManager.CreateComponent<IControl>(context.ApplicationID, Section.SidebarSecondary, context.Context));
+            SidebarHeader.AddRange(ComponentManager.CreateComponent<IControl>(context.Application, Section.SidebarHeader, context.Context));
+            SidebarPreferences.AddRange(ComponentManager.CreateComponent<IControl>(context.Application, Section.SidebarPreferences, context.Context));
+            SidebarPrimary.AddRange(ComponentManager.CreateComponent<IControl>(context.Application, Section.SidebarPrimary, context.Context));
+            SidebarSecondary.AddRange(ComponentManager.CreateComponent<IControl>(context.Application, Section.SidebarSecondary, context.Context));
 
             // Headline
-            ContentHeadlinePrologue.AddRange(ComponentManager.CreateComponent<IControl>(context.ApplicationID, Section.HeadlinePrologue, context.Context));
-            ContentHeadlinePreferences.AddRange(ComponentManager.CreateComponent<IControl>(context.ApplicationID, Section.HeadlinePreferences, context.Context));
-            ContentHeadlinePrimary.AddRange(ComponentManager.CreateComponent<IControl>(context.ApplicationID, Section.HeadlinePrimary, context.Context));
-            ContentHeadlineSecondary.AddRange(ComponentManager.CreateComponent<IControl>(context.ApplicationID, Section.HeadlineSecondary, context.Context));
-            ContentHeadlineMorePreferences.AddRange(ComponentManager.CreateComponent<IControlDropdownItem>(context.ApplicationID, Section.MorePreferences, context.Context));
-            ContentHeadlineMorePrimary.AddRange(ComponentManager.CreateComponent<IControlDropdownItem>(context.ApplicationID, Section.MorePrimary, context.Context));
-            ContentHeadlineMoreSecondary.AddRange(ComponentManager.CreateComponent<IControlDropdownItem>(context.ApplicationID, Section.MoreSecondary, context.Context));
-            ContentHeadlineMetadata.AddRange(ComponentManager.CreateComponent<IControl>(context.ApplicationID, Section.Metadata, context.Context));
+            ContentHeadlinePrologue.AddRange(ComponentManager.CreateComponent<IControl>(context.Application, Section.HeadlinePrologue, context.Context));
+            ContentHeadlinePreferences.AddRange(ComponentManager.CreateComponent<IControl>(context.Application, Section.HeadlinePreferences, context.Context));
+            ContentHeadlinePrimary.AddRange(ComponentManager.CreateComponent<IControl>(context.Application, Section.HeadlinePrimary, context.Context));
+            ContentHeadlineSecondary.AddRange(ComponentManager.CreateComponent<IControl>(context.Application, Section.HeadlineSecondary, context.Context));
+            ContentHeadlineMorePreferences.AddRange(ComponentManager.CreateComponent<IControlDropdownItem>(context.Application, Section.MorePreferences, context.Context));
+            ContentHeadlineMorePrimary.AddRange(ComponentManager.CreateComponent<IControlDropdownItem>(context.Application, Section.MorePrimary, context.Context));
+            ContentHeadlineMoreSecondary.AddRange(ComponentManager.CreateComponent<IControlDropdownItem>(context.Application, Section.MoreSecondary, context.Context));
+            ContentHeadlineMetadata.AddRange(ComponentManager.CreateComponent<IControl>(context.Application, Section.Metadata, context.Context));
 
             // Property
-            ContentPropertyPreferences.AddRange(ComponentManager.CreateComponent<IControl>(context.ApplicationID, Section.PropertyPreferences, context.Context));
-            ContentPropertyPrimary.AddRange(ComponentManager.CreateComponent<IControl>(context.ApplicationID, Section.PropertyPrimary, context.Context));
-            ContentPropertySecondary.AddRange(ComponentManager.CreateComponent<IControl>(context.ApplicationID, Section.PropertySecondary, context.Context));
+            ContentPropertyPreferences.AddRange(ComponentManager.CreateComponent<IControl>(context.Application, Section.PropertyPreferences, context.Context));
+            ContentPropertyPrimary.AddRange(ComponentManager.CreateComponent<IControl>(context.Application, Section.PropertyPrimary, context.Context));
+            ContentPropertySecondary.AddRange(ComponentManager.CreateComponent<IControl>(context.Application, Section.PropertySecondary, context.Context));
 
             // Inhalt
-            ContentPreferences.AddRange(ComponentManager.CreateComponent<IControl>(context.ApplicationID, Section.ContentPreferences, context.Context));
-            ContentPrimary.AddRange(ComponentManager.CreateComponent<IControl>(context.ApplicationID, Section.ContentPrimary, context.Context));
-            ContentSecondary.AddRange(ComponentManager.CreateComponent<IControl>(context.ApplicationID, Section.ContentSecondary, context.Context));
+            ContentPreferences.AddRange(ComponentManager.CreateComponent<IControl>(context.Application, Section.ContentPreferences, context.Context));
+            ContentPrimary.AddRange(ComponentManager.CreateComponent<IControl>(context.Application, Section.ContentPrimary, context.Context));
+            ContentSecondary.AddRange(ComponentManager.CreateComponent<IControl>(context.Application, Section.ContentSecondary, context.Context));
 
             // Footer
-            FooterPreferences.AddRange(ComponentManager.CreateComponent<IControl>(context.ApplicationID, Section.FooterPreferences, context.Context));
-            FooterPrimary.AddRange(ComponentManager.CreateComponent<IControl>(context.ApplicationID, Section.FooterPrimary, context.Context));
-            FooterSecondary.AddRange(ComponentManager.CreateComponent<IControl>(context.ApplicationID, Section.FooterSecondary, context.Context));
+            FooterPreferences.AddRange(ComponentManager.CreateComponent<IControl>(context.Application, Section.FooterPreferences, context.Context));
+            FooterPrimary.AddRange(ComponentManager.CreateComponent<IControl>(context.Application, Section.FooterPrimary, context.Context));
+            FooterSecondary.AddRange(ComponentManager.CreateComponent<IControl>(context.Application, Section.FooterSecondary, context.Context));
         }
 
         /// <summary>
@@ -135,65 +129,64 @@ namespace WebExpress.WebApp.WebPage
         {
             base.Process(context);
 
-            var visualTree = context.VisualTree;
+            context.VisualTree.Favicons.Add(new Favicon(context.Application.Icon));
+            context.VisualTree.Header.Logo = context.Application?.Icon;
+            context.VisualTree.Header.Title = this.I18N(context.Application, context.Application?.ApplicationName);
 
-            visualTree.Header.Logo = Application?.Icon;
-            visualTree.Header.Title = this.I18N(Application?.ApplicationName);
-
-            visualTree.Breadcrumb.Uri = context.Uri;
+            context.VisualTree.Breadcrumb.Uri = context.Uri;
 
             // Header
-            visualTree.Header.HamburgerPrimary.AddRange(HeaderHamburgerPrimary);
-            visualTree.Header.HamburgerSecondary.AddRange(HeaderHamburgerSecondary);
-            visualTree.Header.NavigationPreferences.AddRange(HeaderNavigationPreferences);
-            visualTree.Header.NavigationPrimary.AddRange(HeaderNavigationPrimary);
-            visualTree.Header.NavigationSecondary.AddRange(HeaderNavigationSecondary);
-            visualTree.Header.QuickCreatePrimary.AddRange(HeaderQuickCreatePrimary);
-            visualTree.Header.QuickCreateSecondary.AddRange(HeaderQuickCreateSecondary);
-            visualTree.Header.HelpPreferences.AddRange(HeaderHelpPreferences);
-            visualTree.Header.HelpPrimary.AddRange(HeaderHelpPrimary);
-            visualTree.Header.HelpSecondary.AddRange(HeaderHelpSecondary);
-            visualTree.Header.SettingsPrimary.AddRange(HeaderSettingsPrimary);
-            visualTree.Header.SettingsSecondary.AddRange(HeaderSettingsSecondary);
+            context.VisualTree.Header.HamburgerPrimary.AddRange(HeaderHamburgerPrimary);
+            context.VisualTree.Header.HamburgerSecondary.AddRange(HeaderHamburgerSecondary);
+            context.VisualTree.Header.NavigationPreferences.AddRange(HeaderNavigationPreferences);
+            context.VisualTree.Header.NavigationPrimary.AddRange(HeaderNavigationPrimary);
+            context.VisualTree.Header.NavigationSecondary.AddRange(HeaderNavigationSecondary);
+            context.VisualTree.Header.QuickCreatePrimary.AddRange(HeaderQuickCreatePrimary);
+            context.VisualTree.Header.QuickCreateSecondary.AddRange(HeaderQuickCreateSecondary);
+            context.VisualTree.Header.HelpPreferences.AddRange(HeaderHelpPreferences);
+            context.VisualTree.Header.HelpPrimary.AddRange(HeaderHelpPrimary);
+            context.VisualTree.Header.HelpSecondary.AddRange(HeaderHelpSecondary);
+            context.VisualTree.Header.SettingsPrimary.AddRange(HeaderSettingsPrimary);
+            context.VisualTree.Header.SettingsSecondary.AddRange(HeaderSettingsSecondary);
 
             // Sidebar
-            visualTree.Sidebar.Header.AddRange(SidebarHeader);
-            visualTree.Sidebar.Preferences.AddRange(SidebarPreferences);
-            visualTree.Sidebar.Primary.AddRange(SidebarPrimary);
-            visualTree.Sidebar.Secondary.AddRange(SidebarSecondary);
+            context.VisualTree.Sidebar.Header.AddRange(SidebarHeader);
+            context.VisualTree.Sidebar.Preferences.AddRange(SidebarPreferences);
+            context.VisualTree.Sidebar.Primary.AddRange(SidebarPrimary);
+            context.VisualTree.Sidebar.Secondary.AddRange(SidebarSecondary);
 
             // Headline
-            visualTree.Content.Headline.Prologue.AddRange(ContentHeadlinePrologue);
-            visualTree.Content.Headline.Preferences.AddRange(ContentHeadlinePreferences);
-            visualTree.Content.Headline.Primary.AddRange(ContentHeadlinePrimary);
-            visualTree.Content.Headline.Secondary.AddRange(ContentHeadlineSecondary);
-            visualTree.Content.Headline.MorePreferences.AddRange(ContentHeadlineMorePreferences);
-            visualTree.Content.Headline.MorePrimary.AddRange(ContentHeadlineMorePrimary);
-            visualTree.Content.Headline.MoreSecondary.AddRange(ContentHeadlineMoreSecondary);
-            visualTree.Content.Headline.Metadata.AddRange(ContentHeadlineMetadata);
+            context.VisualTree.Content.Headline.Prologue.AddRange(ContentHeadlinePrologue);
+            context.VisualTree.Content.Headline.Preferences.AddRange(ContentHeadlinePreferences);
+            context.VisualTree.Content.Headline.Primary.AddRange(ContentHeadlinePrimary);
+            context.VisualTree.Content.Headline.Secondary.AddRange(ContentHeadlineSecondary);
+            context.VisualTree.Content.Headline.MorePreferences.AddRange(ContentHeadlineMorePreferences);
+            context.VisualTree.Content.Headline.MorePrimary.AddRange(ContentHeadlineMorePrimary);
+            context.VisualTree.Content.Headline.MoreSecondary.AddRange(ContentHeadlineMoreSecondary);
+            context.VisualTree.Content.Headline.Metadata.AddRange(ContentHeadlineMetadata);
 
             // Property
-            visualTree.Content.Property.Preferences.AddRange(ContentPropertyPreferences);
-            visualTree.Content.Property.Primary.AddRange(ContentPropertyPrimary);
-            visualTree.Content.Property.Secondary.AddRange(ContentPropertySecondary);
+            context.VisualTree.Content.Property.Preferences.AddRange(ContentPropertyPreferences);
+            context.VisualTree.Content.Property.Primary.AddRange(ContentPropertyPrimary);
+            context.VisualTree.Content.Property.Secondary.AddRange(ContentPropertySecondary);
 
             // Inhalt
-            visualTree.Content.Preferences.AddRange(ContentPreferences);
-            visualTree.Content.Primary.AddRange(ContentPrimary);
-            visualTree.Content.Secondary.AddRange(ContentSecondary);
+            context.VisualTree.Content.Preferences.AddRange(ContentPreferences);
+            context.VisualTree.Content.Primary.AddRange(ContentPrimary);
+            context.VisualTree.Content.Secondary.AddRange(ContentSecondary);
 
             // Footer
-            visualTree.Footer.Preferences.AddRange(FooterPreferences);
-            visualTree.Footer.Primary.AddRange(FooterPrimary);
-            visualTree.Footer.Secondary.AddRange(FooterSecondary);
+            context.VisualTree.Footer.Preferences.AddRange(FooterPreferences);
+            context.VisualTree.Footer.Primary.AddRange(FooterPrimary);
+            context.VisualTree.Footer.Secondary.AddRange(FooterSecondary);
 
-            if (visualTree is VisualTreeControl visualTreeControl)
+            if (context.VisualTree is VisualTreeControl visualTreeControl)
             {
                 var split = new ControlPanelSplit
             (
                 "split",
-                new Control[] { visualTree.Sidebar },
-                new Control[] { visualTree.Content }
+                new Control[] { context.VisualTree.Sidebar },
+                new Control[] { context.VisualTree.Content }
             )
                 {
                     Orientation = TypeOrientationSplit.Horizontal,
@@ -203,13 +196,13 @@ namespace WebExpress.WebApp.WebPage
                     Styles = new List<string>() { "min-height: 85%;" }
                 };
 
-                visualTreeControl.Content.Add(visualTree.Header);
-                visualTreeControl.Content.Add(visualTree.Toast);
-                visualTreeControl.Content.Add(visualTree.Breadcrumb);
-                visualTreeControl.Content.Add(visualTree.Prologue);
-                visualTreeControl.Content.Add(visualTree.SearchOptions);
-                visualTreeControl.Content.Add(visualTree.Sidebar.HasContent ? split : visualTree.Content);
-                visualTreeControl.Content.Add(visualTree.Footer);
+                visualTreeControl.Content.Add(context.VisualTree.Header);
+                visualTreeControl.Content.Add(context.VisualTree.Toast);
+                visualTreeControl.Content.Add(context.VisualTree.Breadcrumb);
+                visualTreeControl.Content.Add(context.VisualTree.Prologue);
+                visualTreeControl.Content.Add(context.VisualTree.SearchOptions);
+                visualTreeControl.Content.Add(context.VisualTree.Sidebar.HasContent ? split : context.VisualTree.Content);
+                visualTreeControl.Content.Add(context.VisualTree.Footer);
             }
         }
     }

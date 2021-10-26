@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
-using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebPage;
+using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.WebApp.WebControl
 {
@@ -81,7 +81,7 @@ namespace WebExpress.WebApp.WebControl
             var prologue = new ControlPanelFlexbox(Prologue) { Layout = TypeLayoutFlexbox.Default, Align = TypeAlignFlexbox.Center, Justify = TypeJustifiedFlexbox.Start };
             prologue.Content.Add(new ControlText()
             {
-                Text = context.I18N(context.Page.Title),
+                Text = I18N(context.Culture, context.Page.Title),
                 TextColor = LayoutSchema.HeadlineTitle,
                 Format = TypeFormatText.H2,
                 Padding = new PropertySpacingPadding(PropertySpacing.Space.One),
@@ -94,7 +94,7 @@ namespace WebExpress.WebApp.WebControl
             {
                 var more = new ControlDropdown("more")
                 {
-                    Title = context.I18N("webexpress.webapp", "headline.more.title"),
+                    Title = I18N(context.Culture, "webexpress.webapp", "headline.more.title"),
                     Icon = new PropertyIcon(TypeIcon.EllipsisHorizontal),
                     TextColor = LayoutSchema.HeadlineTitle,
                     Padding = new PropertySpacingPadding(PropertySpacing.Space.One),

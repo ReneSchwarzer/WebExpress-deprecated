@@ -42,7 +42,7 @@ namespace WebExpress.UI.WebPage
         {
             base.Initialization(context);
 
-            var module = ModuleManager.GetModule(Context?.ApplicationID, "webexpress.ui");
+            var module = ModuleManager.GetModule(Context?.Application, "webexpress.ui");
             if (module != null)
             {
                 CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/fontawesome.min.css")));

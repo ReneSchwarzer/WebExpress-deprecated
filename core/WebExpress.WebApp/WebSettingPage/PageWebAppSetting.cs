@@ -1,11 +1,10 @@
 ﻿using System.Linq;
-using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
 using WebExpress.WebApp.Attribute;
 using WebExpress.WebApp.SettingPage;
 using WebExpress.WebApp.WebPage;
-using WebExpress.WebPage;
+using WebExpress.WebResource;
 
 namespace WebExpress.WebApp.WebSettingPage
 {
@@ -20,62 +19,81 @@ namespace WebExpress.WebApp.WebSettingPage
         public PropertyIcon Icon { get; set; }
 
         /// <summary>
-        /// Verarbeitung
+        /// Liefert das Menü, indem Einstellungsseiten aufgelistet sind
         /// </summary>
-        /// <param name="context">Der Kontext zum Rendern der Seite</param>
-        public override void Process(RenderContextWebApp context)
+        public ControlNavigation SettingMenu { get; } = new ControlNavigation("settingmenu")
         {
-            base.Process(context);
+            Layout = TypeLayoutTab.Pill,
+            Orientation = TypeOrientationTab.Vertical,
+            GridColumn = new PropertyGrid(TypeDevice.Medium, 2)
+        };
 
-            var visualTree = context.VisualTree;
+        /// <summary>
+        /// Liefert das Tab-Control, indem Einstellungsseiten aufgelistet sind
+        /// </summary>
+        public ControlNavigation SettingTab = new ControlNavigation("settingtab")
+        {
+            Layout = TypeLayoutTab.Tab,
+            Orientation = TypeOrientationTab.Horizontal
+        };
 
-            var path = SettingPageManager.FindPage(Context.ApplicationID, ID);
+        /// <summary>
+        /// Initialisierung
+        /// </summary>
+        /// <param name="context">Der Kontext</param>
+        public override void Initialization(IResourceContext context)
+        {
+            base.Initialization(context);
+
+            var path = SettingPageManager.FindPage(Context.Application.ApplicationID, ID);
             if (path != null)
             {
-                var contexts = SettingPageManager.GetContexts(Context.ApplicationID);
-                var section = SettingPageManager.GetSections(Context.ApplicationID, path?.Context);
+                var contexts = SettingPageManager.GetContexts(Context.Application.ApplicationID);
+                var section = SettingPageManager.GetSections(Context.Application.ApplicationID, path?.Context);
 
                 // SettingMenü
-                var settingMenu = new ControlNavigation("settingmenu")
-                {
-                    Layout = TypeLayoutTab.Pill,
-                    Orientation = TypeOrientationTab.Vertical,
-                    GridColumn = new PropertyGrid(TypeDevice.Medium, 2)
-                };
-
-                AddSettingMenu(section, SettingSection.Preferences, settingMenu);
-                AddSettingMenu(section, SettingSection.Primary, settingMenu);
-                AddSettingMenu(section, SettingSection.Secondary, settingMenu);
-
-                visualTree.Sidebar.Primary.Add(settingMenu);
+                AddSettingMenu(section, SettingSection.Preferences, SettingMenu);
+                AddSettingMenu(section, SettingSection.Primary, SettingMenu);
+                AddSettingMenu(section, SettingSection.Secondary, SettingMenu);
 
                 // SettingTab
-                var settingTab = new ControlNavigation("settingtab")
-                {
-                    Layout = TypeLayoutTab.Tab,
-                    Orientation = TypeOrientationTab.Horizontal
-                };
-
-                foreach (var settingContext in contexts.Select(x => new { Name = this.I18N(x.Key), ContextName = x.Key, Sections = x.Value }).Where(x => x.Name != "*").OrderBy(x => x.Name))
+                foreach (var settingContext in contexts.Select(x => new { Name = x.Key, ContextName = x.Key, Sections = x.Value }).Where(x => x.Name != "*").OrderBy(x => x.Name))
                 {
                     var firstPage = settingContext.Sections.FindFirstPage();
 
                     if (firstPage != null)
                     {
-                        settingTab.Items.Add(new ControlNavigationItemLink()
+                        SettingTab.Items.Add(new ControlNavigationItemLink()
                         {
-                            Uri = new UriResource(Context.ContextPath, firstPage.Page.Node?.ExpressionPath),
+                            Uri = new UriResource(firstPage.Page.ModuleContext.ContextPath, firstPage.Page.Node?.ExpressionPath),
                             Text = settingContext.Name,
                             Active = path.Context == settingContext.ContextName ? TypeActive.Active : TypeActive.None,
                         });
                     }
                 }
-
-                if (settingTab.Items.Count > 1)
-                {
-                    visualTree.Prologue.Content.Add(settingTab);
-                }
             }
+        }
+
+        /// <summary>
+        /// Verarbeitung
+        /// </summary>
+        /// <param name="context">Der Kontext zum Rendern der Seite</param>
+        public override void Process(RenderContextWebApp context)
+        {
+            if (SettingMenu.Items.Count > 1)
+            {
+                context.VisualTree.Sidebar.Primary.Add(SettingMenu);
+            }
+
+            if (SettingTab.Items.Count > 1)
+            {
+                context.VisualTree.Prologue.Content.Add(SettingTab);
+            }
+
+            context.VisualTree.Breadcrumb.Prefix = "webexpress.webapp:setting.label";
+            context.VisualTree.Breadcrumb.TakeLast = 1;
+
+            base.Process(context);
         }
 
         /// <summary>
@@ -93,7 +111,7 @@ namespace WebExpress.WebApp.WebSettingPage
                 return;
             }
 
-            foreach (var group in groups.Select(x => new { Name = this.I18N(x.Key), Pages = x.Value }).OrderBy(x => x.Name))
+            foreach (var group in groups.Select(x => new { Name = x.Key, Pages = x.Value }).OrderBy(x => x.Name))
             {
                 control.Items.Add(new ControlNavigationItemHeader() { Text = group.Name });
 
@@ -103,7 +121,7 @@ namespace WebExpress.WebApp.WebSettingPage
                     {
                         control.Items.Add(new ControlNavigationItemLink()
                         {
-                            Text = this.I18N(page.ModuleContext.PluginID, page.Node?.Title),
+                            Text = page.Node?.Title,
                             Icon = page.Icon,
                             Uri = new UriResource(page.ModuleContext.ContextPath, page.Node?.ExpressionPath),
                             Active = page.ID.Equals(ID, System.StringComparison.OrdinalIgnoreCase) ? TypeActive.Active : TypeActive.None,

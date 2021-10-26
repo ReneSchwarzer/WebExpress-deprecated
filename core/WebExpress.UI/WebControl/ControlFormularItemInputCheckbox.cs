@@ -1,6 +1,7 @@
 ﻿using System;
 using WebExpress.Html;
 using WebExpress.Internationalization;
+using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebControl
 {
@@ -78,9 +79,10 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Prüft das Eingabeelement auf Korrektheit der Daten
         /// </summary>
-        public override void Validate()
+        /// <param name="context">Der Kontext, indem die Eingaben validiert werden</param>
+        public override void Validate(RenderContext context)
         {
-            base.Validate();
+            base.Validate(context);
         }
     }
 }

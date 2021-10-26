@@ -27,8 +27,8 @@ namespace WebExpress.WebApp
         /// <param name="context">Der Kontext, welcher für die Ausführung des Plugins gilt</param>
         public void Initialization(IModuleContext context)
         {
-            ComponentManager.Register(context.ApplicationID);
-            SettingPageManager.Register(context.ApplicationID);
+            ComponentManager.Register(context.Application);
+            SettingPageManager.Register(context.Application);
         }
 
         /// <summary>

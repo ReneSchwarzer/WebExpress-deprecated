@@ -14,9 +14,9 @@ using WebExpress.Message;
 using WebExpress.Module;
 using WebExpress.Plugin;
 using WebExpress.Uri;
+using WebExpress.WebJob;
 using WebExpress.WebPage;
 using WebExpress.WebResource;
-using WebExpress.WebJob;
 
 namespace WebExpress
 {
@@ -65,7 +65,7 @@ namespace WebExpress
         /// <summary>
         /// Liefert den I18N-Key
         /// </summary>
-        public string I18N_PluginID => "webexpress";
+        public string I18NKey => "webexpress";
 
         /// <summary>
         /// Konstruktor
@@ -274,16 +274,16 @@ namespace WebExpress
                         Uri = request.Uri
                     });
 
-                    var moduleContext = ModuleManager.GetModule(resource.Context.ApplicationID, resource.Context.ModuleID);
-                    request.Uri = new UriResource(moduleContext, request.Uri, resource, culture);
-                    request.AddParameter(resource.Variables.Select(x => new Parameter(x.Key, x.Value, ParameterScope.Url)));
-
                     // Ressource ausführen
-                    if (resource != null)
+                    if (resource?.Instance != null)
                     {
-                        resource.Instance.PreProcess(request);
-                        response = resource.Instance.Process(request);
-                        response = resource.Instance.PostProcess(request, response);
+                        var moduleContext = ModuleManager.GetModule(resource?.Context?.Module);
+                        request.Uri = new UriResource(moduleContext, request.Uri, resource, culture);
+                        request.AddParameter(resource.Variables.Select(x => new Parameter(x.Key, x.Value, ParameterScope.Url)));
+
+                        resource.Instance?.PreProcess(request);
+                        response = resource.Instance?.Process(request);
+                        response = resource.Instance?.PostProcess(request, response);
 
                         if (resource.Instance is IPage)
                         {
@@ -333,17 +333,17 @@ namespace WebExpress
             // Response an Client schicken
             try
             {
-                writer.Write(response.GetHeader());
+                writer.Write(response?.GetHeader());
                 writer.Flush();
 
-                if (response.Content is byte[] content)
+                if (response?.Content is byte[] content)
                 {
                     using var bw = new BinaryWriter(writer.BaseStream);
                     bw.Write(content);
                 }
                 else
                 {
-                    writer.Write(response.Content ?? "");
+                    writer.Write(response?.Content ?? "");
                 }
 
                 writer.Flush();
@@ -355,7 +355,7 @@ namespace WebExpress
 
             stopwatch.Stop();
 
-            Context.Log.Info(message: this.I18N("httpserver.request.done"), args: new object[] { ip, stopwatch.ElapsedMilliseconds, response.Status });
+            Context.Log.Info(message: this.I18N("httpserver.request.done"), args: new object[] { ip, stopwatch.ElapsedMilliseconds, response?.Status });
         }
 
         /// <summary>
@@ -370,7 +370,7 @@ namespace WebExpress
             var response = new T() as Response;
             var culture = Culture;
             var statusPage = null as IPageStatus;
-            var moduleContext = ResponseManager.GetDefaultModule(response.Status, request?.Uri.ToString(), context?.ModuleID);
+            var moduleContext = ResponseManager.GetDefaultModule(response.Status, request?.Uri.ToString(), context?.Module);
 
             try
             {

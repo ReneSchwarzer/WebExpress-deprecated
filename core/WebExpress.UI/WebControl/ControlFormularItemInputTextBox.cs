@@ -4,6 +4,7 @@ using WebExpress.Html;
 using WebExpress.Module;
 using WebExpress.UI.Script;
 using WebExpress.Uri;
+using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebControl
 {
@@ -99,7 +100,7 @@ namespace WebExpress.UI.WebControl
 
             if (Format == TypesEditTextFormat.Wysiwyg)
             {
-                var module = ModuleManager.GetModule(context.ApplicationID, "webexpress.ui");
+                var module = ModuleManager.GetModule(context.Application, "webexpress.ui");
                 if (module != null)
                 {
                     context.VisualTree.CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/summernote-bs4.min.css")));
@@ -187,8 +188,11 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Prüft das Eingabeelement auf Korrektheit der Daten
         /// </summary>
-        public override void Validate()
+        /// <param name="context">Der Kontext, indem die Eingaben validiert werden</param>
+        public override void Validate(RenderContext context)
         {
+            base.Validate(context);
+
             if (Disabled)
             {
                 return;
@@ -210,8 +214,6 @@ namespace WebExpress.UI.WebControl
             {
                 ValidationResults.Add(new ValidationResult() { Type = TypesInputValidity.Error, Text = "Der Text ist größer als die maximalen Länge von " + MaxLength + "!" });
             }
-
-            base.Validate();
         }
     }
 }

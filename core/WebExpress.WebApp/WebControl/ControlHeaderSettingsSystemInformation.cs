@@ -14,13 +14,13 @@ namespace WebExpress.WebApp.WebControl
         public ControlHeaderSettingsSystemInformation()
             : base()
         {
-            Init();
         }
 
         /// <summary>
         /// Initialisierung
         /// </summary>
-        private void Init()
+        /// <param name="context">Der Kontext</param>
+        public void Initialization(IComponentContext context)
         {
             TextColor = new PropertyColorText(TypeColorText.Dark);
         }
@@ -32,7 +32,7 @@ namespace WebExpress.WebApp.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            Text = context.I18N("systeminformation.label");
+            Text = InternationalizationManager.I18N("webexpress.webapp:systeminformation.label");
             Uri = context.Request.Uri.Root.Append("settings/systeminformation");
             //Active = context.Page is IPageSettings ? TypeActive.Active : TypeActive.None;
             Icon = new PropertyIcon(TypeIcon.InfoCircle);

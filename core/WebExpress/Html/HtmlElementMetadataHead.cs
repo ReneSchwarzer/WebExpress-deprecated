@@ -53,7 +53,7 @@ namespace WebExpress.Html
                     {
                         Href = x.Url,
                         Rel = "icon",
-                        Type = x.GetMediatyp()
+                        Type = x.Mediatype != TypeFavicon.Default ? x.GetMediatyp() : ""
                     });
             }
         }

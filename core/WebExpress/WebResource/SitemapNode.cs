@@ -391,7 +391,7 @@ namespace WebExpress.WebResource
                     page.Title = Title;
                 }
 
-                Instance.Initialization(Context);
+                Instance?.Initialization(Context);
             }
 
             return Instance;

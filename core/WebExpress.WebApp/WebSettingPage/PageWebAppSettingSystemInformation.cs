@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Reflection;
+using WebExpress.Attribute;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
+using WebExpress.WebApp.Attribute;
 using WebExpress.WebApp.WebPage;
-using WebExpress.WebPage;
 using WebExpress.WebResource;
 
 namespace WebExpress.WebApp.WebSettingPage
@@ -11,7 +12,19 @@ namespace WebExpress.WebApp.WebSettingPage
     /// <summary>
     /// Einstellungsseite mit Systeminformationen
     /// </summary>
-    public abstract class PageWebAppSettingSystemInformation : PageWebAppSetting
+    /// 
+    [ID("SettingSystemInformation")]
+    [Title("webexpress.webapp:setting.titel.systeminformation.label")]
+    [Segment("systeminformation", "webexpress.webapp:setting.titel.systeminformation.label")]
+    [Path("/Setting")]
+    [SettingSection(SettingSection.Secondary)]
+    [SettingIcon(TypeIcon.InfoCircle)]
+    [SettingGroup("webexpress.webapp:setting.group.system.label")]
+    [SettingContext("webexpress.webapp:setting.tab.general.label")]
+    [Module("webexpress.webapp")]
+    [Context("admin")]
+    [Optional]
+    public sealed class PageWebAppSettingSystemInformation : PageWebAppSetting
     {
         /// <summary>
         /// Konstruktor
@@ -51,7 +64,7 @@ namespace WebExpress.WebApp.WebSettingPage
             server.AddRow(new ControlText() { Text = this.I18N("webexpress.webapp", "setting.systeminformation.group.server.version") }, new ControlText() { Text = version, Format = TypeFormatText.Code });
             server.AddRow(new ControlText() { Text = this.I18N("webexpress.webapp", "setting.systeminformation.group.server.systemdate") }, new ControlText() { Text = DateTime.Now.ToString(Culture.DateTimeFormat.LongDatePattern), Format = TypeFormatText.Code });
             server.AddRow(new ControlText() { Text = this.I18N("webexpress.webapp", "setting.systeminformation.group.server.systemtime") }, new ControlText() { Text = DateTime.Now.ToString(Culture.DateTimeFormat.LongTimePattern), Format = TypeFormatText.Code });
-            server.AddRow(new ControlText() { Text = this.I18N("webexpress.webapp", "setting.systeminformation.group.server.basisurl") }, new ControlText() { Text = context.Uri.Root.ToString(), Format = TypeFormatText.Code });
+            server.AddRow(new ControlText() { Text = this.I18N("webexpress.webapp", "setting.systeminformation.group.server.basisurl") }, new ControlText() { Text = context?.Application.ContextPath.ToString(), Format = TypeFormatText.Code });
             server.AddRow(new ControlText() { Text = this.I18N("webexpress.webapp", "setting.systeminformation.group.server.currentdirectory") }, new ControlText() { Text = Environment.CurrentDirectory, Format = TypeFormatText.Code });
             server.AddRow(new ControlText() { Text = this.I18N("webexpress.webapp", "setting.systeminformation.group.server.memory") }, new ControlText() { Text = memory.ToString(Culture) + " MB", Format = TypeFormatText.Code });
 
