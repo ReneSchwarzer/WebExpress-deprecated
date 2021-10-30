@@ -7,7 +7,7 @@ using WebExpress.WebPage;
 
 namespace WebExpress.WebApp.WebControl
 {
-    public class ControlModalFormConfirm : ControlModalForm
+    public class ControlModalFormConfirm : ControlModalFormular
     {
         /// <summary>
         /// Event wird ausgelöst, wenn das Löschen bestätigt wurde

@@ -70,7 +70,7 @@ namespace WebExpress.UI.WebControl
         /// Prüft das Eingabeelement auf Korrektheit der Daten
         /// </summary>
         /// <param name="context">Der Kontext, indem die Eingaben validiert werden</param>
-        public override void Validate(RenderContext context)
+        public override void Validate(RenderContextFormular context)
         {
             if (Disabled)
             {

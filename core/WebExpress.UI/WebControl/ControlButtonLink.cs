@@ -52,7 +52,8 @@ namespace WebExpress.UI.WebControl
                 Style = GetStyles(),
                 Role = Role,
                 Href = Uri?.ToString(),
-                Title = Title
+                Title = Title,
+                OnClick = OnClick
             };
 
             if (Icon != null && Icon.HasIcon)

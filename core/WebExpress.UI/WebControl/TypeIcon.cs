@@ -70,6 +70,7 @@
         LayerGroup,
         Lightbulb,
         Link,
+        List,
         Map,
         MapMarker,
         Microchip,
@@ -89,10 +90,11 @@
         StopCircle,
         Stopwatch,
         Sun,
+        Table,
         TachometerAlt,
-        ThermometerQuarter,
         Tag,
         Tags,
+        ThermometerQuarter,
         Times,
         Trash,
         TrashAlt,
@@ -100,10 +102,13 @@
         ThumbsUp,
         Undo,
         Upload,
+        User,
         Users,
         Wrench
     }
-
+    /// <summary>
+    /// Erweiterung des Types
+    /// </summary>
     public static class TypeIconExtensions
     {
         /// <summary>
@@ -182,6 +187,7 @@
                 TypeIcon.LayerGroup => "fas fa-layer-group",
                 TypeIcon.Lightbulb => "fas fa-lightbulb",
                 TypeIcon.Link => "fas fa-link",
+                TypeIcon.List => "fas fa-list",
                 TypeIcon.Map => "fas fa-map",
                 TypeIcon.MapMarker => "fas fa-map-marker",
                 TypeIcon.Microchip => "fas fa-microchip",
@@ -201,6 +207,7 @@
                 TypeIcon.StopCircle => "fas fa-stop-circle",
                 TypeIcon.Stopwatch => "fas fa-stopwatch",
                 TypeIcon.Sun => "fas fa-sun",
+                TypeIcon.Table => "fas fa-table",
                 TypeIcon.TachometerAlt => "fas fa-tachometer-alt",
                 TypeIcon.Tag => "fas fa-tag",
                 TypeIcon.Tags => "fas fa-tags",
@@ -212,6 +219,7 @@
                 TypeIcon.ThumbsUp => "fas fa-thumbs-up",
                 TypeIcon.Undo => "fas fa-undo",
                 TypeIcon.Upload => "fas fa-download",
+                TypeIcon.User => "fas fa-user",
                 TypeIcon.Users => "fas fa-users",
                 TypeIcon.Wrench => "fas fa-wrench",
                 _ => string.Empty,

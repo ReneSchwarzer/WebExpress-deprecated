@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using WebExpress.WebPage;
+﻿using System.Collections.Generic;
 
 namespace WebExpress.UI.WebControl
 {
     /// <summary>
-    /// 
+    /// Eventargument zum Validieren von Formulareingaben
     /// </summary>
-    public class ValidationEventArgs : EventArgs
+    public class ValidationEventArgs : FormularEventArgs
     {
         /// <summary>
         /// Liefert oder setzt sen zu überprüfenden Wert
@@ -18,11 +16,6 @@ namespace WebExpress.UI.WebControl
         /// Liefert oder setzt die Validierungsnachrichten
         /// </summary>
         public List<ValidationResult> Results { get; } = new List<ValidationResult>();
-
-        /// <summary>
-        /// Der Kontext, indem die Validierung stattfindet
-        /// </summary>
-        public RenderContext Context { get; set; }
 
         /// <summary>
         /// Konstruktor

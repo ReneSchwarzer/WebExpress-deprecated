@@ -8,6 +8,7 @@ using WebExpress.UI.WebControl;
 using WebExpress.WebApp.Attribute;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebResource;
+using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.WebApp.WebSettingPage
 {
@@ -98,7 +99,7 @@ namespace WebExpress.WebApp.WebSettingPage
                         } : null,
                         new ControlText()
                         {
-                            Text = string.Format(this.I18N("webexpress.webapp", "setting.plugin.description.label"), this.I18N(plugin.PluginID, application.Description)),
+                            Text = string.Format(I18N(context.Culture, "webexpress.webapp:setting.plugin.description.label"), I18N(context.Culture, application.Description)),
                             Format = TypeFormatText.Default,
                             TextColor = new PropertyColorText(TypeColorText.Secondary),
                             Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.Null),

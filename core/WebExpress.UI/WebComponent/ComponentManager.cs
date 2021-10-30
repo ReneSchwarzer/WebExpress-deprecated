@@ -35,7 +35,7 @@ namespace WebExpress.UI.WebComponent
         {
             Context = context;
 
-            Context.Log.Info(message: I18N("webexpress:componentmanager.initialization"));
+            Context.Log.Info(message: I18N("webexpress.ui:componentmanager.initialization"));
         }
 
         /// <summary>

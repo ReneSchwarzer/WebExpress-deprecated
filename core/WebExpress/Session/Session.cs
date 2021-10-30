@@ -48,8 +48,8 @@ namespace WebExpress.Session
         /// <summary>
         /// Liefert ein Property
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
+        /// <typeparam name="T">Der Type der Property</typeparam>
+        /// <returns>Die Property oder null</returns>
         public T GetProperty<T>() where T : class, ISessionProperty, new()
         {
             lock (Properties)
@@ -61,6 +61,27 @@ namespace WebExpress.Session
             }
 
             return default;
+        }
+
+        /// <summary>
+        /// Liefert ein Property wenn dise bereits existiert. Ansonsten wird eine neue Property erstellt.
+        /// </summary>
+        /// <typeparam name="T">Der Type der Property</typeparam>
+        /// <returns>Die Property</returns>
+        public T GetOrCreateProperty<T>() where T : class, ISessionProperty, new()
+        {
+            lock (Properties)
+            {
+                if (Properties.ContainsKey(typeof(T)))
+                {
+                    return Properties[typeof(T)] as T;
+                }
+
+                var property = new T();
+                SetProperty(property);
+
+                return property;
+            }
         }
 
         /// <summary>
@@ -83,8 +104,7 @@ namespace WebExpress.Session
         /// <summary>
         /// Entfernt ein Property
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
+        /// <typeparam name="T">Der Type der Property</typeparam>
         public void RemoveProperty<T>() where T : class, ISessionProperty, new()
         {
             lock (Properties)

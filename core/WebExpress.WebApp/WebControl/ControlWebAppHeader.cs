@@ -234,7 +234,8 @@ namespace WebExpress.WebApp.WebControl
                 Uri = firstQuickcreate?.Uri,
                 BackgroundColor = LayoutSchema.HeaderQuickCreateButtonBackground,
                 Size = LayoutSchema.HeaderQuickCreateButtonSize,
-                Margin = new PropertySpacingMargin(PropertySpacing.Space.Auto, PropertySpacing.Space.None)
+                Margin = new PropertySpacingMargin(PropertySpacing.Space.Auto, PropertySpacing.Space.None),
+                OnClick = firstQuickcreate?.OnClick
             } :
             (QuickCreatePrimary.Count > 0) ?
             new ControlButtonLink("quickcreate")
@@ -243,7 +244,8 @@ namespace WebExpress.WebApp.WebControl
                 Uri = firstQuickcreate?.Uri,
                 BackgroundColor = LayoutSchema.HeaderQuickCreateButtonBackground,
                 Size = LayoutSchema.HeaderQuickCreateButtonSize,
-                Margin = new PropertySpacingMargin(PropertySpacing.Space.Auto, PropertySpacing.Space.None)
+                Margin = new PropertySpacingMargin(PropertySpacing.Space.Auto, PropertySpacing.Space.None),
+                OnClick = firstQuickcreate?.OnClick
             } :
             null;
 

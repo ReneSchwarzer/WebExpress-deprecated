@@ -15,22 +15,22 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Event wird ausgelöst, wenn das Formular initialisiert wurde
         /// </summary>
-        event EventHandler InitializeFormular;
+        event EventHandler<FormularEventArgs> InitializeFormular;
 
         /// <summary>
         /// Event wird ausgelöst, wenn die Daten des Formulars ermittelt werden müssen
         /// </summary>
-        event EventHandler FillFormular;
+        event EventHandler<FormularEventArgs> FillFormular;
 
         /// <summary>
         /// Event wird ausgelöst, wenn das Formular verarbeitet werden soll
         /// </summary>
-        event EventHandler ProcessFormular;
+        event EventHandler<FormularEventArgs> ProcessFormular;
 
         /// <summary>
         /// Event wird ausgelöst, wenn das Formular verarbeitet und die nächsten Daten geladen werden sollen
         /// </summary>
-        event EventHandler ProcessAndNextFormular;
+        event EventHandler<FormularEventArgs> ProcessAndNextFormular;
 
         /// <summary>
         /// Liefert oder setzt den Formularnamen
@@ -76,13 +76,13 @@ namespace WebExpress.UI.WebControl
         /// Initialisiert das Formular
         /// </summary>
         /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
-        void Initialize(RenderContext context);
+        void Initialize(RenderContextFormular context);
 
         /// <summary>
         /// Vorverarbeitung des Formulars
         /// </summary>
         /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
-        void PreProcess(RenderContext context);
+        void PreProcess(RenderContextFormular context);
 
         /// <summary>
         /// Fügt Formularsteuerelement dem Formular hinzu
@@ -94,6 +94,6 @@ namespace WebExpress.UI.WebControl
         /// Prüft die Eingabeelemente auf Korrektheit der Daten
         /// </summary>
         /// <param name="context">Der Kontext, indem die Eingaben validiert werden</param>
-        void Validate(RenderContext context);
+        void Validate(RenderContextFormular context);
     }
 }

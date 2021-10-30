@@ -294,6 +294,8 @@ namespace WebExpress
                         {
                             response = CreateStatusPage<ResponseNotFound>(string.Empty, request, resource.Context);
                         }
+
+                        response.HeaderFields.AddCustomHeader("Set-Cookie", "session=" + request.Session.ID);
                     }
                     else
                     {

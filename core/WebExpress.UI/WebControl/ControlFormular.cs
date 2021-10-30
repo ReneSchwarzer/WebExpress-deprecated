@@ -5,6 +5,7 @@ using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.Uri;
 using WebExpress.WebPage;
+using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.UI.WebControl
 {
@@ -28,27 +29,27 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Event wird ausgelöst, wenn das Formular initialisiert wurde
         /// </summary>
-        public event EventHandler InitializeFormular;
+        public event EventHandler<FormularEventArgs> InitializeFormular;
 
         /// <summary>
         /// Event wird ausgelöst, wenn die Daten des Formulars ermittelt werden müssen
         /// </summary>
-        public event EventHandler FillFormular;
+        public event EventHandler<FormularEventArgs> FillFormular;
 
         /// <summary>
         /// Event wird ausgelöst, wenn das Formular verarbeitet werden soll
         /// </summary>
-        public event EventHandler ProcessFormular;
+        public event EventHandler<FormularEventArgs> ProcessFormular;
 
         /// <summary>
         /// Event wird ausgelöst, wenn das Formular verarbeitet und die nächsten Daten geladen werden sollen
         /// </summary>
-        public event EventHandler ProcessAndNextFormular;
+        public event EventHandler<FormularEventArgs> ProcessAndNextFormular;
 
         /// <summary>
         /// Liefert oder setzt den Formularnamen
         /// </summary>
-        public string Name { get; set; } = "Form";
+        public string Name { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Ziel-Uri
@@ -81,16 +82,6 @@ namespace WebExpress.UI.WebControl
         public bool EnableCancelButton { get; set; } = true;
 
         /// <summary>
-        /// Liefert oder setzt die Submit-Schaltfläche
-        /// </summary>
-        public ControlFormularItemButton SubmitAndNextButton { get; } = new ControlFormularItemButton();
-
-        /// <summary>
-        /// Speichern und weiter Schaltfläche anzeigen
-        /// </summary>
-        public bool EnableSubmitAndNextButton { get; set; } = false;
-
-        /// <summary>
         /// Liefert oder setzt die Formulareinträge
         /// </summary>
         public ICollection<ControlFormularItem> Items { get; } = new List<ControlFormularItem>();
@@ -112,7 +103,7 @@ namespace WebExpress.UI.WebControl
         public ControlFormular(string id = null)
             : base(id)
         {
-            Name = !string.IsNullOrEmpty(id) ? id : "form";
+            Name = ID != null ? ID.StartsWith("formular") ? ID : $"formular_{ ID }" : "formular";
 
             SubmitButton.Name = "submit_" + ID?.ToLower();
             SubmitButton.Icon = new PropertyIcon(TypeIcon.Save);
@@ -121,18 +112,13 @@ namespace WebExpress.UI.WebControl
             SubmitButton.Value = "1";
             SubmitButton.Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None);
 
-            SubmitAndNextButton.Name = "next_" + ID?.ToLower();
-            SubmitAndNextButton.Icon = new PropertyIcon(TypeIcon.Forward);
-            SubmitAndNextButton.Color = new PropertyColorButton(TypeColorButton.Success);
-            SubmitAndNextButton.Type = "submit";
-            SubmitAndNextButton.Value = "1";
-            SubmitAndNextButton.Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None);
-
             CancelButton.Icon = new PropertyIcon(TypeIcon.Times);
             CancelButton.BackgroundColor = new PropertyColorButton(TypeColorButton.Secondary);
             CancelButton.TextColor = new PropertyColorText(TypeColorText.White);
             CancelButton.HorizontalAlignment = TypeHorizontalAlignment.Right;
             CancelButton.Uri = BackUri != null && !BackUri.Empty ? BackUri : Uri;
+
+            SubmitButton.Click += OnSubmitButtonClick;
         }
 
         /// <summary>
@@ -159,10 +145,30 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
+        /// Wird ausgelöst, wenn auf die Submirschaltfläche geklickt wurde
+        /// </summary>
+        /// <param name="sender">Der Auslöser</param>
+        /// <param name="args">Die Eventargumente</param>
+        private void OnSubmitButtonClick(object sender, FormularEventArgs args)
+        {
+            Validate(args.Context);
+
+            if (Valid)
+            {
+                OnProcess(args.Context);
+
+                if (!string.IsNullOrWhiteSpace(RedirectUri?.ToString()))
+                {
+                    args.Context.Page.Redirecting(RedirectUri);
+                }
+            }
+        }
+
+        /// <summary>
         /// Initialisiert das Formular
         /// </summary>
         /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
-        public virtual void Initialize(RenderContext context)
+        public virtual void Initialize(RenderContextFormular context)
         {
             var renderContext = new RenderContextFormular(context, this);
 
@@ -175,15 +181,6 @@ namespace WebExpress.UI.WebControl
                 SubmitButton.Text = context.I18N(SubmitButton.Text);
             }
 
-            if (EnableSubmitAndNextButton && string.IsNullOrWhiteSpace(SubmitAndNextButton.Text))
-            {
-                SubmitAndNextButton.Text = context.I18N("webexpress.ui", "form.next.label");
-            }
-            else
-            {
-                SubmitAndNextButton.Text = context.I18N(SubmitAndNextButton.Text);
-            }
-
             if (EnableCancelButton && string.IsNullOrWhiteSpace(CancelButton.Text))
             {
                 CancelButton.Text = context.I18N("webexpress.ui", "form.cancel.label");
@@ -192,38 +189,13 @@ namespace WebExpress.UI.WebControl
             {
                 CancelButton.Text = context.I18N(CancelButton.Text);
             }
-
-            SubmitButton.Click += (s, e) =>
-            {
-                Validate(context);
-
-                if (Valid)
-                {
-                    OnProcess();
-
-                    if (!string.IsNullOrWhiteSpace(RedirectUri?.ToString()))
-                    {
-                        context.Page.Redirecting(RedirectUri);
-                    }
-                }
-            };
-
-            SubmitAndNextButton.Click += (s, e) =>
-            {
-                Validate(context);
-
-                if (Valid)
-                {
-                    OnProcessAndNextFormular();
-                }
-            };
         }
 
         /// <summary>
         /// Vorverarbeitung des Formulars
         /// </summary>
         /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
-        public virtual void PreProcess(RenderContext context)
+        public virtual void PreProcess(RenderContextFormular context)
         {
 
         }
@@ -236,27 +208,25 @@ namespace WebExpress.UI.WebControl
         public override IHtmlNode Render(RenderContext context)
         {
             var renderContext = new RenderContextFormular(context, this);
-            var formName = $"form_{ Name }";
+            var formName = Name != null ? Name.StartsWith("formular") ? Name : $"formular_{ Name }" : "formular";
 
-            Initialize(context);
+            Initialize(renderContext);
 
             (Items as List<ControlFormularItem>).ForEach(x => x?.Initialize(renderContext));
 
-            OnInitialize();
+            OnInitialize(renderContext);
 
             SubmitButton.Initialize(renderContext);
-            SubmitAndNextButton?.Initialize(renderContext);
 
             // Prüfe ob Formular abgeschickt wurde
             if (!context.Request.HasParameter(formName))
             {
-                OnFill();
+                OnFill(renderContext);
             }
 
             PreProcess(renderContext);
 
             var button = SubmitButton.Render(renderContext);
-            var next = SubmitAndNextButton.Render(renderContext);
             var cancel = CancelButton.Render(renderContext);
 
             var html = new HtmlElementFormForm()
@@ -265,7 +235,7 @@ namespace WebExpress.UI.WebControl
                 Class = GetClasses(),
                 Style = GetStyles(),
                 Role = Role,
-                Name = Name?.ToLower(),
+                Name = formName.ToLower(),
                 Action = Uri?.ToString(),
                 Method = "post",
                 Enctype = TypeEnctype.None
@@ -291,17 +261,17 @@ namespace WebExpress.UI.WebControl
                 html.Elements.Add(new ControlAlert()
                 {
                     BackgroundColor = bgColor,
-                    Text = v.Text,
+                    Text = I18N(context.Culture, v.Text),
                     Dismissible = TypeDismissibleAlert.Dismissible,
                     Fade = TypeFade.FadeShow
                 }.Render(renderContext));
             }
 
-            html.Elements.Add(new ControlFormularItemInputHidden(formName)
-            {
-                Value = Name
+            //html.Elements.Add(new ControlFormularItemInputHidden(formName)
+            //{
+            //    Value = Name
 
-            }.Render(renderContext));
+            //}.Render(renderContext));
 
             foreach (var item in Items.Where(x => x is ControlFormularItemInputHidden))
             {
@@ -324,11 +294,6 @@ namespace WebExpress.UI.WebControl
             html.Elements.Add(group.Render(renderContext));
             html.Elements.Add(button);
 
-            if (EnableSubmitAndNextButton)
-            {
-                html.Elements.Add(next);
-            }
-
             if (EnableCancelButton)
             {
                 html.Elements.Add(cancel);
@@ -349,33 +314,37 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Löst das Verarbeiten-Event aus
         /// </summary>
-        protected virtual void OnProcess()
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        protected virtual void OnProcess(RenderContextFormular context)
         {
-            ProcessFormular?.Invoke(this, new EventArgs());
+            ProcessFormular?.Invoke(this, new FormularEventArgs() { Context = context });
         }
 
         /// <summary>
         /// Löst das Verarbeiten-Event aus
         /// </summary>
-        protected virtual void OnProcessAndNextFormular()
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        protected virtual void OnProcessAndNextFormular(RenderContextFormular context)
         {
-            ProcessAndNextFormular?.Invoke(this, new EventArgs());
+            ProcessAndNextFormular?.Invoke(this, new FormularEventArgs() { Context = context });
         }
 
         /// <summary>
         /// Löst das Initialisierungs-Event aus
         /// </summary>
-        protected virtual void OnInitialize()
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        protected virtual void OnInitialize(RenderContextFormular context)
         {
-            InitializeFormular?.Invoke(this, new EventArgs());
+            InitializeFormular?.Invoke(this, new FormularEventArgs() { Context = context });
         }
 
         /// <summary>
         /// Löst das Datenbereitstellungs-Event aus
         /// </summary>
-        protected virtual void OnFill()
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        protected virtual void OnFill(RenderContextFormular context)
         {
-            FillFormular?.Invoke(this, new EventArgs());
+            FillFormular?.Invoke(this, new FormularEventArgs() { Context = context });
         }
 
         /// <summary>
@@ -400,7 +369,7 @@ namespace WebExpress.UI.WebControl
         /// Prüft das Eingabeelement auf Korrektheit der Daten
         /// </summary>
         /// <param name="context">Der Kontext, indem die Eingaben validiert werden</param>
-        public virtual void Validate(RenderContext context)
+        public virtual void Validate(RenderContextFormular context)
         {
             var valid = true;
             var validationResults = ValidationResults as List<ValidationResult>;
@@ -442,7 +411,7 @@ namespace WebExpress.UI.WebControl
         /// </summary>
         public void Reset()
         {
-            OnFill();
+            OnFill(null);
         }
     }
 }

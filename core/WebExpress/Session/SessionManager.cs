@@ -16,7 +16,7 @@ namespace WebExpress.Session
         /// </summary>
         /// <param name="request">Der Request</param>
         /// <returns>Die Session</returns>
-        public static Session Session(Request request)
+        public static Session GetSession(Request request)
         {
             var session = null as Session;
 

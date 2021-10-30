@@ -1,4 +1,5 @@
 ﻿using WebExpress.Html;
+using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.UI.WebControl
 {
@@ -51,7 +52,7 @@ namespace WebExpress.UI.WebControl
         {
             return new HtmlElementFieldLabel()
             {
-                Text = Text,
+                Text = I18N(context.Culture, Text),
                 Class = GetClasses(),
                 Style = GetStyles(),
                 Role = Role,

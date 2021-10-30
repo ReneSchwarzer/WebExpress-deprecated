@@ -440,7 +440,7 @@ namespace WebExpress.Message
         {
             if (request == null) return;
 
-            request.Session = SessionManager.Session(request);
+            request.Session = SessionManager.GetSession(request);
 
             var property = request.Session.GetProperty<SessionPropertyParameter>();
             if (property != null && property.Params != null)

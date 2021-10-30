@@ -8,7 +8,7 @@ using WebExpress.WebPage;
 
 namespace WebExpress.WebApp.WebControl
 {
-    public class ControlModalFormFileUpload : ControlModalForm
+    public class ControlModalFormFileUpload : ControlModalFormular
     {
         /// <summary>
         /// Event wird ausgelöst, wenn das Hochladen bestätigt wurde

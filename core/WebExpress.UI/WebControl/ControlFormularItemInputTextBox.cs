@@ -5,6 +5,7 @@ using WebExpress.Module;
 using WebExpress.UI.Script;
 using WebExpress.Uri;
 using WebExpress.WebPage;
+using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.UI.WebControl
 {
@@ -152,7 +153,7 @@ namespace WebExpress.UI.WebControl
                     Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
                     Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                     Role = Role,
-                    Placeholder = Placeholder,
+                    Placeholder = I18N(context.Culture, Placeholder),
                     Rows = Rows.ToString()
                 },
                 TypesEditTextFormat.Wysiwyg => new HtmlElementFormTextarea()
@@ -163,7 +164,7 @@ namespace WebExpress.UI.WebControl
                     Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
                     Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                     Role = Role,
-                    Placeholder = Placeholder,
+                    Placeholder = I18N(context.Culture, Placeholder),
                     Rows = Rows.ToString()
                 },
                 _ => new HtmlElementFieldInput()
@@ -180,7 +181,7 @@ namespace WebExpress.UI.WebControl
                     Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
                     Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                     Role = Role,
-                    Placeholder = Placeholder
+                    Placeholder = I18N(context.Culture, Placeholder)
                 },
             };
         }
@@ -189,7 +190,7 @@ namespace WebExpress.UI.WebControl
         /// Prüft das Eingabeelement auf Korrektheit der Daten
         /// </summary>
         /// <param name="context">Der Kontext, indem die Eingaben validiert werden</param>
-        public override void Validate(RenderContext context)
+        public override void Validate(RenderContextFormular context)
         {
             base.Validate(context);
 

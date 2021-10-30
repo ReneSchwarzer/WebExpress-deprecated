@@ -1,11 +1,11 @@
 ﻿using System.Linq;
 using WebExpress.Html;
-using WebExpress.Internationalization;
 using WebExpress.WebPage;
+using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.UI.WebControl
 {
-    public class ControlModalForm : ControlModal
+    public class ControlModalFormular : ControlModal
     {
         /// <summary>
         /// Liefert das Formular
@@ -16,7 +16,7 @@ namespace WebExpress.UI.WebControl
         /// Konstruktor
         /// </summary>
         /// <param name="id">Die ID</param>
-        public ControlModalForm(string id = null)
+        public ControlModalFormular(string id = null)
             : this(id, string.Empty, null)
         {
 
@@ -27,7 +27,7 @@ namespace WebExpress.UI.WebControl
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="header">Die Überschrift</param>
-        public ControlModalForm(string id, string header)
+        public ControlModalFormular(string id, string header)
             : this(id, header, null)
         {
 
@@ -38,7 +38,7 @@ namespace WebExpress.UI.WebControl
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="content">Die Formularsteuerelemente</param>
-        public ControlModalForm(string id, params ControlFormularItem[] content)
+        public ControlModalFormular(string id, params ControlFormularItem[] content)
             : this(id, string.Empty, content)
         {
 
@@ -50,13 +50,12 @@ namespace WebExpress.UI.WebControl
         /// <param name="id">Die ID</param>
         /// <param name="header">Die Überschrift</param>
         /// <param name="content">Die Formularsteuerelemente</param>
-        public ControlModalForm(string id, string header, params ControlFormularItem[] content)
+        public ControlModalFormular(string id, string header, params ControlFormularItem[] content)
             : base("modal_" + id, string.Empty, content)
         {
             Formular = new ControlFormular("form_" + id, content)
             {
-                EnableCancelButton = false,
-                EnableSubmitAndNextButton = false
+                EnableCancelButton = false
             };
 
             Formular.Validated += (s, e) =>
@@ -91,7 +90,7 @@ namespace WebExpress.UI.WebControl
                 classes.Add("fade");
             }
 
-            var headerText = new HtmlElementSectionH4(Header)
+            var headerText = new HtmlElementSectionH4(I18N(context.Culture, Header))
             {
                 Class = "modal-title"
             };
@@ -137,7 +136,7 @@ namespace WebExpress.UI.WebControl
 
             var cancelFooterButton = new ControlButtonLink()
             {
-                Text = context.I18N("webexpress.ui", "modal.close.label")
+                Text = I18N(context.Culture, "webexpress.ui:modal.close.label")
             }.Render(context) as HtmlElement;
 
             cancelFooterButton.AddUserAttribute("data-dismiss", "modal");

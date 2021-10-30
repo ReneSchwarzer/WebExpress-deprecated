@@ -58,7 +58,7 @@ namespace WebExpress.Message
         /// <summary>
         /// Liefert oder setzt die Cookies
         /// </summary>
-        public List<Cookie> Cookies { get; private set; }
+        public List<Cookie> Cookies { get; private set; } = new List<Cookie>();
 
         /// <summary>
         /// Konstruktor

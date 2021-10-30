@@ -136,7 +136,8 @@ namespace WebExpress.UI.WebControl
                 Class = Css.Concatenate("btn", Css.Remove(GetClasses(), Margin.ToClass())),
                 Style = GetStyles(),
                 Target = Target,
-                Href = Uri?.ToString()
+                Href = Uri?.ToString(),
+                OnClick = OnClick
             };
 
             if (Icon != null && Icon.HasIcon)

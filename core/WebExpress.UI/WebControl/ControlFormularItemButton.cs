@@ -52,7 +52,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Event wird ausgelöst, wenn die Schlatfläche geklickt wurde
         /// </summary>
-        public EventHandler Click;
+        public EventHandler<FormularEventArgs> Click;
 
         /// <summary>
         /// Liefert oder setzt den Text der TextBox
@@ -98,7 +98,7 @@ namespace WebExpress.UI.WebControl
 
                 if (!string.IsNullOrWhiteSpace(Value) && value == Value)
                 {
-                    OnClickEvent(new EventArgs());
+                    OnClickEvent(new FormularEventArgs() { Context = context });
                 }
             }
         }
@@ -155,7 +155,7 @@ namespace WebExpress.UI.WebControl
         /// Löst das Click-Event aus
         /// </summary>
         /// <param name="e"></param>
-        protected virtual void OnClickEvent(EventArgs e)
+        protected virtual void OnClickEvent(FormularEventArgs e)
         {
             Click?.Invoke(this, e);
         }
