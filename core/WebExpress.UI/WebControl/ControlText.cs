@@ -317,7 +317,7 @@ namespace WebExpress.UI.WebControl
                 case TypeFormatText.Markdown:
                     return Markdown.Markdown.Transform(text);
                 default:
-                    html = new HtmlElementTextContentDiv(new HtmlText(Text))
+                    html = new HtmlElementTextContentDiv(new HtmlText(text))
                     {
                         ID = ID,
                         Class = GetClasses(),

@@ -149,28 +149,28 @@ namespace WebExpress.UI.WebControl
         public override IHtmlNode Render(RenderContext context)
         {
             Columns.ForEach(x => x.Layout = ColumnLayout);
-
-            Classes.Add("table");
+            var classes = Classes.ToList();
+            classes.Add("table");
 
             if (Striped)
             {
-                Classes.Add("table-striped");
+                classes.Add("table-striped");
             }
 
             if (Responsive)
             {
-                Classes.Add("table-responsive");
+                classes.Add("table-responsive");
             }
 
             if (Reflow)
             {
-                Classes.Add("table-reflow");
+                classes.Add("table-reflow");
             }
 
             var html = new HtmlElementTableTable()
             {
                 ID = ID,
-                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Role = Role
             };

@@ -1,8 +1,9 @@
-﻿using WebExpress.Message;
+﻿using System.Text.Json;
+using WebExpress.Message;
 
 namespace WebExpress.WebResource
 {
-    public class ResourceApi : Resource
+    public abstract class ResourceApi : Resource
     {
         /// <summary>
         /// Liefert oder setzt den Inhalt
@@ -29,10 +30,9 @@ namespace WebExpress.WebResource
         /// <summary>
         /// Verarbeitung
         /// </summary>
-        public virtual void Process()
-        {
-
-        }
+        /// <param name="request">Die Anfrage</param>
+        /// <returns>Ein Objekt welches mittels JsonSerializer serialisiert werden kann.</returns>
+        public abstract object GetData(Request request);
 
         /// <summary>
         /// Verarbeitung
@@ -41,12 +41,17 @@ namespace WebExpress.WebResource
         /// <returns>Die Antwort</returns>
         public override Response Process(Request request)
         {
-            Process();
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true
+            };
+
+            var content = JsonSerializer.Serialize(GetData(request), options);
 
             var response = new ResponseOK();
-            response.HeaderFields.ContentLength = Content.Length;
+            response.HeaderFields.ContentLength = content.Length;
 
-            response.Content = Content;
+            response.Content = content;
 
             return response;
         }

@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using WebExpress.Html;
 using WebExpress.WebPage;
+using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.UI.WebControl
 {
@@ -41,38 +42,40 @@ namespace WebExpress.UI.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
+            var classes = Classes.ToList();
+
             switch (Layout)
             {
                 case TypesLayoutTableRow.Primary:
-                    Classes.Add("table-primary");
+                    classes.Add("table-primary");
                     break;
                 case TypesLayoutTableRow.Secondary:
-                    Classes.Add("table-secondary");
+                    classes.Add("table-secondary");
                     break;
                 case TypesLayoutTableRow.Success:
-                    Classes.Add("table-success");
+                    classes.Add("table-success");
                     break;
                 case TypesLayoutTableRow.Info:
-                    Classes.Add("table-info");
+                    classes.Add("table-info");
                     break;
                 case TypesLayoutTableRow.Warning:
-                    Classes.Add("table-warning");
+                    classes.Add("table-warning");
                     break;
                 case TypesLayoutTableRow.Danger:
-                    Classes.Add("table-danger");
+                    classes.Add("table-danger");
                     break;
                 case TypesLayoutTableRow.Light:
-                    Classes.Add("table-light");
+                    classes.Add("table-light");
                     break;
                 case TypesLayoutTableRow.Dark:
-                    Classes.Add("table-dark");
+                    classes.Add("table-dark");
                     break;
             }
 
             var html = new HtmlElementTextContentDiv()
             {
                 ID = ID,
-                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Role = Role
             };
@@ -95,13 +98,13 @@ namespace WebExpress.UI.WebControl
 
             if (!string.IsNullOrWhiteSpace(Text))
             {
-                html.Elements.Add(new HtmlText(Text));
+                html.Elements.Add(new HtmlText(I18N(context.Culture, Text)));
             }
 
             return new HtmlElementTableTh(html)
             {
                 ID = ID,
-                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Role = Role
             };
