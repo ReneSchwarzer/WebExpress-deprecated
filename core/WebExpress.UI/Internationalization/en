@@ -8,7 +8,7 @@ module.description=Provides basic components.
 resourceasset.load={0}: File '{1}' has been loaded
 
 componentmanager.initialization=The component manager has been initialized.
-componentmanager.register=The component '{0}' has been registered in the section '{1}' of the  application '{2}'.
+componentmanager.register=The component '{0}' has been registered in the '{1}' section of the '{2}' module of the '{3}' application.
 componentmanager.error.section=The section is incorrect.
 
 form.submit.label=Submit

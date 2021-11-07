@@ -11,11 +11,16 @@ namespace WebExpress.WebApp.WebApiControl
     public class ControlApiProgressBarTaskState : ControlProgressBar
     {
         /// <summary>
+        /// Java-Script-Funktion, welche aufgerufen wird, wenn die Aufgabe abgeschlossen ist 
+        /// </summary>
+        public string OnFinishScript { get; set; }
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">Die ID</param>
         public ControlApiProgressBarTaskState(string id)
-            :base(id)
+            : base(id)
         {
         }
 
@@ -27,15 +32,7 @@ namespace WebExpress.WebApp.WebApiControl
         public override IHtmlNode Render(RenderContext context)
         {
             var module = ModuleManager.GetModule(context.Application, "webexpress.webapp");
-
-            var code = @"setInterval(function ()  
-            {
-                $.ajax({ url: '" + module?.ContextPath.Append("api/v1/taskstatus") + @"', dataType: 'json' }).then(function(data)
-                {
-                    document.getElementById('" + ID + @"').firstElementChild.style.width = data.Progress + ""%"";
-                });
-            }, 1000);";
-
+            var code = $"updateTaskProgressBar('{ ID }', '{ module?.ContextPath.Append("api/v1/taskstatus") }', { OnFinishScript });";
 
             context.VisualTree.AddScript("webexpress.webapp:controlapiprogressbartaskstate", code);
 

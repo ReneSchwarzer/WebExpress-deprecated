@@ -69,7 +69,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Liefert oder setzt die Formulareinträge
         /// </summary>
-        public ICollection<ControlFormularItem> Items { get; } = new List<ControlFormularItem>();
+        public IList<ControlFormularItem> Items { get; } = new List<ControlFormularItem>();
 
         /// <summary>
         /// Bestimmt ob die Eingabe gültig sind

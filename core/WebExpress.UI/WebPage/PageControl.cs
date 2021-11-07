@@ -14,17 +14,17 @@ namespace WebExpress.UI.WebPage
         /// <summary>
         /// Liefert oder setzt die Links auf die zu verwendenden JavaScript-Dateien, welche im Header eingefügt werden
         /// </summary>
-        private ICollection<IUri> HeaderScriptLinks { get; } = new List<IUri>();
+        protected ICollection<IUri> HeaderScriptLinks { get; } = new List<IUri>();
 
         /// <summary>
         /// Liefert oder setzt die Links auf die zu verwendenden Css-Dateien
         /// </summary>
-        private ICollection<IUri> CssLinks { get; } = new List<IUri>();
+        protected ICollection<IUri> CssLinks { get; } = new List<IUri>();
 
         /// <summary>
         /// Liefert die Metainformationen
         /// </summary>
-        private List<KeyValuePair<string, string>> Meta { get; } = new List<KeyValuePair<string, string>>();
+        protected List<KeyValuePair<string, string>> Meta { get; } = new List<KeyValuePair<string, string>>();
 
         /// <summary>
         /// Konstruktor
@@ -47,8 +47,8 @@ namespace WebExpress.UI.WebPage
             {
                 CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/fontawesome.min.css")));
                 CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/bootstrap.min.css")));
-                CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/express.css")));
-                CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/express.form.css")));
+                CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/webexpress.ui.css")));
+                CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/webexpress.ui.form.css")));
                 CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/solid.css")));
                 //CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/summernote-bs4.min.css")));
                 //CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/simpletags.css")));

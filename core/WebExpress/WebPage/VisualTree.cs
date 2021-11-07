@@ -100,6 +100,15 @@ namespace WebExpress.WebResource
         }
 
         /// <summary>
+        /// Fügt eine Java-Script im Header hinzu
+        /// </summary>
+        /// <param name="url">Der Link</param>
+        public virtual void AddHeaderScriptLinks(IUri url)
+        {
+            HeaderScriptLinks?.Add(url);
+        }
+
+        /// <summary>
         /// In HTML konvertieren
         /// </summary>
         /// <param name="context">Der Kontext zum Rendern der Seite</param>

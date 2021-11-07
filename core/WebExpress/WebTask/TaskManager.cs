@@ -1,4 +1,4 @@
-﻿using WebExpress.Module;
+﻿using System;
 
 namespace WebExpress.WebTask
 {
@@ -41,27 +41,33 @@ namespace WebExpress.WebTask
         /// Erstellt eine neue Aufgabe oder leifert eine bestehende Aufgabe zurück
         /// </summary>
         /// <param name="id">Die ID der Aufgabe</param>
+        /// <param name="handler">Der Eventhandler</param>
+        /// <param name="args">Eventargumente</param>
         /// <returns>Die Aufgabe</returns>
-        public static ITask CreateTask(string id)
+        public static ITask CreateTask(string id, EventHandler<TaskEventArgs> handler, params object[] args)
         {
-            return CreateTask<Task>(id);
+            return CreateTask<Task>(id, handler, args);
         }
 
         /// <summary>
         /// Erstellt eine neue Aufgabe oder leifert eine bestehende Aufgabe zurück
         /// </summary>
         /// <param name="id">Die ID der Aufgabe</param>
+        /// <param name="handler">Der Eventhandler</param>
+        /// <param name="args">Eventargumente</param>
         /// <returns>Die Aufgabe</returns>
-        public static ITask CreateTask<T>(string id) where T : Task, new()
+        public static ITask CreateTask<T>(string id, EventHandler<TaskEventArgs> handler, params object[] args) where T : Task, new()
         {
             var key = id?.ToLower();
 
             if (!Dictionary.ContainsKey(id))
             {
-                var task = new Task() { ID = id, State = TaskState.Created };
+                var task = new Task() { ID = id, State = TaskState.Created, Arguments = args };
                 Dictionary.Add(key, task);
 
                 task.Initialization();
+
+                task.Process += handler;
 
                 return task;
             }

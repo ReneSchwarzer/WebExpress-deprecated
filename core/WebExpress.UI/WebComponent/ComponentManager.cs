@@ -129,7 +129,7 @@ namespace WebExpress.UI.WebComponent
                                 Component = component
                             });
 
-                            Context.Log.Info(message: I18N("webexpress.ui:componentmanager.register"), args: new object[] { component.Name, key, moduleID });
+                            Context.Log.Info(message: I18N("webexpress.ui:componentmanager.register"), args: new object[] { component.Name, key, moduleID, module.Application.ApplicationID });
                         }
                     }
                     else
@@ -152,7 +152,7 @@ namespace WebExpress.UI.WebComponent
                             Component = component
                         });
 
-                        Context.Log.Info(message: I18N("webexpress.ui:componentmanager.register"), args: new object[] { component.Name, section, moduleID });
+                        Context.Log.Info(message: I18N("webexpress.ui:componentmanager.register"), args: new object[] { component.Name, section, moduleID, module.Application.ApplicationID });
                     }
 
                 }

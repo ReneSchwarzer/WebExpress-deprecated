@@ -21,14 +21,14 @@
     <None Remove="Assets\css\bootstrap.min.css" />
     <None Remove="Assets\css\bootstrap.min.css.map" />
     <None Remove="Assets\css\Chart.min.css" />
-    <None Remove="Assets\css\express.css" />
-    <None Remove="Assets\css\express.form.css" />
     <None Remove="Assets\css\fontawesome.min.css" />
     <None Remove="Assets\css\moveselector.css" />
     <None Remove="Assets\css\simpletags.css" />
     <None Remove="Assets\css\solid.css" />
     <None Remove="Assets\css\summernote-bs4.css" />
     <None Remove="Assets\css\summernote-bs4.min.css" />
+    <None Remove="Assets\css\webexpress.ui.css" />
+    <None Remove="Assets\css\webexpress.ui.form.css" />
     <None Remove="Assets\fonts\fa-solid-900.eot" />
     <None Remove="Assets\fonts\fa-solid-900.ttf" />
     <None Remove="Assets\fonts\fa-solid-900.woff" />
@@ -151,10 +151,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Assets\css\bootstrap.min.css.map" />
     <EmbeddedResource Include="Assets\css\Chart.min.css" />
-    <EmbeddedResource Include="Assets\css\express.css">
+    <EmbeddedResource Include="Assets\css\webexpress.ui.css">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Assets\css\express.form.css">
+    <EmbeddedResource Include="Assets\css\webexpress.ui.form.css">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Assets\css\fontawesome.min.css" />

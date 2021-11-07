@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
-using WebExpress.Internationalization;
 using WebExpress.WebPage;
+using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.UI.WebControl
 {
@@ -115,14 +115,15 @@ namespace WebExpress.UI.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            Classes.Add("modal");
+            var classes = Classes.ToList();
+            classes.Add("modal");
 
             if (Fade)
             {
-                Classes.Add("fade");
+                classes.Add("fade");
             }
 
-            var headerText = new HtmlElementSectionH4(Header)
+            var headerText = new HtmlElementSectionH4(I18N(context.Culture, Header))
             {
                 Class = "modal-title"
             };
@@ -151,7 +152,7 @@ namespace WebExpress.UI.WebControl
 
             var footer = null as HtmlElementTextContentDiv;
 
-            var footerButton = new HtmlElementFieldButton(new HtmlText(context.I18N("webexpress.ui", "modal.close.label")))
+            var footerButton = new HtmlElementFieldButton(new HtmlText(I18N(context.Culture, "webexpress.ui:modal.close.label")))
             {
                 Type = "button",
                 Class = Css.Concatenate("btn", new PropertyColorButton(TypeColorButton.Primary).ToStyle())
@@ -177,7 +178,7 @@ namespace WebExpress.UI.WebControl
             var html = new HtmlElementTextContentDiv(dialog)
             {
                 ID = ID,
-                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Role = "dialog"
             };

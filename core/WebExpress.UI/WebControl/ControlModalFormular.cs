@@ -58,13 +58,33 @@ namespace WebExpress.UI.WebControl
                 EnableCancelButton = false
             };
 
-            Formular.Validated += (s, e) =>
+            Formular.InitializeFormular += OnInitializeFormular;
+
+            Formular.Validated += OnValidatedFormular;
+        }
+
+        /// <summary>
+        /// Aufruf erfolgt, wenn das Formular initialisiert wird.
+        /// </summary>
+        /// <param name="sender">Der Auslöser</param>
+        /// <param name="e">Die Eventargumente</param>
+        private void OnInitializeFormular(object sender, FormularEventArgs e)
+        {
+            ShowIfCreated = false;
+        }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn das Formular validiert wurde
+        /// </summary>
+        /// <param name="sender">Der Auslöser</param>
+        /// <param name="e">Die Eventargumente</param>
+        private void OnValidatedFormular(object sender, ValidationResultEventArgs e)
+        {
+            if (!e.Valid)
             {
-                if (!e.Valid)
-                {
-                    ShowIfCreated = true;
-                }
-            };
+                ShowIfCreated = true;
+                Fade = false;
+            }
         }
 
         /// <summary>
@@ -74,12 +94,8 @@ namespace WebExpress.UI.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
+            var fade = Fade;
             var classes = Classes.ToList();
-
-            if (!Formular.Valid)
-            {
-                Fade = false;
-            }
 
             var form = Formular.Render(context) as HtmlElementFormForm;
 
@@ -185,6 +201,8 @@ namespace WebExpress.UI.WebControl
 
             form.Elements.Clear();
             form.Elements.Add(html);
+
+            Fade = fade;
 
             return form;
         }

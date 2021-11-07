@@ -7,7 +7,7 @@ namespace WebExpress.WebTask
         /// <summary>
         /// Event wird ausgelöst, wenn die Aufgabe ausgeführt wird
         /// </summary>
-        event EventHandler Process;
+        event EventHandler<TaskEventArgs> Process;
 
         /// <summary>
         /// Die ID der Aufgabe
@@ -22,7 +22,12 @@ namespace WebExpress.WebTask
         /// <summary>
         /// Ermittelt den Fortschritt der Aufgabe. Der Wertebereich liegt zwischen 0 und 100.
         /// </summary>
-        int Progress { get; }
+        int Progress { get; set; }
+
+        /// <summary>
+        /// Liefert oder setzt eine Nachricht, die Auskunft über die Abarbeitung gibt.
+        /// </summary>
+        string Message { get; set;  }
 
         /// <summary>
         /// Initialisierung

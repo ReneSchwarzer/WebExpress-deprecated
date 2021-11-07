@@ -84,17 +84,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Liefert oder setzt die Formulareinträge
         /// </summary>
-        public ICollection<ControlFormularItem> Items { get; } = new List<ControlFormularItem>();
-
-        /// <summary>
-        /// Bestimmt ob die Eingabe gültig sind
-        /// </summary>
-        public bool Valid { get; private set; }
-
-        /// <summary>
-        /// Liefert die Validierungsergebnisse
-        /// </summary>
-        public ICollection<ValidationResult> ValidationResults { get; } = new List<ValidationResult>();
+        public IList<ControlFormularItem> Items { get; } = new List<ControlFormularItem>();
 
         /// <summary>
         /// Konstruktor
@@ -153,7 +143,7 @@ namespace WebExpress.UI.WebControl
         {
             Validate(args.Context);
 
-            if (Valid)
+            if (!args.Context.ValidationResults.Any())
             {
                 OnProcess(args.Context);
 
@@ -170,8 +160,6 @@ namespace WebExpress.UI.WebControl
         /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         public virtual void Initialize(RenderContextFormular context)
         {
-            var renderContext = new RenderContextFormular(context, this);
-
             if (string.IsNullOrWhiteSpace(SubmitButton.Text))
             {
                 SubmitButton.Text = context.I18N("webexpress.ui", "form.submit.label");
@@ -241,7 +229,7 @@ namespace WebExpress.UI.WebControl
                 Enctype = TypeEnctype.None
             };
 
-            foreach (var v in ValidationResults)
+            foreach (var v in renderContext.ValidationResults)
             {
                 var bgColor = new PropertyColorBackgroundAlert(TypeColorBackground.Default);
 
@@ -372,9 +360,7 @@ namespace WebExpress.UI.WebControl
         public virtual void Validate(RenderContextFormular context)
         {
             var valid = true;
-            var validationResults = ValidationResults as List<ValidationResult>;
-
-            validationResults.Clear();
+            var validationResults = context.ValidationResults as List<ValidationResult>;
 
             foreach (var v in Items.Where(x => x is IFormularValidation).Select(x => x as IFormularValidation))
             {
@@ -398,9 +384,7 @@ namespace WebExpress.UI.WebControl
                 valid = false;
             }
 
-            Valid = valid;
-
-            var validatedArgs = new ValidationResultEventArgs(Valid);
+            var validatedArgs = new ValidationResultEventArgs(valid);
             validatedArgs.Results.AddRange(validationResults);
 
             OnValidated(validatedArgs);

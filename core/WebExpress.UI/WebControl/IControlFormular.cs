@@ -60,17 +60,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Liefert oder setzt die Formulareinträge
         /// </summary>
-        ICollection<ControlFormularItem> Items { get; }
-
-        /// <summary>
-        /// Bestimmt ob die Eingabe gültig sind
-        /// </summary>
-        bool Valid { get; }
-
-        /// <summary>
-        /// Liefert die Validierungsergebnisse
-        /// </summary>
-        ICollection<ValidationResult> ValidationResults { get; }
+        IList<ControlFormularItem> Items { get; }
 
         /// <summary>
         /// Initialisiert das Formular

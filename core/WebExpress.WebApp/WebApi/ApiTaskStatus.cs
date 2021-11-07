@@ -1,4 +1,5 @@
-﻿using WebExpress.Attribute;
+﻿using System.Linq;
+using WebExpress.Attribute;
 using WebExpress.Message;
 using WebExpress.WebResource;
 using WebExpress.WebTask;
@@ -11,6 +12,7 @@ namespace WebExpress.WebApp.WebAPI
     [ID("TaskStatusV1")]
     [Segment("taskstatus", "")]
     [Path("/api/v1")]
+    [IncludeSubPaths(true)]
     [Module("webexpress.webapp")]
     [Optional]
     public sealed class APITaskStatusV1 : ResourceApi
@@ -38,7 +40,7 @@ namespace WebExpress.WebApp.WebAPI
         /// <returns>Ein Objekt welches mittels JsonSerializer serialisiert werden kann.</returns>
         public override object GetData(Request request)
         {
-            var id = $"inventoryexpress_export_{request.Session.ID}";
+            var id = request.Uri.Path.Last().Value;
 
             if (TaskManager.ContainsTask(id))
             {
@@ -48,7 +50,8 @@ namespace WebExpress.WebApp.WebAPI
                 {
                     ID = id,
                     State = task.State,
-                    Progress = task.Progress
+                    Progress = task.Progress,
+                    Message = task.Message
                 };
             }
 

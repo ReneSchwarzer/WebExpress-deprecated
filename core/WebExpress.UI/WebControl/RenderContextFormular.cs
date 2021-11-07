@@ -1,4 +1,5 @@
-﻿using WebExpress.Message;
+﻿using System.Collections.Generic;
+using WebExpress.Message;
 using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebControl
@@ -11,6 +12,11 @@ namespace WebExpress.UI.WebControl
         public IControlFormular Formular { get; private set; }
 
         /// <summary>
+        /// Liefert die Validierungsfehler
+        /// </summary>
+        public ICollection<ValidationResult> ValidationResults { get; } = new List<ValidationResult>();
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="page">Die Seite, indem das Steuerelement gerendert wird</param>
@@ -18,7 +24,7 @@ namespace WebExpress.UI.WebControl
         /// <param name="visualTree">Der visuelle Baum</param>
         /// <param name="formular">Das Formular, indem das Steuerelement gerendert wird</param>
         public RenderContextFormular(IPage page, Request request, IVisualTree visualTree, IControlFormular formular)
-            : base(page, request, visualTree)
+                : base(page, request, visualTree)
         {
             Formular = formular;
         }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
+using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.UI.WebControl
 {
@@ -48,7 +49,7 @@ namespace WebExpress.UI.WebControl
 
             var html = new HtmlElementTextContentP()
             {
-                Text = Text,
+                Text = I18N(context.Culture, Text),
                 Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Role = Role

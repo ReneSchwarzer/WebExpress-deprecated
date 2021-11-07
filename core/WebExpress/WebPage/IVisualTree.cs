@@ -58,6 +58,12 @@ namespace WebExpress.WebPage
         void AddScriptLink(string url);
 
         /// <summary>
+        /// Fügt eine Java-Script im Header hinzu
+        /// </summary>
+        /// <param name="url">Der Link</param>
+        void AddHeaderScriptLinks(IUri url);
+
+        /// <summary>
         /// Fügt eine Java-Script hinzu oder sersetzt dieses, falls vorhanden
         /// </summary>
         /// <param name="key">Der Schlüssel</param>

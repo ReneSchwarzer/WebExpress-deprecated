@@ -28,7 +28,7 @@ fileupload.label=Hochladen
 fileupload.header=Dokument hochladen
 fileupload.file.label=Dokument
 fileupload.file.description=Bitte wählen Sie ein Dokument von Ihrem lokalen Gerät aus.
-fileupload.file.validation.error.nofile=Es wurde kein Dokument angegeben.
+fileupload.file.validation.error.nofile=Es wurde keine Datei angegeben.
 
 delete.label=Löschen
 delete.header=Löschen bestätigen
@@ -73,6 +73,7 @@ setting.logfile.switchon.description=Das Aktivieren ist nur bis zum nächsten Ne
 setting.logfile.switchon.success=Das Logging wurde aktiviert.
 
 setting.plugin.label=Installierte Anwendungen
+setting.plugin.description=
 setting.plugin.name.label=Name
 setting.plugin.version.label=Version
 setting.plugin.manufacturer.label=Hersteller: {0}
@@ -80,3 +81,7 @@ setting.plugin.copyright.label=Copyright: {0}
 setting.plugin.license.label=Lizenz: {0}
 setting.plugin.description.label=Beschreibung: {0}
 setting.plugin.modules.label=Module
+setting.plugin.upload.label=Plugin installieren
+setting.plugin.upload.header=Plugin installieren
+setting.plugin.upload.help=Laden Sie hier ein Plugin in Form einer dll-Datei hoch.
+setting.plugin.upload.description=Bitte wählen Sie ein Plugin von Ihrem lokalen Gerät aus, welches Sie installieren möchten.

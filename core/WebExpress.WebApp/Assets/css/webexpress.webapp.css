@@ -1,0 +1,8 @@
+﻿.popupnotification {
+    position: fixed;
+    z-index: 999;
+    top: 5em;
+    right: 2em;
+    max-width: 30em;
+    width: 25em;
+}

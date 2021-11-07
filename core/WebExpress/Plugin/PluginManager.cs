@@ -185,6 +185,18 @@ namespace WebExpress.Plugin
         }
 
         /// <summary>
+        /// Ermittelt ein Plugin anhand der Dateinamens
+        /// </summary>
+        /// <param name="pluginFileName">Der Dateiname</param>
+        /// <returns>Der Kontext des Plugins oder null</returns>
+        public static IPluginContext GetPluginByFileName(string pluginFileName)
+        {
+            var pluginContext = Dictionary.Values.Where(x => x.Context.Assembly.ManifestModule.Name == pluginFileName).FirstOrDefault()?.Context;
+
+            return pluginContext;
+        }
+
+        /// <summary>
         /// Fürt die Plugins aus
         /// </summary>
         internal static void Boot()
@@ -247,5 +259,14 @@ namespace WebExpress.Plugin
         {
 
         }
+
+        /// <summary>
+        /// Meldet ein Plugin ab und zerstört alle darin enthaltenden Elemente
+        /// </summary>
+        public static void Unsubscribe(string name)
+        {
+
+        }
+
     }
 }

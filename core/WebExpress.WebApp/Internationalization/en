@@ -28,7 +28,7 @@ fileupload.label=Upload
 fileupload.header=Upload document
 fileupload.file.label=Document
 fileupload.file.description=Please select a document from your local device.
-fileupload.file.validation.error.nofile=No document was specified.
+fileupload.file.validation.error.nofile=No file was specified.
 
 delete.label=Delete
 delete.header=Confirm Delete
@@ -72,7 +72,8 @@ setting.titel.plugin.label=Plugins
 setting.titel.systeminformation.label=System information
 setting.titel.log.label=Log
 
-setting.plugin.label=Installed Applications
+setting.plugin.label=Installed applications
+setting.plugin.description=
 setting.plugin.name.label=Name
 setting.plugin.version.label=Version
 setting.plugin.manufacturer.label=Manufacturer: {0}
@@ -80,3 +81,7 @@ setting.plugin.copyright.label=Copyright: {0}
 setting.plugin.license.label=License: {0}
 setting.plugin.description.label=Description: {0}
 setting.plugin.modules.label=Modules
+setting.plugin.upload.label=Install plugin
+setting.plugin.upload.header=Install plugin
+setting.plugin.upload.help=Upload a plugin in the form of a dll file here.
+setting.plugin.upload.description=Please select a plugin from your local device that you want to install.

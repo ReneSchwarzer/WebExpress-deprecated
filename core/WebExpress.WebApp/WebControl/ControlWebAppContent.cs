@@ -58,6 +58,7 @@ namespace WebExpress.WebApp.WebControl
         {
             BackgroundColor = LayoutSchema.ContentBackground;
             Toolbar.BackgroundColor = LayoutSchema.ToolbarBackground;
+            Margin = new PropertySpacingMargin(PropertySpacing.Space.Two);
         }
 
         /// <summary>
@@ -72,6 +73,8 @@ namespace WebExpress.WebApp.WebControl
                 Headline
             )
             {
+                Padding = new PropertySpacingPadding(PropertySpacing.Space.Two, PropertySpacing.Space.Null),
+                Margin = new PropertySpacingMargin(PropertySpacing.Space.Null, PropertySpacing.Space.Two, PropertySpacing.Space.Null, PropertySpacing.Space.Null),
                 BackgroundColor = LayoutSchema.ContentBackground,
                 Width = TypeWidth.OneHundred
             };

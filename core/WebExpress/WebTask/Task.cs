@@ -1,19 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
+using WebExpress.WebPage;
 
 namespace WebExpress.WebTask
 {
     public class Task : ITask
     {
         /// <summary>
-        /// Interne Verwaltung des Fortschrittes
+        /// Interne Verwaltung des Fortschrittes.
         /// </summary>
         private int progress { get; set; }
 
         /// <summary>
-        /// Event wird ausgelöst, wenn die Aufgabe ausgeführt wird
+        /// Event wird ausgelöst, wenn die Aufgabe ausgeführt wird.
         /// </summary>
-        public event EventHandler Process;
+        public event EventHandler<TaskEventArgs> Process;
 
         /// <summary>
         /// Die ID der Aufgabe
@@ -21,12 +23,17 @@ namespace WebExpress.WebTask
         public string ID { get; internal set; }
 
         /// <summary>
-        /// Liefert den Zustand, indem sich die Aufgabe befindet
+        /// Liefert den Zustand, indem sich die Aufgabe befindet.
         /// </summary>
         public TaskState State { get; internal set; }
 
         /// <summary>
-        /// Threadbeendigung der Aufgabe
+        /// Die Argumente
+        /// </summary>
+        public ICollection<object> Arguments { get; internal set; }
+
+        /// <summary>
+        /// Threadbeendigung der Aufgabe.
         /// </summary>
         private CancellationTokenSource TokenSource { get; } = new CancellationTokenSource();
 
@@ -40,6 +47,11 @@ namespace WebExpress.WebTask
         }
 
         /// <summary>
+        /// Liefert oder setzt eine Nachricht, die Auskunft über die Abarbeitung gibt.
+        /// </summary>
+        public string Message { get; set; }
+
+        /// <summary>
         /// Initialisierung
         /// </summary>
         public virtual void Initialization()
@@ -51,7 +63,7 @@ namespace WebExpress.WebTask
         /// </summary>
         protected virtual void OnProcess()
         {
-            Process?.Invoke(this, new EventArgs());
+            Process?.Invoke(this, new TaskEventArgs());
         }
 
         /// <summary>
@@ -75,7 +87,7 @@ namespace WebExpress.WebTask
         }
 
         /// <summary>
-        /// Abbruch einer bestehenden Verarbeitung
+        /// Abbruch einer bestehenden Verarbeitung.
         /// </summary>
         public void Cancel()
         {

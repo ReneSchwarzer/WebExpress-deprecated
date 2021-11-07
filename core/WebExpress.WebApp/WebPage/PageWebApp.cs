@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
 using WebExpress.Html;
 using WebExpress.Internationalization;
+using WebExpress.Module;
 using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
 using WebExpress.UI.WebPage;
+using WebExpress.Uri;
+using WebExpress.WebApp.WebApiControl;
 using WebExpress.WebApp.WebComponent;
 using WebExpress.WebResource;
 
@@ -74,6 +77,13 @@ namespace WebExpress.WebApp.WebPage
         public override void Initialization(IResourceContext context)
         {
             base.Initialization(context);
+
+            var module = ModuleManager.GetModule(Context?.Application, "webexpress.webapp");
+            if (module != null)
+            {
+                CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/webexpress.webapp.css")));
+                HeaderScriptLinks.Add(module.ContextPath.Append("assets/js/webexpress.webapp.js"));
+            }
 
             // Header
             HeaderHamburgerPrimary.AddRange(ComponentManager.CreateComponent<IControlDropdownItem>(context.Application, Section.AppPrimary, context.Context));
@@ -203,6 +213,7 @@ namespace WebExpress.WebApp.WebPage
                 visualTreeControl.Content.Add(context.VisualTree.SearchOptions);
                 visualTreeControl.Content.Add(context.VisualTree.Sidebar.HasContent ? split : context.VisualTree.Content);
                 visualTreeControl.Content.Add(context.VisualTree.Footer);
+                visualTreeControl.Content.Add(new ControlApiNotificationPopup("popup_notification"));
             }
         }
     }

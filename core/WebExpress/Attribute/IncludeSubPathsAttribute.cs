@@ -1,5 +1,8 @@
 ﻿namespace WebExpress.Attribute
 {
+    /// <summary>
+    /// Bestimmt, ob alle Ressourcen unterhalb des angegebenen Pfades (inkl. Segment) mitverarbeitet werden.
+    /// </summary>
     public class IncludeSubPathsAttribute : System.Attribute, IResourceAttribute
     {
         /// <summary>
