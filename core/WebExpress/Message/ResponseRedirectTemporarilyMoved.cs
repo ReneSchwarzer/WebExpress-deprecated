@@ -16,7 +16,7 @@
 
             //HeaderFields.ContentType = "text/html";
             //HeaderFields.ContentLength = Content.ToString().Length;
-            HeaderFields.Location = location;
+            Header.Location = location;
         }
     }
 }

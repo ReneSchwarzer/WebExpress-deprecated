@@ -16,11 +16,6 @@ namespace WebExpress.WebResource
         public IResourceContext Context { get; private set; }
 
         /// <summary>
-        /// Liefert die I18N-PluginID
-        /// </summary>
-        public string I18NKey => Context?.Plugin.PluginID;
-
-        /// <summary>
         /// Liefert die Kultur
         /// </summary>
         public CultureInfo Culture { get; set; }

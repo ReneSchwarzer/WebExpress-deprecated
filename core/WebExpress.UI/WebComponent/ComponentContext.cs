@@ -34,11 +34,6 @@ namespace WebExpress.UI.WebComponent
         public CultureInfo Culture { get; set; }
 
         /// <summary>
-        /// Liefert den I18N-Key
-        /// </summary>
-        public string I18NKey => Plugin?.PluginID;
-
-        /// <summary>
         /// Liefert oder setzt das Log, zum schreiben von Statusnachrichten auf die Konsole und in eine Log-Datei
         /// </summary>
         public Log Log { get; internal set; }

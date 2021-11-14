@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
 using WebExpress.Uri;
@@ -11,17 +12,12 @@ namespace WebExpress
     public class HttpServerContext : IHttpServerContext
     {
         /// <summary>
-        /// Liefert die Uri
+        /// Liefert die Uri, auf die der Webserver reagiert
         /// </summary>
-        public IUri Uri { get; protected set; }
+        public ICollection<string> Uris { get; protected set; }
 
         /// <summary>
-        /// Liefert den Port
-        /// </summary>
-        public int Port { get; protected set; }
-
-        /// <summary>
-        /// Liefert die Version des Plugins 
+        /// Liefert die Version des Http-Servers 
         /// </summary>
         public string Version { get; protected set; }
 
@@ -53,7 +49,7 @@ namespace WebExpress
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="uri">Die Uri des Servers</param>
+        /// <param name="uris">Die Uri des Servers</param>
         /// <param name="port">Der Port</param>
         /// <param name="assetBaseFolder">Daten-Basisverzeichnis</param>
         /// <param name="configBaseFolder">Konfigurationserzeichnis</param>
@@ -62,8 +58,7 @@ namespace WebExpress
         /// <param name="log">Log</param>
         public HttpServerContext
         (
-            IUri uri,
-            int port,
+            ICollection<string> uris,
             string assetBaseFolder,
             string configBaseFolder,
             IUri contextPath,
@@ -74,8 +69,7 @@ namespace WebExpress
             var assembly = typeof(HttpServer).Assembly;
             Version = assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
 
-            Uri = uri ?? new UriAbsolute(UriScheme.Http, new UriAuthority() { Host = Environment.MachineName, Port = port != 80 ? port : null }, null);
-            Port = port;
+            Uris = uris;
             AssetPath = assetBaseFolder;
             ConfigPath = configBaseFolder;
             ContextPath = contextPath;

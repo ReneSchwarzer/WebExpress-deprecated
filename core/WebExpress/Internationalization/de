@@ -8,18 +8,22 @@ app.configurationdirectory=Konfigurationsverzeichnis: {0}
 app.configuration=Konfiguration: {0}
 app.logdirectory=Logverzeichnis: {0}
 app.log=Log: {0}
-app.port=Port: {0}
+app.uri=Uri: {0}
 app.errors={0} Fehler
 app.warnings={0} Warnung(en)
 app.done=Programmende
 
-httpserver.run=Starte HttpServer auf Port {0}.
+httpserver.run=Starte HttpServer.
+httpserver.notsupported=Das Betriebssystem auf dem WebExpress ausgeführt werden soll wird nicht unterstützt.
 httpserver.connected={0}: Client wurde verbunden.
 httpserver.rejected={0}: Client wurde abgelehnt.
 httpserver.request={0}: Anfrage '{1}'
 httpserver.request.unexpected={0}: Unerwartete Anfrage '{1}'
 httpserver.request.done={0}: Anfrage wurde in {1} ms bearbeitet. Status = {2}
 httpserver.connectionlimit=Das Limit für gleichzeitige Anfragen wurde überschritten.
+httpserver.listener.exeption=Der Listener konnte nicht gestartet werden. Eventuell haben Sie keine Rechte auf den Port zuzugreifen oder dieser wird bereits verwendet.
+httpserver.listener.try=Falls Ihnen Zugriffsrechte fehlen, führen Sie unter Windows folgende Anweisung als Administrator aus:
+httpserver.listener.windows=netsh http add urlacl url={0} user=Jeder listen=yes
 
 internationalizationmanager.initialization=Der Internationalisierungsmanager wurde initialisiert.
 internationalizationmanager.register=Das Plugin '{0}' wurde im Internationalizationmanager registriert.

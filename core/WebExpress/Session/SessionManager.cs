@@ -21,7 +21,7 @@ namespace WebExpress.Session
             var session = null as Session;
 
             // Session ermitteln
-            var sessionCookie = request?.HeaderFields
+            var sessionCookie = request?.Header
                 .Cookies?.Where(x => x.Name.Equals("session", StringComparison.OrdinalIgnoreCase))
                 .FirstOrDefault();
 

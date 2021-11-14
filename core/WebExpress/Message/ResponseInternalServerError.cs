@@ -14,8 +14,8 @@
             Status = 500;
             Reason = "Internal Server Error";
 
-            HeaderFields.ContentType = "text/html";
-            HeaderFields.ContentLength = content.Length;
+            Header.ContentType = "text/html";
+            Header.ContentLength = content.Length;
             Content = content;
         }
     }

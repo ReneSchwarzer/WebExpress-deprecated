@@ -28,6 +28,11 @@ namespace WebExpress.Message
         /// <returns></returns>
         public static RequestAuthorization Parse(string str)
         {
+            if (str == null)
+            {
+                return null;
+            }
+
             var m = Regex.Match(str, "^(.*) (.*)$");
             var type = "Basic";
             var user = "";

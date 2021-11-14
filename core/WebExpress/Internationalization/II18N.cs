@@ -8,10 +8,5 @@ namespace WebExpress.Internationalization
         /// Liefert oder setzt die Kultur
         /// </summary>
         CultureInfo Culture { get; set; }
-
-        /// <summary>
-        /// Liefert den I18N-Key
-        /// </summary>
-        string I18NKey { get; }
     }
 }

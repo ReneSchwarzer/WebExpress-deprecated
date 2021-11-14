@@ -25,11 +25,6 @@ namespace WebExpress.WebPage
         public IUri Uri => Request?.Uri;
 
         /// <summary>
-        /// Liefert die I18N-PluginID
-        /// </summary>
-        public string I18NKey => Page?.Context.Plugin.PluginID;
-
-        /// <summary>
         /// Liefert die Kultur
         /// </summary>
         public CultureInfo Culture

@@ -151,7 +151,7 @@ namespace WebExpress.UI.WebControl
                 Text = "Löschen",
                 Icon = new PropertyIcon(TypeIcon.TrashAlt),
                 TextColor = new PropertyColorText(TypeColorText.Danger),
-                Uri = context.Request.Uri
+                Uri = context.Uri
             });
 
             var header = new HtmlElementTextContentDiv(setting.Render(context), profile.Render(context), headerText)

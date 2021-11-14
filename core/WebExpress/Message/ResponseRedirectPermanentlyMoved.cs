@@ -13,7 +13,7 @@
             Status = 301;
             Reason = "permanently moved";
 
-            HeaderFields.Location = location;
+            Header.Location = location;
         }
     }
 }

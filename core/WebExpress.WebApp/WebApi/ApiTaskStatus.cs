@@ -49,9 +49,9 @@ namespace WebExpress.WebApp.WebAPI
                 return new
                 {
                     ID = id,
-                    State = task.State,
-                    Progress = task.Progress,
-                    Message = task.Message
+                    task.State,
+                    task.Progress,
+                    task.Message
                 };
             }
 

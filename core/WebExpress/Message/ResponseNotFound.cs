@@ -14,8 +14,8 @@
             Status = 404;
             Reason = "Not Found";
 
-            HeaderFields.ContentType = "text/html";
-            HeaderFields.ContentLength = content.Length;
+            Header.ContentType = "text/html";
+            Header.ContentLength = content.Length;
             Content = content;
         }
     }

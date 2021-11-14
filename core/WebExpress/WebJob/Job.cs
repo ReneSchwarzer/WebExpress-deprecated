@@ -6,11 +6,6 @@ namespace WebExpress.WebJob
     public class Job : IJob
     {
         /// <summary>
-        /// Liefert die I18N-PluginID
-        /// </summary>
-        public string I18NKey => Context?.Plugin.PluginID;
-
-        /// <summary>
         /// Liefert die Kultur
         /// </summary>
         public CultureInfo Culture { get; set; }

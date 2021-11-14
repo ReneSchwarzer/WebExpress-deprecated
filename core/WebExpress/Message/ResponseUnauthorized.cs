@@ -13,7 +13,7 @@
             Status = 401;
             Reason = "OK";
 
-            HeaderFields.WWWAuthenticate = true;
+            Header.WWWAuthenticate = true;
         }
     }
 }

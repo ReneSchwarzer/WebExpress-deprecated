@@ -49,7 +49,7 @@ namespace WebExpress.WebResource
             var content = JsonSerializer.Serialize(GetData(request), options);
 
             var response = new ResponseOK();
-            response.HeaderFields.ContentLength = content.Length;
+            response.Header.ContentLength = content.Length;
 
             response.Content = content;
 

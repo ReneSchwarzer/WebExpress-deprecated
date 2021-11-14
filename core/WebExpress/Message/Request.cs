@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using WebExpress.Html;
@@ -11,22 +11,32 @@ using WebExpress.Uri;
 namespace WebExpress.Message
 {
     /// <summary>
-    /// siehe RFC 2616
+    /// siehe RFC 2616, Die Request-Klasse kapselt den orginalen Request des HttpListener-Aufrufes und erweitert diesen.
     /// </summary>
     public class Request
     {
         /// <summary>
-        /// Setzt oder liefert den Anfragetyp
+        /// Liefert den orginalen Request
+        /// </summary>
+        private HttpListenerRequest RawRequuest { get; }
+
+        /// <summary>
+        /// Liefert den Anfragetyp
         /// </summary>
         public RequestMethod Method { get; private set; }
 
         /// <summary>
-        /// Setzt oder liefert die URL
+        /// Liefert die URL
         /// </summary>
         public IUri Uri { get; internal set; }
 
         /// <summary>
-        /// Setzt oder liefert den Client
+        /// Liefert die URL
+        /// </summary>
+        public IUri BaseUri { get; internal set; }
+
+        /// <summary>
+        /// Liefert den Client
         /// </summary>
         public string Client { get; private set; }
 
@@ -43,12 +53,62 @@ namespace WebExpress.Message
         /// <summary>
         /// Setzt oder liefert die HTTP-Version
         /// </summary>
-        public string Version { get; private set; }
+        public Version Version => RawRequuest?.ProtocolVersion;
 
         /// <summary>
         /// Setzt oder liefert die Optionen im Header
         /// </summary>
-        public RequestHeaderFields HeaderFields { get; private set; }
+        public RequestHeaderFields Header { get; private set; }
+
+        /// <summary>
+        /// Ruft die IP-Adresse und Anschlussnummer des Servers ab, an den die Anforderung gerichtet ist.
+        /// </summary>
+        public IPEndPoint LocalEndPoint => RawRequuest?.LocalEndPoint;
+
+        /// <summary>
+        /// Ruft die IP-Adresse und Anschlussnummer des Clients ab, von dem die Anforderung stammt.
+        /// </summary>
+        public IPEndPoint RemoteEndPoint => RawRequuest?.RemoteEndPoint;
+
+        /// <summary>
+        /// Ruft einen Boolean-Wert ab, der angibt, ob der diese Anforderung sendende Client authentifiziert ist.
+        /// </summary>
+        public bool IsAuthenticated => RawRequuest.IsAuthenticated;
+
+        /// <summary>
+        /// Ruft einen Boolean-Wert ab, der angibt, ob die Anforderung vom lokalen Computer gesendet wurde.
+        /// </summary>
+        public bool IsLocal => RawRequuest.IsLocal;
+
+        /// <summary>
+        /// Ruft einen Boolean-Wert ab, der angibt, ob die TCP-Verbindung, mit der die Anforderung gesendet wird, das SSL (Secure Sockets Layer)-Protokoll verwendet.
+        /// </summary>
+        public bool IsSecureConnection => RawRequuest.IsSecureConnection;
+
+        /// <summary>
+        /// Ruft einen Boolean-Wert ab, der angibt, ob die TCP Verbindung eine WEbSocket Anforderung war.
+        /// </summary>
+        public bool IsWebSocketRequest => RawRequuest.IsWebSocketRequest;
+
+        /// <summary>
+        /// Ruft einen Boolean-Wert ab, der angibt, ob der Client eine permanente Verbindung anfordert.
+        /// </summary>
+        public bool KeepAlive => RawRequuest.KeepAlive;
+
+        /// <summary>
+        /// Ruft den Anforderungsbezeichner der eingehenden HTTP-Anforderung ab.
+        /// </summary>
+        public Guid RequestTraceIdentifier => RawRequuest.RequestTraceIdentifier;
+
+        /// <summary>
+        /// Ruft den Anforderungsbezeichner der eingehenden HTTP-Anforderung ab.
+        /// </summary>
+        public string UserHostName => RawRequuest?.UserHostName;
+
+        /// <summary>
+        /// Ruft die IP-Adresse und Anschlussnummer des Servers ab, an den die Anforderung gerichtet ist.
+        /// </summary>
+        public string UserHostAddress => RawRequuest?.UserHostAddress;
 
         /// <summary>
         /// Liefert den Inhalt
@@ -58,202 +118,88 @@ namespace WebExpress.Message
         /// <summary>
         /// Konstruktor
         /// </summary>
-        protected Request(RequestMethod type, string url, string version, RequestHeaderFields options, string client)
+        /// <param name="request">Der Request, welcher vom HttpListener erzeugt wurde</param>
+        internal Request(HttpListenerRequest request)
         {
-            Method = type;
-            Uri = new UriRelative(url);
-            Version = version;
-            HeaderFields = options;
-            Client = client;
+            RawRequuest = request;
+            Method = request.HttpMethod.ToLower() switch
+            {
+                "get" => RequestMethod.GET,
+                "post" => RequestMethod.POST,
+                "put" => RequestMethod.PUT,
+                "delete" => RequestMethod.GET,
+                "head" => RequestMethod.HEAD,
+                _ => RequestMethod.GET
+            };
+
+            Uri = new UriRelative(RawRequuest.RawUrl);
+            BaseUri = new UriAbsolute(RawRequuest.Url.OriginalString.Substring(0, RawRequuest.Url.OriginalString.Length - RawRequuest.RawUrl.Length));
+            Header = new RequestHeaderFields(request);
+
+            Content = GetContent(request);
+            ParseRequestParams();
+            ParseSessionParams();
         }
 
         /// <summary>
-        /// Extrahiert aus dem Stream die Http-Anfrage
+        /// Ermittelt den Content
         /// </summary>
-        /// <param name="reader">Der Reader</param>
-        /// <param name="client">Die Client-IP</param>
-        /// <returns>Die Anfrage</returns>
-        public static Request Create(BinaryReader reader, string client)
+        /// <param name="request">Der Request, welcher vom HttpListener erzeugt wurde</param>
+        /// <returns>Der Content</returns>
+        private static byte[] GetContent(HttpListenerRequest request)
         {
             var capacity = 1024;
-            var header = new List<string>();
             var buffer = new byte[capacity];
-            var line = new byte[capacity];
-            var counter = 0;
-            var readCount = 0;
+            var offset = 0;
 
-            // Lese Header
+            var content = new byte[request.ContentLength64];
+
+            int readCount;
+            // Lese Content
             do
             {
-                readCount = reader.Read(buffer, 0, capacity);
+                readCount = request.InputStream.Read(buffer, offset, capacity);
 
-                for (var i = 0; i < readCount; i++)
+                if (readCount > 0)
                 {
-                    if (buffer[i] == '\r')
-                    {
-                        header.Add(Encoding.UTF8.GetString(line, 0, counter));
-                    }
-                    else if (buffer[i] == '\n' && counter > 0)
-                    {
-                        counter = 0;
-                    }
-                    else if (buffer[i] == '\n' && counter == 0)
-                    {
-                        // Ende des Headers
-                        var request = Request.Parse(header, client);
+                    Buffer.BlockCopy(buffer, 0, content, offset, readCount);
 
-                        // ContentLength ermitteln
-                        var contentLength = request.HeaderFields.ContentLength;
-                        if (contentLength > 0)
-                        {
-                            var content = new byte[contentLength /*- 2*/]; // Leerzeile des Contentbereiches '\r\n' wird nicht mitgezählt
-                            var offset = readCount - i;
-
-                            //var b = Encoding.UTF8.GetString(buffer, 0, 1024);
-
-                            // Lese bereits gelesenen Content
-                            Buffer.BlockCopy(buffer, i + 1, content, 0, offset - 1);
-
-                            if (i + contentLength > buffer.Length)
-                            {
-                                // Lese neuen Content
-                                do
-                                {
-                                    offset += reader.Read(content, offset - 1, content.Length - offset + 1);
-                                }
-                                while (offset < content.Length);
-                            }
-
-                            ParseRequestParams(request, content);
-
-                            // Leerzeile lesen
-                            //readCount = reader.Read(buffer, 0, capacity);
-                        }
-
-                        ParseSessionParams(request);
-
-                        return request;
-                    }
-                    else
-                    {
-                        line[counter] = buffer[i];
-                        counter++;
-                    }
+                    offset += readCount;
                 }
             }
-            while (!(readCount < capacity));
+            while (readCount < 0);
 
-            // Ohne Content
-            {
-                var request = Request.Parse(header, client);
-                ParseSessionParams(request);
-
-                return request;
-            }
-        }
-
-        /// <summary>
-        /// Parst den Request und erzeugt ein Request-Objekt
-        /// </summary>
-        /// <param name="request">Der Request in Stringform</param>
-        /// <returns>Der Request als Objekt</returns>
-        private static Request Parse(ICollection<string> request, string client)
-        {
-            if (request == null || request.Count == 0)
-            {
-                return null;
-            }
-
-            var type = RequestMethod.NONE;
-            var url = string.Empty;
-            var version = string.Empty;
-            var urlMatch = null as Match;
-            var methode = request.Take(1).FirstOrDefault();
-            var options = request.Skip(1).TakeWhile(x => !string.IsNullOrWhiteSpace(x)).ToList();
-            var len = methode.Length;
-
-            var match = Regex.Match(methode, @"(GET|POST|PUT|DELETE) (.*) (.*)$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-
-            if (match.Groups[1].Success)
-            {
-                switch (match.Groups[1].Value.ToLower())
-                {
-                    case "get":
-                        type = RequestMethod.GET;
-                        break;
-                    case "post":
-                        type = RequestMethod.POST;
-                        break;
-                    case "put":
-                        type = RequestMethod.PUT;
-                        break;
-                    case "delete":
-                        type = RequestMethod.GET;
-                        break;
-                    case "head":
-                        type = RequestMethod.HEAD;
-                        break;
-                }
-            }
-
-            if (match.Groups[2].Success)
-            {
-                url = match.Groups[2].Value;
-                urlMatch = Regex.Match(url, @"^(.*)\?(.*)$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-
-                if (urlMatch.Groups[1].Success)
-                {
-                    url = urlMatch.Groups[1].Value;
-                }
-            }
-
-            if (match.Groups[3].Success)
-            {
-                version = match.Groups[3].Value;
-            }
-
-            var req = new Request(type, url, version, RequestHeaderFields.Parse(options), client);
-
-            if (urlMatch.Groups[2].Success && urlMatch.Groups[2].Length > 0)
-            {
-                foreach (var v in urlMatch.Groups[2].Value.Split('&'))
-                {
-                    var regex = new Regex("[=]{1}");
-                    var kv = regex.Split(v, 2);
-
-                    req.AddParameter(new Parameter(kv[0], kv.Count() > 1 ? kv[1] : string.Empty, ParameterScope.Parameter));
-                }
-            }
-
-            return req;
+            return content;
         }
 
         /// <summary>
         /// Ermittelt den Content einer Anfrage
         /// </summary>
-        /// <param name="request">Die Anfrage</param>
-        /// <param name="content">Die Contentdaten</param>
-        private static void ParseRequestParams(Request request, byte[] content)
+        private void ParseRequestParams()
         {
-            var contentType = request.HeaderFields.ContentType?.Split(';');
-            request.Content = content;
+            if (string.IsNullOrWhiteSpace(Header.ContentType))
+            {
+                return;
+            }
+            
+            var contentType = Header.ContentType?.Split(';');
 
             switch (TypeEnctypeExtensions.Convert(contentType.FirstOrDefault()))
             {
                 case TypeEnctype.None:
                     {
-                        var boundary = contentType.Skip(1)?.FirstOrDefault();
+                        var boundary = Header.ContentType;
                         var boundaryValue = "--" + boundary?.Split('=').Skip(1)?.FirstOrDefault();
                         var offset = 0;
                         int pos = 0;
                         var dispositions = new List<Tuple<int, int>>(); // Item1=Position, Item2=Länge
 
                         // ermittle Dispositionen
-                        for (var i = 0; i < content.Length; i++)
+                        for (var i = 0; i < Content.Length; i++)
                         {
-                            if (content[i] == '\r')
+                            if (Content[i] == '\r')
                             {
-                                var c = Encoding.UTF8.GetString(content, offset, boundaryValue.Length).Trim();
+                                var c = Encoding.UTF8.GetString(Content, offset, boundaryValue.Length).Trim();
                                 if (c.StartsWith(boundaryValue))
                                 {
                                     if (i - boundaryValue.Length - pos > 0)
@@ -269,14 +215,14 @@ namespace WebExpress.Message
                                     }
                                 }
                             }
-                            else if (content[i] == '\n')
+                            else if (Content[i] == '\n')
                             {
                                 offset = i + 1;
                             }
-                            else if (i == content.Length - 1)
+                            else if (i == Content.Length - 1)
                             {
                                 // Am Ende
-                                var c = Encoding.UTF8.GetString(content, offset, boundaryValue.Length).Trim();
+                                var c = Encoding.UTF8.GetString(Content, offset, boundaryValue.Length).Trim();
                                 if (c.StartsWith(boundaryValue))
                                 {
                                     dispositions.Add(new Tuple<int, int>(pos, i - boundaryValue.Length - pos));
@@ -292,7 +238,7 @@ namespace WebExpress.Message
                             var contenttype = string.Empty;
                             offset = 0;
 
-                            var str = Encoding.UTF8.GetString(content, item.Item1, item.Item2 > 256 ? 256 : item.Item2);
+                            var str = Encoding.UTF8.GetString(Content, item.Item1, item.Item2 > 256 ? 256 : item.Item2);
                             var match = Regex.Match(str, @"^Content-Disposition: (.*)$", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled);
                             if (match.Groups[1].Success)
                             {
@@ -327,15 +273,15 @@ namespace WebExpress.Message
                                 offset += 2; // + Leerzeile
                                 if (item.Item2 - offset - 1 >= 0)
                                 {
-                                    var value = Encoding.UTF8.GetString(content, item.Item1 + offset, item.Item2 - offset - 2);
+                                    var value = Encoding.UTF8.GetString(Content, item.Item1 + offset, item.Item2 - offset - 2);
 
                                     var param = new Parameter(name, value.TrimEnd(), ParameterScope.Parameter);
-                                    request.AddParameter(param);
+                                    AddParameter(param);
                                 }
                                 else
                                 {
                                     var param = new Parameter(name, string.Empty, ParameterScope.Parameter);
-                                    request.AddParameter(param);
+                                    AddParameter(param);
                                 }
                             }
                             else
@@ -344,15 +290,15 @@ namespace WebExpress.Message
                                 if (item.Item2 - offset - 1 >= 0)
                                 {
                                     var bytes = new byte[item.Item2 - offset - 2];
-                                    Buffer.BlockCopy(content, item.Item1 + offset, bytes, 0, item.Item2 - offset - 2);
+                                    Buffer.BlockCopy(Content, item.Item1 + offset, bytes, 0, item.Item2 - offset - 2);
 
                                     var param = new ParameterFile(name, filename, ParameterScope.Parameter) { ContentType = contenttype, Data = bytes };
-                                    request.AddParameter(param);
+                                    AddParameter(param);
                                 }
                                 else
                                 {
                                     var param = new Parameter(name, filename, ParameterScope.Parameter);
-                                    request.AddParameter(param);
+                                    AddParameter(param);
                                 }
                             }
                         }
@@ -364,22 +310,22 @@ namespace WebExpress.Message
                         var lines = new List<string>();
                         var offset = 0;
 
-                        for (var i = 0; i < content.Length; i++)
+                        for (var i = 0; i < Content.Length; i++)
                         {
-                            if (content[i] == '\r')
+                            if (Content[i] == '\r')
                             {
-                                lines.Add(Encoding.UTF8.GetString(content, offset, i - offset));
+                                lines.Add(Encoding.UTF8.GetString(Content, offset, i - offset));
                             }
-                            else if (content[i] == '\n')
+                            else if (Content[i] == '\n')
                             {
                                 offset = i + 1;
                             }
                         }
 
                         // wenn noch nicht alle Bytes gelesen wurden
-                        if (offset < content.Length)
+                        if (offset < Content.Length)
                         {
-                            lines.Add(Encoding.UTF8.GetString(content, offset, content.Length - offset));
+                            lines.Add(Encoding.UTF8.GetString(Content, offset, Content.Length - offset));
                         }
 
                         var last = null as Parameter;
@@ -390,7 +336,7 @@ namespace WebExpress.Message
                             if (match.Groups[1].Success && match.Groups[2].Success)
                             {
                                 last = new Parameter(match.Groups[1].ToString().Trim(), match.Groups[2].ToString().Trim(), ParameterScope.Parameter);
-                                request.AddParameter(last);
+                                AddParameter(last);
                             }
                             else if (last != null)
                             {
@@ -408,16 +354,16 @@ namespace WebExpress.Message
                     }
                 case TypeEnctype.UrLEncoded:
                     {
-                        var str = Encoding.UTF8.GetString(content, 0, content.Length);
+                        var str = Encoding.UTF8.GetString(Content, 0, Content.Length);
                         var param = str.Replace('+', ' ');
 
                         foreach (var v in param.Split('&'))
                         {
                             var s = v.Split('=');
-                            request.AddParameter(new Parameter
+                            AddParameter(new Parameter
                             (
                                 s[0],
-                                s.Count() > 1 ? s[1]?.TrimEnd() : string.Empty,
+                                s.Length > 1 ? s[1]?.TrimEnd() : string.Empty,
                                 ParameterScope.Parameter
                             ));
                         }
@@ -435,19 +381,16 @@ namespace WebExpress.Message
         /// <summary>
         /// Ermittelt den die Parameter aus der Session
         /// </summary>
-        /// <param name="request">Die Anfrage</param>
-        private static void ParseSessionParams(Request request)
+        private void ParseSessionParams()
         {
-            if (request == null) return;
+            Session = SessionManager.GetSession(this);
 
-            request.Session = SessionManager.GetSession(request);
-
-            var property = request.Session.GetProperty<SessionPropertyParameter>();
+            var property = Session.GetProperty<SessionPropertyParameter>();
             if (property != null && property.Params != null)
             {
                 foreach (var param in property.Params)
                 {
-                    request.AddParameter(new Parameter(param.Key?.ToLower(), param.Value.Value, ParameterScope.Session));
+                    AddParameter(new Parameter(param.Key?.ToLower(), param.Value.Value, ParameterScope.Session));
                 }
             }
         }

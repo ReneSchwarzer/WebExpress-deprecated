@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Xml.Serialization;
@@ -115,8 +116,7 @@ namespace WebExpress
 
             var context = new HttpServerContext
             (
-                !string.IsNullOrWhiteSpace(config.Uri) ? new UriAbsolute(config.Uri) : null,
-                port > 0 ? port : config.Port,
+                config.Uris,
                 string.IsNullOrWhiteSpace(config.AssetBase) ? Environment.CurrentDirectory : config.AssetBase,
                 Path.GetDirectoryName(configFile),
                 new UriRelative(config.ContextPath),
@@ -124,7 +124,7 @@ namespace WebExpress
                 Log.Current
             );
 
-            HttpServer = new HttpServer(context.Port, context)
+            HttpServer = new HttpServer(context)
             {
                 Config = config
             };
@@ -144,7 +144,11 @@ namespace WebExpress
             HttpServer.Context.Log.Info(message: I18N("webexpress:app.configuration"), args: Path.GetFileName(configFile));
             HttpServer.Context.Log.Info(message: I18N("webexpress:app.logdirectory"), args: Path.GetDirectoryName(HttpServer.Context.Log.Filename));
             HttpServer.Context.Log.Info(message: I18N("webexpress:app.log"), args: Path.GetFileName(HttpServer.Context.Log.Filename));
-            HttpServer.Context.Log.Info(message: I18N("webexpress:app.port"), args: context.Port);
+            foreach (var v in config.Uris)
+            {
+                HttpServer.Context.Log.Info(message: I18N("webexpress:app.uri"), args: v);
+            }
+
             HttpServer.Context.Log.Seperator('=');
 
             Console.CancelKeyPress += OnCancel;

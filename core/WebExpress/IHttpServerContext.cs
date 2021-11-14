@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.Collections.Generic;
+using System.Globalization;
 using WebExpress.Uri;
 
 namespace WebExpress
@@ -9,17 +10,12 @@ namespace WebExpress
     public interface IHttpServerContext
     {
         /// <summary>
-        /// Liefert die Uri
+        /// Liefert die Uris, auf die der Webserver reagiert
         /// </summary>
-        IUri Uri { get; }
+        ICollection<string> Uris { get; }
 
         /// <summary>
-        /// Liefert den Port
-        /// </summary>
-        int Port { get; }
-
-        /// <summary>
-        /// Liefert die Version des Plugins 
+        /// Liefert die Version des Http-Servers 
         /// </summary>
         string Version { get; }
 

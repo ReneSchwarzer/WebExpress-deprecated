@@ -39,8 +39,8 @@ namespace WebExpress.WebApp.WebSettingPage
             Data = File.ReadAllBytes(Context.Log.Filename);
 
             var response = base.Process(request);
-            response.HeaderFields.CacheControl = "no-cache";
-            response.HeaderFields.ContentType = "text/plain";
+            response.Header.CacheControl = "no-cache";
+            response.Header.ContentType = "text/plain";
 
             return response;
         }

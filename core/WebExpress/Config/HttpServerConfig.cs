@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using System.Collections.Generic;
+using System.Xml.Serialization;
 using WebExpress.Setting;
 
 namespace WebExpress.Config
@@ -19,13 +20,7 @@ namespace WebExpress.Config
         /// Die Uri des Webservers
         /// </summary>
         [XmlElement("uri")]
-        public string Uri { get; set; }
-
-        /// <summary>
-        /// Der Port des Webservers
-        /// </summary>
-        [XmlElement("port", DataType = "int")]
-        public int Port { get; set; }
+        public List<string> Uris { get; set; }
 
         /// <summary>
         /// Das Verbindungslimit

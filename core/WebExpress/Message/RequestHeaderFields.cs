@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
-using System.Text.RegularExpressions;
+using System.Net;
+using System.Text;
 
 namespace WebExpress.Message
 {
@@ -23,7 +25,7 @@ namespace WebExpress.Message
         /// <summary>
         /// Liefert oder setzt die Content-Länge
         /// </summary>
-        public int ContentLength { get; private set; }
+        public long ContentLength { get; private set; }
 
         /// <summary>
         /// Liefert oder setzt den Content-Typ
@@ -36,9 +38,24 @@ namespace WebExpress.Message
         public string ContentLanguage { get; private set; }
 
         /// <summary>
+        /// Liefert oder setzt die Kodierung des Content
+        /// </summary>
+        public Encoding ContentEncoding { get; private set; }
+
+        /// <summary>
         /// Liefert oder setzt den User-Educationen
         /// </summary>
         public string UserEducation { get; private set; }
+
+        /// <summary>
+        /// Liefert oder setzt den User-Agent
+        /// </summary>
+        public string UserAgent { get; private set; }
+
+        /// <summary>
+        /// Liefert oder setzt die erlaubten Medientypen
+        /// </summary>
+        public ICollection<string> Accept { get; private set; }
 
         /// <summary>
         /// Liefert oder setzt die erlaubten Endkodierungen
@@ -48,7 +65,7 @@ namespace WebExpress.Message
         /// <summary>
         /// Liefert oder setzt die erlaubten Sprachen
         /// </summary>
-        public string AcceptLanguage { get; private set; }
+        public ICollection<string> AcceptLanguage { get; private set; }
 
         /// <summary>
         /// Liefert oder setzt die Zugangsdaten Name und Passwort
@@ -58,74 +75,31 @@ namespace WebExpress.Message
         /// <summary>
         /// Liefert oder setzt die Cookies
         /// </summary>
-        public List<Cookie> Cookies { get; private set; } = new List<Cookie>();
+        public CookieCollection Cookies { get; } = new CookieCollection();
 
         /// <summary>
         /// Konstruktor
         /// </summary>
-        private RequestHeaderFields()
+        /// <param name="request">Der Request, welcher vom HttpListener erzeugt wurde</param>
+        internal RequestHeaderFields(HttpListenerRequest request)
         {
-        }
+            var headers = request.Headers;
 
-        /// <summary>
-        /// Optionen parsen
-        /// </summary>
-        /// <param name="options"></param>
-        /// <returns></returns>
-        public static RequestHeaderFields Parse(List<string> options)
-        {
-            var obj = new RequestHeaderFields()
-            {
-                Host = GetOptionsValue(options, "Host"),
-                Connection = GetOptionsValue(options, "Connection"),
-                ContentType = GetOptionsValue(options, "Content-Type"),
-                ContentLanguage = GetOptionsValue(options, "Content-Language"),
-                UserEducation = GetOptionsValue(options, "User-Education"),
-                AcceptEncoding = GetOptionsValue(options, "Accept-Encoding"),
-                AcceptLanguage = GetOptionsValue(options, "Accept-Language")
-            };
-
-            var authorization = GetOptionsValue(options, "Authorization");
-            obj.Authorization = string.IsNullOrWhiteSpace(authorization) ? null : RequestAuthorization.Parse(authorization);
-
-            try
-            {
-                obj.ContentLength = Convert.ToInt32(GetOptionsValue(options, "Content-Length"));
-            }
-            catch
-            {
-                obj.ContentLength = -1;
-            }
-
-            var cookie = GetOptionsValue(options, "Cookie");
-            if (!string.IsNullOrWhiteSpace(cookie))
-            {
-                obj.Cookies = (from c in cookie.Split(';') select new Cookie(c)).ToList();
-            }
-
-            return obj;
-        }
-
-        /// <summary>
-        /// Liefert zu einer Option den Wert
-        /// </summary>
-        /// <param name="options">Die Optionen</param>
-        /// <param name="property">Die Eigenschaft</param>
-        /// <returns>Der Wert oder null, wenn nicht vorhanden</returns>
-        private static string GetOptionsValue(List<string> options, string property)
-        {
-            string value = null;
-
-            foreach (var v in options)
-            {
-                var match = Regex.Match(v, "^" + property + ": (.*)$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-                if (match.Success && match.Groups.Count >= 2 && match.Groups[1].Success)
-                {
-                    return match.Groups[1].Value;
-                }
-            }
-
-            return value;
+            Host = headers["host"];
+            Connection = headers["Connection"];
+            ContentLanguage = headers["Content-Language"];
+            UserEducation = headers["User-Education"];
+            AcceptEncoding = headers["Accept-Encoding"];
+           
+            Authorization = RequestAuthorization.Parse(headers["Authorization"]);
+                        
+            Accept = request.AcceptTypes;
+            ContentType = request.ContentType;
+            ContentLength = request.ContentLength64;
+            ContentEncoding = request.ContentEncoding;
+            AcceptLanguage = request.UserLanguages;
+            UserAgent = request.UserAgent;
+            Cookies = request.Cookies;
         }
     }
 }

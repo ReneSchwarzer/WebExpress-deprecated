@@ -5,12 +5,10 @@
     /// </summary>
     public class Response
     {
-        private const string VERSION = "HTTP/1.1";
-
         /// <summary>
         /// Setzt oder liefert die Optionen
         /// </summary>
-        public ResponseHeaderFields HeaderFields { get; } = new ResponseHeaderFields();
+        public ResponseHeaderFields Header { get; } = new ResponseHeaderFields();
 
         /// <summary>
         /// Setzt oder liefert den Content
@@ -25,29 +23,13 @@
         /// <summary>
         /// Liefert oder setzt den Statustext
         /// </summary>
-        protected string Reason { get; set; }
+        public string Reason { get; protected set; }
 
         /// <summary>
         /// Konstruktor
         /// </summary>
         protected Response()
         {
-        }
-
-        /// <summary>
-        /// In Stringform umwandeln
-        /// </summary>
-        /// <returns>Der Header in Stringform</returns>
-        public virtual string GetHeader()
-        {
-            return string.Format
-            (
-                "{0} {1} {2}\r\n{3}\r\n",
-                VERSION,
-                Status,
-                Reason,
-                HeaderFields.ToString()
-            );
         }
     }
 }

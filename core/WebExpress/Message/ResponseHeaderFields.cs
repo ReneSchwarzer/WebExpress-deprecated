@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Net;
 using System.Text;
 
 namespace WebExpress.Message
@@ -47,6 +48,11 @@ namespace WebExpress.Message
         /// Benutzerdefinierte Header
         /// </summary>
         public Dictionary<string, string> CustomHeader { get; private set; }
+
+        /// <summary>
+        /// Liefert oder setzt die Cookies
+        /// </summary>
+        public CookieCollection Cookies { get; private set; }
 
         /// <summary>
         /// Konstruktor

@@ -39,14 +39,6 @@ namespace WebExpress.UI.WebControl
         public ControlTimelineComment(string id = null)
             : base(id)
         {
-            Init();
-        }
-
-        /// <summary>
-        /// Initialisierung
-        /// </summary>
-        private void Init()
-        {
         }
 
         /// <summary>
@@ -61,9 +53,9 @@ namespace WebExpress.UI.WebControl
                 User = User,
                 Image = Image
             };
-
-            var timespan = string.Empty;
             var days = (DateTime.Now - Timestamp).Days;
+
+            string timespan;
             if (days == 1)
             {
                 timespan = "vor ein Tag";
@@ -126,7 +118,7 @@ namespace WebExpress.UI.WebControl
             {
                 Icon = new PropertyIcon(TypeIcon.ThumbsUp),
                 Text = likeText,
-                Uri = context.Request.Uri,
+                Uri = context.Uri,
                 Size = TypeSizeButton.Small,
                 BackgroundColor = new PropertyColorButton(TypeColorButton.Light),
                 Outline = true,

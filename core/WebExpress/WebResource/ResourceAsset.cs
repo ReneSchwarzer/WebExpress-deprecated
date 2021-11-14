@@ -65,7 +65,7 @@ namespace WebExpress.WebResource
                 }
 
                 var response = base.Process(request);
-                response.HeaderFields.CacheControl = "public, max-age=31536000";
+                response.Header.CacheControl = "public, max-age=31536000";
 
                 var extension = Path.GetExtension(fileName);
                 extension = !string.IsNullOrWhiteSpace(extension) ? extension.ToLower() : "";
@@ -73,55 +73,55 @@ namespace WebExpress.WebResource
                 switch (extension)
                 {
                     case ".pdf":
-                        response.HeaderFields.ContentType = "application/pdf";
+                        response.Header.ContentType = "application/pdf";
                         break;
                     case ".txt":
-                        response.HeaderFields.ContentType = "text/plain";
+                        response.Header.ContentType = "text/plain";
                         break;
                     case ".css":
-                        response.HeaderFields.ContentType = "text/css";
+                        response.Header.ContentType = "text/css";
                         break;
                     case ".xml":
-                        response.HeaderFields.ContentType = "text/xml";
+                        response.Header.ContentType = "text/xml";
                         break;
                     case ".html":
                     case ".htm":
-                        response.HeaderFields.ContentType = "text/html";
+                        response.Header.ContentType = "text/html";
                         break;
                     case ".exe":
-                        response.HeaderFields.ContentDisposition = "attatchment; filename=" + fileName + "; size=" + Data.LongLength;
-                        response.HeaderFields.ContentType = "application/octet-stream";
+                        response.Header.ContentDisposition = "attatchment; filename=" + fileName + "; size=" + Data.LongLength;
+                        response.Header.ContentType = "application/octet-stream";
                         break;
                     case ".zip":
-                        response.HeaderFields.ContentDisposition = "attatchment; filename=" + fileName + "; size=" + Data.LongLength;
-                        response.HeaderFields.ContentType = "application/zip";
+                        response.Header.ContentDisposition = "attatchment; filename=" + fileName + "; size=" + Data.LongLength;
+                        response.Header.ContentType = "application/zip";
                         break;
                     case ".doc":
                     case ".docx":
-                        response.HeaderFields.ContentType = "application/msword";
+                        response.Header.ContentType = "application/msword";
                         break;
                     case ".xls":
                     case ".xlx":
-                        response.HeaderFields.ContentType = "application/vnd.ms-excel";
+                        response.Header.ContentType = "application/vnd.ms-excel";
                         break;
                     case ".ppt":
-                        response.HeaderFields.ContentType = "application/vnd.ms-powerpoint";
+                        response.Header.ContentType = "application/vnd.ms-powerpoint";
                         break;
                     case ".gif":
-                        response.HeaderFields.ContentType = "image/gif";
+                        response.Header.ContentType = "image/gif";
                         break;
                     case ".png":
-                        response.HeaderFields.ContentType = "image/png";
+                        response.Header.ContentType = "image/png";
                         break;
                     case ".svg":
-                        response.HeaderFields.ContentType = "image/svg+xml";
+                        response.Header.ContentType = "image/svg+xml";
                         break;
                     case ".jpeg":
                     case ".jpg":
-                        response.HeaderFields.ContentType = "image/jpg";
+                        response.Header.ContentType = "image/jpg";
                         break;
                     case ".ico":
-                        response.HeaderFields.ContentType = "image/x-icon";
+                        response.Header.ContentType = "image/x-icon";
                         break;
                 }
 

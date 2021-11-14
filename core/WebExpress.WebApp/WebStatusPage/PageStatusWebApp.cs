@@ -116,11 +116,11 @@ namespace WebExpress.WebApp.WebStatusPage
 
             var newResponse = new T();
 
-            newResponse.HeaderFields.ContentDisposition = response.HeaderFields.ContentDisposition;
-            newResponse.HeaderFields.CacheControl = "no-cache";
-            newResponse.HeaderFields.ContentLanguage = response.HeaderFields.ContentLanguage;
-            newResponse.HeaderFields.ContentType = response.HeaderFields.ContentType;
-            newResponse.HeaderFields.ContentLength = response.HeaderFields.ContentLength;
+            newResponse.Header.ContentDisposition = response.Header.ContentDisposition;
+            newResponse.Header.CacheControl = "no-cache";
+            newResponse.Header.ContentLanguage = response.Header.ContentLanguage;
+            newResponse.Header.ContentType = response.Header.ContentType;
+            newResponse.Header.ContentLength = response.Header.ContentLength;
             newResponse.Content = content;
 
             return newResponse;
