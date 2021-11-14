@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http.Features;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -15,11 +17,6 @@ namespace WebExpress.Message
     /// </summary>
     public class Request
     {
-        /// <summary>
-        /// Liefert den orginalen Request
-        /// </summary>
-        private HttpListenerRequest RawRequuest { get; }
-
         /// <summary>
         /// Liefert den Anfragetyp
         /// </summary>
@@ -53,7 +50,7 @@ namespace WebExpress.Message
         /// <summary>
         /// Setzt oder liefert die HTTP-Version
         /// </summary>
-        public Version Version => RawRequuest?.ProtocolVersion;
+        public string Protocoll { get; private set; }
 
         /// <summary>
         /// Setzt oder liefert die Optionen im Header
@@ -63,52 +60,47 @@ namespace WebExpress.Message
         /// <summary>
         /// Ruft die IP-Adresse und Anschlussnummer des Servers ab, an den die Anforderung gerichtet ist.
         /// </summary>
-        public IPEndPoint LocalEndPoint => RawRequuest?.LocalEndPoint;
+        public EndPoint LocalEndPoint { get; private set; } 
 
         /// <summary>
         /// Ruft die IP-Adresse und Anschlussnummer des Clients ab, von dem die Anforderung stammt.
         /// </summary>
-        public IPEndPoint RemoteEndPoint => RawRequuest?.RemoteEndPoint;
+        public EndPoint RemoteEndPoint { get; private set; } 
 
         /// <summary>
         /// Ruft einen Boolean-Wert ab, der angibt, ob der diese Anforderung sendende Client authentifiziert ist.
         /// </summary>
-        public bool IsAuthenticated => RawRequuest.IsAuthenticated;
+        //public bool IsAuthenticated { get; private set; }  //=> RawRequuest.IsAuthenticated;
 
         /// <summary>
         /// Ruft einen Boolean-Wert ab, der angibt, ob die Anforderung vom lokalen Computer gesendet wurde.
         /// </summary>
-        public bool IsLocal => RawRequuest.IsLocal;
+        //public bool IsLocal { get; private set; }  //=> RawRequuest.IsLocal;
 
         /// <summary>
         /// Ruft einen Boolean-Wert ab, der angibt, ob die TCP-Verbindung, mit der die Anforderung gesendet wird, das SSL (Secure Sockets Layer)-Protokoll verwendet.
         /// </summary>
-        public bool IsSecureConnection => RawRequuest.IsSecureConnection;
+        public bool IsSecureConnection { get; private set; }
 
         /// <summary>
         /// Ruft einen Boolean-Wert ab, der angibt, ob die TCP Verbindung eine WEbSocket Anforderung war.
         /// </summary>
-        public bool IsWebSocketRequest => RawRequuest.IsWebSocketRequest;
+        //public bool IsWebSocketRequest { get; private set; }  // => RawRequuest.IsWebSocketRequest;
 
         /// <summary>
         /// Ruft einen Boolean-Wert ab, der angibt, ob der Client eine permanente Verbindung anfordert.
         /// </summary>
-        public bool KeepAlive => RawRequuest.KeepAlive;
+        //public bool KeepAlive { get; private set; }  //=> RawRequuest.KeepAlive;
+
+        /// <summary>
+        /// Ruft einen das Schma ab. Dies kann http oder https sein.
+        /// </summary>
+        public UriScheme Scheme { get; private set; }  
 
         /// <summary>
         /// Ruft den Anforderungsbezeichner der eingehenden HTTP-Anforderung ab.
         /// </summary>
-        public Guid RequestTraceIdentifier => RawRequuest.RequestTraceIdentifier;
-
-        /// <summary>
-        /// Ruft den Anforderungsbezeichner der eingehenden HTTP-Anforderung ab.
-        /// </summary>
-        public string UserHostName => RawRequuest?.UserHostName;
-
-        /// <summary>
-        /// Ruft die IP-Adresse und Anschlussnummer des Servers ab, an den die Anforderung gerichtet ist.
-        /// </summary>
-        public string UserHostAddress => RawRequuest?.UserHostAddress;
+        public string RequestTraceIdentifier { get; private set; }
 
         /// <summary>
         /// Liefert den Inhalt
@@ -118,25 +110,48 @@ namespace WebExpress.Message
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="request">Der Request, welcher vom HttpListener erzeugt wurde</param>
-        internal Request(HttpListenerRequest request)
+        /// <param name="contextFeatures">Anfänglicher Satz von Features.</param>
+        internal Request(IFeatureCollection contextFeatures)
         {
-            RawRequuest = request;
-            Method = request.HttpMethod.ToLower() switch
+            var connectionFeature = contextFeatures.Get<IHttpConnectionFeature>();
+            var requestFeature = contextFeatures.Get<IHttpRequestFeature>();
+            var requestIdentifierFeature = contextFeatures.Get<IHttpRequestIdentifierFeature>();
+            var sessionFeature = contextFeatures.Get<ISessionFeature>();
+
+            RequestTraceIdentifier = requestIdentifierFeature.TraceIdentifier;
+            Protocoll = requestFeature.Protocol;
+            //IsSecureConnection = connectionFeature.h
+            Scheme = requestFeature.Scheme.ToLower() switch
             {
-                "get" => RequestMethod.GET,
-                "post" => RequestMethod.POST,
-                "put" => RequestMethod.PUT,
-                "delete" => RequestMethod.GET,
-                "head" => RequestMethod.HEAD,
+                "http" => UriScheme.Http,
+                "https" => UriScheme.Https,
+                "ftp" => UriScheme.FTP,
+                "file" => UriScheme.File,
+                "mailto" => UriScheme.Mailto,
+                "ldap" => UriScheme.Ldap,
+                _ => UriScheme.Http
+                
+            };
+            Method = requestFeature.Method.ToUpper() switch
+            {
+                "GET" => RequestMethod.GET,
+                "POST" => RequestMethod.POST,
+                "PUT" => RequestMethod.PUT,
+                "DELETE" => RequestMethod.GET,
+                "HEAD" => RequestMethod.HEAD,
                 _ => RequestMethod.GET
             };
 
-            Uri = new UriRelative(RawRequuest.RawUrl);
-            BaseUri = new UriAbsolute(RawRequuest.Url.OriginalString.Substring(0, RawRequuest.Url.OriginalString.Length - RawRequuest.RawUrl.Length));
-            Header = new RequestHeaderFields(request);
+            Uri = new UriRelative(requestFeature.Path);
+            Header = new RequestHeaderFields(contextFeatures);
 
-            Content = GetContent(request);
+            LocalEndPoint = new IPEndPoint(connectionFeature.LocalIpAddress, connectionFeature.LocalPort);
+            RemoteEndPoint = new IPEndPoint(connectionFeature.RemoteIpAddress, connectionFeature.RemotePort);
+
+           
+            BaseUri = new UriAbsolute(Scheme, new UriAuthority(Header.Host, connectionFeature.LocalPort), new UriRelative());
+
+            Content = GetContent(requestFeature.Body, Header.ContentLength);
             ParseRequestParams();
             ParseSessionParams();
         }
@@ -144,21 +159,27 @@ namespace WebExpress.Message
         /// <summary>
         /// Ermittelt den Content
         /// </summary>
-        /// <param name="request">Der Request, welcher vom HttpListener erzeugt wurde</param>
-        /// <returns>Der Content</returns>
-        private static byte[] GetContent(HttpListenerRequest request)
+        /// <param name="body">Der Inhalt einer Anforderung</param>
+        /// <param name="contentLength">Die Anzahl der Bytes, die im Body gesendet wurden oder Null.</param>
+        /// <returns>Der Content als Byte-Array</returns>
+        internal static byte[] GetContent(Stream body, long? contentLength)
         {
+            if (!contentLength.HasValue || contentLength.Value == 0)
+            {
+                return null;
+            }
+
             var capacity = 1024;
             var buffer = new byte[capacity];
             var offset = 0;
 
-            var content = new byte[request.ContentLength64];
+            var content = new byte[contentLength.Value];
 
             int readCount;
             // Lese Content
             do
             {
-                readCount = request.InputStream.Read(buffer, offset, capacity);
+                readCount = body.Read(buffer, offset, capacity);
 
                 if (readCount > 0)
                 {

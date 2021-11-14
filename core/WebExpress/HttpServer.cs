@@ -1,9 +1,16 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Hosting.Server;
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets;
+using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Primitives;
+using System;
 using System.Diagnostics;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Sockets;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using WebExpress.Application;
@@ -23,27 +30,17 @@ namespace WebExpress
     /// <summary>
     /// siehe RFC 2616
     /// </summary>
-    public class HttpServer : IHost, II18N
+    public class HttpServer : IHost, II18N, IHttpApplication<HttpContext>
     {
         /// <summary>
-        /// Liefert das Verbindungslimit
+        /// Liefert den KestrelServer, welcher auf die Anfragen reagiert
         /// </summary>
-        private const int ConnectionLimit = 100;
-
-        /// <summary>
-        /// Liefert den Listener, welcher auf die Anfragen reagiert
-        /// </summary>
-        private HttpListener Listener { get; } = new HttpListener();
+        private KestrelServer Kestrel { get; set; }
 
         /// <summary>
         /// Threadbeendigung des Servers
         /// </summary>
-        private CancellationTokenSource ServerTokenSource { get; } = new CancellationTokenSource();
-
-        /// <summary>
-        /// Threadbeendigung des Clients
-        /// </summary>
-        private CancellationTokenSource ClientTokenSource { get; } = new CancellationTokenSource();
+        private CancellationToken ServerToken { get; } = new CancellationToken();
 
         /// <summary>
         /// Liefert oder setzt die Konfiguration
@@ -139,62 +136,67 @@ namespace WebExpress
                 ScheduleManager.Boot();
             }
 
-            var task = Task.Factory.StartNew(() =>
+            var logger = new LogFactory();
+            var serverOptions = new OptionsWrapper<KestrelServerOptions>(new KestrelServerOptions()
             {
-                Run();
-            }, ServerTokenSource.Token);
+                AllowSynchronousIO = true,
+                AllowResponseHeaderCompression = true,
+                AddServerHeader = true
+            });
 
-        }
+            var transportOptions = new OptionsWrapper<SocketTransportOptions>(new SocketTransportOptions());
 
-        /// <summary>
-        /// Beginnt auf dem Port zu lauschen
-        /// Wird nebenläufig ausgeführt
-        /// </summary>
-        private void Run()
-        {
-            var count = 0;
-
-            foreach (var prefix in Context.Uris)
+            foreach (var url in Config.Uris)
             {
-                Listener.Prefixes.Add(prefix);
-            }
-
-            try
-            {
-                Listener.Start();
-            }
-            catch (HttpListenerException ex)
-            {
-                Context.Log.Info(message: this.I18N("webexpress:httpserver.listener.exeption"));
-                Context.Log.Info(message: this.I18N("webexpress:httpserver.listener.try"));
-                foreach (var prefix in Context.Uris)
+                try
                 {
-                    Context.Log.Info(message: "    " + this.I18N("webexpress:httpserver.listener.windows"), args: prefix);
+                    var uri = new UriAbsolute(url);
+                    var asterisk = uri.Authority.Host.Equals("*");
+                    
+                    var host = Dns.GetHostEntry(asterisk ? Dns.GetHostName() : uri.Authority.Host);
+
+                    var port = uri.Authority.Port;
+                    if (!port.HasValue)
+                    {
+                        port = uri.Scheme switch
+                        {
+                            UriScheme.Http => 80,
+                            UriScheme.Https => 443,
+                            _ => 80
+                        };
+                    }
+
+                    foreach (var ipAddress in host.AddressList.Where(ip => ip.AddressFamily == AddressFamily.InterNetwork || ip.AddressFamily == AddressFamily.InterNetworkV6))
+                    {
+                        var endPoint = new IPEndPoint(ipAddress, port.Value);
+
+                        serverOptions.Value.Listen(endPoint);
+
+                        Context.Log.Info(message: this.I18N("webexpress:httpserver.listen"), args: endPoint.ToString());
+                    }
+
+                    if (asterisk)
+                    {
+                        serverOptions.Value.ListenLocalhost(port.Value);
+
+                        Context.Log.Info(message: this.I18N("webexpress:httpserver.listen"), args: $"localhost:{ port }");
+                        Context.Log.Info(message: this.I18N("webexpress:httpserver.listen"), args: $"{ host.HostName }:{ port }");
+                    }
                 }
-
-
-                Context.Log.Exception(ex);
-
-                return;
+                catch (Exception ex)
+                {
+                    Context.Log.Error(message: this.I18N("webexpress:httpserver.listen.exeption"), args: url);
+                    Context.Log.Exception(ex);
+                }
             }
 
-            // Server-Task
-            while (!ServerTokenSource.IsCancellationRequested)
-            {
-                var context = Listener.GetContext();
+            serverOptions.Value.Limits.MaxConcurrentConnections = Config.ConnectionLimit;
 
-                if (count++ < ConnectionLimit)
-                {
-                    Task.Factory.StartNew(() => { HandleClient(context); }, ClientTokenSource.Token);
-                    //HandleClient(context);
-                }
-                else
-                {
-                    Context.Log.Warning(message: this.I18N("webexpress:httpserver.connectionlimit"));
-                }
+            var transport = new SocketTransportFactory(transportOptions, logger);
 
-                count--;
-            }
+            Kestrel = new KestrelServer(serverOptions, transport, logger);
+
+            Kestrel.StartAsync(this, ServerToken);
         }
 
         /// <summary>
@@ -203,10 +205,7 @@ namespace WebExpress
         public void Stop()
         {
             // Laufende Threads beenden
-            ClientTokenSource.Cancel();
-            ServerTokenSource.Cancel();
-
-            Listener.Stop();
+            Kestrel.StopAsync(ServerToken);
 
             // Ausführung der Module beenden
             ModuleManager.ShutDown();
@@ -225,11 +224,11 @@ namespace WebExpress
         /// Behandelt einen eingehenden Anforderung
         /// Wird nebenläufig ausgeführt
         /// </summary>
-        /// <param name="context">Der Context ders HttpListener</param>
-        private void HandleClient(HttpListenerContext context)
+        /// <param name="context">Der Kontext der Webanforderung</param>
+        private async Task HandleClient(HttpContext context)
         {
             var stopwatch = Stopwatch.StartNew();
-            var request = new Request(context.Request);
+            var request = context.Request;
             var response = null as Response;
             var culture = Culture;
             var uri = request?.Uri;
@@ -247,7 +246,7 @@ namespace WebExpress
 
             try
             {
-                Context.Log.Debug(message: this.I18N("webexpress:httpserver.request"), args: new object[] { request.RemoteEndPoint, $"{ request?.Method } { request?.Uri } { "HTTP/" + request?.Version }" });
+                Context.Log.Debug(message: this.I18N("webexpress:httpserver.request"), args: new object[] { request.RemoteEndPoint, $"{ request?.Method } { request?.Uri } { request?.Protocoll }" });
 
                 // Suche Seite in Sitemap
                 var resource = ResourceManager.Find(request?.Uri.ToString(), new SearchContext()
@@ -309,74 +308,72 @@ namespace WebExpress
             // Response an Client schicken
             try
             {
-                context.Response.ProtocolVersion = new Version(1, 1);
-                context.Response.StatusCode = response.Status;
-                context.Response.StatusDescription = response.Reason;
-                context.Response.RedirectLocation = response.Header.Location;
-                //context.Response.KeepAlive = false;
+                var responseFeature = context.Features.Get<IHttpResponseFeature>();
+                var responseBodyFeature = context.Features.Get<IHttpResponseBodyFeature>();
+
+                responseFeature.StatusCode = response.Status;
+                responseFeature.ReasonPhrase = response.Reason;
+                responseFeature.Headers.KeepAlive = "true";
+
+                if (response.Header.Location != null)
+                {
+                    responseFeature.Headers.Location = response.Header.Location;
+                }
 
                 if (!string.IsNullOrWhiteSpace(response.Header.CacheControl))
                 {
-                    context.Response.AddHeader("Cache-Control", response.Header.CacheControl);
+                    responseFeature.Headers.CacheControl = response.Header.CacheControl;
                 }
 
                 if (!string.IsNullOrWhiteSpace(response.Header.ContentType))
                 {
-                    context.Response.AddHeader("Content-Type", response.Header.ContentType);
+                    responseFeature.Headers.ContentType = response.Header.ContentType;
                 }
 
                 if (response.Header.WWWAuthenticate)
                 {
-                    context.Response.AddHeader("WWW-Authenticate", "Basic realm=\"Bereich\"");
+                    responseFeature.Headers.WWWAuthenticate = "Basic realm=\"Bereich\"";
                 }
 
                 if (!request.Header.Cookies.Where(x => x.Name.Equals("session")).Any() && request.Session != null)
                 {
-                    context.Response.SetCookie(new Cookie("session", request.Session.ID.ToString()) { Expires = DateTime.MaxValue });
+                    var cookie = new Cookie("session", request.Session.ID.ToString()) { Expires = DateTime.MaxValue };
+                    responseFeature.Headers.SetCookie = new StringValues(cookie.ToString());
                 }
 
-                foreach (var c in response.Header.CustomHeader)
-                {
-                    context.Response.AppendHeader(c.Key, c.Value);
-                }
+                ////    foreach (var c in response.Header.CustomHeader)
+                ////    {
+                ////        context.Response.AppendHeader(c.Key, c.Value);
+                ////    }
 
                 if (response?.Content is byte[] byteContent)
                 {
-                    context.Response.ContentLength64 = byteContent.Length;
-
-                    var bw = new BinaryWriter(context.Response.OutputStream);
-                    bw.Write(byteContent);
-                    bw.Flush();
+                    responseFeature.Headers.ContentLength = byteContent.Length;
+                    await responseBodyFeature.Stream.WriteAsync(byteContent);
+                    await responseBodyFeature.Stream.FlushAsync();
                 }
                 else if (response?.Content is string strContent)
                 {
                     var content = request.Header.ContentEncoding.GetBytes(strContent);
 
-                    context.Response.ContentLength64 = content.Length;
-
-                    var bw = new BinaryWriter(context.Response.OutputStream);
-                    bw.Write(content);
-                    bw.Flush();
+                    responseFeature.Headers.ContentLength = content.Length;
+                    await responseBodyFeature.Stream.WriteAsync(content);
+                    await responseBodyFeature.Stream.FlushAsync();
                 }
                 else if (response?.Content is IHtmlNode htmlContent)
                 {
                     var content = request.Header.ContentEncoding.GetBytes(htmlContent?.ToString());
 
-                    context.Response.ContentLength64 = content.Length;
-
-                    var bw = new BinaryWriter(context.Response.OutputStream);
-                    bw.Write(content);
-                    bw.Flush();
-                }
-                else
-                {
+                    responseFeature.Headers.ContentLength = content.Length;
+                    await responseBodyFeature.Stream.WriteAsync(content);
+                    await responseBodyFeature.Stream.FlushAsync();
                 }
 
-                context.Response.OutputStream.Close();
+                responseBodyFeature.Stream.Close();
             }
             catch (Exception ex)
             {
-                Context.Log.Error(context.Request.RemoteEndPoint.Address + ": " + ex.Message);
+                Context.Log.Error(request.RemoteEndPoint + ": " + ex.Message);
             }
 
             stopwatch.Stop();
@@ -427,6 +424,36 @@ namespace WebExpress
             }
 
             return response;
+        }
+
+        /// <summary>
+        /// Erstellen Sie einen HttpContext mit einer Auflistung von HTTP-Features.
+        /// </summary>
+        /// <param name="contextFeatures">Eine Auflistung von HTTP-Features, die zum Erstellen des HttpContexts verwendet werden sollen.</param>
+        /// <returns>Der erstellte HttpContext.</returns>
+        public HttpContext CreateContext(IFeatureCollection contextFeatures)
+        {
+            return new HttpContext(contextFeatures);
+        }
+
+        /// <summary>
+        /// Verarbeitet einen HttpContext asynchron.
+        /// </summary>
+        /// <param name="context">Der HttpContext, den der Vorgang verarbeitet.</param>
+        /// <returns>Stellt einen asynchronen Vorgang zur Verfügung, welcher den HttpContext verarbeitet.</returns>
+        public Task ProcessRequestAsync(HttpContext context)
+        {
+            return HandleClient(context);
+        }
+
+        /// <summary>
+        /// Verwerfen eines angegebenen HttpContexts.
+        /// </summary>
+        /// <param name="context">Der zu verwerfende HttpContext.</param>
+        /// <param name="exception">Die Ausnahme, die ausgelöst wird, wenn die Verarbeitung nicht erfolgreich abgeschlossen wurde, andernfalls NULL.</param>
+        public void DisposeContext(HttpContext context, Exception exception)
+        {
+            
         }
     }
 }

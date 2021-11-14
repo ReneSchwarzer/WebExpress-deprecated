@@ -21,7 +21,8 @@ httpserver.request={0}: Anfrage '{1}'
 httpserver.request.unexpected={0}: Unerwartete Anfrage '{1}'
 httpserver.request.done={0}: Anfrage wurde in {1} ms bearbeitet. Status = {2}
 httpserver.connectionlimit=Das Limit für gleichzeitige Anfragen wurde überschritten.
-httpserver.listener.exeption=Der Listener konnte nicht gestartet werden. Eventuell haben Sie keine Rechte auf den Port zuzugreifen oder dieser wird bereits verwendet.
+httpserver.listen=Der Webserver lauscht auf den Endpunkt {0}.
+httpserver.listen.exeption=Fehler beim Einrichten eines Endpunktes für die Uri {0}.
 httpserver.listener.try=Falls Ihnen Zugriffsrechte fehlen, führen Sie unter Windows folgende Anweisung als Administrator aus:
 httpserver.listener.windows=netsh http add urlacl url={0} user=Jeder listen=yes
 

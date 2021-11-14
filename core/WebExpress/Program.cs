@@ -32,10 +32,22 @@ namespace WebExpress
         /// Eintrittspunkt der Anwendung
         /// </summary>
         /// <param name="args">Aufrufsargumente</param>
+        public static int Main(string[] args)
+        {
+            var app = new WebExpress.Program()
+            {
+                Name = Assembly.GetExecutingAssembly().GetName().Name
+            };
+
+            return app.Execution(args);
+        }
+
+        /// <summary>
+        /// Eintrittspunkt der Anwendung
+        /// </summary>
+        /// <param name="args">Aufrufsargumente</param>
         public int Execution(string[] args)
         {
-            var port = -1;
-
             // Aufrufsargumente vorbereiten 
             ArgumentParser.Current.Register(new ArgumentParserCommand() { FullName = "help", ShortName = "h" });
             ArgumentParser.Current.Register(new ArgumentParserCommand() { FullName = "config", ShortName = "c" });
@@ -51,10 +63,7 @@ namespace WebExpress
 
                 return 0;
             }
-            if (argumentDict.ContainsKey("port"))
-            {
-                port = Convert.ToInt32(argumentDict["port"]);
-            }
+            
             if (!argumentDict.ContainsKey("config"))
             {
                 // Prüfe ob eine Datei namens Config.xml vorhanden ist
@@ -69,7 +78,7 @@ namespace WebExpress
             }
 
             // Initialisierung des WebServers
-            Initialization(ArgumentParser.Current.GetValidArguments(args), port, Path.Combine(Path.Combine(Environment.CurrentDirectory, "Config"), argumentDict["config"]));
+            Initialization(ArgumentParser.Current.GetValidArguments(args), Path.Combine(Path.Combine(Environment.CurrentDirectory, "Config"), argumentDict["config"]));
 
             // Start des WebServers
             Start();
@@ -94,9 +103,8 @@ namespace WebExpress
         /// Initialisierung
         /// </summary>
         /// <param name="args">Die gültigen Argumente</param>
-        /// <param name="port">Der Port</param>
         /// <param param name="configFile">Die Konfigurationsdatei</param>
-        private void Initialization(string args, int port, string configFile)
+        private void Initialization(string args, string configFile)
         {
             // Config laden
             using var reader = new FileStream(configFile, FileMode.Open);
@@ -108,6 +116,8 @@ namespace WebExpress
             try
             {
                 culture = new CultureInfo(config.Culture);
+
+                CultureInfo.CurrentCulture = culture;
             }
             catch
             {

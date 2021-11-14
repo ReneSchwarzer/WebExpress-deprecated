@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http.Features;
+using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -43,11 +43,6 @@ namespace WebExpress.Message
         public Encoding ContentEncoding { get; private set; }
 
         /// <summary>
-        /// Liefert oder setzt den User-Educationen
-        /// </summary>
-        public string UserEducation { get; private set; }
-
-        /// <summary>
         /// Liefert oder setzt den User-Agent
         /// </summary>
         public string UserAgent { get; private set; }
@@ -65,7 +60,7 @@ namespace WebExpress.Message
         /// <summary>
         /// Liefert oder setzt die erlaubten Sprachen
         /// </summary>
-        public ICollection<string> AcceptLanguage { get; private set; }
+        public IEnumerable<string> AcceptLanguage { get; private set; }
 
         /// <summary>
         /// Liefert oder setzt die Zugangsdaten Name und Passwort
@@ -75,31 +70,37 @@ namespace WebExpress.Message
         /// <summary>
         /// Liefert oder setzt die Cookies
         /// </summary>
-        public CookieCollection Cookies { get; } = new CookieCollection();
+        public ICollection<Cookie> Cookies { get; } = new List<Cookie>();
 
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="request">Der Request, welcher vom HttpListener erzeugt wurde</param>
-        internal RequestHeaderFields(HttpListenerRequest request)
+        /// <param name="contextFeatures">Anfänglicher Satz von Features.</param>
+        internal RequestHeaderFields(IFeatureCollection contextFeatures)
         {
-            var headers = request.Headers;
+            var requestFeature = contextFeatures.Get<IHttpRequestFeature>();
 
-            Host = headers["host"];
-            Connection = headers["Connection"];
-            ContentLanguage = headers["Content-Language"];
-            UserEducation = headers["User-Education"];
-            AcceptEncoding = headers["Accept-Encoding"];
-           
-            Authorization = RequestAuthorization.Parse(headers["Authorization"]);
-                        
-            Accept = request.AcceptTypes;
-            ContentType = request.ContentType;
-            ContentLength = request.ContentLength64;
-            ContentEncoding = request.ContentEncoding;
-            AcceptLanguage = request.UserLanguages;
-            UserAgent = request.UserAgent;
-            Cookies = request.Cookies;
+            Host = requestFeature.Headers.Host;
+            Connection = requestFeature.Headers.Connection;
+            ContentType = requestFeature.Headers.ContentType;
+            ContentLength = requestFeature.Headers.ContentLength.HasValue ? requestFeature.Headers.ContentLength.Value : 0;
+            ContentLanguage = requestFeature.Headers.ContentLanguage;
+            ContentEncoding = requestFeature.Headers.ContentEncoding.Any() ? Encoding.GetEncoding(requestFeature.Headers.ContentEncoding) : Encoding.Default;
+            Accept = requestFeature.Headers.Accept;
+            AcceptEncoding = requestFeature.Headers.AcceptEncoding;
+            AcceptLanguage = requestFeature.Headers.AcceptLanguage.SelectMany(x => x.Split(';', StringSplitOptions.RemoveEmptyEntries));
+            UserAgent = requestFeature.Headers.UserAgent;
+
+            foreach (var cookie in requestFeature.Headers.Cookie)
+            {
+                var split = cookie.Split('=');
+                var key = split[0];
+                var value = split[1];
+
+                Cookies.Add(new Cookie(key, value));
+            }
+
+            Authorization = RequestAuthorization.Parse(requestFeature.Headers.Authorization);
         }
     }
 }

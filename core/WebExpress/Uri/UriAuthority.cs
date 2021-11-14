@@ -48,6 +48,17 @@ namespace WebExpress.Uri
         }
 
         /// <summary>
+        /// Konstruktor
+        /// </summary>
+        /// <param name="host">Der Host</param>
+        /// <param name="port">Der Port</param>
+        public UriAuthority(string host, int port)
+        {
+            Host = host;
+            Port = port;
+        }
+
+        /// <summary>
         /// Wandelt die Uri in einen String um
         /// </summary>
         /// <returns>Die Stringrepräsentation der Uri</returns>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -32,7 +33,7 @@ namespace WebExpress
     /// 08:26:30 Info      Program.Main                   Verarbeitung: sequentiell<br>
     /// 08:26:30 Info      Program.Main                   Imagefile wurde importiert.<br>
     /// </example>
-    public class Log
+    public class Log : ILogger
     {
         /// <summary>
         /// Aufzählung definiert die verschiedenen Log-Level
@@ -491,6 +492,45 @@ namespace WebExpress
             }
 
             m_workerThread = null;
+        }
+
+        /// <summary>
+        /// Schreibt einen Protokolleintrag.
+        /// </summary>
+        /// <typeparam name="TState">Der Typ des zu schreibenden Objekts.</typeparam>
+        /// <param name="logLevel">Der Eintrag wird auf dieser Ebene geschrieben.</param>
+        /// <param name="eventId">ID des Ereignisses.</param>
+        /// <param name="state">Der zu schreibende Eintrag. Kann auch ein Objekt sein.</param>
+        /// <param name="exception">Die Ausnahme, die sich auf diesen Eintrag bezieht.</param>
+        /// <param name="formatter">unktion zum Erstellen einer String-Nachricht des state-Parameters und exception-Parameters.</param>
+        void ILogger.Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
+        {
+            //if (logLevel == LogLevel.Debug)
+            {
+                var message = formatter.Invoke(state, exception);
+                Debug(message, "Kestrel", null, null);
+            }
+        }
+
+        /// <summary>
+        /// Überprüft, ob der angegebene logLevel-Parameter aktiviert ist.
+        /// </summary>
+        /// <param name="logLevel">Ebene, die überprüft werden soll.</param>
+        /// <returns>Im aktivierten Zustand true; andernfalls false.</returns>
+        public bool IsEnabled(LogLevel logLevel)
+        {
+            return true;
+        }
+
+        /// <summary>
+        /// Formatiert die Meldung und erstellt einen Bereich.
+        /// </summary>
+        /// <typeparam name="TState">Die ILogger-Schnittstelle</typeparam>
+        /// <param name="state">Die ILogger-Schnittstelle, in der der Bereich erstellt werden soll.</param>
+        /// <returns>Ein verwerfbares Bereichsobjekt. Kann NULL sein.</returns>
+        public IDisposable BeginScope<TState>(TState state)
+        {
+            return null;
         }
 
         /// <summary>
