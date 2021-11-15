@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
+using WebExpress.Config;
 using WebExpress.Uri;
 
 namespace WebExpress
@@ -10,9 +11,9 @@ namespace WebExpress
     public interface IHttpServerContext
     {
         /// <summary>
-        /// Liefert die Uris, auf die der Webserver reagiert
+        /// Liefert die Endpunkte, auf die der Webserver reagiert
         /// </summary>
-        ICollection<string> Uris { get; }
+        public ICollection<EndpointConfig> Endpoints { get; }
 
         /// <summary>
         /// Liefert die Version des Http-Servers 

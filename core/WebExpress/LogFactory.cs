@@ -2,7 +2,7 @@
 
 namespace WebExpress
 {
-    public class LogFactory : ILoggerFactory
+    public class LogFactory : ILoggerFactory, ILoggerProvider
     {
         /// <summary>
         /// Fügt dem Protokollierungssystem einen ILoggerProvider hinzu.

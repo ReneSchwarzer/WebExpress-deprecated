@@ -126,7 +126,7 @@ namespace WebExpress
 
             var context = new HttpServerContext
             (
-                config.Uris,
+                config.Endpoints,
                 string.IsNullOrWhiteSpace(config.AssetBase) ? Environment.CurrentDirectory : config.AssetBase,
                 Path.GetDirectoryName(configFile),
                 new UriRelative(config.ContextPath),
@@ -154,9 +154,9 @@ namespace WebExpress
             HttpServer.Context.Log.Info(message: I18N("webexpress:app.configuration"), args: Path.GetFileName(configFile));
             HttpServer.Context.Log.Info(message: I18N("webexpress:app.logdirectory"), args: Path.GetDirectoryName(HttpServer.Context.Log.Filename));
             HttpServer.Context.Log.Info(message: I18N("webexpress:app.log"), args: Path.GetFileName(HttpServer.Context.Log.Filename));
-            foreach (var v in config.Uris)
+            foreach (var v in config.Endpoints)
             {
-                HttpServer.Context.Log.Info(message: I18N("webexpress:app.uri"), args: v);
+                HttpServer.Context.Log.Info(message: I18N("webexpress:app.uri"), args: v.Uri);
             }
 
             HttpServer.Context.Log.Seperator('=');

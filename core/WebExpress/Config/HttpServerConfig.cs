@@ -17,10 +17,10 @@ namespace WebExpress.Config
         public int Version { get; set; }
 
         /// <summary>
-        /// Die Uri des Webservers
+        /// Die Endpunkte des Webservers
         /// </summary>
-        [XmlElement("uri")]
-        public List<string> Uris { get; set; }
+        [XmlElement("endpoint")]
+        public List<EndpointConfig> Endpoints { get; set; }
 
         /// <summary>
         /// Das Verbindungslimit

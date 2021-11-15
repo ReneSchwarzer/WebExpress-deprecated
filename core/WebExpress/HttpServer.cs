@@ -4,13 +4,15 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
+using Microsoft.AspNetCore.Hosting;
 using System;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using System.Threading.Tasks;
 using WebExpress.Application;
@@ -24,6 +26,9 @@ using WebExpress.Uri;
 using WebExpress.WebJob;
 using WebExpress.WebPage;
 using WebExpress.WebResource;
+using System.Security.Authentication;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace WebExpress
 {
@@ -65,7 +70,7 @@ namespace WebExpress
         {
             Context = new HttpServerContext
             (
-                context.Uris,
+                context.Endpoints,
                 context.AssetPath,
                 context.ConfigPath,
                 context.ContextPath,
@@ -144,15 +149,30 @@ namespace WebExpress
                 AddServerHeader = true
             });
 
+            var serviceCollection = new ServiceCollection();
+            serviceCollection.AddMemoryCache();
+            serviceCollection.AddLogging(x => 
+            {
+                x.SetMinimumLevel(LogLevel.Trace);
+                x.AddProvider(logger);
+            });
+            serviceCollection.AddHttpLogging(x => 
+            {
+                x.LoggingFields = Microsoft.AspNetCore.HttpLogging.HttpLoggingFields.All;
+            });
+
+
+            serverOptions.Value.ApplicationServices = serviceCollection.BuildServiceProvider();
+
             var transportOptions = new OptionsWrapper<SocketTransportOptions>(new SocketTransportOptions());
 
-            foreach (var url in Config.Uris)
+            foreach (var endpoint in Config.Endpoints)
             {
                 try
                 {
-                    var uri = new UriAbsolute(url);
+                    var uri = new UriAbsolute(endpoint.Uri);
                     var asterisk = uri.Authority.Host.Equals("*");
-                    
+
                     var host = Dns.GetHostEntry(asterisk ? Dns.GetHostName() : uri.Authority.Host);
 
                     var port = uri.Authority.Port;
@@ -177,7 +197,22 @@ namespace WebExpress
 
                     if (asterisk)
                     {
-                        serverOptions.Value.ListenLocalhost(port.Value);
+                        var currentDirectory = Environment.CurrentDirectory;
+                        if (uri.Scheme == UriScheme.Https && File.Exists(endpoint.PfxFile))
+                        {
+                            var cert = new X509Certificate2(endpoint.PfxFile, endpoint.Password);
+                            var valid = cert.Verify();
+
+                            // IPAddress.Any verwenden?
+                            serverOptions.Value.ListenLocalhost(port.Value, (configure) =>
+                            {
+                                configure.UseHttps(cert);
+                            });
+                        }
+                        else
+                        {
+                            serverOptions.Value.ListenLocalhost(port.Value);
+                        }
 
                         Context.Log.Info(message: this.I18N("webexpress:httpserver.listen"), args: $"localhost:{ port }");
                         Context.Log.Info(message: this.I18N("webexpress:httpserver.listen"), args: $"{ host.HostName }:{ port }");
@@ -185,12 +220,18 @@ namespace WebExpress
                 }
                 catch (Exception ex)
                 {
-                    Context.Log.Error(message: this.I18N("webexpress:httpserver.listen.exeption"), args: url);
+                    Context.Log.Error(message: this.I18N("webexpress:httpserver.listen.exeption"), args: endpoint);
                     Context.Log.Exception(ex);
                 }
             }
 
             serverOptions.Value.Limits.MaxConcurrentConnections = Config.ConnectionLimit;
+            //serverOptions.Value.ConfigureHttpsDefaults(x => 
+            //{
+            //    var cert = new X509Certificate2("./Cert/wx.pfx", "hallo");
+
+            //    x.ServerCertificate = cert;
+            //});
 
             var transport = new SocketTransportFactory(transportOptions, logger);
 
@@ -453,7 +494,7 @@ namespace WebExpress
         /// <param name="exception">Die Ausnahme, die ausgelöst wird, wenn die Verarbeitung nicht erfolgreich abgeschlossen wurde, andernfalls NULL.</param>
         public void DisposeContext(HttpContext context, Exception exception)
         {
-            
+
         }
     }
 }

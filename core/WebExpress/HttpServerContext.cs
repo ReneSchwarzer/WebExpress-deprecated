@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
+using WebExpress.Config;
 using WebExpress.Uri;
 
 namespace WebExpress
@@ -12,9 +13,9 @@ namespace WebExpress
     public class HttpServerContext : IHttpServerContext
     {
         /// <summary>
-        /// Liefert die Uri, auf die der Webserver reagiert
+        /// Liefert die Endpunkte, auf die der Webserver reagiert
         /// </summary>
-        public ICollection<string> Uris { get; protected set; }
+        public ICollection<EndpointConfig> Endpoints { get; protected set; }
 
         /// <summary>
         /// Liefert die Version des Http-Servers 
@@ -49,8 +50,7 @@ namespace WebExpress
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="uris">Die Uri des Servers</param>
-        /// <param name="port">Der Port</param>
+        /// <param name="endpoints">Die Uri des Servers</param>
         /// <param name="assetBaseFolder">Daten-Basisverzeichnis</param>
         /// <param name="configBaseFolder">Konfigurationserzeichnis</param>
         /// <param name="contextPath">Der Basispfad des Servers</param>
@@ -58,7 +58,7 @@ namespace WebExpress
         /// <param name="log">Log</param>
         public HttpServerContext
         (
-            ICollection<string> uris,
+            ICollection<EndpointConfig> endpoints,
             string assetBaseFolder,
             string configBaseFolder,
             IUri contextPath,
@@ -69,7 +69,7 @@ namespace WebExpress
             var assembly = typeof(HttpServer).Assembly;
             Version = assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
 
-            Uris = uris;
+            Endpoints = endpoints;
             AssetPath = assetBaseFolder;
             ConfigPath = configBaseFolder;
             ContextPath = contextPath;
