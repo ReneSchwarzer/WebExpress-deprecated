@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Hosting.Server;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
-using Microsoft.AspNetCore.Hosting;
 using System;
 using System.Diagnostics;
 using System.Globalization;
@@ -26,9 +28,6 @@ using WebExpress.Uri;
 using WebExpress.WebJob;
 using WebExpress.WebPage;
 using WebExpress.WebResource;
-using System.Security.Authentication;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace WebExpress
 {
@@ -142,102 +141,121 @@ namespace WebExpress
             }
 
             var logger = new LogFactory();
-            var serverOptions = new OptionsWrapper<KestrelServerOptions>(new KestrelServerOptions()
-            {
-                AllowSynchronousIO = true,
-                AllowResponseHeaderCompression = true,
-                AddServerHeader = true
-            });
-
+            var transportOptions = new OptionsWrapper<SocketTransportOptions>(new SocketTransportOptions());
+            var transport = new SocketTransportFactory(transportOptions, logger);
             var serviceCollection = new ServiceCollection();
+
             serviceCollection.AddMemoryCache();
-            serviceCollection.AddLogging(x => 
+            serviceCollection.AddLogging(x =>
             {
                 x.SetMinimumLevel(LogLevel.Trace);
                 x.AddProvider(logger);
             });
-            serviceCollection.AddHttpLogging(x => 
+            serviceCollection.AddHttpLogging(x =>
             {
                 x.LoggingFields = Microsoft.AspNetCore.HttpLogging.HttpLoggingFields.All;
             });
 
+            var serverOptions = new OptionsWrapper<KestrelServerOptions>(new KestrelServerOptions()
+            {
+                AllowSynchronousIO = true,
+                AllowResponseHeaderCompression = true,
+                AddServerHeader = true,
+                ApplicationServices = serviceCollection.BuildServiceProvider()
 
-            serverOptions.Value.ApplicationServices = serviceCollection.BuildServiceProvider();
+            });
 
-            var transportOptions = new OptionsWrapper<SocketTransportOptions>(new SocketTransportOptions());
+            serverOptions.Value.Limits.MaxConcurrentConnections = Config?.Limit?.ConnectionLimit;
 
             foreach (var endpoint in Config.Endpoints)
             {
-                try
-                {
-                    var uri = new UriAbsolute(endpoint.Uri);
-                    var asterisk = uri.Authority.Host.Equals("*");
-
-                    var host = Dns.GetHostEntry(asterisk ? Dns.GetHostName() : uri.Authority.Host);
-
-                    var port = uri.Authority.Port;
-                    if (!port.HasValue)
-                    {
-                        port = uri.Scheme switch
-                        {
-                            UriScheme.Http => 80,
-                            UriScheme.Https => 443,
-                            _ => 80
-                        };
-                    }
-
-                    foreach (var ipAddress in host.AddressList.Where(ip => ip.AddressFamily == AddressFamily.InterNetwork || ip.AddressFamily == AddressFamily.InterNetworkV6))
-                    {
-                        var endPoint = new IPEndPoint(ipAddress, port.Value);
-
-                        serverOptions.Value.Listen(endPoint);
-
-                        Context.Log.Info(message: this.I18N("webexpress:httpserver.listen"), args: endPoint.ToString());
-                    }
-
-                    if (asterisk)
-                    {
-                        var currentDirectory = Environment.CurrentDirectory;
-                        if (uri.Scheme == UriScheme.Https && File.Exists(endpoint.PfxFile))
-                        {
-                            var cert = new X509Certificate2(endpoint.PfxFile, endpoint.Password);
-                            var valid = cert.Verify();
-
-                            // IPAddress.Any verwenden?
-                            serverOptions.Value.ListenLocalhost(port.Value, (configure) =>
-                            {
-                                configure.UseHttps(cert);
-                            });
-                        }
-                        else
-                        {
-                            serverOptions.Value.ListenLocalhost(port.Value);
-                        }
-
-                        Context.Log.Info(message: this.I18N("webexpress:httpserver.listen"), args: $"localhost:{ port }");
-                        Context.Log.Info(message: this.I18N("webexpress:httpserver.listen"), args: $"{ host.HostName }:{ port }");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Context.Log.Error(message: this.I18N("webexpress:httpserver.listen.exeption"), args: endpoint);
-                    Context.Log.Exception(ex);
-                }
+                AddEndpoint(serverOptions, endpoint);
             }
-
-            serverOptions.Value.Limits.MaxConcurrentConnections = Config.ConnectionLimit;
-            //serverOptions.Value.ConfigureHttpsDefaults(x => 
-            //{
-            //    var cert = new X509Certificate2("./Cert/wx.pfx", "hallo");
-
-            //    x.ServerCertificate = cert;
-            //});
-
-            var transport = new SocketTransportFactory(transportOptions, logger);
 
             Kestrel = new KestrelServer(serverOptions, transport, logger);
 
             Kestrel.StartAsync(this, ServerToken);
+        }
+
+        /// <summary>
+        /// Fügt ein Endpunkt hinzu
+        /// </summary>
+        /// <param name="serverOptions">Die Serveroptionen</param>
+        /// <param name="endPoint">Der Endpunkt</param>
+        private void AddEndpoint(OptionsWrapper<KestrelServerOptions> serverOptions, EndpointConfig endPoint)
+        {
+            try
+            {
+                var uri = new UriAbsolute(endPoint.Uri);
+                var asterisk = uri.Authority.Host.Equals("*");
+
+                var host = asterisk ? Dns.GetHostEntry(Dns.GetHostName()) : Dns.GetHostEntry(uri.Authority.Host);
+                var addressList = host.AddressList
+                    .Union(asterisk ? Dns.GetHostEntry("localhost").AddressList : Array.Empty<IPAddress>())
+                    .Where(x => x.AddressFamily == AddressFamily.InterNetwork || x.AddressFamily == AddressFamily.InterNetworkV6);
+
+                var port = uri.Authority.Port;
+                if (!port.HasValue)
+                {
+                    port = uri.Scheme switch
+                    {
+                        UriScheme.Http => 80,
+                        UriScheme.Https => 443,
+                        _ => 80
+                    };
+                }
+
+                Context.Log.Info(message: this.I18N("webexpress:httpserver.endpoint"), args: endPoint.Uri);
+
+                foreach (var ipAddress in addressList)
+                {
+                    var ep = new IPEndPoint(ipAddress, port.Value);
+
+                    switch (uri.Scheme)
+                    {
+                        case UriScheme.Https: { AddEndpoint(serverOptions, ep, endPoint.PfxFile, endPoint.Password); break; }
+                        default: { AddEndpoint(serverOptions, ep); break; }
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Context.Log.Error(message: this.I18N("webexpress:httpserver.listen.exeption"), args: endPoint);
+                Context.Log.Exception(ex);
+
+            }
+        }
+
+        /// <summary>
+        /// Fügt ein Endpunkt hinzu
+        /// </summary>
+        /// <param name="serverOptions">Die Serveroptionen</param>
+        /// <param name="endPoint">Der Endpunkt</param>
+        private void AddEndpoint(OptionsWrapper<KestrelServerOptions> serverOptions, IPEndPoint endPoint)
+        {
+            serverOptions.Value.Listen(endPoint);
+
+            Context.Log.Info(message: this.I18N("webexpress:httpserver.listen"), args: endPoint.ToString());
+        }
+
+        /// <summary>
+        /// Fügt ein Endpunkt hinzu
+        /// </summary>
+        /// <param name="serverOptions">Die Serveroptionen</param>
+        /// <param name="pfxFile">Das Zertifikat</param>
+        /// <param name="password">Das Passwort zum Zertifikat</param>
+        /// <param name="endPoint">Der Endpunkt</param>
+        private void AddEndpoint(OptionsWrapper<KestrelServerOptions> serverOptions, IPEndPoint endPoint, string pfxFile, string password)
+        {
+            serverOptions.Value.Listen(endPoint, configure => 
+            { 
+                var cert = new X509Certificate2(pfxFile, password);
+                
+                    configure.UseHttps(cert);
+            });
+
+            Context.Log.Info(message: this.I18N("webexpress:httpserver.listen"), args: endPoint.ToString());
         }
 
         /// <summary>

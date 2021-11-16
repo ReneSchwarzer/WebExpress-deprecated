@@ -33,11 +33,6 @@ namespace WebExpress.Message
         public IUri BaseUri { get; internal set; }
 
         /// <summary>
-        /// Liefert den Client
-        /// </summary>
-        public string Client { get; private set; }
-
-        /// <summary>
         /// Setzt oder liefert die Parameter
         /// </summary>
         private ParameterDictionary Param { get; } = new ParameterDictionary();

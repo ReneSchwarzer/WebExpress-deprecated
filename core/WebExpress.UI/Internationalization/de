@@ -5,8 +5,6 @@ plugin.description=Stellt Basiskomponenten bereit.
 module.name=WebExpress.UI
 module.description=Stellt Basiskomponenten bereit.
 
-resourceasset.load={0}: Datei '{1}' wurde geladen
-
 componentmanager.initialization=Der Komponentenmanager wurde initialisiert.
 componentmanager.register=Die Komponente '{0}' wurde in der Sektion '{1}' des Modules '{2}' der Anwendung '{3}' registriert.
 componentmanager.error.section=Die Angabe der Sektion ist fehlerhaft.

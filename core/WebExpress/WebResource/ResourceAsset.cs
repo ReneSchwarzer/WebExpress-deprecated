@@ -125,7 +125,7 @@ namespace WebExpress.WebResource
                         break;
                 }
 
-                Context.Log.Debug(string.Format(I18N("webexpress.ui:resourceasset.load"), request.Client, request.Uri));
+                Context.Log.Debug(message: I18N("webexpress:resource.file"), args: new object[] { request.RemoteEndPoint, request.Uri });
 
                 return response;
             }

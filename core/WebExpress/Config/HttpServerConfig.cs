@@ -23,10 +23,10 @@ namespace WebExpress.Config
         public List<EndpointConfig> Endpoints { get; set; }
 
         /// <summary>
-        /// Das Verbindungslimit
+        /// Das Limitierungen
         /// </summary>
-        [XmlElement("connectionlimit", DataType = "int")]
-        public int ConnectionLimit { get; set; }
+        [XmlElement("limit")]
+        public LimitConfig Limit { get; set; }
 
         /// <summary>
         /// Verzeichnis, indem sich die zu ladenden Plugins befinden

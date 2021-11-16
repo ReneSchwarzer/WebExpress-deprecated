@@ -21,6 +21,7 @@ httpserver.request={0}: Anfrage '{1}'
 httpserver.request.unexpected={0}: Unerwartete Anfrage '{1}'
 httpserver.request.done={0}: Anfrage wurde in {1} ms bearbeitet. Status = {2}
 httpserver.connectionlimit=Das Limit für gleichzeitige Anfragen wurde überschritten.
+httpserver.endpoint=Endpunkt '{0}' wird registriert.
 httpserver.listen=Der Webserver lauscht auf den Endpunkt {0}.
 httpserver.listen.exeption=Fehler beim Einrichten eines Endpunktes für die Uri {0}.
 httpserver.listener.try=Falls Ihnen Zugriffsrechte fehlen, führen Sie unter Windows folgende Anweisung als Administrator aus:
@@ -79,4 +80,5 @@ schedulermanager.cron.parseerror=Syntaxfehler in der Zeitangabe eines Jobs. Der 
 schedulermanager.cron.range=Syntaxfehler in der Zeitangabe eines Jobs. Der Wert '{0}' ist außerhalb des gültigen Bereiches.
 
 resource.variable.duplicate=Variable '{0}' bereits vorhanden!
+resource.file={0}: Datei '{1}' wurde geladen.
 
