@@ -10,11 +10,11 @@ using Microsoft.Extensions.Primitives;
 using System;
 using System.Diagnostics;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Security.Cryptography.X509Certificates;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using WebExpress.Application;
@@ -165,7 +165,8 @@ namespace WebExpress
 
             });
 
-            serverOptions.Value.Limits.MaxConcurrentConnections = Config?.Limit?.ConnectionLimit;
+            serverOptions.Value.Limits.MaxConcurrentConnections = Config?.Limit?.ConnectionLimit > 0 ? Config?.Limit?.ConnectionLimit : serverOptions.Value.Limits.MaxConcurrentConnections;
+            serverOptions.Value.Limits.MaxRequestBodySize = Config?.Limit?.UploadLimit > 0 ? Config?.Limit?.UploadLimit : serverOptions.Value.Limits.MaxRequestBodySize;
 
             foreach (var endpoint in Config.Endpoints)
             {
@@ -248,11 +249,11 @@ namespace WebExpress
         /// <param name="endPoint">Der Endpunkt</param>
         private void AddEndpoint(OptionsWrapper<KestrelServerOptions> serverOptions, IPEndPoint endPoint, string pfxFile, string password)
         {
-            serverOptions.Value.Listen(endPoint, configure => 
-            { 
+            serverOptions.Value.Listen(endPoint, configure =>
+            {
                 var cert = new X509Certificate2(pfxFile, password);
-                
-                    configure.UseHttps(cert);
+
+                configure.UseHttps(cert);
             });
 
             Context.Log.Info(message: this.I18N("webexpress:httpserver.listen"), args: endPoint.ToString());
@@ -292,7 +293,7 @@ namespace WebExpress
             var culture = Culture;
             var uri = request?.Uri;
 
-            Context.Log.Info(message: this.I18N("webexpress:httpserver.connected"), args: request.RemoteEndPoint);
+            Context.Log.Info(message: this.I18N("webexpress:httpserver.connected"), args: context?.RemoteEndPoint);
 
             // Kultur ermitteln
             try
@@ -303,65 +304,79 @@ namespace WebExpress
             {
             }
 
-            try
+            if (context.CreatedException != null)
             {
-                Context.Log.Debug(message: this.I18N("webexpress:httpserver.request"), args: new object[] { request.RemoteEndPoint, $"{ request?.Method } { request?.Uri } { request?.Protocoll }" });
+                Context.Log.Exception(context.CreatedException);
 
-                // Suche Seite in Sitemap
-                var resource = ResourceManager.Find(request?.Uri.ToString(), new SearchContext()
-                {
-                    Culture = culture,
-                    Uri = request?.Uri
-                });
+                var message = $"<h4>Message</h4>{ context.CreatedException.Message }<br/><br/>" +
+                        $"<h5>Source</h5>{ context.CreatedException.Source }<br/><br/>" +
+                        $"<h5>StackTrace</h5>{ context.CreatedException.StackTrace.Replace("\n", "<br/>\n") }<br/><br/>" +
+                        $"<h5>InnerException</h5>{ context.CreatedException.InnerException?.ToString().Replace("\n", "<br/>\n") }";
 
-                // Ressource ausführen
-                if (resource?.Instance != null)
-                {
-                    var moduleContext = ModuleManager.GetModule(resource?.Context?.Module);
-                    request.Uri = new UriResource(moduleContext, uri, resource, culture);
-                    request.AddParameter(resource.Variables.Select(x => new Parameter(x.Key, x.Value, ParameterScope.Url)));
-
-                    resource.Instance?.PreProcess(request);
-                    response = resource.Instance?.Process(request);
-                    response = resource.Instance?.PostProcess(request, response);
-
-                    if (resource.Instance is IPage)
-                    {
-                        response.Content += $"<!-- { stopwatch.ElapsedMilliseconds } ms -->";
-                    }
-
-                    if (response is ResponseNotFound)
-                    {
-                        response = CreateStatusPage<ResponseNotFound>(string.Empty, request, resource.Context);
-                    }
-                }
-                else
-                {
-                    // Seite nicht gefunden
-                    response = CreateStatusPage<ResponseNotFound>(string.Empty, request);
-                }
+                response = CreateStatusPage<ResponseInternalServerError>(message, context);
             }
-            catch (RedirectException ex)
+            else
             {
-                if (ex.Permanet)
+                try
                 {
-                    response = new ResponseRedirectPermanentlyMoved(ex.Url);
+                    Context.Log.Debug(message: this.I18N("webexpress:httpserver.request"), args: new object[] { context.RemoteEndPoint, $"{ request?.Method } { request?.Uri } { request?.Protocoll }" });
+
+                    // Suche Seite in Sitemap
+                    var resource = ResourceManager.Find(context?.Uri.ToString(), new SearchContext()
+                    {
+                        Culture = culture,
+                        Uri = request?.Uri
+                    });
+
+                    // Ressource ausführen
+                    if (resource?.Instance != null)
+                    {
+                        var moduleContext = ModuleManager.GetModule(resource?.Context?.Module);
+                        request.Uri = new UriResource(moduleContext, uri, resource, culture);
+                        request.AddParameter(resource.Variables.Select(x => new Parameter(x.Key, x.Value, ParameterScope.Url)));
+
+                        resource.Instance?.PreProcess(request);
+                        response = resource.Instance?.Process(request);
+                        response = resource.Instance?.PostProcess(request, response);
+
+                        if (resource.Instance is IPage)
+                        {
+                            response.Content += $"<!-- { stopwatch.ElapsedMilliseconds } ms -->";
+                        }
+
+                        if (response is ResponseNotFound)
+                        {
+                            response = CreateStatusPage<ResponseNotFound>(string.Empty, request, resource.Context);
+                        }
+                    }
+                    else
+                    {
+                        // Seite nicht gefunden
+                        response = CreateStatusPage<ResponseNotFound>(string.Empty, request);
+                    }
                 }
-                else
+                catch (RedirectException ex)
                 {
-                    response = new ResponseRedirectTemporarilyMoved(ex.Url);
+                    if (ex.Permanet)
+                    {
+                        response = new ResponseRedirectPermanentlyMoved(ex.Url);
+                    }
+                    else
+                    {
+                        response = new ResponseRedirectTemporarilyMoved(ex.Url);
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                Context.Log.Exception(ex);
+                catch (Exception ex)
+                {
+                    Context.Log.Exception(ex);
 
-                var message = $"<h4>Message</h4>{ ex.Message }<br/><br/>" +
-                        $"<h5>Source</h5>{ ex.Source }<br/><br/>" +
-                        $"<h5>StackTrace</h5>{ ex.StackTrace.Replace("\n", "<br/>\n") }<br/><br/>" +
-                        $"<h5>InnerException</h5>{ ex.InnerException?.ToString().Replace("\n", "<br/>\n") }";
+                    var message = $"<h4>Message</h4>{ ex.Message }<br/><br/>" +
+                            $"<h5>Source</h5>{ ex.Source }<br/><br/>" +
+                            $"<h5>StackTrace</h5>{ ex.StackTrace.Replace("\n", "<br/>\n") }<br/><br/>" +
+                            $"<h5>InnerException</h5>{ ex.InnerException?.ToString().Replace("\n", "<br/>\n") }";
 
-                response = CreateStatusPage<ResponseInternalServerError>(message, request);
+                    response = CreateStatusPage<ResponseInternalServerError>(message, request);
+                }
             }
 
             // Response an Client schicken
@@ -394,7 +409,7 @@ namespace WebExpress
                     responseFeature.Headers.WWWAuthenticate = "Basic realm=\"Bereich\"";
                 }
 
-                if (!request.Header.Cookies.Where(x => x.Name.Equals("session")).Any() && request.Session != null)
+                if (request != null && !request.Header.Cookies.Where(x => x.Name.Equals("session")).Any() && request.Session != null)
                 {
                     var cookie = new Cookie("session", request.Session.ID.ToString()) { Expires = DateTime.MaxValue };
                     responseFeature.Headers.SetCookie = new StringValues(cookie.ToString());
@@ -413,7 +428,7 @@ namespace WebExpress
                 }
                 else if (response?.Content is string strContent)
                 {
-                    var content = request.Header.ContentEncoding.GetBytes(strContent);
+                    var content = request != null ? request.Header.ContentEncoding.GetBytes(strContent) : Encoding.Default.GetBytes(strContent);
 
                     responseFeature.Headers.ContentLength = content.Length;
                     await responseBodyFeature.Stream.WriteAsync(content);
@@ -421,7 +436,7 @@ namespace WebExpress
                 }
                 else if (response?.Content is IHtmlNode htmlContent)
                 {
-                    var content = request.Header.ContentEncoding.GetBytes(htmlContent?.ToString());
+                    var content = request != null ? request.Header.ContentEncoding.GetBytes(htmlContent?.ToString()) : Encoding.Default.GetBytes(htmlContent?.ToString());
 
                     responseFeature.Headers.ContentLength = content.Length;
                     await responseBodyFeature.Stream.WriteAsync(content);
@@ -437,7 +452,7 @@ namespace WebExpress
 
             stopwatch.Stop();
 
-            Context.Log.Info(message: this.I18N("webexpress:httpserver.request.done"), args: new object[] { request.RemoteEndPoint, stopwatch.ElapsedMilliseconds, response.Status });
+            Context.Log.Info(message: this.I18N("webexpress:httpserver.request.done"), args: new object[] { context?.RemoteEndPoint, stopwatch.ElapsedMilliseconds, response.Status });
         }
 
         /// <summary>
@@ -446,7 +461,7 @@ namespace WebExpress
         /// <param name="massage">Die Fehlernachricht</param>
         /// <param name="request">Die Anfrage</param>
         /// <param name="context">Der Kontext der aufgerufenen Ressource oder null</param>
-        /// <returns></returns>
+        /// <returns>Die Antwort</returns>
         private Response CreateStatusPage<T>(string massage, Request request, IResourceContext context = null) where T : Response, new()
         {
             var response = new T() as Response;
@@ -486,13 +501,56 @@ namespace WebExpress
         }
 
         /// <summary>
+        /// Erstellt eine Statusseite
+        /// </summary>
+        /// <param name="massage">Die Fehlernachricht</param>
+        /// <param name="context">Der Anfragekontext</param>
+        /// <returns>Die Antwort</returns>
+        private Response CreateStatusPage<T>(string massage, HttpContext context) where T : Response, new()
+        {
+            var response = new T() as Response;
+            var culture = Culture;
+            var moduleContext = ResponseManager.GetDefaultModule(response.Status, context.Uri.ToString(), null);
+
+            IPageStatus statusPage = ResponseManager.Create(massage, response.Status, moduleContext, new UriAbsolute(context?.Uri.ToString()));
+
+            if (statusPage != null)
+            {
+                if (statusPage is II18N i18n)
+                {
+                    i18n.Culture = culture;
+                }
+
+                if (statusPage is Resource resource)
+                {
+                    resource.Initialization(new ResourceContext(moduleContext));
+                }
+
+                statusPage.PreProcess(null);
+                response = statusPage.Process(null);
+                statusPage.PostProcess(null, response);
+
+                return response;
+            }
+
+            return response;
+        }
+
+        /// <summary>
         /// Erstellen Sie einen HttpContext mit einer Auflistung von HTTP-Features.
         /// </summary>
         /// <param name="contextFeatures">Eine Auflistung von HTTP-Features, die zum Erstellen des HttpContexts verwendet werden sollen.</param>
         /// <returns>Der erstellte HttpContext.</returns>
         public HttpContext CreateContext(IFeatureCollection contextFeatures)
         {
-            return new HttpContext(contextFeatures);
+            try
+            {
+                return new HttpContext(contextFeatures);
+            }
+            catch (Exception ex)
+            {
+                return new HttpContext(ex, contextFeatures);
+            }
         }
 
         /// <summary>
@@ -512,7 +570,6 @@ namespace WebExpress
         /// <param name="exception">Die Ausnahme, die ausgelöst wird, wenn die Verarbeitung nicht erfolgreich abgeschlossen wurde, andernfalls NULL.</param>
         public void DisposeContext(HttpContext context, Exception exception)
         {
-
         }
     }
 }

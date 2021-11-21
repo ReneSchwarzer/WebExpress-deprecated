@@ -124,10 +124,15 @@ namespace WebExpress
 
             }
 
+            var assetBase = string.IsNullOrWhiteSpace(config.AssetBase) ?
+                Environment.CurrentDirectory : Path.IsPathRooted(config.AssetBase) ?
+                config.AssetBase : 
+                Path.Combine(Environment.CurrentDirectory, config.AssetBase);
+
             var context = new HttpServerContext
             (
                 config.Endpoints,
-                string.IsNullOrWhiteSpace(config.AssetBase) ? Environment.CurrentDirectory : config.AssetBase,
+                Path.GetFullPath(assetBase),
                 Path.GetDirectoryName(configFile),
                 new UriRelative(config.ContextPath),
                 culture,

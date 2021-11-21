@@ -111,7 +111,7 @@ namespace WebExpress.Application
                     Description = description,
                     Options = options,
                     Icon = UriRelative.Combine(Context.ContextPath, contextPath, icon),
-                    AssetPath = Path.Combine(Context.AssetPath, assetPath),
+                    AssetPath = Path.GetFullPath(Path.Combine(Context.AssetPath, assetPath)),
                     ContextPath = UriRelative.Combine(Context.ContextPath, contextPath),
                     Log = Context.Log
                 };

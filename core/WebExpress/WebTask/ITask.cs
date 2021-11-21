@@ -10,6 +10,11 @@ namespace WebExpress.WebTask
         event EventHandler<TaskEventArgs> Process;
 
         /// <summary>
+        /// Event wird ausgelöst, wenn die Aufgabe beendet wird
+        /// </summary>
+        event EventHandler<TaskEventArgs> Finish;
+
+        /// <summary>
         /// Die ID der Aufgabe
         /// </summary>
         string ID { get; }

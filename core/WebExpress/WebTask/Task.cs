@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
-using WebExpress.WebPage;
 
 namespace WebExpress.WebTask
 {
@@ -16,6 +15,11 @@ namespace WebExpress.WebTask
         /// Event wird ausgelöst, wenn die Aufgabe ausgeführt wird.
         /// </summary>
         public event EventHandler<TaskEventArgs> Process;
+
+        /// <summary>
+        /// Event wird ausgelöst, wenn die Aufgabe beendet wird
+        /// </summary>
+        public event EventHandler<TaskEventArgs> Finish;
 
         /// <summary>
         /// Die ID der Aufgabe
@@ -43,7 +47,7 @@ namespace WebExpress.WebTask
         public int Progress
         {
             get => progress;
-            set => progress = Math.Min(value, 100); 
+            set => progress = Math.Min(value, 100);
         }
 
         /// <summary>
@@ -67,6 +71,14 @@ namespace WebExpress.WebTask
         }
 
         /// <summary>
+        /// Wird ausgelöst, wenn die Aufgabe abgeschlossen ist
+        /// </summary>
+        protected virtual void OnFinish()
+        {
+            Finish?.Invoke(this, new TaskEventArgs());
+        }
+
+        /// <summary>
         /// Startet die Ausführung nebenläufig
         /// </summary>
         public void Run()
@@ -74,7 +86,7 @@ namespace WebExpress.WebTask
             System.Threading.Tasks.Task.Factory.StartNew(() =>
             {
                 State = TaskState.Run;
-                
+
                 Progress = 0;
 
                 OnProcess();
@@ -82,6 +94,8 @@ namespace WebExpress.WebTask
                 Progress = 100;
 
                 State = TaskState.Finish;
+
+                OnFinish();
 
             }, TokenSource.Token);
         }

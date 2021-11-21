@@ -15,6 +15,12 @@ namespace WebExpress.Config
         public int ConnectionLimit { get; set; }
 
         /// <summary>
+        /// Das Uploadlimit in Bytes
+        /// </summary>
+        [XmlElement("uploadlimit", DataType = "long")]
+        public long UploadLimit { get; set; }
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         public LimitConfig()

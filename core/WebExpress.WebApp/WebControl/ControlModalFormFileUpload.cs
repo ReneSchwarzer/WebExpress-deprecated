@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using WebExpress.Html;
 using WebExpress.Message;
 using WebExpress.UI.WebControl;
@@ -10,6 +11,11 @@ namespace WebExpress.WebApp.WebControl
 {
     public class ControlModalFormFileUpload : ControlModalFormular
     {
+        /// <summary>
+        /// Liefert die Akzeptierten Datein
+        /// </summary>
+        public ICollection<string> AcceptFile { get => File.AcceptFile; set => File.AcceptFile = value; }
+
         /// <summary>
         /// Event wird ausgelöst, wenn das Hochladen bestätigt wurde
         /// </summary>

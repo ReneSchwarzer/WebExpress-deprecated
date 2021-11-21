@@ -136,7 +136,7 @@ namespace WebExpress.Module
                         ModuleName = name,
                         Description = description,
                         Icon = UriRelative.Combine(cp, contextPath, icon),
-                        AssetPath = Path.Combine(Context.AssetPath, assetPath),
+                        AssetPath = Path.GetFullPath(Path.Combine(application.AssetPath, assetPath)),
                         ContextPath = UriRelative.Combine(cp, contextPath),
                         Log = Context.Log
                     };

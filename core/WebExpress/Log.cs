@@ -505,12 +505,6 @@ namespace WebExpress
         /// <param name="formatter">unktion zum Erstellen einer String-Nachricht des state-Parameters und exception-Parameters.</param>
         void ILogger.Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
         {
-            //if (logLevel == LogLevel.Debug)
-            //{
-            //    var message = formatter.Invoke(state, exception);
-            //    Debug(message, "Kestrel", null, null);
-            //}
-            //else
             if (logLevel == LogLevel.Error)
             {
                 var message = exception?.Message ?? formatter.Invoke(state, exception);

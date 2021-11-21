@@ -95,5 +95,5 @@ function updatePopupNotification(id, url, confirmUrl)
     {
         $.ajax({ url: url, dataType: 'json' }).then(update);
 
-    }, 300000);
+    }, 15000);
 }

@@ -50,16 +50,6 @@ namespace WebExpress.UI.WebControl
             }
 
             Value = context?.Request.GetParameter(Name)?.Value;
-
-            var value = string.Empty;
-            var options = string.Join(",", Options.Select(x => "{id:'" + x.ID + "',value:'" + x.Value + "'}"));
-
-            if (Value != null)
-            {
-                value = string.Join(",", Value?.Split(";", System.StringSplitOptions.RemoveEmptyEntries).Select(x => $"'{ x }'"));
-            }
-
-            context.VisualTree.AddScript(ID, $"new MoveSelector('#moveselector_{ ID }', '{ Name }', [{ options }], [{ value }]);");
         }
 
         /// <summary>
@@ -69,28 +59,30 @@ namespace WebExpress.UI.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContextFormular context)
         {
+            var classes = Classes.ToList();
+
             if (Disabled)
             {
-                Classes.Add("disabled");
+                classes.Add("disabled");
             }
 
             switch (ValidationResult)
             {
                 case TypesInputValidity.Success:
-                    Classes.Add("input-success");
+                    classes.Add("input-success");
                     break;
                 case TypesInputValidity.Warning:
-                    Classes.Add("input-warning");
+                    classes.Add("input-warning");
                     break;
                 case TypesInputValidity.Error:
-                    Classes.Add("input-error");
+                    classes.Add("input-error");
                     break;
             }
 
             var html = new HtmlElementTextContentDiv()
             {
                 ID = $"moveselector_{ID}",
-                Class = Css.Concatenate("moveselector", GetClasses()), // form-control
+                Class = Css.Concatenate("moveselector", string.Join(" ", classes)), // form-control
                 Style = GetStyles(),
                 Role = "moveselector"
             };
@@ -126,6 +118,16 @@ namespace WebExpress.UI.WebControl
                 availableList.Render(context)
             )
             { Class = "moveselector-list" });
+
+            var value = string.Empty;
+            var options = string.Join(",", Options.Select(x => "{id:'" + x.ID + "',value:'" + x.Value + "'}"));
+
+            if (Value != null)
+            {
+                value = string.Join(",", Value?.Split(";", System.StringSplitOptions.RemoveEmptyEntries).Select(x => $"'{ x }'"));
+            }
+
+            context.VisualTree.AddScript(ID, $"new MoveSelector('#moveselector_{ ID }', '{ Name }', [{ options }], [{ value }]);");
 
             return html;
         }
