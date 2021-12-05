@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Primitives;
 using System;
 using System.Diagnostics;
 using System.Globalization;
@@ -14,7 +13,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using WebExpress.Application;
@@ -284,8 +282,9 @@ namespace WebExpress
         /// Behandelt einen eingehenden Anforderung
         /// Wird nebenläufig ausgeführt
         /// </summary>
-        /// <param name="context">Der Kontext der Webanforderung</param>
-        private async Task HandleClient(HttpContext context)
+        /// <param name="context">Der Kontext der Webanforderung.</param>
+        /// <returns>Die Antwort, welche an den Aufrufer zurückgeschickt werden soll.</returns>
+        private Response HandleClient(HttpContext context)
         {
             var stopwatch = Stopwatch.StartNew();
             var request = context.Request;
@@ -304,82 +303,93 @@ namespace WebExpress
             {
             }
 
-            if (context.CreatedException != null)
+            try
             {
-                Context.Log.Exception(context.CreatedException);
+                Context.Log.Debug(message: this.I18N("webexpress:httpserver.request"), args: new object[] { context.RemoteEndPoint, $"{ request?.Method } { request?.Uri } { request?.Protocoll }" });
 
-                var message = $"<h4>Message</h4>{ context.CreatedException.Message }<br/><br/>" +
-                        $"<h5>Source</h5>{ context.CreatedException.Source }<br/><br/>" +
-                        $"<h5>StackTrace</h5>{ context.CreatedException.StackTrace.Replace("\n", "<br/>\n") }<br/><br/>" +
-                        $"<h5>InnerException</h5>{ context.CreatedException.InnerException?.ToString().Replace("\n", "<br/>\n") }";
-
-                response = CreateStatusPage<ResponseInternalServerError>(message, context);
-            }
-            else
-            {
-                try
+                // Suche Seite in Sitemap
+                var resource = ResourceManager.Find(context?.Uri.ToString(), new SearchContext()
                 {
-                    Context.Log.Debug(message: this.I18N("webexpress:httpserver.request"), args: new object[] { context.RemoteEndPoint, $"{ request?.Method } { request?.Uri } { request?.Protocoll }" });
+                    Culture = culture,
+                    Uri = request?.Uri
+                });
 
-                    // Suche Seite in Sitemap
-                    var resource = ResourceManager.Find(context?.Uri.ToString(), new SearchContext()
+                // Ressource ausführen
+                if (resource?.Instance != null)
+                {
+                    var moduleContext = resource?.Context?.Module;
+                    request.Uri = new UriResource(moduleContext, uri, resource, culture);
+                    request.AddParameter(resource.Variables.Select(x => new Parameter(x.Key, x.Value, ParameterScope.Url)));
+
+                    resource.Instance?.PreProcess(request);
+                    response = resource.Instance?.Process(request);
+                    response = resource.Instance?.PostProcess(request, response);
+
+                    if (resource.Instance is IPage)
                     {
-                        Culture = culture,
-                        Uri = request?.Uri
-                    });
-
-                    // Ressource ausführen
-                    if (resource?.Instance != null)
-                    {
-                        var moduleContext = ModuleManager.GetModule(resource?.Context?.Module);
-                        request.Uri = new UriResource(moduleContext, uri, resource, culture);
-                        request.AddParameter(resource.Variables.Select(x => new Parameter(x.Key, x.Value, ParameterScope.Url)));
-
-                        resource.Instance?.PreProcess(request);
-                        response = resource.Instance?.Process(request);
-                        response = resource.Instance?.PostProcess(request, response);
-
-                        if (resource.Instance is IPage)
-                        {
-                            response.Content += $"<!-- { stopwatch.ElapsedMilliseconds } ms -->";
-                        }
-
-                        if (response is ResponseNotFound)
-                        {
-                            response = CreateStatusPage<ResponseNotFound>(string.Empty, request, resource.Context);
-                        }
+                        response.Content += $"<!-- { stopwatch.ElapsedMilliseconds } ms -->";
                     }
-                    else
+
+                    if (response is ResponseNotFound)
                     {
-                        // Seite nicht gefunden
-                        response = CreateStatusPage<ResponseNotFound>(string.Empty, request);
+                        response = CreateStatusPage<ResponseNotFound>(string.Empty, request, resource.Context);
+                    }
+
+                    if 
+                    (
+                        !response.Header.Cookies.Where(x => x.Name.Equals("session")).Any() && 
+                        !request.Header.Cookies.Where(x => x.Name.Equals("session")).Any() && 
+                        request.Session != null
+                    )
+                    {
+                        var cookie = new Cookie("session", request.Session.ID.ToString()) { Expires = DateTime.MaxValue };
+                        response.Header.Cookies.Add(cookie);
                     }
                 }
-                catch (RedirectException ex)
+                else
                 {
-                    if (ex.Permanet)
-                    {
-                        response = new ResponseRedirectPermanentlyMoved(ex.Url);
-                    }
-                    else
-                    {
-                        response = new ResponseRedirectTemporarilyMoved(ex.Url);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Context.Log.Exception(ex);
-
-                    var message = $"<h4>Message</h4>{ ex.Message }<br/><br/>" +
-                            $"<h5>Source</h5>{ ex.Source }<br/><br/>" +
-                            $"<h5>StackTrace</h5>{ ex.StackTrace.Replace("\n", "<br/>\n") }<br/><br/>" +
-                            $"<h5>InnerException</h5>{ ex.InnerException?.ToString().Replace("\n", "<br/>\n") }";
-
-                    response = CreateStatusPage<ResponseInternalServerError>(message, request);
+                    // Seite nicht gefunden
+                    response = CreateStatusPage<ResponseNotFound>(string.Empty, request);
                 }
             }
+            catch (RedirectException ex)
+            {
+                if (ex.Permanet)
+                {
+                    response = new ResponseRedirectPermanentlyMoved(ex.Url);
+                }
+                else
+                {
+                    response = new ResponseRedirectTemporarilyMoved(ex.Url);
+                }
+            }
+            catch (Exception ex)
+            {
+                Context.Log.Exception(ex);
 
-            // Response an Client schicken
+                var message = $"<h4>Message</h4>{ ex.Message }<br/><br/>" +
+                        $"<h5>Source</h5>{ ex.Source }<br/><br/>" +
+                        $"<h5>StackTrace</h5>{ ex.StackTrace.Replace("\n", "<br/>\n") }<br/><br/>" +
+                        $"<h5>InnerException</h5>{ ex.InnerException?.ToString().Replace("\n", "<br/>\n") }";
+
+                response = CreateStatusPage<ResponseInternalServerError>(message, request);
+            }
+
+            stopwatch.Stop();
+
+            Context.Log.Info(message: this.I18N("webexpress:httpserver.request.done"), args: new object[] { context?.RemoteEndPoint, stopwatch.ElapsedMilliseconds, response.Status });
+
+            return response;
+        }
+
+        /// <summary>
+        /// Sendet die Antwortnachricht
+        /// </summary>
+        /// <param name="context">Der Kontext der Anfrage</param>
+        /// <param name="response">Die Antwortnachricht</param>
+        /// <returns>Das Senden der Nachricht als Aufgabe, welche nebenläufig ausgeführt wird.</returns>
+        private async Task SendResponseAsync(HttpContext context, Response response)
+        {
             try
             {
                 var responseFeature = context.Features.Get<IHttpResponseFeature>();
@@ -409,16 +419,15 @@ namespace WebExpress
                     responseFeature.Headers.WWWAuthenticate = "Basic realm=\"Bereich\"";
                 }
 
-                if (request != null && !request.Header.Cookies.Where(x => x.Name.Equals("session")).Any() && request.Session != null)
+                if (response.Header.Cookies.Any())
                 {
-                    var cookie = new Cookie("session", request.Session.ID.ToString()) { Expires = DateTime.MaxValue };
-                    responseFeature.Headers.SetCookie = new StringValues(cookie.ToString());
+                    responseFeature.Headers.SetCookie = string.Join(" ", response.Header.Cookies);
                 }
 
-                ////    foreach (var c in response.Header.CustomHeader)
-                ////    {
-                ////        context.Response.AppendHeader(c.Key, c.Value);
-                ////    }
+                //    foreach (var c in response.Header.CustomHeader)
+                //    {
+                //        context.Response.AppendHeader(c.Key, c.Value);
+                //    }
 
                 if (response?.Content is byte[] byteContent)
                 {
@@ -428,7 +437,7 @@ namespace WebExpress
                 }
                 else if (response?.Content is string strContent)
                 {
-                    var content = request != null ? request.Header.ContentEncoding.GetBytes(strContent) : Encoding.Default.GetBytes(strContent);
+                    var content = context.Encoding.GetBytes(strContent);
 
                     responseFeature.Headers.ContentLength = content.Length;
                     await responseBodyFeature.Stream.WriteAsync(content);
@@ -436,7 +445,7 @@ namespace WebExpress
                 }
                 else if (response?.Content is IHtmlNode htmlContent)
                 {
-                    var content = request != null ? request.Header.ContentEncoding.GetBytes(htmlContent?.ToString()) : Encoding.Default.GetBytes(htmlContent?.ToString());
+                    var content = context.Encoding.GetBytes(htmlContent?.ToString());
 
                     responseFeature.Headers.ContentLength = content.Length;
                     await responseBodyFeature.Stream.WriteAsync(content);
@@ -447,12 +456,8 @@ namespace WebExpress
             }
             catch (Exception ex)
             {
-                Context.Log.Error(request.RemoteEndPoint + ": " + ex.Message);
+                Context.Log.Error(context.RemoteEndPoint + ": " + ex.Message);
             }
-
-            stopwatch.Stop();
-
-            Context.Log.Info(message: this.I18N("webexpress:httpserver.request.done"), args: new object[] { context?.RemoteEndPoint, stopwatch.ElapsedMilliseconds, response.Status });
         }
 
         /// <summary>
@@ -510,7 +515,7 @@ namespace WebExpress
         {
             var response = new T() as Response;
             var culture = Culture;
-            var moduleContext = ResponseManager.GetDefaultModule(response.Status, context.Uri.ToString(), null);
+            var moduleContext = ResponseManager.GetDefaultModule(response.Status, context.Uri.ToString());
 
             IPageStatus statusPage = ResponseManager.Create(massage, response.Status, moduleContext, new UriAbsolute(context?.Uri.ToString()));
 
@@ -549,7 +554,7 @@ namespace WebExpress
             }
             catch (Exception ex)
             {
-                return new HttpContext(ex, contextFeatures);
+                return new HttpExceptionContext(ex, contextFeatures);
             }
         }
 
@@ -558,9 +563,27 @@ namespace WebExpress
         /// </summary>
         /// <param name="context">Der HttpContext, den der Vorgang verarbeitet.</param>
         /// <returns>Stellt einen asynchronen Vorgang zur Verfügung, welcher den HttpContext verarbeitet.</returns>
-        public Task ProcessRequestAsync(HttpContext context)
+        public async Task ProcessRequestAsync(HttpContext context)
         {
-            return HandleClient(context);
+            if (context is HttpExceptionContext exceptionContext)
+            {
+                var message = "<html><head><title>404</title></head><body>" +
+                       $"<h4>Message</h4>{ exceptionContext.Exception.Message }<br/><br/>" +
+                       $"<h5>Source</h5>{ exceptionContext.Exception.Source }<br/><br/>" +
+                       $"<h5>StackTrace</h5>{ exceptionContext.Exception.StackTrace.Replace("\n", "<br/>\n") }<br/><br/>" +
+                       $"<h5>InnerException</h5>{ exceptionContext.Exception.InnerException?.ToString().Replace("\n", "<br/>\n") }" +
+                       "</body></html>";
+
+                var response500 = CreateStatusPage<ResponseInternalServerError>(message, context);
+
+                await SendResponseAsync(exceptionContext, response500);
+
+                return;
+            }
+
+            var response = HandleClient(context);
+
+            await SendResponseAsync(context, response);
         }
 
         /// <summary>

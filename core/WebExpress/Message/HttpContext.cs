@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http.Features;
-using System;
+using System.Linq;
 using System.Net;
+using System.Text;
 using WebExpress.Uri;
 
 namespace WebExpress.Message
@@ -10,27 +11,32 @@ namespace WebExpress.Message
         /// <summary>
         /// Liefert die ID
         /// </summary>
-        public string ID { get; private set; }
+        public string ID { get; protected set; }
 
         /// <summary>
         /// Liefert die Anforderung
         /// </summary>
-        public Request Request { get; private set; }
+        public Request Request { get; protected set; }
 
         /// <summary>
         /// Ruft die IP-Adresse und Anschlussnummer des Servers ab, an den die Anforderung gerichtet ist.
         /// </summary>
-        public EndPoint LocalEndPoint { get; private set; }
+        public EndPoint LocalEndPoint { get; protected set; }
 
         /// <summary>
         /// Ruft die IP-Adresse und Anschlussnummer des Clients ab, von dem die Anforderung stammt.
         /// </summary>
-        public EndPoint RemoteEndPoint { get; private set; }
+        public EndPoint RemoteEndPoint { get; protected set; }
 
         /// <summary>
         /// Satz von Features.
         /// </summary>
-        public IFeatureCollection Features { get; private set; }
+        public IFeatureCollection Features { get; protected set; }
+
+        /// <summary>
+        /// Das Encoding
+        /// </summary>
+        public Encoding Encoding { get; protected set; } = Encoding.Default;
 
         /// <summary>
         /// Liefert die URL
@@ -38,9 +44,12 @@ namespace WebExpress.Message
         public IUri Uri { get; internal set; }
 
         /// <summary>
-        /// Liefert oder setzt eine Fehlernachricht, wenn der Context nicht erstellt werden konnte
+        /// Konstruktor
         /// </summary>
-        internal Exception CreatedException { get; private set; }
+        internal HttpContext()
+        {
+
+        }
 
         /// <summary>
         /// Konstruktor
@@ -57,27 +66,9 @@ namespace WebExpress.Message
             LocalEndPoint = new IPEndPoint(connectionFeature.LocalIpAddress, connectionFeature.LocalPort);
             RemoteEndPoint = new IPEndPoint(connectionFeature.RemoteIpAddress, connectionFeature.RemotePort);
 
+            Encoding = requestFeature.Headers.ContentEncoding.Any() ? Encoding.GetEncoding(requestFeature.Headers.ContentEncoding) : Encoding.Default;
+
             Request = new Request(contextFeatures);
-        }
-
-        /// <summary>
-        /// Konstruktor
-        /// </summary>
-        /// <param name="exception">Eine Ausnahme, welche die Erstellung des Kontextes verhindert hat</param>
-        /// <param name="contextFeatures">Anfänglicher Satz von Features.</param>
-        public HttpContext(Exception exception, IFeatureCollection contextFeatures)
-        {
-            var connectionFeature = contextFeatures.Get<IHttpConnectionFeature>();
-            var requestFeature = contextFeatures.Get<IHttpRequestFeature>();
-
-            Features = contextFeatures;
-            ID = connectionFeature.ConnectionId;
-
-            Uri = new UriRelative(requestFeature.Path);
-            LocalEndPoint = new IPEndPoint(connectionFeature.LocalIpAddress, connectionFeature.LocalPort);
-            RemoteEndPoint = new IPEndPoint(connectionFeature.RemoteIpAddress, connectionFeature.RemotePort);
-
-            CreatedException = exception;
         }
     }
 }

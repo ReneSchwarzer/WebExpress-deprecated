@@ -140,12 +140,12 @@ namespace WebExpress.Message
         /// <param name="uri">Die URI</param>
         /// <param name="module">Der Kontext des Moduls</param>
         /// <returns>Die erste gefunde Statusseite zu den gegebenen Status oder null</returns>
-        public static IModuleContext GetDefaultModule(int status, string uri, IModuleContext module)
+        public static IModuleContext GetDefaultModule(int status, string uri, IModuleContext module = null)
         {
             var applications = ApplicationManager.GetApplcations().Where(x => uri != null && uri.StartsWith(x.ContextPath.ToString()));
 
             // 1. Bevorzugte Statusseite 
-            var modules = Dictionary.Where(x => applications.Select(x => x.ApplicationID).Contains(x.Key.Application.ApplicationID))
+            var modules = Dictionary.Where(x => applications.Contains(x.Key.Application))
                 .Where(x => x.Key.ModuleID.Equals(module?.ModuleID, StringComparison.OrdinalIgnoreCase))
                 .Where(x => x.Value.ContainsKey(status));
 
@@ -157,7 +157,7 @@ namespace WebExpress.Message
             }
 
             // 2. Wenn nicht vorhanden alternativ verfügbarte Statusseite
-            modules = Dictionary.Where(x => applications.Select(x => x.ApplicationID).Contains(x.Key.Application.ApplicationID))
+            modules = Dictionary.Where(x => applications.Contains(x.Key.Application))
                 .Where(x => x.Value.ContainsKey(status));
 
             mod = modules.FirstOrDefault();

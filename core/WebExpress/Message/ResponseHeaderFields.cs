@@ -52,7 +52,7 @@ namespace WebExpress.Message
         /// <summary>
         /// Liefert oder setzt die Cookies
         /// </summary>
-        public CookieCollection Cookies { get; private set; }
+        public CookieCollection Cookies { get; } = new CookieCollection();
 
         /// <summary>
         /// Konstruktor
