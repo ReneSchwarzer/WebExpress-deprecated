@@ -12,7 +12,7 @@ namespace WebExpress.WebApp.WebControl
         /// <summary>
         /// Event wird ausgelöst, wenn das Löschen bestätigt wurde
         /// </summary>
-        public event EventHandler Confirm;
+        public event EventHandler<FormularEventArgs> Confirm;
 
         /// <summary>
         /// Liefert oder setzt das Icon
@@ -67,16 +67,17 @@ namespace WebExpress.WebApp.WebControl
         {
             Formular.ProcessFormular += (s, e) =>
             {
-                OnConfirm();
+                OnConfirm(e.Context);
             };
         }
 
         /// <summary>
         /// Löst das Confirm-Event aus
         /// </summary>
-        protected virtual void OnConfirm()
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        protected virtual void OnConfirm(RenderContextFormular context)
         {
-            Confirm?.Invoke(this, new EventArgs());
+            Confirm?.Invoke(this, new FormularEventArgs() { Context = context });
         }
 
         /// <summary>

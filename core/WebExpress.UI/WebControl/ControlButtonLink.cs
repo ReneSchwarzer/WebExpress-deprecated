@@ -2,6 +2,7 @@
 using WebExpress.Html;
 using WebExpress.Uri;
 using WebExpress.WebPage;
+using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.UI.WebControl
 {
@@ -43,12 +44,12 @@ namespace WebExpress.UI.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            Classes.Add(Size.ToClass());
-
+            var text = I18N(context.Culture, Text);
+            
             var html = new HtmlElementTextSemanticsA()
             {
                 ID = ID,
-                Class = GetClasses(),
+                Class = Css.Concatenate(GetClasses(), Size.ToClass()),
                 Style = GetStyles(),
                 Role = Role,
                 Href = Uri?.ToString(),
@@ -72,9 +73,9 @@ namespace WebExpress.UI.WebControl
                 }.Render(context));
             }
 
-            if (!string.IsNullOrWhiteSpace(Text))
+            if (!string.IsNullOrWhiteSpace(text))
             {
-                html.Elements.Add(new HtmlText(Text));
+                html.Elements.Add(new HtmlText(text));
             }
 
             if (Content.Count > 0)

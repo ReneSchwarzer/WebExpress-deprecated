@@ -4,14 +4,17 @@
     <!-- Loggingeinstellungen Off, Override, Append-->
     <log modus="Off" path="/var/log/" encoding="utf-8" filename="webexpress.log" timepattern="dd.MM.yyyy HH:mm:ss" />
 
-    <!--<uir>http://localhost</uir>-->
-    <port>80</port>
-    <connectionlimit>300</connectionlimit>
-    <culture>de-DE</culture>
-    <assets>./</assets>
+	<endpoint uri="http://localhost/"/>
 
-    <contextpath></contextpath>
+	<limit>
+		<connectionlimit>300</connectionlimit>
+		<uploadlimit>3000000000</uploadlimit>
+	</limit>
 
-    <stagedirectory>./</stagedirectory>
+	<culture>de-DE</culture>
+
+	<assets>./</assets>
+	<contextpath></contextpath>
+	<stagedirectory>./</stagedirectory>
     
 </config>
