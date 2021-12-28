@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using WebExpress.Attribute;
+﻿using WebExpress.Attribute;
 using WebExpress.Message;
-using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebResource;
-using WebExpress.WebTask;
 
 namespace WebExpress.WebApp.WebAPI
 {
@@ -43,7 +38,7 @@ namespace WebExpress.WebApp.WebAPI
         /// <returns>Ein Objekt welches mittels JsonSerializer serialisiert werden kann.</returns>
         public override object GetData(Request request)
         {
-            return NotificationManager.GetNotifications(request); 
+            return NotificationManager.GetNotifications(request);
         }
     }
 }

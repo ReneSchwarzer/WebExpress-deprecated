@@ -63,6 +63,7 @@ resourcemanager.wrongmodule=The {2} resource is not part of the module {1} of th
 resourcemanager.addresource=The Resource '{0}' has been registered in the sitemap of the module '{2}' of the '{1}' application.
 resourcemanager.addresource.error=The Resource '{0}' could not be added.
 resourcemanager.sitemap=Sitemap content for the '{0}' application:
+resourcemanager.wrongtype=The type '{0}' does not implement the interface '{1}'.
 
 responsemanager.initialization=The response managermanager has been initialized.
 responsemanager.register=Status {0} has been registered in the module '{2}' of the application '{1}' and assigned to the resource '{3}'.

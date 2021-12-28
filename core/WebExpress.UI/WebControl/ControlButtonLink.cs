@@ -45,7 +45,7 @@ namespace WebExpress.UI.WebControl
         public override IHtmlNode Render(RenderContext context)
         {
             var text = I18N(context.Culture, Text);
-            
+
             var html = new HtmlElementTextSemanticsA()
             {
                 ID = ID,

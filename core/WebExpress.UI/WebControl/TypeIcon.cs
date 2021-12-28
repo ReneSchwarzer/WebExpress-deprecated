@@ -87,6 +87,7 @@
         PuzzlePiece,
         Save,
         ShoppingBag,
+        Sliders,
         Star,
         StarHalf,
         StopCircle,
@@ -108,6 +109,7 @@
         Users,
         Wrench
     }
+
     /// <summary>
     /// Erweiterung des Types
     /// </summary>
@@ -206,6 +208,7 @@
                 TypeIcon.PuzzlePiece => "fas fa-puzzle-piece",
                 TypeIcon.Save => "fas fa-save",
                 TypeIcon.ShoppingBag => "fas fa-shopping-bag",
+                TypeIcon.Sliders => "fas fa-sliders-h",
                 TypeIcon.Star => "fas fa-star",
                 TypeIcon.StarHalf => "fas fa-star-half-alt",
                 TypeIcon.StopCircle => "fas fa-stop-circle",

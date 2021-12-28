@@ -32,7 +32,7 @@ namespace WebExpress.WebTask
         /// <summary>
         /// Liefert oder setzt eine Nachricht, die Auskunft über die Abarbeitung gibt.
         /// </summary>
-        string Message { get; set;  }
+        string Message { get; set; }
 
         /// <summary>
         /// Initialisierung

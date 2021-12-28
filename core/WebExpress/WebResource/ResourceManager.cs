@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Attribute;
+using WebExpress.Condition;
 using WebExpress.Module;
 using WebExpress.Uri;
 using static WebExpress.Internationalization.InternationalizationManager;
@@ -63,6 +64,7 @@ namespace WebExpress.WebResource
                 var moduleID = string.Empty;
                 var resourceContext = new List<string>();
                 var optional = false;
+                var conditions = new List<ICondition>();
 
                 foreach (var customAttribute in resource.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IResourceAttribute))))
                 {
@@ -98,6 +100,19 @@ namespace WebExpress.WebResource
                     {
                         optional = true;
                     }
+                    else if (customAttribute.AttributeType == typeof(ConditionAttribute))
+                    {
+                        var condition = (Type)customAttribute.ConstructorArguments.FirstOrDefault().Value;
+
+                        if (condition.GetInterfaces().Contains(typeof(ICondition)))
+                        {
+                            conditions.Add(condition?.Assembly.CreateInstance(condition?.FullName) as ICondition);
+                        }
+                        else
+                        {
+                            Context.Log.Warning(message: I18N("webexpress:resourcemanager.wrongtype"), args: new object[] { condition.Name, typeof(ICondition).Name });
+                        }
+                    }
                 }
 
                 // Prüfe ob eine optionale Ressource
@@ -131,7 +146,7 @@ namespace WebExpress.WebResource
                         root.ID = id;
                         root.Title = title;
                         root.Type = resource;
-                        root.Context = new ResourceContext(moduleContext) { Context = resourceContext };
+                        root.Context = new ResourceContext(moduleContext) { Context = resourceContext, Conditions = conditions };
                         root.ResourceContext = resourceContext;
                         root.IncludeSubPaths = includeSubPaths;
                         root.PathSegment = segment.ToPathSegment();
@@ -157,7 +172,7 @@ namespace WebExpress.WebResource
                             node.PathSegment = segment.ToPathSegment();
                             node.Title = title;
                             node.Type = resource;
-                            node.Context = new ResourceContext(moduleContext) { Context = resourceContext };
+                            node.Context = new ResourceContext(moduleContext) { Context = resourceContext, Conditions = conditions };
                             node.ResourceContext = resourceContext;
                             node.IncludeSubPaths = includeSubPaths;
                         }
@@ -205,7 +220,10 @@ namespace WebExpress.WebResource
 
                     if (result != null)
                     {
-                        return result;
+                        if (!result.Context.Conditions.Any() || result.Context.Conditions.Where(x => x.Fulfillment(context.Request)).Count() == result.Context.Conditions.Count)
+                        {
+                            return result;
+                        }
                     }
                 }
             }

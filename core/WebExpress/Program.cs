@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Xml.Serialization;
@@ -63,7 +62,7 @@ namespace WebExpress
 
                 return 0;
             }
-            
+
             if (!argumentDict.ContainsKey("config"))
             {
                 // Prüfe ob eine Datei namens Config.xml vorhanden ist
@@ -126,7 +125,7 @@ namespace WebExpress
 
             var assetBase = string.IsNullOrWhiteSpace(config.AssetBase) ?
                 Environment.CurrentDirectory : Path.IsPathRooted(config.AssetBase) ?
-                config.AssetBase : 
+                config.AssetBase :
                 Path.Combine(Environment.CurrentDirectory, config.AssetBase);
 
             var context = new HttpServerContext

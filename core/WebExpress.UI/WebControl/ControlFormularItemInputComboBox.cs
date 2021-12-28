@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
-using WebExpress.WebPage;
+using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.UI.WebControl
 {
@@ -104,12 +104,12 @@ namespace WebExpress.UI.WebControl
                     html.Elements.Add(new HtmlElementFormOptgroup() { Label = v.Text });
                     foreach (var s in v.SubItems)
                     {
-                        html.Elements.Add(new HtmlElementFormOption() { Value = s.Value, Text = s.Text, Selected = (s.Value == Value) });
+                        html.Elements.Add(new HtmlElementFormOption() { Value = s.Value, Text = I18N(context.Culture, s.Text), Selected = (s.Value == Value) });
                     }
                 }
                 else
                 {
-                    html.Elements.Add(new HtmlElementFormOption() { Value = v.Value, Text = v.Text, Selected = (v.Value == Value) });
+                    html.Elements.Add(new HtmlElementFormOption() { Value = v.Value, Text = I18N(context.Culture, v.Text), Selected = (v.Value == Value) });
                 }
             }
 

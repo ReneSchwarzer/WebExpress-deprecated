@@ -40,7 +40,7 @@ namespace WebExpress.Message
         /// <summary>
         /// Liefert oder setzt die Kodierung des Content
         /// </summary>
-        public Encoding ContentEncoding { get; private set; } 
+        public Encoding ContentEncoding { get; private set; }
 
         /// <summary>
         /// Liefert oder setzt den User-Agent

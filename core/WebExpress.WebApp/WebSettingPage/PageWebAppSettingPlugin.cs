@@ -232,7 +232,7 @@ namespace WebExpress.WebApp.WebSettingPage
                                 (
                                     new ControlText()
                                     {
-                                        Text = $"{ this.I18N(m.Plugin.PluginID, m.ModuleName) } - { this.I18N(m.Plugin.PluginID, m.Description) }",
+                                        Text = $"{ this.I18N(m.Plugin.PluginID, this.I18N(m.ModuleName)) } - { this.I18N(m.Plugin.PluginID, this.I18N(m.Description)) }",
                                         Format = TypeFormatText.Default,
                                         TextColor = new PropertyColorText(TypeColorText.Secondary),
                                         Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.Null),

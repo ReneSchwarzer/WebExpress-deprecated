@@ -55,12 +55,12 @@ namespace WebExpress.Message
         /// <summary>
         /// Ruft die IP-Adresse und Anschlussnummer des Servers ab, an den die Anforderung gerichtet ist.
         /// </summary>
-        public EndPoint LocalEndPoint { get; private set; } 
+        public EndPoint LocalEndPoint { get; private set; }
 
         /// <summary>
         /// Ruft die IP-Adresse und Anschlussnummer des Clients ab, von dem die Anforderung stammt.
         /// </summary>
-        public EndPoint RemoteEndPoint { get; private set; } 
+        public EndPoint RemoteEndPoint { get; private set; }
 
         /// <summary>
         /// Ruft einen Boolean-Wert ab, der angibt, ob der diese Anforderung sendende Client authentifiziert ist.
@@ -90,7 +90,7 @@ namespace WebExpress.Message
         /// <summary>
         /// Ruft einen das Schma ab. Dies kann http oder https sein.
         /// </summary>
-        public UriScheme Scheme { get; private set; }  
+        public UriScheme Scheme { get; private set; }
 
         /// <summary>
         /// Ruft den Anforderungsbezeichner der eingehenden HTTP-Anforderung ab.
@@ -125,7 +125,7 @@ namespace WebExpress.Message
                 "mailto" => UriScheme.Mailto,
                 "ldap" => UriScheme.Ldap,
                 _ => UriScheme.Http
-                
+
             };
             Method = requestFeature.Method.ToUpper() switch
             {
@@ -143,7 +143,7 @@ namespace WebExpress.Message
             LocalEndPoint = new IPEndPoint(connectionFeature.LocalIpAddress, connectionFeature.LocalPort);
             RemoteEndPoint = new IPEndPoint(connectionFeature.RemoteIpAddress, connectionFeature.RemotePort);
 
-           
+
             BaseUri = new UriAbsolute(Scheme, new UriAuthority(Header.Host, connectionFeature.LocalPort), new UriRelative());
 
             Content = GetContent(requestFeature.Body, Header.ContentLength);
@@ -197,7 +197,7 @@ namespace WebExpress.Message
             {
                 return;
             }
-            
+
             var contentType = Header.ContentType?.Split(';');
 
             switch (TypeEnctypeExtensions.Convert(contentType.FirstOrDefault()))

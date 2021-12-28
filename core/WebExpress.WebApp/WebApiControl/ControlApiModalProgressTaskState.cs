@@ -57,7 +57,7 @@ namespace WebExpress.WebApp.WebApiControl
             var module = ModuleManager.GetModule(context.Application, "webexpress.webapp");
             var code = $"updateTaskModal('{ ID }', '{ module?.ContextPath.Append("api/v1/taskstatus") }')";
 
-            
+
             context.VisualTree.AddScript("webexpress.webapp:controlapimodalprogresstaskstate", code);
 
             return base.Render(context);

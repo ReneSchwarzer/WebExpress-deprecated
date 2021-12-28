@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
 using WebExpress.Application;
+using WebExpress.Condition;
 using WebExpress.Module;
 using WebExpress.Plugin;
 using WebExpress.Uri;
@@ -38,6 +39,11 @@ namespace WebExpress.WebResource
         /// Liefert oder setzt den Ressourcenkontext
         /// </summary>
         public IReadOnlyList<string> Context { get; internal set; }
+
+        /// <summary>
+        /// Liefert die Bedingungen, die erfüllt sein müssen, damit die Ressource aktiv ist
+        /// </summary>
+        public ICollection<ICondition> Conditions { get; internal set; } = new List<ICondition>();
 
         /// <summary>
         /// Liefert oder setzt das Log, zum schreiben von Statusnachrichten auf die Konsole und in eine Log-Datei

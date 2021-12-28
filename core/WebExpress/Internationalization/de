@@ -63,6 +63,7 @@ resourcemanager.wrongmodule=Die Ressource '{2}' ist kein Teil des Moduls {1} der
 resourcemanager.addresource=Die Ressource '{0}' wurde in der Sitemap des Moduls '{2}' der Anwendung '{1}' registriert.
 resourcemanager.addresource.error=Die Ressource '{0}' konnte nicht hinzugefügt werden.
 resourcemanager.sitemap=Inhalt der Sitemap für das Modul '{0}':
+resourcemanager.wrongtype=Der Type '{0}' implementiert die Schnittstelle '{1}' nicht.
 
 responsemanager.initialization=Der Responsemanagermanager wurde initialisiert.
 responsemanager.register=Status {0} wurde im Module '{2}' der Anwendung '{1}' registriert und der Ressource '{3}' zugewiesen.

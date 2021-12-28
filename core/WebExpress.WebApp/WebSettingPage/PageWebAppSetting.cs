@@ -44,6 +44,16 @@ namespace WebExpress.WebApp.WebSettingPage
         public override void Initialization(IResourceContext context)
         {
             base.Initialization(context);
+        }
+
+        /// <summary>
+        /// Verarbeitung
+        /// </summary>
+        /// <param name="context">Der Kontext zum Rendern der Seite</param>
+        public override void Process(RenderContextWebApp context)
+        {
+            SettingMenu.Items.Clear();
+            SettingTab.Items.Clear();
 
             var path = SettingPageManager.FindPage(Context.Application.ApplicationID, ID);
             if (path != null)
@@ -52,9 +62,9 @@ namespace WebExpress.WebApp.WebSettingPage
                 var section = SettingPageManager.GetSections(Context.Application.ApplicationID, path?.Context);
 
                 // SettingMenü
-                AddSettingMenu(section, SettingSection.Preferences, SettingMenu);
-                AddSettingMenu(section, SettingSection.Primary, SettingMenu);
-                AddSettingMenu(section, SettingSection.Secondary, SettingMenu);
+                AddSettingMenu(section, SettingSection.Preferences, SettingMenu, context);
+                AddSettingMenu(section, SettingSection.Primary, SettingMenu, context);
+                AddSettingMenu(section, SettingSection.Secondary, SettingMenu, context);
 
                 // SettingTab
                 foreach (var settingContext in contexts.Select(x => new { Name = x.Key, ContextName = x.Key, Sections = x.Value }).Where(x => x.Name != "*").OrderBy(x => x.Name))
@@ -72,14 +82,7 @@ namespace WebExpress.WebApp.WebSettingPage
                     }
                 }
             }
-        }
 
-        /// <summary>
-        /// Verarbeitung
-        /// </summary>
-        /// <param name="context">Der Kontext zum Rendern der Seite</param>
-        public override void Process(RenderContextWebApp context)
-        {
             if (SettingMenu.Items.Count > 1)
             {
                 context.VisualTree.Sidebar.Primary.Add(SettingMenu);
@@ -102,7 +105,8 @@ namespace WebExpress.WebApp.WebSettingPage
         /// <param name="sections">Die Sektionen</param>
         /// <param name="section">Die ausgewählte Sektion</param>
         /// <param name="control">Die Sektion, welche eingefügt werden soll</param>
-        private void AddSettingMenu(SettingPageDictionaryItemSection sections, SettingSection section, ControlNavigation control)
+        /// <param name="context">Der Kontext zum Rendern der Seite</param>
+        private void AddSettingMenu(SettingPageDictionaryItemSection sections, SettingSection section, ControlNavigation control, RenderContextWebApp context)
         {
             var groups = sections.GetGroups(section);
 
@@ -117,7 +121,7 @@ namespace WebExpress.WebApp.WebSettingPage
 
                 foreach (var page in group.Pages)
                 {
-                    if (!page.Hide)
+                    if (!page.Hide && (!page.Node.Context.Conditions.Any() || page.Node.Context.Conditions.Where(x => x.Fulfillment(context.Request)).Count() == page.Node.Context.Conditions.Count))
                     {
                         control.Items.Add(new ControlNavigationItemLink()
                         {

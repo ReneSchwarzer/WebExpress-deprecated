@@ -335,10 +335,10 @@ namespace WebExpress
                         response = CreateStatusPage<ResponseNotFound>(string.Empty, request, resource.Context);
                     }
 
-                    if 
+                    if
                     (
-                        !response.Header.Cookies.Where(x => x.Name.Equals("session")).Any() && 
-                        !request.Header.Cookies.Where(x => x.Name.Equals("session")).Any() && 
+                        !response.Header.Cookies.Where(x => x.Name.Equals("session")).Any() &&
+                        !request.Header.Cookies.Where(x => x.Name.Equals("session")).Any() &&
                         request.Session != null
                     )
                     {
