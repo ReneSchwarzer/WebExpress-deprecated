@@ -179,6 +179,8 @@ namespace WebExpress
             Kestrel = new KestrelServer(serverOptions, transport, logger);
 
             Kestrel.StartAsync(this, ServerToken);
+
+            Context.Log.Info(message: this.I18N("webexpress:httpserver.start"), args: new object[] { ExecutionTime.ToShortDateString(), ExecutionTime.ToLongTimeString() });
         }
 
         /// <summary>

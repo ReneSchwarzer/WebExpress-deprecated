@@ -1,6 +1,8 @@
-﻿namespace WebExpress.UI.WebComponent
+﻿using WebExpress.UI.WebControl;
+
+namespace WebExpress.UI.WebComponent
 {
-    public interface IComponent
+    public interface IComponent : IControl
     {
         /// <summary>
         /// Liefert der Kontext

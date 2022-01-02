@@ -15,6 +15,7 @@ app.done=End of program
 
 httpserver.run=Run HttpServer.
 httpserver.notsupported=The operating system on which WebExpress is to be run is not supported.
+httpserver.start=The HttpServer was started on {0} at {1} o'clock.
 httpserver.connected={0}: Client has been connected.
 httpserver.rejected={0}: Client rejected.
 httpserver.request={0}: Request '{1}'
