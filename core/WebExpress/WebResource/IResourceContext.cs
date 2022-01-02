@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
-using WebExpress.Application;
-using WebExpress.Condition;
-using WebExpress.Module;
-using WebExpress.Plugin;
+using WebExpress.WebApplication;
+using WebExpress.WebCondition;
+using WebExpress.WebModule;
+using WebExpress.WebPlugin;
 using WebExpress.Uri;
 
 namespace WebExpress.WebResource

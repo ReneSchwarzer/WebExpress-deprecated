@@ -48,6 +48,9 @@ setting.systeminformation.group.environment.machinename=Gerätename:
 setting.systeminformation.group.environment.processorcount=Anzahl der logischen Prozessoren:
 setting.systeminformation.group.environment.64bit=64bit-System:
 setting.systeminformation.group.environment.username=Benutzername:
+setting.systeminformation.reboot.label=Neustart
+setting.systeminformation.reboot.header=Neustart
+setting.systeminformation.reboot.description=Starten Sie den Server neu. <b>Achtung!</b> Der Server ist in der Zeit nicht erreichbar und kann keine Anfragen entgegennehmen. 
 
 setting.tab.general.label=Allgemein
 

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using WebExpress.Module;
+using WebExpress.WebModule;
 
 namespace WebExpress.Message
 {

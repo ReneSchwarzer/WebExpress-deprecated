@@ -1,4 +1,4 @@
-﻿using WebExpress.WebApp.Attribute;
+﻿using WebExpress.WebApp.WebAttribute;
 
 namespace WebExpress.WebApp.SettingPage
 {

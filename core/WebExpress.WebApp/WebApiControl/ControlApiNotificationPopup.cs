@@ -1,5 +1,5 @@
 ﻿using WebExpress.Html;
-using WebExpress.Module;
+using WebExpress.WebModule;
 using WebExpress.UI.WebControl;
 using WebExpress.WebPage;
 

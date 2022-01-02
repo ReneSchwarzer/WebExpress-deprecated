@@ -1,5 +1,5 @@
 ﻿using System;
-using WebExpress.Module;
+using WebExpress.WebModule;
 using WebExpress.UI.WebControl;
 using WebExpress.WebResource;
 

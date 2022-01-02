@@ -1,13 +1,13 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using WebExpress.Application;
-using WebExpress.Attribute;
+using WebExpress.WebApplication;
+using WebExpress.WebAttribute;
 using WebExpress.Internationalization;
 using WebExpress.Message;
-using WebExpress.Module;
+using WebExpress.WebModule;
 using WebExpress.UI.WebControl;
-using WebExpress.WebApp.Attribute;
+using WebExpress.WebApp.WebAttribute;
 using WebExpress.WebApp.WebApiControl;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebApp.WebPage;

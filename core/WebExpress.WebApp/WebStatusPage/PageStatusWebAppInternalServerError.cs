@@ -1,4 +1,4 @@
-﻿using WebExpress.Attribute;
+﻿using WebExpress.WebAttribute;
 using WebExpress.Internationalization;
 using WebExpress.Message;
 using WebExpress.WebResource;

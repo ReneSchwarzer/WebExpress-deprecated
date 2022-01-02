@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using WebExpress.Application;
-using WebExpress.Attribute;
-using WebExpress.Module;
-using WebExpress.Plugin;
+using WebExpress.WebApplication;
+using WebExpress.WebAttribute;
+using WebExpress.WebModule;
+using WebExpress.WebPlugin;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
-using WebExpress.WebApp.Attribute;
+using WebExpress.WebApp.WebAttribute;
 using WebExpress.WebApp.WebSettingPage;
 using WebExpress.WebResource;
 using static WebExpress.Internationalization.InternationalizationManager;

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using WebExpress.Attribute;
-using WebExpress.Condition;
-using WebExpress.Module;
+using WebExpress.WebAttribute;
+using WebExpress.WebCondition;
+using WebExpress.WebModule;
 using WebExpress.Uri;
 using static WebExpress.Internationalization.InternationalizationManager;
 
@@ -220,7 +220,7 @@ namespace WebExpress.WebResource
 
                     if (result != null)
                     {
-                        if (!result.Context.Conditions.Any() || result.Context.Conditions.Where(x => x.Fulfillment(context.Request)).Count() == result.Context.Conditions.Count)
+                        if (!result.Context.Conditions.Any() || result.Context.Conditions.All(x => x.Fulfillment(context.Request)))
                         {
                             return result;
                         }

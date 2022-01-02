@@ -1,5 +1,5 @@
 ﻿using System.Globalization;
-using WebExpress.Application;
+using WebExpress.WebApplication;
 using WebExpress.Internationalization;
 using WebExpress.Message;
 using WebExpress.Uri;
@@ -44,6 +44,11 @@ namespace WebExpress.WebPage
         public IVisualTree VisualTree { get; protected set; }
 
         /// <summary>
+        /// Liefert oder setzt das Log, zum schreiben von Statusnachrichten auf die Konsole und in eine Log-Datei
+        /// </summary>
+        public Log Log { get; private set; }
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         public RenderContext()
@@ -62,6 +67,7 @@ namespace WebExpress.WebPage
             Request = request;
             VisualTree = visualTree;
             Culture = (Page as Resource).Culture;
+            Log = page.Context.Log;
         }
 
         /// <summary>

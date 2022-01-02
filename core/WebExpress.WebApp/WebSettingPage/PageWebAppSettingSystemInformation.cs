@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Reflection;
-using WebExpress.Attribute;
+using WebExpress.WebAttribute;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
-using WebExpress.WebApp.Attribute;
+using WebExpress.WebApp.WebAttribute;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebResource;
 
@@ -23,6 +23,7 @@ namespace WebExpress.WebApp.WebSettingPage
     [SettingContext("webexpress.webapp:setting.tab.general.label")]
     [Module("webexpress.webapp")]
     [Context("admin")]
+    [Context("webexpress.webpp.systeminformation")]
     [Optional]
     public sealed class PageWebAppSettingSystemInformation : PageWebAppSetting
     {

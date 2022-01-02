@@ -7,7 +7,7 @@ using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using WebExpress.Html;
-using WebExpress.Session;
+using WebExpress.WebSession;
 using WebExpress.Uri;
 
 namespace WebExpress.Message
@@ -40,7 +40,7 @@ namespace WebExpress.Message
         /// <summary>
         /// Liefert die Session
         /// </summary>
-        public Session.Session Session { get; private set; }
+        public WebSession.Session Session { get; private set; }
 
         /// <summary>
         /// Setzt oder liefert die HTTP-Version

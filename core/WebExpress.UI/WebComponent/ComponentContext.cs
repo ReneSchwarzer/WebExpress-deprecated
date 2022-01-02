@@ -1,8 +1,10 @@
-﻿using System.Globalization;
+﻿using System.Collections.Generic;
+using System.Globalization;
 using System.Reflection;
-using WebExpress.Application;
-using WebExpress.Module;
-using WebExpress.Plugin;
+using WebExpress.WebApplication;
+using WebExpress.WebCondition;
+using WebExpress.WebModule;
+using WebExpress.WebPlugin;
 
 namespace WebExpress.UI.WebComponent
 {
@@ -32,6 +34,11 @@ namespace WebExpress.UI.WebComponent
         /// Liefert die Kultur
         /// </summary>
         public CultureInfo Culture { get; set; }
+
+        /// <summary>
+        /// Liefert die Bedingungen, die erfüllt sein müssen, damit die Ressource aktiv ist
+        /// </summary>
+        public ICollection<ICondition> Conditions { get; internal set; } = new List<ICondition>();
 
         /// <summary>
         /// Liefert oder setzt das Log, zum schreiben von Statusnachrichten auf die Konsole und in eine Log-Datei

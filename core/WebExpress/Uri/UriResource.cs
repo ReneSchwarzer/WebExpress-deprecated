@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
-using WebExpress.Module;
+using WebExpress.WebModule;
 using WebExpress.WebResource;
 
 namespace WebExpress.Uri

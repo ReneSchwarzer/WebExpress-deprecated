@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using WebExpress.Plugin;
+using WebExpress.WebPlugin;
 
 namespace WebExpress.WebJob
 {

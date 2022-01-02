@@ -48,6 +48,9 @@ setting.systeminformation.group.environment.machinename=Machine name:
 setting.systeminformation.group.environment.processorcount=Logical processor count:
 setting.systeminformation.group.environment.64bit=64bit:
 setting.systeminformation.group.environment.username=User name:
+setting.systeminformation.reboot.label=Reboot
+setting.systeminformation.reboot.header=Reboot
+setting.systeminformation.reboot.description=Restart the server. <b>Attention!</b> The server is unavailable during this time and cannot accept requests.
 
 setting.logfile.label=log:
 setting.logfile.path=Location:

@@ -43,8 +43,8 @@ namespace WebExpress.UI.WebControl
         /// Konstruktor
         /// </summary>
         /// <param name="id">Die ID</param>
-        public ControlText(string id = null)
-            : base(id)
+        public ControlText()
+            : base(null)
         {
         }
 
@@ -52,11 +52,9 @@ namespace WebExpress.UI.WebControl
         /// Konstruktor
         /// </summary>
         /// <param name="id">Die ID</param>
-        /// <param name="value">Der Text</param>
-        public ControlText(string id, int value)
+        public ControlText(string id)
             : base(id)
         {
-            Text = value.ToString();
         }
 
         /// <summary>

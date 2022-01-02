@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using WebExpress.Attribute;
-using WebExpress.Module;
+using WebExpress.WebAttribute;
+using WebExpress.WebModule;
 using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.WebJob

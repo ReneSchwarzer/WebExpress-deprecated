@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
-using WebExpress.WebApp.Attribute;
+using WebExpress.WebApp.WebAttribute;
 using WebExpress.WebApp.SettingPage;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebResource;
@@ -121,7 +121,7 @@ namespace WebExpress.WebApp.WebSettingPage
 
                 foreach (var page in group.Pages)
                 {
-                    if (!page.Hide && (!page.Node.Context.Conditions.Any() || page.Node.Context.Conditions.Where(x => x.Fulfillment(context.Request)).Count() == page.Node.Context.Conditions.Count))
+                    if (!page.Hide && (!page.Node.Context.Conditions.Any() || page.Node.Context.Conditions.All(x => x.Fulfillment(context.Request))))
                     {
                         control.Items.Add(new ControlNavigationItemLink()
                         {

@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using WebExpress.Application;
-using WebExpress.Attribute;
-using WebExpress.Module;
-using WebExpress.Plugin;
-using WebExpress.UI.Attribute;
+using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
+using WebExpress.WebApplication;
+using WebExpress.WebAttribute;
+using WebExpress.WebCondition;
+using WebExpress.WebModule;
+using WebExpress.WebPlugin;
 using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.UI.WebComponent
@@ -63,6 +64,7 @@ namespace WebExpress.UI.WebComponent
                 var moduleID = string.Empty;
                 var pluginContext = new List<string>();
                 var section = string.Empty;
+                var conditions = new List<ICondition>();
 
                 // Attribute ermitteln
                 foreach (var customAttribute in component.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IModuleAttribute))))
@@ -78,6 +80,19 @@ namespace WebExpress.UI.WebComponent
                     if (customAttribute.AttributeType == typeof(ContextAttribute))
                     {
                         pluginContext.Add(customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower());
+                    }
+                    else if (customAttribute.AttributeType == typeof(ConditionAttribute))
+                    {
+                        var condition = (Type)customAttribute.ConstructorArguments.FirstOrDefault().Value;
+
+                        if (condition.GetInterfaces().Contains(typeof(ICondition)))
+                        {
+                            conditions.Add(condition?.Assembly.CreateInstance(condition?.FullName) as ICondition);
+                        }
+                        else
+                        {
+                            Context.Log.Warning(message: I18N("webexpress.ui:componentmanager.wrongtype"), args: new object[] { condition.Name, typeof(ICondition).Name });
+                        }
                     }
                 }
 
@@ -124,6 +139,7 @@ namespace WebExpress.UI.WebComponent
                                     Assembly = module.Assembly,
                                     Plugin = module.Plugin,
                                     Module = module,
+                                    Conditions = conditions,
                                     Log = Context.Log
                                 },
                                 Component = component

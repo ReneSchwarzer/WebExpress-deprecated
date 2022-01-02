@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using WebExpress.Module;
+using WebExpress.WebModule;
 using WebExpress.Uri;
 using WebExpress.WebPage;
 using WebExpress.WebResource;

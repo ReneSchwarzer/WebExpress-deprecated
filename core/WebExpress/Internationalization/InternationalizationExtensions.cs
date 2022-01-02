@@ -1,4 +1,4 @@
-﻿using WebExpress.Application;
+﻿using WebExpress.WebApplication;
 
 namespace WebExpress.Internationalization
 {

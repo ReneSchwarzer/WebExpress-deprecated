@@ -1,13 +1,15 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using WebExpress.Html;
 using WebExpress.Internationalization;
-using WebExpress.Module;
+using WebExpress.Message;
 using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
 using WebExpress.UI.WebPage;
 using WebExpress.Uri;
 using WebExpress.WebApp.WebApiControl;
 using WebExpress.WebApp.WebComponent;
+using WebExpress.WebModule;
 using WebExpress.WebResource;
 
 namespace WebExpress.WebApp.WebPage
@@ -146,49 +148,49 @@ namespace WebExpress.WebApp.WebPage
             context.VisualTree.Breadcrumb.Uri = context.Uri;
 
             // Header
-            context.VisualTree.Header.HamburgerPrimary.AddRange(HeaderHamburgerPrimary);
-            context.VisualTree.Header.HamburgerSecondary.AddRange(HeaderHamburgerSecondary);
-            context.VisualTree.Header.NavigationPreferences.AddRange(HeaderNavigationPreferences);
-            context.VisualTree.Header.NavigationPrimary.AddRange(HeaderNavigationPrimary);
-            context.VisualTree.Header.NavigationSecondary.AddRange(HeaderNavigationSecondary);
-            context.VisualTree.Header.QuickCreatePrimary.AddRange(HeaderQuickCreatePrimary);
-            context.VisualTree.Header.QuickCreateSecondary.AddRange(HeaderQuickCreateSecondary);
-            context.VisualTree.Header.HelpPreferences.AddRange(HeaderHelpPreferences);
-            context.VisualTree.Header.HelpPrimary.AddRange(HeaderHelpPrimary);
-            context.VisualTree.Header.HelpSecondary.AddRange(HeaderHelpSecondary);
-            context.VisualTree.Header.SettingsPrimary.AddRange(HeaderSettingsPrimary);
-            context.VisualTree.Header.SettingsSecondary.AddRange(HeaderSettingsSecondary);
+            context.VisualTree.Header.HamburgerPrimary.AddRange(HeaderHamburgerPrimary.Where(x => CheckControl(x, context.Request)));
+            context.VisualTree.Header.HamburgerSecondary.AddRange(HeaderHamburgerSecondary.Where(x => CheckControl(x, context.Request)));
+            context.VisualTree.Header.NavigationPreferences.AddRange(HeaderNavigationPreferences.Where(x => CheckControl(x, context.Request)));
+            context.VisualTree.Header.NavigationPrimary.AddRange(HeaderNavigationPrimary.Where(x => CheckControl(x, context.Request)));
+            context.VisualTree.Header.NavigationSecondary.AddRange(HeaderNavigationSecondary.Where(x => CheckControl(x, context.Request)));
+            context.VisualTree.Header.QuickCreatePrimary.AddRange(HeaderQuickCreatePrimary.Where(x => CheckControl(x, context.Request)));
+            context.VisualTree.Header.QuickCreateSecondary.AddRange(HeaderQuickCreateSecondary.Where(x => CheckControl(x, context.Request)));
+            context.VisualTree.Header.HelpPreferences.AddRange(HeaderHelpPreferences.Where(x => CheckControl(x, context.Request)));
+            context.VisualTree.Header.HelpPrimary.AddRange(HeaderHelpPrimary.Where(x => CheckControl(x, context.Request)));
+            context.VisualTree.Header.HelpSecondary.AddRange(HeaderHelpSecondary.Where(x => CheckControl(x, context.Request)));
+            context.VisualTree.Header.SettingsPrimary.AddRange(HeaderSettingsPrimary.Where(x => CheckControl(x, context.Request)));
+            context.VisualTree.Header.SettingsSecondary.AddRange(HeaderSettingsSecondary.Where(x => CheckControl(x, context.Request)));
 
             // Sidebar
-            context.VisualTree.Sidebar.Header.AddRange(SidebarHeader);
-            context.VisualTree.Sidebar.Preferences.AddRange(SidebarPreferences);
-            context.VisualTree.Sidebar.Primary.AddRange(SidebarPrimary);
-            context.VisualTree.Sidebar.Secondary.AddRange(SidebarSecondary);
+            context.VisualTree.Sidebar.Header.AddRange(SidebarHeader.Where(x => CheckControl(x, context.Request)));
+            context.VisualTree.Sidebar.Preferences.AddRange(SidebarPreferences.Where(x => CheckControl(x, context.Request)));
+            context.VisualTree.Sidebar.Primary.AddRange(SidebarPrimary.Where(x => CheckControl(x, context.Request)));
+            context.VisualTree.Sidebar.Secondary.AddRange(SidebarSecondary.Where(x => CheckControl(x, context.Request)));
 
             // Headline
-            context.VisualTree.Content.Headline.Prologue.AddRange(ContentHeadlinePrologue);
-            context.VisualTree.Content.Headline.Preferences.AddRange(ContentHeadlinePreferences);
-            context.VisualTree.Content.Headline.Primary.AddRange(ContentHeadlinePrimary);
-            context.VisualTree.Content.Headline.Secondary.AddRange(ContentHeadlineSecondary);
-            context.VisualTree.Content.Headline.MorePreferences.AddRange(ContentHeadlineMorePreferences);
-            context.VisualTree.Content.Headline.MorePrimary.AddRange(ContentHeadlineMorePrimary);
-            context.VisualTree.Content.Headline.MoreSecondary.AddRange(ContentHeadlineMoreSecondary);
-            context.VisualTree.Content.Headline.Metadata.AddRange(ContentHeadlineMetadata);
+            context.VisualTree.Content.Headline.Prologue.AddRange(ContentHeadlinePrologue.Where(x => CheckControl(x, context.Request)));
+            context.VisualTree.Content.Headline.Preferences.AddRange(ContentHeadlinePreferences.Where(x => CheckControl(x, context.Request)));
+            context.VisualTree.Content.Headline.Primary.AddRange(ContentHeadlinePrimary.Where(x => CheckControl(x, context.Request)));
+            context.VisualTree.Content.Headline.Secondary.AddRange(ContentHeadlineSecondary.Where(x => CheckControl(x, context.Request)));
+            context.VisualTree.Content.Headline.MorePreferences.AddRange(ContentHeadlineMorePreferences.Where(x => CheckControl(x, context.Request)));
+            context.VisualTree.Content.Headline.MorePrimary.AddRange(ContentHeadlineMorePrimary.Where(x => CheckControl(x, context.Request)));
+            context.VisualTree.Content.Headline.MoreSecondary.AddRange(ContentHeadlineMoreSecondary.Where(x => CheckControl(x, context.Request)));
+            context.VisualTree.Content.Headline.Metadata.AddRange(ContentHeadlineMetadata.Where(x => CheckControl(x, context.Request)));
 
             // Property
-            context.VisualTree.Content.Property.Preferences.AddRange(ContentPropertyPreferences);
-            context.VisualTree.Content.Property.Primary.AddRange(ContentPropertyPrimary);
-            context.VisualTree.Content.Property.Secondary.AddRange(ContentPropertySecondary);
+            context.VisualTree.Content.Property.Preferences.AddRange(ContentPropertyPreferences.Where(x => CheckControl(x, context.Request)));
+            context.VisualTree.Content.Property.Primary.AddRange(ContentPropertyPrimary.Where(x => CheckControl(x, context.Request)));
+            context.VisualTree.Content.Property.Secondary.AddRange(ContentPropertySecondary.Where(x => CheckControl(x, context.Request)));
 
             // Inhalt
-            context.VisualTree.Content.Preferences.AddRange(ContentPreferences);
-            context.VisualTree.Content.Primary.AddRange(ContentPrimary);
-            context.VisualTree.Content.Secondary.AddRange(ContentSecondary);
+            context.VisualTree.Content.Preferences.AddRange(ContentPreferences.Where(x => CheckControl(x, context.Request)));
+            context.VisualTree.Content.Primary.AddRange(ContentPrimary.Where(x => CheckControl(x, context.Request)));
+            context.VisualTree.Content.Secondary.AddRange(ContentSecondary.Where(x => CheckControl(x, context.Request)));
 
             // Footer
-            context.VisualTree.Footer.Preferences.AddRange(FooterPreferences);
-            context.VisualTree.Footer.Primary.AddRange(FooterPrimary);
-            context.VisualTree.Footer.Secondary.AddRange(FooterSecondary);
+            context.VisualTree.Footer.Preferences.AddRange(FooterPreferences.Where(x => CheckControl(x, context.Request)));
+            context.VisualTree.Footer.Primary.AddRange(FooterPrimary.Where(x => CheckControl(x, context.Request)));
+            context.VisualTree.Footer.Secondary.AddRange(FooterSecondary.Where(x => CheckControl(x, context.Request)));
 
             if (context.VisualTree is VisualTreeControl visualTreeControl)
             {
@@ -215,6 +217,22 @@ namespace WebExpress.WebApp.WebPage
                 visualTreeControl.Content.Add(context.VisualTree.Footer);
                 visualTreeControl.Content.Add(new ControlApiNotificationPopup("popup_notification"));
             }
+        }
+
+        /// <summary>
+        /// Prüft die Komponente, ob diese angezeigt werden oder deaktiviert sind
+        /// </summary>
+        /// <param name="contol">Das zu übertüfende Steuerelement</param>
+        /// <param name="request">Die Anfrage</param>
+        /// <returns>true die Komponente ist aktiv, false sonst</returns>
+        private bool CheckControl(IControl contol, Request request)
+        {
+            if (contol is IComponent component)
+            {
+                return !component.Context.Conditions.Any() || component.Context.Conditions.All(x => x.Fulfillment(request));
+            }
+
+            return true;
         }
     }
 }

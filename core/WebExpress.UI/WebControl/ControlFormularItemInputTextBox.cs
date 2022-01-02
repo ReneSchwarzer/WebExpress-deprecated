@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using WebExpress.Html;
-using WebExpress.Module;
+using WebExpress.WebModule;
 using WebExpress.UI.Script;
 using WebExpress.Uri;
 using static WebExpress.Internationalization.InternationalizationManager;

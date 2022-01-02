@@ -1,8 +1,10 @@
 ﻿using System.Reflection;
-using WebExpress.Application;
+using WebExpress.WebApplication;
 using WebExpress.Internationalization;
-using WebExpress.Module;
-using WebExpress.Plugin;
+using WebExpress.WebModule;
+using WebExpress.WebPlugin;
+using System.Collections.Generic;
+using WebExpress.WebCondition;
 
 namespace WebExpress.UI.WebComponent
 {
@@ -27,6 +29,11 @@ namespace WebExpress.UI.WebComponent
         /// Liefert das zugehörige Modul
         /// </summary>
         IModuleContext Module { get; }
+
+        /// <summary>
+        /// Liefert die Bedingungen, die erfüllt sein müssen, damit die Ressource aktiv ist
+        /// </summary>
+        ICollection<ICondition> Conditions { get; }
 
         /// <summary>
         /// Liefert oder setzt das Log, zum schreiben von Statusnachrichten auf die Konsole und in eine Log-Datei
