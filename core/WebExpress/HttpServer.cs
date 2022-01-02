@@ -60,6 +60,11 @@ namespace WebExpress
         public CultureInfo Culture { get; set; }
 
         /// <summary>
+        /// Liefert die Ausführungszeit des Webservers
+        /// </summary>
+        public static DateTime ExecutionTime { get; } = DateTime.Now;
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="context">Der Serverkontext</param>
