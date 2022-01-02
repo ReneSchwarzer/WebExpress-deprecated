@@ -65,7 +65,7 @@ namespace WebExpress.WebApp.WebControl
             {
                 ID = ID,
                 Class = Css.Concatenate("proterty", GetClasses()),
-                Style = Style.Concatenate("display: block;", GetStyles()),
+                Style = GetStyles(),
                 Role = Role
             };
         }

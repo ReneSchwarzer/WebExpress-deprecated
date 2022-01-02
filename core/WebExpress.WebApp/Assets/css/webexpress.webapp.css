@@ -1,4 +1,24 @@
-﻿.popupnotification {
+﻿.sidebar 
+{
+    overflow: auto;
+    height: 100%;
+}
+
+.proterty 
+{
+    overflow: auto;
+    height: 100%;
+    display: block;
+    background: #C6E2FF;
+}
+
+.content 
+{
+    height: 100%;
+}
+
+.popupnotification 
+{
     position: fixed;
     z-index: 999;
     top: 5em;

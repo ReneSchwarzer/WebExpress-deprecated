@@ -3,11 +3,6 @@
   height: 100%;
 }
 
-.sidebar 
-{
-    overflow: auto;
-}
-
 .profile 
 {
     
@@ -339,4 +334,4 @@
 .tree-link-active:hover 
 {
     color: #fff;
-} 
+}
