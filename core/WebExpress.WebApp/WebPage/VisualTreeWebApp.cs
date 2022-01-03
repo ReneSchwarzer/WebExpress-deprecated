@@ -65,7 +65,7 @@ namespace WebExpress.WebApp.WebPage
 
             Content.BackgroundColor = LayoutSchema.ContentBackground;
             Content.Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.None);
-            Content.Width = TypeWidth.OneHundred;
+            //Content.Width = TypeWidth.OneHundred;
 
             Footer.BackgroundColor = LayoutSchema.FooterBackground;
         }

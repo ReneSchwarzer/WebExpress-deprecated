@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using WebExpress.Html;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebPage;
@@ -9,8 +10,28 @@ namespace WebExpress.WebApp.WebControl
     /// <summary>
     /// Inhalt einer WebApp-Seite
     /// </summary>
-    public class ControlWebAppContent : Control
+    public class ControlWebAppContent : ControlPanel
     {
+        /// <summary>
+        /// Liefert das Mainpanel
+        /// </summary>
+        private ControlPanelMain MainPanel { get; } = new ControlPanelMain("main")
+        {
+            Padding = new PropertySpacingPadding(PropertySpacing.Space.Two, PropertySpacing.Space.Null),
+            Margin = new PropertySpacingMargin(PropertySpacing.Space.Null, PropertySpacing.Space.Two, PropertySpacing.Space.Null, PropertySpacing.Space.Null),
+            BackgroundColor = LayoutSchema.ContentBackground,
+            Classes = new() { "flex-grow-1" }
+        };
+
+        /// <summary>
+        /// Liefert die Flexbox
+        /// </summary>
+        private ControlPanelFlexbox Flexbox { get; } = new ControlPanelFlexbox()
+        {
+            Layout = TypeLayoutFlexbox.Default,
+            Align = TypeAlignFlexbox.Stretch
+        };
+
         /// <summary>
         /// Liefert oder setzt den Seiteneigenschaften
         /// </summary>
@@ -49,6 +70,8 @@ namespace WebExpress.WebApp.WebControl
             : base(id)
         {
             Init();
+
+            Classes.Add("content");
         }
 
         /// <summary>
@@ -59,6 +82,12 @@ namespace WebExpress.WebApp.WebControl
             BackgroundColor = LayoutSchema.ContentBackground;
             Toolbar.BackgroundColor = LayoutSchema.ToolbarBackground;
             Margin = new PropertySpacingMargin(PropertySpacing.Space.Two);
+
+            Flexbox.Content.Add(MainPanel);
+            Flexbox.Content.Add(Property);
+
+            Content.Add(Toolbar);
+            Content.Add(Flexbox);
         }
 
         /// <summary>
@@ -68,41 +97,30 @@ namespace WebExpress.WebApp.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var panel = new ControlPanel
-            (
-                Headline
-            )
-            {
-                Padding = new PropertySpacingPadding(PropertySpacing.Space.Two, PropertySpacing.Space.Null),
-                Margin = new PropertySpacingMargin(PropertySpacing.Space.Null, PropertySpacing.Space.Two, PropertySpacing.Space.Null, PropertySpacing.Space.Null),
-                BackgroundColor = LayoutSchema.ContentBackground,
-                Width = TypeWidth.OneHundred
-            };
+            MainPanel.Content.Clear();
 
-            panel.Content.AddRange(Preferences);
-            panel.Content.AddRange(Primary);
-            panel.Content.AddRange(Secondary);
+            MainPanel.Content.Add(Headline);
+            MainPanel.Content.AddRange(Preferences);
+            MainPanel.Content.AddRange(Primary);
+            MainPanel.Content.AddRange(Secondary);
 
-            var flexbox = new ControlPanelFlexbox(panel, Property)
-            {
-                Layout = TypeLayoutFlexbox.Default,
-                Align = TypeAlignFlexbox.Stretch,
-                Height = TypeHeight.OneHundred
-            };
+            Content.Clear();
 
-            var elements = new List<IHtmlNode>
+            if (Toolbar.Items.Any())
             {
-                Toolbar.Render(context),
-                flexbox.Render(context)
-            };
+                Content.Add(Toolbar);
+            }
 
-            return new HtmlElementTextContentDiv(elements)
+            if (Property.Preferences.Any() || Property.Primary.Any() || Property.Secondary.Any())
             {
-                ID = ID,
-                Class = Css.Concatenate("content", GetClasses()),
-                Style = Style.Concatenate("display: block;", GetStyles()),
-                Role = Role
-            };
+                Content.Add(Flexbox);
+            }
+            else
+            {
+                Content.Add(MainPanel);
+            }
+
+            return base.Render(context);
         }
     }
 }

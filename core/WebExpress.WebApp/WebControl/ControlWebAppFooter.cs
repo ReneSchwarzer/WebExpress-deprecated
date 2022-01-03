@@ -63,8 +63,8 @@ namespace WebExpress.WebApp.WebControl
             return new HtmlElementTextContentDiv(elements)
             {
                 ID = ID,
-                Class = Css.Concatenate("footer d-flex justify-content-between align-items-stretch", GetClasses()),
-                Style = Style.Concatenate("display: block;", GetStyles()),
+                Class = Css.Concatenate("footer", GetClasses()),
+                Style = Style.Concatenate("", GetStyles()),
                 Role = Role
             };
         }
