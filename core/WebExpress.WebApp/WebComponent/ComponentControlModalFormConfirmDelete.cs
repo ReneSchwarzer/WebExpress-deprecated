@@ -1,5 +1,6 @@
 ﻿using WebExpress.UI.WebComponent;
 using WebExpress.WebApp.WebControl;
+using WebExpress.WebPage;
 
 namespace WebExpress.WebApp.WebComponent
 {
@@ -23,7 +24,8 @@ namespace WebExpress.WebApp.WebComponent
         /// Initialisierung
         /// </summary>
         /// <param name="context">Der Kontext</param>
-        public virtual void Initialization(IComponentContext context)
+        /// <param name="page">Die Seite, indem die Komonente aktiv ist</param>
+        public virtual void Initialization(IComponentContext context, IPage page)
         {
             Context = context;
         }

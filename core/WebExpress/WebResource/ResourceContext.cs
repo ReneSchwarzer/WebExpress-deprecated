@@ -46,6 +46,11 @@ namespace WebExpress.WebResource
         public ICollection<ICondition> Conditions { get; internal set; } = new List<ICondition>();
 
         /// <summary>
+        /// Bestimmt, ob die Ressource einmalig erstellt und bei jedem Aufruf wiederverwendet wird.
+        /// </summary>
+        public bool Cache { get; internal set; }
+
+        /// <summary>
         /// Liefert oder setzt das Log, zum schreiben von Statusnachrichten auf die Konsole und in eine Log-Datei
         /// </summary>
         public Log Log { get; private set; }

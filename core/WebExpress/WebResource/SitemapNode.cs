@@ -372,29 +372,36 @@ namespace WebExpress.WebResource
         /// <returns>Die Instanz</returns>
         public IResource CreateInstance(SearchContext context)
         {
-            if (Instance == null)
+            if (Context.Cache && Instance != null)
             {
-                Instance = Type?.Assembly.CreateInstance(Type?.FullName) as IResource;
+                return Instance;
+            }
+            
+            var instance = Type?.Assembly.CreateInstance(Type?.FullName) as IResource;
 
-                if (Instance is II18N i18n)
-                {
-                    i18n.Culture = context.Culture;
-                }
-
-                if (Instance is Resource resorce)
-                {
-                    resorce.ID = ID;
-                }
-
-                if (Instance is IPage page)
-                {
-                    page.Title = Title;
-                }
-
-                Instance?.Initialization(Context);
+            if (instance is II18N i18n)
+            {
+                i18n.Culture = context.Culture;
             }
 
-            return Instance;
+            if (instance is Resource resorce)
+            {
+                resorce.ID = ID;
+            }
+
+            if (instance is IPage page)
+            {
+                page.Title = Title;
+            }
+
+            instance.Initialization(Context);
+
+            if (Context.Cache)
+            {
+                Instance = instance;
+            }
+
+            return instance;
         }
 
         /// <summary>

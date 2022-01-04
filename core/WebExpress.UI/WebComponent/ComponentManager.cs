@@ -8,6 +8,7 @@ using WebExpress.WebApplication;
 using WebExpress.WebAttribute;
 using WebExpress.WebCondition;
 using WebExpress.WebModule;
+using WebExpress.WebPage;
 using WebExpress.WebPlugin;
 using static WebExpress.Internationalization.InternationalizationManager;
 
@@ -65,6 +66,7 @@ namespace WebExpress.UI.WebComponent
                 var pluginContext = new List<string>();
                 var section = string.Empty;
                 var conditions = new List<ICondition>();
+                var cache = false;
 
                 // Attribute ermitteln
                 foreach (var customAttribute in component.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IModuleAttribute))))
@@ -93,6 +95,10 @@ namespace WebExpress.UI.WebComponent
                         {
                             Context.Log.Warning(message: I18N("webexpress.ui:componentmanager.wrongtype"), args: new object[] { condition.Name, typeof(ICondition).Name });
                         }
+                    }
+                    else if (customAttribute.AttributeType == typeof(CacheAttribute))
+                    {
+                        cache = true;
                     }
                 }
 
@@ -140,6 +146,7 @@ namespace WebExpress.UI.WebComponent
                                     Plugin = module.Plugin,
                                     Module = module,
                                     Conditions = conditions,
+                                    Cache = cache,
                                     Log = Context.Log
                                 },
                                 Component = component
@@ -163,6 +170,8 @@ namespace WebExpress.UI.WebComponent
                                 Assembly = module.Assembly,
                                 Plugin = module.Plugin,
                                 Module = module,
+                                Conditions = conditions,
+                                Cache = cache,
                                 Log = Context.Log
                             },
                             Component = component
@@ -200,16 +209,17 @@ namespace WebExpress.UI.WebComponent
         }
 
         /// <summary>
-        /// Erstellt alle Komponenten, die den Parametern entsprechen
+        /// Ermittelt alle Komponenten, die den Parametern entsprechen
         /// </summary>
         /// <param name="section">Die Sektion, indem die Komponente eingebettet wird</param>
         /// <param name="application">Die ArtefactID der Anwendung (z.B. Webexpress)</param>
+        /// <param name="page">Die Seite, welche die Komponenten aufnimmt</param>
         /// <param name="resourceContext">Der Kontext der Ressource</param>
         /// <returns>Eine Liste mit Komponenten</returns>
-        public static IEnumerable<T> CreateComponent<T>(IApplicationContext application, string section, IReadOnlyList<string> resourceContext = null) where T : IControl
+        public static IEnumerable<ComponentCacheItem> CacheComponent<T>(IApplicationContext application, string section, IPage page, IReadOnlyList<string> resourceContext = null) where T : IControl
         {
-            var list = new List<T>();
-            var app = application?.ApplicationID?.ToLower();
+            var list = new List<ComponentCacheItem>();
+            var appID = application?.ApplicationID?.ToLower();
 
             if (Dictionary.ContainsKey("*"))
             {
@@ -220,15 +230,9 @@ namespace WebExpress.UI.WebComponent
                 {
                     var components = dictItem[sectionKey].Where(x => x.Component.GetInterfaces()
                         .Contains(typeof(T)))
-                        .Select(x => new
-                        {
-                            Instance = (T)x.Component.Assembly.CreateInstance(x.Component.FullName),
-                            Context = x.Context
-                        }).ToList();
+                        .Select(x => new ComponentCacheItem(x.Context, x.Component)).ToList();
 
-                    components.ForEach(x => (x.Instance as IComponent)?.Initialization(x.Context));
-
-                    list.AddRange(components.Select(x => x.Instance));
+                    list.AddRange(components);
                 }
 
                 if (resourceContext != null)
@@ -241,52 +245,34 @@ namespace WebExpress.UI.WebComponent
                         {
                             var components = dictItem[sectionKey].Where(x => x.Component.GetInterfaces()
                             .Contains(typeof(T)))
-                            .Select(x => new
-                            {
-                                Instance = (T)x.Component.Assembly.CreateInstance(x.Component.FullName),
-                                Context = x.Context
-                            }).ToList();
+                            .Select(x => new ComponentCacheItem(x.Context, x.Component)).ToList();
 
-                            components.ForEach(x => (x.Instance as IComponent)?.Initialization(x.Context));
-
-                            list.AddRange(components.Select(x => x.Instance));
+                            list.AddRange(components);
 
                             components = dictItem[sectionKey].Where(x => x.Component.GetInterfaces()
                             .Contains(typeof(IComponentDynamic)))
-                            .Select(x => new
-                            {
-                                Instance = (T)(x.Component.Assembly.CreateInstance(x.Component.FullName) as IComponentDynamic).Create<T>(),
-                                Context = x.Context
-                            }).ToList();
+                            .Select(x => new ComponentCacheItem(x.Context, x.Component)).ToList();
 
-                            components.ForEach(x => (x.Instance as IComponent)?.Initialization(x.Context));
-
-                            list.AddRange(components.Select(x => x.Instance));
+                            list.AddRange(components);
                         }
                     }
                 }
 
-                if (app == "*") return list;
+                if (appID == "*") return list;
             }
 
-            if (Dictionary.ContainsKey(app))
+            if (Dictionary.ContainsKey(appID))
             {
-                var dictItem = Dictionary[app];
+                var dictItem = Dictionary[appID];
                 var sectionKey = section?.ToLower();
 
                 if (dictItem.ContainsKey(sectionKey))
                 {
                     var components = dictItem[sectionKey].Where(x => x.Component.GetInterfaces()
                         .Contains(typeof(T)))
-                        .Select(x => new
-                        {
-                            Instance = (T)x.Component.Assembly.CreateInstance(x.Component.FullName),
-                            Context = x.Context
-                        }).ToList();
+                        .Select(x => new ComponentCacheItem(x.Context, x.Component)).ToList();
 
-                    components.ForEach(x => (x.Instance as IComponent)?.Initialization(x.Context));
-
-                    list.AddRange(components.Select(x => x.Instance));
+                    list.AddRange(components);
                 }
 
                 if (resourceContext != null)
@@ -299,33 +285,22 @@ namespace WebExpress.UI.WebComponent
                         {
                             var components = dictItem[sectionKey].Where(x => x.Component.GetInterfaces()
                             .Contains(typeof(T)))
-                            .Select(x => new
-                            {
-                                Instance = (T)x.Component.Assembly.CreateInstance(x.Component.FullName),
-                                Context = x.Context
-                            }).ToList();
+                            .Select(x => new ComponentCacheItem(x.Context, x.Component)).ToList();
 
-                            components.ForEach(x => (x.Instance as IComponent)?.Initialization(x.Context));
-
-                            list.AddRange(components.Select(x => x.Instance));
+                            list.AddRange(components);
 
                             components = dictItem[sectionKey].Where(x => x.Component.GetInterfaces()
                             .Contains(typeof(IComponentDynamic)))
-                            .Select(x => new
-                            {
-                                Instance = (T)(x.Component.Assembly.CreateInstance(x.Component.FullName) as IComponentDynamic).Create<T>(),
-                                Context = x.Context
-                            }).ToList();
+                            .Select(x => new ComponentCacheItem(x.Context, x.Component)).ToList();
 
-                            components.ForEach(x => (x.Instance as IComponent)?.Initialization(x.Context));
-
-                            list.AddRange(components.Select(x => x.Instance));
+                            list.AddRange(components);
                         }
                     }
                 }
             }
 
-            return list.Distinct(new ComponentComparer<T>());
+            return list.Distinct();
         }
+
     }
 }

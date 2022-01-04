@@ -65,6 +65,7 @@ namespace WebExpress.WebResource
                 var resourceContext = new List<string>();
                 var optional = false;
                 var conditions = new List<ICondition>();
+                var cache = false;
 
                 foreach (var customAttribute in resource.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IResourceAttribute))))
                 {
@@ -113,6 +114,10 @@ namespace WebExpress.WebResource
                             Context.Log.Warning(message: I18N("webexpress:resourcemanager.wrongtype"), args: new object[] { condition.Name, typeof(ICondition).Name });
                         }
                     }
+                    else if (customAttribute.AttributeType == typeof(CacheAttribute))
+                    {
+                        cache = true;
+                    }
                 }
 
                 // Prüfe ob eine optionale Ressource
@@ -146,12 +151,12 @@ namespace WebExpress.WebResource
                         root.ID = id;
                         root.Title = title;
                         root.Type = resource;
-                        root.Context = new ResourceContext(moduleContext) { Context = resourceContext, Conditions = conditions };
+                        root.Context = new ResourceContext(moduleContext) { Context = resourceContext, Conditions = conditions, Cache = cache };
                         root.ResourceContext = resourceContext;
                         root.IncludeSubPaths = includeSubPaths;
                         root.PathSegment = segment.ToPathSegment();
                         root.Dummy = false;
-
+                        
                         Context.Log.Info(message: I18N("webexpress:resourcemanager.addresource"), args: new object[] { "ROOT", applicationID, moduleID });
                     }
                 }
@@ -172,7 +177,7 @@ namespace WebExpress.WebResource
                             node.PathSegment = segment.ToPathSegment();
                             node.Title = title;
                             node.Type = resource;
-                            node.Context = new ResourceContext(moduleContext) { Context = resourceContext, Conditions = conditions };
+                            node.Context = new ResourceContext(moduleContext) { Context = resourceContext, Conditions = conditions, Cache = cache };
                             node.ResourceContext = resourceContext;
                             node.IncludeSubPaths = includeSubPaths;
                         }
