@@ -129,7 +129,7 @@ namespace WebExpress.WebApp.WebControl
         {
             if (!(e.Context.Request.GetParameter(File.Name) is ParameterFile))
             {
-                e.Results.Add(new ValidationResult() { Type = TypesInputValidity.Error, Text = I18N("webexpress.webapp:fileupload.file.validation.error.nofile") });
+                e.Results.Add(new ValidationResult(TypesInputValidity.Error, "webexpress.webapp:fileupload.file.validation.error.nofile"));
             }
         }
 

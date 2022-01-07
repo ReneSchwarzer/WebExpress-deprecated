@@ -46,6 +46,11 @@ namespace WebExpress.WebApplication
         string AssetPath { get; }
 
         /// <summary>
+        /// Liefert das Datenverzeichnis. Dieser wird in dem DataPath des Servers eingehangen.
+        /// </summary>
+        string DataPath { get; }
+
+        /// <summary>
         /// Liefert oder setzt den Kontextpfad Dieser wird in dem ContextPath des Servers eingehangen.
         /// </summary>
         IUri ContextPath { get; }

@@ -22,9 +22,14 @@ namespace WebExpress
         public string Version { get; protected set; }
 
         /// <summary>
-        /// Liefert oder setzt das Daten-Basisverzeichnis
+        /// Liefert oder setzt das Asset-Basisverzeichnis
         /// </summary>
         public string AssetPath { get; protected set; }
+        
+        /// <summary>
+        /// Liefert oder setzt das Daten-Basisverzeichnis
+        /// </summary>
+        public string DataPath { get; protected set; }
 
         /// <summary>
         /// Liefert oder setzt das Konfigurationserzeichnis
@@ -51,6 +56,7 @@ namespace WebExpress
         /// </summary>
         /// <param name="endpoints">Die Uri des Servers</param>
         /// <param name="assetBaseFolder">Daten-Basisverzeichnis</param>
+        /// <param name="dataBaseFolder">Daten-Basisverzeichnis</param>
         /// <param name="configBaseFolder">Konfigurationserzeichnis</param>
         /// <param name="contextPath">Der Basispfad des Servers</param>
         /// <param name="culture">Die Kultur</param>
@@ -59,6 +65,7 @@ namespace WebExpress
         (
             ICollection<EndpointConfig> endpoints,
             string assetBaseFolder,
+            string dataBaseFolder,
             string configBaseFolder,
             IUri contextPath,
             CultureInfo culture,
@@ -70,6 +77,7 @@ namespace WebExpress
 
             Endpoints = endpoints;
             AssetPath = assetBaseFolder;
+            DataPath = dataBaseFolder;
             ConfigPath = configBaseFolder;
             ContextPath = contextPath;
             Culture = culture;

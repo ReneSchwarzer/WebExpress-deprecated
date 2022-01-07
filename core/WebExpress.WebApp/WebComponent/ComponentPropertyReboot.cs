@@ -13,7 +13,7 @@ using WebExpress.WebPage;
 namespace WebExpress.WebApp.WebComponent
 {
     [Section(Section.HeadlineSecondary)]
-    [Application("ViLa")]
+    [Application("webexpress.webapp")]
     [Context("webexpress.webpp.systeminformation")]
     [Condition(typeof(ConditionUnix))]
     public sealed class ComponentPropertyReboot : ComponentControlButtonLink

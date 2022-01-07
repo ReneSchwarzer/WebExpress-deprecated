@@ -41,6 +41,12 @@ namespace WebExpress.Config
         public string AssetBase { get; set; }
 
         /// <summary>
+        /// Root-Verzeichnis der Daten
+        /// </summary>
+        [XmlElement("data")]
+        public string DataBase { get; set; }
+
+        /// <summary>
         /// Der Basispfad des WebServers
         /// </summary>
         [XmlElement("contextpath")]

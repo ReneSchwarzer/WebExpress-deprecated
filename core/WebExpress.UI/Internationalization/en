@@ -15,5 +15,9 @@ form.next.label=Next
 form.cancel.label=Cancel
 form.moveselector.available=Available options
 form.moveselector.selected=Selected options
+form.inputfile.validation.required=The text field must not be empty!
+form.inputtextbox.validation.required=The text field must not be empty!
+form.inputtextbox.validation.min=The text does not correspond to the minimum length of {0}!
+form.inputtextbox.validation.max=The text is larger than the maximum length of {0}!
 
 modal.close.label=Close

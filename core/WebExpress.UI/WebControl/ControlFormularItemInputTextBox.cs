@@ -200,19 +200,19 @@ namespace WebExpress.UI.WebControl
 
             if (Required && string.IsNullOrWhiteSpace(base.Value))
             {
-                ValidationResults.Add(new ValidationResult() { Type = TypesInputValidity.Error, Text = "Das Textfeld darf nicht leer sein!" });
+                ValidationResults.Add(new ValidationResult(TypesInputValidity.Error, "webexpress.ui:form.inputtextbox.validation.required"));
 
                 return;
             }
 
             if (!string.IsNullOrWhiteSpace(MinLength?.ToString()) && Convert.ToInt32(MinLength) > base.Value.Length)
             {
-                ValidationResults.Add(new ValidationResult() { Type = TypesInputValidity.Error, Text = "Der Text entsprcht nicht der minimalen Länge von " + MinLength + "!" });
+                ValidationResults.Add(new ValidationResult(TypesInputValidity.Error, string.Format(I18N(context.Culture, "webexpress.ui:form.inputtextbox.validation.min"), MinLength)));
             }
 
             if (!string.IsNullOrWhiteSpace(MaxLength?.ToString()) && Convert.ToInt32(MaxLength) < base.Value.Length)
             {
-                ValidationResults.Add(new ValidationResult() { Type = TypesInputValidity.Error, Text = "Der Text ist größer als die maximalen Länge von " + MaxLength + "!" });
+                ValidationResults.Add(new ValidationResult(TypesInputValidity.Error, string.Format(I18N(context.Culture, "webexpress.ui:form.inputtextbox.validation.max"), MaxLength)));
             }
         }
     }

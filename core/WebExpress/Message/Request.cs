@@ -446,7 +446,7 @@ namespace WebExpress.Message
         /// <returns>Der Wert</returns>
         public Parameter GetParameter(string name)
         {
-            if (HasParameter(name))
+            if (!string.IsNullOrWhiteSpace(name) && HasParameter(name))
             {
                 return Param[name.ToLower()];
             }
@@ -461,7 +461,7 @@ namespace WebExpress.Message
         /// <returns>true wenn Parameter vorhanden ist, false sonst</returns>
         public bool HasParameter(string name)
         {
-            return Param.ContainsKey(name.ToLower());
+            return Param.ContainsKey(name?.ToLower());
         }
     }
 }

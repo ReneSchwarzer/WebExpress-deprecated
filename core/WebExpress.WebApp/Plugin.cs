@@ -1,6 +1,7 @@
 ﻿using WebExpress.WebAttribute;
 using WebExpress.WebPlugin;
 using WebExpress.WebApp.SettingPage;
+using WebExpress.WebApp.WebUser;
 
 namespace WebExpress.WebApp
 {
@@ -24,6 +25,7 @@ namespace WebExpress.WebApp
         public void Initialization(IPluginContext context)
         {
             SettingPageManager.Initialization(context);
+            UserManager.Initialization(context.Host);
         }
 
         /// <summary>

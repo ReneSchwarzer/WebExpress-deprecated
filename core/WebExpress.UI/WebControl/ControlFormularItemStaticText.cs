@@ -50,8 +50,8 @@ namespace WebExpress.UI.WebControl
             var html = new HtmlElementTextContentP()
             {
                 Text = I18N(context.Culture, Text),
-                Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
-                Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
+                Class = Css.Concatenate(GetClasses()),
+                Style = Style.Concatenate(GetStyles()),
                 Role = Role
             };
 

@@ -15,5 +15,9 @@ form.next.label=Speichern und weiter
 form.cancel.label=Abbrechen
 form.moveselector.available=Verfügbare Optionen
 form.moveselector.selected=Ausgewählte Optionen
+form.inputfile.validation.required=Das Textfeld darf nicht leer sein!
+form.inputtextbox.validation.required=Das Textfeld darf nicht leer sein!
+form.inputtextbox.validation.min=Der Text entspricht nicht der minimalen Länge von {0}!
+form.inputtextbox.validation.max=Der Text ist größer als die maximalen Länge von {0}!
 
 modal.close.label=Schließen

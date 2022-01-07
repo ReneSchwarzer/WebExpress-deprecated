@@ -106,7 +106,7 @@ namespace WebExpress.UI.WebControl
 
             if (Required && string.IsNullOrWhiteSpace(base.Value))
             {
-                ValidationResults.Add(new ValidationResult() { Type = TypesInputValidity.Error, Text = "Das Textfeld darf nicht leer sein!" });
+                ValidationResults.Add(new ValidationResult(TypesInputValidity.Error, "webexpress.ui:form.inputfile.validation.required"));
 
                 return;
             }

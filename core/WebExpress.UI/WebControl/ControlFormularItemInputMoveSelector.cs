@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
-using WebExpress.Internationalization;
-using WebExpress.WebModule;
 using WebExpress.Uri;
+using WebExpress.WebModule;
 
 namespace WebExpress.UI.WebControl
 {
@@ -13,6 +12,16 @@ namespace WebExpress.UI.WebControl
         /// Liefert die Einträge
         /// </summary>
         public ICollection<ControlFormularItemInputMoveSelectorItem> Options { get; } = new List<ControlFormularItemInputMoveSelectorItem>();
+
+        /// <summary>
+        /// Liefert oder setzt die Beschriftung der ausgewählten Optionen
+        /// </summary>
+        public string SelectedHeader { get; set; } = "webexpress.ui:form.moveselector.selected";
+
+        /// <summary>
+        /// Liefert oder setzt die Beschriftung der vorhandenen Optionen
+        /// </summary>
+        public string AvailableHeader { get; set; } = "webexpress.ui:form.moveselector.available";
 
         /// <summary>
         /// Konstruktor
@@ -86,13 +95,13 @@ namespace WebExpress.UI.WebControl
                 Role = "moveselector"
             };
 
-            var selectedHeader = new ControlText("selectedHeader") { Text = context.I18N("webexpress.ui", "form.moveselector.selected"), TextColor = new PropertyColorText(TypeColorText.Muted), Format = TypeFormatText.Paragraph };
+            var selectedHeader = new ControlText("selectedHeader") { Text = SelectedHeader, TextColor = new PropertyColorText(TypeColorText.Muted), Format = TypeFormatText.Paragraph };
             var selectedList = new ControlList("selectedOptions") { Layout = TypeLayoutList.Flush };
             var leftAllButton = new ControlButton("") { Text = "<<", BackgroundColor = new PropertyColorButton(TypeColorButton.Primary), Block = TypeBlockButton.Block };
             var leftButton = new ControlButton("") { Text = "<", BackgroundColor = new PropertyColorButton(TypeColorButton.Primary), Block = TypeBlockButton.Block };
             var rightButton = new ControlButton("") { Text = ">", BackgroundColor = new PropertyColorButton(TypeColorButton.Primary), Block = TypeBlockButton.Block };
             var rightAllButton = new ControlButton("") { Text = ">>", BackgroundColor = new PropertyColorButton(TypeColorButton.Primary), Block = TypeBlockButton.Block };
-            var availableHeader = new ControlText("availableHeader") { Text = context.I18N("webexpress.ui", "form.moveselector.available"), TextColor = new PropertyColorText(TypeColorText.Muted), Format = TypeFormatText.Paragraph };
+            var availableHeader = new ControlText("availableHeader") { Text = AvailableHeader, TextColor = new PropertyColorText(TypeColorText.Muted), Format = TypeFormatText.Paragraph };
             var availableList = new ControlList("availableOptions") { Layout = TypeLayoutList.Flush };
 
             html.Elements.Add(new HtmlElementTextContentDiv

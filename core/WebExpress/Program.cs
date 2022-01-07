@@ -128,10 +128,16 @@ namespace WebExpress
                 config.AssetBase :
                 Path.Combine(Environment.CurrentDirectory, config.AssetBase);
 
+            var dataBase = string.IsNullOrWhiteSpace(config.DataBase) ?
+                Environment.CurrentDirectory : Path.IsPathRooted(config.DataBase) ?
+                config.DataBase :
+                Path.Combine(Environment.CurrentDirectory, config.DataBase);
+
             var context = new HttpServerContext
             (
                 config.Endpoints,
                 Path.GetFullPath(assetBase),
+                Path.GetFullPath(dataBase),
                 Path.GetDirectoryName(configFile),
                 new UriRelative(config.ContextPath),
                 culture,
@@ -153,7 +159,9 @@ namespace WebExpress
             HttpServer.Context.Log.Info(message: "".PadRight(80, '-'));
             HttpServer.Context.Log.Info(message: I18N("webexpress:app.version"), args: Version);
             HttpServer.Context.Log.Info(message: I18N("webexpress:app.arguments"), args: args);
-            HttpServer.Context.Log.Info(message: I18N("webexpress:app.workingdirectory"), args: config.AssetBase);
+            HttpServer.Context.Log.Info(message: I18N("webexpress:app.workingdirectory"), args: Environment.CurrentDirectory);
+            HttpServer.Context.Log.Info(message: I18N("webexpress:app.assetbase"), args: config.AssetBase);
+            HttpServer.Context.Log.Info(message: I18N("webexpress:app.database"), args: config.DataBase);
             HttpServer.Context.Log.Info(message: I18N("webexpress:app.configurationdirectory"), args: Path.GetDirectoryName(configFile));
             HttpServer.Context.Log.Info(message: I18N("webexpress:app.configuration"), args: Path.GetFileName(configFile));
             HttpServer.Context.Log.Info(message: I18N("webexpress:app.logdirectory"), args: Path.GetDirectoryName(HttpServer.Context.Log.Filename));

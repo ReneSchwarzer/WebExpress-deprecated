@@ -21,9 +21,14 @@ namespace WebExpress
         string Version { get; }
 
         /// <summary>
-        /// Liefert das Daten-Basisverzeichnis
+        /// Liefert das Asset-Basisverzeichnis
         /// </summary>
         string AssetPath { get; }
+
+        /// <summary>
+        /// Liefert das Daten-Basisverzeichnis
+        /// </summary>
+        string DataPath { get; }
 
         /// <summary>
         /// Liefert das Konfigurationserzeichnis

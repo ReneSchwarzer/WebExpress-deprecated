@@ -74,11 +74,13 @@ namespace WebExpress
             (
                 context.Endpoints,
                 context.AssetPath,
+                context.DataPath,
                 context.ConfigPath,
                 context.ContextPath,
                 context.Culture,
                 context.Log
             );
+
             Culture = Context.Culture;
 
             InternationalizationManager.Register(typeof(HttpServer).Assembly, "webexpress");
