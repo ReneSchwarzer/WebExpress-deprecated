@@ -49,6 +49,8 @@
     <None Remove="Assets\js\bootstrap.min.js.map" />
     <None Remove="Assets\js\Chart.min.js" />
     <None Remove="Assets\js\jquery-3.5.1.min.js" />
+    <None Remove="Assets\js\jquery-3.6.0.min.js" />
+    <None Remove="Assets\js\jquery-3.6.0.min.map" />
     <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker-en-CA.min.js" />
     <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.ar-tn.min.js" />
     <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.ar.min.js" />
@@ -194,7 +196,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Assets\js\bootstrap.min.js.map" />
     <EmbeddedResource Include="Assets\js\Chart.min.js" />
-    <EmbeddedResource Include="Assets\js\jquery-3.5.1.min.js" />
+    <EmbeddedResource Include="Assets\js\jquery-3.6.0.min.js" />
+    <EmbeddedResource Include="Assets\js\jquery-3.6.0.min.map" />
     <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.en.min.js" />
     <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker-en-CA.min.js" />
     <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.ar-tn.min.js" />
