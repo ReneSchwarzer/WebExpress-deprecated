@@ -128,23 +128,23 @@
             }
             else if (Top != Space.None && Bottom == Space.None && Left != Space.None && Right == Space.None)
             {
-                return prefix + "t-" + ConvertSize(Top) + " " + prefix + "l-" + ConvertSize(Left);
+                return prefix + "t-" + ConvertSize(Top) + " " + prefix + "s-" + ConvertSize(Left);
             }
             else if (Top != Space.None && Bottom == Space.None && Left == Space.None && Right != Space.None)
             {
-                return prefix + "t-" + ConvertSize(Top) + " " + prefix + "r-" + ConvertSize(Right);
+                return prefix + "t-" + ConvertSize(Top) + " " + prefix + "e-" + ConvertSize(Right);
             }
             else if (Top != Space.None && Bottom != Space.None && Left != Space.None && Right == Space.None)
             {
-                return prefix + "t-" + ConvertSize(Top) + " " + prefix + "b-" + ConvertSize(Bottom) + " " + prefix + "l-" + ConvertSize(Left);
+                return prefix + "t-" + ConvertSize(Top) + " " + prefix + "b-" + ConvertSize(Bottom) + " " + prefix + "s-" + ConvertSize(Left);
             }
             else if (Top != Space.None && Bottom != Space.None && Left == Space.None && Right != Space.None)
             {
-                return prefix + "t-" + ConvertSize(Top) + " " + prefix + "b-" + ConvertSize(Bottom) + " " + prefix + "r-" + ConvertSize(Right);
+                return prefix + "t-" + ConvertSize(Top) + " " + prefix + "b-" + ConvertSize(Bottom) + " " + prefix + "e-" + ConvertSize(Right);
             }
             else if (Top != Space.None && Bottom != Space.None && Left != Space.None && Right != Space.None)
             {
-                return prefix + "t-" + ConvertSize(Top) + " " + prefix + "b-" + ConvertSize(Bottom) + " " + prefix + "l-" + ConvertSize(Left) + " " + prefix + "r-" + ConvertSize(Right);
+                return prefix + "t-" + ConvertSize(Top) + " " + prefix + "b-" + ConvertSize(Bottom) + " " + prefix + "s-" + ConvertSize(Left) + " " + prefix + "e-" + ConvertSize(Right);
             }
             //
             else if (Top == Space.None && Bottom != Space.None && Left == Space.None && Right == Space.None)
@@ -153,29 +153,29 @@
             }
             else if (Top == Space.None && Bottom != Space.None && Left != Space.None && Right == Space.None)
             {
-                return prefix + "b-" + ConvertSize(Bottom) + " " + prefix + "l-" + ConvertSize(Left);
+                return prefix + "b-" + ConvertSize(Bottom) + " " + prefix + "s-" + ConvertSize(Left);
             }
             else if (Top == Space.None && Bottom != Space.None && Left == Space.None && Right != Space.None)
             {
-                return prefix + "b-" + ConvertSize(Bottom) + " " + prefix + "r-" + ConvertSize(Right);
+                return prefix + "b-" + ConvertSize(Bottom) + " " + prefix + "e-" + ConvertSize(Right);
             }
             else if (Top == Space.None && Bottom != Space.None && Left != Space.None && Right != Space.None)
             {
-                return prefix + "b-" + ConvertSize(Bottom) + " " + prefix + "l-" + ConvertSize(Left) + " " + prefix + "r-" + ConvertSize(Right);
+                return prefix + "b-" + ConvertSize(Bottom) + " " + prefix + "s-" + ConvertSize(Left) + " " + prefix + "e-" + ConvertSize(Right);
             }
             //
             else if (Top == Space.None && Bottom == Space.None && Left != Space.None && Right == Space.None)
             {
-                return prefix + "l-" + ConvertSize(Left);
+                return prefix + "s-" + ConvertSize(Left);
             }
             else if (Top == Space.None && Bottom == Space.None && Left != Space.None && Right != Space.None)
             {
-                return prefix + "l-" + ConvertSize(Left) + " " + prefix + "r-" + ConvertSize(Right);
+                return prefix + "s-" + ConvertSize(Left) + " " + prefix + "e-" + ConvertSize(Right);
             }
             //
             else if (Top == Space.None && Bottom == Space.None && Left == Space.None && Right != Space.None)
             {
-                return prefix + "r-" + ConvertSize(Right);
+                return prefix + "e-" + ConvertSize(Right);
             }
 
             return null;

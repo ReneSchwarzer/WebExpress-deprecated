@@ -10,7 +10,7 @@ namespace WebExpress.WebApp.WebComponent
 {
     [Section(Section.HeadlineSecondary)]
     [Application("webexpress.webapp")]
-    [Context("webexpress.webapp.usermannager.group")]
+    [Context("webexpress.webapp.usermanagement.group")]
     public sealed class ComponentUserManagementAddGroup : ComponentControlButtonLink
     {
         /// <summary>

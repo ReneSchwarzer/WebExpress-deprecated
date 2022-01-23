@@ -105,7 +105,7 @@ namespace WebExpress.UI.WebControl
 
                     if (icon.Icon != null)
                     {
-                        icon.Classes.Add("mr-2 pt-1");
+                        icon.Classes.Add("me-2 pt-1");
                         fieldset.Elements.Add(new HtmlElementTextSemanticsSpan(icon.Render(renderContext), label.Render(renderContext))
                         {
                             Style = "display: flex;"

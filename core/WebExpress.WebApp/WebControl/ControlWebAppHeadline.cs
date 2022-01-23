@@ -146,7 +146,7 @@ namespace WebExpress.WebApp.WebControl
                 Metadata.Select(x => x.Render(context))
             )
             {
-                Class = Css.Concatenate("ml-2 mr-2 mb-3 text-secondary"),
+                Class = Css.Concatenate("ms-2 me-2 mb-3 text-secondary"),
                 Style = Style.Concatenate("font-size:0.75rem;")
             };
 

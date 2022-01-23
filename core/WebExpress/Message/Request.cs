@@ -1,14 +1,16 @@
 ﻿using Microsoft.AspNetCore.Http.Features;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using WebExpress.Html;
-using WebExpress.WebSession;
 using WebExpress.Uri;
+using WebExpress.WebSession;
 
 namespace WebExpress.Message
 {
@@ -40,7 +42,7 @@ namespace WebExpress.Message
         /// <summary>
         /// Liefert die Session
         /// </summary>
-        public WebSession.Session Session { get; private set; }
+        public Session Session { get; private set; }
 
         /// <summary>
         /// Setzt oder liefert die HTTP-Version
@@ -98,6 +100,24 @@ namespace WebExpress.Message
         public string RequestTraceIdentifier { get; private set; }
 
         /// <summary>
+        /// Ermittelt die Kultur
+        /// </summary>
+        public CultureInfo Culture
+        {
+            get
+            {
+                try
+                {
+                    return new CultureInfo(Header?.AcceptLanguage.FirstOrDefault());
+                }
+                catch 
+                {
+                    return CultureInfo.CurrentCulture;
+                }
+            }
+        }
+
+        /// <summary>
         /// Liefert den Inhalt
         /// </summary>
         public byte[] Content { get; private set; }
@@ -134,6 +154,7 @@ namespace WebExpress.Message
                 "PUT" => RequestMethod.PUT,
                 "DELETE" => RequestMethod.GET,
                 "HEAD" => RequestMethod.HEAD,
+                "PATCH" => RequestMethod.PATCH,
                 _ => RequestMethod.GET
             };
 
@@ -143,10 +164,11 @@ namespace WebExpress.Message
             LocalEndPoint = new IPEndPoint(connectionFeature.LocalIpAddress, connectionFeature.LocalPort);
             RemoteEndPoint = new IPEndPoint(connectionFeature.RemoteIpAddress, connectionFeature.RemotePort);
 
-
             BaseUri = new UriAbsolute(Scheme, new UriAuthority(Header.Host, connectionFeature.LocalPort), new UriRelative());
 
             Content = GetContent(requestFeature.Body, Header.ContentLength);
+
+            ParseQueryParams(requestFeature.QueryString);
             ParseRequestParams();
             ParseSessionParams();
         }
@@ -186,6 +208,32 @@ namespace WebExpress.Message
             while (readCount < 0);
 
             return content;
+        }
+
+        /// <summary>
+        /// Ermittelt die Paramerter aus der Anfragequery(z.B. http://www.example.com?key=value) 
+        /// </summary>
+        /// <param name="query">Die Query</param>
+        private void ParseQueryParams(string query)
+        {
+            query = query.TrimStart('?');
+
+            Parallel.ForEach(query.Split('&'), (param) =>
+            {
+                if (!string.IsNullOrWhiteSpace(param))
+                {
+                    var split = param.Split('=');
+
+                    if (split.Length == 1)
+                    {
+                        AddParameter(new Parameter(split[0], null, ParameterScope.Parameter));
+                    }
+                    else if (split.Length == 2)
+                    {
+                        AddParameter(new Parameter(split[0], split[1], ParameterScope.Parameter));
+                    }
+                }
+            });
         }
 
         /// <summary>

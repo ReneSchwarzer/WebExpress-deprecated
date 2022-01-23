@@ -1,15 +1,11 @@
-﻿using System.Text.Json;
+﻿using System.Collections;
+using System.Text.Json;
 using WebExpress.Message;
 
 namespace WebExpress.WebResource
 {
     public abstract class ResourceApi : Resource
     {
-        /// <summary>
-        /// Liefert oder setzt den Inhalt
-        /// </summary>
-        public string Content { get; protected set; } = string.Empty;
-
         /// <summary>
         /// Konstruktor
         /// </summary>
@@ -28,11 +24,24 @@ namespace WebExpress.WebResource
         }
 
         /// <summary>
-        /// Verarbeitung
+        /// Verarbeitung des GET-Request
         /// </summary>
         /// <param name="request">Die Anfrage</param>
-        /// <returns>Ein Objekt welches mittels JsonSerializer serialisiert werden kann.</returns>
-        public abstract object GetData(Request request);
+        /// <returns>Eine Aufzählung, welche JsonSerializer serialisiert werden kann.</returns>
+        public virtual object GetData(Request request)
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// Verarbeitung des DELETE-Request
+        /// </summary>
+        /// <param name="request">Die Anfrage</param>
+        /// <returns>Das Ergebnis der Löschung</returns>
+        public virtual bool DeleteData(Request request)
+        {
+            return false;
+        }
 
         /// <summary>
         /// Verarbeitung
@@ -45,12 +54,27 @@ namespace WebExpress.WebResource
             {
                 WriteIndented = true
             };
-
-            var content = JsonSerializer.Serialize(GetData(request), options);
-
+            
             var response = new ResponseOK();
-            response.Header.ContentLength = content.Length;
+            var content = string.Empty;
 
+            switch (request.Method)
+            {
+                case RequestMethod.GET:
+                    {
+                        content = JsonSerializer.Serialize(GetData(request), options);
+
+                        break;
+                    }
+                case RequestMethod.DELETE:
+                    {
+                        content = JsonSerializer.Serialize(DeleteData(request), options);
+
+                        break;
+                    }
+            };
+
+            response.Header.ContentLength = content.Length;
             response.Content = content;
 
             return response;

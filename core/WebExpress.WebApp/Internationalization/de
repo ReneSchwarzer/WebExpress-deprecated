@@ -40,6 +40,9 @@ delete.label=Löschen
 delete.header=Löschen bestätigen
 delete.description=Möchten Sie wirklich löschen?
 
+search.label=Suche
+search.placeholder=Geben Sie hier Ihre Suchbegriffe ein.
+
 setting.label=Einstellungen:
 setting.systeminformation.group.server.label=Server Info
 setting.systeminformation.group.server.version=Programmversion:
@@ -105,6 +108,7 @@ setting.usermanager.user.description=
 setting.usermanager.user.login.label=Anmeldekennung
 setting.usermanager.user.name.label=Benutzername
 setting.usermanager.user.groups.label=Gruppen
+setting.usermanager.user.email.label=E-Mail
 setting.usermanager.user.add.header=Neuen Benutzer erstellen
 setting.usermanager.user.add.description=Erstellen Sie hier einen neuen Benutzer.
 setting.usermanager.user.add.label=Neuer Benutzer

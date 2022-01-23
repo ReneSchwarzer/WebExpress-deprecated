@@ -3,7 +3,7 @@
     /// <summary>
     /// Die Anordnungsmöglichkeiten
     /// </summary>
-    public enum TypeAlighmentDropdownMenu
+    public enum TypeAlignmentDropdownMenu
     {
         Default,
         Right
@@ -16,11 +16,11 @@
         /// </summary>
         /// <param name="direction">Die Anordnung, welches umgewandelt werden soll</param>
         /// <returns>Die zur Anordnung gehörende CSS-KLasse</returns>
-        public static string ToClass(this TypeAlighmentDropdownMenu direction)
+        public static string ToClass(this TypeAlignmentDropdownMenu direction)
         {
             return direction switch
             {
-                TypeAlighmentDropdownMenu.Right => "dropdown-menu-right",
+                TypeAlignmentDropdownMenu.Right => "dropdown-menu-lg-end",
                 _ => string.Empty,
             };
         }

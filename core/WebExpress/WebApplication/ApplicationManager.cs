@@ -66,6 +66,7 @@ namespace WebExpress.WebApplication
                 var description = string.Empty;
                 var contextPath = string.Empty;
                 var assetPath = string.Empty;
+                var dataPath = string.Empty;
                 var options = new List<string>();
 
                 // Attribute ermitteln
@@ -95,6 +96,10 @@ namespace WebExpress.WebApplication
                     {
                         assetPath = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
+                    else if (customAttribute.AttributeType == typeof(DataPathAttribute))
+                    {
+                        dataPath = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
+                    }
                     else if (customAttribute.AttributeType == typeof(OptionAttribute))
                     {
                         options.Add(customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower());
@@ -112,7 +117,7 @@ namespace WebExpress.WebApplication
                     Options = options,
                     Icon = UriRelative.Combine(Context.ContextPath, contextPath, icon),
                     AssetPath = Path.GetFullPath(Path.Combine(Context.AssetPath, assetPath)),
-                    DataPath = Path.GetFullPath(Path.Combine(Context.DataPath, assetPath)),
+                    DataPath = Path.GetFullPath(Path.Combine(Context.DataPath, dataPath)),
                     ContextPath = UriRelative.Combine(Context.ContextPath, contextPath),
                     Log = Context.Log
                 };

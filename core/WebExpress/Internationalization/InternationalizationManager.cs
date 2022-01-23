@@ -3,6 +3,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using WebExpress.Message;
 using WebExpress.WebPlugin;
 
 namespace WebExpress.Internationalization
@@ -131,6 +132,17 @@ namespace WebExpress.Internationalization
         public static string I18N(II18N obj, string key)
         {
             return I18N(obj.Culture, key);
+        }
+
+        /// <summary>
+        /// Internationalisierung
+        /// </summary>
+        /// <param name="request">Die Anfrage</param>
+        /// <param name="key">Der Schlüssel</param>
+        /// <returns>Der Wert des Schlüssels in der aktuellen Sprache</returns>
+        public static string I18N(Request request, string key)
+        {
+            return I18N(request.Culture, null, key);
         }
 
         /// <summary>

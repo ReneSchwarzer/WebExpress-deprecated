@@ -40,6 +40,9 @@ delete.label=Delete
 delete.header=Confirm Delete
 delete.description=Are you sure you want to delete?
 
+search.label=Search
+search.placeholder=Enter your search terms here.
+
 setting.label=Settings:
 setting.systeminformation.group.server.label=Server info
 setting.systeminformation.group.server.version=Version:
@@ -105,6 +108,7 @@ setting.usermanager.user.description=
 setting.usermanager.user.login.label=Login id
 setting.usermanager.user.name.label=Name
 setting.usermanager.user.groups.label=Groups
+setting.usermanager.user.email.label=Email
 setting.usermanager.user.add.header=Create a new user
 setting.usermanager.user.add.description=Create a new user here.
 setting.usermanager.user.add.label=New user

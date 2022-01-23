@@ -83,12 +83,12 @@ namespace WebExpress.UI.WebControl
 
                     label.Text = context.I18N(input?.Label);
                     label.FormularItem = item;
-                    label.Classes.Add("mr-2");
+                    label.Classes.Add("me-2");
                     help.Text = context.I18N(input?.Help);
 
                     if (icon.Icon != null)
                     {
-                        icon.Classes.Add("mr-2 pt-1");
+                        icon.Classes.Add("me-2 pt-1");
 
                         row.Elements.Add(new HtmlElementTextContentDiv(icon.Render(renderContext), label.Render(renderContext)));
                     }

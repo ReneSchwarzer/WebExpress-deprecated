@@ -7,6 +7,7 @@
         POST,
         PUT,
         HEAD,
-        DELETE
+        DELETE,
+        PATCH // RFC 5789 
     }
 }

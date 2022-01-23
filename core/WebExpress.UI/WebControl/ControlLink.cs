@@ -197,7 +197,7 @@ namespace WebExpress.UI.WebControl
             var html = new HtmlElementTextSemanticsA(from x in Content select x.Render(context))
             {
                 ID = ID,
-                Class = GetClasses(),
+                Class = Css.Concatenate("link", GetClasses()),
                 Style = GetStyles(),
                 Role = Role,
                 Href = Uri?.ToString() + (param.Length > 0 ? "?" + param : string.Empty),

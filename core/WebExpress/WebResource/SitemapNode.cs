@@ -369,9 +369,14 @@ namespace WebExpress.WebResource
         /// Erstellt eine neue Instanz oder wenn caching aktiv ist wird eine eventuell bestehende Instanz zurückgegeben
         /// </summary>
         /// <param name="context">Der Suchkontext</param>
-        /// <returns>Die Instanz</returns>
+        /// <returns>Die Instanz oder null</returns>
         public IResource CreateInstance(SearchContext context)
         {
+            if (Context == null)
+            {
+                return null;
+            }
+
             if (Context.Cache && Instance != null)
             {
                 return Instance;

@@ -84,11 +84,11 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Liefert oder setzt den Aktivierungsstatus der Schaltfläche
+        /// Liefert oder setzt den die Ausrichtung des Menüs
         /// </summary>
-        public TypeAlighmentDropdownMenu AlighmentMenu
+        public TypeAlignmentDropdownMenu AlignmentMenu
         {
-            get => (TypeAlighmentDropdownMenu)GetProperty(TypeAlighmentDropdownMenu.Default);
+            get => (TypeAlignmentDropdownMenu)GetProperty(TypeAlignmentDropdownMenu.Default);
             set => SetProperty(value, () => value.ToClass());
         }
 
@@ -231,9 +231,10 @@ namespace WebExpress.UI.WebControl
                     ID = string.IsNullOrWhiteSpace(ID) ? "" : ID + "_btn",
                     Class = Css.Concatenate("btn", Css.Remove(GetClasses(), Margin.ToClass())),
                     Style = GetStyles(),
-                    Title = Title,
-                    DataToggle = "dropdown"
+                    Title = Title
                 };
+                button.AddUserAttribute("data-bs-toggle", "dropdown");
+                button.AddUserAttribute("aria-expanded", "false");
 
                 if (Icon != null && Icon.HasIcon)
                 {
@@ -265,9 +266,10 @@ namespace WebExpress.UI.WebControl
                     ID = string.IsNullOrWhiteSpace(ID) ? "" : ID + "_btn",
                     Class = Css.Concatenate("btn", Css.Remove(GetClasses(), Margin.ToClass())),
                     Style = GetStyles(),
-                    Src = Image.ToString(),
-                    DataToggle = "dropdown"
+                    Src = Image.ToString()
                 };
+                button.AddUserAttribute("data-bs-toggle", "dropdown");
+                button.AddUserAttribute("aria-expanded", "false");
 
                 if (Height > 0)
                 {
@@ -299,8 +301,8 @@ namespace WebExpress.UI.WebControl
                 {
                     Class = Css.Concatenate
                     (
-                        HorizontalAlignment == TypeHorizontalAlignment.Right ? "dropdown-menu dropdown-menu-right" : "dropdown-menu",
-                        AlighmentMenu.ToClass()
+                        "dropdown-menu",
+                        AlignmentMenu.ToClass()
                     )
                 }
             );

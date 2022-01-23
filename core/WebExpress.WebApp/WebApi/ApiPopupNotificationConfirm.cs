@@ -1,7 +1,7 @@
 ﻿using System.Linq;
-using WebExpress.WebAttribute;
 using WebExpress.Message;
 using WebExpress.WebApp.WebNotificaation;
+using WebExpress.WebAttribute;
 using WebExpress.WebResource;
 
 namespace WebExpress.WebApp.WebAPI
@@ -9,7 +9,7 @@ namespace WebExpress.WebApp.WebAPI
     /// <summary>
     /// Ermittelt den Status und Forschritt einer Aufgabe (WebTask)
     /// </summary>
-    [ID("PopupNotificationConfirmV1")]
+    [ID("APIPopupNotificationConfirmV1")]
     [Segment("popupconfirmnotification", "")]
     [Path("/api/v1")]
     [IncludeSubPaths(true)]
@@ -34,11 +34,11 @@ namespace WebExpress.WebApp.WebAPI
         }
 
         /// <summary>
-        /// Verarbeitung
+        /// Verarbeitung des DELETE-Request
         /// </summary>
         /// <param name="request">Die Anfrage</param>
-        /// <returns>Ein Objekt welches mittels JsonSerializer serialisiert werden kann.</returns>
-        public override object GetData(Request request)
+        /// <returns>Das Ergebnis der Löschung</returns>
+        public override bool DeleteData(Request request)
         {
             var id = request.Uri.Path.Last().Value;
 

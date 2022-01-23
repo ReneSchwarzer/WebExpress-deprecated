@@ -2,27 +2,40 @@
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
-using WebExpress.WebApp.WebControl;
 using WebExpress.WebAttribute;
 using WebExpress.WebPage;
 
 namespace WebExpress.WebApp.WebComponent
 {
-    [Section(Section.HeadlineSecondary)]
+    [Section(Section.ContentPreferences)]
     [Application("webexpress.webapp")]
     [Context("webexpress.webapp.usermanagement.user")]
-    public sealed class ComponentUserManagementAddUser : ComponentControlButtonLink
+    [Cache()]
+    public sealed class ComponentUserManagementDescription : ComponentControlPanel
     {
         /// <summary>
-        /// Liefert den modalen Dialog zur Bestätigung der Löschaktion
+        /// Liefert die Bezeichnung.
         /// </summary>
-        private ControlModalFormularUserNew ModalDlg = new ControlModalFormularUserNew("add_user");
+        private ControlText Label { get; } = new ControlText()
+        {
+            Text = "webexpress.webapp:setting.usermanager.user.help",
+            Margin = new PropertySpacingMargin(PropertySpacing.Space.Two),
+            TextColor = new PropertyColorText(TypeColorText.Info)
+        };
+
+        /// <summary>
+        /// Liefert den Hilfetext.
+        /// </summary>
+        private ControlText Description { get; } = new ControlText()
+        {
+            Text = "webexpress.webapp:setting.usermanager.user.description",
+            Margin = new PropertySpacingMargin(PropertySpacing.Space.Two)
+        };
 
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public ComponentUserManagementAddUser()
-            : base("add_user")
+        public ComponentUserManagementDescription()
         {
         }
 
@@ -35,11 +48,8 @@ namespace WebExpress.WebApp.WebComponent
         {
             base.Initialization(context, page);
 
-            Text = "webexpress.webapp:setting.usermanager.user.add.label";
-            Margin = new PropertySpacingMargin(PropertySpacing.Space.Two);
-            BackgroundColor = new PropertyColorButton(TypeColorButton.Primary);
-            Icon = new PropertyIcon(TypeIcon.Plus);
-            Modal = ModalDlg;
+            Content.Add(Label);
+            Content.Add(Description);
         }
 
         /// <summary>

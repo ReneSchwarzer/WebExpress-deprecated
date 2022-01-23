@@ -298,19 +298,10 @@ namespace WebExpress
             var stopwatch = Stopwatch.StartNew();
             var request = context.Request;
             var response = null as Response;
-            var culture = Culture;
+            var culture = request.Culture;
             var uri = request?.Uri;
 
             Context.Log.Info(message: this.I18N("webexpress:httpserver.connected"), args: context?.RemoteEndPoint);
-
-            // Kultur ermitteln
-            try
-            {
-                culture = new CultureInfo(request?.Header?.AcceptLanguage.FirstOrDefault());
-            }
-            catch
-            {
-            }
 
             try
             {

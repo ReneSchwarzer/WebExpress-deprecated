@@ -56,6 +56,7 @@ namespace WebExpress.UI.WebPage
                 HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/jquery-3.5.1.min.js")));
                 HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/popper.min.js")));
                 HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/bootstrap.min.js")));
+                HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/webexpress.ui.js")));
                 //HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/summernote-bs4.min.js")));
                 //HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/simpletags.js")));
             }

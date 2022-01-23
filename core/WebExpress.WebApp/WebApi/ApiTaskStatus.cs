@@ -1,6 +1,7 @@
-﻿using System.Linq;
-using WebExpress.WebAttribute;
+﻿using System.Collections;
+using System.Linq;
 using WebExpress.Message;
+using WebExpress.WebAttribute;
 using WebExpress.WebResource;
 using WebExpress.WebTask;
 
@@ -9,7 +10,7 @@ namespace WebExpress.WebApp.WebAPI
     /// <summary>
     /// Ermittelt den Status und Forschritt einer Aufgabe (WebTask)
     /// </summary>
-    [ID("TaskStatusV1")]
+    [ID("APITaskStatusV1")]
     [Segment("taskstatus", "")]
     [Path("/api/v1")]
     [IncludeSubPaths(true)]
@@ -37,8 +38,8 @@ namespace WebExpress.WebApp.WebAPI
         /// Verarbeitung
         /// </summary>
         /// <param name="request">Die Anfrage</param>
-        /// <returns>Ein Objekt welches mittels JsonSerializer serialisiert werden kann.</returns>
-        public override object GetData(Request request)
+        /// <returns>Eine Aufzählung, welche mittels JsonSerializer serialisiert werden kann.</returns>
+        public override ICollection GetData(Request request)
         {
             var id = request.Uri.Path.Last().Value;
 
@@ -46,20 +47,26 @@ namespace WebExpress.WebApp.WebAPI
             {
                 var task = TaskManager.GetTask(id);
 
-                return new
+                return new object[]
                 {
-                    ID = id,
-                    task.State,
-                    task.Progress,
-                    task.Message
+                    new
+                    {
+                        ID = id,
+                        task.State,
+                        task.Progress,
+                        task.Message
+                    }
                 };
             }
 
-            return new
+            return new object[]
             {
-                ID = id,
-                State = null as string,
-                Progress = 0
+                new
+                {
+                    ID = id,
+                    State = null as string,
+                    Progress = 0
+                }
             };
         }
     }

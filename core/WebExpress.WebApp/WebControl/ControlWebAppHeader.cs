@@ -253,7 +253,7 @@ namespace WebExpress.WebApp.WebControl
             new ControlDropdown("help", helpList)
             {
                 Icon = new PropertyIcon(TypeIcon.InfoCircle),
-                AlighmentMenu = TypeAlighmentDropdownMenu.Right,
+                AlignmentMenu = TypeAlignmentDropdownMenu.Right,
                 BackgroundColor = new PropertyColorButton(TypeColorButton.Dark),
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.None)
             } :
@@ -263,7 +263,7 @@ namespace WebExpress.WebApp.WebControl
             new ControlDropdown("settings", settingsList)
             {
                 Icon = new PropertyIcon(TypeIcon.Cog),
-                AlighmentMenu = TypeAlighmentDropdownMenu.Right,
+                AlignmentMenu = TypeAlignmentDropdownMenu.Right,
                 BackgroundColor = new PropertyColorButton(TypeColorButton.Dark),
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.None)
             } :

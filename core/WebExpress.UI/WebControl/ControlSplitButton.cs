@@ -190,6 +190,8 @@ namespace WebExpress.UI.WebControl
                 Style = GetStyles(),
                 DataToggle = "dropdown"
             };
+            dropdownButton.AddUserAttribute("data-bs-toggle", "dropdown");
+            dropdownButton.AddUserAttribute("aria-expanded", "false");
 
             var dropdownElements = new HtmlElementTextContentUl
                 (

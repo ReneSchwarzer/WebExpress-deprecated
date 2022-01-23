@@ -65,6 +65,7 @@ namespace WebExpress.UI.WebControl
         private void Init()
         {
             Size = TypeSizeButton.Small;
+            BackgroundColor = new PropertyColorBackground(TypeColorBackground.Light);
         }
 
         /// <summary>
@@ -74,9 +75,9 @@ namespace WebExpress.UI.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var html = new HtmlElementTextContentUl()
+            var html = new HtmlElementTextContentOl()
             {
-                Class = Css.Concatenate("breadcrumb rounded-0", GetClasses()),
+                Class = Css.Concatenate("breadcrumb bg-light ps-2", GetClasses()),
                 Style = GetStyles(),
             };
 
@@ -84,7 +85,7 @@ namespace WebExpress.UI.WebControl
             {
                 html.Elements.Add
                 (
-                    new HtmlElementTextSemanticsSpan(new HtmlText(I18N(context.Culture, Prefix))) { Class = "mr-2" }
+                    new HtmlElementTextContentLi(new HtmlElementTextContentDiv(new HtmlText(I18N(context.Culture, Prefix))) { Class = "me-2 text-muted" })
                 );
             }
 
@@ -139,7 +140,8 @@ namespace WebExpress.UI.WebControl
                                 //}.ToHtml(),
                                 new HtmlElementTextSemanticsA(display)
                                 {
-                                    Href = href
+                                    Href = href,
+                                    Class = "link"
                                 }
                             )
                             {

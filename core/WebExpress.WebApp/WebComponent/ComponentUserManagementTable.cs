@@ -2,27 +2,24 @@
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
-using WebExpress.WebApp.WebControl;
 using WebExpress.WebAttribute;
+using WebExpress.WebModule;
 using WebExpress.WebPage;
 
 namespace WebExpress.WebApp.WebComponent
 {
-    [Section(Section.HeadlineSecondary)]
+    [Section(Section.ContentPrimary)]
     [Application("webexpress.webapp")]
     [Context("webexpress.webapp.usermanagement.user")]
-    public sealed class ComponentUserManagementAddUser : ComponentControlButtonLink
+    [Cache()]
+    //[Condition(typeof(ConditionUnix))]
+    public sealed class ComponentUserManagementTable : ComponentCrudTable
     {
-        /// <summary>
-        /// Liefert den modalen Dialog zur Bestätigung der Löschaktion
-        /// </summary>
-        private ControlModalFormularUserNew ModalDlg = new ControlModalFormularUserNew("add_user");
-
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public ComponentUserManagementAddUser()
-            : base("add_user")
+        public ComponentUserManagementTable()
+            : base("4fd155dd-f6e2-4411-b6ed-14ee78713272")
         {
         }
 
@@ -35,11 +32,13 @@ namespace WebExpress.WebApp.WebComponent
         {
             base.Initialization(context, page);
 
-            Text = "webexpress.webapp:setting.usermanager.user.add.label";
-            Margin = new PropertySpacingMargin(PropertySpacing.Space.Two);
-            BackgroundColor = new PropertyColorButton(TypeColorButton.Primary);
-            Icon = new PropertyIcon(TypeIcon.Plus);
-            Modal = ModalDlg;
+            var module = ModuleManager.GetModule(context.Application, "webexpress.webapp");
+
+            RestApiUri = module.ContextPath.Append("/api/v1/user");
+
+            Editors.Add(new ComponentCrudTableEditorLinkItem("webexpress.webapp:setting.usermanager.group.edit.label") { Icon = new PropertyIcon(TypeIcon.Edit) });
+            Editors.Add(new ComponentCrudTableEditorSeperatorItem());
+            Editors.Add(new ComponentCrudTableEditorLinkItem("webexpress.webapp:setting.usermanager.group.delete.label") { Icon = new PropertyIcon(TypeIcon.TrashAlt), Color = new PropertyColorText(TypeColorText.Danger) });
         }
 
         /// <summary>

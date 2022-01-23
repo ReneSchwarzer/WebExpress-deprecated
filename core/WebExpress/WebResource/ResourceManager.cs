@@ -223,7 +223,7 @@ namespace WebExpress.WebResource
                     var uri = new UriRelative(requestUri.ToString()[contextPath.ToString().Length..]);
                     var result = root.Find(uri, context);
 
-                    if (result != null)
+                    if (result != null && result.Context != null)
                     {
                         if (!result.Context.Conditions.Any() || result.Context.Conditions.All(x => x.Fulfillment(context.Request)))
                         {

@@ -171,9 +171,10 @@ namespace WebExpress.UI.WebControl
             {
                 ID = string.IsNullOrWhiteSpace(ID) ? "" : ID + "_btn",
                 Class = Css.Concatenate("btn dropdown-toggle dropdown-toggle-split", Css.Remove(GetClasses(), "btn-block", Margin.ToClass())),
-                Style = GetStyles(),
-                DataToggle = "dropdown"
+                Style = GetStyles()
             };
+            dropdownButton.AddUserAttribute("data-bs-toggle", "dropdown");
+            dropdownButton.AddUserAttribute("aria-expanded", "false");
 
             var dropdownElements = new HtmlElementTextContentUl
                 (
@@ -200,7 +201,7 @@ namespace WebExpress.UI.WebControl
             {
                 Class = Css.Concatenate
                 (
-                    "btn-group ",
+                    "btn-group",
                     Margin.ToClass(),
                     (Block == TypeBlockButton.Block ? "btn-block" : "")
                 ),

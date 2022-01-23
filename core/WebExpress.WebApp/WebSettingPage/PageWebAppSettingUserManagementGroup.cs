@@ -24,7 +24,7 @@ namespace WebExpress.WebApp.WebSettingPage
     [SettingContext("webexpress.webapp:setting.tab.general.label")]
     [Module("webexpress.webapp")]
     [Context("admin")]
-    [Context("webexpress.webapp.usermannager.group")]
+    [Context("webexpress.webapp.usermanagement.group")]
     [Optional]
     public sealed class PageWebAppSettingUserManagementGroup : PageWebAppSetting
     {

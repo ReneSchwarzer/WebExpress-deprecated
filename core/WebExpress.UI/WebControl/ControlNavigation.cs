@@ -182,7 +182,7 @@ namespace WebExpress.UI.WebControl
                 }
                 else
                 {
-                    i.AddClass(Css.Concatenate("nav-link"));
+                    //i.AddClass(Css.Concatenate("nav-link"));
                 }
 
                 items.Add(new HtmlElementTextContentLi(i)

@@ -85,12 +85,11 @@ namespace WebExpress.UI.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContextFormular context)
         {
-
             var html = new HtmlElementFieldSelect()
             {
                 ID = ID,
                 Name = Name,
-                Class = Css.Concatenate("custom-select", GetClasses()),
+                Class = Css.Concatenate("form-select", GetClasses()),
                 Style = GetStyles(),
                 Role = Role,
                 Disabled = Disabled,
