@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using WebExpress.Message;
+using WebExpress.Uri;
 
 namespace WebExpress.WebResource
 {
@@ -14,6 +15,11 @@ namespace WebExpress.WebResource
         /// Liefert oder setzt den Modulkontext indem die Ressource existiert
         /// </summary>
         public IResourceContext Context { get; private set; }
+
+        /// <summary>
+        /// Die Uri der Ressource
+        /// </summary>
+        public IUri Uri { get; internal set; }
 
         /// <summary>
         /// Liefert die Kultur

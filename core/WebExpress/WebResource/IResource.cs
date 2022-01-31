@@ -1,5 +1,6 @@
 ﻿using WebExpress.Internationalization;
 using WebExpress.Message;
+using WebExpress.Uri;
 
 namespace WebExpress.WebResource
 {
@@ -14,6 +15,11 @@ namespace WebExpress.WebResource
         /// Liefert oder setzt den Kontext indem die Ressource existiert
         /// </summary>
         IResourceContext Context { get; }
+
+        /// <summary>
+        /// Die Uri der Ressource
+        /// </summary>
+        IUri Uri { get; }
 
         /// <summary>
         /// Initialisierung

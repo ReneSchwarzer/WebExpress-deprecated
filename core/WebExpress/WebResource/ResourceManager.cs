@@ -6,6 +6,7 @@ using WebExpress.WebCondition;
 using WebExpress.WebModule;
 using WebExpress.Uri;
 using static WebExpress.Internationalization.InternationalizationManager;
+using WebExpress.WebApplication;
 
 namespace WebExpress.WebResource
 {
@@ -258,6 +259,17 @@ namespace WebExpress.WebResource
 
             // 404
             return null;
+        }
+
+        /// <summary>
+        /// Liefert die Sitemap eines Ressourceneintrages
+        /// </summary>
+        /// <param name="application">Die Anwendung</param>
+        /// <param name="module">Das Modul</param>
+        /// <returns>Die Sitemap als pre-order-Liste</returns>
+        public static ICollection<SitemapNode> GetSitemap(IApplicationContext application, IModuleContext module)
+        {
+            return GetSitemap(application.ApplicationID, module.ModuleID);
         }
 
         /// <summary>

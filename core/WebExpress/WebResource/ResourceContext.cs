@@ -5,6 +5,7 @@ using WebExpress.WebCondition;
 using WebExpress.WebModule;
 using WebExpress.WebPlugin;
 using WebExpress.Uri;
+using System.Linq;
 
 namespace WebExpress.WebResource
 {

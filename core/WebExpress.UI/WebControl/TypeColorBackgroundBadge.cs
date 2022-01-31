@@ -26,14 +26,14 @@
         {
             return layout switch
             {
-                TypeColorBackgroundBadge.Primary => "badge-primary",
+                TypeColorBackgroundBadge.Primary => "bg-primary",
                 TypeColorBackgroundBadge.Secondary => "bg-secondary",
-                TypeColorBackgroundBadge.Success => "badge-success",
-                TypeColorBackgroundBadge.Info => "badge-info",
-                TypeColorBackgroundBadge.Warning => "badge-warning",
-                TypeColorBackgroundBadge.Danger => "badge-danger",
-                TypeColorBackgroundBadge.Light => "badge-light",
-                TypeColorBackgroundBadge.Dark => "badge-dark",
+                TypeColorBackgroundBadge.Success => "bg-success",
+                TypeColorBackgroundBadge.Info => "bg-info",
+                TypeColorBackgroundBadge.Warning => "bg-warning",
+                TypeColorBackgroundBadge.Danger => "bg-danger",
+                TypeColorBackgroundBadge.Light => "bg-light",
+                TypeColorBackgroundBadge.Dark => "bg-dark",
                 TypeColorBackgroundBadge.White => "bg-white",
                 TypeColorBackgroundBadge.Transparent => "bg-transparent",
                 _ => string.Empty,

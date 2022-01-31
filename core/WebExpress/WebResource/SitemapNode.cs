@@ -392,6 +392,7 @@ namespace WebExpress.WebResource
             if (instance is Resource resorce)
             {
                 resorce.ID = ID;
+                resorce.Uri = new UriResource(Context.Module, context.Uri.ToString(), Path, context.Culture); 
             }
 
             if (instance is IPage page)

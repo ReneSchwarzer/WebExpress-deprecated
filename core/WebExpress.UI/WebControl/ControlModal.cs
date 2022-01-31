@@ -128,17 +128,12 @@ namespace WebExpress.UI.WebControl
                 Class = "modal-title"
             };
 
-            var headerButtonLabel = new HtmlElementTextSemanticsSpan(new HtmlText("&times;"))
+            var headerButton = new HtmlElementFieldButton()
             {
-            };
-            headerButtonLabel.AddUserAttribute("aria-hidden", "true");
-
-            var headerButton = new HtmlElementFieldButton(headerButtonLabel)
-            {
-                Class = "close"
+                Class = "btn-close"
             };
             headerButton.AddUserAttribute("aria-label", "close");
-            headerButton.AddUserAttribute("data-dismiss", "modal");
+            headerButton.AddUserAttribute("data-bs-dismiss", "modal");
 
             var header = new HtmlElementTextContentDiv(headerText, headerButton)
             {
@@ -157,7 +152,7 @@ namespace WebExpress.UI.WebControl
                 Type = "button",
                 Class = Css.Concatenate("btn", new PropertyColorButton(TypeColorButton.Primary).ToStyle())
             };
-            footerButton.AddUserAttribute("data-dismiss", "modal");
+            footerButton.AddUserAttribute("data-bs-dismiss", "modal");
 
             footer = new HtmlElementTextContentDiv(footerButton)
             {

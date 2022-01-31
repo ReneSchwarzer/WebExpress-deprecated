@@ -147,7 +147,7 @@ namespace WebExpress.UI.WebControl
             var link = new HtmlElementTextSemanticsA(from x in Content select x.Render(context))
             {
                 ID = ID,
-                Class = Css.Concatenate("tree-link", Active == TypeActive.Active ? "tree-link-active" : ""),
+                Class = Css.Concatenate("link tree-link", Active == TypeActive.Active ? "tree-link-active" : ""),
                 Role = Role,
                 Href = Uri?.ToString() + (param.Length > 0 ? "?" + param : string.Empty),
                 Target = Target,

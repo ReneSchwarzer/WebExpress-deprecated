@@ -67,13 +67,12 @@ namespace WebExpress.UI.WebControl
                 new HtmlNbsp()
             );
 
-            var button = new HtmlElementFieldButton("&times;")
+            var button = new HtmlElementFieldButton()
             {
-                Class = "close"
+                Class = "btn-close"
             };
-            button.AddUserAttribute("data-dismiss", "alert");
+            button.AddUserAttribute("data-bs-dismiss", "alert");
             button.AddUserAttribute("aria-label", "close");
-            button.AddUserAttribute("aria-hidden", "true");
 
             return new HtmlElementTextContentDiv
             (

@@ -179,8 +179,8 @@ namespace WebExpress.UI.WebControl
 
             if (Modal != null)
             {
-                button.AddUserAttribute("data-toggle", "modal");
-                button.AddUserAttribute("data-target", "#" + Modal.ID);
+                button.AddUserAttribute("data-bs-toggle", "modal");
+                button.AddUserAttribute("data-bs-target", "#" + Modal.ID);
             }
 
             var dropdownButton = new HtmlElementFieldButton(new HtmlElementTextSemanticsSpan() { Class = "caret" })

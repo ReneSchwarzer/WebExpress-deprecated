@@ -47,8 +47,8 @@ namespace WebExpress.UI.WebControl
             foreach (var v in Items)
             {
                 var i = new HtmlElementTextContentLi() { Class = index == 0 ? "active" : string.Empty };
-                i.AddUserAttribute("data-target", "#" + ID);
-                i.AddUserAttribute("data-slide-to", index.ToString());
+                i.AddUserAttribute("data-bs-target", "#" + ID);
+                i.AddUserAttribute("data-bs-slide-to", index.ToString());
 
                 indicators.Elements.Add(i);
 
@@ -88,14 +88,14 @@ namespace WebExpress.UI.WebControl
                 Class = "carousel-control-prev",
                 Href = "#" + ID
             };
-            navLeft.AddUserAttribute("data-slide", "prev");
+            navLeft.AddUserAttribute("data-bs-slide", "prev");
 
             var navRight = new HtmlElementTextSemanticsA(new HtmlElementTextSemanticsSpan() { Class = "carousel-control-next-icon" })
             {
                 Class = "carousel-control-next",
                 Href = "#" + ID
             };
-            navRight.AddUserAttribute("data-slide", "next");
+            navRight.AddUserAttribute("data-bs-slide", "next");
 
             var html = new HtmlElementTextContentDiv
             (
@@ -104,11 +104,10 @@ namespace WebExpress.UI.WebControl
             {
                 ID = ID,
                 Class = Css.Concatenate("carousel slide", GetClasses()),
-                Style = GetStyles(),
-                Role = "carousel"
+                Style = GetStyles()
             };
 
-            html.AddUserAttribute("data-ride", "carousel");
+            html.AddUserAttribute("data-bs-ride", "carousel");
 
             return html;
         }
