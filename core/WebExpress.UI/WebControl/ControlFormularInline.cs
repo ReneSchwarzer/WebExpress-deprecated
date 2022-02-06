@@ -90,9 +90,9 @@ namespace WebExpress.UI.WebControl
         {
             Name = ID != null ? ID.StartsWith("formular") ? ID : $"formular_{ ID }" : "formular";
 
-            SubmitButton = new ControlFormularItemButton("submit_" + ID?.ToLower())
+            SubmitButton = new ControlFormularItemButton("submit-" + Name?.ToLower())
             {
-                Name = "submit_" + ID?.ToLower(),
+                Name = "submit-" + Name?.ToLower(),
                 Icon = new PropertyIcon(TypeIcon.Save),
                 Color = new PropertyColorButton(TypeColorButton.Success),
                 Type = "submit",
@@ -181,7 +181,7 @@ namespace WebExpress.UI.WebControl
             SubmitButton.Initialize(renderContext);
 
             // Prüfe ob Formular abgeschickt wurde -> Fomular mit Daten füllen 
-            if (!context.Request.HasParameter(formName))
+            if (!context.Request.HasParameter("submit-" + formName))
             {
                 OnFill(renderContext);
             }
@@ -201,12 +201,6 @@ namespace WebExpress.UI.WebControl
                 Method = "post",
                 Enctype = TypeEnctype.None
             };
-
-            //html.Elements.Add(new ControlFormularItemInputHidden(formName)
-            //{
-            //    Value = Name
-
-            //}.Render(renderContext));
 
             foreach (var item in Items)
             {

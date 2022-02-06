@@ -58,12 +58,12 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Liefert den Initialisierungscode (JQuerry)
         /// </summary>
-        public string InitializeCode => new JQuerry(!string.IsNullOrWhiteSpace(ID) ? ID : "summernote").ToString() + ".summernote({ tabsize: 2, height: '" + Rows + "rem', lang: 'de-DE' });";
+        public string InitializeCode => $"$('#{ (!string.IsNullOrWhiteSpace(ID) ? ID : "summernote") }.summernote({{ tabsize: 2, height: '{ Rows }rem', lang: 'de-DE' }});";
 
         /// <summary>
         /// Liefert den Zerstörungscode (JQuerry)
         /// </summary>
-        public string DestroyCode => new JQuerry(!string.IsNullOrWhiteSpace(ID) ? ID : "summernote").ToString() + ".summernote('destroy');";
+        public string DestroyCode => $"$('#{ (!string.IsNullOrWhiteSpace(ID) ? ID : "summernote") }.summernote('destroy');";
 
         /// <summary>
         /// Konstruktor

@@ -93,9 +93,9 @@ namespace WebExpress.UI.WebControl
         public ControlFormular(string id = null)
             : base(id)
         {
-            Name = ID != null ? ID.StartsWith("formular") ? ID : $"formular_{ ID }" : "formular";
+            Name = ID != null ? ID.StartsWith("formular") ? ID : $"formular-{ ID }" : "formular";
 
-            SubmitButton.Name = "submit_" + ID?.ToLower();
+            SubmitButton.Name = "submit-" + Name?.ToLower();
             SubmitButton.Icon = new PropertyIcon(TypeIcon.Save);
             SubmitButton.Color = new PropertyColorButton(TypeColorButton.Success);
             SubmitButton.Type = "submit";
@@ -196,7 +196,7 @@ namespace WebExpress.UI.WebControl
         public override IHtmlNode Render(RenderContext context)
         {
             var renderContext = new RenderContextFormular(context, this);
-            var formName = Name != null ? Name.StartsWith("formular") ? Name : $"formular_{ Name }" : "formular";
+            var formName = Name != null ? Name.StartsWith("formular") ? Name : $"formular-{ Name }" : "formular";
 
             Initialize(renderContext);
 
@@ -207,7 +207,7 @@ namespace WebExpress.UI.WebControl
             SubmitButton.Initialize(renderContext);
 
             // Prüfe ob Formular abgeschickt wurde
-            if (!context.Request.HasParameter(formName))
+            if (!context.Request.HasParameter("submit-" + formName))
             {
                 OnFill(renderContext);
             }

@@ -335,9 +335,13 @@ body, html {
 }
 
 .selection > span > span > img {
-    width: 16px;
     height: 16px;
     margin-right: 0.5em;
+}
+
+.selection > button:hover {
+    color: #aaaaaa;
+    border: 1px solid #cdd4da;
 }
 
 .selection > button {
@@ -345,11 +349,11 @@ body, html {
 }
 
 .selection div > input {
-    position:inline-block;
-    margin:0.5em;
-    border:1px solid #cdd4da;
-    width:98%;
-    outline:none;
+    display: inline-block;
+    margin: 0.5em;
+    border: 1px solid #cdd4da;
+    width: 98%;
+    outline: none;
 }
 
 .selection div > ul {
@@ -370,34 +374,43 @@ body, html {
     margin-right: 0.5em;
 }
 
-.moveselector {
-	display:flex;
-	margin-bottom:0.5em;
-    padding:2px;
+.selection-move {
+    display: flex;
+    margin-bottom: 0.5em;
+    padding: 2px;
 }
 
-.moveselector-list {
-	margin:0px;
-	width:40%;
+.selection-move-list {
+    margin: 0px;
+    width: 40%;
 }
 
-.moveselector-list > p {
-	cursor:default;
-	padding-left:0.5em;
+.selection-move-list > p {
+    cursor: default;
+    padding-left: 0.5em;
 }
 
-.moveselector-list > ul {
-	height:250px;
-	overflow-y:auto;
-	cursor:default;
+.selection-move-list > ul {
+    height: 250px;
+    overflow-y: auto;
+    cursor: default;
 }
 
-.moveselector-list > ul > li {
-	cursor:pointer;
+.selection-move-list > ul > li {
+    cursor: pointer;
 }
 
-.moveselector-button {
-	margin:auto;
+.selection-move-list > ul > li > img {
+    height: 16px;
+    margin-right: 0.5em;
+}
+
+.selection-move-list > ul > li > i {
+    margin-right: 0.5em;
+}
+
+.selection-move-button {
+    margin: auto;
 }
 
 /*!

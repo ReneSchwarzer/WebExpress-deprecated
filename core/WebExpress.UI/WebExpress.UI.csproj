@@ -285,11 +285,9 @@
     <EmbeddedResource Include="Assets\js\popper.min.js">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Assets\js\moveselector.js" />
     <EmbeddedResource Include="Assets\js\popper.min.js.map">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Assets\js\simpletags.js" />
     <EmbeddedResource Include="Assets\js\split.min.js" />
     <EmbeddedResource Include="Assets\js\summernote-bs4.min.js">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>

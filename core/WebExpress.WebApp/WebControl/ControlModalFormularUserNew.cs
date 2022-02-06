@@ -57,7 +57,7 @@ namespace WebExpress.WebApp.WebControl
         /// <summary>
         /// Liefert die Gruppen
         /// </summary>
-        private ControlFormularItemInputMoveSelector Groups { get; } = new ControlFormularItemInputMoveSelector("group")
+        private ControlFormularItemInputSelectionMove Groups { get; } = new ControlFormularItemInputSelectionMove("group")
         {
             Name = "groups",
             Label = "webexpress.webapp:setting.usermanager.user.edit.groups.label",
@@ -100,10 +100,10 @@ namespace WebExpress.WebApp.WebControl
         {
             foreach (var v in UserManager.Groups.OrderBy(x => x.Name))
             {
-                Groups.Options.Add(new ControlFormularItemInputMoveSelectorItem()
+                Groups.Options.Add(new ControlFormularItemInputSelectionItem()
                 {
                     ID = v.ID,
-                    Value = v.Name
+                    Label = v.Name
                 });
             }
         }
