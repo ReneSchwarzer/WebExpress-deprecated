@@ -83,6 +83,7 @@ namespace WebExpress.UI.WebControl
         /// Prüft die Eingabeelemente auf Korrektheit der Daten
         /// </summary>
         /// <param name="context">Der Kontext, indem die Eingaben validiert werden</param>
-        void Validate(RenderContextFormular context);
+        /// <returns>True wenn alle Formulareinträhe gültig sind, false sonst</returns>
+        bool Validate(RenderContextFormular context);
     }
 }

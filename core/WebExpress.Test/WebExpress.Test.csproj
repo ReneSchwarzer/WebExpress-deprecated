@@ -20,6 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="test\contentTypeMultipartFormData4.post">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="test\contentTypeMultipartFormData_Umlaut.post">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

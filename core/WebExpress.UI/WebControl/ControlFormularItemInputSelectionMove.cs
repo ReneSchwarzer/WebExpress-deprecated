@@ -113,7 +113,7 @@ namespace WebExpress.UI.WebControl
         /// <returns>Der Javascript-Code</returns>
         protected virtual string GetScript(RenderContextFormular context, string id, string css)
         {
-            var options = new 
+            var settings = new 
             { 
                 ID = id,
                 Name = ID,
@@ -133,16 +133,16 @@ namespace WebExpress.UI.WebControl
             };
 
             var jsonOptions = new JsonSerializerOptions { WriteIndented = false };
-            var optionsJson = JsonSerializer.Serialize(options, jsonOptions);
-            var itemsJson = JsonSerializer.Serialize(Options, jsonOptions);
+            var settingsJson = JsonSerializer.Serialize(settings, jsonOptions);
+            var optionsJson = JsonSerializer.Serialize(Options, jsonOptions);
             var valuesJson = JsonSerializer.Serialize(Value?.Split(";", System.StringSplitOptions.RemoveEmptyEntries), jsonOptions);
             var builder = new StringBuilder();
 
-            builder.Append($"var items = { itemsJson };");
             builder.Append($"var options = { optionsJson };");
+            builder.Append($"var settings = { settingsJson };");
             builder.Append($"var container = $('#{ id }');");
-            builder.Append($"var obj = new selectionMoveCtrl(options);");
-            builder.Append($"obj.items = items;");
+            builder.Append($"var obj = new selectionMoveCtrl(settings);");
+            builder.Append($"obj.options = options;");
             builder.Append($"obj.value = { (!string.IsNullOrWhiteSpace(valuesJson) ? valuesJson : "[]")  };");
             builder.Append($"container.replaceWith(obj.getCtrl);");
 

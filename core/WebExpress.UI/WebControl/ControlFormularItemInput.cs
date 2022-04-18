@@ -139,8 +139,6 @@ namespace WebExpress.UI.WebControl
                     validationResults.AddRange(args.Results);
                 }
             }
-
-
         }
     }
 }

@@ -6,7 +6,7 @@ using WebExpress.WebResource;
 
 namespace WebExpress.WebApp.WebResource
 {
-    public abstract class ResourceApiCrud : ResourceApi
+    public abstract class ResourceRestCrud : ResourceRest
     {
         /// <summary>
         /// Verarbeitung des GET-Request
@@ -40,21 +40,20 @@ namespace WebExpress.WebApp.WebResource
 
             if (columns)
             {
-                return GetColumns(request);
+                return new { Columns = GetColumns(request) };
             }
 
-            var data = GetData(id?.Value, search?.Value, request);
+            var data = GetData(id?.Value, search?.Value.ToLower(), request);
+
             var count = data.Count();
             var totalpage = Math.Round(count / (double)itemCount, MidpointRounding.ToEven);
-
-            data = data.Skip(itemCount * pagenumber).Take(itemCount);
 
             if (page == null)
             {
                 return new { Data = data };
             }
 
-            return new { Data = data, Pagination = new { PageNumber = pagenumber, Totalpage = totalpage } };
+            return new { Data = data.Skip(itemCount * pagenumber).Take(itemCount), Pagination = new { PageNumber = pagenumber, Totalpage = totalpage } };
         }
     }
 }

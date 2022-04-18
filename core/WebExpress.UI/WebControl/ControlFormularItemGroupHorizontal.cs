@@ -95,10 +95,10 @@ namespace WebExpress.UI.WebControl
                     }
                     else
                     {
-                        row.Elements.Add(new HtmlElementTextContentDiv(label.Render(renderContext)));
+                        row.Elements.Add(new HtmlElementTextContentDiv(label.Render(renderContext)) { });
                     }
 
-                    row.Elements.Add(new HtmlElementTextContentDiv(item.Render(renderContext)) { });
+                    row.Elements.Add(new HtmlElementTextContentDiv(item.Render(renderContext)) {  });
 
                     if (!string.IsNullOrWhiteSpace(input?.Help))
                     {

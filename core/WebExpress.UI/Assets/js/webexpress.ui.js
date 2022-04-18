@@ -54,15 +54,19 @@ class paginationCtrl extends events {
 
     /**
      * Konstruktor
-     * @param options Optionen zur Gestaltung des Steuerelementes
+     * @param settings Optionen zur Gestaltung des Steuerelementes
      *                - ID Die ID des Steuerelements
      *                - CSS CSS-Klasse zur Gestaltung des Steuerelementes
      */
-    constructor(options) {
+    constructor(settings) {
         super();
         
-        this._id = options.ID;
-        this._css = options.CSS;
+        this._id = settings.ID;
+        this._css = settings.CSS;
+
+        if (this._id !== undefined) {
+            this._container.id = this._id;
+        }
     }
 
     /**
@@ -79,10 +83,6 @@ class paginationCtrl extends events {
         function onclick(page) { 
             this.trigger('webexpress.ui.change.page', page);
         };
-
-        if (this._id !== undefined) {
-            this._container.id = id;
-        }
 
         this._container.addClass(this._css);
         predecessor.click(function () { this.trigger('webexpress.ui.change.page', Math.max(currentpage - 1, 0)); }.bind(this));
@@ -200,6 +200,106 @@ class paginationCtrl extends events {
 }
 
 /**
+ * Ein Container zum verstecken von Inhalten
+ * Folgende Events werden ausgelöst:
+ * - webexpress.ui.change.visibility 
+ */
+class expandCtrl extends events {
+    _container = $("<span class='expand'>");
+    _content = $("<div/>");
+    _expandicon = $("<a class='fas fa-angle-right text-primary' href='#'/>");
+    _expand = true;
+
+    /**
+     * Konstruktor
+     * @param settings Optionen zur Gestaltung des Steuerelementes
+     *        - ID Die ID des Steuerelements
+     *        - CSS CSS-Klasse zur Gestaltung des Steuerelementes
+     *        - Header Der Überschriftsext
+     */
+    constructor(settings) {
+        let id = settings.ID;
+        let css = settings.CSS;
+        let header = settings.Header !== undefined ? settings.Header : "";
+        
+        let expandheader = $("<span class='text-primary' aria-label='" + header + "'>" + header + "</span>");
+        
+        super();
+        
+        this._expandicon.click(function () {
+            this.expand = !this.expand;
+        }.bind(this));
+        
+        expandheader.click(function () {
+            this.expand = !this.expand;
+        }.bind(this));
+
+        this._container.append(this._expandicon);
+        this._container.append(expandheader);
+        this._container.append(this._content);
+        
+        this.expand = true;
+    }
+    
+     /**
+     * Aktualisierung des Steuerelementes
+     */
+    update() {
+        this._content.toggleClass("hide");
+    }
+    
+    /**
+     * Ermittelt, ob das Steuerelement aufgeplappt ist
+     */
+    get expand() {
+        return this._expand;
+    }
+    
+    /**
+     * Klappt das Stuerelement auf oder schließt es
+     * @param value Ein Wert, welcher bestimmt ob das Steuerelement auf- oder zugeklappt ist
+     */
+    set expand(value) {
+        if (this._expand != value) {
+            this.trigger('webexpress.ui.change.visibility', value);
+            this._expand = value;
+        }
+        
+        if (this._expand) {
+            this._content.removeClass("hide");
+            this._expandicon.addClass("expand-angle-down");
+        } else {
+            this._content.addClass("hide");
+            this._expandicon.removeClass("expand-angle-down");
+        }
+    }
+
+    /**
+     * Gibt den Inhalt zurück
+     */
+    get content() {
+        return this._content.children();
+    }
+    
+    /**
+     * Setzt den Inhalt
+     * @param content Ein Array mit Inhalten
+     */
+    set content(content) {
+        this._content.children().remove();
+
+        this._content.append(content);
+    }
+    
+    /**
+     * Gibt das Steuerelement zurück
+     */
+    get getCtrl() {
+        return this._container;
+    }
+}
+
+/**
  * Ein Feld, inden Suchbefehle eingegeben werden können.
  * Folgende Events werden ausgelöst:
  * - webexpress.ui.change.filter mit Parameter filter
@@ -209,26 +309,26 @@ class searchCtrl extends events {
 
     /**
      * Konstruktor
-     * @param options Optionen zur Gestaltung des Steuerelementes
+     * @param settings Optionen zur Gestaltung des Steuerelementes
      *        - ID Die ID des Steuerelements
      *        - CSS CSS-Klasse zur Gestaltung des Steuerelementes
      *        - Placeholder Der Platzhaltertext
      *        - Icon Die Icon-Klasse des Suchsymbols
      */
-    constructor(options) { 
-        let id = options.ID;
-        let css = options.CSS;
-        let placeholder = options.Placeholder !== undefined ? options.Placeholder : "";
-        let icon = options.Icon !== undefined ? options.Icon : "fas fa-search";
+    constructor(settings) {
+        let id = settings.ID;
+        let css = settings.CSS;
+        let placeholder = settings.Placeholder !== undefined ? settings.Placeholder : "";
+        let icon = settings.Icon !== undefined ? settings.Icon : "fas fa-search";
 
         let searchicon = $("<label><i class='" + icon + "'/></label>");
-        let searchinput = $("<input type='text' class='' placeholder='" + placeholder + "' aria-label='" + placeholder + "'/>");
+        let searchinput = $("<input type='text' placeholder='" + placeholder + "' aria-label='" + placeholder + "'/>");
         let searchappend = $("<span><i class='fas fa-times'/><span>");
         
         super();
 
         if (id !== undefined) {
-            container.id = id;
+            this._container.id = id;
         }
         
         searchinput.keyup(function () { 
@@ -264,20 +364,20 @@ class moreCtrl {
 
     /**
      * Konstruktor
-     * @param items Die Menüeinräge Array von { css: "", icon: "", color: "", label: "", url: "", onclick: ""}
-     * @param options Optionen zur Gestaltung des Steuerelementes
+     * @param options Die Menüeinräge Array von { CSS: "", Icon: "", Color: "", Label: "", Url: "", OnClick: ""}
+     * @param settings Optionen zur Gestaltung des Steuerelementes
      *        - ID Die ID des Steuerelements
      *        - CSS CSS-Klasse zur Gestaltung des Steuerelementes
      *        - MenuCSS CSS-Klasse zur Gestaltung des Popupmenüs
      *        - Label Der Text
      *        - Icon Die Icon-Klasse des Steuerelements
      */
-    constructor(items, options) {
-        let id = options.ID;
-        let css = options.CSS;
-        let menuCSS = options.MenuCSS;
-        let label = options.Label !== undefined ? options.Label : "";
-        let icon = options.Icon !== undefined ? options.Icon : "fas fa-ellipsis-h";
+    constructor(options, settings) {
+        let id = settings.ID;
+        let css = settings.CSS;
+        let menuCSS = settings.MenuCSS;
+        let label = settings.Label !== undefined ? settings.Label : "";
+        let icon = settings.Icon !== undefined ? settings.Icon : "fas fa-ellipsis-h";
 
         let button = $("<button class='btn' type='button' data-bs-toggle='dropdown' aria-expanded='false'><i class='" + icon + " " + (label != "" ? "me-2" : "") + "'></i><span>" + label + "</span></button>");
         let ul = $("<ul class='dropdown-menu'/>");
@@ -286,13 +386,13 @@ class moreCtrl {
             ul.addClass(menuCSS);
         }
 
-        items.forEach(function (item) {
-            let css = item.CSS !== undefined && item.CSS != null ? item.CSS : "dropdown-item";
-            let icon = item.Icon;
-            let color = item.Color;
-            let label = item.Label;
-            let url = item.Url !== undefined ? item.Url : "#";
-            let onclick = item.OnClick;
+        options.forEach(function (option) {
+            let css = option.CSS !== undefined && option.CSS != null ? option.CSS : "dropdown-options";
+            let icon = option.Icon;
+            let color = option.Color;
+            let label = option.Label;
+            let url = option.Url !== undefined ? option.Url : "#";
+            let onclick = option.OnClick;
 
             let li = $("<li/>");
 
@@ -352,7 +452,7 @@ class moreCtrl {
 /**
  * Tabelle
  */
-class tableCtrl {
+class tableCtrl extends events {
     _table = $("<table class='table table-hover mb-2'/>");
     _col = $("<colgroup/>");
     _head = $("<thead/>");
@@ -361,13 +461,15 @@ class tableCtrl {
 
     /**
      * Konstruktor
-     * @param options Optionen zur Gestaltung des Steuerelementes
+     * @param settings Optionen zur Gestaltung des Steuerelementes
      *        - ID Die ID des Steuerelements
      *        - CSS CSS-Klasse zur Gestaltung des Steuerelementes
      */
-    constructor(options) {
-        let id = options.ID;
-        let css = options.CSS;
+    constructor(settings) {
+        super();
+
+        let id = settings.ID;
+        let css = settings.CSS;
 
         if (id !== undefined) {
             this._table.id = id;
@@ -430,7 +532,6 @@ class tableCtrl {
 
             rows.push(th);
         });
-
         this._body.append(rows);
     }
 
@@ -472,6 +573,8 @@ class tableCtrl {
         this._col.append(head_col);
         this._head.children().remove();
         this._head.append(head_row);
+
+        this.trigger('webexpress.ui.change.columns');
     }
 
     /**
@@ -502,32 +605,30 @@ class selectionMoveCtrl extends events {
     _buttonToAvailable = $("<button class='btn btn-primary btn-block' type='button'/>");
     _buttonToAvailableAll = $("<button class='btn btn-primary btn-block' type='button'/>");
     _hidden = $("<input type='hidden'/>");
-    _items = [];
+    _options = [];
     _values = [];
-    _selectedItems = [];
-    _availableItems = [];
+    _selectedoptions = new Map(); // Key=Ctrl, Value=options
+    _availableoptions = new Map(); // Key=Ctrl, Value=options
     
     /**
      * Konstruktor
-     * @param options Optionen zur Gestaltung des Steuerelementes
+     * @param settings Optionen zur Gestaltung des Steuerelementes
      *        - ID Die ID des Steuerelements
      *        - Name Der Steuerelementenname
      *        - CSS CSS-Klasse zur Gestaltung des Steuerelementes
      *        - Header Überschrift { Selected, Available }
      *        - Buttons Schaltflächenbeschriftung { ToSelectedAll, ToSelected, ToAvailable, ToAvailableAll }
      */
-    constructor(options) {
+    constructor(settings) {
         super();
 
-        this._items = items;
-        
-        let id = options.ID;
-        let name = options.Name;
-        let css = options.CSS;
-        let header = options.Header;
-        let buttons = options.Buttons;
+        let id = settings.ID;
+        let name = settings.Name;
+        let css = settings.CSS;
+        let header = settings.Header;
+        let buttons = settings.Buttons;
         let selectedContainer = $("<div class='selection-move-list'/>");
-        let selectedHeader = $("<p class='text-muted'>" + header.Selected + "</p>");
+        let selectedHeader = $("<span class='text-muted'>" + header.Selected + "</span>");
         let availableContainer = $("<div class='selection-move-list'/>");
         let availableHeader = $("<span class='text-muted'>" + header.Available + "</span>");
         let buttonContainer = $("<div class='selection-move-button d-grid gap-2'/>");
@@ -557,22 +658,62 @@ class selectionMoveCtrl extends events {
         buttonContainer.append(this._buttonToSelected);
         buttonContainer.append(this._buttonToAvailable);
         buttonContainer.append(this._buttonToAvailableAll);
+
+        selectedContainer.on('dragenter', function(e) {
+            e.preventDefault();
+            this._selectedList.addClass('drag-over');
+        }.bind(this));
         
-        this._buttonToSelectedAll.click(function() {	
-			this.moveToSelectedAll();
-		}.bind(this));
+        selectedContainer.on('dragover', function(e) {
+            e.preventDefault();
+            this._selectedList.addClass('drag-over');
+        }.bind(this));
+        
+        selectedContainer.on('dragleave', function() {
+            this._selectedList.removeClass('drag-over');
+        }.bind(this));
+        
+        selectedContainer.on('drop', function(e) {
+            this._selectedList.removeClass('drag-over');
+            this.moveToSelected();
+            e.preventDefault(); 
+        }.bind(this));
+        
+        availableContainer.on('dragenter', function(e) {
+            e.preventDefault();
+            this._availableList.addClass('drag-over');
+        }.bind(this));
+        
+        availableContainer.on('dragover', function(e) {
+            e.preventDefault();
+            this._availableList.addClass('drag-over');
+        }.bind(this));
+        
+        availableContainer.on('dragleave', function() {
+            this._availableList.removeClass('drag-over');
+        }.bind(this));
+        
+        availableContainer.on('drop', function(e) {
+            this._availableList.removeClass('drag-over');
+            this.moveToAvailable();
+            e.preventDefault();
+        }.bind(this));
+        
+        this._buttonToSelectedAll.click(function() {    
+            this.moveToSelectedAll();
+        }.bind(this));
 
-		this._buttonToSelected.click(function() {
-			this.moveToSelected();
-		}.bind(this));
-		
-		this._buttonToAvailableAll.click(function() {
-			this.moveToAvailableAll();
-		}.bind(this));
+        this._buttonToSelected.click(function() {
+            this.moveToSelected();
+        }.bind(this));
+        
+        this._buttonToAvailableAll.click(function() {
+            this.moveToAvailableAll();
+        }.bind(this));
 
-		this._buttonToAvailable.click(function() {	
-			this.moveToAvailable();
-		}.bind(this));
+        this._buttonToAvailable.click(function() {  
+            this.moveToAvailable();
+        }.bind(this));
         
         this._container.append(selectedContainer);
         this._container.append(buttonContainer);
@@ -589,95 +730,94 @@ class selectionMoveCtrl extends events {
      * Verschiebe alle Einträge nach links (selected)
      */
     moveToSelectedAll() {
-        this.value = this._items.map(element => element.ID);
-        this._selectedItems = [];
-        this._availableItems = [];
+        this.value = this._options.map(element => element.ID);
 
-		this.update();
-	}
+        this.update();
+    }
     
     /**
      * Verschiebt ein einzelnen Eintrag nach links (selected)
      */
-	moveToSelected() {
-        this.value = this._values.concat(this._availableItems.map(element => element.ID));
-        this._selectedItems = [];
-		this._availableItems = [];
+    moveToSelected() {
+        this.value = this._values.concat(Array.from(this._availableoptions.values()).filter(elem => elem != null).map(elem => elem.ID));
         
         this.update();
-	}
+    }
 
     /**
      * Verschiebe alle Einträge nach rechts (available)
      */
-	moveToAvailableAll() {
+    moveToAvailableAll() {
         this.value = [];
-        this._selectedItems = [];
-        this._availableItems = [];
 
-		this.update();
-	}
+        this.update();
+    }
 
     /**
      * Verschiebt ein einzelnen Eintrag nach rechts (available)
      */
-	moveToAvailable() {
-        this.value = this._values.filter(b => !this._selectedItems.map(element => element.ID).includes(b));
-        this._selectedItems = [];
-		this._availableItems = [];
+    moveToAvailable() {
+        this.value = this._values.filter(b => !Array.from(this._selectedoptions.values()).filter(elem => elem != null).map(elem => elem.ID).includes(b));
         
         this.update();
-	}
+    }
    
     /**
-     * Aktualisierung der Steuerelementes
+     * Aktualisierung des Steuerelementes
      */
     update() {
         let values = this._values !== undefined && this._values != null ? this._values : [];
-		let comparison = (a, b) => a === b.ID;
-		let relativeComplement = this._items.filter(b => values.every(a => !comparison(a, b)));
-        let intersection = this._items.filter(b => values.includes(b.ID));
+        let comparison = (a, b) => a === b.ID;
+        let relativeComplement = this._options.filter(b => values.every(a => !comparison(a, b)));
+        let intersection = this._options.filter(b => values.includes(b.ID));
         
         this._selectedList.children().remove();
         this._availableList.children().remove();
+        this._selectedoptions.clear();
+        this._availableoptions.clear();
 
-		if (relativeComplement.length == 0) {
-			this._buttonToSelectedAll.addClass("disabled");
-			this._buttonToSelectedAll.prop("disabled", true);
-		} else {
-			this._buttonToSelectedAll.removeClass("disabled");
-			this._buttonToSelectedAll.prop("disabled", false);
-		}
+        function updateselection() {
+            this._selectedoptions.forEach(function(value, key) {
+                if (value != null) {
+                    key.addClass("bg-primary");
+                    key.children().addClass("text-white");
+                } else {
+                    key.removeClass("bg-primary");
+                    key.children().removeClass("text-white");
+                }
+            });
+            this._availableoptions.forEach(function(value, key) {
+                if (value != null) {
+                    key.addClass("bg-primary");
+                    key.children().addClass("text-white");
+                } else {
+                    key.removeClass("bg-primary");
+                    key.children().removeClass("text-white");
+                }
+            });
+            
+            if (Array.from(this._availableoptions.values()).filter(elem => elem != null).length == 0) {
+                this._buttonToSelected.addClass("disabled");
+                this._buttonToSelected.prop("disabled", true);
+            } else {
+                this._buttonToSelected.removeClass("disabled");
+                this._buttonToSelected.prop("disabled", false);
+            }
+            
+            if (Array.from(this._selectedoptions.values()).filter(elem => elem != null).length == 0) {
+                this._buttonToAvailable.addClass("disabled");
+                this._buttonToAvailable.prop("disabled", true);
+            } else {
+                this._buttonToAvailable.removeClass("disabled");
+                this._buttonToAvailable.prop("disabled", false);
+            }
+        }
 
-		if (this._availableItems == null || this._availableItems.length == 0) {
-			this._buttonToSelected.addClass("disabled");
-			this._buttonToSelected.prop("disabled", true);
-		} else {
-			this._buttonToSelected.removeClass("disabled");
-			this._buttonToSelected.prop("disabled", false);
-		}
-
-		if (values.length == 0) {
-			this._buttonToAvailableAll.addClass("disabled");
-			this._buttonToAvailableAll.prop("disabled", true);
-		} else {
-			this._buttonToAvailableAll.removeClass("disabled");
-			this._buttonToAvailableAll.prop("disabled", false);
-		}
-
-		if (this._selectedItems == null || this._selectedItems.length == 0) {
-			this._buttonToAvailable.addClass("disabled");
-			this._buttonToAvailable.prop("disabled", true);
-		} else {
-			this._buttonToAvailable.removeClass("disabled");
-			this._buttonToAvailable.prop("disabled", false);
-		}
-
-		intersection.forEach(function(currentValue) {	
-            let li = $("<li class='list-group-item'/>");
-            let img = $("<img title='' src='" + currentValue.Image + "'/>");
-            let icon = $("<i class='text-primary " + currentValue.Icon + "'/>");
-            let a = $("<a class='link' href='javascript:void(0)'>" + "".concat(currentValue.Label) + "</a>");
+        intersection.forEach(function(currentValue) {   
+            let li = $("<li class='list-group-item' draggable='true'/>");
+            let img = $("<img title='' src='" + currentValue.Image + "' draggable='false'/>");
+            let icon = $("<i class='text-primary " + currentValue.Icon + "' draggable='false'/>");
+            let a = $("<a class='link' href='javascript:void(0)' draggable='false'>" + "".concat(currentValue.Label) + "</a>");
             if (currentValue.Icon !== undefined && currentValue.Icon != null) {
                 li.append(icon);
             }
@@ -685,55 +825,55 @@ class selectionMoveCtrl extends events {
                 li.append(img);
             }
             li.append(a);
-            
-            li.click(function() {	
+            this._selectedoptions.set(li, null);
+                        
+            li.click(function() {   
                 if (event.ctrlKey) {
-                     if (!this._selectedItems.some(elem => elem === currentValue)) {
-                        this._selectedItems.push(currentValue);
+                    if (!Array.from(this._selectedoptions.values()).some(elem => elem === currentValue)) {
+                        this._selectedoptions.set(li, currentValue);
                     } else {
-                        this._selectedItems = this._selectedItems.filter(elem => elem !== currentValue);
+                        this._selectedoptions.set(li, null);
                     }
-                    this._availableItems = [];
+                    this._availableoptions.forEach((value, key, map) => map.set(key, null));
                 } else {
-                    this._selectedItems = [];
-                    this._selectedItems.push(currentValue);
-                    this._availableItems = [];
+                    this._selectedoptions.forEach((value, key, map) => map.set(key, null));
+                    this._selectedoptions.set(li, currentValue);
+                    this._availableoptions.forEach((value, key, map) => map.set(key, null));
                 }
-                this.update();
-                a.focus();
-            }.bind(this, a)).dblclick(function() {	
-                this._selectedItems = [];
-                this._selectedItems.push(currentValue);
-                this._availableItems = [];
+                updateselection.call(this);
+            }.bind(this, a)).dblclick(function() {  
+                this._selectedoptions.forEach((value, key, map) => map.set(key, null));
+                this._selectedoptions.set(li, currentValue);
+                this._availableoptions.forEach((value, key, map) => map.set(key, null));
 
                 this.moveToAvailable();
-                a.focus();
-            }.bind(this, a)).keyup(function() {	
+            }.bind(this, a)).keyup(function() { 
                 if (event.keyCode === 32) {
-                    if (!this._selectedItems.some(elem => elem === currentValue)) {
-                        this._selectedItems.push(currentValue);
+                    if (!Array.from(this._selectedoptions.keys()).some(elem => elem === currentValue)) {
+                        this._selectedoptions.set(li, currentValue);
                     } else {
-                        this._selectedItems = this._selectedItems.filter(elem => elem !== currentValue);
+                        this._selectedoptions.set(li, null);
                     }
-                    this._availableItems = [];
-                    this.update();
-                    a.focus();
+                    this._availableoptions.forEach((value, key, map) => map.set(key, null));
+                    updateselection.call(this);
                 }
             }.bind(this, a));
             
-            if (this._selectedItems.some(elem => elem === currentValue)) {
-                li.addClass("bg-primary");
-                a.addClass("text-white");
-            }
+            li.on('dragstart', function dragStart(e) {
+                this._selectedoptions.forEach((value, key, map) => map.set(key, null));
+                this._selectedoptions.set(li, currentValue);
+                this._availableoptions.forEach((value, key, map) => map.set(key, null));    
+                updateselection.call(this);             
+            }.bind(this));
 
             this._selectedList.append(li);
-		}.bind(this));
+        }.bind(this));
 
-		relativeComplement.forEach(function(currentValue) {	
-            let li = $("<li class='list-group-item'/>");
-            let img = $("<img title='' src='" + currentValue.Image + "'/>");
-            let icon = $("<i class='text-primary " + currentValue.Icon + "'/>");
-            let a = $("<a class='link' href='javascript:void(0)'>" + "".concat(currentValue.Label) + "</a>");
+        relativeComplement.forEach(function(currentValue) { 
+            let li = $("<li class='list-group-item' draggable='true'/>");
+            let img = $("<img title='' src='" + currentValue.Image + "' draggable='false'/>");
+            let icon = $("<i class='text-primary " + currentValue.Icon + "' draggable='false'/>");
+            let a = $("<a class='link' href='javascript:void(0)' draggable='flase'>" + "".concat(currentValue.Label) + "</a>");
             if (currentValue.Icon !== undefined && currentValue.Icon != null) {
                 li.append(icon);
             }
@@ -741,65 +881,83 @@ class selectionMoveCtrl extends events {
                 li.append(img);
             }
             li.append(a);
+            this._availableoptions.set(li, null);
             
-            li.click(function() {	
+            li.click(function() {   
                 if (event.ctrlKey) {
-                    if (!this._availableItems.some(elem => elem === currentValue)) {
-                        this._availableItems.push(currentValue);
+                    if (!Array.from(this._availableoptions.values()).some(elem => elem === currentValue)) {
+                        this._availableoptions.set(li, currentValue);
                     } else {
-                        this._availableItems = this._availableItems.filter(elem => elem !== currentValue);
+                        this._availableoptions.set(li, null);
                     }
-                    this._selectedItems = [];
+                    this._selectedoptions.forEach((value, key, map) => map.set(key, null));
                 } else {
-                    this._selectedItems = [];
-                    this._availableItems = [];
-                    this._availableItems.push(currentValue);
+                    this._selectedoptions.forEach((value, key, map) => map.set(key, null));
+                    this._availableoptions.forEach((value, key, map) => map.set(key, null));
+                    this._availableoptions.set(li, currentValue);
                 }
                                 
-                this.update();
-                a.focus();
-            }.bind(this, a)).dblclick(function() {	
-                this._selectedItems = [];
-                this._availableItems = [];
-                this._availableItems.push(currentValue);
+                updateselection.call(this);
+            }.bind(this, a)).dblclick(function() {  
+                this._selectedoptions.forEach((value, key, map) => map.set(key, null));
+                this._availableoptions.forEach((value, key, map) => map.set(key, null));
+                this._availableoptions.set(li, currentValue);
 
                 this.moveToSelected();
-                a.focus();
-            }.bind(this, a)).keyup(function() {	
+            }.bind(this, a)).keyup(function() { 
                 if (event.keyCode === 32) {
-                    if (!this._availableItems.some(elem => elem === currentValue)) {
-                        this._availableItems.push(currentValue);
+                    if (!Array.from(this._availableoptions.keys()).some(elem => elem === currentValue)) {
+                        this._availableoptions.set(li, currentValue);
                     } else {
-                        this._availableItems = this._availableItems.filter(elem => elem !== currentValue);
+                        this._availableoptions.set(li, null);
                     }
-                    this._selectedItems = [];
-                    this.update();
-                    a.focus();
+                    this._selectedoptions.forEach((value, key, map) => map.set(key, null));
+                    updateselection.call(this);
                 }
             }.bind(this, a));
-               
-            if (this._availableItems.some(elem => elem === currentValue)) {
-                li.addClass("bg-primary");
-                a.addClass("text-white");
-            }
+            
+            li.on('dragstart', function dragStart(e) {
+                this._selectedoptions.forEach((value, key, map) => map.set(key, null));
+                this._availableoptions.forEach((value, key, map) => map.set(key, null));
+                this._availableoptions.set(li, currentValue);
+                updateselection.call(this);
+            }.bind(this));
 
             this._availableList.append(li);
-		}.bind(this));
+        }.bind(this));
+        
+        if (relativeComplement.length == 0) {
+            this._buttonToSelectedAll.addClass("disabled");
+            this._buttonToSelectedAll.prop("disabled", true);
+        } else {
+            this._buttonToSelectedAll.removeClass("disabled");
+            this._buttonToSelectedAll.prop("disabled", false);
+        }
+
+        if (values.length == 0) {
+            this._buttonToAvailableAll.addClass("disabled");
+            this._buttonToAvailableAll.prop("disabled", true);
+        } else {
+            this._buttonToAvailableAll.removeClass("disabled");
+            this._buttonToAvailableAll.prop("disabled", false);
+        }
+        
+        updateselection.call(this);
     }
 
     /**
      * Gibt alle Optionen zurück
      */
-    get items() {
-        return this._items;
+    get options() {
+        return this._options;
     }
 
     /**
      * Setzt die Optionen
-     * @param value Ein Array mit Optionen { ID, Label, Icon, Image }
+     * @param options Ein Array mit Optionen { ID, Label, Icon, Image }
      */
-    set items(value) {
-        this._items = items;
+    set options(options) {
+        this._options = options;
 
         this.update();
     }
@@ -841,32 +999,35 @@ class selectionMoveCtrl extends events {
  * - webexpress.ui.change.value mit Parameter value
  */
 class selectionCtrl extends events {
-    _container = $("<span class='selection input-group'/>");
-    _selection = $("<span class='form-control' data-bs-toggle='dropdown' aria-expanded='false' readonly/>");
+    _container = $("<span class='selection form-control' />");
+    _selection = $("<span/>");
     _hidden = $("<input type='hidden'/>");
-    _dropdown = $("<div class='dropdown-menu'/>");
-    _dropdownitems = $("<ul/>");
-    _items = [];
+    _dropdownmenu = $("<div class='dropdown-menu'/>");
+    _dropdownoptions = $("<ul/>");
+    _options = [];
     _value = null;
     _filter = '';
     _placeholder = null;
 
     /**
      * Konstruktor
-     * @param options Optionen zur Gestaltung des Steuerelementes
+     * @param settings Optionen zur Gestaltung des Steuerelementes
      *        - ID Die ID des Steuerelements
      *        - CSS CSS-Klasse zur Gestaltung des Steuerelementes
      *        - Placeholder Der Platzhaltertext
+     *        - HasEmptyValue Bestimmt, ob Nullwerte zugelassen sind
      */
-    constructor(options) { 
-        let id = options.ID;
-        let name = options.Name;
-        let css = options.CSS;
-        let placeholder = options.Placeholder !== undefined ? options.Placeholder : null;
-        let emptyvalue = options.HasEmptyValue !== undefined ? options.HasEmptyValue : false;
+    constructor(settings) {
+        let id = settings.ID;
+        let name = settings.Name;
+        let css = settings.CSS;
+        let placeholder = settings.Placeholder !== undefined ? settings.Placeholder : null;
+        let emptyvalue = settings.HasEmptyValue !== undefined ? settings.HasEmptyValue : false;
 
-        let reset = $("<button  type='button' class='btn btn-light'><i class='fas fa-times'/></button>");
-        let toggle = $("<button type='button' class='btn btn-light dropdown-toggle selection-last' data-bs-toggle='dropdown' aria-expanded='false'/>");
+        let dropdown = $("<span data-bs-toggle='dropdown' aria-expanded='false'/>");
+        let expand = $("<ul/>");
+        let reset = $("<li><a class='fas fa-times' href='#'/></li>");
+        let toggle = $("<li><a class='fas fa-angle-down' href='#'/></li>");
         let filter = $("<input type='text'/>");
 
         super();
@@ -882,15 +1043,10 @@ class selectionCtrl extends events {
         if (name !== undefined && name != null) {
             this._hidden.attr("name", name);
         }
-       
-        $(window).resize(function() {
-            let width = this._container.width();
-            this._dropdown.width(width);
-        }.bind(this));
         
         this._container.on('show.bs.dropdown', function () {
             let width = this._container.width();
-            this._dropdown.width(width);
+            this._dropdownmenu.width(width);
         }.bind(this));
         
         this._container.on('shown.bs.dropdown', function () {
@@ -909,83 +1065,126 @@ class selectionCtrl extends events {
         }.bind(this));
 
         this._placeholder = placeholder;
-        this._dropdown.append(filter);
-        this._dropdown.append(this._dropdownitems);
-        
-        this._container.append(this._selection);
+        this._dropdownmenu.append(filter);
+        this._dropdownmenu.append(this._dropdownoptions);
+
         if (emptyvalue == true) {
-            this._container.append(reset);
+            expand.append(reset);
         }
-        this._container.append(toggle);
-        this._container.append(this._dropdown);
+        expand.append(toggle);
+        
+        dropdown.append(this._selection);
+        dropdown.append(expand);
+
+        this._container.append(dropdown);
+        this._container.append(this._dropdownmenu);
         this._container.append(this._hidden);
         
         this.value = null;
     }
     
     /**
-     * Aktualisierung der Steuerelementes
+     * Aktualisierung des Steuerelementes
      */
     update() {
-        this._dropdownitems.children().remove();
+        this._dropdownoptions.children().remove();
 
-        this._items.forEach(function (item) {
-            let id = item.ID !== undefined && item.ID != null ? item.ID : null;
-            let label = item.Label !== undefined && item.Label != null ? item.Label : null;
+        this._options.forEach(function (options) {
+            let id = options.ID !== undefined && options.ID != null ? options.ID : null;
+            let label = options.Label !== undefined && options.Label != null ? options.Label : null;
             
             if (id == null && (label == null || label == '-')) {
-                let li = $("li class='dropdown-divider'/>");
-                this._dropdownitems.append(li);
+                let li = $("<li class='dropdown-divider'/>");
+                this._dropdownoptions.append(li);
             } else if (id == null && label != null) {
                 let li = $("<li class='dropdown-header'>" + label + "</li>"); 
-                this._dropdownitems.append(li);
+                this._dropdownoptions.append(li);
             } else {
-                let image = item.Image !== undefined && item.Image != null ? item.Image : null;
-                let color = item.Color !== undefined && item.Color != null ? item.Color : 'text-dark';
+                let description = options.Description !== undefined && options.Description != null && options.Description.length > 0 ? options.Description : null;
+                let image = options.Image !== undefined && options.Image != null ? options.Image : null;
+                let color = options.Color !== undefined && options.Color != null ? options.Color : 'text-dark';
                 let li = $("<li class='dropdown-item'/>"); 
-                let a = $("<a class='link " + item.Color + "' href='javascript:void(0)'>" + item.Label + "</a>");
+                let a = $("<a class='link " + options.Color + "' href='javascript:void(0)'>" + options.Label + "</a>");
+                let p = $("<p class='small text-muted'>" + description + "</p>");
                 
                 if (image != null) {
                     let span = $("<span/>");
+                    let box = $("<span/>");
                     let img = $("<img src='" + image + "' alt=''/>");
 
-                    span.append(img);
-                    span.append(a);
+                    box.append(img);
+                    box.append(a);
+                    span.append(box);
+                    if (description != null) {
+                        span.append(p);
+                    }
                     li.append(span);
                 } else {
                     li.append(a);
+                    if (description != null) {
+                        li.append(p);
+                    }
                 }
                 
                 if (id == this.value) {
                     li.addClass("active");
                     a.removeClass();
                     a.addClass("link text-white");
+                    p.removeClass();
+                    p.addClass("small text-white");
                 }
 
                 li.click(function () {
-                    this.value = item.ID;
+                    this.value = options.ID;
                 }.bind(this));
                  
-                if (item.Label.toLowerCase().startsWith(this._filter.toLowerCase())) {
-                    this._dropdownitems.append(li);
+                if (options.Label.toLowerCase().startsWith(this._filter.toLowerCase())) {
+                    this._dropdownoptions.append(li);
                 }
             }
         }.bind(this));
+
+        this._selection.children().remove();
+
+        if (this._value !== undefined && this._value != null) {
+            let options = this._options.find(elem => elem.ID == this._value);
+            if (options != null) {
+                let label = options.Label !== undefined && options.Label != null ? options.Label : null;
+                let image = options.Image !== undefined && options.Image != null ? options.Image : null;
+                let color = options.Color !== undefined && options.Color != null ? options.Color : 'text-dark';
+                let a = $("<a class='link " + color + "' href='javascript:void(0)'>" + options.Label + "</a>");
+
+                if (image != null) {
+                    let span = $("<span/>");
+                    let img = $("<img src='" + image + "' alt=''/>");
+
+                    span.append(img);
+                    span.append(a);
+                    this._selection.append(span);
+                } else {
+                    this._selection.append($("<span>" + label + "</span>"));
+                }
+            }
+        } else {
+            if (this._placeholder != null) {
+                this._selection.append($("<span class='text-muted'>" + this._placeholder + "</span>"));
+            }
+        }
     }
     
     /**
-     * Gibt Items zurück
+     * Gibt die Optionen zurück
      */
-    get items() {
-        return this._items;
+    get options() {
+        return this._options;
     }
     
     /**
-     * Setzt die Items
+     * Setzt die Optionen
      * @param data Ein Array mit ObjektIDs
      */
-    set items(items) {
-        this._items = items;
+    set options(options) {
+        this._options = options;
         
         this.update();
     }
@@ -1008,35 +1207,234 @@ class selectionCtrl extends events {
         
         this._value = value;
 
-        this._selection.children().remove();
+        this.update();
 
-        if (this._value !== undefined && this._value != null && this._value.length > 0) {
+        if (this._value !== undefined && this._value != null) {
             this._hidden.val(this._value);
-            this._selection.children().remove();  
-            let item = this._items.find(elem => elem.ID == this._value);
-            if (item != null) {
-                let label = item.Label !== undefined && item.Label != null ? item.Label : null;
-                let image = item.Image !== undefined && item.Image != null ? item.Image : null;
-                let color = item.Color !== undefined && item.Color != null ? item.Color : 'text-dark';
-                let a = $("<a class='link " + color + "' href='javascript:void(0)'>" + item.Label + "</a>");
+        } else {
+            this._hidden.val(null);
+        }
+    }
+
+    /**
+     * Gibt das Steuerelement zurück
+     */
+    get getCtrl() {
+        return this._container;
+    }
+}
+
+/**
+ * Ein Auswahlfeld
+ * Folgende Events werden ausgelöst:
+ * - webexpress.ui.change.filter mit Parameter filter
+ * - webexpress.ui.change.value mit Parameter value
+ */
+class selectionMultiCtrl extends events {
+    _container = $("<span class='selection-multi form-control' />");
+    _selection = $("<ul/>");
+    _hidden = $("<input type='hidden'/>");
+    _dropdownmenu = $("<div class='dropdown-menu'/>");
+    _dropdownoptions = $("<ul/>");
+    _options = [];
+    _values = []; // Arry mit ausgewählten IDs aus _options
+    _filter = '';
+    _placeholder = null;
+
+    /**
+     * Konstruktor
+     * @param settings Optionen zur Gestaltung des Steuerelementes
+     *        - ID Die ID des Steuerelements
+     *        - CSS CSS-Klasse zur Gestaltung des Steuerelementes
+     *        - Placeholder Der Platzhaltertext
+     *        - HasEmptyValue Bestimmt, ob Nullwerte zugelassen sind
+     */
+    constructor(settings) {
+        let id = settings.ID;
+        let name = settings.Name;
+        let css = settings.CSS;
+        let placeholder = settings.Placeholder !== undefined ? settings.Placeholder : null;
+        let emptyvalue = settings.HasEmptyValue !== undefined ? settings.HasEmptyValue : false;
+
+        let dropdown = $("<span data-bs-toggle='dropdown' aria-expanded='false'/>");
+        let expand = $("<a class='fas fa-angle-down' href='#'/>");
+        let filter = $("<input type='text'/>");
+
+        super();
+
+        if (id !== undefined) {
+            this._container.attr("id", id);
+        }
+
+        if (css !== undefined) {
+            this._container.addClass(css);
+        }
+
+        if (name !== undefined && name != null) {
+            this._hidden.attr("name", name);
+        }
+        
+        this._container.on('show.bs.dropdown', function () {
+            let width = this._container.width();
+            this._dropdownmenu.width(width);
+        }.bind(this));
+        
+        this._container.on('shown.bs.dropdown', function () {
+            filter.focus();
+            this.update();
+        }.bind(this));
+        
+        filter.keyup(function () {
+            this._filter = filter.val();
+            this.trigger('webexpress.ui.change.filter', this._filter);
+            this.update();
+        }.bind(this));
+
+        this._placeholder = placeholder;
+        this._dropdownmenu.append(filter);
+        this._dropdownmenu.append(this._dropdownoptions);
+        
+        dropdown.append(this._selection);
+        dropdown.append(expand);
+
+        this._container.append(dropdown);
+        this._container.append(this._dropdownmenu);
+        this._container.append(this._hidden);
+        
+        this.value = [];
+    }
+    
+    /**
+     * Aktualisierung des Steuerelementes
+     */
+    update() {
+        this._dropdownoptions.children().remove();
+
+        this._options.forEach(function (option) {
+            let id = option.ID !== undefined && option.ID != null ? option.ID : null;
+            let label = option.Label !== undefined && option.Label != null ? option.Label : null;
+            
+            if (id == null && (label == null || label == '-')) {
+                let li = $("<li class='dropdown-divider'/>");
+                this._dropdownoptions.append(li);
+            } else if (id == null && label != null) {
+                let li = $("<li class='dropdown-header'>" + label + "</li>"); 
+                this._dropdownoptions.append(li);
+            } else {
+                let description = option.Description !== undefined && option.Description != null && option.Description.length > 0 ? option.Description : null;
+                let image = option.Image !== undefined && option.Image != null ? option.Image : null;
+                let color = option.Color !== undefined && option.Color != null ? option.Color : 'text-dark';
+                let li = $("<li class='dropdown-item'/>"); 
+                let a = $("<a class='link " + option.Color + "' href='javascript:void(0)'>" + option.Label + "</a>");
+                let p = $("<p class='small text-muted'>" + description + "</p>");
                 
                 if (image != null) {
+                    let box = $("<span/>");
                     let span = $("<span/>");
                     let img = $("<img src='" + image + "' alt=''/>");
 
-                    span.append(img);
-                    span.append(a);
-                    this._selection.append(span);
+                    box.append(img);
+                    box.append(a);
+                    span.append(box);
+                    if (description != null) {
+                        span.append(p);
+                    }
+                    li.append(span);
                 } else {
-                    this._selection.append($("<span>" + label + "</span>"));
+                    li.append(a);
+                    if (description != null) {
+                        li.append(p);
+                    }
+                }
+                
+                if (id == this.value) {
+                    li.addClass("active");
+                    a.removeClass();
+                    a.addClass("link text-white");
+                    p.removeClass();
+                    p.addClass("small text-white");
+                }
+
+                li.click(function () {
+                    if (!this._values.includes(option.ID)) {
+                        this.value.push(option.ID);
+                    }
+                    this.update();
+                }.bind(this));
+                 
+                if (option.Label.toLowerCase().startsWith(this._filter.toLowerCase())) {
+                    this._dropdownoptions.append(li);
                 }
             }
-        } else {
-            this._hidden.val(null);
-            if (this._placeholder != null) {
-                this._selection.append($("<span class='text-muted'>" + this._placeholder + "</span>"));    
+        }.bind(this));
+        
+        this._selection.children().remove();
+        this._values.forEach(function (value) {
+            let option = this._options.find(elem => elem.ID == value);
+            if (option != null) {
+                let label = option.Label !== undefined && option.Label != null ? option.Label : null;
+                let image = option.Image !== undefined && option.Image != null ? option.Image : null;
+                let color = option.Color !== undefined && option.Color != null ? option.Color : 'text-dark';
+                let a = $("<a class='link " + color + "' href='javascript:void(0)'>" + option.Label + "</a>");
+                let close = $("<a class='fas fa-times' href='#'/>");
+                let li = $("<li/>");
+                
+                close.click(function () {
+                    this.value = this._values.filter(item => item !== value);
+                }.bind(this));
+                
+                if (image != null) {
+                    let img = $("<img src='" + image + "' alt=''/>");
+                    li.append(img);
+                    li.append(a);
+                    li.append(close);
+                    this._selection.append(li);
+                } else {
+                    li.append($("<span>" + label + "</span>"));
+                    li.append(close);
+                    this._selection.append(li);
+                }
             }
+        }.bind(this));
+    }
+    
+    /**
+     * Gibt die Optionen zurück
+     */
+    get options() {
+        return this._options;
+    }
+    
+    /**
+     * Setzt die Optionen
+     * @param data Ein Array mit ObjektIDs
+     */
+    set options(options) {
+        this._options = options;
+        
+        this.update();
+    }
+    
+    /**
+     * Gibt die ausgewählten Optionen zurück
+     */
+    get value() {
+        return this._values;
+    }
+    
+    /**
+     * Setzt die ausgewählten Optionen
+     * @param values Die ID des ausgewählten Eintrages
+     */
+    set value(values) {
+        if (this._values != values) {
+            this.trigger('webexpress.ui.change.value', values);
         }
+        
+        this._values = values;
+
+        this.update();
+        this._hidden.val(this._values.map(element => element).join(';'));
     }
 
     /**
@@ -1053,88 +1451,88 @@ class selectionCtrl extends events {
  /*
 function Tags(element, id, listOfTags)
 {
-	let arrayOfList = listOfTags;
-	let DOMParent = document.querySelector(element);
-	let DOMList;
-	let DOMInput;
-	let hidden;
-	
-	function DOMCreate()
-	{
-		let ul = document.createElement('ul');
-		let li = document.createElement('li');
-		let input = document.createElement('input');
-		
-		hidden = document.createElement('input');
-		hidden.setAttribute("type", "hidden");
-		hidden.setAttribute("name", id);
-		
-		DOMParent.appendChild(ul);
-		DOMParent.appendChild(hidden);
-		DOMParent.appendChild(input);
-		DOMList = DOMParent.firstElementChild;
-		DOMInput = DOMParent.lastElementChild;
-	}
+    let arrayOfList = listOfTags;
+    let DOMParent = document.querySelector(element);
+    let DOMList;
+    let DOMInput;
+    let hidden;
+    
+    function DOMCreate()
+    {
+        let ul = document.createElement('ul');
+        let li = document.createElement('li');
+        let input = document.createElement('input');
+        
+        hidden = document.createElement('input');
+        hidden.setAttribute("type", "hidden");
+        hidden.setAttribute("name", id);
+        
+        DOMParent.appendChild(ul);
+        DOMParent.appendChild(hidden);
+        DOMParent.appendChild(input);
+        DOMList = DOMParent.firstElementChild;
+        DOMInput = DOMParent.lastElementChild;
+    }
 
-	function DOMRender()
-	{
-		DOMList.innerHTML = '';
-		arrayOfList.forEach
-		(
-			function(currentValue, index)
-			{	
-				let li=document.createElement('li');
-				li.innerHTML = "".concat(currentValue.toLowerCase(), "<a>&times;</a>");
-				li.querySelector('a').addEventListener('click', function()
-				{	
-					onDelete(index);
-					
-					return false;
-				});
-				
-				DOMList.appendChild(li);
-			}
-		);
+    function DOMRender()
+    {
+        DOMList.innerHTML = '';
+        arrayOfList.forEach
+        (
+            function(currentValue, index)
+            {   
+                let li=document.createElement('li');
+                li.innerHTML = "".concat(currentValue.toLowerCase(), "<a>&times;</a>");
+                li.querySelector('a').addEventListener('click', function()
+                {   
+                    onDelete(index);
+                    
+                    return false;
+                });
+                
+                DOMList.appendChild(li);
+            }
+        );
 
-		hidden.setAttribute("value", arrayOfList.map(element => element.toLowerCase()).join(';'));
-	}
+        hidden.setAttribute("value", arrayOfList.map(element => element.toLowerCase()).join(';'));
+    }
 
-	function onKeyUp()
-	{
-		DOMInput.addEventListener('keyup', function(event)
-		{
-			let text = this.value;
-			if(text.endsWith(',') || text.endsWith(';') || text.endsWith(' '))
-			{
-				let replace = text.replace(',', '').replace(';', '').replace(' ', '').toLowerCase();
-				if(replace != '')
-				{
-					arrayOfList.push(replace);
-				}
+    function onKeyUp()
+    {
+        DOMInput.addEventListener('keyup', function(event)
+        {
+            let text = this.value;
+            if(text.endsWith(',') || text.endsWith(';') || text.endsWith(' '))
+            {
+                let replace = text.replace(',', '').replace(';', '').replace(' ', '').toLowerCase();
+                if(replace != '')
+                {
+                    arrayOfList.push(replace);
+                }
 
-				this.value = '';
-			}
+                this.value = '';
+            }
 
-			DOMRender();
-		});
-	}
-	
-	function onDelete(id)
-	{
-		arrayOfList = arrayOfList.filter(function(currentValue, index)
-		{
-			if(index == id)
-			{
-				return false;
-			}
+            DOMRender();
+        });
+    }
+    
+    function onDelete(id)
+    {
+        arrayOfList = arrayOfList.filter(function(currentValue, index)
+        {
+            if(index == id)
+            {
+                return false;
+            }
 
-			return currentValue;
-		});
-		
-		DOMRender();
-	}
+            return currentValue;
+        });
+        
+        DOMRender();
+    }
 
-	DOMCreate();
-	DOMRender();
-	onKeyUp();
+    DOMCreate();
+    DOMRender();
+    onKeyUp();
 }*/

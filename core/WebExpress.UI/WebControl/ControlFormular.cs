@@ -107,8 +107,6 @@ namespace WebExpress.UI.WebControl
             CancelButton.TextColor = new PropertyColorText(TypeColorText.White);
             CancelButton.HorizontalAlignment = TypeHorizontalAlignment.Right;
             CancelButton.Uri = BackUri != null && !BackUri.Empty ? BackUri : Uri;
-
-            SubmitButton.Click += OnSubmitButtonClick;
         }
 
         /// <summary>
@@ -132,26 +130,6 @@ namespace WebExpress.UI.WebControl
         public ControlFormular(params ControlFormularItem[] items)
             : this(null, items)
         {
-        }
-
-        /// <summary>
-        /// Wird ausgelöst, wenn auf die Submirschaltfläche geklickt wurde
-        /// </summary>
-        /// <param name="sender">Der Auslöser</param>
-        /// <param name="args">Die Eventargumente</param>
-        private void OnSubmitButtonClick(object sender, FormularEventArgs args)
-        {
-            Validate(args.Context);
-
-            if (!args.Context.ValidationResults.Any())
-            {
-                OnProcess(args.Context);
-
-                if (!string.IsNullOrWhiteSpace(RedirectUri?.ToString()))
-                {
-                    args.Context.Page.Redirecting(RedirectUri);
-                }
-            }
         }
 
         /// <summary>
@@ -217,6 +195,26 @@ namespace WebExpress.UI.WebControl
             var button = SubmitButton.Render(renderContext);
             var cancel = CancelButton.Render(renderContext);
 
+            if (context.Request.HasParameter("formular-id"))
+            {
+                var value = context.Request.GetParameter("formular-id")?.Value;
+
+                if (!string.IsNullOrWhiteSpace(ID) && value == ID)
+                {
+                    var valid = Validate(renderContext);
+
+                    if (valid)
+                    {
+                        OnProcess(renderContext);
+
+                        if (!string.IsNullOrWhiteSpace(RedirectUri?.ToString()))
+                        {
+                            renderContext.Page.Redirecting(RedirectUri);
+                        }
+                    }
+                }
+            }
+
             var html = new HtmlElementFormForm()
             {
                 ID = ID,
@@ -228,6 +226,8 @@ namespace WebExpress.UI.WebControl
                 Method = "post",
                 Enctype = TypeEnctype.None
             };
+
+            html.Elements.Add(new ControlFormularItemInputHidden() { Name = "formular-id", Value = ID }.Render(renderContext));
 
             foreach (var v in renderContext.ValidationResults)
             {
@@ -255,12 +255,6 @@ namespace WebExpress.UI.WebControl
                 }.Render(renderContext));
             }
 
-            //html.Elements.Add(new ControlFormularItemInputHidden(formName)
-            //{
-            //    Value = Name
-
-            //}.Render(renderContext));
-
             foreach (var item in Items.Where(x => x is ControlFormularItemInputHidden))
             {
                 html.Elements.Add(item.Render(renderContext));
@@ -274,7 +268,7 @@ namespace WebExpress.UI.WebControl
                 TypeLayoutFormular.Mix => new ControlFormularItemGroupMix(),
                 _ => new ControlFormularItemGroupVertical(),
             };
-            foreach (var item in Items.Where(x => !(x is ControlFormularItemInputHidden)))
+            foreach (var item in Items.Where(x => x is not ControlFormularItemInputHidden))
             {
                 group.Items.Add(item);
             }
@@ -357,7 +351,8 @@ namespace WebExpress.UI.WebControl
         /// Prüft das Eingabeelement auf Korrektheit der Daten
         /// </summary>
         /// <param name="context">Der Kontext, indem die Eingaben validiert werden</param>
-        public virtual void Validate(RenderContextFormular context)
+        /// <returns>True wenn alle Formulareinträhe gültig sind, false sonst</returns>
+        public virtual bool Validate(RenderContextFormular context)
         {
             var valid = true;
             var validationResults = context.ValidationResults as List<ValidationResult>;
@@ -388,6 +383,8 @@ namespace WebExpress.UI.WebControl
             validatedArgs.Results.AddRange(validationResults);
 
             OnValidated(validatedArgs);
+
+            return valid;
         }
 
         /// <summary>

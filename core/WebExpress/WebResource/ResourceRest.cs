@@ -4,12 +4,12 @@ using WebExpress.Message;
 
 namespace WebExpress.WebResource
 {
-    public abstract class ResourceApi : Resource
+    public abstract class ResourceRest : Resource
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public ResourceApi()
+        public ResourceRest()
         {
 
         }

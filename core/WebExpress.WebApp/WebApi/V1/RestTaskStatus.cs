@@ -5,23 +5,23 @@ using WebExpress.WebAttribute;
 using WebExpress.WebResource;
 using WebExpress.WebTask;
 
-namespace WebExpress.WebApp.WebAPI
+namespace WebExpress.WebApp.WebAPI.V1
 {
     /// <summary>
     /// Ermittelt den Status und Forschritt einer Aufgabe (WebTask)
     /// </summary>
-    [ID("APITaskStatusV1")]
+    [ID("ApiTaskStatusV1")]
     [Segment("taskstatus", "")]
     [Path("/api/v1")]
     [IncludeSubPaths(true)]
     [Module("webexpress.webapp")]
     [Optional]
-    public sealed class APITaskStatusV1 : ResourceApi
+    public sealed class RestTaskStatus : ResourceRest
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public APITaskStatusV1()
+        public RestTaskStatus()
         {
         }
 

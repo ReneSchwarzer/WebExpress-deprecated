@@ -72,11 +72,6 @@ namespace WebExpress.UI.WebControl
         public IList<ControlFormularItem> Items { get; } = new List<ControlFormularItem>();
 
         /// <summary>
-        /// Bestimmt ob die Eingabe gültig sind
-        /// </summary>
-        public bool Valid { get; private set; }
-
-        /// <summary>
         /// Liefert die Validierungsergebnisse
         /// </summary>
         public ICollection<ValidationResult> ValidationResults { get; } = new List<ValidationResult>();
@@ -99,8 +94,6 @@ namespace WebExpress.UI.WebControl
                 Value = "1",
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None)
             };
-
-            SubmitButton.Click += OnSubmitButtonClick;
         }
 
         /// <summary>
@@ -122,26 +115,6 @@ namespace WebExpress.UI.WebControl
         public ControlFormularInline(params ControlFormularItem[] items)
             : this(null, items)
         {
-        }
-
-        /// <summary>
-        /// Wird ausgelöst, wenn auf die Submirschaltfläche geklickt wurde
-        /// </summary>
-        /// <param name="sender">Der Auslöser</param>
-        /// <param name="args">Die Eventargumente</param>
-        private void OnSubmitButtonClick(object sender, FormularEventArgs args)
-        {
-            Validate(args.Context);
-
-            if (Valid)
-            {
-                OnProcess(args.Context);
-
-                if (!string.IsNullOrWhiteSpace(RedirectUri?.ToString()))
-                {
-                    args.Context.Page.Redirecting(RedirectUri);
-                }
-            }
         }
 
         /// <summary>
@@ -190,6 +163,26 @@ namespace WebExpress.UI.WebControl
 
             var button = SubmitButton.Render(renderContext);
 
+            if (context.Request.HasParameter("formular-id"))
+            {
+                var value = context.Request.GetParameter("formular-id")?.Value;
+
+                if (!string.IsNullOrWhiteSpace(ID) && value == ID)
+                {
+                    var valid = Validate(renderContext);
+
+                    if (valid)
+                    {
+                        OnProcess(renderContext);
+
+                        if (!string.IsNullOrWhiteSpace(RedirectUri?.ToString()))
+                        {
+                            renderContext.Page.Redirecting(RedirectUri);
+                        }
+                    }
+                }
+            }
+
             var html = new HtmlElementFormForm()
             {
                 ID = ID,
@@ -201,6 +194,8 @@ namespace WebExpress.UI.WebControl
                 Method = "post",
                 Enctype = TypeEnctype.None
             };
+
+            html.Elements.Add(new ControlFormularItemInputHidden() { Name = "formular-id", Value = ID }.Render(renderContext));
 
             foreach (var item in Items)
             {
@@ -311,7 +306,8 @@ namespace WebExpress.UI.WebControl
         /// Prüft das Eingabeelement auf Korrektheit der Daten
         /// </summary>
         /// <param name="context">Der Kontext, indem die Eingaben validiert werden</param>
-        public virtual void Validate(RenderContextFormular context)
+        /// <returns>True wenn alle Formulareinträhe gültig sind, false sonst</returns>
+        public virtual bool Validate(RenderContextFormular context)
         {
             var valid = true;
             var validationResults = ValidationResults as List<ValidationResult>;
@@ -340,7 +336,7 @@ namespace WebExpress.UI.WebControl
                 valid = false;
             }
 
-            Valid = valid;
+            return valid;
         }
 
     }

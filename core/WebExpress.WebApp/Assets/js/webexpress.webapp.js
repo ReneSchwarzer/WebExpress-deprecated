@@ -89,112 +89,99 @@ function updatePopupNotification(id, url, confirmUrl) {
 /**
  * Eine Tabelle mit Funktionen für Create, Read, Update und Delate
  */
-class crudTable {
-    _container = $("<div/>");
+class restSelectionCtrl extends selectionCtrl {
+    _optionUri = "";
 
     /**
      * Konstruktor
-     * @param restURL Die REST-API-Schnittestelle zur ermittlung und Manipulation der Daten
-     * @param options Optionen zur Gestaltung des Steuerelementes
-     *        - Id Die ID des Steuerelements
-     *        - Search Die Einstellungen zur Suche
-     *        - Table Die Einstellungen der Tabelle
-     *        - Pagination Die Einstellungen der Seitennavigation
-     * @return Das Steuerelement
+     * @param settings Optionen zur Gestaltung des Steuerelementes
+     *        - ID Die ID des Steuerelements
+     *        - CSS CSS-Klasse zur Gestaltung des Steuerelementes
+     *        - Placeholder Der Platzhaltertext
+     *        - OptionUri Die Uri der REST-API-Schnittstelle, welche die Optionen ermittelt
      */
-    constructor(restURL, options) {
+    constructor(settings) {
+        super(settings);
 
-        var id = options.ID;
-        var searchOptions = options.Search;
-        var tableOptions = options.Table;
-        var paginationOptions = options.Pagination;
-        var editorsOptions = options.Editors;
-        var filter = "";
+        this._optionUri = settings.OptionUri;
+    }
 
-        var search = new searchCtrl(searchFunction, searchOptions);
-        var table = new tableCtrl(tableOptions);
-        var pagination = new paginationCtrl(function callback(page) { receiveData(restURL, filter, page); }, paginationOptions);
+     /**
+      * Daten aus REST-Schnitstelle abrufen
+      * @param filter Die Filtereinstellungen
+      */
+     receiveData(filter) {
 
-        // Spaltendefinition aus REST-Schnitstelle abrufen
-        function receiveColumns(url) {
+         $.ajax({ type: "GET", url: this._optionUri + "?search=" + filter + "&page=0", dataType: 'json', }).then(function (response) {
+             var data = response.Data;
 
-            $.ajax({ type: "GET", url: url + "?columns", dataType: 'json', }).then(function (response) {
-                var columns = response;
-                columns.push({
-                    Label: '',
-                    Width: 1,
-                    Render: function (cell, item) {
-                        var dropdownitems = editorsOptions;
-                        var dropdown = new moreCtrl(dropdownitems, { Icon: "fas fa-ellipsis-h", MenuCSS: "dropdown-menu-lg-end" });
+             this.options = data;
+             this.trigger('webexpress.ui.receive.complete');
 
-                        return dropdown.getCtrl;
-                    }
-                });
+             this.update();
 
-                table.columns = columns;
-            });
-        }
+         }.bind(this));
+    }
+}
 
-        // Daten aus REST-Schnitstelle abrufen
-        function receiveData(url, filter, page) {
+/**
+ * Eine Tabelle mit Funktionen für Create, Read, Update und Delate
+ */
+class restTableCtrl extends tableCtrl {
+    _restUri = "";
+    _searchCtrl = null;
+    _paginationCtrl = null;
+    _filter = null;
+    _page = null;
 
-            $.ajax({ type: "GET", url: url + "?search=" + filter + "&page=" + page, dataType: 'json', }).then(function (response) {
-                var data = response.Data;
-                table.clear();
-                table.addRange(data);
+    /**
+     * Konstruktor
+     * @param settings Optionen zur Gestaltung des Steuerelementes
+     *        - ID Die ID des Steuerelements
+     *        - CSS CSS-Klasse zur Gestaltung des Steuerelementes
+     *        - Placeholder Der Platzhaltertext
+     *        - RestUri Die Uri der REST-API-Schnittstelle, welche die Daten ermittelt
+     */
+    constructor(settings) {
+        super(settings);
 
-                var page = response.Pagination;
-                pagination.page(page.PageNumber, page.Totalpage);
-            });
-        }
+        this._restUri = settings.RestUri;
 
-        function searchFunction(searchterm) {
+        $.ajax({ type: "GET", url: this._restUri + "?columns=true", dataType: 'json', }).then(function (response) {
+            var columns = response.Columns;
+            this.columns = columns;
+        }.bind(this));
 
-            if (searchterm !== undefined) {
-                filter = searchterm.toUpperCase();
-
-                receiveData(restURL, filter, 0);
-            } else {
-                receiveData(restURL, "", 0);
-            }
-        }
-
-        this._container.append(search.getCtrl);
-        this._container.append(table.getCtrl);
-        this._container.append(pagination.getCtrl);
-
-         
-           /*
-                        if (columns.length > 0) {
-                            var cell = $("<td/>");
-                            var dropdownitems = [];
-                        
-                            editors.forEach(function (editor) {
-                                if (editor.Label != "-") {
-                                    dropdownitems.push({ css: "dropdown-item", icon: editor.Icon, color: editor.Color, label: editor.Label});
-                                }
-                                else {
-                                    dropdownitems.push({ css: "dropdown-divider" });
-                                }
-                            });
-    
-                            var dropdown = new moreCtrl(dropdownitems, { Icon: "fas fa-ellipsis-h", MenuCSS: "dropdown-menu-lg-end" });
-    
-                            cell.append(dropdown);
-                            row.append(cell);
-                        }
-    
-                        body.append(row);
-                    });
-        */
-        receiveColumns(restURL);
-        receiveData(restURL, filter, 0);
+        this._searchCtrl = new searchCtrl({ ID: settings.ID + "-search" });
+        this._searchCtrl.on('webexpress.ui.change.filter', function (key) { this._filter = filter; this.receiveData(); }.bind(this));
+        this._paginationCtrl = new paginationCtrl({ ID: settings.ID + "-pagination" });
+        this._paginationCtrl.on('webexpress.ui.change.page', function (page) { this._page = page; this.receiveData(); }.bind(this));
     }
 
     /**
-     * Gibt das Steuerelement zurück
-     */
+      * Daten aus REST-Schnitstelle abrufen
+      */
+    receiveData() {
+        if (this._filter === undefined || this._filter == null) { this._filter = ""; }
+        if (this._page === undefined || this._page == null) { this._page = 0; }
+        $.ajax({ type: "GET", url: this._restUri + "?search=" + this._filter + "&page=" + this._page, dataType: 'json', }).then(function (response) {
+            var data = response.Data;
+            this.clear();
+            this.addRange(data);
+            this.trigger('webexpress.ui.receive.complete');
+            var pagination = response.Pagination;
+            this._paginationCtrl.page(pagination.PageNumber, pagination.Totalpage);
+        }.bind(this));
+    }
+
+    /**
+    * Gibt das Steuerelement zurück
+    */
     get getCtrl() {
-        return this._container;
+        let div = $("<div/>")
+        div.append(this._searchCtrl.getCtrl);
+        div.append(this._table);
+        div.append(this._paginationCtrl.getCtrl);
+        return div;
     }
 }

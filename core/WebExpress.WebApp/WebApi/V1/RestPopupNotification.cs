@@ -4,22 +4,22 @@ using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebResource;
 using System.Collections;
 
-namespace WebExpress.WebApp.WebAPI
+namespace WebExpress.WebApp.WebAPI.V1
 {
     /// <summary>
     /// Ermittelt den Status und Forschritt einer Aufgabe (WebTask)
     /// </summary>
-    [ID("APIPopupNotificationV1")]
+    [ID("ApiPopupNotificationV1")]
     [Segment("popupnotifications", "")]
     [Path("/api/v1")]
     [Module("webexpress.webapp")]
     [Optional]
-    public sealed class ApiPopupNotification : ResourceApi
+    public sealed class RestPopupNotification : ResourceRest
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public ApiPopupNotification()
+        public RestPopupNotification()
         {
         }
 

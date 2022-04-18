@@ -26,7 +26,7 @@
     <None Remove="Assets\css\simpletags.css" />
     <None Remove="Assets\css\solid.css" />
     <None Remove="Assets\css\summernote-bs4.css" />
-    <None Remove="Assets\css\summernote-bs4.min.css" />
+    <None Remove="Assets\css\summernote-bs5.min.css" />
     <None Remove="Assets\css\webexpress.ui.css" />
     <None Remove="Assets\css\webexpress.ui.form.css" />
     <None Remove="Assets\fonts\fa-solid-900.eot" />
@@ -51,6 +51,9 @@
     <None Remove="Assets\js\jquery-3.5.1.min.js" />
     <None Remove="Assets\js\jquery-3.6.0.min.js" />
     <None Remove="Assets\js\jquery-3.6.0.min.map" />
+    <None Remove="Assets\js\lang\summernote-el-GR.min.js" />
+    <None Remove="Assets\js\lang\summernote-en-US.min.js" />
+    <None Remove="Assets\js\lang\summernote-es-ES.min.js" />
     <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker-en-CA.min.js" />
     <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.ar-tn.min.js" />
     <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.ar.min.js" />
@@ -140,8 +143,7 @@
     <None Remove="Assets\js\popper.min.js.map" />
     <None Remove="Assets\js\simpletags.js" />
     <None Remove="Assets\js\split.min.js" />
-    <None Remove="Assets\js\summernote-bs4.min.js" />
-    <None Remove="Assets\js\summernote-bs4.min.js.map" />
+    <None Remove="Assets\js\summernote-bs5.min.js" />
     <None Remove="Assets\js\summernote-de-DE.js" />
     <None Remove="Assets\js\webexpress.ui.js" />
     <None Remove="Internationalization\de" />
@@ -169,7 +171,7 @@
     <EmbeddedResource Include="Assets\css\solid.css">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Assets\css\summernote-bs4.min.css" />
+    <EmbeddedResource Include="Assets\css\summernote-bs5.min.css" />
     <EmbeddedResource Include="Assets\fonts\fa-solid-900.eot" />
     <EmbeddedResource Include="Assets\fonts\fa-solid-900.ttf" />
     <EmbeddedResource Include="Assets\fonts\fa-solid-900.woff" />
@@ -198,6 +200,15 @@
     <EmbeddedResource Include="Assets\js\Chart.min.js" />
     <EmbeddedResource Include="Assets\js\jquery-3.6.0.min.js" />
     <EmbeddedResource Include="Assets\js\jquery-3.6.0.min.map" />
+    <EmbeddedResource Include="Assets\js\lang\summernote-es-ES.min.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\js\lang\summernote-el-GR.min.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\js\lang\summernote-en-US.min.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.en.min.js" />
     <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker-en-CA.min.js" />
     <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.ar-tn.min.js" />
@@ -289,11 +300,10 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Assets\js\split.min.js" />
-    <EmbeddedResource Include="Assets\js\summernote-bs4.min.js">
+    <EmbeddedResource Include="Assets\js\summernote-bs5.min.js">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Assets\js\summernote-bs4.min.js.map" />
-    <EmbeddedResource Include="Assets\js\summernote-de-DE.js">
+    <EmbeddedResource Include="Assets\js\lang\summernote-de-DE.min.js">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Assets\js\webexpress.ui.js" />

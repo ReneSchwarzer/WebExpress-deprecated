@@ -54,10 +54,11 @@
 	display: table-cell;
 }
 
-.form-group-horizontal > div > div > div:first-child 
-{
+.form-group-horizontal > div > div > div:first-child {
     width: 10%;
     white-space: nowrap;
+    vertical-align: top;
+    padding-top: 0.4rem;
 }
 
 .form-group-mix

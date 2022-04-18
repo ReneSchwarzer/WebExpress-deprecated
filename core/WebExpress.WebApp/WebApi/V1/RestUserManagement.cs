@@ -1,29 +1,28 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Message;
-using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebResource;
 using WebExpress.WebApp.WebUser;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
 using static WebExpress.Internationalization.InternationalizationManager;
 
-namespace WebExpress.WebApp.WebAPI
+namespace WebExpress.WebApp.WebAPI.V1
 {
     /// <summary>
     /// REST-API zur Nutzerverwaltiung
     /// </summary>
-    [ID("APIUserManagementV1")]
+    [ID("ApiUserManagementV1")]
     [Segment("user", "")]
     [Path("/api/v1")]
     [Module("webexpress.webapp")]
     [Optional]
-    public sealed class ApiUSerManagement : ResourceApiCrud
+    public sealed class RestUserManagement : ResourceRestCrud
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public ApiUSerManagement()
+        public RestUserManagement()
         {
         }
 
@@ -41,24 +40,24 @@ namespace WebExpress.WebApp.WebAPI
         /// </summary>
         /// <param name="request">Die Anfrage</param>
         /// <returns>Eine Aufzählung, welche JsonSerializer serialisiert werden kann.</returns>
-        public override IEnumerable<ResourceApiCrudColumn> GetColumns(Request request)
+        public override IEnumerable<ResourceRestCrudColumn> GetColumns(Request request)
         {
-            return new ResourceApiCrudColumn[]
+            return new ResourceRestCrudColumn[]
             {
-                new ResourceApiCrudColumn(I18N(request, "webexpress.webapp:setting.usermanager.user.login.label"))
+                new ResourceRestCrudColumn(I18N(request, "webexpress.webapp:setting.usermanager.user.login.label"))
                 {
                     Render = "return item.Login;",
                     Width = 5
                 },
-                new ResourceApiCrudColumn(I18N(request, "webexpress.webapp:setting.usermanager.user.name.label"))
+                new ResourceRestCrudColumn(I18N(request, "webexpress.webapp:setting.usermanager.user.name.label"))
                 {
                     Render = "return item.Lastname + ', ' + item.Firstname;"
                 },
-                new ResourceApiCrudColumn(I18N(request, "webexpress.webapp:setting.usermanager.user.groups.label"))
+                new ResourceRestCrudColumn(I18N(request, "webexpress.webapp:setting.usermanager.user.groups.label"))
                 {
                     Render = "var html = '<ul>' + item.Groups.map(function(group) { return '<li>' + group.Name + '</li>'; }).join('') + '</ul>'; return html;"
                 },
-                new ResourceApiCrudColumn(I18N(request, "webexpress.webapp:setting.usermanager.user.email.label"))
+                new ResourceRestCrudColumn(I18N(request, "webexpress.webapp:setting.usermanager.user.email.label"))
                 {
                     Render = "return item.Email;"
                 }

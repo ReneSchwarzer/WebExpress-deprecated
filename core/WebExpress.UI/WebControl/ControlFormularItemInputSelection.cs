@@ -24,11 +24,16 @@ namespace WebExpress.UI.WebControl
         public bool HasEmptyValue { get; set; }
 
         /// <summary>
+        /// Liefert oder setzt die OnChange-Attribut
+        /// </summary>
+        public PropertyOnChange OnChange { get; set; }
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlFormularItemInputSelection(string id = null)
-            : base(id)
+            : base(string.IsNullOrEmpty(id) ? "selection" : $"selection-{id}")
         {
             Name = ID;
         }
@@ -85,11 +90,11 @@ namespace WebExpress.UI.WebControl
 
             var html = new HtmlElementTextContentDiv()
             {
-                ID = $"selection-{ID}",
+                ID = ID,
                 Style = GetStyles()
             };
 
-            context.VisualTree.AddScript(ID, GetScript(context, $"selection-{ID}", string.Join(" ", classes)));
+            context.VisualTree.AddScript(ID, GetScript(context, ID, string.Join(" ", classes)));
 
             return html;
         }
@@ -112,7 +117,7 @@ namespace WebExpress.UI.WebControl
         /// <returns>Der Javascript-Code</returns>
         protected virtual string GetScript(RenderContextFormular context, string id, string css)
         {
-            var options = new
+            var settings = new
             {
                 ID = id,
                 Name = ID,
@@ -122,16 +127,22 @@ namespace WebExpress.UI.WebControl
             };
 
             var jsonOptions = new JsonSerializerOptions { WriteIndented = false };
-            var optionsJson = JsonSerializer.Serialize(options, jsonOptions);
-            var itemsJson = JsonSerializer.Serialize(Options, jsonOptions);
+            var settingsJson = JsonSerializer.Serialize(settings, jsonOptions);
+            var optionsJson = JsonSerializer.Serialize(Options, jsonOptions);
             var builder = new StringBuilder();
 
-            builder.Append($"var items = { itemsJson };");
             builder.Append($"var options = { optionsJson };");
+            builder.Append($"var settings = { settingsJson };");
             builder.Append($"var container = $('#{ id }');");
-            builder.Append($"var obj = new selectionCtrl(options);");
-            builder.Append($"obj.items = items;");
+            builder.Append($"var obj = new selectionCtrl(settings);");
+            builder.Append($"obj.options = options;");
             builder.Append($"obj.value = '{ Value }';");
+
+            if (OnChange != null)
+            {
+                builder.Append($"obj.on('webexpress.ui.change.value', { OnChange });");
+            }
+
             builder.Append($"container.replaceWith(obj.getCtrl);");
 
             return builder.ToString();

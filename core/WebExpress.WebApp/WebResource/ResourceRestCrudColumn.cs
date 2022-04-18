@@ -5,7 +5,7 @@ namespace WebExpress.WebApp.WebResource
     /// <summary>
     /// Metainformationen einer CRUD-Tabellensplate 
     /// </summary>
-    public class ResourceApiCrudColumn
+    public class ResourceRestCrudColumn
     {
         /// <summary>
         /// Liefert oder setzt die Beschriftung der Splalte
@@ -31,7 +31,7 @@ namespace WebExpress.WebApp.WebResource
         /// Konstruktor
         /// </summary>
         /// <param name="label">Die Beschriftung der Splalte</param>
-        public ResourceApiCrudColumn(string label)
+        public ResourceRestCrudColumn(string label)
         {
             Label = label;
         }

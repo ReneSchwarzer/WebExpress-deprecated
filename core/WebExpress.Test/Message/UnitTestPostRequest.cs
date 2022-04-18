@@ -1,10 +1,12 @@
-﻿using System.IO;
+﻿using Microsoft.AspNetCore.Http.Features;
+using System.IO;
+using System.Net;
 using WebExpress.Message;
 using Xunit;
 
 namespace WebExpress.Test.Message
 {
-    public class UnitTestPostRequest
+    public class UnitTestPostRequest : UnitTestRequest
     {
         //[Fact]
         //public void Post_TextPlain()
@@ -118,6 +120,21 @@ namespace WebExpress.Test.Message
         //    );
         //}
 
+        [Fact]
+        public void Post_Multipart4()
+        {
+            using var reader = new BinaryReader(new FileStream(Path.Combine("test", "contentTypeMultipartFormData4.post"), FileMode.Open));
+            var contextFeatures = Prepare(reader, RequestMethod.POST, "");
+            var request = new WebExpress.Message.Request(contextFeatures);
+            var param = request?.GetParameter("submit-formular-inventory")?.Value;
+
+            Assert.True
+            (
+                param != null && param == "1",
+                "Fehler in der Funktion Post_Multipart4"
+            );
+        }
+
         //[Fact]
         //public void Post_Multipart_Umlaut()
         //{
@@ -135,5 +152,7 @@ namespace WebExpress.Test.Message
         //        "Fehler in der Funktion Post_Multipart_Umlaut"
         //    );
         //}
+
+        
     }
 }
