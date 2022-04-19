@@ -145,7 +145,15 @@
     <None Remove="Assets\js\split.min.js" />
     <None Remove="Assets\js\summernote-bs5.min.js" />
     <None Remove="Assets\js\summernote-de-DE.js" />
+    <None Remove="Assets\js\webexpress.ui.expand.js" />
     <None Remove="Assets\js\webexpress.ui.js" />
+    <None Remove="Assets\js\webexpress.ui.more.js" />
+    <None Remove="Assets\js\webexpress.ui.pagination.js" />
+    <None Remove="Assets\js\webexpress.ui.search.js" />
+    <None Remove="Assets\js\webexpress.ui.selection.js" />
+    <None Remove="Assets\js\webexpress.ui.selection.move.js" />
+    <None Remove="Assets\js\webexpress.ui.selection.multi.js" />
+    <None Remove="Assets\js\webexpress.ui.table.js" />
     <None Remove="Internationalization\de" />
     <None Remove="Internationalization\en" />
   </ItemGroup>
@@ -306,6 +314,14 @@
     <EmbeddedResource Include="Assets\js\lang\summernote-de-DE.min.js">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Assets\js\webexpress.ui.selection.multi.js" />
+    <EmbeddedResource Include="Assets\js\webexpress.ui.selection.js" />
+    <EmbeddedResource Include="Assets\js\webexpress.ui.selection.move.js" />
+    <EmbeddedResource Include="Assets\js\webexpress.ui.more.js" />
+    <EmbeddedResource Include="Assets\js\webexpress.ui.search.js" />
+    <EmbeddedResource Include="Assets\js\webexpress.ui.expand.js" />
+    <EmbeddedResource Include="Assets\js\webexpress.ui.pagination.js" />
+    <EmbeddedResource Include="Assets\js\webexpress.ui.table.js" />
     <EmbeddedResource Include="Assets\js\webexpress.ui.js" />
     <EmbeddedResource Include="Internationalization\de" />
     <EmbeddedResource Include="Internationalization\en" />

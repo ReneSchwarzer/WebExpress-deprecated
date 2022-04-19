@@ -50,14 +50,22 @@ namespace WebExpress.UI.WebPage
                 CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/webexpress.ui.css")));
                 CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/webexpress.ui.form.css")));
                 CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/solid.css")));
-                //CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/summernote-bs4.min.css")));
+                CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/summernote-bs5.min.css")));
                 //CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/simpletags.css")));
 
                 HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/jquery-3.6.0.min.js")));
                 HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/popper.min.js")));
                 HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/bootstrap.min.js")));
                 HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/webexpress.ui.js")));
-                //HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/summernote-bs4.min.js")));
+                HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/webexpress.ui.expand.js")));
+                HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/webexpress.ui.more.js")));
+                HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/webexpress.ui.pagination.js")));
+                HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/webexpress.ui.search.js")));
+                HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/webexpress.ui.selection.js")));
+                HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/webexpress.ui.selection.move.js")));
+                HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/webexpress.ui.selection.multi.js")));
+                HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/webexpress.ui.table.js")));
+                HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/summernote-bs5.min.js")));
                 //HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/simpletags.js")));
             }
 

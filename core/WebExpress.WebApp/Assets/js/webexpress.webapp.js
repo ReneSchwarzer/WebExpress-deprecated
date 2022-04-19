@@ -153,7 +153,7 @@ class restTableCtrl extends tableCtrl {
         }.bind(this));
 
         this._searchCtrl = new searchCtrl({ ID: settings.ID + "-search" });
-        this._searchCtrl.on('webexpress.ui.change.filter', function (key) { this._filter = filter; this.receiveData(); }.bind(this));
+        this._searchCtrl.on('webexpress.ui.change.filter', function (key) { this._filter = key; this.receiveData(); }.bind(this));
         this._paginationCtrl = new paginationCtrl({ ID: settings.ID + "-pagination" });
         this._paginationCtrl.on('webexpress.ui.change.page', function (page) { this._page = page; this.receiveData(); }.bind(this));
     }
