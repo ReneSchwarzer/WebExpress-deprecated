@@ -84,6 +84,8 @@ namespace WebExpress.WebApp.WebPage
             {
                 CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/webexpress.webapp.css")));
                 HeaderScriptLinks.Add(module.ContextPath.Append("assets/js/webexpress.webapp.js"));
+                HeaderScriptLinks.Add(module.ContextPath.Append("assets/js/webexpress.webapp.selection.js"));
+                HeaderScriptLinks.Add(module.ContextPath.Append("assets/js/webexpress.webapp.table.js"));
             }
 
             // Header

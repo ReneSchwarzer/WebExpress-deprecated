@@ -14,12 +14,16 @@
   <ItemGroup>
     <None Remove="Assets\css\webexpress.webapp.css" />
     <None Remove="Assets\js\webexpress.webapp.js" />
+    <None Remove="Assets\js\webexpress.webapp.selection.js" />
+    <None Remove="Assets\js\webexpress.webapp.table.js" />
     <None Remove="Internationalization\de" />
     <None Remove="Internationalization\en" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Assets\css\webexpress.webapp.css" />
+    <EmbeddedResource Include="Assets\js\webexpress.webapp.table.js" />
+    <EmbeddedResource Include="Assets\js\webexpress.webapp.selection.js" />
     <EmbeddedResource Include="Assets\js\webexpress.webapp.js" />
     <EmbeddedResource Include="Internationalization\de" />
     <EmbeddedResource Include="Internationalization\en" />
