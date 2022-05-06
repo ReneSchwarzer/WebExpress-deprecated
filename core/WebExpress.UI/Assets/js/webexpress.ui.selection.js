@@ -208,17 +208,18 @@ class selectionCtrl extends events {
      */
     set value(value) {
         if (this._value != value) {
+
+            this._value = value;
+
+            this.update();
+
+            if (this._value !== undefined && this._value != null) {
+                this._hidden.val(this._value);
+            } else {
+                this._hidden.val(null);
+            }
+
             this.trigger('webexpress.ui.change.value', value);
-        }
-        
-        this._value = value;
-
-        this.update();
-
-        if (this._value !== undefined && this._value != null) {
-            this._hidden.val(this._value);
-        } else {
-            this._hidden.val(null);
         }
     }
 

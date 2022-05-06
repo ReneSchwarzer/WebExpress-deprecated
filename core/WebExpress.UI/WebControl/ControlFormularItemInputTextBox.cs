@@ -57,12 +57,12 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Liefert den Initialisierungscode (JQuerry)
         /// </summary>
-        public string InitializeCode => $"$('#{ (!string.IsNullOrWhiteSpace(ID) ? ID : "summernote") }.summernote({{ tabsize: 2, height: '{ Rows }rem', lang: 'de-DE' }});";
+        public string InitializeCode => $"$('#{ (!string.IsNullOrWhiteSpace(ID) ? ID : "summernote") }').summernote({{ tabsize: 2, height: '{ Rows }rem', lang: 'de-DE' }});";
 
         /// <summary>
         /// Liefert den Zerstörungscode (JQuerry)
         /// </summary>
-        public string DestroyCode => $"$('#{ (!string.IsNullOrWhiteSpace(ID) ? ID : "summernote") }.summernote('destroy');";
+        public string DestroyCode => $"$('#{ (!string.IsNullOrWhiteSpace(ID) ? ID : "summernote") }').summernote('destroy');";
 
         /// <summary>
         /// Konstruktor
@@ -92,6 +92,8 @@ namespace WebExpress.UI.WebControl
         /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         public override void Initialize(RenderContextFormular context)
         {
+            base.Initialize(context);
+
             Rows = 8;
             AutoInitialize = true;
 
@@ -124,9 +126,6 @@ namespace WebExpress.UI.WebControl
 
             switch (ValidationResult)
             {
-                case TypesInputValidity.Success:
-                    Classes.Add("input-success");
-                    break;
                 case TypesInputValidity.Warning:
                     Classes.Add("input-warning");
                     break;

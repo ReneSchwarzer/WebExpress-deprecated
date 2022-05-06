@@ -125,9 +125,9 @@ namespace WebExpress.UI.WebControl
         public string Role { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die OnClick-Attribut
+        /// Liefert oder setzt die OnClick-Attribut, welches ein Java-Script auf dem Client ausführt
         /// </summary>
-        public string OnClick { get; set; }
+        public PropertyOnClick OnClick { get; set; }
 
         /// <summary>
         /// Bestimmt, ob das Steuerelement aktiv ist und gerendert wird

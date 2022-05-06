@@ -68,7 +68,7 @@ namespace WebExpress.WebApp.WebSettingPage
             Margin = new PropertySpacingMargin(PropertySpacing.Space.Two),
             BackgroundColor = new PropertyColorButton(TypeColorButton.Primary),
             Icon = new PropertyIcon(TypeIcon.Upload),
-            OnClick = "$('#modal_plugin_upload').modal('show');",
+            OnClick = new PropertyOnClick("$('#modal_plugin_upload').modal('show');"),
             Active = TypeActive.Disabled
         };
 

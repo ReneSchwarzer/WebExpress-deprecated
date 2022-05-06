@@ -381,13 +381,14 @@ class selectionMoveCtrl extends events {
      */
     set value(values) {
         if (this._values != values) {
+
+            this._values = values;
+            this._hidden.val(this._values.map(element => element).join(';'));
+
+            this.update();
+
             this.trigger('webexpress.ui.change.value', values);
         }
-
-        this._values = values;
-        this._hidden.val(this._values.map(element => element).join(';'));
-        
-        this.update();
     }
     
     /**

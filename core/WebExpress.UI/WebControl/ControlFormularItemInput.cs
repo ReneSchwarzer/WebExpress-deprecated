@@ -111,6 +111,14 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
+        /// Initialisiert das Formularemement
+        /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        public override void Initialize(RenderContextFormular context)
+        {
+        }
+
+        /// <summary>
         /// Löst das Validation-Event aus
         /// </summary>
         /// <param name="e">Das Eventargument</param>

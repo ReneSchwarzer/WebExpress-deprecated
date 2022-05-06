@@ -90,7 +90,7 @@ namespace WebExpress.UI.WebControl
                 Name = "submit-" + Name?.ToLower(),
                 Icon = new PropertyIcon(TypeIcon.Save),
                 Color = new PropertyColorButton(TypeColorButton.Success),
-                Type = "submit",
+                Type = TypeButton.Submit,
                 Value = "1",
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None)
             };

@@ -131,9 +131,9 @@ namespace WebExpress.UI.WebControl
                 html.Elements.Add(new HtmlText(I18N(context.Culture, Text)));
             }
 
-            if (!string.IsNullOrWhiteSpace(OnClick))
+            if (!string.IsNullOrWhiteSpace(OnClick?.ToString()))
             {
-                html.AddUserAttribute("onclick", OnClick);
+                html.AddUserAttribute("onclick", OnClick?.ToString());
             }
 
             if (Content.Count > 0)

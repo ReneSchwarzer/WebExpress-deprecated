@@ -67,14 +67,35 @@ namespace WebExpress.UI.WebControl
         public IUri BackUri { get => CancelButton.Uri; set => CancelButton.Uri = value; }
 
         /// <summary>
+        /// Liefert oder setzt das Hiddenfeld, welches die Submit-Methode enthällt
+        /// </summary>
+        public ControlFormularItemInputHidden SubmitType { get; } = new ControlFormularItemInputHidden(Guid.NewGuid().ToString())
+        {
+            Name = "formular-submit-type",
+            Value = "update"
+        };
+
+        /// <summary>
         /// Liefert oder setzt die Submit-Schaltfläche
         /// </summary>
-        public ControlFormularItemButton SubmitButton { get; } = new ControlFormularItemButton();
+        public ControlFormularItemButton SubmitButton { get; } = new ControlFormularItemButton()
+        {
+            Icon = new PropertyIcon(TypeIcon.Save),
+            Color = new PropertyColorButton(TypeColorButton.Success),
+            Type = TypeButton.Submit,
+            Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None),
+        };
 
         /// <summary>
         /// Liefert oder setzt die Abbrechen-Schaltfläche
         /// </summary>
-        public ControlButtonLink CancelButton { get; } = new ControlButtonLink();
+        public ControlButtonLink CancelButton { get; } = new ControlButtonLink()
+        {
+            Icon = new PropertyIcon(TypeIcon.Times),
+            BackgroundColor = new PropertyColorButton(TypeColorButton.Secondary),
+            TextColor = new PropertyColorText(TypeColorText.White),
+            HorizontalAlignment = TypeHorizontalAlignment.Right
+        };
 
         /// <summary>
         /// Speichern und weiter Schaltfläche anzeigen
@@ -93,20 +114,8 @@ namespace WebExpress.UI.WebControl
         public ControlFormular(string id = null)
             : base(id)
         {
-            Name = ID != null ? ID.StartsWith("formular") ? ID : $"formular-{ ID }" : "formular";
-
-            SubmitButton.Name = "submit-" + Name?.ToLower();
-            SubmitButton.Icon = new PropertyIcon(TypeIcon.Save);
-            SubmitButton.Color = new PropertyColorButton(TypeColorButton.Success);
-            SubmitButton.Type = "submit";
-            SubmitButton.Value = "1";
-            SubmitButton.Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None);
-
-            CancelButton.Icon = new PropertyIcon(TypeIcon.Times);
-            CancelButton.BackgroundColor = new PropertyColorButton(TypeColorButton.Secondary);
-            CancelButton.TextColor = new PropertyColorText(TypeColorText.White);
-            CancelButton.HorizontalAlignment = TypeHorizontalAlignment.Right;
-            CancelButton.Uri = BackUri != null && !BackUri.Empty ? BackUri : Uri;
+            SubmitButton.Name = SubmitButton.ID;
+            SubmitButton.OnClick = new PropertyOnClick($"$('#{ SubmitType.ID }').val('submit');");           
         }
 
         /// <summary>
@@ -138,6 +147,12 @@ namespace WebExpress.UI.WebControl
         /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         public virtual void Initialize(RenderContextFormular context)
         {
+            // ID überprüfen
+            if (string.IsNullOrWhiteSpace(ID))
+            {
+                context.Application.Log.Warning(I18N("webexpress.ui:form.empty.id"));
+            }
+
             if (string.IsNullOrWhiteSpace(SubmitButton.Text))
             {
                 SubmitButton.Text = context.I18N("webexpress.ui", "form.submit.label");
@@ -155,6 +170,65 @@ namespace WebExpress.UI.WebControl
             {
                 CancelButton.Text = context.I18N(CancelButton.Text);
             }
+
+            CancelButton.Uri = BackUri != null && !BackUri.Empty ? BackUri : Uri;
+        }
+
+        /// <summary>
+        /// Füllung der Formulardate 
+        /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        public virtual void Fill(RenderContextFormular context)
+        {
+            OnFill(context);
+        }
+
+        /// <summary>
+        /// Prüft das Eingabeelement auf Korrektheit der Daten
+        /// </summary>
+        /// <param name="context">Der Kontext, indem die Eingaben validiert werden</param>
+        /// <returns>True wenn alle Formulareinträhe gültig sind, false sonst</returns>
+        public virtual bool Validate(RenderContextFormular context)
+        {
+            var valid = true;
+            var validationResults = context.ValidationResults as List<ValidationResult>;
+
+            foreach (var v in Items.Where(x => x is IFormularValidation).Select(x => x as IFormularValidation))
+            {
+                v.Validate(context);
+
+                if (v.ValidationResult == TypesInputValidity.Error)
+                {
+                    valid = false;
+                }
+
+                validationResults.AddRange(v.ValidationResults);
+            }
+
+            var args = new ValidationEventArgs() { Value = null, Context = context };
+            OnValidation(args);
+
+            validationResults.AddRange(args.Results);
+
+            if (args.Results.Where(x => x.Type == TypesInputValidity.Error).Any())
+            {
+                valid = false;
+            }
+
+            var validatedArgs = new ValidationResultEventArgs(valid);
+            validatedArgs.Results.AddRange(validationResults);
+
+            OnValidated(validatedArgs);
+
+            return valid;
+        }
+
+        /// <summary>
+        /// Weist an, die initialen Formaulardaten erneut zu laden
+        /// </summary>
+        public void Reset()
+        {
+            Fill(null);
         }
 
         /// <summary>
@@ -167,6 +241,20 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
+        /// Verarbeitung des Formulars
+        /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        public virtual void Process(RenderContextFormular context)
+        {
+            OnProcess(context);
+
+            if (!string.IsNullOrWhiteSpace(RedirectUri?.ToString()))
+            {
+               // context.Page.Redirecting(RedirectUri);
+            }
+        }
+
+        /// <summary>
         /// In HTML konvertieren
         /// </summary>
         /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
@@ -174,46 +262,61 @@ namespace WebExpress.UI.WebControl
         public override IHtmlNode Render(RenderContext context)
         {
             var renderContext = new RenderContextFormular(context, this);
-            var formName = Name != null ? Name.StartsWith("formular") ? Name : $"formular-{ Name }" : "formular";
+            //var formName = Name != null ? Name.StartsWith("formular") ? Name : $"formular-{ Name }" : "formular";
+            var fill = false;
+            var process = false;
 
-            Initialize(renderContext);
-
-            (Items as List<ControlFormularItem>).ForEach(x => x?.Initialize(renderContext));
-
-            OnInitialize(renderContext);
-
-            SubmitButton.Initialize(renderContext);
-
-            // Prüfe ob Formular abgeschickt wurde
-            if (!context.Request.HasParameter("submit-" + formName))
+            // Prüfe ob und wie das Formular abgeschickt wurde 
+            if (context.Request.HasParameter("formular-submit-type"))
             {
-                OnFill(renderContext);
-            }
-
-            PreProcess(renderContext);
-
-            var button = SubmitButton.Render(renderContext);
-            var cancel = CancelButton.Render(renderContext);
-
-            if (context.Request.HasParameter("formular-id"))
-            {
-                var value = context.Request.GetParameter("formular-id")?.Value;
-
-                if (!string.IsNullOrWhiteSpace(ID) && value == ID)
+                var value = context.Request.GetParameter("formular-submit-type")?.Value;
+                switch (value)
                 {
-                    var valid = Validate(renderContext);
-
-                    if (valid)
-                    {
-                        OnProcess(renderContext);
-
-                        if (!string.IsNullOrWhiteSpace(RedirectUri?.ToString()))
-                        {
-                            renderContext.Page.Redirecting(RedirectUri);
-                        }
-                    }
+                    case "submit":
+                        process = true;
+                        fill = false;
+                        break;
+                    case "reset":
+                        process = false;
+                        fill = true;
+                        break;
+                    case "update":
+                    default:
+                        break;
                 }
             }
+            else
+            {
+                // erster Aufruf
+                fill = true;
+                process = false;
+            }
+
+            // Initialisierung
+            Initialize(renderContext);
+            (Items as List<ControlFormularItem>).ForEach(x => x?.Initialize(renderContext));
+            OnInitialize(renderContext);
+            //SubmitType.Initialize(renderContext);
+            SubmitButton.Initialize(renderContext);
+
+            // Formular mit Daten füllen
+            if (fill)
+            {
+                Fill(renderContext);
+            }
+
+            // Vorverarbeitung
+            PreProcess(renderContext);
+
+            // Formular verarbeiten (z.B. Formulardaten sichern)
+            if (process && Validate(renderContext))
+            {
+                Process(renderContext);
+            }
+
+            // HTML erzeugen
+            var button = SubmitButton.Render(renderContext);
+            var cancel = CancelButton.Render(renderContext);
 
             var html = new HtmlElementFormForm()
             {
@@ -221,13 +324,13 @@ namespace WebExpress.UI.WebControl
                 Class = GetClasses(),
                 Style = GetStyles(),
                 Role = Role,
-                Name = formName.ToLower(),
+                //Name = formName.ToLower(),
                 Action = Uri?.ToString(),
                 Method = "post",
                 Enctype = TypeEnctype.None
             };
 
-            html.Elements.Add(new ControlFormularItemInputHidden() { Name = "formular-id", Value = ID }.Render(renderContext));
+            html.Elements.Add(SubmitType.Render(renderContext));
 
             foreach (var v in renderContext.ValidationResults)
             {
@@ -240,9 +343,6 @@ namespace WebExpress.UI.WebControl
                         break;
                     case TypesInputValidity.Warning:
                         bgColor = new PropertyColorBackgroundAlert(TypeColorBackground.Warning);
-                        break;
-                    case TypesInputValidity.Success:
-                        bgColor = new PropertyColorBackgroundAlert(TypeColorBackground.Default);
                         break;
                 }
 
@@ -345,54 +445,6 @@ namespace WebExpress.UI.WebControl
         protected virtual void OnValidated(ValidationResultEventArgs e)
         {
             Validated?.Invoke(this, e);
-        }
-
-        /// <summary>
-        /// Prüft das Eingabeelement auf Korrektheit der Daten
-        /// </summary>
-        /// <param name="context">Der Kontext, indem die Eingaben validiert werden</param>
-        /// <returns>True wenn alle Formulareinträhe gültig sind, false sonst</returns>
-        public virtual bool Validate(RenderContextFormular context)
-        {
-            var valid = true;
-            var validationResults = context.ValidationResults as List<ValidationResult>;
-
-            foreach (var v in Items.Where(x => x is IFormularValidation).Select(x => x as IFormularValidation))
-            {
-                v.Validate(context);
-
-                if (v.ValidationResult == TypesInputValidity.Error)
-                {
-                    valid = false;
-                }
-
-                validationResults.AddRange(v.ValidationResults);
-            }
-
-            var args = new ValidationEventArgs() { Value = null, Context = context };
-            OnValidation(args);
-
-            validationResults.AddRange(args.Results);
-
-            if (args.Results.Where(x => x.Type == TypesInputValidity.Error).Any())
-            {
-                valid = false;
-            }
-
-            var validatedArgs = new ValidationResultEventArgs(valid);
-            validatedArgs.Results.AddRange(validationResults);
-
-            OnValidated(validatedArgs);
-
-            return valid;
-        }
-
-        /// <summary>
-        /// Weist an, die initialen Formaulardaten erneut zu laden
-        /// </summary>
-        public void Reset()
-        {
-            OnFill(null);
         }
     }
 }

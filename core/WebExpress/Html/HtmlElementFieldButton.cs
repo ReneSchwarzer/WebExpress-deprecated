@@ -123,6 +123,11 @@ namespace WebExpress.Html
         /// <param name="deep">Die Aufrufstiefe</param>
         public override void ToString(StringBuilder builder, int deep)
         {
+            //if (Type == "submit" || Type == "reset")
+            //{
+            //    ElementName = "input";
+            //}
+
             base.ToString(builder, deep);
         }
     }

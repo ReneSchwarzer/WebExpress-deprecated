@@ -10,6 +10,7 @@ componentmanager.register=Die Komponente '{0}' wurde in der Sektion '{1}' des Mo
 componentmanager.error.section=Die Angabe der Sektion ist fehlerhaft.
 componentmanager.wrongtype=Der Type '{0}' implementiert die Schnittstelle '{1}' nicht.
 
+form.empty.id=Das Formular verfügt über keine ID!
 form.submit.label=Speichern
 form.next.label=Speichern und weiter
 form.cancel.label=Abbrechen

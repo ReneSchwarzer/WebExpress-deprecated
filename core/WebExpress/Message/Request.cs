@@ -135,7 +135,7 @@ namespace WebExpress.Message
 
             RequestTraceIdentifier = requestIdentifierFeature.TraceIdentifier;
             Protocoll = requestFeature.Protocol;
-            //IsSecureConnection = connectionFeature.h
+
             Scheme = requestFeature.Scheme.ToLower() switch
             {
                 "http" => UriScheme.Http,
@@ -186,28 +186,10 @@ namespace WebExpress.Message
                 return null;
             }
 
-            var capacity = 1024;
-            var buffer = new byte[capacity];
-            var offset = 0;
+            MemoryStream ms = new MemoryStream();
+            body.CopyTo(ms);
 
-            var content = new byte[contentLength.Value];
-
-            int readCount;
-            // Lese Content
-            do
-            {
-                readCount = body.Read(buffer, offset, capacity);
-
-                if (readCount > 0)
-                {
-                    Buffer.BlockCopy(buffer, 0, content, offset, readCount);
-
-                    offset += readCount;
-                }
-            }
-            while (readCount < 0);
-
-            return content;
+            return ms.ToArray();
         }
 
         /// <summary>
@@ -247,6 +229,7 @@ namespace WebExpress.Message
             }
 
             var contentType = Header.ContentType?.Split(';');
+            //var contentStr = Encoding.UTF8.GetString(Content);
 
             switch (TypeEnctypeExtensions.Convert(contentType.FirstOrDefault()))
             {
@@ -257,7 +240,7 @@ namespace WebExpress.Message
                         var offset = 0;
                         int pos = 0;
                         var dispositions = new List<Tuple<int, int>>(); // Item1=Position, Item2=Länge
-
+                        
                         // ermittle Dispositionen
                         for (var i = 0; i < Content.Length; i++)
                         {
@@ -509,7 +492,12 @@ namespace WebExpress.Message
         /// <returns>true wenn Parameter vorhanden ist, false sonst</returns>
         public bool HasParameter(string name)
         {
-            return Param.ContainsKey(name?.ToLower());
+            if (name == null)
+            {
+                return false;
+            }
+
+            return Param.ContainsKey(name.ToLower());
         }
     }
 }

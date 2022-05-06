@@ -145,7 +145,7 @@ namespace WebExpress.UI.WebControl
                 Text = Formular.SubmitButton.Text,
                 Icon = Formular.SubmitButton.Icon,
                 Color = Formular.SubmitButton.Color,
-                Type = "submit",
+                Type = TypeButton.Submit,
                 Value = "1",
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None)
             };

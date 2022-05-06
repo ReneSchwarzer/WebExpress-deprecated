@@ -61,9 +61,9 @@ namespace WebExpress.UI.WebControl
         public string Text { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt den Typ
+        /// Liefert oder setzt den Typ (button, submit, reset)
         /// </summary>
-        public string Type { get; set; }
+        public TypeButton Type { get; set; } = TypeButton.Default;
 
         /// <summary>
         /// Liefert oder setzt den Wert
@@ -115,12 +115,13 @@ namespace WebExpress.UI.WebControl
             {
                 ID = ID,
                 Name = Name,
-                Type = Type,
+                Type = Type.ToTypeString(),
                 Value = Value,
                 Class = Css.Concatenate("btn", GetClasses()),
                 Style = GetStyles(),
                 Role = Role,
-                Disabled = Disabled
+                Disabled = Disabled,
+                OnClick = OnClick?.ToString()
             };
 
             if (Icon != null && Icon.HasIcon)
@@ -155,7 +156,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Löst das Click-Event aus
         /// </summary>
-        /// <param name="e"></param>
+        /// <param name="e">Das Eventargument</param>
         protected virtual void OnClickEvent(FormularEventArgs e)
         {
             Click?.Invoke(this, e);

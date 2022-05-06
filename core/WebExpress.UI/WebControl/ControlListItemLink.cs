@@ -153,7 +153,7 @@ namespace WebExpress.UI.WebControl
                 Href = Uri?.ToString() + (param.Length > 0 ? "?" + param : string.Empty),
                 Target = Target,
                 Title = Title,
-                OnClick = OnClick
+                OnClick = OnClick?.ToString()
             };
 
             if (Icon != null && Icon.HasIcon)

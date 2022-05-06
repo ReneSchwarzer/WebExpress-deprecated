@@ -137,7 +137,7 @@ namespace WebExpress.UI.WebControl
                 Style = GetStyles(),
                 Target = Target,
                 Href = Uri?.ToString(),
-                OnClick = OnClick
+                OnClick = OnClick?.ToString()
             };
 
             if (Icon != null && Icon.HasIcon)

@@ -65,9 +65,6 @@ namespace WebExpress.UI.WebControl
         {
             switch (ValidationResult)
             {
-                case TypesInputValidity.Success:
-                    Classes.Add("input-success");
-                    break;
                 case TypesInputValidity.Warning:
                     Classes.Add("input-warning");
                     break;

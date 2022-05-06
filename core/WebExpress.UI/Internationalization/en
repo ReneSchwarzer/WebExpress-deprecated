@@ -10,6 +10,7 @@ componentmanager.register=The component '{0}' has been registered in the '{1}' s
 componentmanager.error.section=The section is incorrect.
 componentmanager.wrongtype=The type '{0}' does not implement the interface '{1}'.
 
+form.empty.id=The form does not have an ID!
 form.submit.label=Submit
 form.next.label=Next
 form.cancel.label=Cancel

@@ -54,7 +54,7 @@ namespace WebExpress.UI.WebControl
                 Role = Role,
                 Href = Uri?.ToString(),
                 Title = Title,
-                OnClick = OnClick
+                OnClick = OnClick?.ToString()
             };
 
             if (Icon != null && Icon.HasIcon)
