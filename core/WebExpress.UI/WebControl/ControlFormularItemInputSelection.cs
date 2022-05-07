@@ -19,9 +19,9 @@ namespace WebExpress.UI.WebControl
         public string Placeholder { get; set; }
 
         /// <summary>
-        /// Bestimmt, ob ein leerer Wert (null) gültig ist
+        /// Erlaubt die Auswahl mehrerer Elmente
         /// </summary>
-        public bool HasEmptyValue { get; set; }
+        public bool MultiSelect { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die OnChange-Attribut
@@ -120,7 +120,7 @@ namespace WebExpress.UI.WebControl
                 Name = ID,
                 CSS = css,
                 Placeholder,
-                HasEmptyValue
+                MultiSelect
             };
 
             var jsonOptions = new JsonSerializerOptions { WriteIndented = false };
@@ -133,7 +133,7 @@ namespace WebExpress.UI.WebControl
             builder.Append($"var container = $('#{ id }');");
             builder.Append($"var obj = new selectionCtrl(settings);");
             builder.Append($"obj.options = options;");
-            builder.Append($"obj.value = '{ Value }';");
+            builder.Append($"obj.value = ['{ Value }'];");
 
             if (OnChange != null)
             {

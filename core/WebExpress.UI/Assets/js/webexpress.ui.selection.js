@@ -6,14 +6,15 @@
  */
 class selectionCtrl extends events {
     _container = $("<span class='selection form-control' />");
-    _selection = $("<span/>");
+    _selection = $("<ul/>");
     _hidden = $("<input type='hidden'/>");
     _dropdownmenu = $("<div class='dropdown-menu'/>");
     _dropdownoptions = $("<ul/>");
+    _filter = $("<input type='text'/>");
     _options = [];
-    _value = null;
-    _filter = '';
+    _values = []; // Arry mit ausgewählten IDs aus _options
     _placeholder = null;
+    _multiselect = false;
 
     /**
      * Konstruktor
@@ -21,20 +22,17 @@ class selectionCtrl extends events {
      *        - ID Die ID des Steuerelements
      *        - CSS CSS-Klasse zur Gestaltung des Steuerelementes
      *        - Placeholder Der Platzhaltertext
-     *        - HasEmptyValue Bestimmt, ob Nullwerte zugelassen sind
+     *        - MultiSelect Erlaubt die Auswahl mehrerer Elmente
      */
     constructor(settings) {
         let id = settings.ID;
         let name = settings.Name;
         let css = settings.CSS;
+        let multiselect = settings.MultiSelect;
         let placeholder = settings.Placeholder !== undefined ? settings.Placeholder : null;
-        let emptyvalue = settings.HasEmptyValue !== undefined ? settings.HasEmptyValue : false;
-
+                
         let dropdown = $("<span data-bs-toggle='dropdown' aria-expanded='false'/>");
-        let expand = $("<ul/>");
-        let reset = $("<li><a class='fas fa-times' href='#'/></li>");
-        let toggle = $("<li><a class='fas fa-angle-down' href='#'/></li>");
-        let filter = $("<input type='text'/>");
+        let expand = $("<a class='fas fa-angle-down' href='#'/>");
 
         super();
 
@@ -49,177 +47,204 @@ class selectionCtrl extends events {
         if (name !== undefined && name != null) {
             this._hidden.attr("name", name);
         }
-        
+
+        if (multiselect !== undefined && multiselect != null) {
+            this._multiselect = multiselect;
+        }
+
         this._container.on('show.bs.dropdown', function () {
             let width = this._container.width();
             this._dropdownmenu.width(width);
-        }.bind(this));
-        
-        this._container.on('shown.bs.dropdown', function () {
-            filter.focus();
-            this.update();
-        }.bind(this));
-        
-        filter.keyup(function () {
-            this._filter = filter.val();
-            this.trigger('webexpress.ui.change.filter', this._filter);
             this.update();
         }.bind(this));
 
-        reset.click(function () {
-            this.value = null;
+        this._container.on('shown.bs.dropdown', function () {
+            //this._filter.show();
+            this._filter.focus();
+        }.bind(this));
+
+        this._container.on('hidden.bs.dropdown', function () {
+            this._filter.focus();
+        }.bind(this));
+        
+        this._filter.keyup(function (e) {
+            let filter = this._filter.val();
+            e.stopPropagation();
+            this.trigger('webexpress.ui.change.filter', filter);
+            this.update();
+            if (this._dropdownmenu.is(":hidden")) {
+                dropdown.dropdown('toggle');
+            }
+        }.bind(this));
+
+        this._dropdownmenu.focus(function (e) {
+            //e.stopPropagation();
+            //this._filter.show();
+        }.bind(this));
+
+        this._filter.focusout(function (e) {
+            e.stopPropagation();
+            //this._filter.hide();
+            this._filter.val("");
         }.bind(this));
 
         this._placeholder = placeholder;
-        this._dropdownmenu.append(filter);
+
+        this._selection.append(this._filter);
         this._dropdownmenu.append(this._dropdownoptions);
 
-        if (emptyvalue == true) {
-            expand.append(reset);
-        }
-        expand.append(toggle);
-        
         dropdown.append(this._selection);
         dropdown.append(expand);
 
         this._container.append(dropdown);
         this._container.append(this._dropdownmenu);
         this._container.append(this._hidden);
-        
-        this.value = null;
+
+        this.value = [];
     }
-    
+
     /**
      * Aktualisierung des Steuerelementes
      */
     update() {
         this._dropdownoptions.children().remove();
 
-        this._options.forEach(function (options) {
-            let id = options.ID !== undefined && options.ID != null ? options.ID : null;
-            let label = options.Label !== undefined && options.Label != null ? options.Label : null;
-            
-            if (id == null && (label == null || label == '-')) {
-                let li = $("<li class='dropdown-divider'/>");
-                this._dropdownoptions.append(li);
-            } else if (id == null && label != null) {
-                let li = $("<li class='dropdown-header'>" + label + "</li>"); 
-                this._dropdownoptions.append(li);
-            } else {
-                let description = options.Description !== undefined && options.Description != null && options.Description.length > 0 ? options.Description : null;
-                let image = options.Image !== undefined && options.Image != null ? options.Image : null;
-                let color = options.Color !== undefined && options.Color != null ? options.Color : 'text-dark';
-                let li = $("<li class='dropdown-item'/>"); 
-                let a = $("<a class='link " + options.Color + "' href='javascript:void(0)'>" + options.Label + "</a>");
-                let p = $("<p class='small text-muted'>" + description + "</p>");
-                
-                if (image != null) {
-                    let span = $("<span/>");
-                    let box = $("<span/>");
-                    let img = $("<img src='" + image + "' alt=''/>");
-
-                    box.append(img);
-                    box.append(a);
-                    span.append(box);
-                    if (description != null) {
-                        span.append(p);
-                    }
-                    li.append(span);
-                } else {
-                    li.append(a);
-                    if (description != null) {
-                        li.append(p);
-                    }
-                }
-                
-                if (id == this.value) {
-                    li.addClass("active");
-                    a.removeClass();
-                    a.addClass("link text-white");
-                    p.removeClass();
-                    p.addClass("small text-white");
-                }
-
-                li.click(function () {
-                    this.value = options.ID;
-                }.bind(this));
-                 
-                if (options.Label.toLowerCase().startsWith(this._filter.toLowerCase())) {
+        this._options.forEach(function (option) {
+            let id = option.ID !== undefined && option.ID != null ? option.ID : null;
+            let label = option.Label !== undefined && option.Label != null ? option.Label : null;
+            if (!this._values.includes(id)) {
+                if (id == null && (label == null || label == '-')) {
+                    let li = $("<li class='dropdown-divider'/>");
                     this._dropdownoptions.append(li);
+                } else if (id == null && label != null) {
+                    let li = $("<li class='dropdown-header'>" + label + "</li>");
+                    this._dropdownoptions.append(li);
+                } else {
+                    let description = option.Description !== undefined && option.Description != null && option.Description.length > 0 ? option.Description : null;
+                    let image = option.Image !== undefined && option.Image != null ? option.Image : null;
+                    let color = option.Color !== undefined && option.Color != null ? option.Color : 'text-dark';
+                    let li = $("<li class='dropdown-item'/>");
+                    let a = $("<a class='link " + option.Color + "' href='javascript:void(0)'>" + option.Label + "</a>");
+                    let p = $("<p class='small text-muted'>" + description + "</p>");
+
+                    if (image != null) {
+                        let box = $("<span/>");
+                        let span = $("<span/>");
+                        let img = $("<img src='" + image + "' alt=''/>");
+
+                        box.append(img);
+                        box.append(a);
+                        span.append(box);
+                        if (description != null) {
+                            span.append(p);
+                        }
+                        li.append(span);
+                    } else {
+                        li.append(a);
+                        if (description != null) {
+                            li.append(p);
+                        }
+                    }
+
+                    if (id == this.value) {
+                        li.addClass("active");
+                        a.removeClass();
+                        a.addClass("link text-white");
+                        p.removeClass();
+                        p.addClass("small text-white");
+                    }
+
+                    li.click(function () {
+                        if (!this._multiselect) {
+                            this.value = [];
+                        }
+
+                        if (!this._values.includes(option.ID)) {
+                            let value = this.value.slice();
+                            value.push(option.ID);
+                            this.value = value;
+                            this._filter.val("");
+                        }
+                        this.update();
+                    }.bind(this));
+
+                    if (option.Label?.toLowerCase().startsWith(this._filter.val()?.toLowerCase())) {
+                        this._dropdownoptions.append(li);
+                    }
                 }
             }
         }.bind(this));
 
-        this._selection.children().remove();
+        this._selection.children("li").remove();
+        let array = [];
+        this._values.forEach(function (value) {
+            let option = this._options.find(elem => elem.ID == value);
+            if (option != null) {
+                let label = option.Label !== undefined && option.Label != null ? option.Label : null;
+                let image = option.Image !== undefined && option.Image != null ? option.Image : null;
+                let color = option.Color !== undefined && option.Color != null ? option.Color : 'text-dark';
+                let a = $("<a class='link " + color + "' href='javascript:void(0)'>" + option.Label + "</a>");
+                let close = $("<a class='fas fa-times' href='#'/>");
+                let li = $("<li/>");
 
-        if (this._value !== undefined && this._value != null) {
-            let options = this._options.find(elem => elem.ID == this._value);
-            if (options != null) {
-                let label = options.Label !== undefined && options.Label != null ? options.Label : null;
-                let image = options.Image !== undefined && options.Image != null ? options.Image : null;
-                let color = options.Color !== undefined && options.Color != null ? options.Color : 'text-dark';
-                let a = $("<a class='link " + color + "' href='javascript:void(0)'>" + options.Label + "</a>");
+                close.click(function () {
+                    this.value = this._values.filter(item => item !== value);
+                }.bind(this));
 
                 if (image != null) {
-                    let span = $("<span/>");
                     let img = $("<img src='" + image + "' alt=''/>");
-
-                    span.append(img);
-                    span.append(a);
-                    this._selection.append(span);
+                    li.append(img);
+                    li.append(a);
+                    li.append(close);
+                    array.push(li);
                 } else {
-                    this._selection.append($("<span>" + label + "</span>"));
+                    li.append($("<span>" + label + "</span>"));
+                    li.append(close);
+                    array.push(li);
                 }
             }
-        } else {
-            if (this._placeholder != null) {
-                this._selection.append($("<span class='text-muted'>" + this._placeholder + "</span>"));
-            }
-        }
+        }.bind(this));
+        this._selection.prepend(array);
+        
     }
-    
+
     /**
      * Gibt die Optionen zurück
      */
     get options() {
         return this._options;
     }
-    
+
     /**
      * Setzt die Optionen
      * @param data Ein Array mit ObjektIDs
      */
     set options(options) {
         this._options = options;
-        
+
         this.update();
     }
-    
+
     /**
      * Gibt die ausgewählten Optionen zurück
      */
     get value() {
-        return this._value;
+        return this._values;
     }
-    
+
     /**
      * Setzt die ausgewählten Optionen
-     * @param value Die ID des ausgewählten Eintrages
+     * @param values Die ID des ausgewählten Eintrages
      */
-    set value(value) {
-        if (this._value != value) {
+    set value(values) {
+        if (this._values != values) {
 
-            this._value = value;
+            this._values = values;
 
             this.update();
+            this._hidden.val(this._values.map(element => element).join(';'));
 
-            if (this._value !== undefined && this._value != null) {
-                this._hidden.val(this._value);
-            } else {
-                this._hidden.val(null);
-            }
-
-            this.trigger('webexpress.ui.change.value', value);
+            this.trigger('webexpress.ui.change.value', values);
         }
     }
 

@@ -37,7 +37,7 @@ namespace WebExpress.WebApp.WebControlRest
                 Name,
                 CSS = css,
                 Placeholder,
-                HasEmptyValue,
+                MultiSelect,
                 OptionUri = RestUri.ToString()
             };
 
@@ -49,7 +49,7 @@ namespace WebExpress.WebApp.WebControlRest
             builder.AppendLine($"let container = $('#{ id }');");
             builder.AppendLine($"let obj = new restSelectionCtrl(settings);");
             builder.AppendLine($"obj.receiveData();");
-            builder.AppendLine($"obj.value = '{ Value }';");
+            builder.AppendLine($"obj.value = ['{ Value }'];");
             builder.AppendLine($"obj.on('webexpress.ui.change.filter', function(key) {{ obj.receiveData(key); }});");
             if (OnChange != null)
             {

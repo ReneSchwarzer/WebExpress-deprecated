@@ -373,35 +373,43 @@ body, html {
     padding:0.375rem
 }
 
-.selection > span > span {
-    flex-grow:1!important; 
-}
-
-.selection > span > span > span  {
-    display: flex;
-    align-items:center;
-}
-
-.selection > span > span > span > img {
-    height:16px;
-    margin-right:0.5em;
-    vertical-align:middle;
-}
-
 .selection > span > ul {
-    list-style:none;
-    float:right;
-    margin:0;
+    padding-left: 0;
+    margin-right: auto;
+    margin-bottom: 0;
 }
 
 .selection > span > ul > li {
-    float:left;
+    float: left;
+    display: flex;
+    align-items: center;
+    margin-right: 0.5em;
+    margin-top: 0.1em;
+    margin-bottom: 0.1em;
+    background-color: var(--bs-light);
+    border: 1px solid #cdd4da;
+    border-radius: 0.2em;
+    padding-left: 0.1em;
+    padding-right: 0.1em;
+    white-space: nowrap;
+}
+
+.selection span > ul > input {
+    margin-left: 0;
+    margin-top: 0.1em;
+    margin-bottom: 0.1em;
+    border: 0px solid #cdd4da;
+    outline: none;
+}
+
+.selection > span > ul > li > img {
+    height:16px;
     vertical-align:middle;
-    text-align:center;
-    margin-left:0.8em;
 }
 
 .selection > span > ul > li > a {
+    margin-left:0.5em;
+    margin-right:0.1em;
     text-decoration:none;
     color:#cccccc;
 }
@@ -410,12 +418,15 @@ body, html {
     color:#aaaaaa;
 }
 
-.selection div > input {
-    display:inline-block;
-    margin:0.5em;
-    border:1px solid #cdd4da;
-    width:98%;
-    outline:none;
+.selection > span > a {
+    text-decoration:none;
+    color:#cccccc;
+    float:right;
+    margin:0;
+}
+
+.selection > span > a:hover {
+    color:#aaaaaa;
 }
 
 .selection div > ul {
@@ -448,110 +459,6 @@ body, html {
 }
 
 .selection > div > ul > li > span > p {
-    white-space:break-spaces;
-    cursor:default;
-}
-
-.selection-multi {
-    position:relative;
-    padding:0px;
-}
-
-.selection-multi > span {
-    display:flex!important;
-    flex-direction:row;
-    flex-wrap:nowrap!important;
-    align-items:center;
-    padding:0.375rem
-}
-
-.selection-multi > span > ul {
-    flex-grow:1!important; 
-    list-style:none;
-    margin:auto;
-    padding-left:0;
-}
-
-.selection-multi > span > ul > li {
-    float:left;
-    display: flex;
-    align-items:center;
-    text-align:center;
-    margin-right:0.5em;
-    margin-top:0.1em;
-    margin-bottom:0.1em;
-    background-color:#e3edfb;
-    border:1px solid #0d6efd;
-    border-radius: 0.2em;
-    padding-left:0.1em;
-    padding-right:0.1em;
-}
-
-.selection-multi > span > ul > li > img {
-    height:16px;
-    vertical-align:middle;
-}
-
-.selection-multi > span > ul > li > a {
-    margin-left:0.5em;
-    margin-right:0.1em;
-    text-decoration:none;
-    color:#cccccc;
-}
-
-.selection-multi > span > ul > li > a:hover {
-    color:#aaaaaa;
-}
-
-.selection-multi > span > a {
-    text-decoration:none;
-    color:#cccccc;
-    float:right;
-    margin:0;
-}
-
-.selection-multi > span > a:hover {
-    color:#aaaaaa;
-}
-
-.selection-multi div > input {
-    display:inline-block;
-    margin:0.5em;
-    border:1px solid #cdd4da;
-    width:98%;
-    outline:none;
-}
-
-.selection-multi div > ul {
-    overflow-x:hidden;
-    overflow-y:scroll;
-    height:15rem;
-    margin:0px;
-    padding:0px;
-}
-
-.selection-multi div > ul > li > span > span {
-    display:flex;
-    align-items:center;
-}
-
-.selection-multi div > ul > li > span > span > img {
-    height:16px;
-    margin-right:0.5em;
-    vertical-align:middle;
-}
-
-.selection-multi div > ul > li > a {
-    cursor: default;
-    color: #000000;
-}
-
-.selection-multi div > ul > li > span > span > a {
-    cursor:default;
-    color:#000000;
-}
-
-.selection-multi > div > ul > li > span > p {
     white-space:break-spaces;
     cursor:default;
 }
