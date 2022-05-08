@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Linq;
+using System.Text;
 using System.Text.Json;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
@@ -53,7 +54,7 @@ namespace WebExpress.WebApp.WebControlRest
             builder.AppendLine($"let obj = new restSelectionCtrl(settings);");
             builder.AppendLine($"obj.options = options;");
             builder.AppendLine($"obj.receiveData();");
-            builder.AppendLine($"obj.value = ['{ Value }'];");
+            builder.AppendLine($"obj.value = [{ string.Join(",", Values.Select(x => $"'{ x }'")) }];");
             builder.AppendLine($"obj.on('webexpress.ui.change.filter', function(key) {{ obj.receiveData(key); }});");
             if (OnChange != null)
             {

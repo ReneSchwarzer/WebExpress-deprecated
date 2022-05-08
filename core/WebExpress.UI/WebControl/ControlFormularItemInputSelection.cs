@@ -29,6 +29,16 @@ namespace WebExpress.UI.WebControl
         public PropertyOnChange OnChange { get; set; }
 
         /// <summary>
+        /// Liefert oder setzt den Wert
+        /// </summary>
+        private new string Value { get { return base.Value; } set { base.Value = value; } }
+
+        /// <summary>
+        /// Liefert oder setzt den Wert
+        /// </summary>
+        public virtual ICollection<string> Values => base.Value != null ? base.Value.Split(';', System.StringSplitOptions.RemoveEmptyEntries) : new List<string>();
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="id">Die ID</param>
@@ -133,7 +143,7 @@ namespace WebExpress.UI.WebControl
             builder.AppendLine($"let container = $('#{ id }');");
             builder.AppendLine($"let obj = new selectionCtrl(settings);");
             builder.AppendLine($"obj.options = options;");
-            builder.AppendLine($"obj.value = ['{ Value }'];");
+            builder.AppendLine($"obj.value = [{ string.Join(",", Values.Select(x => $"'{ x }'")) }];");
 
             if (OnChange != null)
             {
