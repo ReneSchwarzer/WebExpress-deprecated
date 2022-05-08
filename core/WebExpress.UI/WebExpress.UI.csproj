@@ -29,6 +29,7 @@
     <None Remove="Assets\css\summernote-bs5.min.css" />
     <None Remove="Assets\css\webexpress.ui.css" />
     <None Remove="Assets\css\webexpress.ui.form.css" />
+    <None Remove="Assets\css\webexpress.ui.selection.css" />
     <None Remove="Assets\fonts\fa-solid-900.eot" />
     <None Remove="Assets\fonts\fa-solid-900.ttf" />
     <None Remove="Assets\fonts\fa-solid-900.woff" />
@@ -152,7 +153,6 @@
     <None Remove="Assets\js\webexpress.ui.search.js" />
     <None Remove="Assets\js\webexpress.ui.selection.js" />
     <None Remove="Assets\js\webexpress.ui.selection.move.js" />
-    <None Remove="Assets\js\webexpress.ui.selection.multi.js" />
     <None Remove="Assets\js\webexpress.ui.table.js" />
     <None Remove="Internationalization\de" />
     <None Remove="Internationalization\en" />
@@ -167,6 +167,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Assets\css\bootstrap.min.css.map" />
     <EmbeddedResource Include="Assets\css\Chart.min.css" />
+    <EmbeddedResource Include="Assets\css\webexpress.ui.selection.css">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Assets\css\webexpress.ui.css">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -314,7 +317,6 @@
     <EmbeddedResource Include="Assets\js\lang\summernote-de-DE.min.js">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Assets\js\webexpress.ui.selection.multi.js" />
     <EmbeddedResource Include="Assets\js\webexpress.ui.selection.js" />
     <EmbeddedResource Include="Assets\js\webexpress.ui.selection.move.js" />
     <EmbeddedResource Include="Assets\js\webexpress.ui.more.js" />

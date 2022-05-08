@@ -22,7 +22,9 @@ class restSelectionCtrl extends selectionCtrl {
       * Daten aus REST-Schnitstelle abrufen
       * @param filter Die Filtereinstellungen
       */
-     receiveData(filter) {
+    receiveData(filter) {
+
+        filter = filter !== undefined || filter != null ? filter : "";
 
          $.ajax({ type: "GET", url: this._optionUri + "?search=" + filter + "&page=0", dataType: 'json', }).then(function (response) {
              var data = response.Data;

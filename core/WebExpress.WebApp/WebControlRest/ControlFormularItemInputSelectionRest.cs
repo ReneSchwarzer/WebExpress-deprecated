@@ -38,7 +38,7 @@ namespace WebExpress.WebApp.WebControlRest
                 CSS = css,
                 Placeholder,
                 MultiSelect,
-                OptionUri = RestUri.ToString()
+                OptionUri = RestUri?.ToString()
             };
 
             var jsonOptions = new JsonSerializerOptions { WriteIndented = false };

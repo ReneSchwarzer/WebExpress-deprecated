@@ -55,42 +55,26 @@ class selectionCtrl extends events {
         this._container.on('show.bs.dropdown', function () {
             let width = this._container.width();
             this._dropdownmenu.width(width);
-            this.update();
         }.bind(this));
 
         this._container.on('shown.bs.dropdown', function () {
-            //this._filter.show();
             this._filter.focus();
-        }.bind(this));
-
-        this._container.on('hidden.bs.dropdown', function () {
-            this._filter.focus();
+            this.update();
         }.bind(this));
         
         this._filter.keyup(function (e) {
             let filter = this._filter.val();
             e.stopPropagation();
-            this.trigger('webexpress.ui.change.filter', filter);
+            this.trigger('webexpress.ui.change.filter', filter !== undefined || filter != null ? filter : "");
             this.update();
             if (this._dropdownmenu.is(":hidden")) {
                 dropdown.dropdown('toggle');
             }
         }.bind(this));
 
-        this._dropdownmenu.focus(function (e) {
-            //e.stopPropagation();
-            //this._filter.show();
-        }.bind(this));
-
-        this._filter.focusout(function (e) {
-            e.stopPropagation();
-            //this._filter.hide();
-            this._filter.val("");
-        }.bind(this));
-
         this._placeholder = placeholder;
 
-        this._selection.append(this._filter);
+        this._dropdownmenu.append(this._filter);
         this._dropdownmenu.append(this._dropdownoptions);
 
         dropdown.append(this._selection);
@@ -176,7 +160,6 @@ class selectionCtrl extends events {
         }.bind(this));
 
         this._selection.children("li").remove();
-        let array = [];
         this._values.forEach(function (value) {
             let option = this._options.find(elem => elem.ID == value);
             if (option != null) {
@@ -196,16 +179,14 @@ class selectionCtrl extends events {
                     li.append(img);
                     li.append(a);
                     li.append(close);
-                    array.push(li);
+                    this._selection.append(li);
                 } else {
                     li.append($("<span>" + label + "</span>"));
                     li.append(close);
-                    array.push(li);
+                    this._selection.append(li);
                 }
             }
-        }.bind(this));
-        this._selection.prepend(array);
-        
+        }.bind(this));       
     }
 
     /**
