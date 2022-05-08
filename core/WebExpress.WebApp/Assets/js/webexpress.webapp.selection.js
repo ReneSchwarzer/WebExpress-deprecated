@@ -3,6 +3,7 @@
  */
 class restSelectionCtrl extends selectionCtrl {
     _optionUri = "";
+    _spinner = $("<div class='spinner-border spinner-border-sm text-secondary' role='status'/>");
 
     /**
      * Konstruktor
@@ -16,6 +17,10 @@ class restSelectionCtrl extends selectionCtrl {
         super(settings);
 
         this._optionUri = settings.OptionUri;
+
+        this._container.on('show.bs.dropdown', function () {
+            this.receiveData(this._filter.val());
+        }.bind(this));
     }
 
      /**
@@ -25,6 +30,7 @@ class restSelectionCtrl extends selectionCtrl {
     receiveData(filter) {
 
         filter = filter !== undefined || filter != null ? filter : "";
+        this._selection.append(this._spinner);
 
          $.ajax({ type: "GET", url: this._optionUri + "?search=" + filter + "&page=0", dataType: 'json', }).then(function (response) {
              var data = response.Data;
@@ -34,6 +40,7 @@ class restSelectionCtrl extends selectionCtrl {
 
              this.update();
 
+             this._selection.children("div").remove();
          }.bind(this));
     }
 }

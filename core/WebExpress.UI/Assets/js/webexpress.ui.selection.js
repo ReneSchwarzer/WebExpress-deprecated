@@ -201,9 +201,21 @@ class selectionCtrl extends events {
      * @param data Ein Array mit ObjektIDs
      */
     set options(options) {
-        this._options = options;
+        // selektierte Optionen ermitteln
+        let selectedOptions = this.selectedOptions;
+        // entferne die selektierten Optionen, wenn diese in den übergebenen neuen Optionen enthalten sind
+        selectedOptions = selectedOptions.filter(elem => !options.some(o => o.ID === elem.ID));
+        // Vereinige die selectierten und die neuen Optionen
+        this._options = [...new Set([...options, ...selectedOptions])];
 
         this.update();
+    }
+
+    /**
+     * Gibt die ausgewählten Optionen zurück
+     */
+    get selectedOptions() {
+        return this._options.filter(elem => this.value.includes(elem.ID));
     }
 
     /**
