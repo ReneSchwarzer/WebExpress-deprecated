@@ -16,5 +16,10 @@ namespace WebExpress.UI.WebComponent
         /// Der Komoponententyp
         /// </summary>
         public Type Component { get; set; }
+
+        /// <summary>
+        /// Die Reigenfolge der Komponente
+        /// </summary>
+        public int Order { get; set; }
     }
 }

@@ -67,6 +67,7 @@ namespace WebExpress.UI.WebComponent
                 var section = string.Empty;
                 var conditions = new List<ICondition>();
                 var cache = false;
+                var order = 0;
 
                 // Attribute ermitteln
                 foreach (var customAttribute in component.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IModuleAttribute))))
@@ -107,6 +108,16 @@ namespace WebExpress.UI.WebComponent
                     if (customAttribute.AttributeType == typeof(SectionAttribute))
                     {
                         section = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
+                    }
+                    else if (customAttribute.AttributeType == typeof(OrderAttribute))
+                    {
+                        try
+                        {
+                            order = Convert.ToInt32(customAttribute.ConstructorArguments.FirstOrDefault().Value);
+                        }
+                        catch 
+                        { 
+                        }
                     }
                 }
 
@@ -149,7 +160,8 @@ namespace WebExpress.UI.WebComponent
                                     Cache = cache,
                                     Log = Context.Log
                                 },
-                                Component = component
+                                Component = component,
+                                Order = order
                             });
 
                             Context.Log.Info(message: I18N("webexpress.ui:componentmanager.register"), args: new object[] { component.Name, key, moduleID, module.Application.ApplicationID });
@@ -174,7 +186,8 @@ namespace WebExpress.UI.WebComponent
                                 Cache = cache,
                                 Log = Context.Log
                             },
-                            Component = component
+                            Component = component,
+                            Order = order
                         });
 
                         Context.Log.Info(message: I18N("webexpress.ui:componentmanager.register"), args: new object[] { component.Name, section, moduleID, module.Application.ApplicationID });
@@ -186,6 +199,14 @@ namespace WebExpress.UI.WebComponent
                     Context.Log.Info(message: I18N("componentmanager.error.section"));
                 }
 
+            }
+
+            foreach (var modules in Dictionary)
+            {
+                foreach (var section in modules.Value)
+                {
+                    section.Value.Sort(new ComponentItemComparer());
+                }
             }
         }
 
