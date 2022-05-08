@@ -21,5 +21,20 @@
         /// Liefert oder setzt die Url des Bildes oder null
         /// </summary>
         public string Image { get; set; }
+
+        /// <summary>
+        /// Liefert oder setzt die Beschreibung
+        /// </summary>
+        public string Description { get; set; }
+
+        /// <summary>
+        /// Liefert oder setzt die Farbe
+        /// </summary>
+        public string Color { get; set; }
+
+        /// <summary>
+        /// Liefert oder setzt den Befehl (z.B. Hinzufügen)
+        /// </summary>
+        public string Instruction { get; set; }
     }
 }

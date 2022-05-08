@@ -17,6 +17,7 @@ class restSelectionCtrl extends selectionCtrl {
         super(settings);
 
         this._optionUri = settings.OptionUri;
+        this._optionfilter = function (x, y) { return true; };
 
         this._container.on('show.bs.dropdown', function () {
             this.receiveData(this._filter.val());

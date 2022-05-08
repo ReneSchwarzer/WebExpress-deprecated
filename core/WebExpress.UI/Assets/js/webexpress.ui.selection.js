@@ -15,6 +15,7 @@ class selectionCtrl extends events {
     _values = []; // Arry mit ausgewählten IDs aus _options
     _placeholder = null;
     _multiselect = false;
+    _optionfilter = function (x, y) { return x?.toLowerCase().startsWith(y?.toLowerCase()); };
 
     /**
      * Konstruktor
@@ -107,8 +108,9 @@ class selectionCtrl extends events {
                     let description = option.Description !== undefined && option.Description != null && option.Description.length > 0 ? option.Description : null;
                     let image = option.Image !== undefined && option.Image != null ? option.Image : null;
                     let color = option.Color !== undefined && option.Color != null ? option.Color : 'text-dark';
+                    let instruction = option.Instruction !== undefined && option.Instruction != null ? "<small>(" + option.Instruction + ")</small>": "";
                     let li = $("<li class='dropdown-item'/>");
-                    let a = $("<a class='link " + option.Color + "' href='javascript:void(0)'>" + option.Label + "</a>");
+                    let a = $("<a class='link " + color + "' href='javascript:void(0)'>" + option.Label + "</a>" + instruction);
                     let p = $("<p class='small text-muted'>" + description + "</p>");
 
                     if (image != null) {
@@ -130,14 +132,6 @@ class selectionCtrl extends events {
                         }
                     }
 
-                    if (id == this.value) {
-                        li.addClass("active");
-                        a.removeClass();
-                        a.addClass("link text-white");
-                        p.removeClass();
-                        p.addClass("small text-white");
-                    }
-
                     li.click(function () {
                         if (!this._multiselect) {
                             this.value = [];
@@ -152,7 +146,7 @@ class selectionCtrl extends events {
                         this.update();
                     }.bind(this));
 
-                    if (option.Label?.toLowerCase().startsWith(this._filter.val()?.toLowerCase())) {
+                    if (this._optionfilter(option.Label, this._filter.val())) {
                         this._dropdownoptions.append(li);
                     }
                 }
@@ -198,7 +192,7 @@ class selectionCtrl extends events {
 
     /**
      * Setzt die Optionen
-     * @param data Ein Array mit ObjektIDs
+     * @param data Ein Array mit ObjektIDs {ID, Label, Description, Image, Color, Instruction}
      */
     set options(options) {
         // selektierte Optionen ermitteln

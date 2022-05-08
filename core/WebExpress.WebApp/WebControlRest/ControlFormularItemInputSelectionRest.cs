@@ -43,11 +43,15 @@ namespace WebExpress.WebApp.WebControlRest
 
             var jsonOptions = new JsonSerializerOptions { WriteIndented = false };
             var settingsJson = JsonSerializer.Serialize(settings, jsonOptions);
+            var optionsJson = JsonSerializer.Serialize(Options, jsonOptions);
             var builder = new StringBuilder();
+            
             builder.AppendLine($"{{");
             builder.AppendLine($"let settings = { settingsJson };");
+            builder.AppendLine($"var options = { optionsJson };");
             builder.AppendLine($"let container = $('#{ id }');");
             builder.AppendLine($"let obj = new restSelectionCtrl(settings);");
+            builder.AppendLine($"obj.options = options;");
             builder.AppendLine($"obj.receiveData();");
             builder.AppendLine($"obj.value = ['{ Value }'];");
             builder.AppendLine($"obj.on('webexpress.ui.change.filter', function(key) {{ obj.receiveData(key); }});");
@@ -58,7 +62,7 @@ namespace WebExpress.WebApp.WebControlRest
             builder.AppendLine($"container.replaceWith(obj.getCtrl);");
             builder.AppendLine($"}}");
 
-            return builder.ToString();
+            return builder.ToString();            
         }
     }
 }

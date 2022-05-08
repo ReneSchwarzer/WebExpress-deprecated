@@ -128,19 +128,19 @@ namespace WebExpress.UI.WebControl
             var optionsJson = JsonSerializer.Serialize(Options, jsonOptions);
             var builder = new StringBuilder();
 
-            builder.Append($"var options = { optionsJson };");
-            builder.Append($"var settings = { settingsJson };");
-            builder.Append($"var container = $('#{ id }');");
-            builder.Append($"var obj = new selectionCtrl(settings);");
-            builder.Append($"obj.options = options;");
-            builder.Append($"obj.value = ['{ Value }'];");
+            builder.AppendLine($"let options = { optionsJson };");
+            builder.AppendLine($"let settings = { settingsJson };");
+            builder.AppendLine($"let container = $('#{ id }');");
+            builder.AppendLine($"let obj = new selectionCtrl(settings);");
+            builder.AppendLine($"obj.options = options;");
+            builder.AppendLine($"obj.value = ['{ Value }'];");
 
             if (OnChange != null)
             {
-                builder.Append($"obj.on('webexpress.ui.change.value', { OnChange });");
+                builder.AppendLine($"obj.on('webexpress.ui.change.value', { OnChange });");
             }
 
-            builder.Append($"container.replaceWith(obj.getCtrl);");
+            builder.AppendLine($"container.replaceWith(obj.getCtrl);");
 
             return builder.ToString();
         }
