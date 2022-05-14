@@ -2,12 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Message;
+using WebExpress.WebApp.Wql;
 using WebExpress.WebResource;
 
 namespace WebExpress.WebApp.WebResource
 {
-    public abstract class ResourceRestCrud : ResourceRest
+    public abstract class ResourceRestCrud<T> : ResourceRest where T : class, new()
     {
+        /// <summary>
+        /// Liefert oder setzt das Speerobjekt
+        /// </summary>
+        protected object Guard { get; set; }
+
         /// <summary>
         /// Verarbeitung des GET-Request
         /// </summary>
@@ -18,11 +24,10 @@ namespace WebExpress.WebApp.WebResource
         /// <summary>
         /// Verarbeitung des GET-Request
         /// </summary>
-        /// <param name="id">Die ID oder null wenn nicht gefiltert werden soll</param>
-        /// <param name="search">Ein Suchstring oder null wenn nicht gefiltert werden soll</param>
+        /// <param name="wql">Der Filter</param>
         /// <param name="request">Die Anfrage</param>
         /// <returns>Eine Aufzählung, welche JsonSerializer serialisiert werden kann.</returns>
-        public abstract IEnumerable<object> GetData(string id, string search, Request request);
+        public abstract IEnumerable<T> GetData(WqlStatement wql, Request request);
 
         /// <summary>
         /// Verarbeitung des GET-Request
@@ -32,8 +37,7 @@ namespace WebExpress.WebApp.WebResource
         public override object GetData(Request request)
         {
             var itemCount = 50;
-            var id = request.GetParameter("id");
-            var search = request.GetParameter("search");
+            var wql = request.HasParameter("wql") ? request.GetParameter("wql").Value : string.Empty;
             var page = request.GetParameter("page");
             var columns = request.HasParameter("columns");
             var pagenumber = !string.IsNullOrWhiteSpace(page?.Value) ? Convert.ToInt32(page?.Value) : 0;
@@ -43,17 +47,20 @@ namespace WebExpress.WebApp.WebResource
                 return new { Columns = GetColumns(request) };
             }
 
-            var data = GetData(id?.Value, search?.Value.ToLower(), request);
-
-            var count = data.Count();
-            var totalpage = Math.Round(count / (double)itemCount, MidpointRounding.ToEven);
-
-            if (page == null)
+            lock (Guard ?? new object())
             {
-                return new { Data = data };
-            }
+                var data = GetData(new WqlStatement(wql), request);
 
-            return new { Data = data.Skip(itemCount * pagenumber).Take(itemCount), Pagination = new { PageNumber = pagenumber, Totalpage = totalpage } };
+                var count = data.Count();
+                var totalpage = Math.Round(count / (double)itemCount, MidpointRounding.ToEven);
+
+                if (page == null)
+                {
+                    return new { Data = data };
+                }
+
+                return new { Data = data.Skip(itemCount * pagenumber).Take(itemCount), Pagination = new { PageNumber = pagenumber, Totalpage = totalpage } };
+            }
         }
     }
 }

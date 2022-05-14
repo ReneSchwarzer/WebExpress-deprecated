@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Message;
+using WebExpress.WebApp.Model;
 using WebExpress.WebApp.WebResource;
 using WebExpress.WebApp.WebUser;
+using WebExpress.WebApp.Wql;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
 using static WebExpress.Internationalization.InternationalizationManager;
@@ -17,7 +19,7 @@ namespace WebExpress.WebApp.WebAPI.V1
     [Path("/api/v1")]
     [Module("webexpress.webapp")]
     [Optional]
-    public sealed class RestUserManagement : ResourceRestCrud
+    public sealed class RestUserManagement : ResourceRestCrud<WebItemUser>
     {
         /// <summary>
         /// Konstruktor
@@ -67,38 +69,22 @@ namespace WebExpress.WebApp.WebAPI.V1
         /// <summary>
         /// Verarbeitung des GET-Request
         /// </summary>
-        /// <param name="id">Die ID oder null wenn nicht gefiltert werden soll</param>
-        /// <param name="search">Ein Suchstring oder null wenn nicht gefiltert werden soll</param>
+        /// <param name="wql">Der Filter</param>
         /// <param name="request">Die Anfrage</param>
         /// <returns>Eine Aufzählung, welche JsonSerializer serialisiert werden kann.</returns>
-        public override IEnumerable<object> GetData(string id, string search, Request request)
+        public override IEnumerable<WebItemUser> GetData(WqlStatement wql, Request request)
         {
-            var users = UserManager.Users as IEnumerable<User>;
+            var users = UserManager.Users.AsQueryable();
+            users = wql.Apply(users);
 
-            if (id != null)
-            {
-                users = users.Where(x => x.ID.Equals(id));
-            }
-
-            if (search != null)
-            {
-                users = users.Where
-                (
-                    x =>
-                    x.Login.Contains(search, System.StringComparison.OrdinalIgnoreCase) ||
-                    $"{ x.Lastname }, { x.Firstname }".Contains(search, System.StringComparison.OrdinalIgnoreCase) ||
-                    x.Email.Contains(search, System.StringComparison.OrdinalIgnoreCase)
-                );
-            }
-
-            return users.Select(x => (object)new
+            return users.Select(x => new WebItemUser()
             {
                 ID = x.ID,
                 Login = x.Login,
                 Firstname = x.Firstname,
                 Lastname = x.Lastname,
                 Email = x.Email,
-                Groups = x.Groups.Select(y => new { ID = y.ID, Name = y.Name })
+                Groups = x.Groups.Select(y => new WebItemGroup() { ID = y.ID, Name = y.Name })
             });
         }
 

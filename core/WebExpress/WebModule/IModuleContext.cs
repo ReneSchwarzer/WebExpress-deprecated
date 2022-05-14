@@ -48,6 +48,11 @@ namespace WebExpress.WebModule
         IUri ContextPath { get; }
 
         /// <summary>
+        /// Liefert das Datenverzeichnis. Dieser wird in dem DataPath des Servers eingehangen.
+        /// </summary>
+        string DataPath { get; }
+
+        /// <summary>
         /// Liefert oder setzt die IconUrl
         /// </summary>
         IUri Icon { get; }

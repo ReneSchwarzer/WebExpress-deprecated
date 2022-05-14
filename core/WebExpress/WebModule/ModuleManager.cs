@@ -67,6 +67,7 @@ namespace WebExpress.WebModule
                 var description = string.Empty;
                 var contextPath = string.Empty;
                 var assetPath = string.Empty;
+                var dataPath = string.Empty;
                 var applicationID = string.Empty;
 
                 foreach (var customAttribute in type.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IModuleAttribute))))
@@ -99,6 +100,11 @@ namespace WebExpress.WebModule
                     if (customAttribute.AttributeType == typeof(AssetPathAttribute))
                     {
                         assetPath = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
+                    }
+
+                    if (customAttribute.AttributeType == typeof(DataPathAttribute))
+                    {
+                        dataPath = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
 
                     if (customAttribute.AttributeType == typeof(ApplicationAttribute))
@@ -138,6 +144,7 @@ namespace WebExpress.WebModule
                         Icon = UriRelative.Combine(cp, contextPath, icon),
                         AssetPath = Path.GetFullPath(Path.Combine(application.AssetPath, assetPath)),
                         ContextPath = UriRelative.Combine(cp, contextPath),
+                        DataPath = Path.GetFullPath(Path.Combine(application.DataPath, dataPath)),
                         Log = Context.Log
                     };
 

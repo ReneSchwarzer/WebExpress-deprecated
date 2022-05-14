@@ -38,7 +38,7 @@ class restTableCtrl extends tableCtrl {
     receiveData() {
         if (this._filter === undefined || this._filter == null) { this._filter = ""; }
         if (this._page === undefined || this._page == null) { this._page = 0; }
-        $.ajax({ type: "GET", url: this._restUri + "?search=" + this._filter + "&page=" + this._page, dataType: 'json', }).then(function (response) {
+        $.ajax({ type: "GET", url: this._restUri + "?wql=" + this._filter + "&page=" + this._page, dataType: 'json', }).then(function (response) {
             var data = response.Data;
             this.clear();
             this.addRange(data);

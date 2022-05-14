@@ -38,7 +38,7 @@ namespace WebExpress.WebModule
         public string Description { get; internal set; }
 
         /// <summary>
-        /// Liefert das Dokumentenverzeichnis. Dieser wird in dem AssetPath des Servers eingehangen.
+        /// Liefert oder setzt das Dokumentenverzeichnis. Dieser wird in dem AssetPath des Servers eingehangen.
         /// </summary>
         public string AssetPath { get; internal set; }
 
@@ -46,6 +46,11 @@ namespace WebExpress.WebModule
         /// Liefert oder setzt den Kontextpfad Dieser wird in dem ContextPath des Servers eingehangen.
         /// </summary>
         public IUri ContextPath { get; internal set; }
+
+        /// <summary>
+        /// Liefert oder setzt das Datenverzeichnis. Dieser wird in dem DataPath des Servers eingehangen.
+        /// </summary>
+        public string DataPath { get; internal set; }
 
         /// <summary>
         /// Liefert oder setzt die IconUrl

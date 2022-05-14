@@ -250,7 +250,7 @@ namespace WebExpress.UI.WebControl
 
             if (!string.IsNullOrWhiteSpace(RedirectUri?.ToString()))
             {
-               // context.Page.Redirecting(RedirectUri);
+                context.Page.Redirecting(RedirectUri);
             }
         }
 
@@ -262,7 +262,6 @@ namespace WebExpress.UI.WebControl
         public override IHtmlNode Render(RenderContext context)
         {
             var renderContext = new RenderContextFormular(context, this);
-            //var formName = Name != null ? Name.StartsWith("formular") ? Name : $"formular-{ Name }" : "formular";
             var fill = false;
             var process = false;
 
@@ -296,7 +295,6 @@ namespace WebExpress.UI.WebControl
             Initialize(renderContext);
             (Items as List<ControlFormularItem>).ForEach(x => x?.Initialize(renderContext));
             OnInitialize(renderContext);
-            //SubmitType.Initialize(renderContext);
             SubmitButton.Initialize(renderContext);
 
             // Formular mit Daten füllen
@@ -324,7 +322,6 @@ namespace WebExpress.UI.WebControl
                 Class = GetClasses(),
                 Style = GetStyles(),
                 Role = Role,
-                //Name = formName.ToLower(),
                 Action = Uri?.ToString(),
                 Method = "post",
                 Enctype = TypeEnctype.None

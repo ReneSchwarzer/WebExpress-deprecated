@@ -70,11 +70,17 @@ class tableCtrl extends events {
                 if (column.Render !== undefined && column.Render != null && (typeof column.Render === 'string' || column.Render instanceof String)) {
                     let cell = $("<td/>");
                     let render = Function("cell", "item", column.Render);
-                    cell.append(render(cell, row));
+                    let renderResult = render(cell, row);
+                    if (renderResult !== undefined && renderResult != null) {
+                        cell.append(renderResult);
+                    }
                     th.append(cell);
                 } else if (column.Render !== undefined && column.Render != null) {
                     let cell = $("<td/>");
-                    cell.append(column.Render(cell, row));
+                    let renderResult = render(cell, row);
+                    if (renderResult !== undefined && renderResult != null) {
+                        cell.append(renderResult);
+                    }
                     th.append(cell);
                 }
             });
