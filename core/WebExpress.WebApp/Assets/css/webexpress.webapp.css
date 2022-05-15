@@ -30,6 +30,11 @@
     .popupnotification > div {
     }
 
+        .popupnotification > div > .d-flex > img {
+            width: 80px;
+            padding-right: 1em;
+        }
+
         .popupnotification > div > .progress {
             height: 3px;
         }

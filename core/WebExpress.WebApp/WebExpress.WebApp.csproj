@@ -14,7 +14,7 @@
   <ItemGroup>
     <None Remove="Assets\css\webexpress.webapp.css" />
     <None Remove="Assets\js\webexpress.webapp.js" />
-    <None Remove="Assets\js\webexpress.webapp.notification.js" />
+    <None Remove="Assets\js\webexpress.webapp.popupnotification.js" />
     <None Remove="Assets\js\webexpress.webapp.selection.js" />
     <None Remove="Assets\js\webexpress.webapp.table.js" />
     <None Remove="Internationalization\de" />
@@ -23,7 +23,7 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Assets\css\webexpress.webapp.css" />
-    <EmbeddedResource Include="Assets\js\webexpress.webapp.notification.js" />
+    <EmbeddedResource Include="Assets\js\webexpress.webapp.popupnotification.js" />
     <EmbeddedResource Include="Assets\js\webexpress.webapp.table.js" />
     <EmbeddedResource Include="Assets\js\webexpress.webapp.selection.js" />
     <EmbeddedResource Include="Assets\js\webexpress.webapp.js" />

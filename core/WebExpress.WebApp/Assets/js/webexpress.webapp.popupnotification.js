@@ -39,17 +39,27 @@ class popupNotificationCtrl {
             data.forEach(message => {
                 this._container.children().remove();
 
-                let alert = $("<div class='alert alert-warning alert-dismissible fade show' role='alert'></div");
+                let alert = $("<div class='alert " + message.Type + " alert-dismissible fade show' role='alert'></div");
                 let button = $("<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>");
                 let progress = $("<div class='progress mt-2'></div>");
                 let progressbar = $("<div class='progress-bar progress-bar-striped progress-bar-animated bg-info' role='progressbar' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100' style='width: 100%'></div>");
+                let content = $("<div class='d-flex justify-content-start'/>");
 
                 button.click(function () {
                     $.ajax({ type: "DELETE", url: this._restUri + "/" + message.ID, dataType: 'json' });
                 }.bind(this));
 
+                if (message.Heading !== undefined && message.Heading != null) {
+                    alert.append($("<h5>" + message.Heading + "</h5>"));
+                }
+
+                if (message.Icon !== undefined && message.Icon != null) {
+                    content.append($("<img src='" + message.Icon + "' alt='" + message.Heading + "'/>"));
+                }
+
+                content.append($("<div>" + message.Message + "</div>"));
                 progress.append(progressbar);
-                alert.append(message.Message);
+                alert.append(content);
                 alert.append(button);
                 
                 if (message.Durability > 0) {
