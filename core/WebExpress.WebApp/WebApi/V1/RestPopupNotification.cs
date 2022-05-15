@@ -1,8 +1,8 @@
-﻿using WebExpress.WebAttribute;
+﻿using System.Collections;
 using WebExpress.Message;
 using WebExpress.WebApp.WebNotificaation;
+using WebExpress.WebAttribute;
 using WebExpress.WebResource;
-using System.Collections;
 
 namespace WebExpress.WebApp.WebAPI.V1
 {
@@ -13,6 +13,7 @@ namespace WebExpress.WebApp.WebAPI.V1
     [Segment("popupnotifications", "")]
     [Path("/api/v1")]
     [Module("webexpress.webapp")]
+    [IncludeSubPaths(true)]
     [Optional]
     public sealed class RestPopupNotification : ResourceRest
     {
@@ -40,6 +41,19 @@ namespace WebExpress.WebApp.WebAPI.V1
         public override ICollection GetData(Request request)
         {
             return (ICollection)NotificationManager.GetNotifications(request);
+        }
+
+        /// <summary>
+        /// Verarbeitung des DELETE-Request
+        /// </summary>
+        /// <param name="id">Die zu löschende ID</param>
+        /// <param name="request">Die Anfrage</param>
+        /// <returns>Das Ergebnis der Löschung</returns>
+        public override bool DeleteData(string id, Request request)
+        {
+            NotificationManager.RemoveNotification(request, id);
+
+            return true;
         }
     }
 }

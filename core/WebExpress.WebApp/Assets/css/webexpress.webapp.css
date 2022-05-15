@@ -1,11 +1,9 @@
-﻿.sidebar 
-{
+﻿.sidebar {
     overflow: auto;
     min-height: 100%;
 }
 
-.proterty 
-{
+.proterty {
     overflow: auto;
     display: block;
     background: #C6E2FF;
@@ -20,8 +18,7 @@
     /*grid-template-rows: 1em auto;*/
 }
 
-.popupnotification 
-{
+.popupnotification {
     position: fixed;
     z-index: 999;
     top: 5em;
@@ -30,7 +27,12 @@
     width: 25em;
 }
 
-.footer 
-{
-    
+    .popupnotification > div {
+    }
+
+        .popupnotification > div > .progress {
+            height: 3px;
+        }
+
+.footer {
 }

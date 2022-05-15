@@ -111,19 +111,12 @@ namespace WebExpress.UI.WebControl
                 Class = "modal-title"
             };
 
-            var headerButtonLabel = new HtmlElementTextSemanticsSpan(new HtmlText("&times;"))
+            var headerButton = new HtmlElementFieldButton()
             {
+                Class = "btn-close"
             };
-
-            headerButtonLabel.AddUserAttribute("aria-hidden", "true");
-
-            var headerButton = new HtmlElementFieldButton(headerButtonLabel)
-            {
-                Class = "close"
-            };
-
             headerButton.AddUserAttribute("aria-label", "close");
-            headerButton.AddUserAttribute("data-dismiss", "modal");
+            headerButton.AddUserAttribute("data-bs-dismiss", "modal");
 
             var header = new HtmlElementTextContentDiv(headerText, headerButton)
             {
@@ -147,15 +140,16 @@ namespace WebExpress.UI.WebControl
                 Color = Formular.SubmitButton.Color,
                 Type = TypeButton.Submit,
                 Value = "1",
-                Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None)
+                Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None),
+                OnClick = new PropertyOnClick($"$('#{ Formular?.SubmitType.ID }').val('submit');")
             };
-
+            
             var cancelFooterButton = new ControlButtonLink()
             {
                 Text = I18N(context.Culture, "webexpress.ui:modal.close.label")
             }.Render(context) as HtmlElement;
 
-            cancelFooterButton.AddUserAttribute("data-dismiss", "modal");
+            cancelFooterButton.AddUserAttribute("data-bs-dismiss", "modal");
 
             footer = new HtmlElementTextContentDiv(submitFooterButton.Render(new RenderContextFormular(context, Formular)), cancelFooterButton)
             {

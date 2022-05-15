@@ -91,9 +91,10 @@ namespace WebExpress.WebApp.WebAPI.V1
         /// <summary>
         /// Verarbeitung des DELETE-Request
         /// </summary>
+        /// <param name="id">Die zu löschende ID</param>
         /// <param name="request">Die Anfrage</param>
         /// <returns>Das Ergebnis der Löschung</returns>
-        public override bool DeleteData(Request request)
+        public override bool DeleteData(string id, Request request)
         {
             return true;
         }

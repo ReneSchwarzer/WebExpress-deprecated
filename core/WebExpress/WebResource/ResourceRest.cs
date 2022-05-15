@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq;
 using System.Text.Json;
 using WebExpress.Message;
 
@@ -36,9 +37,10 @@ namespace WebExpress.WebResource
         /// <summary>
         /// Verarbeitung des DELETE-Request
         /// </summary>
+        /// <param name="id">Die zu löschende ID</param>
         /// <param name="request">Die Anfrage</param>
         /// <returns>Das Ergebnis der Löschung</returns>
-        public virtual bool DeleteData(Request request)
+        public virtual bool DeleteData(string id, Request request)
         {
             return false;
         }
@@ -68,7 +70,7 @@ namespace WebExpress.WebResource
                     }
                 case RequestMethod.DELETE:
                     {
-                        content = JsonSerializer.Serialize(DeleteData(request), options);
+                        content = JsonSerializer.Serialize(DeleteData(request.Uri.Path.Last().Value, request), options);
 
                         break;
                     }

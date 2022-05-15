@@ -152,7 +152,7 @@ namespace WebExpress.Message
                 "GET" => RequestMethod.GET,
                 "POST" => RequestMethod.POST,
                 "PUT" => RequestMethod.PUT,
-                "DELETE" => RequestMethod.GET,
+                "DELETE" => RequestMethod.DELETE,
                 "HEAD" => RequestMethod.HEAD,
                 "PATCH" => RequestMethod.PATCH,
                 _ => RequestMethod.GET

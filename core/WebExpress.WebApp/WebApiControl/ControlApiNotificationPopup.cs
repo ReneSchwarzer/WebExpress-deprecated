@@ -2,6 +2,8 @@
 using WebExpress.WebModule;
 using WebExpress.UI.WebControl;
 using WebExpress.WebPage;
+using System.Text.Json;
+using System.Text;
 
 namespace WebExpress.WebApp.WebApiControl
 {
@@ -28,9 +30,26 @@ namespace WebExpress.WebApp.WebApiControl
         public override IHtmlNode Render(RenderContext context)
         {
             var module = ModuleManager.GetModule(context.Application, "webexpress.webapp");
-            var code = $"updatePopupNotification('{ ID }', '{ module?.ContextPath.Append("api/v1/popupnotifications") }', '{ module?.ContextPath.Append("api/v1/popupconfirmnotification") }')";
 
-            context.VisualTree.AddScript("webexpress.webapp:controlapinotificationpopup", code);
+            var settings = new
+            {
+                ID = "26E517F5-56F7-485E-A212-6033618708F3",
+                RestUri = module?.ContextPath.Append("api/v1/popupnotifications")?.ToString(),
+                Intervall = 15000
+            };
+
+            var jsonOptions = new JsonSerializerOptions { WriteIndented = false };
+            var settingsJson = JsonSerializer.Serialize(settings, jsonOptions);
+            var builder = new StringBuilder();
+
+            builder.AppendLine($"{{");
+            builder.AppendLine($"let settings = { settingsJson };");
+            builder.AppendLine($"let container = $('#{ ID }');");
+            builder.AppendLine($"let obj = new popupNotificationCtrl(settings);");
+            builder.AppendLine($"container.replaceWith(obj.getCtrl);");
+            builder.AppendLine($"}}");
+
+            context.VisualTree.AddScript("webexpress.webapp:controlapinotificationpopup", builder.ToString());
 
             return base.Render(context);
         }

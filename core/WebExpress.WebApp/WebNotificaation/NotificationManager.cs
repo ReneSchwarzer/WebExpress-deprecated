@@ -8,6 +8,11 @@ namespace WebExpress.WebApp.WebNotificaation
     public static class NotificationManager
     {
         /// <summary>
+        /// Liefert den Notfication-Speicher für globale Benachrichtigungern
+        /// </summary>
+        private static IDictionary<string, Notification> GlobalNotifications { get; } = new Dictionary<string, Notification>();
+
+        /// <summary>
         /// Erstellt eine neue Benachrichtigung in der Session
         /// </summary>
         /// <param name="request">Die Anfrage</param>
@@ -18,18 +23,33 @@ namespace WebExpress.WebApp.WebNotificaation
         {
             var notification = new Notification() { Message = message, Durability = durability };
 
-            if (!request.Session.Properties.ContainsKey(typeof(SessionPropertyNotification)))
+            if (request == null)
             {
-                request.Session.Properties.Add(typeof(SessionPropertyNotification), new SessionPropertyNotification());
-            }
-
-            var notificationProperty = request.Session.Properties[typeof(SessionPropertyNotification)] as SessionPropertyNotification;
-
-            if (!notificationProperty.ContainsKey(notification.ID))
-            {
-                lock (notificationProperty)
+                if (!GlobalNotifications.ContainsKey(notification.ID))
                 {
-                    notificationProperty.Add(notification.ID, notification);
+                    // Globale Benachrichtigung
+                    lock (GlobalNotifications)
+                    {
+                        GlobalNotifications.Add(notification.ID, notification);
+                    }
+                }
+            }
+            else
+            {
+                // Benutzerbenachrichtigung
+                if (!request.Session.Properties.ContainsKey(typeof(SessionPropertyNotification)))
+                {
+                    request.Session.Properties.Add(typeof(SessionPropertyNotification), new SessionPropertyNotification());
+                }
+
+                var notificationProperty = request.Session.Properties[typeof(SessionPropertyNotification)] as SessionPropertyNotification;
+
+                if (!notificationProperty.ContainsKey(notification.ID))
+                {
+                    lock (notificationProperty)
+                    {
+                        notificationProperty.Add(notification.ID, notification);
+                    }
                 }
             }
 
@@ -43,10 +63,21 @@ namespace WebExpress.WebApp.WebNotificaation
         /// <returns>Die Benachrichtigungen</returns>
         public static ICollection<Notification> GetNotifications(Request request)
         {
+            var list = new List<Notification>();
+
+            var scrapGlobal = GlobalNotifications.Values.Where(x => x.Durability >= 0 && x.Created.AddMilliseconds(x.Durability) < DateTime.Now).ToList();
+            lock (GlobalNotifications)
+            {
+                // Abgelaufene Benachrichtigungen entfernen
+                scrapGlobal.ForEach(x => GlobalNotifications.Remove(x.ID));
+            }
+
+            list.AddRange(GlobalNotifications.Values);
+
             if (request.Session.Properties.ContainsKey(typeof(SessionPropertyNotification)) &&
                 request.Session.Properties[typeof(SessionPropertyNotification)] is SessionPropertyNotification notificationProperty)
             {
-                var scrap = notificationProperty.Values.Where(x => x.Created.AddMilliseconds(x.Durability) < DateTime.Now).ToList();
+                var scrap = notificationProperty.Values.Where(x => x.Durability >= 0 && x.Created.AddMilliseconds(x.Durability) < DateTime.Now).ToList();
 
                 lock (notificationProperty)
                 {
@@ -54,10 +85,11 @@ namespace WebExpress.WebApp.WebNotificaation
                     scrap.ForEach(x => notificationProperty.Remove(x.ID));
                 }
 
-                return notificationProperty.Values;
+                
+                list.AddRange(notificationProperty.Values);
             }
 
-            return new List<Notification>();
+            return list;
         }
 
         /// <summary>
@@ -67,22 +99,42 @@ namespace WebExpress.WebApp.WebNotificaation
         /// <param name="id">Die BenachrichtigungsID</param>
         public static void RemoveNotification(Request request, string id)
         {
+            if (GlobalNotifications.ContainsKey(id))
+            {
+                lock (GlobalNotifications)
+                {
+                    // Benachrichtigungen entfernen
+                    GlobalNotifications.Remove(id);
+                }
+            }
+
+            var scrapGlobal = GlobalNotifications.Values.Where(x => x.Durability >= 0 && x.Created.AddMilliseconds(x.Durability) < DateTime.Now).ToList();
+            
+            lock (GlobalNotifications)
+            {
+                // Abgelaufene Benachrichtigungen entfernen
+                scrapGlobal.ForEach(x => GlobalNotifications.Remove(x.ID));
+            }
+
             if (request.Session.Properties.ContainsKey(typeof(SessionPropertyNotification)) &&
                 request.Session.Properties[typeof(SessionPropertyNotification)] is SessionPropertyNotification notificationProperty)
             {
+                if (notificationProperty.ContainsKey(id))
+                {
+                    lock (notificationProperty)
+                    {
+                        // Benachrichtigungen entfernen
+                        notificationProperty.Remove(id);
+                    }
+                }
+
                 var scrap = notificationProperty.Values.Where(x => x.Created.AddMilliseconds(x.Durability) < DateTime.Now).ToList();
 
                 lock (notificationProperty)
                 {
                     // Abgelaufene Benachrichtigungen entfernen
                     scrap.ForEach(x => notificationProperty.Remove(x.ID));
-                }
-
-                lock (notificationProperty)
-                {
-                    // Abgelaufene Benachrichtigungen entfernen
-                    notificationProperty.Remove(id);
-                }
+                }    
             }
         }
     }
