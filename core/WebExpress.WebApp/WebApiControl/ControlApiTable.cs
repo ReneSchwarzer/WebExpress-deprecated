@@ -7,9 +7,9 @@ using WebExpress.UI.WebControl;
 using WebExpress.Uri;
 using WebExpress.WebPage;
 
-namespace WebExpress.WebApp.WebControlRest
+namespace WebExpress.WebApp.WebApiControl
 {
-    public class ControlTableRest : ControlPanel, IControlRest
+    public class ControlApiTable : ControlPanel, IControlApi
     {
         /// <summary>
         /// Liefert oder setzt die Uri, welche die Daten ermittelt
@@ -21,7 +21,7 @@ namespace WebExpress.WebApp.WebControlRest
         /// Konstruktor
         /// </summary>
         /// <param name="id">Die ID</param>
-        public ControlTableRest(string id = null)
+        public ControlApiTable(string id = null)
             : base(id ?? Guid.NewGuid().ToString())
         {
         }
