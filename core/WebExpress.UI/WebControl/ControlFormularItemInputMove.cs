@@ -7,7 +7,7 @@ using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.UI.WebControl
 {
-    public class ControlFormularItemInputSelectionMove : ControlFormularItemInput
+    public class ControlFormularItemInputMove : ControlFormularItemInput
     {
         /// <summary>
         /// Liefert die Einträge
@@ -28,7 +28,7 @@ namespace WebExpress.UI.WebControl
         /// Konstruktor
         /// </summary>
         /// <param name="id">Die ID</param>
-        public ControlFormularItemInputSelectionMove(string id = null)
+        public ControlFormularItemInputMove(string id = null)
             : base(id)
         {
             Name = ID;
@@ -39,7 +39,7 @@ namespace WebExpress.UI.WebControl
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="items">Die Einträge</param>
-        public ControlFormularItemInputSelectionMove(string id, params ControlFormularItemInputSelectionItem[] items)
+        public ControlFormularItemInputMove(string id, params ControlFormularItemInputSelectionItem[] items)
             : this(id)
         {
             (Options as List<ControlFormularItemInputSelectionItem>).AddRange(items);
@@ -138,7 +138,7 @@ namespace WebExpress.UI.WebControl
             builder.Append($"var options = { optionsJson };");
             builder.Append($"var settings = { settingsJson };");
             builder.Append($"var container = $('#{ id }');");
-            builder.Append($"var obj = new selectionMoveCtrl(settings);");
+            builder.Append($"var obj = new moveCtrl(settings);");
             builder.Append($"obj.options = options;");
             builder.Append($"obj.value = { (!string.IsNullOrWhiteSpace(valuesJson) ? valuesJson : "[]")  };");
             builder.Append($"container.replaceWith(obj.getCtrl);");

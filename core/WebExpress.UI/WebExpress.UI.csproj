@@ -17,7 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Assets\css\bootstrap-datepicker3.css.map" />
     <None Remove="Assets\css\bootstrap-datepicker3.min.css" />
+    <None Remove="Assets\css\bootstrap.css.map" />
     <None Remove="Assets\css\bootstrap.min.css" />
     <None Remove="Assets\css\bootstrap.min.css.map" />
     <None Remove="Assets\css\Chart.min.css" />
@@ -28,8 +30,14 @@
     <None Remove="Assets\css\summernote-bs4.css" />
     <None Remove="Assets\css\summernote-bs5.min.css" />
     <None Remove="Assets\css\webexpress.ui.css" />
+    <None Remove="Assets\css\webexpress.ui.expand.css" />
     <None Remove="Assets\css\webexpress.ui.form.css" />
+    <None Remove="Assets\css\webexpress.ui.more.css" />
+    <None Remove="Assets\css\webexpress.ui.move.css" />
+    <None Remove="Assets\css\webexpress.ui.pagination.css" />
+    <None Remove="Assets\css\webexpress.ui.search.css" />
     <None Remove="Assets\css\webexpress.ui.selection.css" />
+    <None Remove="Assets\css\webexpress.ui.table.css" />
     <None Remove="Assets\fonts\fa-solid-900.eot" />
     <None Remove="Assets\fonts\fa-solid-900.ttf" />
     <None Remove="Assets\fonts\fa-solid-900.woff" />
@@ -46,6 +54,7 @@
     <None Remove="Assets\js\bootstrap-datepicker.de.min.js" />
     <None Remove="Assets\js\bootstrap-datepicker.js" />
     <None Remove="Assets\js\bootstrap-datepicker.min.js" />
+    <None Remove="Assets\js\bootstrap.js.map" />
     <None Remove="Assets\js\bootstrap.min.js" />
     <None Remove="Assets\js\bootstrap.min.js.map" />
     <None Remove="Assets\js\Chart.min.js" />
@@ -149,6 +158,7 @@
     <None Remove="Assets\js\webexpress.ui.expand.js" />
     <None Remove="Assets\js\webexpress.ui.js" />
     <None Remove="Assets\js\webexpress.ui.more.js" />
+    <None Remove="Assets\js\webexpress.ui.move.js" />
     <None Remove="Assets\js\webexpress.ui.pagination.js" />
     <None Remove="Assets\js\webexpress.ui.search.js" />
     <None Remove="Assets\js\webexpress.ui.selection.js" />
@@ -159,14 +169,21 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Assets\css\bootstrap-datepicker3.css.map" />
     <EmbeddedResource Include="Assets\css\bootstrap-datepicker3.min.css">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Assets\css\bootstrap.css.map" />
     <EmbeddedResource Include="Assets\css\bootstrap.min.css">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Assets\css\bootstrap.min.css.map" />
     <EmbeddedResource Include="Assets\css\Chart.min.css" />
+    <EmbeddedResource Include="Assets\css\webexpress.ui.expand.css" />
+    <EmbeddedResource Include="Assets\css\webexpress.ui.more.css" />
+    <EmbeddedResource Include="Assets\css\webexpress.ui.move.css" />
+    <EmbeddedResource Include="Assets\css\webexpress.ui.pagination.css" />
+    <EmbeddedResource Include="Assets\css\webexpress.ui.search.css" />
     <EmbeddedResource Include="Assets\css\webexpress.ui.selection.css">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -183,6 +200,7 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Assets\css\summernote-bs5.min.css" />
+    <EmbeddedResource Include="Assets\css\webexpress.ui.table.css" />
     <EmbeddedResource Include="Assets\fonts\fa-solid-900.eot" />
     <EmbeddedResource Include="Assets\fonts\fa-solid-900.ttf" />
     <EmbeddedResource Include="Assets\fonts\fa-solid-900.woff" />
@@ -204,6 +222,7 @@
     <EmbeddedResource Include="Assets\js\bootstrap-datepicker.min.js">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Assets\js\bootstrap.js.map" />
     <EmbeddedResource Include="Assets\js\bootstrap.min.js">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -317,8 +336,8 @@
     <EmbeddedResource Include="Assets\js\lang\summernote-de-DE.min.js">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Assets\js\webexpress.ui.move.js" />
     <EmbeddedResource Include="Assets\js\webexpress.ui.selection.js" />
-    <EmbeddedResource Include="Assets\js\webexpress.ui.selection.move.js" />
     <EmbeddedResource Include="Assets\js\webexpress.ui.more.js" />
     <EmbeddedResource Include="Assets\js\webexpress.ui.search.js" />
     <EmbeddedResource Include="Assets\js\webexpress.ui.expand.js" />

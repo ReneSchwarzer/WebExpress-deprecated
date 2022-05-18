@@ -19,7 +19,7 @@ class expandCtrl extends events {
     constructor(settings) {
         let id = settings.ID;
         let css = settings.CSS;
-        let header = settings.Header !== undefined ? settings.Header : "";
+        let header = settings.Header != null ? settings.Header : "";
         
         let expandheader = $("<span class='text-primary' aria-label='" + header + "'>" + header + "</span>");
         

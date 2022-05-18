@@ -17,8 +17,8 @@ class searchCtrl extends events {
     constructor(settings) {
         let id = settings.ID;
         let css = settings.CSS;
-        let placeholder = settings.Placeholder !== undefined ? settings.Placeholder : "";
-        let icon = settings.Icon !== undefined ? settings.Icon : "fas fa-search";
+        let placeholder = settings.Placeholder != null ? settings.Placeholder : "";
+        let icon = settings.Icon != null ? settings.Icon : "fas fa-search";
 
         let searchicon = $("<label><i class='" + icon + "'/></label>");
         let searchinput = $("<input type='text' placeholder='" + placeholder + "' aria-label='" + placeholder + "'/>");

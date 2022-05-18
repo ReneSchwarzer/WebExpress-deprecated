@@ -1,0 +1,29 @@
+.search {
+    position: relative;
+    border-radius: 4px;
+    display: flex !important;
+    flex-direction: row;
+    flex-wrap: nowrap !important;
+    align-items: center;
+}
+
+    .search > label {
+        margin-right: 0.5em;
+        color: #cccccc;
+    }
+
+    .search > input {
+        border: 0px;
+        outline: none;
+        flex-grow: 1 !important;
+    }
+
+    .search > span {
+        margin-left: 0.5em;
+        cursor: pointer;
+        color: #cccccc;
+    }
+
+        .search > span:hover {
+            color: #aaaaaa;
+        }

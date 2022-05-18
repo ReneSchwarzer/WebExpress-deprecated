@@ -20,7 +20,7 @@ class tableCtrl extends events {
         let id = settings.ID;
         let css = settings.CSS;
 
-        if (id !== undefined) {
+        if (id != null) {
             this._table.id = id;
         }
 
@@ -45,7 +45,7 @@ class tableCtrl extends events {
         let th = $("<tr/>");
 
         this._columns.forEach(function (column) {
-            if (column.render !== undefined) {
+            if (column.render != null) {
                 let cell = $("<td/>");
                 cell.append(column.render(cell, row));
                 th.append(cell);
@@ -67,18 +67,18 @@ class tableCtrl extends events {
             let th = $("<tr/>");
 
             columns.forEach(function (column) {
-                if (column.Render !== undefined && column.Render != null && (typeof column.Render === 'string' || column.Render instanceof String)) {
+                if (column.Render != null && (typeof column.Render === 'string' || column.Render instanceof String)) {
                     let cell = $("<td/>");
                     let render = Function("cell", "item", column.Render);
                     let renderResult = render(cell, row);
-                    if (renderResult !== undefined && renderResult != null) {
+                    if (renderResult != null && renderResult != null) {
                         cell.append(renderResult);
                     }
                     th.append(cell);
-                } else if (column.Render !== undefined && column.Render != null) {
+                } else if (column.Render != null) {
                     let cell = $("<td/>");
                     let renderResult = render(cell, row);
-                    if (renderResult !== undefined && renderResult != null) {
+                    if (renderResult != null && renderResult != null) {
                         cell.append(renderResult);
                     }
                     th.append(cell);
@@ -103,16 +103,16 @@ class tableCtrl extends events {
         this._columns.forEach(function (column) {
             let label = column.Label;
             let icon = column.Icon;
-            let width = column.Width !== undefined && column.Width != null ? column.Width + "%" : "auto";
+            let width = column.Width != null ? column.Width + "%" : "auto";
 
             let col = $("<col span='1' style='width: " + width + ";'>");
             let th = $("<th/>");
 
-            if (icon !== undefined && icon != null && (typeof icon === 'string' || icon instanceof String)) {
+            if (icon != null && (typeof icon === 'string' || icon instanceof String)) {
 
                 th.append($("<i class='" + icon + " me-2'/>"));
                 th.append(label);
-            } else if (icon !== undefined && icon != null) {
+            } else if (icon != null) {
                 icon.addClass("me-2");
                 th.append(icon);
                 th.append(label);

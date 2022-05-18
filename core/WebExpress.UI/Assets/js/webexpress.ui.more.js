@@ -18,22 +18,22 @@ class moreCtrl {
         let id = settings.ID;
         let css = settings.CSS;
         let menuCSS = settings.MenuCSS;
-        let label = settings.Label !== undefined ? settings.Label : "";
-        let icon = settings.Icon !== undefined ? settings.Icon : "fas fa-ellipsis-h";
+        let label = settings.Label != null ? settings.Label : "";
+        let icon = settings.Icon != null ? settings.Icon : "fas fa-ellipsis-h";
 
         let button = $("<button class='btn' type='button' data-bs-toggle='dropdown' aria-expanded='false'><i class='" + icon + " " + (label != "" ? "me-2" : "") + "'></i><span>" + label + "</span></button>");
         let ul = $("<ul class='dropdown-menu'/>");
 
-        if (menuCSS !== undefined) {
+        if (menuCSS != null) {
             ul.addClass(menuCSS);
         }
 
         options.forEach(function (option) {
-            let css = option.CSS !== undefined && option.CSS != null ? option.CSS : "dropdown-options";
+            let css = option.CSS != null ? option.CSS : "dropdown-options";
             let icon = option.Icon;
             let color = option.Color;
             let label = option.Label;
-            let url = option.Url !== undefined ? option.Url : "#";
+            let url = option.Url != null ? option.Url : "#";
             let onclick = option.OnClick;
 
             let li = $("<li/>");
@@ -42,14 +42,14 @@ class moreCtrl {
 
             if (css == "dropdown-item") {
                 let a = $("<a class='link " + color + "' href='#'/>");
-                if (icon !== undefined) {
+                if (icon != null) {
                     let span = $("<span class='me-2 " + icon + "'/>");
                     a.append(span);
                 }
-                if (css !== undefined) {
+                if (css != null) {
                     li.addClass(css);
                 }
-                if (onclick !== undefined) {
+                if (onclick != null) {
                     a.click(onclick);
                 }
 
@@ -58,7 +58,7 @@ class moreCtrl {
                 li.append(a);
             }
             else if (css == "dropdown-header") {
-                if (icon !== undefined) {
+                if (icon != null) {
                     let span = $("<span class='me-2 " + icon + "'/>");
                     li.append(span);
                 }
@@ -72,10 +72,10 @@ class moreCtrl {
             ul.append(li);
         });
 
-        if (id !== undefined) {
+        if (id != null) {
             this._container.id = id;
         }
-        if (css !== undefined) {
+        if (css != null) {
             this._container.addClass(css);
         }
 

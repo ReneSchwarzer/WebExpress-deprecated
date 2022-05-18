@@ -2,8 +2,8 @@
  * Auswahlfeld zum Aktivieren von Optionen
  * - webexpress.ui.change.value mit Parameter value
  */
-class selectionMoveCtrl extends events {
-    _container = $("<div class='selection-move'/>");
+class moveCtrl extends events {
+    _container = $("<div class='move'/>");
     _selectedList = $("<ul class='list-group list-group-flush'/>");
     _availableList = $("<ul class='list-group list-group-flush'/>");
     _buttonToSelectedAll = $("<button class='btn btn-primary btn-block' type='button'/>");
@@ -33,11 +33,11 @@ class selectionMoveCtrl extends events {
         let css = settings.CSS;
         let header = settings.Header;
         let buttons = settings.Buttons;
-        let selectedContainer = $("<div class='selection-move-list'/>");
+        let selectedContainer = $("<div class='move-list'/>");
         let selectedHeader = $("<span class='text-muted'>" + header.Selected + "</span>");
-        let availableContainer = $("<div class='selection-move-list'/>");
+        let availableContainer = $("<div class='move-list'/>");
         let availableHeader = $("<span class='text-muted'>" + header.Available + "</span>");
-        let buttonContainer = $("<div class='selection-move-button d-grid gap-2'/>");
+        let buttonContainer = $("<div class='move-button d-grid gap-2'/>");
         
         if (id !== undefined) {
             this._container.attr("id", id);
@@ -172,7 +172,7 @@ class selectionMoveCtrl extends events {
      * Aktualisierung des Steuerelementes
      */
     update() {
-        let values = this._values !== undefined && this._values != null ? this._values : [];
+        let values = this._values != null ? this._values : [];
         let comparison = (a, b) => a === b.ID;
         let relativeComplement = this._options.filter(b => values.every(a => !comparison(a, b)));
         let intersection = this._options.filter(b => values.includes(b.ID));
@@ -224,10 +224,10 @@ class selectionMoveCtrl extends events {
             let img = $("<img title='' src='" + currentValue.Image + "' draggable='false'/>");
             let icon = $("<i class='text-primary " + currentValue.Icon + "' draggable='false'/>");
             let a = $("<a class='link' href='javascript:void(0)' draggable='false'>" + "".concat(currentValue.Label) + "</a>");
-            if (currentValue.Icon !== undefined && currentValue.Icon != null) {
+            if (currentValue.Icon != null) {
                 li.append(icon);
             }
-            if (currentValue.Image !== undefined && currentValue.Image != null) {
+            if (currentValue.Image != null) {
                 li.append(img);
             }
             li.append(a);
@@ -280,10 +280,10 @@ class selectionMoveCtrl extends events {
             let img = $("<img title='' src='" + currentValue.Image + "' draggable='false'/>");
             let icon = $("<i class='text-primary " + currentValue.Icon + "' draggable='false'/>");
             let a = $("<a class='link' href='javascript:void(0)' draggable='flase'>" + "".concat(currentValue.Label) + "</a>");
-            if (currentValue.Icon !== undefined && currentValue.Icon != null) {
+            if (currentValue.Icon != null) {
                 li.append(icon);
             }
-            if (currentValue.Image !== undefined && currentValue.Image != null) {
+            if (currentValue.Image != null) {
                 li.append(img);
             }
             li.append(a);

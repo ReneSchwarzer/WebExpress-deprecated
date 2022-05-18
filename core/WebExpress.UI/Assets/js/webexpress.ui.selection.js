@@ -37,19 +37,19 @@ class selectionCtrl extends events {
 
         super();
 
-        if (id !== undefined) {
+        if (id != null) {
             this._container.attr("id", id);
         }
 
-        if (css !== undefined) {
+        if (css != null) {
             this._container.addClass(css);
         }
 
-        if (name !== undefined && name != null) {
+        if (name != null) {
             this._hidden.attr("name", name);
         }
 
-        if (multiselect !== undefined && multiselect != null) {
+        if (multiselect != null) {
             this._multiselect = multiselect;
         }
 
@@ -95,8 +95,8 @@ class selectionCtrl extends events {
         this._dropdownoptions.children().remove();
 
         this._options.forEach(function (option) {
-            let id = option.ID !== undefined && option.ID != null ? option.ID : null;
-            let label = option.Label !== undefined && option.Label != null ? option.Label : null;
+            let id = option.ID != null ? option.ID : null;
+            let label = option.Label != null ? option.Label : null;
             if (!this._values.includes(id)) {
                 if (id == null && (label == null || label == '-')) {
                     let li = $("<li class='dropdown-divider'/>");
@@ -105,9 +105,9 @@ class selectionCtrl extends events {
                     let li = $("<li class='dropdown-header'>" + label + "</li>");
                     this._dropdownoptions.append(li);
                 } else {
-                    let description = option.Description !== undefined && option.Description != null && option.Description.length > 0 ? option.Description : null;
-                    let image = option.Image !== undefined && option.Image != null ? option.Image : null;
-                    let color = option.Color !== undefined && option.Color != null ? option.Color : 'text-dark';
+                    let description = option.Description != null && option.Description.length > 0 ? option.Description : null;
+                    let image = option.Image != null ? option.Image : null;
+                    let color = option.Color != null ? option.Color : 'text-dark';
                     let instruction = option.Instruction !== undefined && option.Instruction != null ? "<small>(" + option.Instruction + ")</small>": "";
                     let li = $("<li class='dropdown-item'/>");
                     let a = $("<a class='link " + color + "' href='javascript:void(0)'>" + option.Label + "</a>" + instruction);
@@ -157,9 +157,9 @@ class selectionCtrl extends events {
         this._values.forEach(function (value) {
             let option = this._options.find(elem => elem.ID == value);
             if (option != null) {
-                let label = option.Label !== undefined && option.Label != null ? option.Label : null;
-                let image = option.Image !== undefined && option.Image != null ? option.Image : null;
-                let color = option.Color !== undefined && option.Color != null ? option.Color : 'text-dark';
+                let label = option.Label != null ? option.Label : null;
+                let image = option.Image != null ? option.Image : null;
+                let color = option.Color != null ? option.Color : 'text-dark';
                 let a = $("<a class='link " + color + "' href='javascript:void(0)'>" + option.Label + "</a>");
                 let close = $("<a class='fas fa-times' href='#'/>");
                 let li = $("<li/>");

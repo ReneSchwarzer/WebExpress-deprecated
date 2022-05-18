@@ -62,7 +62,7 @@ namespace WebExpress.WebApp.WebControl
         /// <summary>
         /// Liefert die Gruppen
         /// </summary>
-        private ControlFormularItemInputSelectionMove Groups { get; set; }
+        private ControlFormularItemInputMove Groups { get; set; }
 
         /// <summary>
         /// Konstruktor
@@ -71,7 +71,7 @@ namespace WebExpress.WebApp.WebControl
         public ControlModalFormularUserEdit(string id = null)
             : base(id)
         {
-            Groups = new ControlFormularItemInputSelectionMove(id)
+            Groups = new ControlFormularItemInputMove(id)
             {
                 Name = "groups",
                 Label = "webexpress.webapp:setting.usermanager.user.edit.groups.label",

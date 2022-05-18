@@ -83,6 +83,7 @@ namespace WebExpress.WebApp.WebPage
             if (module != null)
             {
                 CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/webexpress.webapp.css")));
+                CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/webexpress.webapp.popupnotification.css")));
                 HeaderScriptLinks.Add(module.ContextPath.Append("assets/js/webexpress.webapp.js"));
                 HeaderScriptLinks.Add(module.ContextPath.Append("assets/js/webexpress.webapp.popupnotification.js"));
                 HeaderScriptLinks.Add(module.ContextPath.Append("assets/js/webexpress.webapp.selection.js"));

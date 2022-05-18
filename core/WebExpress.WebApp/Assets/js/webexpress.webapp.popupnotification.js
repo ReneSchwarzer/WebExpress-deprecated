@@ -1,10 +1,11 @@
-﻿/**
+/**
  * Aktualisierung der Popup-Benachrichtigungen
  */
 class popupNotificationCtrl {
     _restUri = "";
     _confirmUri = "";
     _container = $("<div class='popupnotification'/>");
+    _activeNotifications = new Map();
 
     /**
      * Konstruktor
@@ -35,57 +36,123 @@ class popupNotificationCtrl {
       * Daten aus REST-Schnitstelle abrufen
       */
     receiveData() {
+        let percents = function (created, durability) { 
+            let till = created.valueOf() + durability;
+            let now = new Date().valueOf();
+            let p = Math.round((till - now) * 100 / durability);
+            p = Math.max(p, 0);
+            p = Math.min(p, 100);
+            return p;
+        };
+        
+        let updateProgress = function (progress, created, durability, data) {
+            if (progress >= 0 && progress < 100) {
+                data.progressbar.width(progress + "%");
+            } else if (durability > 0) {
+                data.progressbar.width(percents(new Date(created), durability) + "%");
+                let interval = setInterval(function () {
+                    let p = percents(new Date(created), durability);
+                    data.progressbar.width(p + "%");
+                    if (p <= 0) {
+                        data.alert.alert('close');
+                        this._activeNotifications.delete(data.id);
+                        clearInterval(interval);
+                    }
+                }.bind(this), 333);
+            }
+        }.bind(this);
+        
         $.ajax({ type: "GET", url: this._restUri, dataType: 'json', }).then(function (data) {
-            data.forEach(message => {
-                this._container.children().remove();
+        
+            let newnotifications = data.filter(notification => !this._activeNotifications.has(notification.ID));
 
-                let alert = $("<div class='alert " + message.Type + " alert-dismissible fade show' role='alert'></div");
+            newnotifications.forEach(notification => {
+                let id = notification.ID ?? "notification" + new Date().valueOf();
+                let created = notification.Created ?? new Date().toString();
+                let durability = notification.Durability ?? -1;
+                let progress = notification.Progress ?? -1;
+                let type = notification.Type ?? "alert-primary";
+                let heading = $("<h5>" + (notification.Heading ?? "") + "</h5>");
+                let icon = $("<div/>");
+                let message = $("<div>" + (notification.Message ?? "") + "</div>");
+                let progressbar = $("<div class='progress-bar progress-bar-striped bg-info' role='progressbar' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100' style='width:" + (progress >= 0 && progress < 100 ? 0 : percents(new Date(created), durability)) + "%'></div>");
+                let alert = $("<div class='alert " + type + " alert-dismissible fade show' role='alert'></div");
                 let button = $("<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>");
-                let progress = $("<div class='progress mt-2'></div>");
-                let progressbar = $("<div class='progress-bar progress-bar-striped progress-bar-animated bg-info' role='progressbar' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100' style='width: 100%'></div>");
                 let content = $("<div class='d-flex justify-content-start'/>");
+                                
+                if (notification.Icon != null) {
+                    icon = $("<img src='" + notification.Icon + "' alt='" + (notification.Heading ?? "") + "'/>");
+                }
 
                 button.click(function () {
-                    $.ajax({ type: "DELETE", url: this._restUri + "/" + message.ID, dataType: 'json' });
+                    this._activeNotifications.delete(id);
+                    $.ajax({ type: "DELETE", url: this._restUri + "/" + id, dataType: 'json' });
                 }.bind(this));
 
-                if (message.Heading !== undefined && message.Heading != null) {
-                    alert.append($("<h5>" + message.Heading + "</h5>"));
-                }
-
-                if (message.Icon !== undefined && message.Icon != null) {
-                    content.append($("<img src='" + message.Icon + "' alt='" + message.Heading + "'/>"));
-                }
-
-                content.append($("<div>" + message.Message + "</div>"));
-                progress.append(progressbar);
-                alert.append(content);
-                alert.append(button);
+                content.append(icon);
+                content.append(message);
                 
-                if (message.Durability > 0) {
-                    let till = new Date(message.Created).valueOf() + message.Durability;
-                    let now = new Date().valueOf();
-                    let p = Math.round((till - now) * 100 / message.Durability);
-                    p = Math.max(p, 0);
-                    p = Math.min(p, 100);
-                    progressbar.width(p + "%");
-
-                    setInterval(function () {
-                        let now = new Date().valueOf();
-                        let p = Math.round((till - now) * 100 / message.Durability);
-                        p = Math.max(p, 0);
-                        p = Math.min(p, 100);
-                        progressbar.width(p + "%");
-
-                        if (p <= 0) {
-                            $(alert).alert('close');
-                        }
-                    }.bind(this), 250);
-
-                    alert.append(progress);
+                alert.append(button);
+                alert.append(heading);
+                alert.append(content);
+                if (progress >= 0 || durability >= 0) {
+                    alert.append($("<div class='progress mt-2'></div>").append(progressbar));
                 }
-
+                
                 this._container.append(alert);
+                
+                if (!this._activeNotifications.has(id)) {
+                    let data = { 
+                        id: id, 
+                        type: type,
+                        heading: heading, 
+                        icon: icon, 
+                        message: message, 
+                        progressbar: progressbar, 
+                        content: content,
+                        alert: alert,
+                        notification: notification
+                    };
+                
+                    this._activeNotifications.set(id, data);
+                    
+                    updateProgress(progress, created, durability, data);
+                }
+            });
+            
+            let oldnotifications = data.filter(notification => this._activeNotifications.has(notification.ID));
+            oldnotifications.forEach(notification => {
+                let id = notification.ID ?? "notification" + new Date().valueOf();
+                let data = this._activeNotifications.get(id);
+                
+                if (notification.Type ?? "alert-primary" != data.notification.Type ?? "alert-primary") {
+                    data.alert.css(data.notification.Type ?? "alert-primary", notification.Type ?? "alert-primary");
+                }
+                if (notification.Heading != data.notification.Heading) {
+                    data.heading.empty().append(notification.Heading ?? "");
+                }
+                if (notification.Heading != data.notification.Heading) {
+                    data.message.empty().append(notification.Message ?? "");
+                }
+                
+                if (notification.Progress != data.notification.Progress) {
+                    data.progressbar.width(notification.Progress + "%");
+                    if (notification.Progress >= 100) {
+                        updateProgress(notification.Progress ?? -1, notification.Created ?? new Date().toString(), notification.Durability ?? -1, data);
+                    }
+                }
+                                
+                if (notification.Icon != data.notification.Icon) {
+                    data.content.children("img").remove();
+                    if (notification.Icon != null) {
+                        data.icon = $("<img src='" + notification.Icon + "' alt='" + (notification.Heading ?? "") + "'/>");
+                    } else {
+                        data.icon = $("<div/>");
+                    }
+                    data.content.prepend(data.icon);
+                }
+                    
+                data.notification = notification;
             });
         }.bind(this));
     }
