@@ -1,7 +1,7 @@
 /**
  * Ein Dropdown, welches erweiterte Funktionen (Links) anbietet
  */
-class moreCtrl {
+webexpress.ui.moreCtrl = class {
     _container = $("<div class='dropdown'/>");
 
     /**
@@ -72,9 +72,7 @@ class moreCtrl {
             ul.append(li);
         });
 
-        if (id != null) {
-            this._container.id = id;
-        }
+        this._container.attr("id", id ?? "");
         if (css != null) {
             this._container.addClass(css);
         }

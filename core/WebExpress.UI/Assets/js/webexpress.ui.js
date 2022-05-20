@@ -1,4 +1,7 @@
-class events {
+var webexpress = webexpress || {}
+webexpress.ui = {}
+
+webexpress.ui.events = class {
     _listeners = new Map();
     
     /**

@@ -14,7 +14,7 @@
         }
         
             .popupnotification > div > .d-flex > img {
-                width: 80px;
+                max-width: 80px;
                 padding-top: 0.5em;
                 padding-right: 1em;
             }

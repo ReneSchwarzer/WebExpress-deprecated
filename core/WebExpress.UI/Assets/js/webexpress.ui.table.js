@@ -1,7 +1,7 @@
 /**
  * Tabelle
  */
-class tableCtrl extends events {
+webexpress.ui.tableCtrl = class extends webexpress.ui.events {
     _table = $("<table class='table table-hover mb-2'/>");
     _col = $("<colgroup/>");
     _head = $("<thead/>");
@@ -20,10 +20,7 @@ class tableCtrl extends events {
         let id = settings.ID;
         let css = settings.CSS;
 
-        if (id != null) {
-            this._table.id = id;
-        }
-
+        this._table.attr("id", id ?? "");
         this._table.addClass(css);
         this._table.append(this._col);
         this._table.append(this._head);

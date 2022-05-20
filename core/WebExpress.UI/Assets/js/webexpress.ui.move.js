@@ -2,7 +2,7 @@
  * Auswahlfeld zum Aktivieren von Optionen
  * - webexpress.ui.change.value mit Parameter value
  */
-class moveCtrl extends events {
+webexpress.ui.moveCtrl = class extends webexpress.ui.events {
     _container = $("<div class='move'/>");
     _selectedList = $("<ul class='list-group list-group-flush'/>");
     _availableList = $("<ul class='list-group list-group-flush'/>");
@@ -39,15 +39,13 @@ class moveCtrl extends events {
         let availableHeader = $("<span class='text-muted'>" + header.Available + "</span>");
         let buttonContainer = $("<div class='move-button d-grid gap-2'/>");
         
-        if (id !== undefined) {
-            this._container.attr("id", id);
-        }
+        this._container.attr("id", id ?? "");
 
-        if (css !== undefined) {
+        if (css != null) {
             this._container.addClass(css);
         }
 
-        if (name !== undefined && name != null) {
+        if (name != null) {
             this._hidden.attr("name", name);
         }
         

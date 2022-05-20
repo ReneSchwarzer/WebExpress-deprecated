@@ -1,7 +1,7 @@
-﻿/**
+/**
  * Eine Dopdown-Box mit Funktionen für Create, Read, Update und Delate
  */
-class restSelectionCtrl extends selectionCtrl {
+webexpress.webapp.selectionCtrl = class extends webexpress.ui.selectionCtrl {
     _optionUri = "";
     _spinner = $("<div class='spinner-border spinner-border-sm text-secondary' role='status'/>");
 

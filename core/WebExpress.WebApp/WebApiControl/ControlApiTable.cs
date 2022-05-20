@@ -48,7 +48,7 @@ namespace WebExpress.WebApp.WebApiControl
             builder.AppendLine($"{{");
             builder.AppendLine($"let settings = { settingsJson };");
             builder.AppendLine($"let container = $('#{ id }');");
-            builder.AppendLine($"let obj = new restTableCtrl(settings);");
+            builder.AppendLine($"let obj = new webexpress.webapp.tableCtrl(settings);");
             builder.AppendLine($"obj.on('webexpress.ui.change.columns', function() {{ obj.receiveData(); }});");
             builder.AppendLine($"container.replaceWith(obj.getCtrl);");
             builder.AppendLine($"}}");

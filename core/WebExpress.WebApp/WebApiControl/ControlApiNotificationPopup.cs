@@ -45,7 +45,7 @@ namespace WebExpress.WebApp.WebApiControl
             builder.AppendLine($"{{");
             builder.AppendLine($"let settings = { settingsJson };");
             builder.AppendLine($"let container = $('#{ ID }');");
-            builder.AppendLine($"let obj = new popupNotificationCtrl(settings);");
+            builder.AppendLine($"let obj = new webexpress.webapp.popupNotificationCtrl(settings);");
             builder.AppendLine($"container.replaceWith(obj.getCtrl);");
             builder.AppendLine($"}}");
 

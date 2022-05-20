@@ -3,7 +3,7 @@
  * Folgende Events werden ausgelöst:
  * - webexpress.ui.change.filter mit Parameter filter
  */
-class searchCtrl extends events {
+webexpress.ui.searchCtrl = class extends webexpress.ui.events {
     _container = $("<span class='search form-control'>");
 
     /**
@@ -15,6 +15,8 @@ class searchCtrl extends events {
      *        - Icon Die Icon-Klasse des Suchsymbols
      */
     constructor(settings) {
+        super();
+        
         let id = settings.ID;
         let css = settings.CSS;
         let placeholder = settings.Placeholder != null ? settings.Placeholder : "";
@@ -23,12 +25,8 @@ class searchCtrl extends events {
         let searchicon = $("<label><i class='" + icon + "'/></label>");
         let searchinput = $("<input type='text' placeholder='" + placeholder + "' aria-label='" + placeholder + "'/>");
         let searchappend = $("<span><i class='fas fa-times'/><span>");
-        
-        super();
 
-        if (id !== undefined) {
-            this._container.id = id;
-        }
+        this._container.attr("id", id ?? "");
         
         searchinput.keyup(function () { 
             this.trigger('webexpress.ui.change.filter', searchinput.val());

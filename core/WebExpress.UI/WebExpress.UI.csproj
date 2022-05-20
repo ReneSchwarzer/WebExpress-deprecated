@@ -32,6 +32,7 @@
     <None Remove="Assets\css\webexpress.ui.css" />
     <None Remove="Assets\css\webexpress.ui.expand.css" />
     <None Remove="Assets\css\webexpress.ui.form.css" />
+    <None Remove="Assets\css\webexpress.ui.modalframe.css" />
     <None Remove="Assets\css\webexpress.ui.more.css" />
     <None Remove="Assets\css\webexpress.ui.move.css" />
     <None Remove="Assets\css\webexpress.ui.pagination.css" />
@@ -157,6 +158,7 @@
     <None Remove="Assets\js\summernote-de-DE.js" />
     <None Remove="Assets\js\webexpress.ui.expand.js" />
     <None Remove="Assets\js\webexpress.ui.js" />
+    <None Remove="Assets\js\webexpress.ui.modalframe.js" />
     <None Remove="Assets\js\webexpress.ui.more.js" />
     <None Remove="Assets\js\webexpress.ui.move.js" />
     <None Remove="Assets\js\webexpress.ui.pagination.js" />
@@ -180,6 +182,7 @@
     <EmbeddedResource Include="Assets\css\bootstrap.min.css.map" />
     <EmbeddedResource Include="Assets\css\Chart.min.css" />
     <EmbeddedResource Include="Assets\css\webexpress.ui.expand.css" />
+    <EmbeddedResource Include="Assets\css\webexpress.ui.modalframe.css" />
     <EmbeddedResource Include="Assets\css\webexpress.ui.more.css" />
     <EmbeddedResource Include="Assets\css\webexpress.ui.move.css" />
     <EmbeddedResource Include="Assets\css\webexpress.ui.pagination.css" />
@@ -194,8 +197,6 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Assets\css\fontawesome.min.css" />
-    <EmbeddedResource Include="Assets\css\moveselector.css" />
-    <EmbeddedResource Include="Assets\css\simpletags.css" />
     <EmbeddedResource Include="Assets\css\solid.css">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -336,6 +337,7 @@
     <EmbeddedResource Include="Assets\js\lang\summernote-de-DE.min.js">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Assets\js\webexpress.ui.modalframe.js" />
     <EmbeddedResource Include="Assets\js\webexpress.ui.move.js" />
     <EmbeddedResource Include="Assets\js\webexpress.ui.selection.js" />
     <EmbeddedResource Include="Assets\js\webexpress.ui.more.js" />

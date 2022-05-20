@@ -3,7 +3,7 @@
  * Folgende Events werden ausgelöst:
  * - webexpress.ui.change.visibility 
  */
-class expandCtrl extends events {
+webexpress.ui.expandCtrl = class extends webexpress.ui.events {
     _container = $("<span class='expand'>");
     _content = $("<div/>");
     _expandicon = $("<a class='fas fa-angle-right text-primary' href='#'/>");
@@ -24,6 +24,8 @@ class expandCtrl extends events {
         let expandheader = $("<span class='text-primary' aria-label='" + header + "'>" + header + "</span>");
         
         super();
+        
+        this._container.attr("id", id ?? "");
         
         this._expandicon.click(function () {
             this.expand = !this.expand;

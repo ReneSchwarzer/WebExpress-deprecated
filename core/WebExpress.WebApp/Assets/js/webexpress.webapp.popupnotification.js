@@ -1,9 +1,10 @@
 /**
- * Aktualisierung der Popup-Benachrichtigungen
+ * Popup-Benachrichtigungen
+ * Folgende Events werden ausgelöst:
+ * - webexpress.webapp.close mit Parameter id
  */
-class popupNotificationCtrl {
+webexpress.webapp.popupNotificationCtrl = class extends webexpress.ui.events {
     _restUri = "";
-    _confirmUri = "";
     _container = $("<div class='popupnotification'/>");
     _activeNotifications = new Map();
 
@@ -15,14 +16,13 @@ class popupNotificationCtrl {
      *        - Intervall Das Intervall bestimmt den Zeitpunkt der REST-API-Anfragen
      */
     constructor(settings) {
-
+        super();
+        
         let id = settings.ID;
         let interval = settings.Interval ?? 15000;
         this._restUri = settings.RestUri;
 
-        if (id !== undefined) {
-            this._container.attr("id", id);
-        }
+        this._container.attr("id", id ?? "");
 
         setInterval(function () {
             this.receiveData();
@@ -36,12 +36,13 @@ class popupNotificationCtrl {
       * Daten aus REST-Schnitstelle abrufen
       */
     receiveData() {
+        let interval = null;
+        
         let percents = function (created, durability) { 
             let till = created.valueOf() + durability;
             let now = new Date().valueOf();
             let p = Math.round((till - now) * 100 / durability);
-            p = Math.max(p, 0);
-            p = Math.min(p, 100);
+            p = Math.min(Math.max(p, 0), 100);
             return p;
         };
         
@@ -50,22 +51,21 @@ class popupNotificationCtrl {
                 data.progressbar.width(progress + "%");
             } else if (durability > 0) {
                 data.progressbar.width(percents(new Date(created), durability) + "%");
-                let interval = setInterval(function () {
+                interval = setInterval(function () {
                     let p = percents(new Date(created), durability);
                     data.progressbar.width(p + "%");
                     if (p <= 0) {
                         data.alert.alert('close');
                         this._activeNotifications.delete(data.id);
                         clearInterval(interval);
+                        this.trigger('webexpress.webapp.close', data.id);
                     }
                 }.bind(this), 333);
             }
         }.bind(this);
         
         $.ajax({ type: "GET", url: this._restUri, dataType: 'json', }).then(function (data) {
-        
             let newnotifications = data.filter(notification => !this._activeNotifications.has(notification.ID));
-
             newnotifications.forEach(notification => {
                 let id = notification.ID ?? "notification" + new Date().valueOf();
                 let created = notification.Created ?? new Date().toString();
@@ -86,7 +86,9 @@ class popupNotificationCtrl {
 
                 button.click(function () {
                     this._activeNotifications.delete(id);
+                    clearInterval(interval);
                     $.ajax({ type: "DELETE", url: this._restUri + "/" + id, dataType: 'json' });
+                    this.trigger('webexpress.webapp.close', id);
                 }.bind(this));
 
                 content.append(icon);

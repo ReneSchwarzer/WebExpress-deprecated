@@ -1,7 +1,7 @@
-﻿/**
+/**
  * Eine Tabelle mit Funktionen für Create, Read, Update und Delate
  */
-class restTableCtrl extends tableCtrl {
+webexpress.webapp.tableCtrl = class extends webexpress.ui.tableCtrl {
     _restUri = "";
     _searchCtrl = null;
     _paginationCtrl = null;
@@ -26,9 +26,9 @@ class restTableCtrl extends tableCtrl {
             this.columns = columns;
         }.bind(this));
 
-        this._searchCtrl = new searchCtrl({ ID: settings.ID + "-search" });
+        this._searchCtrl = new webexpress.ui.searchCtrl({ ID: settings.ID + "-search" });
         this._searchCtrl.on('webexpress.ui.change.filter', function (key) { this._filter = key; this.receiveData(); }.bind(this));
-        this._paginationCtrl = new paginationCtrl({ ID: settings.ID + "-pagination" });
+        this._paginationCtrl = new webexpress.ui.paginationCtrl({ ID: settings.ID + "-pagination" });
         this._paginationCtrl.on('webexpress.ui.change.page', function (page) { this._page = page; this.receiveData(); }.bind(this));
     }
 

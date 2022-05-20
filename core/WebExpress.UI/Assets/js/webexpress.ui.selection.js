@@ -4,7 +4,7 @@
  * - webexpress.ui.change.filter mit Parameter filter
  * - webexpress.ui.change.value mit Parameter value
  */
-class selectionCtrl extends events {
+webexpress.ui.selectionCtrl = class extends webexpress.ui.events {
     _container = $("<span class='selection form-control' />");
     _selection = $("<ul/>");
     _hidden = $("<input type='hidden'/>");
@@ -37,9 +37,7 @@ class selectionCtrl extends events {
 
         super();
 
-        if (id != null) {
-            this._container.attr("id", id);
-        }
+        this._container.attr("id", id ?? "");
 
         if (css != null) {
             this._container.addClass(css);

@@ -3,11 +3,10 @@
  * Folgende Events werden ausgelöst:
  * - webexpress.ui.change.page mit Parameter page
  */
-class paginationCtrl extends events {
+webexpress.ui.paginationCtrl = class extends webexpress.ui.events {
     _container = $("<ul class='pagination'/>");
     _currentpage = 0;
     _pagecount = 0;
-    _id;
     _css = "";
 
     /**
@@ -19,12 +18,10 @@ class paginationCtrl extends events {
     constructor(settings) {
         super();
         
-        this._id = settings.ID;
+        let id = settings.ID;
         this._css = settings.CSS;
 
-        if (this._id !== undefined) {
-            this._container.id = this._id;
-        }
+        this._container.attr("id", id ?? "");
     }
 
     /**

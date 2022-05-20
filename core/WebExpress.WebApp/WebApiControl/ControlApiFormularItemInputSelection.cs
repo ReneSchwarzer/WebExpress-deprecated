@@ -51,7 +51,7 @@ public class ControlApiFormularItemInputSelection : ControlFormularItemInputSele
         builder.AppendLine($"let settings = { settingsJson };");
         builder.AppendLine($"var options = { optionsJson };");
         builder.AppendLine($"let container = $('#{ id }');");
-        builder.AppendLine($"let obj = new restSelectionCtrl(settings);");
+        builder.AppendLine($"let obj = new webexpress.webapp.selectionCtrl(settings);");
         builder.AppendLine($"obj.options = options;");
         builder.AppendLine($"obj.receiveData();");
         builder.AppendLine($"obj.value = [{ string.Join(",", Values.Select(x => $"'{ x }'")) }];");
