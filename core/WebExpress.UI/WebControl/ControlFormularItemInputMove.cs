@@ -87,7 +87,7 @@ namespace WebExpress.UI.WebControl
                 Style = GetStyles()
             };
 
-            context.VisualTree.AddScript(ID, GetScript(context, $"selection-move-{ID}", string.Join(" ", classes)));
+            context.AddScript(ID, GetScript(context, $"selection-move-{ID}", string.Join(" ", classes)));
 
             return html;
         }

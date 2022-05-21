@@ -9,6 +9,11 @@ namespace WebExpress.Html
     public class HtmlElementSectionFooter : HtmlElement, IHtmlElementSection
     {
         /// <summary>
+        /// Liefert die Elemente
+        /// </summary>
+        public new List<IHtmlNode> Elements => base.Elements;
+
+        /// <summary>
         /// Liefert oder setzt den Text
         /// </summary>
         public string Text

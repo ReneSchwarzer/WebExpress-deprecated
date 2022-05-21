@@ -6,6 +6,11 @@
     public static class Section
     {
         /// <summary>
+        /// Liefert oder setzt den App.Preferences-Bereich
+        /// </summary>
+        public const string AppPreferences = "app.preferences";
+
+        /// <summary>
         /// Liefert oder setzt den App.Primary-Bereich
         /// </summary>
         public const string AppPrimary = "app.primary";
@@ -30,6 +35,11 @@
         /// </summary>
         public const string AppNavigationSecondary = "app.navigation.secondary";
 
+         /// <summary>
+        /// Liefert oder setzt den den app.quickcreate.primary-Bereich
+        /// </summary>
+        public const string AppQuickcreatePreferences = "app.quickcreate.preferences";
+        
         /// <summary>
         /// Liefert oder setzt den den app.quickcreate.primary-Bereich
         /// </summary>
@@ -55,6 +65,11 @@
         /// </summary>
         public const string AppHelpSecondary = "app.help.secondary";
 
+        /// <summary>
+        /// Liefert oder setzt den app.settings.primary-Bereich
+        /// </summary>
+        public const string AppSettingsPreferences = "app.settings.preferences";
+        
         /// <summary>
         /// Liefert oder setzt den app.settings.primary-Bereich
         /// </summary>

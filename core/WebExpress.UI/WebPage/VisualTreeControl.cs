@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
+using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
 using WebExpress.WebPage;
@@ -33,7 +34,7 @@ namespace WebExpress.UI.WebPage
         public override IHtmlNode Render(RenderContext context)
         {
             var html = new HtmlElementRootHtml();
-            html.Head.Title = Title;
+            html.Head.Title = InternationalizationManager.I18N(context.Request, context.Page?.Title);
             html.Head.Favicons = Favicons?.Select(x => new Favicon(new UriRelative(x.Url).ToString(), x.Mediatype));
             html.Head.Styles = Styles?.Select(x => new UriRelative(x).ToString());
             html.Head.Meta = Meta;

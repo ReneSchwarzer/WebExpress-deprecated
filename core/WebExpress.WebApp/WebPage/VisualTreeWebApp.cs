@@ -10,42 +10,42 @@ namespace WebExpress.WebApp.WebPage
         /// <summary>
         /// Liefert oder setzt den Kopf
         /// </summary>
-        public ControlWebAppHeader Header { get; protected set; } = new ControlWebAppHeader("header");
+        public ControlWebAppHeader Header { get; protected set; } = new ControlWebAppHeader("webexpress.webapp.header");
 
         /// <summary>
         /// Liefert oder setzt den Inhalt
         /// </summary>
-        public new ControlWebAppContent Content { get; protected set; } = new ControlWebAppContent("content");
+        public new ControlWebAppContent Content { get; protected set; } = new ControlWebAppContent("webexpress.webapp.content");
 
         /// <summary>
         /// Liefert oder setzt den Fuß
         /// </summary>
-        public ControlWebAppFooter Footer { get; protected set; } = new ControlWebAppFooter("footer");
+        public ControlWebAppFooter Footer { get; protected set; } = new ControlWebAppFooter("webexpress.webapp.footer");
 
         /// <summary>
         /// Liefert oder setzt den Bereich für die Meldungen
         /// </summary>
-        public ControlPanelToast Toast { get; protected set; } = new ControlPanelToast("toast");
+        public ControlPanelToast Toast { get; protected set; } = new ControlPanelToast("webexpress.webapp.toast");
 
         /// <summary>
         /// Liefert oder setzt den Bereich für die Pfadangabe
         /// </summary>
-        public ControlBreadcrumb Breadcrumb { get; protected set; } = new ControlBreadcrumb("breadcrumb");
+        public ControlBreadcrumb Breadcrumb { get; protected set; } = new ControlBreadcrumb("webexpress.webapp.breadcrumb");
 
         /// <summary>
         /// Liefert oder setzt den Bereich für Prolog
         /// </summary>
-        public ControlPanel Prologue { get; protected set; } = new ControlPanel("prologue");
+        public ControlPanel Prologue { get; protected set; } = new ControlPanel("webexpress.webapp.prologue");
 
         /// <summary>
         /// Liefert oder setzt den den Bereich für die Suchoptionen
         /// </summary>
-        public ControlPanel SearchOptions { get; protected set; } = new ControlPanel("searchoptions");
+        public ControlPanel SearchOptions { get; protected set; } = new ControlPanel("webexpress.webapp.searchoptions");
 
         /// <summary>
         /// Liefert oder setzt die Sidebar
         /// </summary>
-        public ControlWebAppSidebar Sidebar { get; protected set; } = new ControlWebAppSidebar("sidebar");
+        public ControlWebAppSidebar Sidebar { get; protected set; } = new ControlWebAppSidebar("webexpress.webapp.sidebar");
 
         /// <summary>
         /// Konstruktor

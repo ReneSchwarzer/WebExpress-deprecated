@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
 using WebExpress.Internationalization;
+using WebExpress.Message;
 using WebExpress.Uri;
 using WebExpress.WebPage;
 using static WebExpress.Internationalization.InternationalizationManager;
@@ -316,18 +317,19 @@ namespace WebExpress.UI.WebControl
             var button = SubmitButton.Render(renderContext);
             var cancel = CancelButton.Render(renderContext);
 
-            var html = new HtmlElementFormForm()
+            var form = new HtmlElementFormForm()
             {
                 ID = ID,
                 Class = GetClasses(),
                 Style = GetStyles(),
                 Role = Role,
-                Action = Uri?.ToString(),
-                Method = "post",
+                Action = Uri?.ToString() ?? renderContext.Uri?.ToString(),
+                Method = RequestMethod.POST.ToString(),
                 Enctype = TypeEnctype.None
             };
 
-            html.Elements.Add(SubmitType.Render(renderContext));
+            form.Elements.Add(SubmitType.Render(renderContext));
+            var header = new HtmlElementSectionHeader();
 
             foreach (var v in renderContext.ValidationResults)
             {
@@ -343,7 +345,7 @@ namespace WebExpress.UI.WebControl
                         break;
                 }
 
-                html.Elements.Add(new ControlAlert()
+                header.Elements.Add(new ControlAlert()
                 {
                     BackgroundColor = bgColor,
                     Text = I18N(context.Culture, v.Text),
@@ -354,8 +356,10 @@ namespace WebExpress.UI.WebControl
 
             foreach (var item in Items.Where(x => x is ControlFormularItemInputHidden))
             {
-                html.Elements.Add(item.Render(renderContext));
+                form.Elements.Add(item.Render(renderContext));
             }
+
+            var main = new HtmlElementSectionMain();
 
             var group = null as ControlFormularItemGroup;
 
@@ -370,15 +374,24 @@ namespace WebExpress.UI.WebControl
                 group.Items.Add(item);
             }
 
-            html.Elements.Add(group.Render(renderContext));
-            html.Elements.Add(button);
+            main.Elements.Add(group.Render(renderContext));
+
+            var footer = new HtmlElementSectionFooter();
+
+            footer.Elements.Add(button);
 
             if (EnableCancelButton)
             {
-                html.Elements.Add(cancel);
+                footer.Elements.Add(cancel);
             }
 
-            return html;
+            form.Elements.Add(header);
+            form.Elements.Add(main);
+            form.Elements.Add(footer);
+
+            form.Elements.AddRange(renderContext.Scripts.Select(x => new HtmlElementScriptingScript(x.Value)));
+
+            return form;
         }
 
         /// <summary>

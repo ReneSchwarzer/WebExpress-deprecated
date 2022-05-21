@@ -68,7 +68,7 @@ namespace WebExpress.UI.WebControl
                 context.VisualTree.CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/bootstrap-datepicker3.min.css")));
             }
 
-            context.VisualTree.AddScript(ID, @"$('#" + ID + @"').datepicker({format: ""dd.mm.yyyy"", todayBtn: true, language: ""de"", zIndexOffset: 999});");
+            context.AddScript(ID, @"$('#" + ID + @"').datepicker({format: ""dd.mm.yyyy"", todayBtn: true, language: ""de"", zIndexOffset: 999});");
         }
 
         /// <summary>

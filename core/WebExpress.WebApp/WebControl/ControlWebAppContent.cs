@@ -15,7 +15,7 @@ namespace WebExpress.WebApp.WebControl
         /// <summary>
         /// Liefert das Mainpanel
         /// </summary>
-        private ControlPanelMain MainPanel { get; } = new ControlPanelMain("main")
+        private ControlPanelMain MainPanel { get; } = new ControlPanelMain("webexpress.webapp.content.main")
         {
             Padding = new PropertySpacingPadding(PropertySpacing.Space.Two, PropertySpacing.Space.Null),
             Margin = new PropertySpacingMargin(PropertySpacing.Space.Null, PropertySpacing.Space.Two, PropertySpacing.Space.Null, PropertySpacing.Space.Null),
@@ -35,17 +35,17 @@ namespace WebExpress.WebApp.WebControl
         /// <summary>
         /// Liefert oder setzt den Seiteneigenschaften
         /// </summary>
-        public ControlWebAppProperty Property { get; } = new ControlWebAppProperty("property");
+        public ControlWebAppProperty Property { get; } = new ControlWebAppProperty("webexpress.webapp.content.property");
 
         /// <summary>
         /// Liefert oder setzt den Werkzeugleiste
         /// </summary>
-        public ControlToolbar Toolbar { get; } = new ControlToolbar("toolbar");
+        public ControlToolbar Toolbar { get; } = new ControlToolbar("webexpress.webapp.content.toolbar");
 
         /// <summary>
         /// Liefert oder setzt das Überschriftssteuerelement
         /// </summary>
-        public ControlWebAppHeadline Headline { get; } = new ControlWebAppHeadline("headline");
+        public ControlWebAppHeadline Headline { get; } = new ControlWebAppHeadline("webexpress.webapp.content.main.headline");
 
         /// <summary>
         /// Liefert oder setzt den den Bereich für Präferenzen
@@ -100,9 +100,9 @@ namespace WebExpress.WebApp.WebControl
             MainPanel.Content.Clear();
 
             MainPanel.Content.Add(Headline);
-            MainPanel.Content.AddRange(Preferences);
-            MainPanel.Content.AddRange(Primary);
-            MainPanel.Content.AddRange(Secondary);
+            MainPanel.Content.Add(new ControlPanel("webexpress.webapp.content.main.preferences", Preferences));
+            MainPanel.Content.Add(new ControlPanel("webexpress.webapp.content.main.primary", Primary));
+            MainPanel.Content.Add(new ControlPanel("webexpress.webapp.content.main.secondary", Secondary));
 
             Content.Clear();
 

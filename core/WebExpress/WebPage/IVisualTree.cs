@@ -7,11 +7,6 @@ namespace WebExpress.WebPage
     public interface IVisualTree
     {
         /// <summary>
-        /// Liefert oder setzt den Titel
-        /// </summary>
-        string Title { get; }
-
-        /// <summary>
         /// Liefert oder setzt das Favicon
         /// </summary>
         List<Favicon> Favicons { get; }

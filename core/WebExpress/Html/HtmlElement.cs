@@ -319,7 +319,7 @@ namespace WebExpress.Html
 
             builder.Append("<");
             builder.Append(ElementName);
-            foreach (var v in Attributes.OrderBy(x => x.Name))
+            foreach (var v in Attributes)
             {
                 builder.Append(" ");
                 v.ToString(builder, 0);

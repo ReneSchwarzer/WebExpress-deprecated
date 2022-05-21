@@ -136,7 +136,7 @@ namespace WebExpress.UI.WebControl
 
             if (AutoInitialize && Format == TypesEditTextFormat.Wysiwyg && !string.IsNullOrWhiteSpace(ID))
             {
-                context.VisualTree.AddScript(ID, InitializeCode);
+                context.AddScript(ID, InitializeCode);
                 AutoInitialize = false;
             }
 

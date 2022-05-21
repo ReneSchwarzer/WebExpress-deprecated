@@ -20,16 +20,19 @@ namespace WebExpress.WebApp.WebPage
     public abstract class PageWebApp : PageControl<RenderContextWebApp>
     {
         // Header
-        private List<ComponentCacheItem> HeaderHamburgerPrimary { get; } = new List<ComponentCacheItem>();
-        private List<ComponentCacheItem> HeaderHamburgerSecondary { get; } = new List<ComponentCacheItem>();
+        private List<ComponentCacheItem> HeaderAppNavigatorPreferences { get; } = new List<ComponentCacheItem>();
+        private List<ComponentCacheItem> HeaderAppNavigatorPrimary { get; } = new List<ComponentCacheItem>();
+        private List<ComponentCacheItem> HeaderAppNavigatorSecondary { get; } = new List<ComponentCacheItem>();
         private List<ComponentCacheItem> HeaderNavigationPreferences { get; } = new List<ComponentCacheItem>();
         private List<ComponentCacheItem> HeaderNavigationPrimary { get; } = new List<ComponentCacheItem>();
         private List<ComponentCacheItem> HeaderNavigationSecondary { get; } = new List<ComponentCacheItem>();
+        private List<ComponentCacheItem> HeaderQuickCreatePreferences { get; } = new List<ComponentCacheItem>();
         private List<ComponentCacheItem> HeaderQuickCreatePrimary { get; } = new List<ComponentCacheItem>();
         private List<ComponentCacheItem> HeaderQuickCreateSecondary { get; } = new List<ComponentCacheItem>();
         private List<ComponentCacheItem> HeaderHelpPreferences { get; } = new List<ComponentCacheItem>();
         private List<ComponentCacheItem> HeaderHelpPrimary { get; } = new List<ComponentCacheItem>();
         private List<ComponentCacheItem> HeaderHelpSecondary { get; } = new List<ComponentCacheItem>();
+        private List<ComponentCacheItem> HeaderSettingsPreferences { get; } = new List<ComponentCacheItem>();
         private List<ComponentCacheItem> HeaderSettingsPrimary { get; } = new List<ComponentCacheItem>();
         private List<ComponentCacheItem> HeaderSettingsSecondary { get; } = new List<ComponentCacheItem>();
 
@@ -93,11 +96,13 @@ namespace WebExpress.WebApp.WebPage
             }
 
             // Header
-            HeaderHamburgerPrimary.AddRange(ComponentManager.CacheComponent<IControlDropdownItem>(context.Application, Section.AppPrimary, this, context.Context));
-            HeaderHamburgerSecondary.AddRange(ComponentManager.CacheComponent<IControlDropdownItem>(context.Application, Section.AppSecondary, this, context.Context));
+            HeaderAppNavigatorPreferences.AddRange(ComponentManager.CacheComponent<IControlDropdownItem>(context.Application, Section.AppPreferences, this, context.Context));
+            HeaderAppNavigatorPrimary.AddRange(ComponentManager.CacheComponent<IControlDropdownItem>(context.Application, Section.AppPrimary, this, context.Context));
+            HeaderAppNavigatorSecondary.AddRange(ComponentManager.CacheComponent<IControlDropdownItem>(context.Application, Section.AppSecondary, this, context.Context));
             HeaderNavigationPreferences.AddRange(ComponentManager.CacheComponent<IControlNavigationItem>(context.Application, Section.AppNavigationPreferences, this, context.Context));
             HeaderNavigationPrimary.AddRange(ComponentManager.CacheComponent<IControlNavigationItem>(context.Application, Section.AppNavigationPrimary, this, context.Context));
             HeaderNavigationSecondary.AddRange(ComponentManager.CacheComponent<IControlNavigationItem>(context.Application, Section.AppNavigationSecondary, this, context.Context));
+            HeaderQuickCreatePreferences.AddRange(ComponentManager.CacheComponent<IControlSplitButtonItem>(context.Application, Section.AppQuickcreatePreferences, this, context.Context));
             HeaderQuickCreatePrimary.AddRange(ComponentManager.CacheComponent<IControlSplitButtonItem>(context.Application, Section.AppQuickcreatePrimary, this, context.Context));
             HeaderQuickCreateSecondary.AddRange(ComponentManager.CacheComponent<IControlSplitButtonItem>(context.Application, Section.AppQuickcreateSecondary, this, context.Context));
             HeaderHelpPreferences.AddRange(ComponentManager.CacheComponent<IControlDropdownItem>(context.Application, Section.AppHelpPreferences, this, context.Context));
@@ -147,24 +152,27 @@ namespace WebExpress.WebApp.WebPage
             base.Process(context);
 
             context.VisualTree.Favicons.Add(new Favicon(context.Application?.Icon));
-            context.VisualTree.Header.Logo = context.Application?.Icon;
-            context.VisualTree.Header.Title = this.I18N(context.Application, context.Application?.ApplicationName);
+            //context.VisualTree.Header.Logo = context.Application?.Icon;
+            //context.VisualTree.Header.AppTitle.Title = this.I18N(context.Application, context.Application?.ApplicationName);
 
             context.VisualTree.Breadcrumb.Uri = context.Uri;
 
             // Header
-            context.VisualTree.Header.HamburgerPrimary.AddRange(HeaderHamburgerPrimary.Select(x => x.CreateInstance(this, context.Request) as IControlDropdownItem));
-            context.VisualTree.Header.HamburgerSecondary.AddRange(HeaderHamburgerSecondary.Select(x => x.CreateInstance(this, context.Request) as IControlDropdownItem));
-            context.VisualTree.Header.NavigationPreferences.AddRange(HeaderNavigationPreferences.Select(x => x.CreateInstance(this, context.Request) as IControlNavigationItem));
-            context.VisualTree.Header.NavigationPrimary.AddRange(HeaderNavigationPrimary.Select(x => x.CreateInstance(this, context.Request) as IControlNavigationItem));
-            context.VisualTree.Header.NavigationSecondary.AddRange(HeaderNavigationSecondary.Select(x => x.CreateInstance(this, context.Request) as IControlNavigationItem));
-            context.VisualTree.Header.QuickCreatePrimary.AddRange(HeaderQuickCreatePrimary.Select(x => x.CreateInstance(this, context.Request) as IControlSplitButtonItem));
-            context.VisualTree.Header.QuickCreateSecondary.AddRange(HeaderQuickCreateSecondary.Select(x => x.CreateInstance(this, context.Request) as IControlSplitButtonItem));
-            context.VisualTree.Header.HelpPreferences.AddRange(HeaderHelpPreferences.Select(x => x.CreateInstance(this, context.Request) as IControlDropdownItem));
-            context.VisualTree.Header.HelpPrimary.AddRange(HeaderHelpPrimary.Select(x => x.CreateInstance(this, context.Request) as IControlDropdownItem));
-            context.VisualTree.Header.HelpSecondary.AddRange(HeaderHelpSecondary.Select(x => x.CreateInstance(this, context.Request) as IControlDropdownItem));
-            context.VisualTree.Header.SettingsPrimary.AddRange(HeaderSettingsPrimary.Select(x => x.CreateInstance(this, context.Request) as IControlDropdownItem));
-            context.VisualTree.Header.SettingsSecondary.AddRange(HeaderSettingsSecondary.Select(x => x.CreateInstance(this, context.Request) as IControlDropdownItem));
+            context.VisualTree.Header.AppNavigator.Preferences.AddRange(HeaderAppNavigatorPreferences.Select(x => x.CreateInstance(this, context.Request) as IControlDropdownItem));
+            context.VisualTree.Header.AppNavigator.Primary.AddRange(HeaderAppNavigatorPrimary.Select(x => x.CreateInstance(this, context.Request) as IControlDropdownItem));
+            context.VisualTree.Header.AppNavigator.Secondary.AddRange(HeaderAppNavigatorSecondary.Select(x => x.CreateInstance(this, context.Request) as IControlDropdownItem));
+            context.VisualTree.Header.AppNavigation.Preferences.AddRange(HeaderNavigationPreferences.Select(x => x.CreateInstance(this, context.Request) as IControlNavigationItem));
+            context.VisualTree.Header.AppNavigation.Primary.AddRange(HeaderNavigationPrimary.Select(x => x.CreateInstance(this, context.Request) as IControlNavigationItem));
+            context.VisualTree.Header.AppNavigation.Secondary.AddRange(HeaderNavigationSecondary.Select(x => x.CreateInstance(this, context.Request) as IControlNavigationItem));
+            context.VisualTree.Header.QuickCreate.Preferences.AddRange(HeaderQuickCreatePreferences.Select(x => x.CreateInstance(this, context.Request) as IControlSplitButtonItem));
+            context.VisualTree.Header.QuickCreate.Primary.AddRange(HeaderQuickCreatePrimary.Select(x => x.CreateInstance(this, context.Request) as IControlSplitButtonItem));
+            context.VisualTree.Header.QuickCreate.Secondary.AddRange(HeaderQuickCreateSecondary.Select(x => x.CreateInstance(this, context.Request) as IControlSplitButtonItem));
+            context.VisualTree.Header.Help.Preferences.AddRange(HeaderHelpPreferences.Select(x => x.CreateInstance(this, context.Request) as IControlDropdownItem));
+            context.VisualTree.Header.Help.Primary.AddRange(HeaderHelpPrimary.Select(x => x.CreateInstance(this, context.Request) as IControlDropdownItem));
+            context.VisualTree.Header.Help.Secondary.AddRange(HeaderHelpSecondary.Select(x => x.CreateInstance(this, context.Request) as IControlDropdownItem));
+            context.VisualTree.Header.Settings.Preferences.AddRange(HeaderSettingsPreferences.Select(x => x.CreateInstance(this, context.Request) as IControlDropdownItem));
+            context.VisualTree.Header.Settings.Primary.AddRange(HeaderSettingsPrimary.Select(x => x.CreateInstance(this, context.Request) as IControlDropdownItem));
+            context.VisualTree.Header.Settings.Secondary.AddRange(HeaderSettingsSecondary.Select(x => x.CreateInstance(this, context.Request) as IControlDropdownItem));
 
             // Sidebar
             context.VisualTree.Sidebar.Header.AddRange(SidebarHeader.Select(x => x.CreateInstance(this, context.Request) as IControl));

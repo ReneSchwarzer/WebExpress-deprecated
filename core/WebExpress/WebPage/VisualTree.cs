@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
+using WebExpress.Internationalization;
 using WebExpress.Uri;
 using WebExpress.WebPage;
 
@@ -11,11 +12,6 @@ namespace WebExpress.WebResource
     /// </summary>
     public abstract class VisualTree : IVisualTree
     {
-        /// <summary>
-        /// Liefert oder setzt den Titel
-        /// </summary>
-        public string Title { get; set; }
-
         /// <summary>
         /// Liefert die Favicons
         /// </summary>
@@ -116,7 +112,7 @@ namespace WebExpress.WebResource
         public virtual IHtmlNode Render(RenderContext context)
         {
             var html = new HtmlElementRootHtml();
-            html.Head.Title = Title;
+            html.Head.Title = InternationalizationManager.I18N(context.Request, context.Page?.Title);
             html.Head.Favicons = Favicons?.Select(x => new Favicon(new UriRelative(x.Url).ToString(), x.Mediatype));
             //html.Head.Base = Context.ContextPath.ToString();
             html.Head.Styles = Styles?.Select(x => new UriRelative(x).ToString());

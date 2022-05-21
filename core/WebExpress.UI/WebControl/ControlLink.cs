@@ -51,7 +51,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Liefert oder setzt einen modalen Dialag
         /// </summary>
-        public ControlModal Modal { get; set; }
+        public PropertyModal Modal { get; set; } = new PropertyModal();
 
         /// <summary>
         /// Liefert oder setzt den Inhalt
@@ -227,12 +227,26 @@ namespace WebExpress.UI.WebControl
                 html.Elements.Add(new HtmlText(I18N(context.Culture, Text)));
             }
 
-            if (Modal != null)
+            if (Modal == null || Modal.Type == TypeModal.None)
+            {
+
+            }
+            else if (Modal.Type == TypeModal.Formular)
+            {
+                html.OnClick = $"var modal = new webexpress.ui.modalFormCtrl({{ Close: 'Schließen', Uri: '{ html.Href }'}}); modal.show();";
+                html.Href = "#";
+            }
+            else if (Modal.Type == TypeModal.Brwoser)
+            {
+                html.OnClick = $"var modal = new webexpress.ui.modalPageCtrl({{ Close: 'Schließen', Uri: '{ html.Href }'}}); modal.show();";
+                html.Href = "#";
+            }
+            else if (Modal.Type == TypeModal.Modal)
             {
                 html.AddUserAttribute("data-toggle", "modal");
-                html.AddUserAttribute("data-target", "#" + Modal.ID);
+                html.AddUserAttribute("data-target", "#" + Modal.Modal.ID);
 
-                return new HtmlList(html, Modal.Render(context));
+                return new HtmlList(html, Modal.Modal.Render(context));
             }
 
             if (!string.IsNullOrWhiteSpace(Tooltip))

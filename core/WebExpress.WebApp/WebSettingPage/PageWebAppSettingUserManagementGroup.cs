@@ -91,7 +91,7 @@ namespace WebExpress.WebApp.WebSettingPage
                             Text = "webexpress.webapp:setting.usermanager.group.edit.label",
                             Uri = new UriFragment(),
                             Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.Null),
-                            Modal = new ControlModalFormularGoupEdit(group.ID) { Item = group }
+                            Modal = new PropertyModal(TypeModal.Modal, new ControlModalFormularGoupEdit(group.ID) { Item = group })
                         },
                         new ControlText()
                         {
@@ -104,7 +104,7 @@ namespace WebExpress.WebApp.WebSettingPage
                             TextColor = new PropertyColorText(TypeColorText.Danger),
                             Uri = new UriFragment(),
                             Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.Null),
-                            Modal = new ControlModalFormularGroupDelete(group.ID) { Item = group }
+                            Modal = new PropertyModal(TypeModal.Modal, new ControlModalFormularGroupDelete(group.ID) { Item = group })
                         }
                     )
                     {

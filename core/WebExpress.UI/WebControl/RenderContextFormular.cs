@@ -12,6 +12,11 @@ namespace WebExpress.UI.WebControl
         public IControlFormular Formular { get; private set; }
 
         /// <summary>
+        /// Liefert oder setzt die Links auf die zu verwendenden JavaScript-Dateien
+        /// </summary>
+        public IDictionary<string, string> Scripts { get; } = new Dictionary<string, string>();
+
+        /// <summary>
         /// Liefert die Validierungsfehler
         /// </summary>
         public ICollection<ValidationResult> ValidationResults { get; } = new List<ValidationResult>();
@@ -47,6 +52,21 @@ namespace WebExpress.UI.WebControl
         public RenderContextFormular(RenderContextFormular context)
             : this(context, context?.Formular)
         {
+            Scripts = context.Scripts;
         }
+
+        /// <summary>
+        /// Fügt eine Java-Script hinzu oder sersetzt dieses, falls vorhanden
+        /// </summary>
+        /// <param name="key">Der Schlüssel</param>
+        /// <param name="code">Der Code</param>
+        public void AddScript(string key, string code)
+        {
+            if (!Scripts.ContainsKey(key))
+            {
+                Scripts.Add(key, code);
+            }
+        }
+
     }
 }

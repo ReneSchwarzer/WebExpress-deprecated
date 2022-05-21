@@ -123,7 +123,7 @@ namespace WebExpress.UI.WebControl
                 Class = "modal-header"
             };
 
-            var formElements = form.Elements.Where(x => !(x is HtmlElementFieldButton));
+            var formElements = form.Elements.Where(x => !(x is HtmlElementSectionFooter));
 
             var body = new HtmlElementTextContentDiv(formElements)
             {
