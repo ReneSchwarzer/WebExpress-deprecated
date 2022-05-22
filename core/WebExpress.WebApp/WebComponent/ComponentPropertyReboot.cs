@@ -21,7 +21,7 @@ namespace WebExpress.WebApp.WebComponent
         /// <summary>
         /// Liefert den modalen Dialog zur Bestätigung der Löschaktion
         /// </summary>
-        private ControlModalFormConfirm ModalDlg = new ControlModalFormConfirm("archive_btn")
+        private ControlModalFormularConfirm ModalDlg = new ControlModalFormularConfirm("archive_btn")
         {
             Header = "webexpress.webapp:setting.systeminformation.reboot.header",
             Content = new ControlFormularItemStaticText() { Text = "webexpress.webapp:setting.systeminformation.reboot.description" }

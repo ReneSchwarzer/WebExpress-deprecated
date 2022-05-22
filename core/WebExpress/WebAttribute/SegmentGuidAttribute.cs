@@ -61,11 +61,13 @@ namespace WebExpress.WebAttribute
                 }
                 else if (match.Success)
                 {
-                    return string.Format
+                    var display = string.Format
                     (
                         InternationalizationManager.I18N(culture, moduleID, Display),
                         DisplayFormat == Format.Simple ? match.Groups[7].ToString() : match.Groups[2].ToString()
                     );
+
+                    return display;
                 }
 
                 return null;
@@ -87,8 +89,6 @@ namespace WebExpress.WebAttribute
 
                 return null;
             });
-
-
 
             return new PathSegmentVariable(expression, callBackDisplay, callBackValiables);
         }

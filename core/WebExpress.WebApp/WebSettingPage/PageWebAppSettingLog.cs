@@ -63,7 +63,7 @@ namespace WebExpress.WebApp.WebSettingPage
             var file = new FileInfo(Context.Log.Filename);
             var fileSize = string.Format(new FileSizeFormatProvider() { Culture = Culture }, "{0:fs}", file.Exists ? file.Length : 0);
 
-            var deleteForm = new ControlModalFormConfirmDelete("delte_log")
+            var deleteForm = new ControlModalFormularConfirmDelete("delte_log")
             {
                 Header = this.I18N("webexpress.webapp", "setting.logfile.delete.header"),
                 Content = new ControlFormularItemStaticText() { Text = this.I18N("webexpress.webapp", "setting.logfile.delete.description") }
@@ -74,7 +74,7 @@ namespace WebExpress.WebApp.WebSettingPage
                 File.Delete(Context.Log.Filename);
             };
 
-            var switchOnForm = new ControlModalFormConfirm("swichon_log")
+            var switchOnForm = new ControlModalFormularConfirm("swichon_log")
             {
                 Header = this.I18N("webexpress.webapp", "setting.logfile.switchon.header"),
                 Content = new ControlFormularItemStaticText() { Text = this.I18N("webexpress.webapp", "setting.logfile.switchon.description") },

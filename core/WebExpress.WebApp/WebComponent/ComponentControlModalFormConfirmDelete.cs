@@ -4,7 +4,7 @@ using WebExpress.WebPage;
 
 namespace WebExpress.WebApp.WebComponent
 {
-    public class ComponentControlModalFormConfirmDelete : ControlModalFormConfirmDelete, IComponent
+    public class ComponentControlModalFormConfirmDelete : ControlModalFormularConfirmDelete, IComponent
     {
         /// <summary>
         /// Liefert der Kontext

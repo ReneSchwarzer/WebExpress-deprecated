@@ -7,7 +7,7 @@ using WebExpress.WebPage;
 
 namespace WebExpress.WebApp.WebControl
 {
-    public class ControlModalFormConfirm : ControlModalFormular
+    public class ControlModalFormularConfirm : ControlModalFormular
     {
         /// <summary>
         /// Event wird ausgelöst, wenn das Löschen bestätigt wurde
@@ -43,7 +43,7 @@ namespace WebExpress.WebApp.WebControl
         /// Konstruktor
         /// </summary>
         /// <param name="id">Die ID</param>
-        public ControlModalFormConfirm(string id = null)
+        public ControlModalFormularConfirm(string id = null)
             : this(id, null)
         {
 
@@ -54,7 +54,7 @@ namespace WebExpress.WebApp.WebControl
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="content">Die Formularsteuerelemente</param>
-        public ControlModalFormConfirm(string id, params ControlFormularItem[] content)
+        public ControlModalFormularConfirm(string id, params ControlFormularItem[] content)
             : base(id, string.Empty, content)
         {
             Init();

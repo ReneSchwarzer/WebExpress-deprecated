@@ -7,7 +7,7 @@ using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.WebApp.WebControl
 {
-    internal sealed class ControlModalFormularUserDelete : ControlModalFormConfirmDelete
+    internal sealed class ControlModalFormularUserDelete : ControlModalFormularConfirmDelete
     {
         /// <summary>
         /// Der zu löschende Benutzer

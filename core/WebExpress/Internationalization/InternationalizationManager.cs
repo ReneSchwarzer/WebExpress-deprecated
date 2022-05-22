@@ -166,7 +166,7 @@ namespace WebExpress.Internationalization
         public static string I18N(CultureInfo culture, string pluginID, string key)
         {
             var language = culture?.TwoLetterISOLanguageName;
-            var k = string.IsNullOrWhiteSpace(pluginID) ? key : $"{pluginID}:{key}";
+            var k = string.IsNullOrWhiteSpace(key) || string.IsNullOrWhiteSpace(pluginID) || key.StartsWith($"{pluginID}:") ? key : $"{pluginID}:{key}";
 
             if (string.IsNullOrWhiteSpace(key))
             {

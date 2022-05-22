@@ -75,7 +75,7 @@ namespace WebExpress.WebApp.WebSettingPage
         /// <summary>
         /// Formular zum Hochladen eines Plugins
         /// </summary>
-        private ControlModalFormFileUpload ModalUploadForm { get; } = new ControlModalFormFileUpload("plugin_upload")
+        private ControlModalFormularFileUpload ModalUploadForm { get; } = new ControlModalFormularFileUpload("plugin_upload")
         {
             Header = "webexpress.webapp:setting.plugin.upload.header"
         };

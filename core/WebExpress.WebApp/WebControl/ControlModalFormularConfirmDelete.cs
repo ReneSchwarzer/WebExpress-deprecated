@@ -5,13 +5,13 @@ using WebExpress.WebPage;
 
 namespace WebExpress.WebApp.WebControl
 {
-    public class ControlModalFormConfirmDelete : ControlModalFormConfirm
+    public class ControlModalFormularConfirmDelete : ControlModalFormularConfirm
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="id">Die ID</param>
-        public ControlModalFormConfirmDelete(string id = null)
+        public ControlModalFormularConfirmDelete(string id = null)
             : this(id, null)
         {
 
@@ -22,16 +22,8 @@ namespace WebExpress.WebApp.WebControl
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="content">Die Formularsteuerelemente</param>
-        public ControlModalFormConfirmDelete(string id, params ControlFormularItem[] content)
+        public ControlModalFormularConfirmDelete(string id, params ControlFormularItem[] content)
             : base(id, content)
-        {
-            Init();
-        }
-
-        /// <summary>
-        /// Initialisierung
-        /// </summary>
-        private void Init()
         {
         }
 

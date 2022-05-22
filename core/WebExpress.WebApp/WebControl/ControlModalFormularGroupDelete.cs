@@ -7,7 +7,7 @@ using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.WebApp.WebControl
 {
-    internal sealed class ControlModalFormularGroupDelete : ControlModalFormConfirmDelete
+    internal sealed class ControlModalFormularGroupDelete : ControlModalFormularConfirmDelete
     {
         /// <summary>
         /// Die zu bearbeitende Gruppe

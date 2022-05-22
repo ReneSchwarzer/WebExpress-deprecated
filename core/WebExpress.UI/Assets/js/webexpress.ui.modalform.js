@@ -36,13 +36,12 @@ webexpress.ui.modalFormCtrl = class extends webexpress.ui.events {
             let form = $("form", main);
             let formContent = form?.children(":not('footer')");
             let formFooter = $('footer', form);
-            let scripts = $('script', form);
             let header = $("<div class='modal-header'><h5 class='modal-title'>" + title + "</h5><button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='" + close + "'></button></div>");
             let body = $("<div class='modal-body'></div>");
             let footer = $("<div class='modal-footer'></div>");
             let content = $("<div class='modal-content'></div>");
 
-            if (form != null) {
+            if (form.length > 0) {
                 let action = form.attr("action") ?? uri;
 
                 form.submit(function (event) {
@@ -55,7 +54,7 @@ webexpress.ui.modalFormCtrl = class extends webexpress.ui.events {
                             update(response);
                         }.bind(this),
                         error: function (response) {
-                            content.append(response);
+                            body.append(response);
                         }.bind(this)
                     });
                 }.bind(this));
@@ -70,14 +69,8 @@ webexpress.ui.modalFormCtrl = class extends webexpress.ui.events {
                 content.append(footer);
                 form.append(content);
                 dialog.append(form);
-
-                //scripts.each(function (index, script) {
-                //    $.globalEval(script.text || script.textContent || script.innerHTML || '', {}, dialog[0].ownerDocument);
-                //});
             } else {
-                main.addClass("modal-body");
-                content.append(main);
-                content.append("<div class='modal-footer'><button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>" + close + "</button></div>");
+                this._modal.hide();
             }
         }.bind(this);
 

@@ -9,7 +9,7 @@ using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.WebApp.WebControl
 {
-    public class ControlModalFormFileUpload : ControlModalFormular
+    public class ControlModalFormularFileUpload : ControlModalFormular
     {
         /// <summary>
         /// Liefert die Akzeptierten Datein
@@ -87,7 +87,7 @@ namespace WebExpress.WebApp.WebControl
         /// Konstruktor
         /// </summary>
         /// <param name="id">Die ID</param>
-        public ControlModalFormFileUpload(string id = null)
+        public ControlModalFormularFileUpload(string id = null)
             : this(id, null)
         {
 
@@ -98,7 +98,7 @@ namespace WebExpress.WebApp.WebControl
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="content">Die Formularsteuerelemente</param>
-        public ControlModalFormFileUpload(string id, params ControlFormularItem[] content)
+        public ControlModalFormularFileUpload(string id, params ControlFormularItem[] content)
             : base(id, string.Empty, content)
         {
             Init();
