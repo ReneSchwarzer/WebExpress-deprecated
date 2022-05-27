@@ -32,6 +32,7 @@
     <None Remove="Assets\css\webexpress.ui.css" />
     <None Remove="Assets\css\webexpress.ui.expand.css" />
     <None Remove="Assets\css\webexpress.ui.form.css" />
+    <None Remove="Assets\css\webexpress.ui.modalformular.css" />
     <None Remove="Assets\css\webexpress.ui.modalpage.css" />
     <None Remove="Assets\css\webexpress.ui.more.css" />
     <None Remove="Assets\css\webexpress.ui.move.css" />
@@ -158,7 +159,7 @@
     <None Remove="Assets\js\summernote-de-DE.js" />
     <None Remove="Assets\js\webexpress.ui.expand.js" />
     <None Remove="Assets\js\webexpress.ui.js" />
-    <None Remove="Assets\js\webexpress.ui.modalform.js" />
+    <None Remove="Assets\js\webexpress.ui.modalformular.js" />
     <None Remove="Assets\js\webexpress.ui.modalpage.js" />
     <None Remove="Assets\js\webexpress.ui.more.js" />
     <None Remove="Assets\js\webexpress.ui.move.js" />
@@ -183,6 +184,7 @@
     <EmbeddedResource Include="Assets\css\bootstrap.min.css.map" />
     <EmbeddedResource Include="Assets\css\Chart.min.css" />
     <EmbeddedResource Include="Assets\css\webexpress.ui.expand.css" />
+    <EmbeddedResource Include="Assets\css\webexpress.ui.modalformular.css" />
     <EmbeddedResource Include="Assets\css\webexpress.ui.modalpage.css" />
     <EmbeddedResource Include="Assets\css\webexpress.ui.more.css" />
     <EmbeddedResource Include="Assets\css\webexpress.ui.move.css" />
@@ -338,8 +340,8 @@
     <EmbeddedResource Include="Assets\js\lang\summernote-de-DE.min.js">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Assets\js\webexpress.ui.modalformular.js" />
     <EmbeddedResource Include="Assets\js\webexpress.ui.modalpage.js" />
-    <EmbeddedResource Include="Assets\js\webexpress.ui.modalform.js" />
     <EmbeddedResource Include="Assets\js\webexpress.ui.move.js" />
     <EmbeddedResource Include="Assets\js\webexpress.ui.selection.js" />
     <EmbeddedResource Include="Assets\js\webexpress.ui.more.js" />

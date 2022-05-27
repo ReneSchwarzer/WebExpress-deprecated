@@ -18,8 +18,8 @@ webexpress.ui.paginationCtrl = class extends webexpress.ui.events {
     constructor(settings) {
         super();
         
-        let id = settings.ID;
-        this._css = settings.CSS;
+        let id = settings.id;
+        this._css = settings.css;
 
         this._container.attr("id", id ?? "");
     }

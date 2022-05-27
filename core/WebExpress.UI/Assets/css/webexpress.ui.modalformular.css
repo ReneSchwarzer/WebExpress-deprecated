@@ -1,0 +1,7 @@
+.modalformular {
+    
+}
+    .modalformular > .modal-dialog > form {
+        background-color: transparent !important;
+        margin: 0 !important;
+    }

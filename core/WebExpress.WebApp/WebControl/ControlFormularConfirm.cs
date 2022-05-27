@@ -31,8 +31,8 @@ namespace WebExpress.WebApp.WebControl
         /// <summary>
         /// Liefert oder setzt den Inhalt
         /// </summary>
-        public ControlFormularItemStaticText Content { get; } = new ControlFormularItemStaticText() 
-        { 
+        public ControlFormularItemStaticText Content { get; } = new ControlFormularItemStaticText()
+        {
         };
 
         /// <summary>

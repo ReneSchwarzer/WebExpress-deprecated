@@ -1,9 +1,9 @@
-﻿using WebExpress.Html;
-using WebExpress.WebModule;
-using WebExpress.UI.WebControl;
-using WebExpress.WebPage;
+﻿using System.Text;
 using System.Text.Json;
-using System.Text;
+using WebExpress.Html;
+using WebExpress.UI.WebControl;
+using WebExpress.WebModule;
+using WebExpress.WebPage;
 
 namespace WebExpress.WebApp.WebApiControl
 {
@@ -43,8 +43,8 @@ namespace WebExpress.WebApp.WebApiControl
             var builder = new StringBuilder();
 
             builder.AppendLine($"{{");
-            builder.AppendLine($"let settings = { settingsJson };");
-            builder.AppendLine($"let container = $('#{ ID }');");
+            builder.AppendLine($"let settings = {settingsJson};");
+            builder.AppendLine($"let container = $('#{ID}');");
             builder.AppendLine($"let obj = new webexpress.webapp.popupNotificationCtrl(settings);");
             builder.AppendLine($"container.replaceWith(obj.getCtrl);");
             builder.AppendLine($"}}");

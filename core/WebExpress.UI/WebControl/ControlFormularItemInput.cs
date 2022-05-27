@@ -88,7 +88,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Liefert oder setzt den Wert
         /// </summary>
-        public virtual string Value { get; set; }
+        public virtual string Value { get; set; } = string.Empty;
 
         /// <summary>
         /// Konstruktor

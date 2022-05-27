@@ -3,10 +3,9 @@
  * Folgende Events werden ausgelöst:
  * - webexpress.ui.close
  */
-webexpress.ui.modalFormCtrl = class extends webexpress.ui.events {
+webexpress.ui.modalFormularCtrl = class extends webexpress.ui.events {
     _uri = null;
-    _container = $("<div class='modal modalpage fade' data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-hidden='true'></div>");
-    _modal = null;
+    _container = $("<div class='modal modalformular fade' data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-hidden='true'></div>");
 
     /**
      * Konstruktor
@@ -17,9 +16,9 @@ webexpress.ui.modalFormCtrl = class extends webexpress.ui.events {
     constructor(settings) {
         super();
         
-        let id = settings.ID;
-        let close = settings.Close ?? "Close";
-        let uri = settings.Uri ?? "";
+        let id = settings.id;
+        let close = settings.close ?? "Close";
+        let uri = settings.uri ?? "";
         let dialog = $("<div class='modal-dialog modal-xl modal-dialog-scrollable'></div>");
 
         this._container.attr("id", id ?? "");
@@ -77,10 +76,15 @@ webexpress.ui.modalFormCtrl = class extends webexpress.ui.events {
         $(document).ready(function () {
             $.get(this._uri, function (response) {
                 update(response);
-            }.bind(this));
+            }.bind(this))
+                .fail(function (e) {
+                    modal.dispose();
+                    this._container.remove();
+                });
         }.bind(this));
 
-        this._modal = bootstrap.Modal.getOrCreateInstance(this.getCtrl);
+        let modal = bootstrap.Modal.getOrCreateInstance(this.getCtrl);
+
         this._container.on('shown.bs.modal', function (event) {
             $('script', dialog).each(function (index, script) {
                 $.globalEval(script.text || script.textContent || script.innerHTML || '');
@@ -88,16 +92,11 @@ webexpress.ui.modalFormCtrl = class extends webexpress.ui.events {
         });
 
         this._container.on('hidden.bs.modal', function (event) {
-            this._modal.dispose();
+            modal.dispose();
             this._container.remove();
         }.bind(this));
-    }
 
-    /**
-     * Anzeige des modalen Dialogs
-     */
-    show() {
-        this._modal.show();
+        modal.show();
     }
 
     /**

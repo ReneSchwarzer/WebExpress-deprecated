@@ -27,7 +27,7 @@ namespace WebExpress.WebApp.WebControl
             : base("delete_" + id)
         {
             Confirm += OnConfirm;
-            
+
             Header = "webexpress.webapp:setting.usermanager.user.delete.header";
             Content = Description;
         }
@@ -40,7 +40,7 @@ namespace WebExpress.WebApp.WebControl
         /// <exception cref="NotImplementedException"></exception>
         private void OnConfirm(object sender, FormularEventArgs e)
         {
-            UserManager.RemoveUser(Item); 
+            UserManager.RemoveUser(Item);
 
             e.Context.Page.Redirecting(e.Context.Uri);
         }

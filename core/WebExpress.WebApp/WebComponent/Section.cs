@@ -35,11 +35,11 @@
         /// </summary>
         public const string AppNavigationSecondary = "app.navigation.secondary";
 
-         /// <summary>
+        /// <summary>
         /// Liefert oder setzt den den app.quickcreate.primary-Bereich
         /// </summary>
         public const string AppQuickcreatePreferences = "app.quickcreate.preferences";
-        
+
         /// <summary>
         /// Liefert oder setzt den den app.quickcreate.primary-Bereich
         /// </summary>
@@ -69,7 +69,7 @@
         /// Liefert oder setzt den app.settings.primary-Bereich
         /// </summary>
         public const string AppSettingsPreferences = "app.settings.preferences";
-        
+
         /// <summary>
         /// Liefert oder setzt den app.settings.primary-Bereich
         /// </summary>

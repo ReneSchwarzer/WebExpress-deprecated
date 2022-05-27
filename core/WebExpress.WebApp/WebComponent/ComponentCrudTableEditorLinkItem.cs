@@ -28,7 +28,7 @@ namespace WebExpress.WebApp.WebComponent
         /// <param name="label">Die Beschriftung der Splalte</param>
         public ComponentCrudTableEditorLinkItem(string label)
         {
-            Label = label;  
+            Label = label;
         }
     }
 }

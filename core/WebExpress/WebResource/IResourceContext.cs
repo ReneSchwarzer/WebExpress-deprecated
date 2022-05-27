@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
+using WebExpress.Uri;
 using WebExpress.WebApplication;
 using WebExpress.WebCondition;
 using WebExpress.WebModule;
 using WebExpress.WebPlugin;
-using WebExpress.Uri;
 
 namespace WebExpress.WebResource
 {

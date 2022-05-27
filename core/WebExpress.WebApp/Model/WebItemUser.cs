@@ -7,7 +7,7 @@ namespace WebExpress.WebApp.Model
         /// <summary>
         /// Die Bezeichnung des Objektes
         /// </summary>
-        public override string Label => !string.IsNullOrWhiteSpace(Firstname) ? $"{ Lastname }, { Firstname }" : Lastname;
+        public override string Label => !string.IsNullOrWhiteSpace(Firstname) ? $"{Lastname}, {Firstname}" : Lastname;
 
         /// <summary>
         /// Die Name des Objektes

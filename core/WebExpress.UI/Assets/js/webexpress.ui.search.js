@@ -17,10 +17,10 @@ webexpress.ui.searchCtrl = class extends webexpress.ui.events {
     constructor(settings) {
         super();
         
-        let id = settings.ID;
-        let css = settings.CSS;
-        let placeholder = settings.Placeholder != null ? settings.Placeholder : "";
-        let icon = settings.Icon != null ? settings.Icon : "fas fa-search";
+        let id = settings.id;
+        let css = settings.css;
+        let placeholder = settings.placeholder != null ? settings.placeholder : "";
+        let icon = settings.icon != null ? settings.icon : "fas fa-search";
 
         let searchicon = $("<label><i class='" + icon + "'/></label>");
         let searchinput = $("<input type='text' placeholder='" + placeholder + "' aria-label='" + placeholder + "'/>");

@@ -26,11 +26,11 @@ webexpress.ui.selectionCtrl = class extends webexpress.ui.events {
      *        - MultiSelect Erlaubt die Auswahl mehrerer Elmente
      */
     constructor(settings) {
-        let id = settings.ID;
-        let name = settings.Name;
-        let css = settings.CSS;
-        let multiselect = settings.MultiSelect;
-        let placeholder = settings.Placeholder !== undefined ? settings.Placeholder : null;
+        let id = settings.id;
+        let name = settings.name;
+        let css = settings.css;
+        let multiselect = settings.multiselect;
+        let placeholder = settings.placeholder !== undefined ? settings.placeholder : null;
                 
         let dropdown = $("<span data-bs-toggle='dropdown' aria-expanded='false'/>");
         let expand = $("<a class='fas fa-angle-down' href='#'/>");
@@ -93,8 +93,8 @@ webexpress.ui.selectionCtrl = class extends webexpress.ui.events {
         this._dropdownoptions.children().remove();
 
         this._options.forEach(function (option) {
-            let id = option.ID != null ? option.ID : null;
-            let label = option.Label != null ? option.Label : null;
+            let id = option.id ?? null;
+            let label = option.label ?? null;
             if (!this._values.includes(id)) {
                 if (id == null && (label == null || label == '-')) {
                     let li = $("<li class='dropdown-divider'/>");
@@ -103,12 +103,12 @@ webexpress.ui.selectionCtrl = class extends webexpress.ui.events {
                     let li = $("<li class='dropdown-header'>" + label + "</li>");
                     this._dropdownoptions.append(li);
                 } else {
-                    let description = option.Description != null && option.Description.length > 0 ? option.Description : null;
-                    let image = option.Image != null ? option.Image : null;
-                    let color = option.Color != null ? option.Color : 'text-dark';
-                    let instruction = option.Instruction !== undefined && option.Instruction != null ? "<small>(" + option.Instruction + ")</small>": "";
+                    let description = option.description != null && option.description.length > 0 ? option.description : null;
+                    let image = option.image ?? null;
+                    let color = option.color ?? 'text-dark';
+                    let instruction = option.instruction != null ? "<small>(" + option.instruction + ")</small>": "";
                     let li = $("<li class='dropdown-item'/>");
-                    let a = $("<a class='link " + color + "' href='javascript:void(0)'>" + option.Label + "</a>" + instruction);
+                    let a = $("<a class='link " + color + "' href='javascript:void(0)'>" + option.label + "</a>" + instruction);
                     let p = $("<p class='small text-muted'>" + description + "</p>");
 
                     if (image != null) {
@@ -155,10 +155,10 @@ webexpress.ui.selectionCtrl = class extends webexpress.ui.events {
         this._values.forEach(function (value) {
             let option = this._options.find(elem => elem.ID == value);
             if (option != null) {
-                let label = option.Label != null ? option.Label : null;
-                let image = option.Image != null ? option.Image : null;
-                let color = option.Color != null ? option.Color : 'text-dark';
-                let a = $("<a class='link " + color + "' href='javascript:void(0)'>" + option.Label + "</a>");
+                let label = option.label ?? null;
+                let image = option.image ?? null;
+                let color = option.color ?? 'text-dark';
+                let a = $("<a class='link " + color + "' href='javascript:void(0)'>" + option.label + "</a>");
                 let close = $("<a class='fas fa-times' href='#'/>");
                 let li = $("<li/>");
 
@@ -196,7 +196,7 @@ webexpress.ui.selectionCtrl = class extends webexpress.ui.events {
         // selektierte Optionen ermitteln
         let selectedOptions = this.selectedOptions;
         // entferne die selektierten Optionen, wenn diese in den übergebenen neuen Optionen enthalten sind
-        selectedOptions = selectedOptions.filter(elem => !options.some(o => o.ID === elem.ID));
+        selectedOptions = selectedOptions.filter(elem => !options.some(o => o.ID === elem.id));
         // Vereinige die selectierten und die neuen Optionen
         this._options = [...new Set([...options, ...selectedOptions])];
 
@@ -207,7 +207,7 @@ webexpress.ui.selectionCtrl = class extends webexpress.ui.events {
      * Gibt die ausgewählten Optionen zurück
      */
     get selectedOptions() {
-        return this._options.filter(elem => this.value.includes(elem.ID));
+        return this._options.filter(elem => this.value.includes(elem.id));
     }
 
     /**

@@ -233,12 +233,12 @@ namespace WebExpress.UI.WebControl
             }
             else if (Modal.Type == TypeModal.Formular)
             {
-                html.OnClick = $"var modal = new webexpress.ui.modalFormCtrl({{ Close: 'Schließen', Uri: '{ html.Href }'}}); modal.show();";
+                html.OnClick = $"new webexpress.ui.modalFormularCtrl({{ Close: 'Schließen', Uri: '{html.Href}'}});";
                 html.Href = "#";
             }
             else if (Modal.Type == TypeModal.Brwoser)
             {
-                html.OnClick = $"var modal = new webexpress.ui.modalPageCtrl({{ Close: 'Schließen', Uri: '{ html.Href }'}}); modal.show();";
+                html.OnClick = $"new webexpress.ui.modalPageCtrl({{ Close: 'Schließen', Uri: '{html.Href}'}});";
                 html.Href = "#";
             }
             else if (Modal.Type == TypeModal.Modal)

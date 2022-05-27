@@ -31,11 +31,6 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Liefert oder setzt den Wert
         /// </summary>
-        private new string Value { get { return base.Value; } set { base.Value = value; } }
-
-        /// <summary>
-        /// Liefert oder setzt den Wert
-        /// </summary>
         public virtual ICollection<string> Values => base.Value != null ? base.Value.Split(';', System.StringSplitOptions.RemoveEmptyEntries) : new List<string>();
 
         /// <summary>
@@ -43,7 +38,7 @@ namespace WebExpress.UI.WebControl
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlFormularItemInputSelection(string id = null)
-            : base(string.IsNullOrEmpty(id) ? "selection" : $"selection-{id}")
+            : base(string.IsNullOrEmpty(id) ? typeof(ControlFormularItemInputSelection).GUID.ToString() : id)
         {
             Name = ID;
         }
@@ -138,16 +133,16 @@ namespace WebExpress.UI.WebControl
             var optionsJson = JsonSerializer.Serialize(Options, jsonOptions);
             var builder = new StringBuilder();
 
-            builder.AppendLine($"let options = { optionsJson };");
-            builder.AppendLine($"let settings = { settingsJson };");
-            builder.AppendLine($"let container = $('#{ id }');");
-            builder.AppendLine($"let obj = new selectionCtrl(settings);");
+            builder.AppendLine($"let options = {optionsJson};");
+            builder.AppendLine($"let settings = {settingsJson};");
+            builder.AppendLine($"let container = $('#{id}');");
+            builder.AppendLine($"let obj = new webexpress.ui.selectionCtrl(settings);");
             builder.AppendLine($"obj.options = options;");
-            builder.AppendLine($"obj.value = [{ string.Join(",", Values.Select(x => $"'{ x }'")) }];");
+            builder.AppendLine($"obj.value = [{string.Join(",", Values.Select(x => $"'{x}'"))}];");
 
             if (OnChange != null)
             {
-                builder.AppendLine($"obj.on('webexpress.ui.change.value', { OnChange });");
+                builder.AppendLine($"obj.on('webexpress.ui.change.value', {OnChange});");
             }
 
             builder.AppendLine($"container.replaceWith(obj.getCtrl);");

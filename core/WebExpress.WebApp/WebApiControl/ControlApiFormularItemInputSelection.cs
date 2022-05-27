@@ -34,35 +34,35 @@ public class ControlApiFormularItemInputSelection : ControlFormularItemInputSele
     {
         var settings = new
         {
-            ID = id,
-            Name,
-            CSS = css,
-            Placeholder,
-            MultiSelect,
-            OptionUri = RestUri?.ToString()
+            id = id,
+            name = Name,
+            css = css,
+            placeholder = Placeholder,
+            multiSelect = MultiSelect,
+            optionuri = RestUri?.ToString()
         };
 
         var jsonOptions = new JsonSerializerOptions { WriteIndented = false };
         var settingsJson = JsonSerializer.Serialize(settings, jsonOptions);
         var optionsJson = JsonSerializer.Serialize(Options, jsonOptions);
         var builder = new StringBuilder();
-        
-        builder.AppendLine($"{{");
-        builder.AppendLine($"let settings = { settingsJson };");
-        builder.AppendLine($"var options = { optionsJson };");
-        builder.AppendLine($"let container = $('#{ id }');");
+
+        builder.AppendLine($"$(document).ready(function () {{");
+        builder.AppendLine($"let settings = {settingsJson};");
+        builder.AppendLine($"var options = {optionsJson};");
+        builder.AppendLine($"let container = $('#{id}');");
         builder.AppendLine($"let obj = new webexpress.webapp.selectionCtrl(settings);");
         builder.AppendLine($"obj.options = options;");
         builder.AppendLine($"obj.receiveData();");
-        builder.AppendLine($"obj.value = [{ string.Join(",", Values.Select(x => $"'{ x }'")) }];");
+        builder.AppendLine($"obj.value = [{string.Join(",", Values.Select(x => $"'{x}'"))}];");
         builder.AppendLine($"obj.on('webexpress.ui.change.filter', function(key) {{ obj.receiveData(key); }});");
         if (OnChange != null)
         {
-            builder.AppendLine($"obj.on('webexpress.ui.change.value', function() {{ { OnChange } }});");
+            builder.AppendLine($"obj.on('webexpress.ui.change.value', function() {{ {OnChange} }});");
         }
         builder.AppendLine($"container.replaceWith(obj.getCtrl);");
-        builder.AppendLine($"}}");
+        builder.AppendLine($"}});");
 
-        return builder.ToString();            
+        return builder.ToString();
     }
 }

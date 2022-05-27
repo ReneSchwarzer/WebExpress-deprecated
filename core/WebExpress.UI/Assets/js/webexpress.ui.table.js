@@ -7,6 +7,8 @@ webexpress.ui.tableCtrl = class extends webexpress.ui.events {
     _head = $("<thead/>");
     _body = $("<tbody>");
     _columns = [];
+    _optionSetting = null;
+    _optionItems = [];
 
     /**
      * Konstruktor
@@ -17,9 +19,11 @@ webexpress.ui.tableCtrl = class extends webexpress.ui.events {
     constructor(settings) {
         super();
 
-        let id = settings.ID;
-        let css = settings.CSS;
+        let id = settings.id;
+        let css = settings.css;
 
+        this._optionSetting = settings.optionsettings;
+        this._optionItems = settings.optionitems;
         this._table.attr("id", id ?? "");
         this._table.addClass(css);
         this._table.append(this._col);
@@ -64,15 +68,15 @@ webexpress.ui.tableCtrl = class extends webexpress.ui.events {
             let th = $("<tr/>");
 
             columns.forEach(function (column) {
-                if (column.Render != null && (typeof column.Render === 'string' || column.Render instanceof String)) {
+                if (column.render != null && (typeof column.render === 'string' || column.render instanceof String)) {
                     let cell = $("<td/>");
-                    let render = Function("cell", "item", column.Render);
+                    let render = Function("cell", "item", column.render);
                     let renderResult = render(cell, row);
                     if (renderResult != null && renderResult != null) {
                         cell.append(renderResult);
                     }
                     th.append(cell);
-                } else if (column.Render != null) {
+                } else if (column.render != null) {
                     let cell = $("<td/>");
                     let renderResult = render(cell, row);
                     if (renderResult != null && renderResult != null) {
@@ -82,8 +86,21 @@ webexpress.ui.tableCtrl = class extends webexpress.ui.events {
                 }
             });
 
+            if (this._optionItems.length > 0) {
+                let optionItems = this._optionItems.map(function (x) {
+                    return {
+                        label: x.label, icon: x.icon, color: x.color, css: x.css, url: x.url, onclick: x.onclick, item: row
+                    }
+                });
+                let cell = $("<td/>");
+                let more = new webexpress.ui.moreCtrl(optionItems, this._optionSetting);
+
+                cell.append(more.getCtrl);
+                th.append(cell);
+            }
+
             rows.push(th);
-        });
+        }.bind(this));
         this._body.append(rows);
     }
 
@@ -98,9 +115,9 @@ webexpress.ui.tableCtrl = class extends webexpress.ui.events {
         let head_row = $("<tr/>");
                 
         this._columns.forEach(function (column) {
-            let label = column.Label;
-            let icon = column.Icon;
-            let width = column.Width != null ? column.Width + "%" : "auto";
+            let label = column.label;
+            let icon = column.icon;
+            let width = column.width != null ? column.width + "%" : "auto";
 
             let col = $("<col span='1' style='width: " + width + ";'>");
             let th = $("<th/>");
@@ -120,6 +137,13 @@ webexpress.ui.tableCtrl = class extends webexpress.ui.events {
             head_col.push(col);
             head_row.append(th)
         });
+
+        if (this._optionItems.length > 0) {
+            let col = $("<col>");
+            let th = $("<th/>");
+            head_col.push(col);
+            head_row.append(th)
+        }
 
         this._col.children().remove();
         this._col.append(head_col);

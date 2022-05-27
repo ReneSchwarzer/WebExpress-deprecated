@@ -3,7 +3,6 @@ using System.Linq;
 using WebExpress.Html;
 using WebExpress.UI.WebComponent;
 using WebExpress.Uri;
-using WebExpress.WebModule;
 using WebExpress.WebPage;
 using static WebExpress.Internationalization.InternationalizationManager;
 
@@ -47,7 +46,7 @@ namespace WebExpress.WebApp.WebComponent
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var search = $"Search: {{Placeholder: '{ I18N(context.Culture, "webexpress.webapp:search.placeholder") }'}}";
+            var search = $"Search: {{Placeholder: '{I18N(context.Culture, "webexpress.webapp:search.placeholder")}'}}";
             var table = $"Table: {{}}";
             var pagination = $"Pagination: {{ CSS: 'justify-content-end' }}";
             var editors = $"Editors: [" + string.Join(",", Editors.Select
@@ -56,7 +55,7 @@ namespace WebExpress.WebApp.WebComponent
                 {
                     if (x is ComponentCrudTableEditorLinkItem link)
                     {
-                        return $"{{Label: '{ I18N(context.Culture, link.Label) }', Icon: '{ link.Icon.ToClass() }', Color: '{ link.Color?.ToClass() }', CSS: 'dropdown-item' }}";
+                        return $"{{Label: '{I18N(context.Culture, link.Label)}', Icon: '{link.Icon.ToClass()}', Color: '{link.Color?.ToClass()}', CSS: 'dropdown-item' }}";
                     }
                     else if (x is ComponentCrudTableEditorSeperatorItem seperator)
                     {
@@ -67,12 +66,12 @@ namespace WebExpress.WebApp.WebComponent
                 }
             )) + "]";
 
-            var settings = $"{{{ search }, { table }, { pagination }, { editors }}}";
+            var settings = $"{{{search}, {table}, {pagination}, {editors}}}";
 
             context.VisualTree.AddScript
             (
                 "webexpress.webapp.usermanagement.user",
-                $"var crud = new crudTable('{ RestApiUri }', { settings }); var container = $('#{ ID }'); container.append(crud.getCtrl);"
+                $"var crud = new crudTable('{RestApiUri}', {settings}); var container = $('#{ID}'); container.append(crud.getCtrl);"
             );
 
             return base.Render(context);

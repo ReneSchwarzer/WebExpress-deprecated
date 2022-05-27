@@ -1,6 +1,6 @@
-﻿using WebExpress.WebCondition;
+﻿using System;
 using WebExpress.Message;
-using System;
+using WebExpress.WebCondition;
 
 namespace WebExpress.WebApp.WebCondition
 {

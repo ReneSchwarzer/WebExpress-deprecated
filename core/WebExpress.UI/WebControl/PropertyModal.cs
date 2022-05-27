@@ -31,7 +31,7 @@
         public PropertyModal(TypeModal type, ControlModal modal = null)
         {
             Type = type;
-            Modal = modal;  
+            Modal = modal;
         }
     }
 }

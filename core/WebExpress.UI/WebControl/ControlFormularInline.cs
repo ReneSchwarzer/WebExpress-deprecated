@@ -83,7 +83,7 @@ namespace WebExpress.UI.WebControl
         public ControlFormularInline(string id = null)
             : base(id)
         {
-            Name = ID != null ? ID.StartsWith("formular") ? ID : $"formular_{ ID }" : "formular";
+            Name = ID != null ? ID.StartsWith("formular") ? ID : $"formular_{ID}" : "formular";
 
             SubmitButton = new ControlFormularItemButton("submit-" + Name?.ToLower())
             {
@@ -146,7 +146,7 @@ namespace WebExpress.UI.WebControl
         public override IHtmlNode Render(RenderContext context)
         {
             var renderContext = new RenderContextFormular(context, this);
-            var formName = Name != null ? Name.StartsWith("formular") ? Name : $"formular_{ Name }" : "formular";
+            var formName = Name != null ? Name.StartsWith("formular") ? Name : $"formular_{Name}" : "formular";
 
             Initialize(renderContext);
             (Items as List<ControlFormularItem>).ForEach(x => x.Initialize(renderContext));

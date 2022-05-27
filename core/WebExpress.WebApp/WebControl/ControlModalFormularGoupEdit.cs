@@ -84,7 +84,7 @@ namespace WebExpress.WebApp.WebControl
         private void OnConfirm(object sender, FormularEventArgs e)
         {
             Item.Name = GroupName.Value;
-           
+
             UserManager.UpdateGroup(Item);
 
             e.Context.Page.Redirecting(e.Context.Uri);

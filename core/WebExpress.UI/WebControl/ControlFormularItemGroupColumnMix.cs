@@ -78,7 +78,7 @@ namespace WebExpress.UI.WebControl
                 if (Distribution.Count > offset)
                 {
                     width = Distribution.Skip(offset).Take(1).FirstOrDefault();
-                    div.Style = $"width: { width }%";
+                    div.Style = $"width: {width}%";
                     max -= width;
 
                     offset++;
@@ -86,7 +86,7 @@ namespace WebExpress.UI.WebControl
                 else if (Items.Count > offset)
                 {
                     width = max / (Items.Count - offset);
-                    div.Style = $"width: { width }%";
+                    div.Style = $"width: {width}%";
                 }
 
                 if (item is ControlFormularItemInput input)

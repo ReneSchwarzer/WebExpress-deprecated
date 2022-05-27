@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using WebExpress.Uri;
+using WebExpress.WebApplication;
 using WebExpress.WebAttribute;
 using WebExpress.WebCondition;
 using WebExpress.WebModule;
-using WebExpress.Uri;
 using static WebExpress.Internationalization.InternationalizationManager;
-using WebExpress.WebApplication;
 
 namespace WebExpress.WebResource
 {
@@ -157,7 +157,7 @@ namespace WebExpress.WebResource
                         root.IncludeSubPaths = includeSubPaths;
                         root.PathSegment = segment.ToPathSegment();
                         root.Dummy = false;
-                        
+
                         Context.Log.Info(message: I18N("webexpress:resourcemanager.addresource"), args: new object[] { "ROOT", applicationID, moduleID });
                     }
                 }

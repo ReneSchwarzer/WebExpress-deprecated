@@ -4,10 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using WebExpress.Uri;
 using WebExpress.WebApplication;
 using WebExpress.WebAttribute;
 using WebExpress.WebPlugin;
-using WebExpress.Uri;
 using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.WebModule

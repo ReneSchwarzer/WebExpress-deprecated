@@ -59,7 +59,7 @@ namespace WebExpress.WebApp.WebResource
                     return new { Data = data };
                 }
 
-                return new { Data = data.Skip(itemCount * pagenumber).Take(itemCount), Pagination = new { PageNumber = pagenumber, Totalpage = totalpage } };
+                return new { data = data.Skip(itemCount * pagenumber).Take(itemCount), pagination = new { pagenumber = pagenumber, totalpage = totalpage } };
             }
         }
     }

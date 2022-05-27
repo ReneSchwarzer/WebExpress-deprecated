@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using WebExpress.WebModule;
 using WebExpress.Uri;
+using WebExpress.WebModule;
 using WebExpress.WebPage;
 using WebExpress.WebResource;
 
@@ -52,6 +52,7 @@ namespace WebExpress.UI.WebPage
                 CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/webexpress.ui.css")));
                 CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/webexpress.ui.expand.css")));
                 CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/webexpress.ui.form.css")));
+                CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/webexpress.ui.modalformular.css")));
                 CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/webexpress.ui.modalpage.css")));
                 CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/webexpress.ui.more.css")));
                 CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/webexpress.ui.move.css")));
@@ -66,7 +67,7 @@ namespace WebExpress.UI.WebPage
                 HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/summernote-bs5.min.js")));
                 HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/webexpress.ui.js")));
                 HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/webexpress.ui.expand.js")));
-                HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/webexpress.ui.modalform.js")));
+                HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/webexpress.ui.modalformular.js")));
                 HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/webexpress.ui.modalpage.js")));
                 HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/webexpress.ui.more.js")));
                 HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/webexpress.ui.move.js")));

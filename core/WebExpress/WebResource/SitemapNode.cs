@@ -381,7 +381,7 @@ namespace WebExpress.WebResource
             {
                 return Instance;
             }
-            
+
             var instance = Type?.Assembly.CreateInstance(Type?.FullName) as IResource;
 
             if (instance is II18N i18n)
@@ -392,7 +392,7 @@ namespace WebExpress.WebResource
             if (instance is Resource resorce)
             {
                 resorce.ID = ID;
-                resorce.Uri = new UriResource(Context.Module, context.Uri.ToString(), Path, context.Culture); 
+                resorce.Uri = new UriResource(Context.Module, context.Uri.ToString(), Path, context.Culture);
             }
 
             if (instance is IPage page)

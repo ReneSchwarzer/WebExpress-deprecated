@@ -141,9 +141,9 @@ namespace WebExpress.UI.WebControl
                 Type = TypeButton.Submit,
                 Value = "1",
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None),
-                OnClick = new PropertyOnClick($"$('#{ Formular?.SubmitType.ID }').val('submit');")
+                OnClick = new PropertyOnClick($"$('#{Formular?.SubmitType.ID}').val('submit');")
             };
-            
+
             var cancelFooterButton = new ControlButtonLink()
             {
                 Text = I18N(context.Culture, "webexpress.ui:modal.close.label")

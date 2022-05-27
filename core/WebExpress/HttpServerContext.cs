@@ -25,7 +25,7 @@ namespace WebExpress
         /// Liefert oder setzt das Asset-Basisverzeichnis
         /// </summary>
         public string AssetPath { get; protected set; }
-        
+
         /// <summary>
         /// Liefert oder setzt das Daten-Basisverzeichnis
         /// </summary>

@@ -16,63 +16,34 @@ webexpress.ui.modalPageCtrl = class extends webexpress.ui.events {
     constructor(settings) {
         super();
         
-        let id = settings.ID;
-        let close = settings.Close ?? "Close";
-        let uri = settings.Uri ?? "";
+        let id = settings.id;
+        let close = settings.close ?? "Close";
+        let uri = settings.uri ?? "";
         let dialog = $("<div class='modal-dialog modal-xl modal-dialog-scrollable'></div>");
-        let content = $("<div class='modal-content'></div>");
         
         this._container.attr("id", id ?? "");
         this._uri = uri;
         
-        dialog.append(content);
         this._container.append(dialog);
 
         let update = function (response) {
             let parser = new DOMParser();
             let doc = parser.parseFromString(response, 'text/html');
-            
-            //let doc = $.parseHTML(response, null, true);
+           
             let title = $("title", doc).text();
-            let main = $("#webexpress\\.webapp\\.content\\.main\\.primary", doc);
-            let form = $("form", main);
-            let scripts = $('script', form);
+            let header = $("<div class='modal-header'><h5 class='modal-title'>" + title + "</h5><button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='" + close + "'></button></div>");
+            let body = $("<div class='modal-body'></div>");
+            let footer = $("<div class='modal-footer'></div>");
+            let content = $("<div class='modal-content'></div>");
             
-            content.children().remove();
-            content.append($("<div class='modal-header'><h5 class='modal-title'>" + title + "</h5><button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='" + close + "'></button></div>"));
-
-            if (form != null) {
-                let action = form.attr("action") ?? uri;
-
-                form.submit(function (event) {
-                    event.preventDefault();
-                    $.ajax({
-                        type: 'POST',
-                        url: action,
-                        data: form.serialize(),
-                        success: function (response) {
-                            update(response);
-                        }.bind(this),
-                        error: function (response) {
-                            content.append(response);
-                        }.bind(this)
-                    });
-                }.bind(this));
-
-                form.addClass("modal-body");
-                $("footer", form).addClass("modal-footer");
-
-                content.append(form);
-
-                scripts.each(function (index, script) {
-                    $.globalEval(script.text || script.textContent || script.innerHTML || '');
-                });
-            } else {
-                main.addClass("modal-body");
-                content.append(main);
-                content.append("<div class='modal-footer'><button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>" + close + "</button></div>");
-            }
-
+            let main = $("#webexpress\\.webapp\\.content\\.main\\.primary", doc);
+            
+            body.append(main);
+                        
+            content.append(header);
+            content.append(body);
+            content.append(footer);
+            dialog.append(content);
         }.bind(this);
 
         $(document).ready(function () {
@@ -80,14 +51,17 @@ webexpress.ui.modalPageCtrl = class extends webexpress.ui.events {
                 update(response);
             }.bind(this));
         }.bind(this));
+
+        let modal = new bootstrap.Modal(this.getCtrl, {});
+
+        modal.show();
     }
 
     /**
      * Anzeige des modalen Dialogs
      */
     show() {
-        let modal = new bootstrap.Modal(this.getCtrl, {});
-        modal.show();
+        
     }
 
     /**

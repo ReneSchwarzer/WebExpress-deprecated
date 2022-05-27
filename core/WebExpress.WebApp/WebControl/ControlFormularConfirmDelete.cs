@@ -44,7 +44,7 @@ namespace WebExpress.WebApp.WebControl
 
             //if (string.IsNullOrWhiteSpace(ButtonLabel))
             //{
-                ButtonLabel = context.Page.I18N("webexpress.webapp", "delete.label");
+            ButtonLabel = context.Page.I18N("webexpress.webapp", "delete.label");
             //}
 
             //if (Content == null)
@@ -54,7 +54,7 @@ namespace WebExpress.WebApp.WebControl
 
             if (ButtonIcon == null)
             {
-                
+
             }
 
             //if (ButtonColor == null)

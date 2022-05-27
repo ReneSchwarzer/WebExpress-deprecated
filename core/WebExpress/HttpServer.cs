@@ -15,16 +15,16 @@ using System.Net.Sockets;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using System.Threading.Tasks;
-using WebExpress.WebApplication;
 using WebExpress.Config;
 using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.Message;
-using WebExpress.WebModule;
-using WebExpress.WebPlugin;
 using WebExpress.Uri;
+using WebExpress.WebApplication;
 using WebExpress.WebJob;
+using WebExpress.WebModule;
 using WebExpress.WebPage;
+using WebExpress.WebPlugin;
 using WebExpress.WebResource;
 
 namespace WebExpress
@@ -305,7 +305,7 @@ namespace WebExpress
 
             try
             {
-                Context.Log.Debug(message: this.I18N("webexpress:httpserver.request"), args: new object[] { context.RemoteEndPoint, $"{ request?.Method } { request?.Uri } { request?.Protocoll }" });
+                Context.Log.Debug(message: this.I18N("webexpress:httpserver.request"), args: new object[] { context.RemoteEndPoint, $"{request?.Method} {request?.Uri} {request?.Protocoll}" });
 
                 // Suche Seite in Sitemap
                 var resource = ResourceManager.Find(context?.Uri.ToString(), new SearchContext()
@@ -327,7 +327,7 @@ namespace WebExpress
 
                     if (resource.Instance is IPage)
                     {
-                        response.Content += $"<!-- { stopwatch.ElapsedMilliseconds } ms -->";
+                        response.Content += $"<!-- {stopwatch.ElapsedMilliseconds} ms -->";
                     }
 
                     if (response is ResponseNotFound)
@@ -367,10 +367,10 @@ namespace WebExpress
             {
                 Context.Log.Exception(ex);
 
-                var message = $"<h4>Message</h4>{ ex.Message }<br/><br/>" +
-                        $"<h5>Source</h5>{ ex.Source }<br/><br/>" +
-                        $"<h5>StackTrace</h5>{ ex.StackTrace.Replace("\n", "<br/>\n") }<br/><br/>" +
-                        $"<h5>InnerException</h5>{ ex.InnerException?.ToString().Replace("\n", "<br/>\n") }";
+                var message = $"<h4>Message</h4>{ex.Message}<br/><br/>" +
+                        $"<h5>Source</h5>{ex.Source}<br/><br/>" +
+                        $"<h5>StackTrace</h5>{ex.StackTrace.Replace("\n", "<br/>\n")}<br/><br/>" +
+                        $"<h5>InnerException</h5>{ex.InnerException?.ToString().Replace("\n", "<br/>\n")}";
 
                 response = CreateStatusPage<ResponseInternalServerError>(message, request);
             }
@@ -568,10 +568,10 @@ namespace WebExpress
             if (context is HttpExceptionContext exceptionContext)
             {
                 var message = "<html><head><title>404</title></head><body>" +
-                       $"<h4>Message</h4>{ exceptionContext.Exception.Message }<br/><br/>" +
-                       $"<h5>Source</h5>{ exceptionContext.Exception.Source }<br/><br/>" +
-                       $"<h5>StackTrace</h5>{ exceptionContext.Exception.StackTrace.Replace("\n", "<br/>\n") }<br/><br/>" +
-                       $"<h5>InnerException</h5>{ exceptionContext.Exception.InnerException?.ToString().Replace("\n", "<br/>\n") }" +
+                       $"<h4>Message</h4>{exceptionContext.Exception.Message}<br/><br/>" +
+                       $"<h5>Source</h5>{exceptionContext.Exception.Source}<br/><br/>" +
+                       $"<h5>StackTrace</h5>{exceptionContext.Exception.StackTrace.Replace("\n", "<br/>\n")}<br/><br/>" +
+                       $"<h5>InnerException</h5>{exceptionContext.Exception.InnerException?.ToString().Replace("\n", "<br/>\n")}" +
                        "</body></html>";
 
                 var response500 = CreateStatusPage<ResponseInternalServerError>(message, context);

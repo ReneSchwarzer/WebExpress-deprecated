@@ -28,15 +28,15 @@ webexpress.ui.moveCtrl = class extends webexpress.ui.events {
     constructor(settings) {
         super();
 
-        let id = settings.ID;
-        let name = settings.Name;
-        let css = settings.CSS;
-        let header = settings.Header;
-        let buttons = settings.Buttons;
+        let id = settings.id;
+        let name = settings.name;
+        let css = settings.css;
+        let header = settings.header;
+        let buttons = settings.buttons;
         let selectedContainer = $("<div class='move-list'/>");
-        let selectedHeader = $("<span class='text-muted'>" + header.Selected + "</span>");
+        let selectedHeader = $("<span class='text-muted'>" + header.selected + "</span>");
         let availableContainer = $("<div class='move-list'/>");
-        let availableHeader = $("<span class='text-muted'>" + header.Available + "</span>");
+        let availableHeader = $("<span class='text-muted'>" + header.available + "</span>");
         let buttonContainer = $("<div class='move-button d-grid gap-2'/>");
         
         this._container.attr("id", id ?? "");
@@ -219,13 +219,13 @@ webexpress.ui.moveCtrl = class extends webexpress.ui.events {
 
         intersection.forEach(function(currentValue) {   
             let li = $("<li class='list-group-item' draggable='true'/>");
-            let img = $("<img title='' src='" + currentValue.Image + "' draggable='false'/>");
-            let icon = $("<i class='text-primary " + currentValue.Icon + "' draggable='false'/>");
-            let a = $("<a class='link' href='javascript:void(0)' draggable='false'>" + "".concat(currentValue.Label) + "</a>");
-            if (currentValue.Icon != null) {
+            let img = $("<img title='' src='" + currentValue.image + "' draggable='false'/>");
+            let icon = $("<i class='text-primary " + currentValue.icon + "' draggable='false'/>");
+            let a = $("<a class='link' href='javascript:void(0)' draggable='false'>" + "".concat(currentValue.label) + "</a>");
+            if (currentValue.icon != null) {
                 li.append(icon);
             }
-            if (currentValue.Image != null) {
+            if (currentValue.image != null) {
                 li.append(img);
             }
             li.append(a);
@@ -275,13 +275,13 @@ webexpress.ui.moveCtrl = class extends webexpress.ui.events {
 
         relativeComplement.forEach(function(currentValue) { 
             let li = $("<li class='list-group-item' draggable='true'/>");
-            let img = $("<img title='' src='" + currentValue.Image + "' draggable='false'/>");
-            let icon = $("<i class='text-primary " + currentValue.Icon + "' draggable='false'/>");
-            let a = $("<a class='link' href='javascript:void(0)' draggable='flase'>" + "".concat(currentValue.Label) + "</a>");
-            if (currentValue.Icon != null) {
+            let img = $("<img title='' src='" + currentValue.image + "' draggable='false'/>");
+            let icon = $("<i class='text-primary " + currentValue.icon + "' draggable='false'/>");
+            let a = $("<a class='link' href='javascript:void(0)' draggable='flase'>" + "".concat(currentValue.label) + "</a>");
+            if (currentValue.icon != null) {
                 li.append(icon);
             }
-            if (currentValue.Image != null) {
+            if (currentValue.image != null) {
                 li.append(img);
             }
             li.append(a);

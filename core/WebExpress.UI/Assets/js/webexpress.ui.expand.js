@@ -17,9 +17,9 @@ webexpress.ui.expandCtrl = class extends webexpress.ui.events {
      *        - Header Der Überschriftsext
      */
     constructor(settings) {
-        let id = settings.ID;
-        let css = settings.CSS;
-        let header = settings.Header != null ? settings.Header : "";
+        let id = settings.id;
+        let css = settings.css;
+        let header = settings.header != null ? settings.header : "";
         
         let expandheader = $("<span class='text-primary' aria-label='" + header + "'>" + header + "</span>");
         

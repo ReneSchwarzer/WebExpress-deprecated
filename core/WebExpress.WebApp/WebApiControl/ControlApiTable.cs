@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
@@ -16,13 +17,22 @@ namespace WebExpress.WebApp.WebApiControl
         /// </summary>
         public IUri RestUri { get; set; }
 
+        /// <summary>
+        /// Setzt oder liefert die Einstellungen für die Bearbeitungsoptionen (z.B. Edit, Delete, ...)
+        /// </summary>
+        public ControlApiTableOption OptionSettings { get; private set; } = new ControlApiTableOption();
+
+        /// <summary>
+        /// Setzt oder liefert die Bearbeitungsoptionen (z.B. Edit, Delete, ...)
+        /// </summary>
+        public ICollection<ControlApiTableOptionItem> OptionItems { get; private set; } = new List<ControlApiTableOptionItem>();
 
         /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlApiTable(string id = null)
-            : base(id ?? Guid.NewGuid().ToString())
+            : base(Guid.NewGuid().ToString())
         {
         }
 
@@ -37,21 +47,23 @@ namespace WebExpress.WebApp.WebApiControl
         {
             var settings = new
             {
-                ID = id,
-                CSS = css,
-                RestUri = RestUri.ToString()
+                id = id,
+                css = css,
+                resturi = RestUri?.ToString(),
+                optionsettings = OptionSettings,
+                optionitems = OptionItems
             };
 
             var jsonOptions = new JsonSerializerOptions { WriteIndented = false };
             var settingsJson = JsonSerializer.Serialize(settings, jsonOptions);
             var builder = new StringBuilder();
-            builder.AppendLine($"{{");
-            builder.AppendLine($"let settings = { settingsJson };");
-            builder.AppendLine($"let container = $('#{ id }');");
+            builder.AppendLine($"$(document).ready(function () {{");
+            builder.AppendLine($"let settings = {settingsJson};");
+            builder.AppendLine($"let container = $('#{id}');");
             builder.AppendLine($"let obj = new webexpress.webapp.tableCtrl(settings);");
             builder.AppendLine($"obj.on('webexpress.ui.change.columns', function() {{ obj.receiveData(); }});");
             builder.AppendLine($"container.replaceWith(obj.getCtrl);");
-            builder.AppendLine($"}}");
+            builder.AppendLine($"}});");
 
             return builder.ToString();
         }

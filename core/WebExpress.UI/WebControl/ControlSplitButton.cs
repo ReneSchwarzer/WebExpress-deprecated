@@ -66,7 +66,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Liefert oder setzt einen modalen Dialag
         /// </summary>
-        public ControlModal Modal { get; set; }
+        public PropertyModal Modal { get; set; } = new PropertyModal();
 
         /// <summary>
         /// Liefert oder setzt den Inhalt
@@ -177,10 +177,22 @@ namespace WebExpress.UI.WebControl
                 button.Elements.Add(new HtmlText(Text));
             }
 
-            if (Modal != null)
+            if (Modal == null || Modal.Type == TypeModal.None)
             {
-                button.AddUserAttribute("data-bs-toggle", "modal");
-                button.AddUserAttribute("data-bs-target", "#" + Modal.ID);
+
+            }
+            else if (Modal.Type == TypeModal.Formular)
+            {
+                //button.OnClick = $"new webexpress.ui.modalFormCtrl({{ Close: 'Schließen', Uri: '{ Uri }'}});";
+            }
+            else if (Modal.Type == TypeModal.Brwoser)
+            {
+                //button.OnClick = $"new webexpress.ui.modalPageCtrl({{ Close: 'Schließen', Uri: '{ Uri }'}});";
+            }
+            else if (Modal.Type == TypeModal.Modal)
+            {
+                button.AddUserAttribute("data-toggle", "modal");
+                button.AddUserAttribute("data-target", "#" + Modal.Modal.ID);
             }
 
             var dropdownButton = new HtmlElementFieldButton(new HtmlElementTextSemanticsSpan() { Class = "caret" })
@@ -211,7 +223,7 @@ namespace WebExpress.UI.WebControl
 
             var html = new HtmlElementTextContentDiv
             (
-                Modal != null ? (IHtmlNode)new HtmlList(button, Modal.Render(context)) : button,
+                Modal != null && Modal.Type == TypeModal.Modal ? new HtmlList(button, Modal.Modal.Render(context)) : button,
                 dropdownButton,
                 dropdownElements
             )

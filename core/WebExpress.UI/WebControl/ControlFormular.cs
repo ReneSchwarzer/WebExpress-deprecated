@@ -116,7 +116,7 @@ namespace WebExpress.UI.WebControl
             : base(id)
         {
             SubmitButton.Name = SubmitButton.ID;
-            SubmitButton.OnClick = new PropertyOnClick($"$('#{ SubmitType.ID }').val('submit');");           
+            SubmitButton.OnClick = new PropertyOnClick($"$('#{SubmitType.ID}').val('submit');");
         }
 
         /// <summary>

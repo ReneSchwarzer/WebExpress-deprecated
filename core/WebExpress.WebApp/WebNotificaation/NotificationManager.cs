@@ -25,13 +25,13 @@ namespace WebExpress.WebApp.WebNotificaation
         /// <returns>Die erstellte Benachrichtigung</returns>
         public static Notification CreateNotification(string message, int durability = -1, string heading = null, IUri icon = null, TypeColorBackgroundAlert type = TypeColorBackgroundAlert.Light)
         {
-            var notification = new Notification() 
-            { 
-                Message = message, 
-                Durability = durability, 
+            var notification = new Notification()
+            {
+                Message = message,
+                Durability = durability,
                 Heading = heading,
                 Icon = icon?.ToString(),
-                Type = type.ToClass() 
+                Type = type.ToClass()
             };
 
             if (!GlobalNotifications.ContainsKey(notification.ID))

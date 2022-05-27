@@ -110,7 +110,7 @@ namespace WebExpress.Message
                 {
                     return new CultureInfo(Header?.AcceptLanguage.FirstOrDefault());
                 }
-                catch 
+                catch
                 {
                     return CultureInfo.CurrentCulture;
                 }
@@ -240,7 +240,7 @@ namespace WebExpress.Message
                         var offset = 0;
                         int pos = 0;
                         var dispositions = new List<Tuple<int, int>>(); // Item1=Position, Item2=Länge
-                        
+
                         // ermittle Dispositionen
                         for (var i = 0; i < Content.Length; i++)
                         {

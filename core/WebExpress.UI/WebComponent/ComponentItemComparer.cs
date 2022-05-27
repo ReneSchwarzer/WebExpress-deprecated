@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace WebExpress.UI.WebComponent
 {
@@ -21,7 +20,7 @@ namespace WebExpress.UI.WebComponent
                 return 1;
             }
             else if (x.Order < y.Order)
-            { 
+            {
                 return -1;
             }
 

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Linq;
+﻿using System.Linq;
 using System.Text.Json;
 using WebExpress.Message;
 
@@ -56,7 +55,7 @@ namespace WebExpress.WebResource
             {
                 WriteIndented = true
             };
-            
+
             var response = new ResponseOK();
             var content = string.Empty;
 

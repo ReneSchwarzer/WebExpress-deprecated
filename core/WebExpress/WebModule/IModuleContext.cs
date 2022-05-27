@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
+using WebExpress.Uri;
 using WebExpress.WebApplication;
 using WebExpress.WebPlugin;
-using WebExpress.Uri;
 
 namespace WebExpress.WebModule
 {

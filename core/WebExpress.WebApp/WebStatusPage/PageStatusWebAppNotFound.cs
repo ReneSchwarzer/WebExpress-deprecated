@@ -1,6 +1,6 @@
-﻿using WebExpress.WebAttribute;
-using WebExpress.Internationalization;
+﻿using WebExpress.Internationalization;
 using WebExpress.Message;
+using WebExpress.WebAttribute;
 using WebExpress.WebResource;
 
 namespace WebExpress.WebApp.WebStatusPage
@@ -29,7 +29,7 @@ namespace WebExpress.WebApp.WebStatusPage
 
             StatusTitle = this.I18N("webexpress.webapp", "status.404.title");
 
-            Title = $"{ StatusCode } - { StatusTitle }";
+            Title = $"{StatusCode} - {StatusTitle}";
 
             StatusMessage = this.I18N("webexpress.webapp", "status.404.description");
         }

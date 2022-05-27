@@ -55,16 +55,6 @@ namespace WebExpress.UI.WebControl
         public int Rows { get; set; }
 
         /// <summary>
-        /// Liefert den Initialisierungscode (JQuerry)
-        /// </summary>
-        public string InitializeCode => $"$('#{ (!string.IsNullOrWhiteSpace(ID) ? ID : "summernote") }').summernote({{ tabsize: 2, height: '{ Rows }rem', lang: 'de-DE' }});";
-
-        /// <summary>
-        /// Liefert den Zerstörungscode (JQuerry)
-        /// </summary>
-        public string DestroyCode => $"$('#{ (!string.IsNullOrWhiteSpace(ID) ? ID : "summernote") }').summernote('destroy');";
-
-        /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="id">Die ID</param>
@@ -136,7 +126,11 @@ namespace WebExpress.UI.WebControl
 
             if (AutoInitialize && Format == TypesEditTextFormat.Wysiwyg && !string.IsNullOrWhiteSpace(ID))
             {
-                context.AddScript(ID, InitializeCode);
+                var id = GetType().GUID.ToString();
+                var initializeCode = $"$(document).ready(function() {{ $('#{ id }').summernote({{ tabsize: 2, height: '{Rows}rem', lang: 'de-DE' }}); }});";
+    
+                context.AddScript(id, initializeCode);
+
                 AutoInitialize = false;
             }
 
@@ -155,7 +149,7 @@ namespace WebExpress.UI.WebControl
                 },
                 TypesEditTextFormat.Wysiwyg => new HtmlElementFormTextarea()
                 {
-                    ID = ID,
+                    ID = GetType().GUID.ToString(),
                     Value = Value,
                     Name = Name,
                     Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),

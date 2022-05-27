@@ -6,20 +6,20 @@ webexpress.ui.moreCtrl = class {
 
     /**
      * Konstruktor
-     * @param options Die Menüeinräge Array von { CSS: "", Icon: "", Color: "", Label: "", Url: "", OnClick: ""}
+     * @param options Die Menüeinräge Array von { css: "", icon: "", color: "", label: "", url: "", onclick: "", item: null}
      * @param settings Optionen zur Gestaltung des Steuerelementes
-     *        - ID Die ID des Steuerelements
-     *        - CSS CSS-Klasse zur Gestaltung des Steuerelementes
-     *        - MenuCSS CSS-Klasse zur Gestaltung des Popupmenüs
-     *        - Label Der Text
-     *        - Icon Die Icon-Klasse des Steuerelements
+     *        - id Die ID des Steuerelements
+     *        - css CSS-Klasse zur Gestaltung des Steuerelementes
+     *        - menucss CSS-Klasse zur Gestaltung des Popupmenüs
+     *        - label Der Text
+     *        - icon Die Icon-Klasse des Steuerelements
      */
     constructor(options, settings) {
-        let id = settings.ID;
-        let css = settings.CSS;
-        let menuCSS = settings.MenuCSS;
-        let label = settings.Label != null ? settings.Label : "";
-        let icon = settings.Icon != null ? settings.Icon : "fas fa-ellipsis-h";
+        let id = settings.id;
+        let css = settings.css;
+        let menuCSS = settings.menucss;
+        let label = settings.label != null ? settings.label : "";
+        let icon = settings.icon != null ? settings.icon : "fas fa-ellipsis-h";
 
         let button = $("<button class='btn' type='button' data-bs-toggle='dropdown' aria-expanded='false'><i class='" + icon + " " + (label != "" ? "me-2" : "") + "'></i><span>" + label + "</span></button>");
         let ul = $("<ul class='dropdown-menu'/>");
@@ -29,12 +29,14 @@ webexpress.ui.moreCtrl = class {
         }
 
         options.forEach(function (option) {
-            let css = option.CSS != null ? option.CSS : "dropdown-options";
-            let icon = option.Icon;
-            let color = option.Color;
-            let label = option.Label;
-            let url = option.Url != null ? option.Url : "#";
-            let onclick = option.OnClick;
+            let label = option.label;
+            let css = option.css ?? "dropdown-item";
+            let icon = option.icon;
+            let color = option.color;
+            let item = option.item;
+            
+            let url = option.url != null ? option.url : "#";
+            let onclick = option.onclick;
 
             let li = $("<li/>");
 
@@ -50,7 +52,8 @@ webexpress.ui.moreCtrl = class {
                     li.addClass(css);
                 }
                 if (onclick != null) {
-                    a.click(onclick);
+                    let func = Function("option", "item", onclick);
+                    a.click(function (e) { func(option, item); });
                 }
 
                 a.append($("<span href='" + url + "'>" + label + "</span>"));

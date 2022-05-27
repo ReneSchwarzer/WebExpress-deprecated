@@ -115,8 +115,8 @@ namespace WebExpress.UI.WebComponent
                         {
                             order = Convert.ToInt32(customAttribute.ConstructorArguments.FirstOrDefault().Value);
                         }
-                        catch 
-                        { 
+                        catch
+                        {
                         }
                     }
                 }

@@ -1,16 +1,16 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using WebExpress.WebApplication;
-using WebExpress.WebAttribute;
 using WebExpress.Internationalization;
 using WebExpress.Message;
-using WebExpress.WebModule;
 using WebExpress.UI.WebControl;
-using WebExpress.WebApp.WebAttribute;
 using WebExpress.WebApp.WebApiControl;
+using WebExpress.WebApp.WebAttribute;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebApp.WebPage;
+using WebExpress.WebApplication;
+using WebExpress.WebAttribute;
+using WebExpress.WebModule;
 using WebExpress.WebPage;
 using WebExpress.WebResource;
 using WebExpress.WebTask;
@@ -232,7 +232,7 @@ namespace WebExpress.WebApp.WebSettingPage
                                 (
                                     new ControlText()
                                     {
-                                        Text = $"{ this.I18N(m.Plugin.PluginID, this.I18N(m.ModuleName)) } - { this.I18N(m.Plugin.PluginID, this.I18N(m.Description)) }",
+                                        Text = $"{this.I18N(m.Plugin.PluginID, this.I18N(m.ModuleName))} - {this.I18N(m.Plugin.PluginID, this.I18N(m.Description))}",
                                         Format = TypeFormatText.Default,
                                         TextColor = new PropertyColorText(TypeColorText.Secondary),
                                         Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.Null),

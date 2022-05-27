@@ -29,7 +29,7 @@ namespace WebExpress.UI.WebControl
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlFormularItemInputMove(string id = null)
-            : base(id)
+            : base(string.IsNullOrEmpty(id) ? typeof(ControlFormularItemInputSelection).GUID.ToString() : id)
         {
             Name = ID;
         }
@@ -110,17 +110,17 @@ namespace WebExpress.UI.WebControl
         /// <returns>Der Javascript-Code</returns>
         protected virtual string GetScript(RenderContextFormular context, string id, string css)
         {
-            var settings = new 
-            { 
+            var settings = new
+            {
                 ID = id,
                 Name = ID,
                 CSS = css,
-                Header = new 
+                Header = new
                 {
                     Selected = I18N(context, SelectedHeader),
                     Available = I18N(context, AvailableHeader)
                 },
-                Buttons = new 
+                Buttons = new
                 {
                     ToSelectedAll = I18N(context, "˂˂"),
                     ToSelected = I18N(context, "˂"),
@@ -135,12 +135,12 @@ namespace WebExpress.UI.WebControl
             var valuesJson = JsonSerializer.Serialize(Value?.Split(";", System.StringSplitOptions.RemoveEmptyEntries), jsonOptions);
             var builder = new StringBuilder();
 
-            builder.Append($"var options = { optionsJson };");
-            builder.Append($"var settings = { settingsJson };");
-            builder.Append($"var container = $('#{ id }');");
-            builder.Append($"var obj = new moveCtrl(settings);");
+            builder.Append($"var options = {optionsJson};");
+            builder.Append($"var settings = {settingsJson};");
+            builder.Append($"var container = $('#{id}');");
+            builder.Append($"var obj = new webexpress.ui.moveCtrl(settings);");
             builder.Append($"obj.options = options;");
-            builder.Append($"obj.value = { (!string.IsNullOrWhiteSpace(valuesJson) ? valuesJson : "[]")  };");
+            builder.Append($"obj.value = {(!string.IsNullOrWhiteSpace(valuesJson) ? valuesJson : "[]")};");
             builder.Append($"container.replaceWith(obj.getCtrl);");
 
             return builder.ToString();
