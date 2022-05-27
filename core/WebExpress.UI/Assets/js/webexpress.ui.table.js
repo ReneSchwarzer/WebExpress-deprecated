@@ -89,10 +89,17 @@ webexpress.ui.tableCtrl = class extends webexpress.ui.events {
             if (this._optionItems.length > 0) {
                 let optionItems = this._optionItems.map(function (x) {
                     return {
-                        label: x.label, icon: x.icon, color: x.color, css: x.css, url: x.url, onclick: x.onclick, item: row
+                        label: x.label,
+                        icon: x.icon,
+                        color: x.color,
+                        css: x.css,
+                        url: x.url,
+                        disabled: x.disabled,
+                        onclick: x.onclick,
+                        item: row
                     }
                 });
-                let cell = $("<td/>");
+                let cell = $("<td style='text-align:right;'/>");
                 let more = new webexpress.ui.moreCtrl(optionItems, this._optionSetting);
 
                 cell.append(more.getCtrl);
@@ -139,7 +146,7 @@ webexpress.ui.tableCtrl = class extends webexpress.ui.events {
         });
 
         if (this._optionItems.length > 0) {
-            let col = $("<col>");
+            let col = $("<col/>");
             let th = $("<th/>");
             head_col.push(col);
             head_row.append(th)

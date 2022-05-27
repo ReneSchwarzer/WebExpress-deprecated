@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
+using WebExpress.Internationalization;
 using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebControl
@@ -183,11 +184,11 @@ namespace WebExpress.UI.WebControl
             }
             else if (Modal.Type == TypeModal.Formular)
             {
-                //button.OnClick = $"new webexpress.ui.modalFormCtrl({{ Close: 'Schließen', Uri: '{ Uri }'}});";
+                button.OnClick = $"new webexpress.ui.modalFormCtrl({{ close: '{InternationalizationManager.I18N(context.Culture, "webexpress.ui:form.cancel.label")}', uri: '{Modal.Uri}', size: '{Modal.Size.ToString().ToLower()}'}});";
             }
             else if (Modal.Type == TypeModal.Brwoser)
             {
-                //button.OnClick = $"new webexpress.ui.modalPageCtrl({{ Close: 'Schließen', Uri: '{ Uri }'}});";
+                button.OnClick = $"new webexpress.ui.modalPageCtrl({{ close: '{InternationalizationManager.I18N(context.Culture, "webexpress.ui:form.cancel.label")}', uri: '{Modal.Uri}', size: '{Modal.Size.ToString().ToLower()}'}});";
             }
             else if (Modal.Type == TypeModal.Modal)
             {

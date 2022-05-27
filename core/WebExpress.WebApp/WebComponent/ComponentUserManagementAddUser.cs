@@ -39,7 +39,7 @@ namespace WebExpress.WebApp.WebComponent
             Margin = new PropertySpacingMargin(PropertySpacing.Space.Two);
             BackgroundColor = new PropertyColorButton(TypeColorButton.Primary);
             Icon = new PropertyIcon(TypeIcon.Plus);
-            Modal = ModalDlg;
+            Modal = new PropertyModal(TypeModal.Modal, ModalDlg);
         }
 
         /// <summary>

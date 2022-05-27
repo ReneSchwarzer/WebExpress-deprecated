@@ -49,7 +49,17 @@ namespace WebExpress.WebApp.WebApiControl
         public string CSS => Type switch { OptionType.Divider => "dropdown-divider", OptionType.Header => "dropdown-header", _ => "dropdown-item" };
 
         /// <summary>
-        /// Liefert oder setzt eine Aktion, die aufgreufen werden soll, wenn auf den Link geklickt wird 
+        /// Liefert oder setzt eine Funktion, welche ermittelt, on der Eintrag deaktivert werden soll.
+        /// Der Wert beschreibt den Body einer Javascript-Funktion, welcher ein bool-Wert zurückgebt (z.B. return true;).
+        /// Als Parameter steht das Item (Datenobjekt) zur Verfügung.
+        /// </summary>
+        [JsonPropertyName("disabled")]
+        public string Disabled { get; set; }
+
+        /// <summary>
+        /// Liefert oder setzt eine Aktion, die aufgreufen werden soll, wenn auf den Link geklickt wird.
+        /// Der Wert beschreibt den Body einer Javascript-Funktion, welcher beim Klichen auf den Link auferufen wird (z.B. alter("Hallo");). 
+        /// Als Parameter steht das Item (Datenobjekt) und die Optionen (dieses Objekt) zur Verfügung.
         /// </summary>
         [JsonPropertyName("onclick")]
         public string OnClick { get; set; }

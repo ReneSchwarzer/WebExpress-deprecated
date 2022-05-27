@@ -10,8 +10,10 @@ webexpress.ui.modalFormularCtrl = class extends webexpress.ui.events {
     /**
      * Konstruktor
      * @param settings Optionen zur Gestaltung des Steuerelementes
-     *        - ID Die ID des Steuerelements
-     *        - Close Der Name der Schließenschaltfläche
+     *        - id Die ID des Steuerelements
+     *        - close Der Name der Schließenschaltfläche
+     *        - uri Die Url des Formulars
+     *        - size Die Größe des Modals (small, default, large, extralarge)
      */
     constructor(settings) {
         super();
@@ -19,12 +21,21 @@ webexpress.ui.modalFormularCtrl = class extends webexpress.ui.events {
         let id = settings.id;
         let close = settings.close ?? "Close";
         let uri = settings.uri ?? "";
-        let dialog = $("<div class='modal-dialog modal-xl modal-dialog-scrollable'></div>");
+        let size = settings.size ?? "";
+        let dialog = $("<div class='modal-dialog modal-dialog-scrollable'></div>");
 
         this._container.attr("id", id ?? "");
         this._uri = uri;
         
         this._container.append(dialog);
+
+        if (size == "small") {
+            dialog.addClass("modal-sm");
+        } else if (size == "large") {
+            dialog.addClass("modal-lg");
+        } else if (size == "extralarge") {
+            dialog.addClass("modal-xl");
+        }
 
         let update = function (response) {
             let parser = new DOMParser();
@@ -57,7 +68,7 @@ webexpress.ui.modalFormularCtrl = class extends webexpress.ui.events {
                         }.bind(this)
                     });
                 }.bind(this));
-               
+
                 body.append(formContent);
                 footer.append(formFooter.children());
 
@@ -68,7 +79,7 @@ webexpress.ui.modalFormularCtrl = class extends webexpress.ui.events {
                 content.append(footer);
                 form.append(content);
                 dialog.append(form);
-            } else {
+            } else if (this._modal != null) { 
                 this._modal.hide();
             }
         }.bind(this);

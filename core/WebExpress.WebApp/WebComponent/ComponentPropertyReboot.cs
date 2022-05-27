@@ -55,7 +55,7 @@ namespace WebExpress.WebApp.WebComponent
             ModalDlg.ButtonColor = new PropertyColorButton(TypeColorButton.Danger);
             ModalDlg.Confirm += OnConfirm;
 
-            Modal = ModalDlg;
+            Modal = new PropertyModal(TypeModal.Modal, ModalDlg);
         }
 
         /// <summary>

@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
+using WebExpress.Internationalization;
 using WebExpress.Message;
 using WebExpress.Uri;
 using WebExpress.WebPage;
-using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.UI.WebControl
 {
@@ -202,7 +202,7 @@ namespace WebExpress.UI.WebControl
                 Role = Role,
                 Href = Uri?.ToString() + (param.Length > 0 ? "?" + param : string.Empty),
                 Target = Target,
-                Title = I18N(context.Culture, Title),
+                Title = InternationalizationManager.I18N(context.Culture, Title),
                 OnClick = OnClick?.ToString()
             };
 
@@ -224,7 +224,7 @@ namespace WebExpress.UI.WebControl
 
             if (!string.IsNullOrWhiteSpace(Text))
             {
-                html.Elements.Add(new HtmlText(I18N(context.Culture, Text)));
+                html.Elements.Add(new HtmlText(InternationalizationManager.I18N(context.Culture, Text)));
             }
 
             if (Modal == null || Modal.Type == TypeModal.None)
@@ -233,12 +233,12 @@ namespace WebExpress.UI.WebControl
             }
             else if (Modal.Type == TypeModal.Formular)
             {
-                html.OnClick = $"new webexpress.ui.modalFormularCtrl({{ Close: 'Schließen', Uri: '{html.Href}'}});";
+                html.OnClick = $"new webexpress.ui.modalFormularCtrl({{ close: '{InternationalizationManager.I18N(context.Culture, "webexpress.ui:form.cancel.label")}', uri: '{Modal.Uri?.ToString() ?? html.Href}', size: '{Modal.Size.ToString().ToLower()}'}});";
                 html.Href = "#";
             }
             else if (Modal.Type == TypeModal.Brwoser)
             {
-                html.OnClick = $"new webexpress.ui.modalPageCtrl({{ Close: 'Schließen', Uri: '{html.Href}'}});";
+                html.OnClick = $"new webexpress.ui.modalPageCtrl({{ close: '{InternationalizationManager.I18N(context.Culture, "webexpress.ui:form.cancel.label")}', uri: '{Modal.Uri?.ToString() ?? html.Href}', size: '{Modal.Size.ToString().ToLower()}'}});";
                 html.Href = "#";
             }
             else if (Modal.Type == TypeModal.Modal)

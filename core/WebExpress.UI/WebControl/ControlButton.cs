@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
+using WebExpress.Internationalization;
 using WebExpress.WebPage;
-using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.UI.WebControl
 {
@@ -58,7 +58,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Liefert oder setzt einen modalen Dialag
         /// </summary>
-        public ControlModal Modal { get; set; }
+        public PropertyModal Modal { get; set; }
 
         /// <summary>
         /// Liefert oder setzt das Icon
@@ -128,7 +128,7 @@ namespace WebExpress.UI.WebControl
 
             if (!string.IsNullOrWhiteSpace(Text))
             {
-                html.Elements.Add(new HtmlText(I18N(context.Culture, Text)));
+                html.Elements.Add(new HtmlText(InternationalizationManager.I18N(context.Culture, Text)));
             }
 
             if (!string.IsNullOrWhiteSpace(OnClick?.ToString()))
@@ -141,12 +141,24 @@ namespace WebExpress.UI.WebControl
                 html.Elements.AddRange(Content.Select(x => x.Render(context)));
             }
 
-            if (Modal != null)
+            if (Modal == null || Modal.Type == TypeModal.None)
             {
-                html.AddUserAttribute("data-bs-toggle", "modal");
-                html.AddUserAttribute("data-bs-target", "#" + Modal.ID);
 
-                return new HtmlList(html, Modal.Render(context));
+            }
+            else if (Modal.Type == TypeModal.Formular)
+            {
+                html.OnClick = $"new webexpress.ui.modalFormularCtrl({{ close: '{InternationalizationManager.I18N(context.Culture, "webexpress.ui:form.cancel.label")}', uri: '{Modal.Uri}', size: '{Modal.Size.ToString().ToLower()}'}});";
+            }
+            else if (Modal.Type == TypeModal.Brwoser)
+            {
+                html.OnClick = $"new webexpress.ui.modalPageCtrl({{ close: '{InternationalizationManager.I18N(context.Culture, "webexpress.ui:form.cancel.label")}', uri: '{Modal.Uri}', size: '{Modal.Size.ToString().ToLower()}'}});";
+            }
+            else if (Modal.Type == TypeModal.Modal)
+            {
+                html.AddUserAttribute("data-toggle", "modal");
+                html.AddUserAttribute("data-target", "#" + Modal.Modal.ID);
+
+                return new HtmlList(html, Modal.Modal.Render(context));
             }
 
             return html;

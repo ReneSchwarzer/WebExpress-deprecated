@@ -6,7 +6,7 @@ webexpress.ui.moreCtrl = class {
 
     /**
      * Konstruktor
-     * @param options Die Menüeinräge Array von { css: "", icon: "", color: "", label: "", url: "", onclick: "", item: null}
+     * @param options Die Menüeinräge Array von { css: "", icon: "", color: "", label: "", url: "", onclick: "", item: null, disabled: false}
      * @param settings Optionen zur Gestaltung des Steuerelementes
      *        - id Die ID des Steuerelements
      *        - css CSS-Klasse zur Gestaltung des Steuerelementes
@@ -34,31 +34,44 @@ webexpress.ui.moreCtrl = class {
             let icon = option.icon;
             let color = option.color;
             let item = option.item;
+            let disabled = option.disabled ?? "return false";
             
             let url = option.url != null ? option.url : "#";
             let onclick = option.onclick;
+
+            let disabledFunction = Function("item", disabled == true ? "return true;" : disabled == false ? "return false" : disabled);
+            disabled = disabledFunction(item) ?? false;
 
             let li = $("<li/>");
 
             li.addClass(css);
 
             if (css == "dropdown-item") {
-                let a = $("<a class='link " + color + "' href='#'/>");
-                if (icon != null) {
-                    let span = $("<span class='me-2 " + icon + "'/>");
-                    a.append(span);
+                if (disabled == false) {
+                    let a = $("<a class='link " + color + "' href='#'/>");
+                    if (icon != null) {
+                        let span = $("<span class='me-2 " + icon + "'/>");
+                        a.append(span);
+                    }
+                    if (css != null) {
+                        li.addClass(css);
+                    }
+                    if (onclick != null) {
+                        let func = Function("option", "item", onclick);
+                        a.click(function (e) { func(option, item); });
+                    }
+                    a.append($("<span href='" + url + "'>" + label + "</span>"));
+                    li.append(a);
+                } else {
+                    let p = $("<span class='text-muted'/>");
+                    if (icon != null) {
+                        let span = $("<span class='me-2 " + icon + "'/>");
+                        p.append(span);
+                    }
+                    p.append(label);
+                    li.append(p);
+                    li.addClass("disabled")
                 }
-                if (css != null) {
-                    li.addClass(css);
-                }
-                if (onclick != null) {
-                    let func = Function("option", "item", onclick);
-                    a.click(function (e) { func(option, item); });
-                }
-
-                a.append($("<span href='" + url + "'>" + label + "</span>"));
-
-                li.append(a);
             }
             else if (css == "dropdown-header") {
                 if (icon != null) {

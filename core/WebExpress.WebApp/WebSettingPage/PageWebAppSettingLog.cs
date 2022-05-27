@@ -108,7 +108,7 @@ namespace WebExpress.WebApp.WebSettingPage
                 file.Exists ? new ControlButton()
                 {
                     Text = this.I18N("webexpress.webapp", "setting.logfile.delete.label"),
-                    Modal = deleteForm,
+                    Modal = new PropertyModal(TypeModal.Modal, deleteForm),
                     Icon = new PropertyIcon(TypeIcon.TrashAlt),
                     BackgroundColor = new PropertyColorButton(TypeColorButton.Danger)
                 } : new ControlPanel()
@@ -120,7 +120,7 @@ namespace WebExpress.WebApp.WebSettingPage
                 Context.Log.LogModus == Log.Modus.Off ? new ControlButton()
                 {
                     Text = this.I18N("webexpress.webapp", "setting.logfile.switchon.label"),
-                    Modal = switchOnForm,
+                    Modal = new PropertyModal(TypeModal.Modal, switchOnForm),
                     Icon = new PropertyIcon(TypeIcon.PowerOff),
                     BackgroundColor = new PropertyColorButton(TypeColorButton.Success)
                 } : new ControlPanel()
