@@ -16,7 +16,7 @@ webexpress.webapp.selectionCtrl = class extends webexpress.ui.selectionCtrl {
     constructor(settings) {
         super(settings);
 
-        this._optionUri = settings.OptionUri;
+        this._optionUri = settings.optionuri;
         this._optionfilter = function (x, y) { return true; };
 
         this._container.on('show.bs.dropdown', function () {
@@ -34,12 +34,12 @@ webexpress.webapp.selectionCtrl = class extends webexpress.ui.selectionCtrl {
         this._selection.append(this._spinner);
 
          $.ajax({ type: "GET", url: this._optionUri + "?search=" + filter + "&page=0", dataType: 'json', }).then(function (response) {
-             var data = response.Data;
+             var data = response.data;
 
              this.options = data;
              this.trigger('webexpress.ui.receive.complete');
 
-             this.update();
+             //this.update();
 
              this._selection.children("div").remove();
          }.bind(this));

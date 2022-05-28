@@ -1,4 +1,5 @@
-﻿using WebExpress.Html;
+﻿using System;
+using WebExpress.Html;
 using WebExpress.UI.WebControl;
 using WebExpress.WebModule;
 using WebExpress.WebPage;
@@ -25,7 +26,7 @@ namespace WebExpress.WebApp.WebApiControl
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlApiModalProgressTaskState(string id)
-            : base(id)
+            : base(id ?? Guid.NewGuid().ToString())
         {
             ProgressBar = new ControlProgressBar($"progressbar_{ID}")
             {

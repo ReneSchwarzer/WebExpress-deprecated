@@ -47,11 +47,6 @@ namespace WebExpress.UI.WebControl
         IUri RedirectUri { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Abbruchs-Url
-        /// </summary>
-        IUri BackUri { get; set; }
-
-        /// <summary>
         /// Liefert oder setzt die Submit-Schaltfläche
         /// </summary>
         ControlFormularItemButton SubmitButton { get; }

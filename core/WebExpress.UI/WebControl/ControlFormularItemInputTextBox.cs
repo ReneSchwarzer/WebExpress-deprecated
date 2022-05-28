@@ -107,6 +107,8 @@ namespace WebExpress.UI.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContextFormular context)
         {
+            var id = ID ?? Guid.NewGuid().ToString();
+
             Classes.Add("form-control");
 
             if (Disabled)
@@ -126,7 +128,6 @@ namespace WebExpress.UI.WebControl
 
             if (AutoInitialize && Format == TypesEditTextFormat.Wysiwyg && !string.IsNullOrWhiteSpace(ID))
             {
-                var id = GetType().GUID.ToString();
                 var initializeCode = $"$(document).ready(function() {{ $('#{ id }').summernote({{ tabsize: 2, height: '{Rows}rem', lang: 'de-DE' }}); }});";
     
                 context.AddScript(id, initializeCode);
@@ -149,7 +150,7 @@ namespace WebExpress.UI.WebControl
                 },
                 TypesEditTextFormat.Wysiwyg => new HtmlElementFormTextarea()
                 {
-                    ID = GetType().GUID.ToString(),
+                    ID = id,
                     Value = Value,
                     Name = Name,
                     Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),

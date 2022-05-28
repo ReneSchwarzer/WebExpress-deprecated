@@ -63,11 +63,6 @@ namespace WebExpress.UI.WebControl
         public IUri RedirectUri { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Abbruchs-Uri
-        /// </summary>
-        public IUri BackUri { get => CancelButton.Uri; set => CancelButton.Uri = value; }
-
-        /// <summary>
         /// Liefert oder setzt das Hiddenfeld, welches die Submit-Methode enthällt
         /// </summary>
         public ControlFormularItemInputHidden SubmitType { get; } = new ControlFormularItemInputHidden(Guid.NewGuid().ToString())
@@ -86,22 +81,6 @@ namespace WebExpress.UI.WebControl
             Type = TypeButton.Submit,
             Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None),
         };
-
-        /// <summary>
-        /// Liefert oder setzt die Abbrechen-Schaltfläche
-        /// </summary>
-        public ControlButtonLink CancelButton { get; } = new ControlButtonLink()
-        {
-            Icon = new PropertyIcon(TypeIcon.Times),
-            BackgroundColor = new PropertyColorButton(TypeColorButton.Secondary),
-            TextColor = new PropertyColorText(TypeColorText.White),
-            HorizontalAlignment = TypeHorizontalAlignment.Right
-        };
-
-        /// <summary>
-        /// Speichern und weiter Schaltfläche anzeigen
-        /// </summary>
-        public bool EnableCancelButton { get; set; } = true;
 
         /// <summary>
         /// Liefert oder setzt die Formulareinträge
@@ -162,17 +141,6 @@ namespace WebExpress.UI.WebControl
             {
                 SubmitButton.Text = context.I18N(SubmitButton.Text);
             }
-
-            if (EnableCancelButton && string.IsNullOrWhiteSpace(CancelButton.Text))
-            {
-                CancelButton.Text = context.I18N("webexpress.ui", "form.cancel.label");
-            }
-            else
-            {
-                CancelButton.Text = context.I18N(CancelButton.Text);
-            }
-
-            CancelButton.Uri = BackUri != null && !BackUri.Empty ? BackUri : Uri;
         }
 
         /// <summary>
@@ -315,7 +283,6 @@ namespace WebExpress.UI.WebControl
 
             // HTML erzeugen
             var button = SubmitButton.Render(renderContext);
-            var cancel = CancelButton.Render(renderContext);
 
             var form = new HtmlElementFormForm()
             {
@@ -369,6 +336,7 @@ namespace WebExpress.UI.WebControl
                 TypeLayoutFormular.Mix => new ControlFormularItemGroupMix(),
                 _ => new ControlFormularItemGroupVertical(),
             };
+
             foreach (var item in Items.Where(x => x is not ControlFormularItemInputHidden))
             {
                 group.Items.Add(item);
@@ -379,12 +347,6 @@ namespace WebExpress.UI.WebControl
             var footer = new HtmlElementSectionFooter();
 
             footer.Elements.Add(button);
-
-            if (EnableCancelButton)
-            {
-                footer.Elements.Add(cancel);
-            }
-
             form.Elements.Add(header);
             form.Elements.Add(main);
             form.Elements.Add(footer);

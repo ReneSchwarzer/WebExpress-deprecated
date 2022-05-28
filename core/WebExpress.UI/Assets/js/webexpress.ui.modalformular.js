@@ -71,6 +71,7 @@ webexpress.ui.modalFormularCtrl = class extends webexpress.ui.events {
 
                 body.append(formContent);
                 footer.append(formFooter.children());
+                footer.append($("<a class='btn' data-bs-dismiss='modal'>" + close + "</a>"));
 
                 form.children().remove();
                 dialog.children().remove();

@@ -20,10 +20,10 @@ webexpress.ui.selectionCtrl = class extends webexpress.ui.events {
     /**
      * Konstruktor
      * @param settings Optionen zur Gestaltung des Steuerelementes
-     *        - ID Die ID des Steuerelements
-     *        - CSS CSS-Klasse zur Gestaltung des Steuerelementes
-     *        - Placeholder Der Platzhaltertext
-     *        - MultiSelect Erlaubt die Auswahl mehrerer Elmente
+     *        - id Die ID des Steuerelements
+     *        - css CSS-Klasse zur Gestaltung des Steuerelementes
+     *        - placeholder Der Platzhaltertext
+     *        - multiselect Erlaubt die Auswahl mehrerer Elmente
      */
     constructor(settings) {
         let id = settings.id;
@@ -135,16 +135,16 @@ webexpress.ui.selectionCtrl = class extends webexpress.ui.events {
                             this.value = [];
                         }
 
-                        if (!this._values.includes(option.ID)) {
+                        if (!this._values.includes(option.id)) {
                             let value = this.value.slice();
-                            value.push(option.ID);
+                            value.push(option.id);
                             this.value = value;
                             this._filter.val("");
                         }
                         this.update();
                     }.bind(this));
 
-                    if (this._optionfilter(option.Label, this._filter.val())) {
+                    if (this._optionfilter(option.label, this._filter.val())) {
                         this._dropdownoptions.append(li);
                     }
                 }
@@ -153,7 +153,7 @@ webexpress.ui.selectionCtrl = class extends webexpress.ui.events {
 
         this._selection.children("li").remove();
         this._values.forEach(function (value) {
-            let option = this._options.find(elem => elem.ID == value);
+            let option = this._options.find(elem => elem.id == value);
             if (option != null) {
                 let label = option.label ?? null;
                 let image = option.image ?? null;
@@ -190,16 +190,19 @@ webexpress.ui.selectionCtrl = class extends webexpress.ui.events {
 
     /**
      * Setzt die Optionen
-     * @param data Ein Array mit ObjektIDs {ID, Label, Description, Image, Color, Instruction}
+     * @param data Ein Array mit ObjektIDs {id, label, description, image, color, instruction}
      */
     set options(options) {
-        // selektierte Optionen ermitteln
-        let selectedOptions = this.selectedOptions;
-        // entferne die selektierten Optionen, wenn diese in den übergebenen neuen Optionen enthalten sind
-        selectedOptions = selectedOptions.filter(elem => !options.some(o => o.ID === elem.id));
-        // Vereinige die selectierten und die neuen Optionen
-        this._options = [...new Set([...options, ...selectedOptions])];
-
+        if (options != null) {
+            // selektierte Optionen ermitteln
+            let selectedOptions = this.selectedOptions;
+            // entferne die selektierten Optionen, wenn diese in den übergebenen neuen Optionen enthalten sind
+            selectedOptions = selectedOptions.filter(elem => !options.some(o => o.ID === elem.id));
+            // Vereinige die selectierten und die neuen Optionen
+            this._options = [...new Set([...options, ...selectedOptions])];
+        } else {
+            this._options = [];
+        }
         this.update();
     }
 

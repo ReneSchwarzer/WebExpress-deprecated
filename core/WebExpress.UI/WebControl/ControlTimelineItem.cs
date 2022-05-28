@@ -189,8 +189,7 @@ namespace WebExpress.UI.WebControl
 
             var form = new ControlFormular()
             {
-                Name = !string.IsNullOrWhiteSpace(Name) ? Name : "form",
-                EnableCancelButton = false
+                Name = !string.IsNullOrWhiteSpace(Name) ? Name : "form"
             };
 
             form.SubmitButton.Icon = new PropertyIcon(TypeIcon.PaperPlane);

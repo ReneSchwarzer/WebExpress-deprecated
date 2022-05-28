@@ -32,7 +32,7 @@ namespace WebExpress.WebApp.WebApiControl
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlApiTable(string id = null)
-            : base(Guid.NewGuid().ToString())
+            : base(id ?? Guid.NewGuid().ToString())
         {
         }
 

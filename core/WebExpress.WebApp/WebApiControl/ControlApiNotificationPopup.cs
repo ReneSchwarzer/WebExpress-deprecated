@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using System.Text.Json;
 using WebExpress.Html;
 using WebExpress.UI.WebControl;
@@ -17,7 +18,7 @@ namespace WebExpress.WebApp.WebApiControl
         /// </summary>
         /// <param name="id">Die Steuerelement-ID</param>
         public ControlApiNotificationPopup(string id = null)
-            : base(id)
+            : base(id ?? Guid.NewGuid().ToString())
         {
             Classes.Add("popupnotification");
         }

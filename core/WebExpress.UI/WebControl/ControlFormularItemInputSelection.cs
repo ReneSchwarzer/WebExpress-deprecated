@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
@@ -38,7 +39,7 @@ namespace WebExpress.UI.WebControl
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlFormularItemInputSelection(string id = null)
-            : base(string.IsNullOrEmpty(id) ? typeof(ControlFormularItemInputSelection).GUID.ToString() : id)
+            : base(id ?? Guid.NewGuid().ToString())
         {
             Name = ID;
         }
