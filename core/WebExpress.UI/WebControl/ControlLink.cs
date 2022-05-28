@@ -243,15 +243,15 @@ namespace WebExpress.UI.WebControl
             }
             else if (Modal.Type == TypeModal.Modal)
             {
-                html.AddUserAttribute("data-toggle", "modal");
-                html.AddUserAttribute("data-target", "#" + Modal.Modal.ID);
+                html.AddUserAttribute("data-bs-toggle", "modal");
+                html.AddUserAttribute("data-bs-target", "#" + Modal.Modal.ID);
 
                 return new HtmlList(html, Modal.Modal.Render(context));
             }
 
             if (!string.IsNullOrWhiteSpace(Tooltip))
             {
-                html.AddUserAttribute("data-toggle", "tooltip");
+                html.AddUserAttribute("data-bs-toggle", "tooltip");
             }
 
             return html;
