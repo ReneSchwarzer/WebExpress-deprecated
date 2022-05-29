@@ -68,7 +68,8 @@ namespace WebExpress.WebApp.WebControl
                 BackgroundColor = LayoutSchema.HeaderQuickCreateButtonBackground,
                 Size = LayoutSchema.HeaderQuickCreateButtonSize,
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.Auto, PropertySpacing.Space.None),
-                OnClick = firstQuickcreate?.OnClick
+                OnClick = firstQuickcreate?.OnClick,
+                Modal = firstQuickcreate?.Modal
             } :
             (Preferences.Count > 0) ?
             new ControlButtonLink(ID)
@@ -78,7 +79,8 @@ namespace WebExpress.WebApp.WebControl
                 BackgroundColor = LayoutSchema.HeaderQuickCreateButtonBackground,
                 Size = LayoutSchema.HeaderQuickCreateButtonSize,
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.Auto, PropertySpacing.Space.None),
-                OnClick = firstQuickcreate?.OnClick
+                OnClick = firstQuickcreate?.OnClick,
+                Modal = firstQuickcreate?.Modal
             } :
             null;
 

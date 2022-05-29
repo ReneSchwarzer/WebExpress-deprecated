@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System;
+using System.Text.Json.Serialization;
 
 namespace WebExpress.WebApp.Model
 {
@@ -8,7 +9,7 @@ namespace WebExpress.WebApp.Model
         /// Die Guid des Objektes
         /// </summary>
         [JsonPropertyName("id")]
-        public string ID { get; set; }
+        public string ID { get; set; } = Guid.NewGuid().ToString();
 
         /// <summary>
         /// Die Uri

@@ -5,6 +5,7 @@
         Default,
         Small,
         Large,
-        ExtraLarge
+        ExtraLarge,
+        Fullscreen
     }
 }

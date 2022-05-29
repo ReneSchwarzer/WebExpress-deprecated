@@ -52,6 +52,11 @@ namespace WebExpress.UI.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
+            if (!Enable)
+            {
+                return null;
+            }
+
             var icon = new HtmlElementTextSemanticsSpan()
             {
                 Class = Icon?.ToClass()

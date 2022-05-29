@@ -168,11 +168,13 @@ namespace WebExpress.UI.WebControl
             }
             else if (Modal.Type == TypeModal.Formular)
             {
-                button.OnClick = $"new webexpress.ui.modalFormularCtrl({{ close: '{InternationalizationManager.I18N(context.Culture, "webexpress.ui:form.cancel.label")}', uri: '{Modal.Uri}', size: '{Modal.Size.ToString().ToLower()}'}});";
+                button.OnClick = $"new webexpress.ui.modalFormularCtrl({{ close: '{InternationalizationManager.I18N(context.Culture, "webexpress.ui:form.cancel.label")}', uri: '{Modal.Uri?.ToString() ?? button.Href}', size: '{Modal.Size.ToString().ToLower()}'}});";
+                button.Href = "#";
             }
             else if (Modal.Type == TypeModal.Brwoser)
             {
-                button.OnClick = $"new webexpress.ui.modalPageCtrl({{ close: '{InternationalizationManager.I18N(context.Culture, "webexpress.ui:form.cancel.label")}', uri: '{ Modal.Uri }', size: '{Modal.Size.ToString().ToLower()}'}});";
+                button.OnClick = $"new webexpress.ui.modalPageCtrl({{ close: '{InternationalizationManager.I18N(context.Culture, "webexpress.ui:form.cancel.label")}', uri: '{Modal.Uri?.ToString() ?? button.Href}', size: '{Modal.Size.ToString().ToLower()}'}});";
+                button.Href = "#";
             }
             else if (Modal.Type == TypeModal.Modal)
             {

@@ -23,11 +23,16 @@ webexpress.ui.modalFormularCtrl = class extends webexpress.ui.events {
         let uri = settings.uri ?? "";
         let size = settings.size ?? "";
         let dialog = $("<div class='modal-dialog modal-dialog-scrollable'></div>");
-
+        
         this._container.attr("id", id ?? "");
         this._uri = uri;
         
         this._container.append(dialog);
+
+        if (uri == "") {
+            console.error("The target uri was not specified.");
+            return;
+        }
 
         if (size == "small") {
             dialog.addClass("modal-sm");
@@ -35,7 +40,11 @@ webexpress.ui.modalFormularCtrl = class extends webexpress.ui.events {
             dialog.addClass("modal-lg");
         } else if (size == "extralarge") {
             dialog.addClass("modal-xl");
+        } else if (size == "fullscreen") {
+            dialog.addClass("modal-fullscreen");
         }
+
+        let modal = bootstrap.Modal.getOrCreateInstance(this._container);
 
         let update = function (response) {
             let parser = new DOMParser();
@@ -80,8 +89,9 @@ webexpress.ui.modalFormularCtrl = class extends webexpress.ui.events {
                 content.append(footer);
                 form.append(content);
                 dialog.append(form);
+                modal.handleUpdate();
             } else if (this._modal != null) { 
-                this._modal.hide();
+                modal.hide();
             }
         }.bind(this);
 
@@ -95,12 +105,11 @@ webexpress.ui.modalFormularCtrl = class extends webexpress.ui.events {
                 });
         }.bind(this));
 
-        let modal = bootstrap.Modal.getOrCreateInstance(this.getCtrl);
-
         this._container.on('shown.bs.modal', function (event) {
             $('script', dialog).each(function (index, script) {
                 $.globalEval(script.text || script.textContent || script.innerHTML || '');
             });
+            modal.handleUpdate();
         });
 
         this._container.on('hidden.bs.modal', function (event) {
