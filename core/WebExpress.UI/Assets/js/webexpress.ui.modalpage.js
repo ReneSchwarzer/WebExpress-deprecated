@@ -10,8 +10,8 @@ webexpress.ui.modalPageCtrl = class extends webexpress.ui.events {
     /**
      * Konstruktor
      * @param settings Optionen zur Gestaltung des Steuerelementes
-     *        - ID Die ID des Steuerelements
-     *        - Close Der Name der Schließenschaltfläche
+     *        - id Die ID des Steuerelements
+     *        - close Der Name der Schließenschaltfläche
      */
     constructor(settings) {
         super();

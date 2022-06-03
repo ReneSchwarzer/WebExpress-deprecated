@@ -12,8 +12,8 @@ webexpress.ui.paginationCtrl = class extends webexpress.ui.events {
     /**
      * Konstruktor
      * @param settings Optionen zur Gestaltung des Steuerelementes
-     *                - ID Die ID des Steuerelements
-     *                - CSS CSS-Klasse zur Gestaltung des Steuerelementes
+     *                - id Die ID des Steuerelements
+     *                - css CSS-Klasse zur Gestaltung des Steuerelementes
      */
     constructor(settings) {
         super();

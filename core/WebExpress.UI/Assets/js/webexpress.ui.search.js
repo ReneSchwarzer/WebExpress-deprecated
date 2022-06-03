@@ -9,10 +9,10 @@ webexpress.ui.searchCtrl = class extends webexpress.ui.events {
     /**
      * Konstruktor
      * @param settings Optionen zur Gestaltung des Steuerelementes
-     *        - ID Die ID des Steuerelements
-     *        - CSS CSS-Klasse zur Gestaltung des Steuerelementes
-     *        - Placeholder Der Platzhaltertext
-     *        - Icon Die Icon-Klasse des Suchsymbols
+     *        - id Die ID des Steuerelements
+     *        - css CSS-Klasse zur Gestaltung des Steuerelementes
+     *        - placeholder Der Platzhaltertext
+     *        - icon Die Icon-Klasse des Suchsymbols
      */
     constructor(settings) {
         super();

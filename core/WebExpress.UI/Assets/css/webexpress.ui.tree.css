@@ -1,0 +1,49 @@
+@keyframes tree-rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(90deg);
+    }
+}
+
+.tree {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.tree-indicator-dot {
+    content: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+DQo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDEzNSAxOTAiPg0KCTxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+DQoJPCFbQ0RBVEFbDQoJCS5zdDEge2ZpbGw6IzdmN2Y3ZjtzdHJva2U6bm9uZTt9DQoJXV0+DQoJPC9zdHlsZT4NCiAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzMCwtNTgpIj4NCiAgICAgICAgPHBhdGggZD0iTTAgMTUzLjk2IEEzNy45MzU5IDM3LjkzNTkgMCAwIDEgNzUuODcgMTUzLjk2IEEzNy45MzU5IDM3LjkzNTkgMCAxIDEgMCAxNTMuOTYgWiIgY2xhc3M9InN0MSIvPg0KICAgIDwvZz4NCjwvc3ZnPg0K');
+    height: 1em;
+}
+
+.tree-indicator-angle {
+    content: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+DQo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIJdmlld0JveD0iMCAwIDEzNSAxOTAiPg0KCTxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+DQoJPCFbQ0RBVEFbDQoJCS5zdDEge2ZpbGw6IzdmN2Y3ZjtzdHJva2U6bm9uZTt9DQoJXV0+DQoJPC9zdHlsZT4NCgkJPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTgsLTE4KSI+DQoJCQk8cGF0aCBkPSJNMS42NiAxNzMuMiBMMTguNyAxOTAuMjMgQTUuNjY5MjkgNS42NjkyOSAtMTgwIDAgMCAyNi43MiAxOTAuMjMgTDk4Ljg3IDExOC4wOCBBNS42NjkyOSA1LjY2OTI5IC0xODAgMCAwIDk4Ljg3DQoJCQkJCQkgMTEwLjA2IEwyNi43MiAzNy45IEE1LjY2OTI5IDUuNjY5MjkgLTE4MCAwIDAgMTguNyAzNy45IEwxLjY2IDU0Ljk0IEE1LjY2OTI5IDUuNjY5MjkgLTE4MCAwIDAgMS42NiA2Mi45Ng0KCQkJCQkJIEw0OC43NiAxMTAuMDYgQTUuNjY5MjkgNS42NjkyOSAwIDAgMSA0OC43NiAxMTguMDggTDEuNjYgMTY1LjE4IEE1LjY2OTI5IDUuNjY5MjkgLTE4MCAwIDAgMS42NiAxNzMuMiBaIg0KCQkJCQljbGFzcz0ic3QxIi8+DQoJCTwvZz4NCjwvc3ZnPg');
+    height: 0.8rem;
+}
+
+.tree-expand {
+    transform: rotate(90deg);
+    transform-origin: center;
+    animation-name: tree-rotate;
+    animation-duration: 0.2s;
+}
+
+.tree-node {
+    cursor: default;
+    list-style-type: none;
+    text-decoration: none;
+    margin-right: 0.8em;
+}
+    .tree-node > span {
+        display: flex;
+        align-items: center;
+    }
+        .tree-node > span > i {
+            margin-right: 0.3em;
+        }
+        
+        .tree-node > span > *:nth-child(2) {
+            padding-left: 0.3rem;
+        }

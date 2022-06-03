@@ -6,15 +6,15 @@
 webexpress.ui.expandCtrl = class extends webexpress.ui.events {
     _container = $("<span class='expand'>");
     _content = $("<div/>");
-    _expandicon = $("<a class='fas fa-angle-right text-primary' href='#'/>");
+    _expandicon = $("<a class='expand-angle' href='#'/>");
     _expand = true;
 
     /**
      * Konstruktor
      * @param settings Optionen zur Gestaltung des Steuerelementes
-     *        - ID Die ID des Steuerelements
-     *        - CSS CSS-Klasse zur Gestaltung des Steuerelementes
-     *        - Header Der Überschriftsext
+     *        - id Die ID des Steuerelements
+     *        - css CSS-Klasse zur Gestaltung des Steuerelementes
+     *        - header Der Überschriftsext
      */
     constructor(settings) {
         let id = settings.id;

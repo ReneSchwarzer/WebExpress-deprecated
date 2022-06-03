@@ -19,11 +19,11 @@ webexpress.ui.moveCtrl = class extends webexpress.ui.events {
     /**
      * Konstruktor
      * @param settings Optionen zur Gestaltung des Steuerelementes
-     *        - ID Die ID des Steuerelements
-     *        - Name Der Steuerelementenname
-     *        - CSS CSS-Klasse zur Gestaltung des Steuerelementes
-     *        - Header Überschrift { Selected, Available }
-     *        - Buttons Schaltflächenbeschriftung { ToSelectedAll, ToSelected, ToAvailable, ToAvailableAll }
+     *        - id Die ID des Steuerelements
+     *        - name Der Steuerelementenname
+     *        - css CSS-Klasse zur Gestaltung des Steuerelementes
+     *        - header Überschrift { Selected, Available }
+     *        - buttons Schaltflächenbeschriftung { toselectedall, toselected, toavailable, toavailableall }
      */
     constructor(settings) {
         super();
@@ -49,10 +49,10 @@ webexpress.ui.moveCtrl = class extends webexpress.ui.events {
             this._hidden.attr("name", name);
         }
         
-        this._buttonToSelectedAll.html(buttons.ToSelectedAll);
-        this._buttonToSelected.html(buttons.ToSelected);
-        this._buttonToAvailable.html(buttons.ToAvailable);
-        this._buttonToAvailableAll.html(buttons.ToAvailableAll);
+        this._buttonToSelectedAll.html(buttons.toselectedall);
+        this._buttonToSelected.html(buttons.toselected);
+        this._buttonToAvailable.html(buttons.toavailable);
+        this._buttonToAvailableAll.html(buttons.toavailableall);
         
         selectedContainer.append(selectedHeader);
         selectedContainer.append(this._selectedList);

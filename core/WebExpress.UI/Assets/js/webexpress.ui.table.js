@@ -13,8 +13,10 @@ webexpress.ui.tableCtrl = class extends webexpress.ui.events {
     /**
      * Konstruktor
      * @param settings Optionen zur Gestaltung des Steuerelementes
-     *        - ID Die ID des Steuerelements
-     *        - CSS CSS-Klasse zur Gestaltung des Steuerelementes
+     *        - id Die ID des Steuerelements
+     *        - css CSS-Klasse zur Gestaltung des Steuerelementes
+     *        - optionsettings Optionen für die Darstellung der Optionen
+     *        - optionitems Die Optionen
      */
     constructor(settings) {
         super();
@@ -23,7 +25,7 @@ webexpress.ui.tableCtrl = class extends webexpress.ui.events {
         let css = settings.css;
 
         this._optionSetting = settings.optionsettings;
-        this._optionItems = settings.optionitems;
+        this._optionItems = settings.optionitems ?? [];
         this._table.attr("id", id ?? "");
         this._table.addClass(css);
         this._table.append(this._col);
