@@ -76,7 +76,7 @@ namespace WebExpress.UI.WebControl
 
             var html = new HtmlElementTextContentDiv(img, new HtmlText(User))
             {
-                ID = ID,
+                ID = Id,
                 Class = Css.Concatenate("profile", GetClasses()),
                 Style = GetStyles(),
                 Role = Role
@@ -85,7 +85,7 @@ namespace WebExpress.UI.WebControl
             if (Modal != null)
             {
                 html.AddUserAttribute("data-bs-toggle", "modal");
-                html.AddUserAttribute("data-bs-target", "#" + Modal.ID);
+                html.AddUserAttribute("data-bs-target", "#" + Modal.Id);
 
                 return new HtmlList(html, Modal.Render(context));
             }

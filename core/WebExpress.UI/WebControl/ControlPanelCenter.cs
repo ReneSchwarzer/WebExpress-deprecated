@@ -53,7 +53,7 @@ namespace WebExpress.UI.WebControl
         {
             var html = new HtmlElementTextContentDiv(from x in Content select x.Render(context))
             {
-                ID = ID,
+                ID = Id,
                 Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Role = Role

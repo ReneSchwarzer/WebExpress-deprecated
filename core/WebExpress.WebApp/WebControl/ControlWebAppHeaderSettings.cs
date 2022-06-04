@@ -71,7 +71,7 @@ namespace WebExpress.WebApp.WebControl
             settingsList.AddRange(Secondary);
 
             var settings = (settingsList.Count > 1) ?
-            new ControlDropdown(ID, settingsList)
+            new ControlDropdown(Id, settingsList)
             {
                 Icon = new PropertyIcon(TypeIcon.Cog),
                 AlignmentMenu = TypeAlignmentDropdownMenu.Right,

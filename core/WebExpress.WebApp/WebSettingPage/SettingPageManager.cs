@@ -140,7 +140,7 @@ namespace WebExpress.WebApp.SettingPage
                     "    SettingPage.Hide = " + (page?.Hide != null ? page?.Hide.ToString() : "null")
                 };
 
-                Context.Log.Warning(string.Join(Environment.NewLine, log));
+                Context.Log.Info(string.Join(Environment.NewLine, log));
             }
         }
 

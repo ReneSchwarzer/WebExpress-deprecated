@@ -54,7 +54,7 @@ namespace WebExpress.UI.WebControl
 
             var name = new HtmlElementTextSemanticsSpan(new HtmlText(context.I18N(Name)))
             {
-                ID = string.IsNullOrWhiteSpace(ID) ? string.Empty : $"{ID}_name",
+                ID = string.IsNullOrWhiteSpace(Id) ? string.Empty : $"{Id}_name",
                 Class = NameColor?.ToClass()
             };
 
@@ -64,7 +64,7 @@ namespace WebExpress.UI.WebControl
                 Name != null ? name : null
             )
             {
-                ID = ID,
+                ID = Id,
                 Class = GetClasses(),
                 Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Role = Role

@@ -130,14 +130,14 @@ namespace WebExpress.UI.WebControl
 
             var submitFooterButton = new ControlFormularItemButton()
             {
-                Name = "submit_" + Formular?.ID?.ToLower(),
+                Name = "submit_" + Formular?.Id?.ToLower(),
                 Text = Formular.SubmitButton.Text,
                 Icon = Formular.SubmitButton.Icon,
                 Color = Formular.SubmitButton.Color,
                 Type = TypeButton.Submit,
                 Value = "1",
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None),
-                OnClick = new PropertyOnClick($"$('#{Formular?.SubmitType.ID}').val('submit');")
+                OnClick = new PropertyOnClick($"$('#{Formular?.SubmitType.Id}').val('submit');")
             };
 
             var cancelFooterButton = new ControlButtonLink()
@@ -165,7 +165,7 @@ namespace WebExpress.UI.WebControl
 
             var html = new HtmlElementTextContentDiv(dialog)
             {
-                ID = ID,
+                ID = Id,
                 Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Role = "dialog"
@@ -173,20 +173,20 @@ namespace WebExpress.UI.WebControl
 
             if (!string.IsNullOrWhiteSpace(OnShownCode))
             {
-                var shown = "$('#" + ID + "').on('shown.bs.modal', function(e) { " + OnShownCode + " });";
-                context.VisualTree.AddScript(ID + "_shown", shown);
+                var shown = "$('#" + Id + "').on('shown.bs.modal', function(e) { " + OnShownCode + " });";
+                context.VisualTree.AddScript(Id + "_shown", shown);
             }
 
             if (!string.IsNullOrWhiteSpace(OnHiddenCode))
             {
-                var hidden = "$('#" + ID + "').on('hidden.bs.modal', function() { " + OnHiddenCode + " });";
-                context.VisualTree.AddScript(ID + "_hidden", hidden);
+                var hidden = "$('#" + Id + "').on('hidden.bs.modal', function() { " + OnHiddenCode + " });";
+                context.VisualTree.AddScript(Id + "_hidden", hidden);
             }
 
             if (ShowIfCreated)
             {
-                var show = "$('#" + ID + "').modal('show');";
-                context.VisualTree.AddScript(ID + "_showifcreated", show);
+                var show = "$('#" + Id + "').modal('show');";
+                context.VisualTree.AddScript(Id + "_showifcreated", show);
             }
 
             form.Elements.Clear();

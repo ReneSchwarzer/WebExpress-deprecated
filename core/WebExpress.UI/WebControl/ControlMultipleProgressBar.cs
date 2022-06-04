@@ -75,7 +75,7 @@ namespace WebExpress.UI.WebControl
                 default:
                     return new HtmlElementFormProgress(Items.Select(x => x.Value).Sum() + "%")
                     {
-                        ID = ID,
+                        ID = Id,
                         Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
                         Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                         Role = Role,
@@ -89,7 +89,7 @@ namespace WebExpress.UI.WebControl
 
             var html = new HtmlElementTextContentDiv()
             {
-                ID = ID,
+                ID = Id,
                 Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Role = Role
@@ -111,7 +111,7 @@ namespace WebExpress.UI.WebControl
 
                 var bar = new HtmlElementTextContentDiv(new HtmlText(v.Text))
                 {
-                    ID = ID,
+                    ID = Id,
                     Class = string.Join(" ", c.Where(x => !string.IsNullOrWhiteSpace(x))),
                     Style = string.Join(" ", styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                     Role = Role

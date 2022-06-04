@@ -52,7 +52,7 @@ namespace WebExpress.UI.WebControl
         {
             var html = new HtmlElementSectionNav()
             {
-                ID = ID,
+                ID = Id,
                 Class = Css.Concatenate("navbar", GetClasses()),
                 Style = GetStyles(),
                 Role = Role

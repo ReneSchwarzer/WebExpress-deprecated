@@ -94,8 +94,8 @@ namespace WebExpress.UI.WebControl
         public ControlFormular(string id = null)
             : base(id)
         {
-            SubmitButton.Name = SubmitButton.ID;
-            SubmitButton.OnClick = new PropertyOnClick($"$('#{SubmitType.ID}').val('submit');");
+            SubmitButton.Name = SubmitButton.Id;
+            SubmitButton.OnClick = new PropertyOnClick($"$('#{SubmitType.Id}').val('submit');");
         }
 
         /// <summary>
@@ -128,7 +128,7 @@ namespace WebExpress.UI.WebControl
         public virtual void Initialize(RenderContextFormular context)
         {
             // ID überprüfen
-            if (string.IsNullOrWhiteSpace(ID))
+            if (string.IsNullOrWhiteSpace(Id))
             {
                 context.Application.Log.Warning(I18N("webexpress.ui:form.empty.id"));
             }
@@ -286,7 +286,7 @@ namespace WebExpress.UI.WebControl
 
             var form = new HtmlElementFormForm()
             {
-                ID = ID,
+                ID = Id,
                 Class = GetClasses(),
                 Style = GetStyles(),
                 Role = Role,

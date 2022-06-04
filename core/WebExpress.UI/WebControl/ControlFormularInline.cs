@@ -83,7 +83,7 @@ namespace WebExpress.UI.WebControl
         public ControlFormularInline(string id = null)
             : base(id)
         {
-            Name = ID != null ? ID.StartsWith("formular") ? ID : $"formular_{ID}" : "formular";
+            Name = Id != null ? Id.StartsWith("formular") ? Id : $"formular_{Id}" : "formular";
 
             SubmitButton = new ControlFormularItemButton("submit-" + Name?.ToLower())
             {
@@ -167,7 +167,7 @@ namespace WebExpress.UI.WebControl
             {
                 var value = context.Request.GetParameter("formular-id")?.Value;
 
-                if (!string.IsNullOrWhiteSpace(ID) && value == ID)
+                if (!string.IsNullOrWhiteSpace(Id) && value == Id)
                 {
                     var valid = Validate(renderContext);
 
@@ -185,7 +185,7 @@ namespace WebExpress.UI.WebControl
 
             var html = new HtmlElementFormForm()
             {
-                ID = ID,
+                ID = Id,
                 Class = Css.Concatenate("form-inline", GetClasses()),
                 Style = GetStyles(),
                 Role = Role,
@@ -195,15 +195,15 @@ namespace WebExpress.UI.WebControl
                 Enctype = TypeEnctype.None
             };
 
-            html.Elements.Add(new ControlFormularItemInputHidden() { Name = "formular-id", Value = ID }.Render(renderContext));
+            html.Elements.Add(new ControlFormularItemInputHidden() { Name = "formular-id", Value = Id }.Render(renderContext));
 
             foreach (var item in Items)
             {
                 if (item is ControlFormularItemInput input)
                 {
                     var icon = new ControlIcon() { Icon = input?.Icon };
-                    var label = new ControlFormularItemLabel(!string.IsNullOrEmpty(item.ID) ? item.ID + "_label" : string.Empty);
-                    var help = new ControlFormularItemHelpText(!string.IsNullOrEmpty(item.ID) ? item.ID + "_help" : string.Empty);
+                    var label = new ControlFormularItemLabel(!string.IsNullOrEmpty(item.Id) ? item.Id + "_label" : string.Empty);
+                    var help = new ControlFormularItemHelpText(!string.IsNullOrEmpty(item.Id) ? item.Id + "_help" : string.Empty);
                     var fieldset = new HtmlElementFormFieldset() { Class = "form-group" };
 
                     label.Initialize(renderContext);

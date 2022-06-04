@@ -122,7 +122,7 @@ namespace WebExpress.UI.WebControl
 
             var html = new HtmlElementTextSemanticsSpan()
             {
-                ID = ID,
+                ID = Id,
                 Class = "dropdown"
             };
 

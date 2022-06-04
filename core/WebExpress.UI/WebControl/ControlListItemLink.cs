@@ -146,7 +146,7 @@ namespace WebExpress.UI.WebControl
 
             var html = new HtmlElementTextSemanticsA(from x in Content select x.Render(context))
             {
-                ID = ID,
+                ID = Id,
                 Class = Css.Concatenate("list-group-item-action", GetClasses()),
                 Style = GetStyles(),
                 Role = Role,

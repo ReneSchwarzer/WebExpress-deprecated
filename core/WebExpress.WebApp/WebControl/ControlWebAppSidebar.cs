@@ -76,7 +76,7 @@ namespace WebExpress.WebApp.WebControl
 
             return new HtmlElementTextContentDiv(elements)
             {
-                ID = ID,
+                ID = Id,
                 Class = Css.Concatenate("sidebar", GetClasses()),
                 Style = Style.Concatenate("display: block;", GetStyles()),
                 Role = Role

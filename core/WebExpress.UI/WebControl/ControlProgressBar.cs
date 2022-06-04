@@ -104,7 +104,7 @@ namespace WebExpress.UI.WebControl
             {
                 return new HtmlElementFormProgress(Value + "%")
                 {
-                    ID = ID,
+                    ID = Id,
                     Class = GetClasses(),
                     Style = GetStyles(),
                     Role = Role,
@@ -137,7 +137,7 @@ namespace WebExpress.UI.WebControl
 
             var html = new HtmlElementTextContentDiv(bar)
             {
-                ID = ID,
+                ID = Id,
                 Role = Role,
                 Class = Css.Concatenate
                 (

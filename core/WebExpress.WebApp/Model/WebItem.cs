@@ -9,7 +9,7 @@ namespace WebExpress.WebApp.Model
         /// Die Guid des Objektes
         /// </summary>
         [JsonPropertyName("id")]
-        public string ID { get; set; } = Guid.NewGuid().ToString();
+        public string Id { get; set; } = Guid.NewGuid().ToString();
 
         /// <summary>
         /// Die Uri
@@ -34,5 +34,35 @@ namespace WebExpress.WebApp.Model
         /// </summary>
         [JsonPropertyName("image")]
         public virtual string Image { get; set; }
+
+        /// <summary>
+        /// Konstruktor
+        /// </summary>
+        public WebItem()
+        {
+        }
+
+        /// <summary>
+        /// Copy-Konstruktor
+        /// Erstellt eine Tiefenkopie.
+        /// </summary>
+        /// <param name="item">Das zu kopierende Objekt</param>
+        public WebItem(WebItem item)
+        {
+            Id = item.Id;
+            Uri = item.Uri;
+            Label = item.Label;
+            Name = item.Name;
+            Image = item.Image;
+        }
+
+        /// <summary>
+        /// Umwandlung in Stringform
+        /// </summary>
+        /// <returns>Das Objekt in seiner Stringrepräsentation</returns>
+        public override string ToString()
+        {
+            return $"{Name} ({Id})";
+        }
     }
 }

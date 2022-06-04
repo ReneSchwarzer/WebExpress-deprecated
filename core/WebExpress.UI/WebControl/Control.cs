@@ -102,7 +102,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Liefert oder setzt die ID
         /// </summary>
-        public string ID { get; private set; }
+        public string Id { get; private set; }
 
         /// <summary>
         /// Liefert oder setzt die Css-Klasse
@@ -147,7 +147,7 @@ namespace WebExpress.UI.WebControl
         /// <param name="id">Die ID</param>
         public Control(string id = null)
         {
-            ID = id;
+            Id = id;
 
             HorizontalAlignment = TypeHorizontalAlignment.Default;
             BackgroundColor = new PropertyColorBackground(TypeColorBackground.Default);

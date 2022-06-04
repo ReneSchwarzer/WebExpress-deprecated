@@ -156,7 +156,7 @@ namespace WebExpress.WebApp.WebControl
                 Metadata.Count > 0 ? metadata : null
             )
             {
-                ID = ID,
+                ID = Id,
                 Class = Css.Concatenate("", GetClasses()),
                 Style = Style.Concatenate("display: block;", GetStyles()),
                 Role = Role

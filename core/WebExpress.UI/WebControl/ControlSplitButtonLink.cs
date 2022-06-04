@@ -133,7 +133,7 @@ namespace WebExpress.UI.WebControl
         {
             var button = new HtmlElementTextSemanticsA()
             {
-                ID = string.IsNullOrWhiteSpace(ID) ? "" : ID + "_btn",
+                ID = string.IsNullOrWhiteSpace(Id) ? "" : Id + "_btn",
                 Class = Css.Concatenate("btn", Css.Remove(GetClasses(), Margin.ToClass())),
                 Style = GetStyles(),
                 Target = Target,
@@ -168,23 +168,23 @@ namespace WebExpress.UI.WebControl
             }
             else if (Modal.Type == TypeModal.Formular)
             {
-                button.OnClick = $"new webexpress.ui.modalFormularCtrl({{ close: '{InternationalizationManager.I18N(context.Culture, "webexpress.ui:form.cancel.label")}', uri: '{Modal.Uri?.ToString() ?? button.Href}', size: '{Modal.Size.ToString().ToLower()}'}});";
+                button.OnClick = $"new webexpress.ui.modalFormularCtrl({{ close: '{InternationalizationManager.I18N(context.Culture, "webexpress.ui:form.cancel.label")}', uri: '{Modal.Uri?.ToString() ?? button.Href}', size: '{Modal.Size.ToString().ToLower()}', redirect: '{Modal.RedirectUri}'}});";
                 button.Href = "#";
             }
             else if (Modal.Type == TypeModal.Brwoser)
             {
-                button.OnClick = $"new webexpress.ui.modalPageCtrl({{ close: '{InternationalizationManager.I18N(context.Culture, "webexpress.ui:form.cancel.label")}', uri: '{Modal.Uri?.ToString() ?? button.Href}', size: '{Modal.Size.ToString().ToLower()}'}});";
+                button.OnClick = $"new webexpress.ui.modalPageCtrl({{ close: '{InternationalizationManager.I18N(context.Culture, "webexpress.ui:form.cancel.label")}', uri: '{Modal.Uri?.ToString() ?? button.Href}', size: '{Modal.Size.ToString().ToLower()}', redirect: '{Modal.RedirectUri}'}});";
                 button.Href = "#";
             }
             else if (Modal.Type == TypeModal.Modal)
             {
                 button.AddUserAttribute("data-bs-toggle", "modal");
-                button.AddUserAttribute("data-bs-target", "#" + Modal.Modal.ID);
+                button.AddUserAttribute("data-bs-target", "#" + Modal.Modal.Id);
             }
 
             var dropdownButton = new HtmlElementTextSemanticsSpan(new HtmlElementTextSemanticsSpan() { Class = "caret" })
             {
-                ID = string.IsNullOrWhiteSpace(ID) ? "" : ID + "_btn",
+                ID = string.IsNullOrWhiteSpace(Id) ? "" : Id + "_btn",
                 Class = Css.Concatenate("btn dropdown-toggle dropdown-toggle-split", Css.Remove(GetClasses(), "btn-block", Margin.ToClass())),
                 Style = GetStyles()
             };

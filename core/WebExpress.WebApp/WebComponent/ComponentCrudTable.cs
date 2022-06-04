@@ -71,7 +71,7 @@ namespace WebExpress.WebApp.WebComponent
             context.VisualTree.AddScript
             (
                 "webexpress.webapp.usermanagement.user",
-                $"var crud = new crudTable('{RestApiUri}', {settings}); var container = $('#{ID}'); container.append(crud.getCtrl);"
+                $"var crud = new crudTable('{RestApiUri}', {settings}); var container = $('#{Id}'); container.append(crud.getCtrl);"
             );
 
             return base.Render(context);

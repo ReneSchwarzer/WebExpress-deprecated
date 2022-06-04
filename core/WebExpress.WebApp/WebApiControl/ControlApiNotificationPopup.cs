@@ -34,21 +34,21 @@ namespace WebExpress.WebApp.WebApiControl
 
             var settings = new
             {
-                ID = "26E517F5-56F7-485E-A212-6033618708F3",
-                RestUri = module?.ContextPath.Append("api/v1/popupnotifications")?.ToString(),
-                Intervall = 15000
+                id = "26E517F5-56F7-485E-A212-6033618708F3",
+                resturi = module?.ContextPath.Append("api/v1/popupnotifications")?.ToString(),
+                intervall = 15000
             };
 
             var jsonOptions = new JsonSerializerOptions { WriteIndented = false };
             var settingsJson = JsonSerializer.Serialize(settings, jsonOptions);
             var builder = new StringBuilder();
 
-            builder.AppendLine($"{{");
+            builder.AppendLine($"$(document).ready(function () {{");
             builder.AppendLine($"let settings = {settingsJson};");
-            builder.AppendLine($"let container = $('#{ID}');");
+            builder.AppendLine($"let container = $('#{Id}');");
             builder.AppendLine($"let obj = new webexpress.webapp.popupNotificationCtrl(settings);");
             builder.AppendLine($"container.replaceWith(obj.getCtrl);");
-            builder.AppendLine($"}}");
+            builder.AppendLine($"}});");
 
             context.VisualTree.AddScript("webexpress.webapp:controlapinotificationpopup", builder.ToString());
 

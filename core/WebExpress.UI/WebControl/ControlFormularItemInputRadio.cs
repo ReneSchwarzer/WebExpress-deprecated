@@ -112,7 +112,7 @@ namespace WebExpress.UI.WebControl
                 (
                     new HtmlElementFieldInput()
                     {
-                        ID = ID,
+                        ID = Id,
                         Name = Name,
                         Pattern = Pattern,
                         Type = "radio",

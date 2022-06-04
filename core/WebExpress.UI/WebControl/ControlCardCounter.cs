@@ -66,7 +66,7 @@ namespace WebExpress.UI.WebControl
                 });
             }
 
-            var text = new ControlText(string.IsNullOrWhiteSpace(ID) ? null : ID + "_header")
+            var text = new ControlText(string.IsNullOrWhiteSpace(Id) ? null : Id + "_header")
             {
                 Text = Value,
                 Format = TypeFormatText.H4

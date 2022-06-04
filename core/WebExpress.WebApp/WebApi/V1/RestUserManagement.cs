@@ -81,12 +81,12 @@ namespace WebExpress.WebApp.WebAPI.V1
 
             return users.Select(x => new WebItemUser()
             {
-                ID = x.ID,
+                Id = x.ID,
                 Login = x.Login,
                 Firstname = x.Firstname,
                 Lastname = x.Lastname,
                 Email = x.Email,
-                Groups = x.Groups.Select(y => new WebItemGroup() { ID = y.ID, Name = y.Name })
+                Groups = x.Groups.Select(y => new WebItemGroup() { Id = y.ID, Name = y.Name })
             });
         }
 

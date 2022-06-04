@@ -37,30 +37,7 @@ namespace WebExpress.WebApp.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            //if (string.IsNullOrWhiteSpace(Header))
-            //{
-            //    Header = context.Page.I18N("webexpress.webapp", "delete.header");
-            //}
-
-            //if (string.IsNullOrWhiteSpace(ButtonLabel))
-            //{
             ButtonLabel = context.Page.I18N("webexpress.webapp", "delete.label");
-            //}
-
-            //if (Content == null)
-            //{
-            //    Content = new ControlFormularItemStaticText() { Text = context.Page.I18N("webexpress.webapp", "delete.description") };
-            //}
-
-            if (ButtonIcon == null)
-            {
-
-            }
-
-            //if (ButtonColor == null)
-            //{
-            //    
-            //}
 
             return base.Render(context);
         }

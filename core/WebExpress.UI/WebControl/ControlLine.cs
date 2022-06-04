@@ -50,7 +50,7 @@ namespace WebExpress.UI.WebControl
         {
             var html = new HtmlElementTextContentHr()
             {
-                ID = ID,
+                ID = Id,
                 Class = GetClasses(),
                 Style = GetStyles(),
                 Role = Role

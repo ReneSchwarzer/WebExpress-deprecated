@@ -63,7 +63,7 @@ namespace WebExpress.WebApp.WebControl
 
             return new HtmlElementTextContentDiv(preferences, primary, secondary)
             {
-                ID = ID,
+                ID = Id,
                 Class = Css.Concatenate("proterty", GetClasses()),
                 Style = GetStyles(),
                 Role = Role

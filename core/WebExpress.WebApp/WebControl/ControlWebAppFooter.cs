@@ -62,7 +62,7 @@ namespace WebExpress.WebApp.WebControl
 
             return new HtmlElementTextContentDiv(elements)
             {
-                ID = ID,
+                ID = Id,
                 Class = Css.Concatenate("footer", GetClasses()),
                 Style = Style.Concatenate("", GetStyles()),
                 Role = Role

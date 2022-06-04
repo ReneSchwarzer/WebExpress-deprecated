@@ -85,7 +85,7 @@ namespace WebExpress.UI.WebControl
 
             var builder = new StringBuilder();
             var data = new List<StringBuilder>();
-            builder.Append($"var config_{ID} = {{");
+            builder.Append($"var config_{Id} = {{");
             //if (Type != TypeChart.Polar)
             {
                 builder.Append($"type:'{Type.ToType()}',");
@@ -130,9 +130,9 @@ namespace WebExpress.UI.WebControl
             }
             builder.Append("}};");
 
-            builder.AppendLine($"var chart_{ID} = new Chart(document.getElementById('{ID}').getContext('2d'), config_{ID});");
+            builder.AppendLine($"var chart_{Id} = new Chart(document.getElementById('{Id}').getContext('2d'), config_{Id});");
 
-            context.VisualTree.AddScript($"chart_{ID}", builder.ToString());
+            context.VisualTree.AddScript($"chart_{Id}", builder.ToString());
         }
 
         /// <summary>
@@ -146,7 +146,7 @@ namespace WebExpress.UI.WebControl
 
             var html = new HtmlElementScriptingCanvas()
             {
-                ID = ID,
+                ID = Id,
                 Class = Css.Concatenate("", GetClasses()),
                 Style = GetStyles(),
                 Role = Role

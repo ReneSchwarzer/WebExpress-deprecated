@@ -127,7 +127,7 @@ namespace WebExpress.UI.WebControl
 
             var html = new HtmlElementTextContentUl(items)
             {
-                ID = ID,
+                ID = Id,
                 Class = Css.Concatenate("", GetClasses()),
                 Style = GetStyles(),
                 Role = Role

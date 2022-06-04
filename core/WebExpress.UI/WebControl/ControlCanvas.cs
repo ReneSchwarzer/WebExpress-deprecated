@@ -81,7 +81,7 @@ namespace WebExpress.UI.WebControl
         {
             return new HtmlElementScriptingCanvas()
             {
-                ID = ID,
+                ID = Id,
                 Class = Css.Concatenate("", GetClasses()),
                 Style = GetStyles(),
                 Role = Role

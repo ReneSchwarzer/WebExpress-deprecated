@@ -27,7 +27,7 @@ namespace WebExpress.UI.WebControl
         public ControlFormularItemInputGroup(string id = null)
             : base(id)
         {
-            Name = ID;
+            Name = Id;
             Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None);
         }
 

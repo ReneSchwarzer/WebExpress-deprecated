@@ -24,7 +24,7 @@ namespace WebExpress.UI.WebControl
         {
             var html = new HtmlElementSectionMain()
             {
-                ID = ID,
+                ID = Id,
                 Class = GetClasses(),
                 Style = GetStyles(),
                 Role = Role

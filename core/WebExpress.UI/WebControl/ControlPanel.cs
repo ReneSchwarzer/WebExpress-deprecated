@@ -101,7 +101,7 @@ namespace WebExpress.UI.WebControl
         {
             return new HtmlElementTextContentDiv(from x in Content select x.Render(context))
             {
-                ID = ID,
+                ID = Id,
                 Class = GetClasses(),
                 Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Role = Role

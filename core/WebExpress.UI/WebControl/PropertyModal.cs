@@ -25,6 +25,11 @@ namespace WebExpress.UI.WebControl
         public IUri Uri { get; protected set; }
 
         /// <summary>
+        /// Die Weiterleitungs-Uri
+        /// </summary>
+        public IUri RedirectUri { get; set; }
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="type">Der Typ</param>

@@ -56,7 +56,7 @@ namespace WebExpress.UI.WebControl
 
             var ul = new HtmlElementTextContentUl(Items.Select(x => new HtmlElementTextContentLi(x.Render(context)) { Class = "item" }))
             {
-                ID = ID,
+                ID = Id,
                 Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Role = Role

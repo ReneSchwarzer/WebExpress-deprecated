@@ -61,7 +61,7 @@ namespace WebExpress.WebApp.WebControl
             firstQuickcreate?.Render(context);
 
             var quickcreate = (quickcreateList.Count > 1) ?
-            (IControl)new ControlSplitButtonLink(ID, quickcreateList.Skip(1))
+            (IControl)new ControlSplitButtonLink(Id, quickcreateList.Skip(1))
             {
                 Text = context.I18N("webexpress.webapp", "header.quickcreate.label"),
                 Uri = firstQuickcreate?.Uri,
@@ -72,7 +72,7 @@ namespace WebExpress.WebApp.WebControl
                 Modal = firstQuickcreate?.Modal
             } :
             (Preferences.Count > 0) ?
-            new ControlButtonLink(ID)
+            new ControlButtonLink(Id)
             {
                 Text = context.I18N("webexpress.webapp", "header.quickcreate.label"),
                 Uri = firstQuickcreate?.Uri,

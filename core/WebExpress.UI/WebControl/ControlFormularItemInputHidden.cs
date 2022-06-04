@@ -11,7 +11,7 @@ namespace WebExpress.UI.WebControl
         public ControlFormularItemInputHidden(string id = null)
             : base(id)
         {
-            Name = ID;
+            Name = Id;
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace WebExpress.UI.WebControl
         {
             return new HtmlElementFieldInput()
             {
-                ID = ID,
+                ID = Id,
                 Value = Value,
                 Name = Name,
                 Type = "hidden",

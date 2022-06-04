@@ -47,7 +47,7 @@ namespace WebExpress.WebApp.WebControl
 
             return new HtmlElementTextSemanticsA(apptitle.Render(context))
             {
-                ID = ID,
+                ID = Id,
                 Href = context?.Page?.Context?.Application?.ContextPath.ToString(),
                 Class = Css.Concatenate("", GetClasses()),
                 Style = Style.Concatenate("", GetStyles()),

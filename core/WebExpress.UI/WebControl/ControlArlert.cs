@@ -81,7 +81,7 @@ namespace WebExpress.UI.WebControl
                 Dismissible != TypeDismissibleAlert.None ? button : null
             )
             {
-                ID = ID,
+                ID = Id,
                 Class = Css.Concatenate("alert", GetClasses()),
                 Style = GetStyles(),
                 Role = "alert"

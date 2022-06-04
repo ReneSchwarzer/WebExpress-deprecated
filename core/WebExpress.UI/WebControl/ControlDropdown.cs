@@ -219,7 +219,7 @@ namespace WebExpress.UI.WebControl
         {
             var html = new HtmlElementTextContentDiv()
             {
-                ID = ID,
+                ID = Id,
                 Class = Css.Concatenate("dropdown", Margin.ToClass()),
                 Role = Role
             };
@@ -228,7 +228,7 @@ namespace WebExpress.UI.WebControl
             {
                 var button = new HtmlElementFieldButton()
                 {
-                    ID = string.IsNullOrWhiteSpace(ID) ? "" : ID + "_btn",
+                    ID = string.IsNullOrWhiteSpace(Id) ? "" : Id + "_btn",
                     Class = Css.Concatenate("btn", Css.Remove(GetClasses(), Margin.ToClass())),
                     Style = GetStyles(),
                     Title = Title
@@ -263,7 +263,7 @@ namespace WebExpress.UI.WebControl
             {
                 var button = new HtmlElementMultimediaImg()
                 {
-                    ID = string.IsNullOrWhiteSpace(ID) ? "" : ID + "_btn",
+                    ID = string.IsNullOrWhiteSpace(Id) ? "" : Id + "_btn",
                     Class = Css.Concatenate("btn", Css.Remove(GetClasses(), Margin.ToClass())),
                     Style = GetStyles(),
                     Src = Image.ToString()

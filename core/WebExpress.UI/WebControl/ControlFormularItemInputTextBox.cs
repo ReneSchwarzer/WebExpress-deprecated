@@ -61,7 +61,7 @@ namespace WebExpress.UI.WebControl
         public ControlFormularItemInputTextBox(string id = null)
             : base(id)
         {
-            Name = ID;
+            Name = Id;
             Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None);
         }
 
@@ -107,7 +107,7 @@ namespace WebExpress.UI.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContextFormular context)
         {
-            var id = ID ?? Guid.NewGuid().ToString();
+            var id = Id ?? Guid.NewGuid().ToString();
 
             Classes.Add("form-control");
 
@@ -126,7 +126,7 @@ namespace WebExpress.UI.WebControl
                     break;
             }
 
-            if (AutoInitialize && Format == TypesEditTextFormat.Wysiwyg && !string.IsNullOrWhiteSpace(ID))
+            if (AutoInitialize && Format == TypesEditTextFormat.Wysiwyg && !string.IsNullOrWhiteSpace(Id))
             {
                 var initializeCode = $"$(document).ready(function() {{ $('#{ id }').summernote({{ tabsize: 2, height: '{Rows}rem', lang: 'de-DE' }}); }});";
     
@@ -139,7 +139,7 @@ namespace WebExpress.UI.WebControl
             {
                 TypesEditTextFormat.Multiline => new HtmlElementFormTextarea()
                 {
-                    ID = ID,
+                    ID = Id,
                     Value = Value,
                     Name = Name,
                     Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
@@ -161,7 +161,7 @@ namespace WebExpress.UI.WebControl
                 },
                 _ => new HtmlElementFieldInput()
                 {
-                    ID = ID,
+                    ID = Id,
                     Value = Value,
                     Name = Name,
                     MinLength = MinLength?.ToString(),

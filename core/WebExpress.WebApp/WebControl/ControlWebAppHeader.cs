@@ -127,7 +127,7 @@ namespace WebExpress.WebApp.WebControl
 
             return new HtmlElementSectionHeader(content.Render(context))
             {
-                ID = ID,
+                ID = Id,
                 Class = Css.Concatenate("navbar", GetClasses()),
                 Style = Style.Concatenate("display: block;", GetStyles()),
                 Role = Role

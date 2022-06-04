@@ -57,9 +57,9 @@ namespace WebExpress.UI.WebControl
                 Style = GetStyles(),
                 Role = Role,
                 For = FormularItem != null ?
-                    string.IsNullOrWhiteSpace(FormularItem.ID) ?
+                    string.IsNullOrWhiteSpace(FormularItem.Id) ?
                     FormularItem.Name :
-                    FormularItem.ID :
+                    FormularItem.Id :
                     null
             };
         }

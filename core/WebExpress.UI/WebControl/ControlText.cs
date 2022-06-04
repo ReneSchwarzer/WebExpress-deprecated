@@ -72,7 +72,7 @@ namespace WebExpress.UI.WebControl
                 case TypeFormatText.Paragraph:
                     html = new HtmlElementTextContentP(text)
                     {
-                        ID = ID,
+                        ID = Id,
                         Class = GetClasses(),
                         Style = GetStyles(),
                         Role = Role
@@ -81,7 +81,7 @@ namespace WebExpress.UI.WebControl
                 case TypeFormatText.Italic:
                     html = new HtmlElementTextSemanticsI(text)
                     {
-                        ID = ID,
+                        ID = Id,
                         Class = GetClasses(),
                         Style = GetStyles(),
                         Role = Role
@@ -90,7 +90,7 @@ namespace WebExpress.UI.WebControl
                 case TypeFormatText.Bold:
                     html = new HtmlElementTextSemanticsB(text)
                     {
-                        ID = ID,
+                        ID = Id,
                         Class = GetClasses(),
                         Style = GetStyles(),
                         Role = Role
@@ -99,7 +99,7 @@ namespace WebExpress.UI.WebControl
                 case TypeFormatText.Underline:
                     html = new HtmlElementTextSemanticsU(text)
                     {
-                        ID = ID,
+                        ID = Id,
                         Class = GetClasses(),
                         Style = GetStyles(),
                         Role = Role
@@ -108,7 +108,7 @@ namespace WebExpress.UI.WebControl
                 case TypeFormatText.StruckOut:
                     html = new HtmlElementTextSemanticsS(text)
                     {
-                        ID = ID,
+                        ID = Id,
                         Class = GetClasses(),
                         Style = GetStyles(),
                         Role = Role
@@ -117,7 +117,7 @@ namespace WebExpress.UI.WebControl
                 case TypeFormatText.Cite:
                     html = new HtmlElementTextSemanticsCite(text)
                     {
-                        ID = ID,
+                        ID = Id,
                         Class = GetClasses(),
                         Style = GetStyles(),
                         Role = Role
@@ -126,7 +126,7 @@ namespace WebExpress.UI.WebControl
                 case TypeFormatText.H1:
                     html = new HtmlElementSectionH1(text)
                     {
-                        ID = ID,
+                        ID = Id,
                         Class = GetClasses(),
                         Style = GetStyles(),
                         Role = Role
@@ -135,7 +135,7 @@ namespace WebExpress.UI.WebControl
                 case TypeFormatText.H2:
                     html = new HtmlElementSectionH2(text)
                     {
-                        ID = ID,
+                        ID = Id,
                         Class = GetClasses(),
                         Style = GetStyles(),
                         Role = Role
@@ -144,7 +144,7 @@ namespace WebExpress.UI.WebControl
                 case TypeFormatText.H3:
                     html = new HtmlElementSectionH3(text)
                     {
-                        ID = ID,
+                        ID = Id,
                         Class = GetClasses(),
                         Style = GetStyles(),
                         Role = Role
@@ -153,7 +153,7 @@ namespace WebExpress.UI.WebControl
                 case TypeFormatText.H4:
                     html = new HtmlElementSectionH4(text)
                     {
-                        ID = ID,
+                        ID = Id,
                         Class = GetClasses(),
                         Style = GetStyles(),
                         Role = Role
@@ -162,7 +162,7 @@ namespace WebExpress.UI.WebControl
                 case TypeFormatText.H5:
                     html = new HtmlElementSectionH5(text)
                     {
-                        ID = ID,
+                        ID = Id,
                         Class = GetClasses(),
                         Style = GetStyles(),
                         Role = Role
@@ -171,7 +171,7 @@ namespace WebExpress.UI.WebControl
                 case TypeFormatText.H6:
                     html = new HtmlElementSectionH6(text)
                     {
-                        ID = ID,
+                        ID = Id,
                         Class = GetClasses(),
                         Style = GetStyles(),
                         Role = Role
@@ -180,7 +180,7 @@ namespace WebExpress.UI.WebControl
                 case TypeFormatText.Span:
                     html = new HtmlElementTextSemanticsSpan(new HtmlText(text))
                     {
-                        ID = ID,
+                        ID = Id,
                         Class = GetClasses(),
                         Style = GetStyles(),
                         Role = Role
@@ -189,7 +189,7 @@ namespace WebExpress.UI.WebControl
                 case TypeFormatText.Small:
                     html = new HtmlElementTextSemanticsSmall(new HtmlText(text))
                     {
-                        ID = ID,
+                        ID = Id,
                         Class = GetClasses(),
                         Style = GetStyles(),
                         Role = Role
@@ -198,7 +198,7 @@ namespace WebExpress.UI.WebControl
                 case TypeFormatText.Strong:
                     html = new HtmlElementTextSemanticsStrong(new HtmlText(text))
                     {
-                        ID = ID,
+                        ID = Id,
                         Class = GetClasses(),
                         Style = GetStyles(),
                         Role = Role
@@ -207,7 +207,7 @@ namespace WebExpress.UI.WebControl
                 case TypeFormatText.Center:
                     html = new HtmlElementTextContentDiv(new HtmlText(text))
                     {
-                        ID = ID,
+                        ID = Id,
                         Class = Css.Concatenate("text-center", GetClasses()),
                         Style = GetStyles(),
                         Role = Role
@@ -216,7 +216,7 @@ namespace WebExpress.UI.WebControl
                 case TypeFormatText.Code:
                     html = new HtmlElementTextSemanticsCode(new HtmlText(text))
                     {
-                        ID = ID,
+                        ID = Id,
                         Class = GetClasses(),
                         Style = GetStyles(),
                         Role = Role
@@ -225,7 +225,7 @@ namespace WebExpress.UI.WebControl
                 case TypeFormatText.Output:
                     html = new HtmlElementTextSemanticsSamp(new HtmlText(text))
                     {
-                        ID = ID,
+                        ID = Id,
                         Class = GetClasses(),
                         Style = GetStyles(),
                         Role = Role
@@ -234,7 +234,7 @@ namespace WebExpress.UI.WebControl
                 case TypeFormatText.Time:
                     html = new HtmlElementTextSemanticsTime(new HtmlText(text))
                     {
-                        ID = ID,
+                        ID = Id,
                         Class = GetClasses(),
                         Style = GetStyles(),
                         Role = Role
@@ -243,7 +243,7 @@ namespace WebExpress.UI.WebControl
                 case TypeFormatText.Mark:
                     html = new HtmlElementTextSemanticsMark(new HtmlText(text))
                     {
-                        ID = ID,
+                        ID = Id,
                         Class = GetClasses(),
                         Style = GetStyles(),
                         Role = Role
@@ -252,7 +252,7 @@ namespace WebExpress.UI.WebControl
                 case TypeFormatText.Highlight:
                     html = new HtmlElementTextSemanticsEm(new HtmlText(text))
                     {
-                        ID = ID,
+                        ID = Id,
                         Class = GetClasses(),
                         Style = GetStyles(),
                         Role = Role
@@ -261,7 +261,7 @@ namespace WebExpress.UI.WebControl
                 case TypeFormatText.Definition:
                     html = new HtmlElementTextSemanticsDfn(new HtmlText(text))
                     {
-                        ID = ID,
+                        ID = Id,
                         Class = GetClasses(),
                         Style = GetStyles(),
                         Role = Role
@@ -270,7 +270,7 @@ namespace WebExpress.UI.WebControl
                 case TypeFormatText.Abbreviation:
                     html = new HtmlElementTextSemanticsAbbr(new HtmlText(text))
                     {
-                        ID = ID,
+                        ID = Id,
                         Class = GetClasses(),
                         Style = GetStyles(),
                         Role = Role
@@ -279,7 +279,7 @@ namespace WebExpress.UI.WebControl
                 case TypeFormatText.Input:
                     html = new HtmlElementTextSemanticsKdb(new HtmlText(text))
                     {
-                        ID = ID,
+                        ID = Id,
                         Class = GetClasses(),
                         Style = GetStyles(),
                         Role = Role
@@ -288,7 +288,7 @@ namespace WebExpress.UI.WebControl
                 case TypeFormatText.Blockquote:
                     html = new HtmlElementTextContentBlockquote(new HtmlText(text))
                     {
-                        ID = ID,
+                        ID = Id,
                         Class = GetClasses(),
                         Style = GetStyles(),
                         Role = Role
@@ -297,7 +297,7 @@ namespace WebExpress.UI.WebControl
                 case TypeFormatText.Figcaption:
                     html = new HtmlElementTextContentFigcaption(new HtmlText(text))
                     {
-                        ID = ID,
+                        ID = Id,
                         Class = GetClasses(),
                         Style = GetStyles(),
                         Role = Role
@@ -306,7 +306,7 @@ namespace WebExpress.UI.WebControl
                 case TypeFormatText.Preformatted:
                     html = new HtmlElementTextContentPre(new HtmlText(text))
                     {
-                        ID = ID,
+                        ID = Id,
                         Class = GetClasses(),
                         Style = GetStyles(),
                         Role = Role
@@ -317,7 +317,7 @@ namespace WebExpress.UI.WebControl
                 default:
                     html = new HtmlElementTextContentDiv(new HtmlText(text))
                     {
-                        ID = ID,
+                        ID = Id,
                         Class = GetClasses(),
                         Style = GetStyles(),
                         Role = Role

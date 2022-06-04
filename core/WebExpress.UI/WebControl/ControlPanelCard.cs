@@ -91,7 +91,7 @@ namespace WebExpress.UI.WebControl
         {
             var html = new HtmlElementTextContentDiv()
             {
-                ID = ID,
+                ID = Id,
                 Class = Css.Concatenate("card", GetClasses()),
                 Style = GetStyles(),
                 Role = Role

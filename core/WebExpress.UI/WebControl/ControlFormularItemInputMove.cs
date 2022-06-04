@@ -31,7 +31,7 @@ namespace WebExpress.UI.WebControl
         public ControlFormularItemInputMove(string id = null)
             : base(string.IsNullOrEmpty(id) ? typeof(ControlFormularItemInputSelection).GUID.ToString() : id)
         {
-            Name = ID;
+            Name = Id;
         }
 
         /// <summary>
@@ -83,11 +83,11 @@ namespace WebExpress.UI.WebControl
 
             var html = new HtmlElementTextContentDiv()
             {
-                ID = $"selection-move-{ID}",
+                ID = $"selection-move-{Id}",
                 Style = GetStyles()
             };
 
-            context.AddScript(ID, GetScript(context, $"selection-move-{ID}", string.Join(" ", classes)));
+            context.AddScript(Id, GetScript(context, $"selection-move-{Id}", string.Join(" ", classes)));
 
             return html;
         }
@@ -113,7 +113,7 @@ namespace WebExpress.UI.WebControl
             var settings = new
             {
                 ID = id,
-                Name = ID,
+                Name = Id,
                 CSS = css,
                 Header = new
                 {

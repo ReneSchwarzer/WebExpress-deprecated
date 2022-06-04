@@ -37,7 +37,7 @@ namespace WebExpress.UI.WebControl
         {
             return new HtmlElementTextContentDiv()
             {
-                ID = ID,
+                ID = Id,
                 Class = Css.Concatenate("", GetClasses()),
                 Style = GetStyles(),
                 Role = Role

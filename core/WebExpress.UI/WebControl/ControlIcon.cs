@@ -66,7 +66,7 @@ namespace WebExpress.UI.WebControl
             {
                 return new HtmlElementMultimediaImg()
                 {
-                    ID = ID,
+                    ID = Id,
                     Src = Icon.UserIcon?.ToString(),
                     Class = GetClasses(),
                     Style = GetStyles(),
@@ -77,7 +77,7 @@ namespace WebExpress.UI.WebControl
 
             var html = new HtmlElementTextSemanticsSpan()
             {
-                ID = ID,
+                ID = Id,
                 Class = GetClasses(),
                 Style = GetStyles(),
                 Role = Role

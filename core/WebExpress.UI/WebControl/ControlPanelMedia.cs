@@ -87,7 +87,7 @@ namespace WebExpress.UI.WebControl
 
             var html = new HtmlElementTextContentDiv(img, body)
             {
-                ID = ID,
+                ID = Id,
                 Class = Css.Concatenate("media", GetClasses()),
                 Style = GetStyles(),
                 Role = Role

@@ -79,11 +79,11 @@ namespace WebExpress.WebApp.WebApiControl
 
             var html = new HtmlElementTextContentDiv()
             {
-                ID = ID,
+                ID = Id,
                 Style = GetStyles()
             };
 
-            context.VisualTree.AddScript(ID, GetScript(context, ID, string.Join(" ", classes)));
+            context.VisualTree.AddScript(Id, GetScript(context, Id, string.Join(" ", classes)));
 
             return html;
         }

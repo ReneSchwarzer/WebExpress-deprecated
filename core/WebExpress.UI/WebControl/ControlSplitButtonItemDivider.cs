@@ -31,7 +31,7 @@ namespace WebExpress.UI.WebControl
         {
             var html = new HtmlElementTextContentDiv()
             {
-                ID = ID,
+                ID = Id,
                 Class = Css.Concatenate("dropdown-divider", GetClasses()),
                 Style = GetStyles(),
                 Role = Role

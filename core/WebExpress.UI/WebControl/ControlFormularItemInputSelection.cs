@@ -41,7 +41,7 @@ namespace WebExpress.UI.WebControl
         public ControlFormularItemInputSelection(string id = null)
             : base(id ?? Guid.NewGuid().ToString())
         {
-            Name = ID;
+            Name = Id;
         }
 
         /// <summary>
@@ -93,11 +93,11 @@ namespace WebExpress.UI.WebControl
 
             var html = new HtmlElementTextContentDiv()
             {
-                ID = ID,
+                ID = Id,
                 Style = GetStyles()
             };
 
-            context.AddScript(ID, GetScript(context, ID, string.Join(" ", classes)));
+            context.AddScript(Id, GetScript(context, Id, string.Join(" ", classes)));
 
             return html;
         }
@@ -123,7 +123,7 @@ namespace WebExpress.UI.WebControl
             var settings = new
             {
                 ID = id,
-                Name = ID,
+                Name = Id,
                 CSS = css,
                 Placeholder,
                 MultiSelect

@@ -148,7 +148,7 @@ namespace WebExpress.UI.WebControl
 
             var html = new HtmlElementTextContentLi(container)
             {
-                ID = ID,
+                ID = Id,
                 Class = Css.Concatenate(Active.ToClass()),
                 Style = GetStyles(),
                 Role = Role

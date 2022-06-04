@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using WebExpress.Internationalization;
 using WebExpress.Message;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
@@ -60,9 +61,9 @@ namespace WebExpress.WebApp.WebNotificaation
         {
             var notification = new Notification()
             {
-                Message = message,
+                Message = InternationalizationManager.I18N(request, message),
                 Durability = durability,
-                Heading = heading,
+                Heading = InternationalizationManager.I18N(request, heading),
                 Icon = icon?.ToString(),
                 Type = type.ToClass()
             };

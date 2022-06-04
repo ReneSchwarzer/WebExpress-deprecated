@@ -87,7 +87,7 @@ namespace WebExpress.UI.WebControl
         {
             var html = new HtmlElementFieldSelect()
             {
-                ID = ID,
+                ID = Id,
                 Name = Name,
                 Class = Css.Concatenate("form-select", GetClasses()),
                 Style = GetStyles(),

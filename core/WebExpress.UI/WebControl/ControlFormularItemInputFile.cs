@@ -32,7 +32,7 @@ namespace WebExpress.UI.WebControl
         public ControlFormularItemInputFile(string id = null)
             : base(!string.IsNullOrWhiteSpace(id) ? id : "file")
         {
-            Name = ID;
+            Name = Id;
             Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.None);
         }
 
@@ -75,7 +75,7 @@ namespace WebExpress.UI.WebControl
 
             var html = new HtmlElementFieldInput()
             {
-                ID = ID,
+                ID = Id,
                 Value = Value,
                 Name = Name,
                 Type = "file",

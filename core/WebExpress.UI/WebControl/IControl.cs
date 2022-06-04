@@ -9,7 +9,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Liefert die ID
         /// </summary>
-        string ID { get; }
+        string Id { get; }
 
         /// <summary>
         /// Liefert oder setzt die Css-Klasse

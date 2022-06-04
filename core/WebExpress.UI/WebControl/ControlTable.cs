@@ -169,7 +169,7 @@ namespace WebExpress.UI.WebControl
 
             var html = new HtmlElementTableTable()
             {
-                ID = ID,
+                ID = Id,
                 Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Role = Role

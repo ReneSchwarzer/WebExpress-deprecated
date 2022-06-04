@@ -78,7 +78,7 @@ namespace WebExpress.WebApp.WebControl
 
             return new HtmlElementTextContentDiv(preferences.Render(context), primary.Render(context), secondary.Render(context))
             {
-                ID = ID,
+                ID = Id,
                 Class = Css.Concatenate("", GetClasses()),
                 Style = Style.Concatenate("", GetStyles()),
                 Role = Role

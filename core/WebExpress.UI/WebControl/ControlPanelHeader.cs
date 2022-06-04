@@ -71,7 +71,7 @@ namespace WebExpress.UI.WebControl
         {
             return new HtmlElementSectionHeader(from x in Content select x.Render(context))
             {
-                ID = ID,
+                ID = Id,
                 Class = GetClasses(),
                 Style = GetStyles(),
                 Role = Role

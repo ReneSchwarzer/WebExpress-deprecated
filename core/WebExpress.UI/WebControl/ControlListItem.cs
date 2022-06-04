@@ -90,7 +90,7 @@ namespace WebExpress.UI.WebControl
         {
             return new HtmlElementTextContentLi(Content.Where(x => x.Enable).Select(x => x.Render(context)))
             {
-                ID = ID,
+                ID = Id,
                 Class = GetClasses(),
                 Style = GetStyles(),
                 Role = Role

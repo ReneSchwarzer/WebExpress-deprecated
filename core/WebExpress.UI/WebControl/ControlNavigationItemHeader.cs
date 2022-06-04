@@ -40,7 +40,7 @@ namespace WebExpress.UI.WebControl
         {
             return new HtmlElementTextContentLi(new HtmlText(I18N(context.Culture, Text)))
             {
-                ID = ID,
+                ID = Id,
                 Class = Css.Concatenate("dropdown-header", GetClasses()),
                 Style = GetStyles(),
                 Role = Role

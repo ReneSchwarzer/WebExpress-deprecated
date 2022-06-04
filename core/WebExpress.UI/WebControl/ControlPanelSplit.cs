@@ -123,7 +123,7 @@ namespace WebExpress.UI.WebControl
 
             context.VisualTree.AddScript
             (
-                ID, @"Split(['#" + ID + "-p1', '#" + ID + @"-p2'], {
+                Id, @"Split(['#" + Id + "-p1', '#" + Id + @"-p2'], {
                     sizes: [" + init1 + "," + init2 + @"],
                     minSize: [" + Panel1MinSize + "," + Panel2MinSize + @"],
                     direction: '" + Orientation.ToString().ToLower() + @"',
@@ -150,14 +150,14 @@ namespace WebExpress.UI.WebControl
 
             var html = new HtmlElementTextContentDiv()
             {
-                ID = ID,
+                ID = Id,
                 Class = Css.Concatenate(Orientation == TypeOrientationSplit.Horizontal ? "d-flex split" : "split", GetClasses()),
                 Style = GetStyles(),
                 Role = Role
             };
 
-            html.Elements.Add(new HtmlElementTextContentDiv(Panel1.Select(x => x.Render(context))) { ID = $"{ID}-p1" });
-            html.Elements.Add(new HtmlElementTextContentDiv(Panel2.Select(x => x.Render(context))) { ID = $"{ID}-p2" });
+            html.Elements.Add(new HtmlElementTextContentDiv(Panel1.Select(x => x.Render(context))) { ID = $"{Id}-p1" });
+            html.Elements.Add(new HtmlElementTextContentDiv(Panel2.Select(x => x.Render(context))) { ID = $"{Id}-p2" });
 
             return html;
         }

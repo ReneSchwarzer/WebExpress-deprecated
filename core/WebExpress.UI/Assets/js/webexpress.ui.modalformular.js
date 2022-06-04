@@ -14,6 +14,7 @@ webexpress.ui.modalFormularCtrl = class extends webexpress.ui.events {
      *        - close Der Name der Schließenschaltfläche
      *        - uri Die Url des Formulars
      *        - size Die Größe des Modals (small, default, large, extralarge)
+     *        - redirect Die Weiterleitungs-Uri
      */
     constructor(settings) {
         super();
@@ -23,6 +24,7 @@ webexpress.ui.modalFormularCtrl = class extends webexpress.ui.events {
         let uri = settings.uri ?? "";
         let size = settings.size ?? "";
         let dialog = $("<div class='modal-dialog modal-dialog-scrollable'></div>");
+        let redirect = settings.redirect ?? '#';
         
         this._container.attr("id", id ?? "");
         this._uri = uri;
@@ -61,16 +63,20 @@ webexpress.ui.modalFormularCtrl = class extends webexpress.ui.events {
             let content = $("<div class='modal-content'></div>");
 
             if (form.length > 0) {
+                let method = form.attr("method") ?? "POST";
                 let action = form.attr("action") ?? uri;
 
                 form.submit(function (event) {
                     event.preventDefault();
                     $.ajax({
-                        type: 'POST',
+                        type: method,
                         url: action,
                         data: form.serialize(),
                         success: function (response) {
                             update(response);
+                            $('script', dialog).each(function (index, script) {
+                                $.globalEval(script.text || script.textContent || script.innerHTML || '');
+                            });
                         }.bind(this),
                         error: function (response) {
                             body.append(response);
@@ -90,8 +96,9 @@ webexpress.ui.modalFormularCtrl = class extends webexpress.ui.events {
                 form.append(content);
                 dialog.append(form);
                 modal.handleUpdate();
-            } else if (this._modal != null) { 
+            } else if (modal != null) { 
                 modal.hide();
+                location.replace(redirect); 
             }
         }.bind(this);
 

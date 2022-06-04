@@ -152,7 +152,7 @@ namespace WebExpress.UI.WebControl
         {
             var button = new HtmlElementFieldButton()
             {
-                ID = string.IsNullOrWhiteSpace(ID) ? "" : ID + "_btn",
+                ID = string.IsNullOrWhiteSpace(Id) ? "" : Id + "_btn",
                 Class = Css.Concatenate("btn", Css.Remove(GetClasses(), Margin.ToClass())),
                 Style = GetStyles()
             };
@@ -184,21 +184,21 @@ namespace WebExpress.UI.WebControl
             }
             else if (Modal.Type == TypeModal.Formular)
             {
-                button.OnClick = $"new webexpress.ui.modalFormCtrl({{ close: '{InternationalizationManager.I18N(context.Culture, "webexpress.ui:form.cancel.label")}', uri: '{Modal.Uri}', size: '{Modal.Size.ToString().ToLower()}'}});";
+                button.OnClick = $"new webexpress.ui.modalFormCtrl({{ close: '{InternationalizationManager.I18N(context.Culture, "webexpress.ui:form.cancel.label")}', uri: '{Modal.Uri}', size: '{Modal.Size.ToString().ToLower()}', redirect: '{Modal.RedirectUri}'}});";
             }
             else if (Modal.Type == TypeModal.Brwoser)
             {
-                button.OnClick = $"new webexpress.ui.modalPageCtrl({{ close: '{InternationalizationManager.I18N(context.Culture, "webexpress.ui:form.cancel.label")}', uri: '{Modal.Uri}', size: '{Modal.Size.ToString().ToLower()}'}});";
+                button.OnClick = $"new webexpress.ui.modalPageCtrl({{ close: '{InternationalizationManager.I18N(context.Culture, "webexpress.ui:form.cancel.label")}', uri: '{Modal.Uri}', size: '{Modal.Size.ToString().ToLower()}', redirect: '{Modal.RedirectUri}'}});";
             }
             else if (Modal.Type == TypeModal.Modal)
             {
                 button.AddUserAttribute("data-bs-toggle", "modal");
-                button.AddUserAttribute("data-bs-target", "#" + Modal.Modal.ID);
+                button.AddUserAttribute("data-bs-target", "#" + Modal.Modal.Id);
             }
 
             var dropdownButton = new HtmlElementFieldButton(new HtmlElementTextSemanticsSpan() { Class = "caret" })
             {
-                ID = string.IsNullOrWhiteSpace(ID) ? "" : ID + "_btn",
+                ID = string.IsNullOrWhiteSpace(Id) ? "" : Id + "_btn",
                 Class = Css.Concatenate("btn dropdown-toggle dropdown-toggle-split", Css.Remove(GetClasses(), "btn-block", Margin.ToClass())),
                 Style = GetStyles(),
                 DataToggle = "dropdown"

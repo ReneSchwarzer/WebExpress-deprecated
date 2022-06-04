@@ -71,7 +71,7 @@ namespace WebExpress.WebApp.WebControl
             helpList.AddRange(Secondary);
 
             var help = (helpList.Count > 1) ?
-            new ControlDropdown(ID, helpList)
+            new ControlDropdown(Id, helpList)
             {
                 Icon = new PropertyIcon(TypeIcon.InfoCircle),
                 AlignmentMenu = TypeAlignmentDropdownMenu.Right,

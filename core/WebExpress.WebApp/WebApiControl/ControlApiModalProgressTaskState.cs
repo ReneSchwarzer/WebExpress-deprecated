@@ -28,14 +28,14 @@ namespace WebExpress.WebApp.WebApiControl
         public ControlApiModalProgressTaskState(string id)
             : base(id ?? Guid.NewGuid().ToString())
         {
-            ProgressBar = new ControlProgressBar($"progressbar_{ID}")
+            ProgressBar = new ControlProgressBar($"progressbar_{Id}")
             {
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.Two),
                 Color = new PropertyColorProgress(TypeColorProgress.Primary),
                 Format = TypeFormatProgress.Animated
             };
 
-            Message = new ControlText($"message_{ID}")
+            Message = new ControlText($"message_{Id}")
             {
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.Two),
                 TextColor = new PropertyColorText(TypeColorText.Secondary)
@@ -56,7 +56,7 @@ namespace WebExpress.WebApp.WebApiControl
         public override IHtmlNode Render(RenderContext context)
         {
             var module = ModuleManager.GetModule(context.Application, "webexpress.webapp");
-            var code = $"updateTaskModal('{ID}', '{module?.ContextPath.Append("api/v1/taskstatus")}')";
+            var code = $"updateTaskModal('{Id}', '{module?.ContextPath.Append("api/v1/taskstatus")}')";
 
 
             context.VisualTree.AddScript("webexpress.webapp:controlapimodalprogresstaskstate", code);

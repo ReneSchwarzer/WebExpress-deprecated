@@ -146,7 +146,7 @@ namespace WebExpress.UI.WebControl
 
             var link = new HtmlElementTextSemanticsA(from x in Content select x.Render(context))
             {
-                ID = ID,
+                ID = Id,
                 Class = Css.Concatenate("link tree-link", Active == TypeActive.Active ? "tree-link-active" : ""),
                 Role = Role,
                 Href = Uri?.ToString() + (param.Length > 0 ? "?" + param : string.Empty),
@@ -197,7 +197,7 @@ namespace WebExpress.UI.WebControl
 
             var html = new HtmlElementTextContentLi(Layout == TypeLayoutTreeItem.TreeView ? container : link)
             {
-                ID = ID,
+                ID = Id,
                 Class = Css.Concatenate(Layout switch
                 {
                     TypeLayoutTreeItem.Group => "list-group-item-action",

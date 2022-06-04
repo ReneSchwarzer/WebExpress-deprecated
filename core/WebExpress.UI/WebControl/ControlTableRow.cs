@@ -60,7 +60,7 @@ namespace WebExpress.UI.WebControl
 
             return new HtmlElementTableTr(from c in Cells select new HtmlElementTableTd(c.Render(context)))
             {
-                ID = ID,
+                ID = Id,
                 Class = string.Join(" ", Classes.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Role = Role

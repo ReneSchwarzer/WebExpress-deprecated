@@ -74,7 +74,7 @@ namespace WebExpress.UI.WebControl
 
             var html = new HtmlElementTextContentDiv()
             {
-                ID = ID,
+                ID = Id,
                 Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Role = Role
@@ -103,7 +103,7 @@ namespace WebExpress.UI.WebControl
 
             return new HtmlElementTableTh(html)
             {
-                ID = ID,
+                ID = Id,
                 Class = string.Join(" ", classes.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Style = string.Join("; ", Styles.Where(x => !string.IsNullOrWhiteSpace(x))),
                 Role = Role
