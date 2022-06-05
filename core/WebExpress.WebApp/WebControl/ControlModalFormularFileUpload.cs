@@ -27,7 +27,6 @@ namespace WebExpress.WebApp.WebControl
         public ControlFormularItemInputFile File { get; } = new ControlFormularItemInputFile()
         {
             Name = "file",
-            //Label = "inventoryexpress.media.form.image.label",
             Help = "webexpress.webapp:fileupload.file.description",
             //Icon = new PropertyIcon(TypeIcon.Image),
             //AcceptFile = new string[] { "image/*, video/*, audio/*, .pdf, .doc, .docx, .txt" },
@@ -90,7 +89,6 @@ namespace WebExpress.WebApp.WebControl
         public ControlModalFormularFileUpload(string id = null)
             : this(id, null)
         {
-
         }
 
         /// <summary>

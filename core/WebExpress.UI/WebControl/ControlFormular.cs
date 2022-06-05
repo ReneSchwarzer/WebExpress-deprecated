@@ -65,6 +65,14 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Liefert oder setzt das Hiddenfeld, welches die Submit-Methode enthällt
         /// </summary>
+        public ControlFormularItemInputHidden FormularId { get; } = new ControlFormularItemInputHidden(Guid.NewGuid().ToString())
+        {
+            Name = "formular-id"
+        };
+
+        /// <summary>
+        /// Liefert oder setzt das Hiddenfeld, welches die Submit-Methode enthällt
+        /// </summary>
         public ControlFormularItemInputHidden SubmitType { get; } = new ControlFormularItemInputHidden(Guid.NewGuid().ToString())
         {
             Name = "formular-submit-type",
@@ -132,6 +140,8 @@ namespace WebExpress.UI.WebControl
             {
                 context.Application.Log.Warning(I18N("webexpress.ui:form.empty.id"));
             }
+
+            FormularId.Value = Id;
 
             if (string.IsNullOrWhiteSpace(SubmitButton.Text))
             {
@@ -235,7 +245,7 @@ namespace WebExpress.UI.WebControl
             var process = false;
 
             // Prüfe ob und wie das Formular abgeschickt wurde 
-            if (context.Request.HasParameter("formular-submit-type"))
+            if (context.Request.GetParameter("formular-id")?.Value == Id && context.Request.HasParameter("formular-submit-type"))
             {
                 var value = context.Request.GetParameter("formular-submit-type")?.Value;
                 switch (value)
@@ -294,7 +304,8 @@ namespace WebExpress.UI.WebControl
                 Method = RequestMethod.POST.ToString(),
                 Enctype = TypeEnctype.None
             };
-
+            
+            form.Elements.Add(FormularId.Render(renderContext));
             form.Elements.Add(SubmitType.Render(renderContext));
             var header = new HtmlElementSectionHeader();
 

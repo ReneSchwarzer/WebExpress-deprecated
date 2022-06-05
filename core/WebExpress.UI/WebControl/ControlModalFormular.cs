@@ -53,7 +53,7 @@ namespace WebExpress.UI.WebControl
         public ControlModalFormular(string id, string header, params ControlFormularItem[] content)
             : base("modal_" + id, string.Empty, content)
         {
-            Formular = new ControlFormular();
+            Formular = new ControlFormular(id);
             Formular.InitializeFormular += OnInitializeFormular;
 
             Formular.Validated += OnValidatedFormular;
