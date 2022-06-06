@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
+using WebExpress.Internationalization;
 using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebControl
@@ -99,7 +100,7 @@ namespace WebExpress.UI.WebControl
 
             if (!string.IsNullOrWhiteSpace(Header))
             {
-                html.Elements.Add(new HtmlElementTextContentDiv(new HtmlText(Header)) { Class = "card-header" });
+                html.Elements.Add(new HtmlElementTextContentDiv(new HtmlText(InternationalizationManager.I18N(context, Header))) { Class = "card-header" });
             }
 
             if (!string.IsNullOrWhiteSpace(HeaderImage))
@@ -115,7 +116,7 @@ namespace WebExpress.UI.WebControl
             {
                 Content.Insert(0, new ControlText()
                 {
-                    Text = Headline,
+                    Text = InternationalizationManager.I18N(context, Headline),
                     Classes = new List<string>(new[] { "card-title" }),
                     Format = TypeFormatText.H4
                 });
