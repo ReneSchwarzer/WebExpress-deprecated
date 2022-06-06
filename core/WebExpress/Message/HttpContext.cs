@@ -9,6 +9,11 @@ namespace WebExpress.Message
     public class HttpContext
     {
         /// <summary>
+        /// Der Kontext des Webservers
+        /// </summary>
+        public IHttpServerContext ServerContext { get; protected set; }
+
+        /// <summary>
         /// Liefert die ID
         /// </summary>
         public string ID { get; protected set; }
@@ -55,7 +60,8 @@ namespace WebExpress.Message
         /// Konstruktor
         /// </summary>
         /// <param name="contextFeatures">Anfänglicher Satz von Features.</param>
-        public HttpContext(IFeatureCollection contextFeatures)
+        /// <param name="serverContext">Der Kontext des Webservers</param>
+        public HttpContext(IFeatureCollection contextFeatures, IHttpServerContext serverContext)
         {
             var connectionFeature = contextFeatures.Get<IHttpConnectionFeature>();
             var requestFeature = contextFeatures.Get<IHttpRequestFeature>();
@@ -68,7 +74,7 @@ namespace WebExpress.Message
 
             Encoding = requestFeature.Headers.ContentEncoding.Any() ? Encoding.GetEncoding(requestFeature.Headers.ContentEncoding) : Encoding.Default;
 
-            Request = new Request(contextFeatures);
+            Request = new Request(contextFeatures, serverContext);
         }
     }
 }

@@ -20,6 +20,11 @@ namespace WebExpress.Message
     public class Request
     {
         /// <summary>
+        /// Der Kontext des Webservers
+        /// </summary>
+        public IHttpServerContext ServerContext { get; protected set; }
+
+        /// <summary>
         /// Liefert den Anfragetyp
         /// </summary>
         public RequestMethod Method { get; private set; }
@@ -108,11 +113,15 @@ namespace WebExpress.Message
             {
                 try
                 {
-                    return new CultureInfo(Header?.AcceptLanguage.FirstOrDefault());
+                    // Siehe RFC 5646 
+                    var languages = Header?.AcceptLanguage.FirstOrDefault();
+                    var language = languages?.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).FirstOrDefault();
+
+                    return new CultureInfo(language);
                 }
                 catch
                 {
-                    return CultureInfo.CurrentCulture;
+                    return ServerContext.Culture ?? CultureInfo.CurrentCulture;
                 }
             }
         }
@@ -126,13 +135,15 @@ namespace WebExpress.Message
         /// Konstruktor
         /// </summary>
         /// <param name="contextFeatures">Anfänglicher Satz von Features.</param>
-        internal Request(IFeatureCollection contextFeatures)
+        /// <param name="serverContext">Der Kontext des Webservers</param>
+        internal Request(IFeatureCollection contextFeatures, IHttpServerContext serverContext)
         {
             var connectionFeature = contextFeatures.Get<IHttpConnectionFeature>();
             var requestFeature = contextFeatures.Get<IHttpRequestFeature>();
             var requestIdentifierFeature = contextFeatures.Get<IHttpRequestIdentifierFeature>();
-            var sessionFeature = contextFeatures.Get<ISessionFeature>();
+            //var sessionFeature = contextFeatures.Get<ISessionFeature>();
 
+            ServerContext = serverContext;
             RequestTraceIdentifier = requestIdentifierFeature.TraceIdentifier;
             Protocoll = requestFeature.Protocol;
 
@@ -186,7 +197,7 @@ namespace WebExpress.Message
                 return null;
             }
 
-            MemoryStream ms = new MemoryStream();
+            using var ms = new MemoryStream();
             body.CopyTo(ms);
 
             return ms.ToArray();

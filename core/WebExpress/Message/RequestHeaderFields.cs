@@ -83,7 +83,7 @@ namespace WebExpress.Message
             Host = requestFeature.Headers.Host;
             Connection = requestFeature.Headers.Connection;
             ContentType = requestFeature.Headers.ContentType;
-            ContentLength = requestFeature.Headers.ContentLength.HasValue ? requestFeature.Headers.ContentLength.Value : 0;
+            ContentLength = requestFeature.Headers.ContentLength ?? 0;
             ContentLanguage = requestFeature.Headers.ContentLanguage;
             ContentEncoding = requestFeature.Headers.ContentEncoding.Any() ? Encoding.GetEncoding(requestFeature.Headers.ContentEncoding) : Encoding.Default;
             Accept = requestFeature.Headers.Accept;

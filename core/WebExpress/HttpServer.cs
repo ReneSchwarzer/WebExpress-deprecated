@@ -550,7 +550,7 @@ namespace WebExpress
         {
             try
             {
-                return new HttpContext(contextFeatures);
+                return new HttpContext(contextFeatures, this.Context);
             }
             catch (Exception ex)
             {
