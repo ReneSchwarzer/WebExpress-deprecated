@@ -54,5 +54,10 @@ namespace WebExpress
         /// Liefert das Log, zum schreiben von Statusnachrichten auf die Konsole und in eine Log-Datei
         /// </summary>
         Log Log { get; }
+
+        /// <summary>
+        /// Liefert den Host
+        /// </summary>
+        IHost Host { get; }
     }
 }

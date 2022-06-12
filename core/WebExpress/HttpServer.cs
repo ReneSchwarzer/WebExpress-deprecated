@@ -35,6 +35,11 @@ namespace WebExpress
     public class HttpServer : IHost, II18N, IHttpApplication<HttpContext>
     {
         /// <summary>
+        /// Event wird nach dem Start des Webservers ausgelöst
+        /// </summary>
+        public event EventHandler Started;
+
+        /// <summary>
         /// Liefert den KestrelServer, welcher auf die Anfragen reagiert
         /// </summary>
         private KestrelServer Kestrel { get; set; }
@@ -79,7 +84,8 @@ namespace WebExpress
                 context.ConfigPath,
                 context.ContextPath,
                 context.Culture,
-                context.Log
+                context.Log,
+                this
             );
 
             Culture = Context.Culture;
@@ -184,6 +190,8 @@ namespace WebExpress
             Kestrel.StartAsync(this, ServerToken);
 
             Context.Log.Info(message: this.I18N("webexpress:httpserver.start"), args: new object[] { ExecutionTime.ToShortDateString(), ExecutionTime.ToLongTimeString() });
+
+            Started?.Invoke(this, new EventArgs());
         }
 
         /// <summary>

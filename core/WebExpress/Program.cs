@@ -142,7 +142,8 @@ namespace WebExpress
                 Path.GetDirectoryName(configFile),
                 new UriRelative(config.ContextPath),
                 culture,
-                Log.Current
+                Log.Current,
+                null
             );
 
             HttpServer = new HttpServer(context)

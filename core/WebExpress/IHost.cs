@@ -1,4 +1,6 @@
-﻿namespace WebExpress
+﻿using System;
+
+namespace WebExpress
 {
     /// <summary>
     /// Hostschnittstelle
@@ -8,6 +10,11 @@
         /// <summary>
         /// Liefert den Kontext
         /// </summary>
-        public IHttpServerContext Context { get; }
+        IHttpServerContext Context { get; }
+
+        /// <summary>
+        /// Event wird nach dem Start des Webservers ausgelöst
+        /// </summary>
+        event EventHandler Started;
     }
 }

@@ -57,6 +57,11 @@ namespace WebExpress
         public Log Log { get; protected set; }
 
         /// <summary>
+        /// Liefert den Host
+        /// </summary>
+        public IHost Host { get; protected set; }
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="uri">Die URI des Webservers</param>
@@ -67,6 +72,7 @@ namespace WebExpress
         /// <param name="contextPath">Der Basispfad des Servers</param>
         /// <param name="culture">Die Kultur</param>
         /// <param name="log">Log</param>
+        /// <param name="host">Log</param>
         public HttpServerContext
         (
             string uri,
@@ -76,7 +82,8 @@ namespace WebExpress
             string configBaseFolder,
             IUri contextPath,
             CultureInfo culture,
-            Log log
+            Log log,
+            IHost host
         )
         {
             var assembly = typeof(HttpServer).Assembly;
@@ -90,6 +97,7 @@ namespace WebExpress
             ContextPath = contextPath;
             Culture = culture;
             Log = log;
+            Host = host;
         }
     }
 }
