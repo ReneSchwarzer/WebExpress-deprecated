@@ -46,7 +46,7 @@ namespace WebExpress.UI.WebComponent
         /// <param name="application">Die Anwendung, welche die Komponenten zugewiesen werden</param>
         public static void Register(IApplicationContext application)
         {
-            foreach (var module in ModuleManager.Modules)
+            foreach (var module in ModuleManager.Modules.Where(x => x.Application.ApplicationID == application.ApplicationID))
             {
                 Register(module);
             }
