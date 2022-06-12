@@ -217,8 +217,7 @@ namespace WebExpress.UI.WebControl
                         PropertySpacing.Space.Two,
                         PropertySpacing.Space.None,
                         PropertySpacing.Space.None
-                    ) : new PropertySpacingMargin(PropertySpacing.Space.None),
-                    VerticalAlignment = Icon.IsUserIcon ? TypeVerticalAlignment.TextBottom : TypeVerticalAlignment.Default
+                    ) : new PropertySpacingMargin(PropertySpacing.Space.None)
                 }.Render(context));
             }
 

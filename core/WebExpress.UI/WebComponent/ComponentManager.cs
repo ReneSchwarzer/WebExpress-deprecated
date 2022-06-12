@@ -266,12 +266,14 @@ namespace WebExpress.UI.WebComponent
                         {
                             var components = dictItem[sectionKey].Where(x => x.Component.GetInterfaces()
                             .Contains(typeof(T)))
+                            .Where(x => x.Context.Application?.ApplicationID == appID)
                             .Select(x => new ComponentCacheItem(x.Context, x.Component)).ToList();
 
                             list.AddRange(components);
 
                             components = dictItem[sectionKey].Where(x => x.Component.GetInterfaces()
                             .Contains(typeof(IComponentDynamic)))
+                            .Where(x => x.Context.Application?.ApplicationID == appID)
                             .Select(x => new ComponentCacheItem(x.Context, x.Component)).ToList();
 
                             list.AddRange(components);
@@ -291,6 +293,7 @@ namespace WebExpress.UI.WebComponent
                 {
                     var components = dictItem[sectionKey].Where(x => x.Component.GetInterfaces()
                         .Contains(typeof(T)))
+                        .Where(x => x.Context.Application?.ApplicationID == appID)
                         .Select(x => new ComponentCacheItem(x.Context, x.Component)).ToList();
 
                     list.AddRange(components);
@@ -306,12 +309,14 @@ namespace WebExpress.UI.WebComponent
                         {
                             var components = dictItem[sectionKey].Where(x => x.Component.GetInterfaces()
                             .Contains(typeof(T)))
+                            .Where(x => x.Context.Application?.ApplicationID == appID)
                             .Select(x => new ComponentCacheItem(x.Context, x.Component)).ToList();
 
                             list.AddRange(components);
 
                             components = dictItem[sectionKey].Where(x => x.Component.GetInterfaces()
                             .Contains(typeof(IComponentDynamic)))
+                            .Where(x => x.Context.Application?.ApplicationID == appID)
                             .Select(x => new ComponentCacheItem(x.Context, x.Component)).ToList();
 
                             list.AddRange(components);
