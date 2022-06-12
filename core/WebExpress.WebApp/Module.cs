@@ -5,7 +5,7 @@ using WebExpress.WebModule;
 
 namespace WebExpress.WebApp
 {
-    [ID("webexpress.webapp")]
+    [Id("webexpress.webapp")]
     [Application("*")]
     [Name("module.name")]
     [Description("module.description")]

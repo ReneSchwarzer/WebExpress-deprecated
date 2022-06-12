@@ -5,7 +5,7 @@ using WebExpress.WebPlugin;
 
 namespace WebExpress.WebApp
 {
-    [ID("webexpress.webapp")]
+    [Id("webexpress.webapp")]
     [Name("WebExpress.WebApp")]
     [Description("plugin.description")]
     [Icon("/assets/img/Logo.png")]

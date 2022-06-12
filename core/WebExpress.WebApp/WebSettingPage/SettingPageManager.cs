@@ -74,7 +74,7 @@ namespace WebExpress.WebApp.SettingPage
                 // Attribute ermitteln
                 foreach (var customAttribute in settingPageType.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IResourceAttribute))))
                 {
-                    if (customAttribute.AttributeType == typeof(IDAttribute))
+                    if (customAttribute.AttributeType == typeof(IdAttribute))
                     {
                         id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }

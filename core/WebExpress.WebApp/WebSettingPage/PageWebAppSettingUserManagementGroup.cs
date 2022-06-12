@@ -14,7 +14,7 @@ namespace WebExpress.WebApp.WebSettingPage
     /// <summary>
     /// Einstellungsseiteder der Gruppen
     /// </summary>
-    [ID("SettingGroup")]
+    [Id("SettingGroup")]
     [Title("webexpress.webapp:setting.usermanager.group.label")]
     [Segment("group", "webexpress.webapp:setting.usermanager.group.label")]
     [Path("/Setting")]

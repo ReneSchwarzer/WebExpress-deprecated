@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Message;
+using WebExpress.UI.WebControl;
 using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebComponent
@@ -38,16 +40,16 @@ namespace WebExpress.UI.WebComponent
         /// </summary>
         /// <param name="page">Die Seite, in der die Instanz aktiv ist</param>
         /// <param name="request">Die Anfrage</param>
-        /// <returns>Die Instanz oder null</returns>
-        public IComponent CreateInstance(IPage page, Request request)
+        /// <returns>Eine Aufzählung mit den Instanzen</returns>
+        public IEnumerable<T> CreateInstance<T>(IPage page, Request request) where T : IControl
         {
             if (!CheckControl(request))
             {
-                return null;
+                return new List<T>();
             }
             else if (Context.Cache && Instance != null)
             {
-                return Instance;
+                return new List<T>() { (T) Instance };
             }
 
             if (Type.Assembly.CreateInstance(Type.FullName) is IComponent instance)
@@ -59,10 +61,16 @@ namespace WebExpress.UI.WebComponent
                     Instance = instance;
                 }
 
-                return instance;
+                return new List<T>() { (T)instance };
+            }
+            else if (Type.Assembly.CreateInstance(Type.FullName) is IComponentDynamic dynamicInstance)
+            {
+                dynamicInstance.Initialization(Context, page);
+
+                return dynamicInstance.Create<T>();
             }
 
-            return null;
+            return new List<T>();
         }
 
         /// <summary>

@@ -3,7 +3,7 @@ using WebExpress.WebModule;
 
 namespace WebExpress.UI
 {
-    [ID("webexpress.ui")]
+    [Id("webexpress.ui")]
     [Application("*")]
     [Name("module.name")]
     [Description("module.description")]

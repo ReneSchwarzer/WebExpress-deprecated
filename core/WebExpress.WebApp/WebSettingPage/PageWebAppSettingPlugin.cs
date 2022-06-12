@@ -21,7 +21,7 @@ namespace WebExpress.WebApp.WebSettingPage
     /// <summary>
     /// Einstellungsseite mit Informationen zu den aktiven Plugins
     /// </summary>
-    [ID("SettingPlugin")]
+    [Id("SettingPlugin")]
     [Title("webexpress.webapp:setting.titel.plugin.label")]
     [Segment("plugin", "webexpress.webapp:setting.titel.plugin.label")]
     [Path("/Setting")]
@@ -182,7 +182,7 @@ namespace WebExpress.WebApp.WebSettingPage
                     (
                         new ControlLink()
                         {
-                            Text = this.I18N(plugin.PluginID, application.ApplicationName),
+                            Text = this.I18N(plugin.PluginId, application.ApplicationName),
                             Uri = application.ContextPath
                         },
                         new ControlText()
@@ -232,7 +232,7 @@ namespace WebExpress.WebApp.WebSettingPage
                                 (
                                     new ControlText()
                                     {
-                                        Text = $"{this.I18N(m.Plugin.PluginID, this.I18N(m.ModuleName))} - {this.I18N(m.Plugin.PluginID, this.I18N(m.Description))}",
+                                        Text = $"{this.I18N(m.Plugin.PluginId, this.I18N(m.ModuleName))} - {this.I18N(m.Plugin.PluginId, this.I18N(m.Description))}",
                                         Format = TypeFormatText.Default,
                                         TextColor = new PropertyColorText(TypeColorText.Secondary),
                                         Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.Null),

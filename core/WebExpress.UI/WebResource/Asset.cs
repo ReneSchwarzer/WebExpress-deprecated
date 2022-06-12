@@ -6,7 +6,7 @@ namespace WebExpress.UI.WebResource
     /// <summary>
     /// Lieferung einer im Assamby eingebetteten Ressource
     /// </summary>
-    [ID("Asset")]
+    [Id("Asset")]
     [Segment("assets")]
     [Path("/")]
     [IncludeSubPaths(true)]

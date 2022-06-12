@@ -1,12 +1,12 @@
 ﻿namespace WebExpress.WebAttribute
 {
-    public class IDAttribute : System.Attribute, IResourceAttribute, IPluginAttribute, IApplicationAttribute, IModuleAttribute
+    public class IdAttribute : System.Attribute, IResourceAttribute, IPluginAttribute, IApplicationAttribute, IModuleAttribute
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="id">Die ID</param>
-        public IDAttribute(string id)
+        public IdAttribute(string id)
         {
 
         }

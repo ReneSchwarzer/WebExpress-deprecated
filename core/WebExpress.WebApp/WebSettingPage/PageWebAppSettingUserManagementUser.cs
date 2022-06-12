@@ -10,7 +10,7 @@ namespace WebExpress.WebApp.WebSettingPage
     /// <summary>
     /// Einstellungsseiteder der Nutzer
     /// </summary>
-    [ID("SettingUser")]
+    [Id("SettingUser")]
     [Title("webexpress.webapp:setting.usermanager.user.label")]
     [Segment("user", "webexpress.webapp:setting.usermanager.user.label")]
     [Path("/Setting")]

@@ -15,7 +15,7 @@ namespace WebExpress.WebApp.WebSettingPage
     /// <summary>
     /// Einstellungsseite mit Systeminformationen
     /// </summary>
-    [ID("SettingLog")]
+    [Id("SettingLog")]
     [Title("webexpress.webapp:setting.titel.log.label")]
     [Segment("log", "webexpress.webapp:setting.titel.log.label")]
     [Path("/Setting")]

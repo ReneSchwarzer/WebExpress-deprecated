@@ -135,6 +135,7 @@ namespace WebExpress
 
             var context = new HttpServerContext
             (
+                config.Uri,
                 config.Endpoints,
                 Path.GetFullPath(assetBase),
                 Path.GetFullPath(dataBase),

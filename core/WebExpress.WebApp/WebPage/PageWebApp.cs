@@ -157,52 +157,52 @@ namespace WebExpress.WebApp.WebPage
             context.VisualTree.Breadcrumb.Uri = context.Uri;
 
             // Header
-            context.VisualTree.Header.AppNavigator.Preferences.AddRange(HeaderAppNavigatorPreferences.Select(x => x.CreateInstance(this, context.Request) as IControlDropdownItem));
-            context.VisualTree.Header.AppNavigator.Primary.AddRange(HeaderAppNavigatorPrimary.Select(x => x.CreateInstance(this, context.Request) as IControlDropdownItem));
-            context.VisualTree.Header.AppNavigator.Secondary.AddRange(HeaderAppNavigatorSecondary.Select(x => x.CreateInstance(this, context.Request) as IControlDropdownItem));
-            context.VisualTree.Header.AppNavigation.Preferences.AddRange(HeaderNavigationPreferences.Select(x => x.CreateInstance(this, context.Request) as IControlNavigationItem));
-            context.VisualTree.Header.AppNavigation.Primary.AddRange(HeaderNavigationPrimary.Select(x => x.CreateInstance(this, context.Request) as IControlNavigationItem));
-            context.VisualTree.Header.AppNavigation.Secondary.AddRange(HeaderNavigationSecondary.Select(x => x.CreateInstance(this, context.Request) as IControlNavigationItem));
-            context.VisualTree.Header.QuickCreate.Preferences.AddRange(HeaderQuickCreatePreferences.Select(x => x.CreateInstance(this, context.Request) as IControlSplitButtonItem));
-            context.VisualTree.Header.QuickCreate.Primary.AddRange(HeaderQuickCreatePrimary.Select(x => x.CreateInstance(this, context.Request) as IControlSplitButtonItem));
-            context.VisualTree.Header.QuickCreate.Secondary.AddRange(HeaderQuickCreateSecondary.Select(x => x.CreateInstance(this, context.Request) as IControlSplitButtonItem));
-            context.VisualTree.Header.Help.Preferences.AddRange(HeaderHelpPreferences.Select(x => x.CreateInstance(this, context.Request) as IControlDropdownItem));
-            context.VisualTree.Header.Help.Primary.AddRange(HeaderHelpPrimary.Select(x => x.CreateInstance(this, context.Request) as IControlDropdownItem));
-            context.VisualTree.Header.Help.Secondary.AddRange(HeaderHelpSecondary.Select(x => x.CreateInstance(this, context.Request) as IControlDropdownItem));
-            context.VisualTree.Header.Settings.Preferences.AddRange(HeaderSettingsPreferences.Select(x => x.CreateInstance(this, context.Request) as IControlDropdownItem));
-            context.VisualTree.Header.Settings.Primary.AddRange(HeaderSettingsPrimary.Select(x => x.CreateInstance(this, context.Request) as IControlDropdownItem));
-            context.VisualTree.Header.Settings.Secondary.AddRange(HeaderSettingsSecondary.Select(x => x.CreateInstance(this, context.Request) as IControlDropdownItem));
+            context.VisualTree.Header.AppNavigator.Preferences.AddRange(HeaderAppNavigatorPreferences.SelectMany(x => x.CreateInstance<IControlDropdownItem>(this, context.Request)));
+            context.VisualTree.Header.AppNavigator.Primary.AddRange(HeaderAppNavigatorPrimary.SelectMany(x => x.CreateInstance<IControlDropdownItem>(this, context.Request)));
+            context.VisualTree.Header.AppNavigator.Secondary.AddRange(HeaderAppNavigatorSecondary.SelectMany(x => x.CreateInstance<IControlDropdownItem>(this, context.Request)));
+            context.VisualTree.Header.AppNavigation.Preferences.AddRange(HeaderNavigationPreferences.SelectMany(x => x.CreateInstance<IControlNavigationItem>(this, context.Request)));
+            context.VisualTree.Header.AppNavigation.Primary.AddRange(HeaderNavigationPrimary.SelectMany(x => x.CreateInstance<IControlNavigationItem>(this, context.Request)));
+            context.VisualTree.Header.AppNavigation.Secondary.AddRange(HeaderNavigationSecondary.SelectMany(x => x.CreateInstance<IControlNavigationItem>(this, context.Request)));
+            context.VisualTree.Header.QuickCreate.Preferences.AddRange(HeaderQuickCreatePreferences.SelectMany(x => x.CreateInstance<IControlSplitButtonItem>(this, context.Request)));
+            context.VisualTree.Header.QuickCreate.Primary.AddRange(HeaderQuickCreatePrimary.SelectMany(x => x.CreateInstance<IControlSplitButtonItem>(this, context.Request)));
+            context.VisualTree.Header.QuickCreate.Secondary.AddRange(HeaderQuickCreateSecondary.SelectMany(x => x.CreateInstance<IControlSplitButtonItem>(this, context.Request)));
+            context.VisualTree.Header.Help.Preferences.AddRange(HeaderHelpPreferences.SelectMany(x => x.CreateInstance<IControlDropdownItem>(this, context.Request)));
+            context.VisualTree.Header.Help.Primary.AddRange(HeaderHelpPrimary.SelectMany(x => x.CreateInstance<IControlDropdownItem>(this, context.Request)));
+            context.VisualTree.Header.Help.Secondary.AddRange(HeaderHelpSecondary.SelectMany(x => x.CreateInstance<IControlDropdownItem>(this, context.Request)));
+            context.VisualTree.Header.Settings.Preferences.AddRange(HeaderSettingsPreferences.SelectMany(x => x.CreateInstance<IControlDropdownItem>(this, context.Request)));
+            context.VisualTree.Header.Settings.Primary.AddRange(HeaderSettingsPrimary.SelectMany(x => x.CreateInstance<IControlDropdownItem>(this, context.Request)));
+            context.VisualTree.Header.Settings.Secondary.AddRange(HeaderSettingsSecondary.SelectMany(x => x.CreateInstance<IControlDropdownItem>(this, context.Request)));
 
             // Sidebar
-            context.VisualTree.Sidebar.Header.AddRange(SidebarHeader.Select(x => x.CreateInstance(this, context.Request) as IControl));
-            context.VisualTree.Sidebar.Preferences.AddRange(SidebarPreferences.Select(x => x.CreateInstance(this, context.Request) as IControl));
-            context.VisualTree.Sidebar.Primary.AddRange(SidebarPrimary.Select(x => x.CreateInstance(this, context.Request) as IControl));
-            context.VisualTree.Sidebar.Secondary.AddRange(SidebarSecondary.Select(x => x.CreateInstance(this, context.Request) as IControl));
+            context.VisualTree.Sidebar.Header.AddRange(SidebarHeader.SelectMany(x => x.CreateInstance<IControl>(this, context.Request)));
+            context.VisualTree.Sidebar.Preferences.AddRange(SidebarPreferences.SelectMany(x => x.CreateInstance<IControl>(this, context.Request)));
+            context.VisualTree.Sidebar.Primary.AddRange(SidebarPrimary.SelectMany(x => x.CreateInstance<IControl>(this, context.Request)));
+            context.VisualTree.Sidebar.Secondary.AddRange(SidebarSecondary.SelectMany(x => x.CreateInstance<IControl>(this, context.Request)));
 
             // Headline
-            context.VisualTree.Content.Headline.Prologue.AddRange(ContentHeadlinePrologue.Select(x => x.CreateInstance(this, context.Request) as IControl));
-            context.VisualTree.Content.Headline.Preferences.AddRange(ContentHeadlinePreferences.Select(x => x.CreateInstance(this, context.Request) as IControl));
-            context.VisualTree.Content.Headline.Primary.AddRange(ContentHeadlinePrimary.Select(x => x.CreateInstance(this, context.Request) as IControl));
-            context.VisualTree.Content.Headline.Secondary.AddRange(ContentHeadlineSecondary.Select(x => x.CreateInstance(this, context.Request) as IControl));
-            context.VisualTree.Content.Headline.MorePreferences.AddRange(ContentHeadlineMorePreferences.Select(x => x.CreateInstance(this, context.Request) as IControlDropdownItem));
-            context.VisualTree.Content.Headline.MorePrimary.AddRange(ContentHeadlineMorePrimary.Select(x => x.CreateInstance(this, context.Request) as IControlDropdownItem));
-            context.VisualTree.Content.Headline.MoreSecondary.AddRange(ContentHeadlineMoreSecondary.Select(x => x.CreateInstance(this, context.Request) as IControlDropdownItem));
-            context.VisualTree.Content.Headline.Metadata.AddRange(ContentHeadlineMetadata.Select(x => x.CreateInstance(this, context.Request) as IControl));
+            context.VisualTree.Content.Headline.Prologue.AddRange(ContentHeadlinePrologue.SelectMany(x => x.CreateInstance<IControl>(this, context.Request)));
+            context.VisualTree.Content.Headline.Preferences.AddRange(ContentHeadlinePreferences.SelectMany(x => x.CreateInstance<IControl>(this, context.Request)));
+            context.VisualTree.Content.Headline.Primary.AddRange(ContentHeadlinePrimary.SelectMany(x => x.CreateInstance<IControl>(this, context.Request)));
+            context.VisualTree.Content.Headline.Secondary.AddRange(ContentHeadlineSecondary.SelectMany(x => x.CreateInstance<IControl>(this, context.Request)));
+            context.VisualTree.Content.Headline.MorePreferences.AddRange(ContentHeadlineMorePreferences.SelectMany(x => x.CreateInstance<IControlDropdownItem>(this, context.Request)));
+            context.VisualTree.Content.Headline.MorePrimary.AddRange(ContentHeadlineMorePrimary.SelectMany(x => x.CreateInstance<IControlDropdownItem>(this, context.Request)));
+            context.VisualTree.Content.Headline.MoreSecondary.AddRange(ContentHeadlineMoreSecondary.SelectMany(x => x.CreateInstance<IControlDropdownItem>(this, context.Request)));
+            context.VisualTree.Content.Headline.Metadata.AddRange(ContentHeadlineMetadata.SelectMany(x => x.CreateInstance<IControl>(this, context.Request)));
 
             // Property
-            context.VisualTree.Content.Property.Preferences.AddRange(ContentPropertyPreferences.Select(x => x.CreateInstance(this, context.Request) as IControl));
-            context.VisualTree.Content.Property.Primary.AddRange(ContentPropertyPrimary.Select(x => x.CreateInstance(this, context.Request) as IControl));
-            context.VisualTree.Content.Property.Secondary.AddRange(ContentPropertySecondary.Select(x => x.CreateInstance(this, context.Request) as IControl));
+            context.VisualTree.Content.Property.Preferences.AddRange(ContentPropertyPreferences.SelectMany(x => x.CreateInstance<IControl>(this, context.Request)));
+            context.VisualTree.Content.Property.Primary.AddRange(ContentPropertyPrimary.SelectMany(x => x.CreateInstance<IControl>(this, context.Request)));
+            context.VisualTree.Content.Property.Secondary.AddRange(ContentPropertySecondary.SelectMany(x => x.CreateInstance<IControl>(this, context.Request)));
 
             // Inhalt
-            context.VisualTree.Content.Preferences.AddRange(ContentPreferences.Select(x => x.CreateInstance(this, context.Request) as IControl));
-            context.VisualTree.Content.Primary.AddRange(ContentPrimary.Select(x => x.CreateInstance(this, context.Request) as IControl));
-            context.VisualTree.Content.Secondary.AddRange(ContentSecondary.Select(x => x.CreateInstance(this, context.Request) as IControl));
+            context.VisualTree.Content.Preferences.AddRange(ContentPreferences.SelectMany(x => x.CreateInstance<IControl>(this, context.Request)));
+            context.VisualTree.Content.Primary.AddRange(ContentPrimary.SelectMany(x => x.CreateInstance<IControl>(this, context.Request)));
+            context.VisualTree.Content.Secondary.AddRange(ContentSecondary.SelectMany(x => x.CreateInstance<IControl>(this, context.Request)));
 
             // Footer
-            context.VisualTree.Footer.Preferences.AddRange(FooterPreferences.Select(x => x.CreateInstance(this, context.Request) as IControl));
-            context.VisualTree.Footer.Primary.AddRange(FooterPrimary.Select(x => x.CreateInstance(this, context.Request) as IControl));
-            context.VisualTree.Footer.Secondary.AddRange(FooterSecondary.Select(x => x.CreateInstance(this, context.Request) as IControl));
+            context.VisualTree.Footer.Preferences.AddRange(FooterPreferences.SelectMany(x => x.CreateInstance<IControl>(this, context.Request)));
+            context.VisualTree.Footer.Primary.AddRange(FooterPrimary.SelectMany(x => x.CreateInstance<IControl>(this, context.Request)));
+            context.VisualTree.Footer.Secondary.AddRange(FooterSecondary.SelectMany(x => x.CreateInstance<IControl>(this, context.Request)));
 
             if (context.VisualTree is VisualTreeControl visualTreeControl)
             {

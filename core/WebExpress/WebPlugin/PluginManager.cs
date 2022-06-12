@@ -95,7 +95,7 @@ namespace WebExpress.WebPlugin
 
                         foreach (var customAttribute in type.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IPluginAttribute))))
                         {
-                            if (customAttribute.AttributeType == typeof(IDAttribute))
+                            if (customAttribute.AttributeType == typeof(IdAttribute))
                             {
                                 id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
                             }
@@ -119,7 +119,7 @@ namespace WebExpress.WebPlugin
                         var context = new PluginContext()
                         {
                             Assembly = type.Assembly,
-                            PluginID = id,
+                            PluginId = id,
                             PluginName = name,
                             Manufacturer = type.Assembly.GetCustomAttribute<AssemblyCompanyAttribute>()?.Company,
                             Copyright = type.Assembly.GetCustomAttribute<AssemblyCopyrightAttribute>()?.Copyright,
@@ -205,7 +205,7 @@ namespace WebExpress.WebPlugin
             foreach (var plugin in Dictionary.Values)
             {
                 plugin.Plugin.Initialization(plugin.Context);
-                Context.Log.Info(message: I18N("webexpress:pluginmanager.plugin.initialization"), args: plugin.Context.PluginID);
+                Context.Log.Info(message: I18N("webexpress:pluginmanager.plugin.initialization"), args: plugin.Context.PluginId);
             }
 
             // Plugins nebenläufig ausführen
@@ -213,11 +213,11 @@ namespace WebExpress.WebPlugin
             {
                 Task.Run(() =>
                 {
-                    Context.Log.Info(message: I18N("webexpress:pluginmanager.plugin.processing.start"), args: plugin.Context.PluginID);
+                    Context.Log.Info(message: I18N("webexpress:pluginmanager.plugin.processing.start"), args: plugin.Context.PluginId);
 
                     plugin.Plugin.Run();
 
-                    Context.Log.Info(message: I18N("webexpress:pluginmanager.plugin.processing.end"), args: plugin.Context.PluginID);
+                    Context.Log.Info(message: I18N("webexpress:pluginmanager.plugin.processing.end"), args: plugin.Context.PluginId);
                 });
             }
         }
@@ -228,27 +228,27 @@ namespace WebExpress.WebPlugin
         /// <param name="context">Der Kontext des auszuführenden Plugins</param>
         internal static void Boot(IPluginContext context)
         {
-            if (!Dictionary.ContainsKey(context?.PluginID?.ToLower()))
+            if (!Dictionary.ContainsKey(context?.PluginId?.ToLower()))
             {
-                Context.Log.Warning(message: I18N("webexpress:pluginmanager.notavailable"), args: context?.PluginID);
+                Context.Log.Warning(message: I18N("webexpress:pluginmanager.notavailable"), args: context?.PluginId);
 
                 return;
             }
 
-            var plugin = Dictionary[context?.PluginID?.ToLower()];
+            var plugin = Dictionary[context?.PluginId?.ToLower()];
 
             // Piugin initialisieren
             plugin.Plugin.Initialization(plugin.Context);
-            Context.Log.Info(message: I18N("webexpress:pluginmanager.plugin.initialization"), args: plugin.Context.PluginID);
+            Context.Log.Info(message: I18N("webexpress:pluginmanager.plugin.initialization"), args: plugin.Context.PluginId);
 
             // Plugin nebenläufig ausführen
             Task.Run(() =>
             {
-                Context.Log.Info(message: I18N("webexpress:pluginmanager.plugin.processing.start"), args: plugin.Context.PluginID);
+                Context.Log.Info(message: I18N("webexpress:pluginmanager.plugin.processing.start"), args: plugin.Context.PluginId);
 
                 plugin.Plugin.Run();
 
-                Context.Log.Info(message: I18N("webexpress:pluginmanager.plugin.processing.end"), args: plugin.Context.PluginID);
+                Context.Log.Info(message: I18N("webexpress:pluginmanager.plugin.processing.end"), args: plugin.Context.PluginId);
             });
         }
 

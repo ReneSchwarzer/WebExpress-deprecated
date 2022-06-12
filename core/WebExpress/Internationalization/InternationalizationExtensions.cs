@@ -36,7 +36,7 @@ namespace WebExpress.Internationalization
         /// <returns>Der Wert des Schlüssels in der aktuellen Sprache</returns>
         public static string I18N(this II18N obj, IApplicationContext application, string key)
         {
-            return InternationalizationManager.I18N(obj.Culture, application?.Plugin?.PluginID, key);
+            return InternationalizationManager.I18N(obj.Culture, application?.Plugin?.PluginId, key);
         }
     }
 }

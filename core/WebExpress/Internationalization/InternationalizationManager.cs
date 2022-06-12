@@ -57,7 +57,7 @@ namespace WebExpress.Internationalization
         /// <param name="plugin">Das Plugin, welches die einzufügenden Schlüssel-Wert-Paare enthällt</param>
         public static void Register(IPluginContext plugin)
         {
-            var pluginID = plugin.PluginID;
+            var pluginID = plugin.PluginId;
             Register(plugin.Assembly, pluginID);
 
             Context.Log.Info(message: I18N("webexpress:internationalizationmanager.register"), args: pluginID);

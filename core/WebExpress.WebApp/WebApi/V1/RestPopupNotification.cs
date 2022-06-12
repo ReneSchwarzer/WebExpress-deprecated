@@ -9,7 +9,7 @@ namespace WebExpress.WebApp.WebAPI.V1
     /// <summary>
     /// Ermittelt den Status und Forschritt einer Aufgabe (WebTask)
     /// </summary>
-    [ID("ApiPopupNotificationV1")]
+    [Id("ApiPopupNotificationV1")]
     [Segment("popupnotifications", "")]
     [Path("/api/v1")]
     [Module("webexpress.webapp")]

@@ -23,6 +23,12 @@ namespace WebExpress.Config
         public List<EndpointConfig> Endpoints { get; set; }
 
         /// <summary>
+        /// Die Uir des Webservers
+        /// </summary>
+        [XmlElement("uri")]
+        public string Uri { get; set; }
+
+        /// <summary>
         /// Das Limitierungen
         /// </summary>
         [XmlElement("limit")]

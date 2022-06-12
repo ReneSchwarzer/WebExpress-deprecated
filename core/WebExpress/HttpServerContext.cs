@@ -12,6 +12,11 @@ namespace WebExpress
     public class HttpServerContext : IHttpServerContext
     {
         /// <summary>
+        /// Liefert die Uri des Webservers
+        /// </summary>
+        public string Uri { get; protected set; }
+
+        /// <summary>
         /// Liefert die Endpunkte, auf die der Webserver reagiert
         /// </summary>
         public ICollection<EndpointConfig> Endpoints { get; protected set; }
@@ -54,6 +59,7 @@ namespace WebExpress
         /// <summary>
         /// Konstruktor
         /// </summary>
+        /// <param name="uri">Die URI des Webservers</param>
         /// <param name="endpoints">Die Uri des Servers</param>
         /// <param name="assetBaseFolder">Daten-Basisverzeichnis</param>
         /// <param name="dataBaseFolder">Daten-Basisverzeichnis</param>
@@ -63,6 +69,7 @@ namespace WebExpress
         /// <param name="log">Log</param>
         public HttpServerContext
         (
+            string uri,
             ICollection<EndpointConfig> endpoints,
             string assetBaseFolder,
             string dataBaseFolder,
@@ -75,6 +82,7 @@ namespace WebExpress
             var assembly = typeof(HttpServer).Assembly;
             Version = assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
 
+            Uri = uri;
             Endpoints = endpoints;
             AssetPath = assetBaseFolder;
             DataPath = dataBaseFolder;

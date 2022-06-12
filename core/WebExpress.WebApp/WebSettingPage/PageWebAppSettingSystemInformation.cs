@@ -13,7 +13,7 @@ namespace WebExpress.WebApp.WebSettingPage
     /// Einstellungsseite mit Systeminformationen
     /// </summary>
     /// 
-    [ID("SettingSystemInformation")]
+    [Id("SettingSystemInformation")]
     [Title("webexpress.webapp:setting.titel.systeminformation.label")]
     [Segment("systeminformation", "webexpress.webapp:setting.titel.systeminformation.label")]
     [Path("/Setting")]

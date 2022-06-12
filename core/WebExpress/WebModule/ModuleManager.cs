@@ -72,7 +72,7 @@ namespace WebExpress.WebModule
 
                 foreach (var customAttribute in type.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IModuleAttribute))))
                 {
-                    if (customAttribute.AttributeType == typeof(IDAttribute))
+                    if (customAttribute.AttributeType == typeof(IdAttribute))
                     {
                         id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
                     }
@@ -268,7 +268,7 @@ namespace WebExpress.WebModule
             foreach (var module in Dictionary.Values.SelectMany(x => x.Values))
             {
                 module.Module.Initialization(module.Context);
-                Context.Log.Info(message: I18N("webexpress:modulemanager.module.initialization"), args: new[] { module.Context.Application.ApplicationID, module.Context.Plugin.PluginID });
+                Context.Log.Info(message: I18N("webexpress:modulemanager.module.initialization"), args: new[] { module.Context.Application.ApplicationID, module.Context.Plugin.PluginId });
             }
 
             // Plugins nebenläufig ausführen
@@ -276,11 +276,11 @@ namespace WebExpress.WebModule
             {
                 Task.Run(() =>
                 {
-                    Context.Log.Info(message: I18N("webexpress:modulemanager.module.processing.start"), args: new[] { module.Context.Application.ApplicationID, module.Context.Plugin.PluginID });
+                    Context.Log.Info(message: I18N("webexpress:modulemanager.module.processing.start"), args: new[] { module.Context.Application.ApplicationID, module.Context.Plugin.PluginId });
 
                     module.Module.Run();
 
-                    Context.Log.Info(message: I18N("webexpress:modulemanager.module.processing.end"), args: new[] { module.Context.Application.ApplicationID, module.Context.Plugin.PluginID });
+                    Context.Log.Info(message: I18N("webexpress:modulemanager.module.processing.end"), args: new[] { module.Context.Application.ApplicationID, module.Context.Plugin.PluginId });
                 });
             }
         }

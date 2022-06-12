@@ -72,7 +72,7 @@ namespace WebExpress.WebApplication
                 // Attribute ermitteln
                 foreach (var customAttribute in type.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IApplicationAttribute))))
                 {
-                    if (customAttribute.AttributeType == typeof(IDAttribute))
+                    if (customAttribute.AttributeType == typeof(IdAttribute))
                     {
                         id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
                     }

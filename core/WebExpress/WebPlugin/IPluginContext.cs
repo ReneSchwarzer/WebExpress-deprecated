@@ -16,7 +16,7 @@ namespace WebExpress.WebPlugin
         /// <summary>
         /// Liefert oder setzt die ID
         /// </summary>
-        string PluginID { get; }
+        string PluginId { get; }
 
         /// <summary>
         /// Liefert den Name des Plugins 

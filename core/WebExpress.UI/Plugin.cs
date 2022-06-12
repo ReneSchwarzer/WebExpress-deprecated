@@ -4,7 +4,7 @@ using WebExpress.WebPlugin;
 
 namespace WebExpress.UI
 {
-    [ID("webexpress.ui")]
+    [Id("webexpress.ui")]
     [Name("WebExpress.UI")]
     [Description("plugin.description")]
     [Icon("/assets/img/Logo.png")]

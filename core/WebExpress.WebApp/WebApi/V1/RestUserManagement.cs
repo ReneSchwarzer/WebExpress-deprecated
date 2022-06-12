@@ -16,7 +16,7 @@ namespace WebExpress.WebApp.WebAPI.V1
     /// <summary>
     /// REST-API zur Nutzerverwaltiung
     /// </summary>
-    [ID("ApiUserManagementV1")]
+    [Id("ApiUserManagementV1")]
     [Segment("user", "")]
     [Path("/api/v1")]
     [Module("webexpress.webapp")]

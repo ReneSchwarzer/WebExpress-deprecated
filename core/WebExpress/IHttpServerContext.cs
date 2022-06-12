@@ -11,9 +11,14 @@ namespace WebExpress
     public interface IHttpServerContext
     {
         /// <summary>
+        /// Liefert die Uri des Webservers
+        /// </summary>
+        string Uri { get; }
+
+        /// <summary>
         /// Liefert die Endpunkte, auf die der Webserver reagiert
         /// </summary>
-        public ICollection<EndpointConfig> Endpoints { get; }
+        ICollection<EndpointConfig> Endpoints { get; }
 
         /// <summary>
         /// Liefert die Version des Http-Servers 
