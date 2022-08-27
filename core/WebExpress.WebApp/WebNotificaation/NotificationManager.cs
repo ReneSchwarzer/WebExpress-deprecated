@@ -24,7 +24,7 @@ namespace WebExpress.WebApp.WebNotificaation
         /// <param name="icon">Ein Icon</param>
         /// <param name="type">Der Benachrichtigungstype</param>
         /// <returns>Die erstellte Benachrichtigung</returns>
-        public static Notification CreateNotification(string message, int durability = -1, string heading = null, IUri icon = null, TypeColorBackgroundAlert type = TypeColorBackgroundAlert.Light)
+        public static Notification CreateNotification(string message, int durability = -1, string heading = null, IUri icon = null, TypeNotification type = TypeNotification.Light)
         {
             var notification = new Notification()
             {
@@ -32,7 +32,7 @@ namespace WebExpress.WebApp.WebNotificaation
                 Durability = durability,
                 Heading = heading,
                 Icon = icon?.ToString(),
-                Type = type.ToClass()
+                Type = type
             };
 
             if (!GlobalNotifications.ContainsKey(notification.ID))
@@ -57,7 +57,7 @@ namespace WebExpress.WebApp.WebNotificaation
         /// <param name="icon">Ein Icon</param>
         /// <param name="type">Der Benachrichtigungstype</param>
         /// <returns>Die erstellte Benachrichtigung</returns>
-        public static Notification CreateNotification(Request request, string message, int durability = -1, string heading = null, IUri icon = null, TypeColorBackgroundAlert type = TypeColorBackgroundAlert.Light)
+        public static Notification CreateNotification(Request request, string message, int durability = -1, string heading = null, IUri icon = null, TypeNotification type = TypeNotification.Light)
         {
             var notification = new Notification()
             {
@@ -65,7 +65,7 @@ namespace WebExpress.WebApp.WebNotificaation
                 Durability = durability,
                 Heading = InternationalizationManager.I18N(request, heading),
                 Icon = icon?.ToString(),
-                Type = type.ToClass()
+                Type = type
             };
 
             // Benutzerbenachrichtigung

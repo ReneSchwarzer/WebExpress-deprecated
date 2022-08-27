@@ -97,6 +97,8 @@ namespace WebExpress.WebTask
 
                 OnFinish();
 
+                TaskManager.RemoveTask(this);
+
             }, TokenSource.Token);
         }
 
@@ -108,6 +110,8 @@ namespace WebExpress.WebTask
             TokenSource.Cancel();
 
             State = TaskState.Canceled;
+
+            TaskManager.RemoveTask(this);
         }
     }
 }

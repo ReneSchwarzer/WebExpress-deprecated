@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 
 namespace WebExpress.WebApp.WebNotificaation
 {
@@ -7,37 +8,50 @@ namespace WebExpress.WebApp.WebNotificaation
         /// <summary>
         /// Die ID der Benachrichtigung
         /// </summary>
+        [JsonPropertyName("id")]
         public string ID { get; } = Guid.NewGuid().ToString();
 
         /// <summary>
         /// Die Überschrift
         /// </summary>
-        public string Heading { get; internal set; }
+        [JsonPropertyName("heading")]
+        public string Heading { get; set; }
 
         /// <summary>
         /// Die Benachrichtigungsnachricht
         /// </summary>
-        public string Message { get; internal set; }
+        [JsonPropertyName("message")]
+        public string Message { get; set; }
 
         /// <summary>
         /// Die Lebensdauer der Benachrichtigung
         /// </summary>
-        public int Durability { get; internal set; }
+        [JsonPropertyName("durability")]
+        public int Durability { get; set; }
 
         /// <summary>
         /// Liefert das Icon oder null
         /// </summary>
-        public string Icon { get; internal set; }
+        [JsonPropertyName("icon")]
+        public string Icon { get; set; }
 
         /// <summary>
         /// Liefert die Erstellungszeit
         /// </summary>
+        [JsonPropertyName("created")]
         public DateTime Created { get; } = DateTime.Now;
+
+        /// <summary>
+        /// Der Fortschritt in Prozent 0-100%. <0 Ohne Fortschritt
+        /// </summary>
+        [JsonPropertyName("progress")]
+        public int Progress { get; set; } = -1;
 
         /// <summary>
         /// Liefert oder setzt den Benachrichtigungstyp
         /// </summary>
-        public string Type { get; internal set; }
+        [JsonPropertyName("type"), JsonConverter(typeof(TypeNotificationConverter))]
+        public TypeNotification Type { get; set; }
 
         /// <summary>
         /// Konstruktor
