@@ -3,7 +3,7 @@
     public class IconAttribute : System.Attribute, IPluginAttribute, IApplicationAttribute, IModuleAttribute
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="icon">Das Icon</param>
         public IconAttribute(string icon)

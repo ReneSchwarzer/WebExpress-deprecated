@@ -14,7 +14,7 @@ namespace WebExpress.UI.WebResource
     public sealed class Asset : WebExpress.WebResource.ResourceAsset
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public Asset()
         {

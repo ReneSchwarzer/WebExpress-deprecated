@@ -26,7 +26,7 @@ namespace WebExpress.UI.WebControl
         public ICollection<string> AcceptFile { get; set; } = new List<string>();
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlFormularItemInputFile(string id = null)
@@ -37,7 +37,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="name">Der Name der TextBox</param>

@@ -28,7 +28,7 @@ namespace WebExpress.UI.WebControl
         //public string SelectedValue { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlFormularItemInputComboBox(string id = null)
@@ -38,7 +38,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="items">Die ComboBox-Einträge</param>
@@ -49,7 +49,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="items">Die ComboBox-Einträge</param>
         public ControlFormularItemInputComboBox(string id, params ControlFormularItemInputComboBoxItem[] items)
@@ -59,7 +59,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="items">Die ComboBox-Einträge</param>

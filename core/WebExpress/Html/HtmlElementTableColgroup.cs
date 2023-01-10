@@ -6,7 +6,7 @@
     public class HtmlElementTableColgroup : HtmlElement, IHtmlElementTable
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public HtmlElementTableColgroup()
             : base("colgroup")

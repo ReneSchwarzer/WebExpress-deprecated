@@ -13,7 +13,7 @@
         public string Value { get; protected set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="value">Der benutzerdefinierte Wert</param>
         public PropertyOnClick(string value)

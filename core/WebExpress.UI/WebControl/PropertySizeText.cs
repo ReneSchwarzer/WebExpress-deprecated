@@ -15,7 +15,7 @@ namespace WebExpress.UI.WebControl
         public float? UserSize { get; protected set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="size">Die System-Größe</param>
         public PropertySizeText(TypeSizeText size)
@@ -24,7 +24,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="icon">Das benutzerdefinierte Größe in REM</param>
         public PropertySizeText(float size)

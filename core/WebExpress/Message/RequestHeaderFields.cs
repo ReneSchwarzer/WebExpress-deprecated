@@ -73,7 +73,7 @@ namespace WebExpress.Message
         public ICollection<Cookie> Cookies { get; } = new List<Cookie>();
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="contextFeatures">Anfänglicher Satz von Features.</param>
         internal RequestHeaderFields(IFeatureCollection contextFeatures)

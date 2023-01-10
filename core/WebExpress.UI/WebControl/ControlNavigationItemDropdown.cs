@@ -6,7 +6,7 @@ namespace WebExpress.UI.WebControl
     public class ControlNavigationItemDropdown : ControlDropdown, IControlNavigationItem
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlNavigationItemDropdown(string id = null)

@@ -50,7 +50,7 @@ namespace WebExpress.WebApp.WebNotificaation
         /// <summary>
         /// Erstellt eine neue Benachrichtigung in der Session
         /// </summary>
-        /// <param name="request">Die Anfrage</param>
+        /// <param name="request">The request.</param>
         /// <param name="message">Die Benachrichtigungsnachricht</param>
         /// <param name="durability">Die Lebensdauer der Benachrichtigung. -1 für unbegrenzt gültig</param>
         /// <param name="heading">Die Überschrift</param>
@@ -90,7 +90,7 @@ namespace WebExpress.WebApp.WebNotificaation
         /// <summary>
         /// Liefert alle Benachrichtigungen aus der Session
         /// </summary>
-        /// <param name="request">Die Anfrage</param>
+        /// <param name="request">The request.</param>
         /// <returns>Die Benachrichtigungen</returns>
         public static ICollection<Notification> GetNotifications(Request request)
         {
@@ -126,7 +126,7 @@ namespace WebExpress.WebApp.WebNotificaation
         /// <summary>
         /// Liefert alle Benachrichtigungen aus der Session
         /// </summary>
-        /// <param name="request">Die Anfrage</param>
+        /// <param name="request">The request.</param>
         /// <param name="id">Die BenachrichtigungsID</param>
         public static void RemoveNotification(Request request, string id)
         {

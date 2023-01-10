@@ -13,7 +13,7 @@ namespace WebExpress.Html
         public new List<IHtmlNode> Elements => base.Elements;
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public HtmlElementSectionNav()
             : base("nav")
@@ -21,7 +21,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="nodes">Der Inhalt</param>
         public HtmlElementSectionNav(params IHtmlNode[] nodes)
@@ -31,7 +31,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="nodes">Der Inhalt</param>
         public HtmlElementSectionNav(IEnumerable<IHtmlNode> nodes)

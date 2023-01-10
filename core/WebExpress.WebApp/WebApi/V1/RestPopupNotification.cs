@@ -18,25 +18,25 @@ namespace WebExpress.WebApp.WebAPI.V1
     public sealed class RestPopupNotification : ResourceRest
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public RestPopupNotification()
         {
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
-        /// <param name="context">Der Kontext</param>
+        /// <param name="context">The context.</param>
         public override void Initialization(IResourceContext context)
         {
             base.Initialization(context);
         }
 
         /// <summary>
-        /// Verarbeitung des GET-Request
+        /// Processing of the resource. des GET-Request
         /// </summary>
-        /// <param name="request">Die Anfrage</param>
+        /// <param name="request">The request.</param>
         /// <returns>Eine Aufzählung, welche mittels JsonSerializer serialisiert werden kann.</returns>
         public override ICollection GetData(Request request)
         {
@@ -44,10 +44,10 @@ namespace WebExpress.WebApp.WebAPI.V1
         }
 
         /// <summary>
-        /// Verarbeitung des DELETE-Request
+        /// Processing of the resource. des DELETE-Request
         /// </summary>
         /// <param name="id">Die zu löschende ID</param>
-        /// <param name="request">Die Anfrage</param>
+        /// <param name="request">The request.</param>
         /// <returns>Das Ergebnis der Löschung</returns>
         public override bool DeleteData(string id, Request request)
         {

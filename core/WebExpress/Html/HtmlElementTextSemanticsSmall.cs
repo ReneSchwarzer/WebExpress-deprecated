@@ -18,7 +18,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public HtmlElementTextSemanticsSmall()
             : base("small")
@@ -27,7 +27,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="text">Der Inhalt</param>
         public HtmlElementTextSemanticsSmall(string text)
@@ -37,7 +37,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="nodes">Der Inhalt</param>
         public HtmlElementTextSemanticsSmall(params IHtmlNode[] nodes)

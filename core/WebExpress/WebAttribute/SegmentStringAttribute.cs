@@ -5,23 +5,23 @@ using WebExpress.WebResource;
 
 namespace WebExpress.WebAttribute
 {
-    public class SegmentStringAttribute : System.Attribute, IResourceAttribute, ISegmentAttribute
+    public class SegmentStringAttribute : Attribute, IResourceAttribute, ISegmentAttribute
     {
         /// <summary>
-        /// Liefert oder setzt den Namen der Variable
+        /// Returns or sets the name of the variable.
         /// </summary>
         private string VariableName { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt den Anzeigestring
+        /// Returns or sets the display string.
         /// </summary>
         private string Display { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
-        /// <param name="variableName">Der Name der Variabel</param>
-        /// <param name="display">Der Anzeigestring</param>
+        /// <param name="variableName">The name of the variable.</param>
+        /// <param name="display">The display string.</param>
         public SegmentStringAttribute(string variableName, string display)
         {
             VariableName = variableName;
@@ -29,9 +29,9 @@ namespace WebExpress.WebAttribute
         }
 
         /// <summary>
-        /// Umwandlung in ein Pfadsegment
+        /// Conversion to a path segment.
         /// </summary>
-        /// <returns>Das Pfadsegment</returns>
+        /// <returns>The path segment.</returns>
         public IPathSegment ToPathSegment()
         {
             var expression = "^[^\"]*$";

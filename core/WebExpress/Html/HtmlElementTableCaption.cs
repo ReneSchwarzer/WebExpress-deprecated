@@ -18,7 +18,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public HtmlElementTableCaption()
             : base("caption")
@@ -27,7 +27,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="text">Der Inhalt</param>
         public HtmlElementTableCaption(string text)
@@ -37,7 +37,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="nodes">Der Inhalt</param>
         public HtmlElementTableCaption(params IHtmlNode[] nodes)

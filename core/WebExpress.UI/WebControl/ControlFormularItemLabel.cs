@@ -16,7 +16,7 @@ namespace WebExpress.UI.WebControl
         public ControlFormularItem FormularItem { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlFormularItemLabel(string id)
@@ -25,7 +25,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="text">Der Text</param>

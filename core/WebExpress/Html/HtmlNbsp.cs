@@ -10,7 +10,7 @@ namespace WebExpress.Html
         public string Value { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public HtmlNbsp()
         {

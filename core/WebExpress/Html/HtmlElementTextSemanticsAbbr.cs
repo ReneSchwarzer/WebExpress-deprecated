@@ -13,7 +13,7 @@ namespace WebExpress.Html
         public new List<IHtmlNode> Elements => base.Elements;
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public HtmlElementTextSemanticsAbbr()
             : base("abbr")
@@ -22,7 +22,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="nodes">Der Inhalt</param>
         public HtmlElementTextSemanticsAbbr(params IHtmlNode[] nodes)
@@ -32,7 +32,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="nodes">Der Inhalt</param>
         public HtmlElementTextSemanticsAbbr(IEnumerable<IHtmlNode> nodes)

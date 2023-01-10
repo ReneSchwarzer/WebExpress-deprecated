@@ -75,7 +75,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlButton(string id = null)
@@ -85,7 +85,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
         private void Init()
         {

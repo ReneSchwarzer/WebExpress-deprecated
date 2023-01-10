@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WebExpress.Uri;
 using WebExpress.WebAttribute;
@@ -11,27 +11,30 @@ using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.WebApplication
 {
+    /// <summary>
+    /// Management of WebExpress applications.
+    /// </summary>
     public static class ApplicationManager
     {
         /// <summary>
-        /// Liefert oder setzt den Verweis auf Kontext des Hostes
+        /// Returns or sets the reference to the context of the host.
         /// </summary>
         public static IHttpServerContext Context { get; private set; }
 
         /// <summary>
-        /// Liefert oder setzt das Verzeichnis, indem die Anwendungen gelistet sind
+        /// Returns or sets the directory where the applications are listed.
         /// </summary>
         private static ApplicationDictionary Dictionary { get; } = new ApplicationDictionary();
 
         /// <summary>
-        /// Liefert alle gespeicherten Anwendungen
+        /// Returns the stored applications.
         /// </summary>
-        public static ICollection<IApplicationContext> Applications => Dictionary.Values.Select(x => x.Context).ToList();
+        public static IEnumerable<IApplicationContext> Applications => Dictionary.Values.SelectMany(x => x.Values).Select(x => x.Context);
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
-        /// <param name="context">Der Verweis auf den Kontext des Hostes</param>
+        /// <param name="context">The reference to the context of the host.</param>
         internal static void Initialization(IHttpServerContext context)
         {
             Context = context;
@@ -40,195 +43,218 @@ namespace WebExpress.WebApplication
         }
 
         /// <summary>
-        /// Fügt Anwendungs-Einträge aus allen geladenen Plugins hinzu
+        /// Adds application entries from the specified plugin.
         /// </summary>
-        public static void Register()
+        /// <param name="pluginContext">A list with the contexts of the associated plugins.</param>
+        /// <returns>A list of the contexts of the applications created.</returns>
+        public static IEnumerable<IApplicationContext> Register(IEnumerable<IPluginContext> pluginContexts)
         {
-            foreach (var plugin in PluginManager.Plugins)
+            var list = new List<IApplicationContext>();
+
+            foreach (var pluginContext in pluginContexts)
             {
-                Register(plugin);
+                if (!Dictionary.ContainsKey(pluginContext))
+                {
+                    Dictionary.Add(pluginContext, new Dictionary<string, ApplicationItem>());
+                }
+
+                var assembly = pluginContext.Assembly;
+                var pluginDict = Dictionary[pluginContext];
+
+                foreach (var type in assembly.GetExportedTypes().Where(x => x.IsClass && x.IsSealed && x.GetInterface(typeof(IApplication).Name) != null))
+                {
+                    var id = type.Name?.ToLower();
+                    var name = type.Name;
+                    var icon = string.Empty;
+                    var description = string.Empty;
+                    var contextPath = string.Empty;
+                    var assetPath = Path.DirectorySeparatorChar.ToString();
+                    var dataPath = Path.DirectorySeparatorChar.ToString();
+                    var options = new List<string>();
+
+                    // Attribute ermitteln
+                    foreach (var customAttribute in type.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IApplicationAttribute))))
+                    {
+                        if (customAttribute.AttributeType == typeof(IdAttribute))
+                        {
+                            id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
+                        }
+                        else if (customAttribute.AttributeType == typeof(NameAttribute))
+                        {
+                            name = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
+                        }
+                        else if (customAttribute.AttributeType == typeof(IconAttribute))
+                        {
+                            icon = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
+                        }
+                        else if (customAttribute.AttributeType == typeof(DescriptionAttribute))
+                        {
+                            description = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
+                        }
+                        else if (customAttribute.AttributeType == typeof(ContextPathAttribute))
+                        {
+                            contextPath = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
+                        }
+                        else if (customAttribute.AttributeType == typeof(AssetPathAttribute))
+                        {
+                            assetPath = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
+                        }
+                        else if (customAttribute.AttributeType == typeof(DataPathAttribute))
+                        {
+                            dataPath = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
+                        }
+                        else if (customAttribute.AttributeType == typeof(OptionAttribute))
+                        {
+                            options.Add(customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower());
+                        }
+                    }
+
+                    // Creating application context
+                    var context = new ApplicationContext()
+                    {
+                        Assembly = assembly,
+                        PluginContext = pluginContext,
+                        ApplicationID = id,
+                        ApplicationName = name,
+                        Description = description,
+                        Options = options,
+                        AssetPath = Path.GetFullPath(Context.AssetPath + Path.Combine(assetPath)),
+                        DataPath = Path.GetFullPath(Context.DataPath + dataPath),
+                        ContextPath = UriRelative.Combine(Context.ContextPath, contextPath),
+                        Icon = new UriResource(Context.ContextPath, contextPath, icon),
+                        Log = Context.Log
+                    };
+
+                    // Create application
+                    var application = (IApplication)type.Assembly.CreateInstance(type.FullName);
+
+                    if (!pluginDict.ContainsKey(id))
+                    {
+                        pluginDict.Add(id, new ApplicationItem()
+                        {
+                            Context = context,
+                            Application = application
+                        });
+
+                        Context.Log.Info(message: I18N("webexpress:applicationmanager.register", id));
+                    }
+                    else
+                    {
+                        Context.Log.Warning(message: I18N("webexpress:applicationmanager.duplicate", id));
+                    }
+
+                    list.Add(context);
+                }
             }
+
+            return list;
         }
 
         /// <summary>
-        /// Fügt Anwendungs-Einträge aus dem angegebenen Plugin hinzu
+        /// Determines the application contexts for a given application id.
         /// </summary>
-        /// <param name="pluginContext">Der Kontext des zugehörigen Plugins</param>
-        public static void Register(IPluginContext pluginContext)
-        {
-            var assembly = pluginContext.Assembly;
-
-            foreach (var type in assembly.GetExportedTypes().Where(x => x.IsClass && x.IsSealed && x.GetInterface(typeof(IApplication).Name) != null))
-            {
-                var id = type.Name?.ToLower();
-                var name = type.Name;
-                var icon = string.Empty;
-                var description = string.Empty;
-                var contextPath = string.Empty;
-                var assetPath = string.Empty;
-                var dataPath = string.Empty;
-                var options = new List<string>();
-
-                // Attribute ermitteln
-                foreach (var customAttribute in type.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IApplicationAttribute))))
-                {
-                    if (customAttribute.AttributeType == typeof(IdAttribute))
-                    {
-                        id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
-                    }
-                    else if (customAttribute.AttributeType == typeof(NameAttribute))
-                    {
-                        name = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
-                    }
-                    else if (customAttribute.AttributeType == typeof(IconAttribute))
-                    {
-                        icon = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
-                    }
-                    else if (customAttribute.AttributeType == typeof(DescriptionAttribute))
-                    {
-                        description = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
-                    }
-                    else if (customAttribute.AttributeType == typeof(ContextPathAttribute))
-                    {
-                        contextPath = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
-                    }
-                    else if (customAttribute.AttributeType == typeof(AssetPathAttribute))
-                    {
-                        assetPath = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
-                    }
-                    else if (customAttribute.AttributeType == typeof(DataPathAttribute))
-                    {
-                        dataPath = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
-                    }
-                    else if (customAttribute.AttributeType == typeof(OptionAttribute))
-                    {
-                        options.Add(customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower());
-                    }
-                }
-
-                // Anwendungskontext erstellen
-                var context = new ApplicationContext()
-                {
-                    Assembly = assembly,
-                    Plugin = pluginContext,
-                    ApplicationID = id,
-                    ApplicationName = name,
-                    Description = description,
-                    Options = options,
-                    Icon = UriRelative.Combine(Context.ContextPath, contextPath, icon),
-                    AssetPath = Path.GetFullPath(Path.Combine(Context.AssetPath, assetPath)),
-                    DataPath = Path.GetFullPath(Path.Combine(Context.DataPath, dataPath)),
-                    ContextPath = UriRelative.Combine(Context.ContextPath, contextPath),
-                    Log = Context.Log
-                };
-
-                // Anwendung erstellen
-                var application = (IApplication)type.Assembly.CreateInstance(type.FullName);
-
-                if (!Dictionary.ContainsKey(id))
-                {
-                    Dictionary.Add(id, new ApplicationItem()
-                    {
-                        Context = context,
-                        Application = application
-                    });
-
-                    Context.Log.Info(message: I18N("webexpress:applicationmanager.register"), args: id);
-                }
-                else
-                {
-                    Context.Log.Warning(message: I18N("webexpress:applicationmanager.duplicate"), args: id);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Ermittelt die registrierten Anwendungen 
-        /// </summary>
-        /// <returns>Eine Aufzählung mit allen registrierten Anwendungen</returns>
-        public static IEnumerable<IApplicationContext> GetApplcations()
-        {
-            return Dictionary.Values.Select(x => x.Context);
-        }
-
-        /// <summary>
-        /// Ermittelt die Anwendung zu einer gegebenen ID
-        /// </summary>
-        /// <param name="applicationID">Die AnwendungsID</param>
-        /// <returns>Der Kontext der Anwendung oder null</returns>
+        /// <param name="applicationID">The application id.</param>
+        /// <returns>The context of the application or null.</returns>
         public static IApplicationContext GetApplcation(string applicationID)
         {
             if (string.IsNullOrWhiteSpace(applicationID)) return null;
 
-            if (Dictionary.ContainsKey(applicationID.ToLower()))
+            var items = Dictionary.Values
+                .Where(x => x.ContainsKey(applicationID.ToLower()))
+                .Select(x => x[applicationID.ToLower()])
+                .FirstOrDefault();
+
+            if (items != null)
             {
-                return Dictionary[applicationID.ToLower()].Context;
+                return items.Context;
             }
 
             return null;
         }
 
         /// <summary>
-        /// Ermittelt die Anwendungen zu den gegebenen IDs
+        /// Determines the application contexts for the given application ids.
         /// </summary>
-        /// <param name="applications">Die Anwendungen als Kommaseperierte Liste oder * für alle Anwendungskontexte</param>
-        /// <returns>Die Kontexte der Anwendungen</returns>
-        public static IEnumerable<IApplicationContext> GetApplcations(string applications)
+        /// <param name="applicationIDs">The applications ids. Can contain regular expressions or * for all.</param>
+        /// <returns>The contexts of the applications as an enumeration.</returns>
+        public static IEnumerable<IApplicationContext> GetApplcations(IEnumerable<string> applicationIDs)
         {
-            if (string.IsNullOrWhiteSpace(applications))
+            var list = new List<IApplicationContext>();
+
+            foreach (var applicationID in applicationIDs)
+            {
+                if (applicationID == "*")
+                {
+                    list.AddRange(Applications);
+                }
+                else
+                {
+                    list.AddRange
+                    (
+                        Applications.Where
+                        (
+                            x => 
+                            x.ApplicationID.Equals(applicationID, StringComparison.OrdinalIgnoreCase) || 
+                            Regex.Match(x.ApplicationID, applicationID).Success
+                        )
+                    );
+                }
+            }
+
+            return list.Distinct();
+        }
+
+        /// <summary>
+        /// Determines the application contexts for the given plugin.
+        /// </summary>
+        /// <param name="pluginContext">The context of the plugin.</param>
+        /// <returns>The contexts of the applications as an enumeration.</returns>
+        public static IEnumerable<IApplicationContext> GetApplcations(IPluginContext pluginContext)
+        {
+            if (!Dictionary.ContainsKey(pluginContext))
             {
                 return new List<IApplicationContext>();
             }
-            else if (applications.Trim().Equals("*"))
-            {
-                return Dictionary.Values.Select(x => x.Context);
-            }
 
-            var applicationIDs = applications.Split(',').Select(x => x?.Trim().ToLower());
-
-            return Dictionary.Where(x => applicationIDs.Contains(x.Key)).Select(x => x.Value.Context);
+            return Dictionary[pluginContext].Values.Select(x => x.Context);
         }
 
         /// <summary>
-        /// Ermittelt die Anwendung zu einem gegebenen Assembly
+        /// Boots the applications.
         /// </summary>
-        /// <param name="applicationAssembly">Das Assembly, zudem der Anwendungskontext ermittelt werden soll</param>
-        /// <returns>Der Kontext der Anwendung oder null</returns>
-        public static IApplicationContext GetApplcation(Assembly applicationAssembly)
+        /// <param name="pluginContext">The context of the plugin that contains the applications.</param>
+        internal static void Boot(IPluginContext pluginContext)
         {
-            return Dictionary.Values.Where(x => x.Context.Assembly == applicationAssembly).Select(x => x.Context).FirstOrDefault();
-        }
-
-        /// <summary>
-        /// Fürt die Anwendungen aus
-        /// </summary>
-        internal static void Boot()
-        {
-            // Piugins initialisieren
-            foreach (var application in Dictionary.Values)
+            if (!Dictionary.ContainsKey(pluginContext))
             {
-                application.Application.Initialization(application.Context);
-                Context.Log.Info(message: I18N("webexpress:applicationmanager.application.initialization"), args: application.Context.ApplicationID);
+                Context.Log.Warning(message: I18N("webexpress:applicationmanager.application.boot.notfound", pluginContext.PluginID));
+
+                return;
             }
 
-            // Plugins nebenläufig ausführen
-            foreach (var application in Dictionary.Values)
+            foreach (var applicationItem in Dictionary[pluginContext].Values)
             {
+                // Initialize application
+                applicationItem.Application.Initialization(applicationItem.Context);
+                Context.Log.Info(message: I18N("webexpress:applicationmanager.application.initialization", applicationItem.Context.ApplicationID));
+
+                // Run the application concurrently
                 Task.Run(() =>
                 {
-                    Context.Log.Info(message: I18N("webexpress:applicationmanager.application.processing.start"), args: application.Context.ApplicationID);
+                    Context.Log.Info(message: I18N("webexpress:applicationmanager.application.processing.start", applicationItem.Context.ApplicationID));
 
-                    application.Application.Run();
+                    applicationItem.Application.Run();
 
-                    Context.Log.Info(message: I18N("webexpress:applicationmanager.application.processing.end"), args: application.Context.ApplicationID);
+                    Context.Log.Info(message: I18N("webexpress:applicationmanager.application.processing.end", applicationItem.Context.ApplicationID));
                 });
             }
         }
 
         /// <summary>
-        /// Ausführung der Anwendungen beenden
+        /// Shutting down applications.
         /// </summary>
-        public static void ShutDown()
+        ///  <param name="pluginContext">The context of the plugin that contains the applications.</param>
+        public static void ShutDown(IPluginContext pluginContext)
         {
 
         }

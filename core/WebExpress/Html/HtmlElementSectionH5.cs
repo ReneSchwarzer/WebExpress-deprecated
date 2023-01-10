@@ -18,7 +18,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public HtmlElementSectionH5()
             : base("h5")
@@ -27,7 +27,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="text">Der Inhalt</param>
         public HtmlElementSectionH5(string text)
@@ -37,7 +37,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="nodes">Der Inhalt</param>
         public HtmlElementSectionH5(params IHtmlNode[] nodes)

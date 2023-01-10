@@ -3,7 +3,7 @@
     public class PropertyColorBackgroundBadge : PropertyColorBackground
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="color">Die Farbe</param>
         public PropertyColorBackgroundBadge(TypeColorBackground color)
@@ -12,7 +12,7 @@
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="color">Die Farbe</param>
         public PropertyColorBackgroundBadge(string color)

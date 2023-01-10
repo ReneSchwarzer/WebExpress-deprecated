@@ -1,25 +1,18 @@
-﻿using WebExpress.WebApplication;
-
-namespace WebExpress.WebModule
+﻿namespace WebExpress.WebModule
 {
     /// <summary>
-    /// Repräsentiert ein Moduleintrag im Mudulverzeichnis
+    /// Represents a module entry in the module directory.
     /// </summary>
     internal class ModuleItem
     {
         /// <summary>
-        /// Der zum Modul zugehörige Kontext
+        /// The context associated with the module.
         /// </summary>
         public IModuleContext Context { get; set; }
 
         /// <summary>
-        /// Das Modul
+        /// The module.
         /// </summary>
         public IModule Module { get; set; }
-
-        /// <summary>
-        /// Die zugehörige Anwendung
-        /// </summary>
-        public IApplicationContext Application { get; set; }
     }
 }

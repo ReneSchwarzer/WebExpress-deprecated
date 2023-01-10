@@ -20,7 +20,7 @@ namespace WebExpress.UI.WebControl
         public IUri Uri { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlSplitButtonLink(string id)
@@ -30,7 +30,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="content">Der Inhalt</param>
@@ -43,7 +43,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="content">Der Inhalt</param>
         public ControlSplitButtonLink(params IControlSplitButtonItem[] content)
@@ -55,7 +55,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="content">Der Inhalt</param>
@@ -68,7 +68,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="content">Der Inhalt</param>
@@ -107,7 +107,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
         private void Init()
         {

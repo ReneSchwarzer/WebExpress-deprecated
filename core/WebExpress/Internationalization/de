@@ -4,6 +4,7 @@ app.startup=Programmstart
 app.version=Programmversion: {0}
 app.arguments=Argumente: {0}
 app.workingdirectory=Arbeitsverzeichnis: {0}
+app.packagebase=Paketverzeichnis: {0}
 app.assetbase=Assetverzeichnis: {0}
 app.database=Datenverzeichnis: {0}
 app.configurationdirectory=Konfigurationsverzeichnis: {0}
@@ -33,6 +34,15 @@ httpserver.listener.windows=netsh http add urlacl url={0} user=Jeder listen=yes
 internationalizationmanager.initialization=Der Internationalisierungsmanager wurde initialisiert.
 internationalizationmanager.register=Das Plugin '{0}' wurde im Internationalizationmanager registriert.
 
+packagemanager.initialization=Der Paketmanager wurde initialisiert.
+packagemanager.existing=Das Paket '{0}' ist im Katalog registriert.
+packagemanager.add=Das Paket '{0}' wird im Katalog neu aufgenommen.
+packagemanager.remove=Das bestehende Paket '{0}' wird aus dem Katalog entfernt.
+packagemanager.scan=Das Verzeichnis '{0}' wird auf neue Pakete gescannt.
+packagemanager.save=Der Katalog wird gespeichert.
+packagemanager.packagenotfound=Das Paket '{0}' wurde nicht im Dateisystem gefunden.
+packagemanager.boot.notfound=Plugin '{0}' ist nicht bekannt.
+
 pluginmanager.initialization=Der Pluginmanager wurde initialisiert.
 pluginmanager.load={0}.dll wird geladen. Version = '{1}'
 pluginmanager.created=Das Plugin '{0}' wurde erstellt und im PluginManager registriert.
@@ -52,7 +62,6 @@ applicationmanager.application.processing.end=Die Ausführung der Anwendung '{0}
 modulemanager.initialization=Der Modulmanager wurde initialisiert.
 modulemanager.register=Das Modul '{0}' wurde der Anwendung '{1}' zugewiesen und im Modulmanager registriert.
 modulemanager.duplicat=Das Modul '{0}' wurde bereits in der Anwendung '{1}' registriert.
-modulemanager.applicationnotfound=Das Modul '{0}' konnte nicht der Anwendung '{1}' zugewiesen werden.
 modulemanager.applicationless=Das Modul '{0}' besitzt keine Angaben zur Anwendung.
 modulemanager.module.initialization=Das Modul '{1}' der Anwendung {0} wurde initialisiert.
 modulemanager.module.processing.start=Das Modul '{1}' der Anwendung {0} wird ausgeführt.
@@ -62,23 +71,30 @@ resourcemanager.initialization=Der Ressourcenmanager wurde initialisiert.
 resourcemanager.register={0} Ressource(n) wurden dem Modul '{1}' zugewiesen.
 resourcemanager.modulenotfound=Das Modul '{1}' wurde nicht gefunden, welches in der Ressource '{0}' angegeben wurde.
 resourcemanager.moduleless=Die Ressource '{0}' besitzt keine Angaben zum Modul.
-resourcemanager.wrongmodule=Die Ressource '{2}' ist kein Teil des Moduls {1} der Anwendung {0}.
-resourcemanager.addresource=Die Ressource '{0}' wurde in der Sitemap des Moduls '{2}' der Anwendung '{1}' registriert.
-resourcemanager.addresource.error=Die Ressource '{0}' konnte nicht hinzugefügt werden.
+resourcemanager.addresource=Die Ressource '{0}' wurde in dem Modul '{1}' registiert.
+resourcemanager.addresource.duplicate=Die Ressource '{0}' des Moduls '{1}' ist bereits hinzugefügt worden.
+resourcemanager.addresource.error=Die Ressource '{0}' des Moduls '{1}' konnte nicht hinzugefügt werden.
 resourcemanager.sitemap=Inhalt der Sitemap für das Modul '{0}':
 resourcemanager.wrongtype=Der Type '{0}' implementiert die Schnittstelle '{1}' nicht.
 
 responsemanager.initialization=Der Responsemanagermanager wurde initialisiert.
-responsemanager.register=Status {0} wurde im Module '{2}' der Anwendung '{1}' registriert und der Ressource '{3}' zugewiesen.
-responsemanager.duplicat=Der Status {0} wurde bereits im Module '{2}' der Anwendung '{1}' registriert registriert. Die Ressource '{3}' wird daher nicht verwendet.
-responsemanager.statuscode=Ein Statuscode wurde der Ressource '{2}' für das Modul '{1}' der Andendung '{0}' nicht zugewiesen.
+responsemanager.register=Status {0} wurde im Module '{1}' registriert und der Statusseite '{2}' zugewiesen.
+responsemanager.duplicat=Der Status {0} wurde bereits im Module '{1}' registriert registriert. Die Statusseite '{2}' wird daher nicht verwendet.
+responsemanager.statuscode=Ein Statuscode wurde der Ressource '{1}' für das Modul '{0}' nicht zugewiesen.
+
+sitemapmanager.initialization=Der Sitemap-Manager wurde initialisiert.
+sitemapmanager.refresh=Die Sitemap wird neu aufgebaut.
+sitemapmanager.alreadyassigned=Der Knoten der Sitemap '{0}' ist bereits zugewiesen. Die Ressource '{1}' wird nicht in die Sitemap aufgenommen.
+sitemapmanager.addresource=Die Ressource '{0}' wurde in der Sitemap registriert.
+sitemapmanager.addresource.error=Die Ressource '{0}' konnte nicht in der Sitemap hinzugefügt werden.
+sitemapmanager.preorder={0} => {1}
 
 schedulermanager.initialization=Der Schedulemanager wurde initialisiert.
 schedulermanager.register=Das Plugin '{0}' wurde im Schedulemanager registriert.
-schedulermanager.job.register=Der Job '{2}' wurden dem Modul '{1}' der Anwendung '{0}' zugewiesen.
+schedulermanager.job.register=Der Job '{1}' wurden dem Modul '{0}' zugewiesen.
 schedulermanager.modulenotfound=Das Modul '{0}' wurde nicht gefunden.
 schedulermanager.moduleless=Der Job '{0}' besitzt keine Angaben zum Modul.
-schedulermanager.wrongmodule=Der Job '{2}' ist kein Teil des Moduls {1} der Anwendung {0}.
+schedulermanager.wrongmodule=Der Job '{1}' ist kein Teil des Moduls {0}.
 schedulermanager.job.process=Der Job '{0}' wird ausgeführt.
 schedulermanager.cron.parseerror=Syntaxfehler in der Zeitangabe eines Jobs. Der Wert '{0}' kann nicht verarbeitet werden.
 schedulermanager.cron.range=Syntaxfehler in der Zeitangabe eines Jobs. Der Wert '{0}' ist außerhalb des gültigen Bereiches.

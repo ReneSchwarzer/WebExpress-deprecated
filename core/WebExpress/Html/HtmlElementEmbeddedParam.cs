@@ -7,7 +7,7 @@
     public class HtmlElementEmbeddedParam : HtmlElement, IHtmlElementEmbedded
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public HtmlElementEmbeddedParam()
             : base("param", false)

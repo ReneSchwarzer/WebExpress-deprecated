@@ -38,7 +38,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlIcon(string id = null)
@@ -48,7 +48,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
         private void Init()
         {

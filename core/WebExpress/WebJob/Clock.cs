@@ -39,7 +39,7 @@ namespace WebExpress.WebJob
         public int Weekday => (int)DateTime.DayOfWeek;
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public Clock()
         {
@@ -49,7 +49,7 @@ namespace WebExpress.WebJob
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="dateTime">Die zu kopierende Uhrzeit</param>
         public Clock(DateTime dateTime)
@@ -58,7 +58,7 @@ namespace WebExpress.WebJob
         }
 
         /// <summary>
-        /// Copy-Konstruktor
+        /// Copy-Constructor
         /// </summary>
         /// <param name="clock">Die zu kopierende Uhr</param>
         public Clock(Clock clock)

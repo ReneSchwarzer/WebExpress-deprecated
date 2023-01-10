@@ -56,7 +56,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlBadge(string id = null)
@@ -66,7 +66,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="value">Der Wert</param>
@@ -79,7 +79,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="value">Der Wert</param>
@@ -92,7 +92,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
         private void Init()
         {

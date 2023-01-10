@@ -142,7 +142,7 @@ namespace WebExpress.UI.WebControl
         public abstract IHtmlNode Render(RenderContext context);
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public Control(string id = null)

@@ -26,7 +26,7 @@
         public string Reason { get; protected set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         protected Response()
         {

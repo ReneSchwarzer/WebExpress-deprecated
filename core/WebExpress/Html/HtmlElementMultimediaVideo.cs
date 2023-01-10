@@ -15,7 +15,7 @@
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public HtmlElementMultimediaVideo()
             : base("video", false)

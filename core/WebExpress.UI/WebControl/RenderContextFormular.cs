@@ -22,10 +22,10 @@ namespace WebExpress.UI.WebControl
         public ICollection<ValidationResult> ValidationResults { get; } = new List<ValidationResult>();
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="page">Die Seite, indem das Steuerelement gerendert wird</param>
-        /// <param name="request">Die Anfrage</param>
+        /// <param name="request">The request.</param>
         /// <param name="visualTree">Der visuelle Baum</param>
         /// <param name="formular">Das Formular, indem das Steuerelement gerendert wird</param>
         public RenderContextFormular(IPage page, Request request, IVisualTree visualTree, IControlFormular formular)
@@ -35,7 +35,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="context">Der Kontext, indem das Steuerelement gerendert wird</param>
         /// <param name="formular">Das Formular, indem das Steuerelement gerendert wird</param>
@@ -46,7 +46,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Copy-Konstruktor
+        /// Copy-Constructor
         /// </summary>
         /// <param name="context">Der zu kopierende Kontext/param>
         public RenderContextFormular(RenderContextFormular context)

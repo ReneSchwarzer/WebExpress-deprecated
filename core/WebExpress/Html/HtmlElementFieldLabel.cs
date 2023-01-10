@@ -29,7 +29,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public HtmlElementFieldLabel()
             : base("label")
@@ -38,7 +38,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="text">Der Inhalt</param>
         public HtmlElementFieldLabel(string text)
@@ -48,7 +48,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="nodes">Der Inhalt</param>
         public HtmlElementFieldLabel(params IHtmlNode[] nodes)

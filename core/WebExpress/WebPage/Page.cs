@@ -5,50 +5,48 @@ using WebExpress.WebResource;
 namespace WebExpress.WebPage
 {
     /// <summary>
-    /// Der Prototyp einer Webseite
+    /// The prototype of a website.
     /// </summary>
-    /// <typeparam name="T">Eine Implementation des Visualisierungsbaumes</typeparam>
+    /// <typeparam name="T">An implementation of the visualization tree.</typeparam>
     public abstract class Page<T> : Resource, IPage where T : RenderContext, new()
     {
         /// <summary>
-        /// Liefert oder setzt den Titel
+        /// Returns or sets the page title.
         /// </summary>
         public string Title { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
-        /// <param name="uri">Die Uri</param>
-        /// <param name="context">Der Kontext</param>
         public Page()
         {
 
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
-        /// <param name="context">Der Kontext</param>
+        /// <param name="context">The context of the resource.</param>
         public override void Initialization(IResourceContext context)
         {
             base.Initialization(context);
         }
 
         /// <summary>
-        /// Weiterleitung an eine andere Seite
-        /// Die Funktion löst die RedirectException aus
+        /// Redirect to another page.
+        /// The function throws the RedirectException.
         /// </summary>
-        /// <param name="uri">Die URL zu der weitergeleitet werden soll</param>
+        /// <param name="uri">The uri to redirect to.</param>
         public void Redirecting(IUri uri)
         {
             throw new RedirectException(uri?.ToString());
         }
 
         /// <summary>
-        /// Verarbeitung
+        /// Processing of the resource.
         /// </summary>
-        /// <param name="request">Die Anfrage</param>
-        /// <returns>Die Antwort</returns>
+        /// <param name="request">The request.</param>
+        /// <returns>The response.</returns>
         public override Response Process(Request request)
         {
             var context = new T()
@@ -66,9 +64,9 @@ namespace WebExpress.WebPage
         }
 
         /// <summary>
-        /// Verarbeitung
+        /// Processing of the resource.
         /// </summary>
-        /// <param name="context">Der Kontext zum Rendern der Seite</param>
+        /// <param name="context">The context for rendering the page.</param>
         public abstract void Process(T context);
     }
 }

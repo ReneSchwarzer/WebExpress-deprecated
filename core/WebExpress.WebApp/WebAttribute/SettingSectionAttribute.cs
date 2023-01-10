@@ -7,7 +7,7 @@ namespace WebExpress.WebApp.WebAttribute
     public class SettingSectionAttribute : System.Attribute, IResourceAttribute
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="section">Die Sektion, indem die Einstellungsseite aufgelistet wird</param>
         public SettingSectionAttribute(SettingSection section)

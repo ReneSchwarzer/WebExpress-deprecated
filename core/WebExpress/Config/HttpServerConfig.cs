@@ -35,10 +35,10 @@ namespace WebExpress.Config
         public LimitConfig Limit { get; set; }
 
         /// <summary>
-        /// Verzeichnis, indem sich die zu ladenden Plugins befinden
+        /// Verzeichnis, indem sich die Pakete befinden
         /// </summary>
-        [XmlElement("deployment")]
-        public string Deployment { get; set; }
+        [XmlElement("packages")]
+        public string PackageBase { get; set; }
 
         /// <summary>
         /// Root-Verzeichnis der Assets
@@ -53,7 +53,7 @@ namespace WebExpress.Config
         public string DataBase { get; set; }
 
         /// <summary>
-        /// Der Basispfad des WebServers
+        /// Der URI-Basispfad des WebServers
         /// </summary>
         [XmlElement("contextpath")]
         public string ContextPath { get; set; }
@@ -71,7 +71,7 @@ namespace WebExpress.Config
         public SettingLogItem Log { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public HttpServerConfig()
         {

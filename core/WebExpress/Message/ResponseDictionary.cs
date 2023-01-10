@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using WebExpress.WebModule;
+using WebExpress.WebPlugin;
 
 namespace WebExpress.Message
 {
-    public class ResponseDictionary : Dictionary<IModuleContext, Dictionary<int, Type>>
+    /// <summary>
+    /// key = plugin context
+    /// value = { key = statuscode, value = status page type}
+    /// </summary>
+    public class ResponseDictionary : Dictionary<IPluginContext, Dictionary<int, Type>>
     {
     }
 }

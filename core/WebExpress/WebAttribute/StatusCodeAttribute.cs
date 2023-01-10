@@ -3,7 +3,7 @@
     public class StatusCodeAttribute : System.Attribute, IApplicationAttribute
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="status">Der Statuscode</param>
         public StatusCodeAttribute(int status)

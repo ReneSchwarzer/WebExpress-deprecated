@@ -1,5 +1,4 @@
 ﻿using WebExpress.UI.WebComponent;
-using WebExpress.WebApp.SettingPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebModule;
 
@@ -15,20 +14,21 @@ namespace WebExpress.WebApp
     public sealed class Module : IModule
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public Module()
         {
         }
 
         /// <summary>
-        /// Initialisierung des Moduls. Hier können z.B. verwaltete Ressourcen geladen werden. 
+        /// Initialization des Moduls. Hier können z.B. verwaltete Ressourcen geladen werden. 
         /// </summary>
         /// <param name="context">Der Kontext, welcher für die Ausführung des Plugins gilt</param>
         public void Initialization(IModuleContext context)
         {
-            ComponentManager.Register(context.Application);
-            SettingPageManager.Register(context.Application);
+            //ComponentManager.Register(new[] { context.PluginContext });
+            //SettingPageManager.Register(context.PluginContext);
+            //IdentityManager.Register(context);
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace WebExpress.WebApp
         }
 
         /// <summary>
-        /// Freigeben von nicht verwalteten Ressourcen, welche wärend der Verwendung reserviert wurden.
+        /// Freigeben von nicht verwalteten Ressourcen, welche während der Verwendung reserviert wurden.
         /// </summary>
         public void Dispose()
         {

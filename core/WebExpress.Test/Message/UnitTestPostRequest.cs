@@ -125,7 +125,7 @@ namespace WebExpress.Test.Message
         {
             using var reader = new BinaryReader(new FileStream(Path.Combine("test", "contentTypeMultipartFormData4.post"), FileMode.Open));
             var contextFeatures = Prepare(reader, RequestMethod.POST, "");
-            var request = new WebExpress.Message.Request(contextFeatures);
+            var request = new WebExpress.Message.Request(contextFeatures, null);
             var param = request?.GetParameter("submit-formular-inventory")?.Value;
 
             Assert.True

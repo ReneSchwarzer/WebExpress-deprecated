@@ -10,7 +10,7 @@ namespace WebExpress.Html
         public string Value { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public HtmlText()
         {
@@ -18,7 +18,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="value">Der Text</param>
         public HtmlText(string value)

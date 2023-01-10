@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
-using WebExpress.WebApplication;
 using WebExpress.WebAttribute;
 using WebExpress.WebCondition;
-using WebExpress.WebModule;
 using WebExpress.WebPage;
 using WebExpress.WebPlugin;
 using static WebExpress.Internationalization.InternationalizationManager;
@@ -15,25 +12,25 @@ using static WebExpress.Internationalization.InternationalizationManager;
 namespace WebExpress.UI.WebComponent
 {
     /// <summary>
-    /// Komponentenverwaltung
+    /// Component Management
     /// </summary>
     public class ComponentManager
     {
         /// <summary>
-        /// Liefert oder setzt den Verweis auf Kontext des Plugins
+        /// Returns the reference to the context of the host.
         /// </summary>
-        private static IPluginContext Context { get; set; }
+        private static IHttpServerContext Context { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt das Verzeichnis, indem die Kompomenten gelistet sind
+        /// Delivers or sets the directory where the components are listed.
         /// </summary>
         private static ComponentDictionary Dictionary { get; set; } = new ComponentDictionary();
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
-        /// <param name="context">Der Verweis auf den Kontext des Plugins</param>
-        internal static void Initialization(IPluginContext context)
+        /// <param name="context">The reference to the context of the host.</param>
+        internal static void Initialization(IHttpServerContext context)
         {
             Context = context;
 
@@ -41,121 +38,140 @@ namespace WebExpress.UI.WebComponent
         }
 
         /// <summary>
-        /// Fügt Anwendungs-Einträge aus allen geladenen Plugins hinzu
+        /// Discovers and registers the components from the specified plugins.
         /// </summary>
-        /// <param name="application">Die Anwendung, welche die Komponenten zugewiesen werden</param>
-        public static void Register(IApplicationContext application)
+        /// <param name="pluginContexts">A list with plugin contexts that contain the components.</param>
+        internal static void Register(IEnumerable<IPluginContext> pluginContexts)
         {
-            foreach (var module in ModuleManager.Modules.Where(x => x.Application.ApplicationID == application.ApplicationID))
+            foreach (var pluginContext in pluginContexts)
             {
-                Register(module);
-            }
-        }
-
-        /// <summary>
-        /// Fügt die Komponenten-Schlüssel-Wert-Paare aus dem angegebenen Modul hinzu
-        /// </summary>
-        /// <param name="module">Das Modul, welches die einzufügenden Schlüssel-Wert-Paare enthällt</param>
-        internal static void Register(IModuleContext module)
-        {
-            var assemblyName = module.Assembly.GetName().Name.ToLower();
-
-            foreach (var component in module.Assembly.GetTypes().Where(x => x.IsClass && x.IsSealed && (x.GetInterfaces().Contains(typeof(IComponent)) || x.GetInterfaces().Contains(typeof(IComponentDynamic)))))
-            {
-                var moduleID = string.Empty;
-                var pluginContext = new List<string>();
-                var section = string.Empty;
-                var conditions = new List<ICondition>();
-                var cache = false;
-                var order = 0;
-
-                // Attribute ermitteln
-                foreach (var customAttribute in component.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IModuleAttribute))))
+                // register plugin
+                if (!Dictionary.ContainsKey(pluginContext))
                 {
-                    if (customAttribute.AttributeType == typeof(ModuleAttribute))
-                    {
-                        moduleID = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
-                    }
+                    Dictionary.Add(pluginContext, new Dictionary<string, ComponentDictionaryItem>());
                 }
 
-                foreach (var customAttribute in component.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IResourceAttribute))))
-                {
-                    if (customAttribute.AttributeType == typeof(ContextAttribute))
-                    {
-                        pluginContext.Add(customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower());
-                    }
-                    else if (customAttribute.AttributeType == typeof(ConditionAttribute))
-                    {
-                        var condition = (Type)customAttribute.ConstructorArguments.FirstOrDefault().Value;
+                var pluginDictionary = Dictionary[pluginContext];
+                var assembly = pluginContext.Assembly;
 
-                        if (condition.GetInterfaces().Contains(typeof(ICondition)))
+                foreach (var component in assembly.GetTypes().Where(x => x.IsClass && x.IsSealed && (x.GetInterfaces().Contains(typeof(IComponent)) || x.GetInterfaces().Contains(typeof(IComponentDynamic)))))
+                {
+                    var appID = string.Empty;
+                    var resourceContextFilter = new List<string>();
+                    var section = string.Empty;
+                    var conditions = new List<ICondition>();
+                    var cache = false;
+                    var order = 0;
+
+                    // determining attributes
+                    foreach (var customAttribute in component.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IModuleAttribute))))
+                    {
+                        if (customAttribute.AttributeType == typeof(ApplicationAttribute))
                         {
-                            conditions.Add(condition?.Assembly.CreateInstance(condition?.FullName) as ICondition);
+                            appID = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
+                        }
+                    }
+
+                    foreach (var customAttribute in component.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IResourceAttribute))))
+                    {
+                        if (customAttribute.AttributeType == typeof(ContextAttribute))
+                        {
+                            resourceContextFilter.Add(customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower());
+                        }
+                        else if (customAttribute.AttributeType == typeof(ConditionAttribute))
+                        {
+                            var condition = (Type)customAttribute.ConstructorArguments.FirstOrDefault().Value;
+
+                            if (condition.GetInterfaces().Contains(typeof(ICondition)))
+                            {
+                                conditions.Add(condition?.Assembly.CreateInstance(condition?.FullName) as ICondition);
+                            }
+                            else
+                            {
+                                Context.Log.Warning(message: I18N("webexpress.ui:componentmanager.wrongtype", condition.Name, typeof(ICondition).Name));
+                            }
+                        }
+                        else if (customAttribute.AttributeType == typeof(CacheAttribute))
+                        {
+                            cache = true;
+                        }
+                    }
+
+                    foreach (var customAttribute in component.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IComponentAttribute))))
+                    {
+                        if (customAttribute.AttributeType == typeof(SectionAttribute))
+                        {
+                            section = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
+                        }
+                        else if (customAttribute.AttributeType == typeof(OrderAttribute))
+                        {
+                            try
+                            {
+                                order = Convert.ToInt32(customAttribute.ConstructorArguments.FirstOrDefault().Value);
+                            }
+                            catch
+                            {
+                            }
+                        }
+                    }
+
+                    // set default
+                    if (string.IsNullOrWhiteSpace(appID))
+                    {
+                        appID = "*";
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(section))
+                    {
+                        // register components
+                        if (!pluginDictionary.ContainsKey(appID))
+                        {
+                            pluginDictionary.Add(appID, new ComponentDictionaryItem());
+                        }
+
+                        var dictItem = pluginDictionary[appID];
+
+                        if (resourceContextFilter.Count > 0)
+                        {
+                            foreach (var context in resourceContextFilter)
+                            {
+                                var key = string.Join(":", section, context);
+
+                                if (!dictItem.ContainsKey(key))
+                                {
+                                    dictItem.Add(key, new List<ComponentItem>());
+                                }
+
+                                dictItem[key].Add(new ComponentItem()
+                                {
+                                    Context = new ComponentContext()
+                                    {
+                                        PluginContext = pluginContext,
+                                        ApplicationID = appID,
+                                        Conditions = conditions,
+                                        Cache = cache,
+                                        Log = Context.Log
+                                    },
+                                    Component = component,
+                                    Order = order
+                                });
+
+                                Context.Log.Info(message: I18N("webexpress.ui:componentmanager.register", component.Name, key, appID));
+                            }
                         }
                         else
                         {
-                            Context.Log.Warning(message: I18N("webexpress.ui:componentmanager.wrongtype"), args: new object[] { condition.Name, typeof(ICondition).Name });
-                        }
-                    }
-                    else if (customAttribute.AttributeType == typeof(CacheAttribute))
-                    {
-                        cache = true;
-                    }
-                }
-
-                foreach (var customAttribute in component.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IComponentAttribute))))
-                {
-                    if (customAttribute.AttributeType == typeof(SectionAttribute))
-                    {
-                        section = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
-                    }
-                    else if (customAttribute.AttributeType == typeof(OrderAttribute))
-                    {
-                        try
-                        {
-                            order = Convert.ToInt32(customAttribute.ConstructorArguments.FirstOrDefault().Value);
-                        }
-                        catch
-                        {
-                        }
-                    }
-                }
-
-                // Standard für Anwendung festlegen
-                if (string.IsNullOrWhiteSpace(moduleID))
-                {
-                    moduleID = "*";
-                }
-
-                if (!string.IsNullOrWhiteSpace(section))
-                {
-                    // Komponenten registrieren
-                    if (!Dictionary.ContainsKey(moduleID))
-                    {
-                        Dictionary.Add(moduleID, new ComponentDictionaryItem());
-                    }
-
-                    var dictItem = Dictionary[moduleID];
-
-                    if (pluginContext.Count > 0)
-                    {
-                        foreach (var context in pluginContext)
-                        {
-                            var key = string.Join(":", section, context);
-
-                            if (!dictItem.ContainsKey(key))
+                            if (!dictItem.ContainsKey(section))
                             {
-                                dictItem.Add(key, new List<ComponentItem>());
+                                dictItem.Add(section, new List<ComponentItem>());
                             }
 
-                            dictItem[key].Add(new ComponentItem()
+                            dictItem[section].Add(new ComponentItem()
                             {
                                 Context = new ComponentContext()
                                 {
-                                    Application = module.Application,
-                                    Assembly = module.Assembly,
-                                    Plugin = module.Plugin,
-                                    Module = module,
+                                    PluginContext = pluginContext,
+                                    ApplicationID = appID,
                                     Conditions = conditions,
                                     Cache = cache,
                                     Log = Context.Log
@@ -164,87 +180,52 @@ namespace WebExpress.UI.WebComponent
                                 Order = order
                             });
 
-                            Context.Log.Info(message: I18N("webexpress.ui:componentmanager.register"), args: new object[] { component.Name, key, moduleID, module.Application.ApplicationID });
+                            Context.Log.Info(message: I18N("webexpress.ui:componentmanager.register", component.Name, section, appID));
                         }
+
                     }
-                    else
+                    else if (string.IsNullOrWhiteSpace(section))
                     {
-                        if (!dictItem.ContainsKey(section))
-                        {
-                            dictItem.Add(section, new List<ComponentItem>());
-                        }
-
-                        dictItem[section].Add(new ComponentItem()
-                        {
-                            Context = new ComponentContext()
-                            {
-                                Application = module.Application,
-                                Assembly = module.Assembly,
-                                Plugin = module.Plugin,
-                                Module = module,
-                                Conditions = conditions,
-                                Cache = cache,
-                                Log = Context.Log
-                            },
-                            Component = component,
-                            Order = order
-                        });
-
-                        Context.Log.Info(message: I18N("webexpress.ui:componentmanager.register"), args: new object[] { component.Name, section, moduleID, module.Application.ApplicationID });
+                        Context.Log.Info(message: I18N("componentmanager.error.section"));
                     }
 
                 }
-                else if (string.IsNullOrWhiteSpace(section))
-                {
-                    Context.Log.Info(message: I18N("componentmanager.error.section"));
-                }
 
-            }
-
-            foreach (var modules in Dictionary)
-            {
-                foreach (var section in modules.Value)
+                foreach (var modules in pluginDictionary)
                 {
-                    section.Value.Sort(new ComponentItemComparer());
+                    foreach (var section in modules.Value)
+                    {
+                        section.Value.Sort(new ComponentItemComparer());
+                    }
                 }
             }
         }
 
         /// <summary>
-        /// Entfernt alle Internationalisierungs-Schlüssel-Wert-Paare, welche dem angegebenen Plugin zugeordnet sind
+        /// Removes all components associated with the specified plugin context.
         /// </summary>
-        /// <param name="plugin">Das Plugin, welches die zu entfernenden Schlüssel-Wert-Paare enthällt</param>
-        public static void Remove(IPlugin plugin)
+        /// <param name="pluginContext">The context of the plugin that contains the components to remove.</param>
+        public static void Remove(IPluginContext pluginContext)
         {
-            //Remove(plugin.GetType().Assembly, plugin.Context.ApplicationID);
+            Dictionary.Remove(pluginContext);
         }
 
         /// <summary>
-        /// Entfernt alle Internationalisierungs-Schlüssel-Wert-Paare, welche dem angegebenen Plugin zugeordnet sind
+        /// Determines all components that match the parameters.
         /// </summary>
-        /// <param name="assembly">Das Assembly, welches die zu entfernenden Schlüssel-Wert-Paare enthällt</param>
-        /// <param name="application">Die Anwendung, welche die Internationalisierungsdaten zugewiesen werden</param>
-        internal static void Remove(Assembly assembly, string application)
-        {
-            throw new NotImplementedException("todo");
-        }
-
-        /// <summary>
-        /// Ermittelt alle Komponenten, die den Parametern entsprechen
-        /// </summary>
-        /// <param name="section">Die Sektion, indem die Komponente eingebettet wird</param>
-        /// <param name="application">Die ArtefactID der Anwendung (z.B. Webexpress)</param>
-        /// <param name="page">Die Seite, welche die Komponenten aufnimmt</param>
-        /// <param name="resourceContext">Der Kontext der Ressource</param>
-        /// <returns>Eine Liste mit Komponenten</returns>
-        public static IEnumerable<ComponentCacheItem> CacheComponent<T>(IApplicationContext application, string section, IPage page, IReadOnlyList<string> resourceContext = null) where T : IControl
+        /// <param name="section">The section where the component is embedded.</param>
+        /// <param name="page">The page that holds the components.</param>
+        /// <param name="resourceContextFilter">The context where the components exists.</param>
+        /// <returns>A list of components.</returns>
+        public static IEnumerable<ComponentCacheItem> CacheComponent<T>(string section, IPage page, IReadOnlyList<string> resourceContextFilter = null) where T : IControl
         {
             var list = new List<ComponentCacheItem>();
-            var appID = application?.ApplicationID?.ToLower();
+            var appID = page?.ApplicationContext?.ApplicationName?.ToLower();
+            var pluginDictionary = Dictionary.ContainsKey(page.ResourceContext.PluginContext) ? Dictionary[page.ResourceContext.PluginContext] : null;
 
-            if (Dictionary.ContainsKey("*"))
+            if (pluginDictionary.ContainsKey("*"))
             {
-                var dictItem = Dictionary["*"];
+                var dictItem = pluginDictionary["*"];
                 var sectionKey = section?.ToLower();
 
                 if (dictItem.ContainsKey(sectionKey))
@@ -256,9 +237,9 @@ namespace WebExpress.UI.WebComponent
                     list.AddRange(components);
                 }
 
-                if (resourceContext != null)
+                if (resourceContextFilter != null)
                 {
-                    foreach (var context in resourceContext)
+                    foreach (var context in resourceContextFilter)
                     {
                         sectionKey = string.Join(":", section?.ToLower(), context?.ToLower());
 
@@ -266,14 +247,14 @@ namespace WebExpress.UI.WebComponent
                         {
                             var components = dictItem[sectionKey].Where(x => x.Component.GetInterfaces()
                             .Contains(typeof(T)))
-                            .Where(x => x.Context.Application?.ApplicationID == appID)
+                            .Where(x => x.Context.ApplicationID == appID)
                             .Select(x => new ComponentCacheItem(x.Context, x.Component)).ToList();
 
                             list.AddRange(components);
 
                             components = dictItem[sectionKey].Where(x => x.Component.GetInterfaces()
                             .Contains(typeof(IComponentDynamic)))
-                            .Where(x => x.Context.Application?.ApplicationID == appID)
+                            .Where(x => x.Context.ApplicationID == appID)
                             .Select(x => new ComponentCacheItem(x.Context, x.Component)).ToList();
 
                             list.AddRange(components);
@@ -284,24 +265,24 @@ namespace WebExpress.UI.WebComponent
                 if (appID == "*") return list;
             }
 
-            if (Dictionary.ContainsKey(appID))
+            if (pluginDictionary.ContainsKey(appID))
             {
-                var dictItem = Dictionary[appID];
+                var dictItem = pluginDictionary[appID];
                 var sectionKey = section?.ToLower();
 
                 if (dictItem.ContainsKey(sectionKey))
                 {
                     var components = dictItem[sectionKey].Where(x => x.Component.GetInterfaces()
                         .Contains(typeof(T)))
-                        .Where(x => x.Context.Application?.ApplicationID == appID)
+                        .Where(x => x.Context.ApplicationID == appID)
                         .Select(x => new ComponentCacheItem(x.Context, x.Component)).ToList();
 
                     list.AddRange(components);
                 }
 
-                if (resourceContext != null)
+                if (resourceContextFilter != null)
                 {
-                    foreach (var context in resourceContext)
+                    foreach (var context in resourceContextFilter)
                     {
                         sectionKey = string.Join(":", section?.ToLower(), context?.ToLower());
 
@@ -309,14 +290,14 @@ namespace WebExpress.UI.WebComponent
                         {
                             var components = dictItem[sectionKey].Where(x => x.Component.GetInterfaces()
                             .Contains(typeof(T)))
-                            .Where(x => x.Context.Application?.ApplicationID == appID)
+                            .Where(x => x.Context.ApplicationID == appID)
                             .Select(x => new ComponentCacheItem(x.Context, x.Component)).ToList();
 
                             list.AddRange(components);
 
                             components = dictItem[sectionKey].Where(x => x.Component.GetInterfaces()
                             .Contains(typeof(IComponentDynamic)))
-                            .Where(x => x.Context.Application?.ApplicationID == appID)
+                            .Where(x => x.Context.ApplicationID == appID)
                             .Select(x => new ComponentCacheItem(x.Context, x.Component)).ToList();
 
                             list.AddRange(components);
@@ -327,6 +308,5 @@ namespace WebExpress.UI.WebComponent
 
             return list.Distinct();
         }
-
     }
 }

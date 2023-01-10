@@ -8,7 +8,7 @@ webexpress.ui.treeCtrl = class extends webexpress.ui.events {
     _nodes = [];
 
     /**
-     * Konstruktor
+     * Constructor
      * @param settings Optionen zur Gestaltung des Steuerelementes
      *        - id Die ID des Steuerelements
      *        - css CSS-Klasse zur Gestaltung des Steuerelementes

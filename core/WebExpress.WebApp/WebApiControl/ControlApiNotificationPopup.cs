@@ -14,7 +14,7 @@ namespace WebExpress.WebApp.WebApiControl
     public class ControlApiNotificationPopup : ControlPanel
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die Steuerelement-ID</param>
         public ControlApiNotificationPopup(string id = null)

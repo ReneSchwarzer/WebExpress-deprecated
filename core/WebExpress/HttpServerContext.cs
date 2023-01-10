@@ -7,76 +7,83 @@ using WebExpress.Uri;
 namespace WebExpress
 {
     /// <summary>
-    /// Der Kontext des Http-Servers
+    /// The context of the http server.
     /// </summary>
     public class HttpServerContext : IHttpServerContext
     {
         /// <summary>
-        /// Liefert die Uri des Webservers
+        /// Returns the uri of the web server.
         /// </summary>
         public string Uri { get; protected set; }
 
         /// <summary>
-        /// Liefert die Endpunkte, auf die der Webserver reagiert
+        /// Returns the endpoints to which the web server responds.
         /// </summary>
         public ICollection<EndpointConfig> Endpoints { get; protected set; }
 
         /// <summary>
-        /// Liefert die Version des Http-Servers 
+        /// Returns the version of the http(s) server.
         /// </summary>
         public string Version { get; protected set; }
 
         /// <summary>
-        /// Liefert oder setzt das Asset-Basisverzeichnis
+        /// Returns the package home directory.
+        /// </summary>
+        public string PackagePath { get; protected set; }
+
+        /// <summary>
+        /// Returns the asset home directory.
         /// </summary>
         public string AssetPath { get; protected set; }
 
         /// <summary>
-        /// Liefert oder setzt das Daten-Basisverzeichnis
+        /// Returns the data home directory.
         /// </summary>
         public string DataPath { get; protected set; }
 
         /// <summary>
-        /// Liefert oder setzt das Konfigurationserzeichnis
+        /// Returns the configuration directory.
         /// </summary>
         public string ConfigPath { get; protected set; }
 
         /// <summary>
-        /// Liefert den Basispfad 
+        /// Returns the basic context path.
         /// </summary>
         public IUri ContextPath { get; protected set; }
 
         /// <summary>
-        /// Liefert oder setzt die Kultur
+        /// Returns the culture.
         /// </summary>
         public CultureInfo Culture { get; protected set; }
 
         /// <summary>
-        /// Liefert oder setzt das Log, zum schreiben von Statusnachrichten auf die Konsole und in eine Log-Datei
+        /// Returns the log for writing status messages to the console and to a log file.
         /// </summary>
         public Log Log { get; protected set; }
 
         /// <summary>
-        /// Liefert den Host
+        /// Returns the host.
         /// </summary>
         public IHost Host { get; protected set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
-        /// <param name="uri">Die URI des Webservers</param>
-        /// <param name="endpoints">Die Uri des Servers</param>
-        /// <param name="assetBaseFolder">Daten-Basisverzeichnis</param>
-        /// <param name="dataBaseFolder">Daten-Basisverzeichnis</param>
-        /// <param name="configBaseFolder">Konfigurationserzeichnis</param>
-        /// <param name="contextPath">Der Basispfad des Servers</param>
-        /// <param name="culture">Die Kultur</param>
-        /// <param name="log">Log</param>
-        /// <param name="host">Log</param>
+        /// <param name="uri">The uri of the web server.</param>
+        /// <param name="endpoints">The endpoints to which the web server responds.</param>
+        /// <param name="packageBaseFolder">The package home directory.chnis</param>
+        /// <param name="assetBaseFolder">The asset home directory.</param>
+        /// <param name="dataBaseFolder">The data home directory.</param>
+        /// <param name="configBaseFolder">The configuration directory.</param>
+        /// <param name="contextPath">The basic context path.</param>
+        /// <param name="culture">The culture.</param>
+        /// <param name="log">The log.</param>
+        /// <param name="host">The host.</param>
         public HttpServerContext
         (
             string uri,
             ICollection<EndpointConfig> endpoints,
+            string packageBaseFolder,
             string assetBaseFolder,
             string dataBaseFolder,
             string configBaseFolder,
@@ -91,6 +98,7 @@ namespace WebExpress
 
             Uri = uri;
             Endpoints = endpoints;
+            PackagePath = packageBaseFolder;
             AssetPath = assetBaseFolder;
             DataPath = dataBaseFolder;
             ConfigPath = configBaseFolder;

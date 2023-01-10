@@ -10,7 +10,7 @@ namespace WebExpress.UI.WebControl
         public ControlFormularItemGroup Group { get; private set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="context">Der Kontext, indem das Steuerelement gerendert wird</param>
         /// <param name="formular">Das Formular, indem das Steuerelement gerendert wird</param>
@@ -21,7 +21,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="context">Der Kontext, indem das Steuerelement gerendert wird</param>
         /// <param name="group">Die Gruppe</param>

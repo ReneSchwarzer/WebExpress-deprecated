@@ -7,7 +7,7 @@ using WebExpress.WebPage;
 namespace WebExpress.WebApp.WebApiControl
 {
     /// <summary>
-    /// Dialog, welcher die Fortschrittsanzeige eines WebTask enthällt
+    /// Dialog, welcher die Fortschrittsanzeige eines WebTask enthält
     /// </summary>
     public class ControlApiModalProgressTaskState : ControlModal
     {
@@ -22,7 +22,7 @@ namespace WebExpress.WebApp.WebApiControl
         private ControlText Message { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlApiModalProgressTaskState(string id)

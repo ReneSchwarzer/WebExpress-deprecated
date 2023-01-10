@@ -9,7 +9,7 @@ namespace WebExpress.WebApp.SettingPage
         /// Fügt eine Seite hinzu
         /// </summary>
         /// <param name="applicationID">Die AnwendungsID</param>
-        /// <param name="context">Der Kontext</param>
+        /// <param name="context">The context.</param>
         /// <param name="section">Die Sektion</param>
         /// <param name="group">Die Gruppe</param>
         /// <param name="page">Die einzufügende Seite</param>
@@ -66,7 +66,7 @@ namespace WebExpress.WebApp.SettingPage
         /// Liefere alle Sektionen, welche den seleben Settingkontext besitzen
         /// </summary>
         /// <param name="applicationID">Die AnwendungsID</param>
-        /// <param name="context">Der Kontext</param>
+        /// <param name="context">The context.</param>
         /// <returns>Eine Auflistung aller Sektionen des gleichen Kontextes</returns>
         /// <summary>
         public SettingPageDictionaryItemSection GetSections(string applicationID, string context)

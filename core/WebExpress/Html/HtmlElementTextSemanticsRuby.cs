@@ -13,7 +13,7 @@ namespace WebExpress.Html
         public new List<IHtmlNode> Elements => base.Elements;
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public HtmlElementTextSemanticsRuby()
             : base("ruby")
@@ -22,7 +22,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="nodes">Der Inhalt</param>
         public HtmlElementTextSemanticsRuby(params IHtmlNode[] nodes)
@@ -32,7 +32,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="nodes">Der Inhalt</param>
         public HtmlElementTextSemanticsRuby(IEnumerable<IHtmlNode> nodes)

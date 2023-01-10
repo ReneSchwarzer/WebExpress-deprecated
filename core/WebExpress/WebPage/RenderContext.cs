@@ -10,22 +10,22 @@ namespace WebExpress.WebPage
     public class RenderContext : II18N
     {
         /// <summary>
-        /// Die Seite, indem das Steuerelement gerendert wird
+        /// The page where the control is rendered.
         /// </summary>
         public IPage Page { get; internal set; }
 
         /// <summary>
-        /// Liefert die Anfrage
+        /// Returns the request.
         /// </summary>
         public Request Request { get; internal set; }
 
         /// <summary>
-        /// Die Uir der Seite
+        /// The uri of the request.
         /// </summary>
         public IUri Uri => Request?.Uri;
 
         /// <summary>
-        /// Liefert die Kultur
+        /// Returns the culture.
         /// </summary>
         public CultureInfo Culture
         {
@@ -34,46 +34,46 @@ namespace WebExpress.WebPage
         }
 
         /// <summary>
-        /// Liefert den Kontext der zugehörigen Anwendung
+        /// Provides the context of the associated application.
         /// </summary>
-        public IApplicationContext Application => Page?.Context?.Application;
+        public IApplicationContext Application => Page?.ApplicationContext;
 
         /// <summary>
-        /// Liefert oder setzt die Inhalte einer Seite
+        /// Returns the contents of a page.
         /// </summary>
         public IVisualTree VisualTree { get; protected set; }
 
         /// <summary>
-        /// Liefert oder setzt das Log, zum schreiben von Statusnachrichten auf die Konsole und in eine Log-Datei
+        /// Returns the log for writing status messages to the console and to a log file.
         /// </summary>
         public Log Log { get; private set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public RenderContext()
         {
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
-        /// <param name="page">Die Seite, indem das Steuerelement gerendert wird</param>
-        /// <param name="request">Die Anfrage</param>
-        /// <param name="visualTree">Der visuelle Baum</param>
+        /// <param name="page">The page where the control is rendered.</param>
+        /// <param name="request">The request.</param>
+        /// <param name="visualTree">The visual tree.</param>
         public RenderContext(IPage page, Request request, IVisualTree visualTree)
         {
             Page = page;
             Request = request;
             VisualTree = visualTree;
             Culture = (Page as Resource).Culture;
-            Log = page.Context.Log;
+            Log = page.ResourceContext.Log;
         }
 
         /// <summary>
-        /// Copy-Konstruktor
+        /// Copy-Constructor
         /// </summary>
-        /// <param name="context">Der zu kopierende Kontext/param>
+        /// <param name="context">The context to copy./param>
         public RenderContext(RenderContext context)
             : this(context?.Page, context?.Request, context?.VisualTree)
         {

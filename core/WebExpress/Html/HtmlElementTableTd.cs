@@ -8,7 +8,7 @@ namespace WebExpress.Html
     public class HtmlElementTableTd : HtmlElement, IHtmlElementTable
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public HtmlElementTableTd()
             : base("td")
@@ -16,7 +16,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="node">Der Inhalt</param>
         public HtmlElementTableTd(IHtmlNode node)
@@ -26,7 +26,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="nodes">Der Inhalt</param>
         public HtmlElementTableTd(params IHtmlNode[] nodes)
@@ -36,7 +36,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="nodes">Der Inhalt</param>
         public HtmlElementTableTd(IEnumerable<IHtmlNode> nodes)

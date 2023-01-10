@@ -63,7 +63,7 @@ namespace WebExpress.UI.WebControl
         public List<IControlNavigationItem> Items { get; private set; } = new List<IControlNavigationItem>();
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlNavigation(string id = null)
@@ -73,7 +73,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="items">Die Linkelemente</param>
         public ControlNavigation(params IControlNavigationItem[] items)
@@ -85,7 +85,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="content">Der Inhalt</param>
@@ -98,7 +98,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="content">Der Inhalt</param>
         public ControlNavigation(IEnumerable<IControlNavigationItem> content)
@@ -110,7 +110,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
         private void Init()
         {

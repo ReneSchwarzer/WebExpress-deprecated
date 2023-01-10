@@ -8,62 +8,62 @@ namespace WebExpress.WebApplication
     public class ApplicationContext : IApplicationContext
     {
         /// <summary>
-        /// Das Assembly, welches die Anwednung enthällt
+        /// The assembly containing the application.
         /// </summary>
         public Assembly Assembly { get; internal set; }
 
         /// <summary>
-        /// Liefert den Kontext des zugehörigen Plugins
+        /// Returns the context of the associated plugin.
         /// </summary>
-        public IPluginContext Plugin { get; internal set; }
+        public IPluginContext PluginContext { get; internal set; }
 
         /// <summary>
-        /// Liefert die AnwendungsID. 
+        /// Returns the application id.
         /// </summary>
         public string ApplicationID { get; internal set; }
 
         /// <summary>
-        /// Liefert den Anwendungsnamen. 
+        /// Returns the application name.
         /// </summary>
         public string ApplicationName { get; internal set; }
 
         /// <summary>
-        /// Liefert oder setzt die Beschreibung
+        /// Returns or sets the description.
         /// </summary>
         public string Description { get; internal set; }
 
         /// <summary>
-        /// Liefert die verwendeten Optionen
+        /// Returns the options used.
         /// </summary>
         public IReadOnlyCollection<string> Options { get; internal set; }
 
         /// <summary>
-        /// Liefert das Dokumentenverzeichnis. Dieser wird in dem AssetPath des Servers eingehangen.
+        /// Returns the asset directory. This is mounted in the asset directory of the server.
         /// </summary>
         public string AssetPath { get; internal set; }
 
         /// <summary>
-        /// Liefert das Datenverzeichnis. Dieser wird in dem DataPath des Servers eingehangen.
+        /// Returns the data directory. This is mounted in the data directory of the server.
         /// </summary>
         public string DataPath { get; internal set; }
 
         /// <summary>
-        /// Liefert oder setzt den Kontextpfad Dieser wird in dem ContextPath des Servers eingehangen.
+        /// Returns the context path. This is mounted in the context path of the server.
         /// </summary>
         public IUri ContextPath { get; internal set; }
 
         /// <summary>
-        /// Liefert oder setzt die IconUrl
+        /// Returns the icon uri.
         /// </summary>
         public IUri Icon { get; internal set; }
 
         /// <summary>
-        /// Liefert oder setzt das Log, zum schreiben von Statusnachrichten auf die Konsole und in eine Log-Datei
+        /// Returns the log to write status messages to the console and to a log file.
         /// </summary>
         public Log Log { get; internal set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public ApplicationContext()
         {

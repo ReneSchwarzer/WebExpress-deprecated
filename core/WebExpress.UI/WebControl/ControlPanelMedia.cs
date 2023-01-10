@@ -28,7 +28,7 @@ namespace WebExpress.UI.WebControl
         public int ImageHeight { get; set; } = -1;
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlPanelMedia(string id = null)
@@ -38,7 +38,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="title">Die Überschrift</param>

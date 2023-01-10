@@ -15,7 +15,7 @@
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public HtmlElementMultimediaAudio()
             : base("audio", false)

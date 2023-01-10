@@ -3,7 +3,7 @@
     public class PropertyColorButton : PropertyColor<TypeColorButton>
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="color">Die Farbe</param>
         public PropertyColorButton(TypeColorButton color)
@@ -12,7 +12,7 @@
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="color">Die Farbe</param>
         public PropertyColorButton(string color)

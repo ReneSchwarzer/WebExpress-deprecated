@@ -1,51 +1,68 @@
 ﻿using WebExpress.Internationalization;
 using WebExpress.Message;
 using WebExpress.Uri;
+using WebExpress.WebApplication;
+using WebExpress.WebModule;
 
 namespace WebExpress.WebResource
 {
     public interface IResource : II18N
     {
         /// <summary>
-        /// Liefert die RessourcenID
+        /// Returns the resource ID.
         /// </summary>
         string ID { get; }
 
         /// <summary>
-        /// Liefert oder setzt den Kontext indem die Ressource existiert
+        /// Returns the context of the application.
         /// </summary>
-        IResourceContext Context { get; }
+        IApplicationContext ApplicationContext { get; }
 
         /// <summary>
-        /// Die Uri der Ressource
+        /// Returns the context of the module.
         /// </summary>
-        IUri Uri { get; }
+        IModuleContext ModuleContext { get; }
 
         /// <summary>
-        /// Initialisierung
+        /// Returns the module context where the resource exists.
         /// </summary>
-        /// <param name="context">Der Kontext</param>
-        void Initialization(IResourceContext context);
+        IResourceContext ResourceContext { get; }
 
         /// <summary>
-        /// Vorverarbeitung
+        /// Returns the uri of the resource.
         /// </summary>
-        /// <param name="request">Die Anfrage</param>
+        IUriResource Uri { get; }
+
+        /// <summary>
+        /// Returns the context path.
+        /// </summary>
+        public IUri ContextPath => ModuleContext.GetContextPath(ApplicationContext);
+
+        /// <summary>
+        /// Initialization
+        /// </summary>
+        /// <param name="resourceContext">The context of the resource.</param>
+        void Initialization(IResourceContext resourceContext);
+
+        /// <summary>
+        /// Preprocessing of the resource.
+        /// </summary>
+        /// <param name="request">The request.</param>
         void PreProcess(Request request);
 
         /// <summary>
-        /// Verarbeitung
+        /// Processing of the resource.
         /// </summary>
-        /// <param name="request">Die Anfrage</param>
-        /// <returns>Die Antwort</returns>
+        /// <param name="request">The request.</param>
+        /// <returns>The response.</returns>
         Response Process(Request request);
 
         /// <summary>
-        /// Nachbeitung
+        /// Post-processing of the resource.
         /// </summary>
-        /// <param name="request">Die Anfrage</param>
-        /// <param name="response">Die Antwort</param>
-        /// <returns>Die Antwort</returns>
+        /// <param name="request">The request.</param>
+        /// <param name="response">The response.</param>
+        /// <returns>The response.</returns>
         Response PostProcess(Request request, Response response);
     }
 }

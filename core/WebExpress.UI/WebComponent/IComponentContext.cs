@@ -1,9 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Reflection;
 using WebExpress.Internationalization;
-using WebExpress.WebApplication;
 using WebExpress.WebCondition;
-using WebExpress.WebModule;
 using WebExpress.WebPlugin;
 
 namespace WebExpress.UI.WebComponent
@@ -11,37 +8,27 @@ namespace WebExpress.UI.WebComponent
     public interface IComponentContext : II18N
     {
         /// <summary>
-        /// Das Assembly, welches die Komponente enthällt
+        /// Returns the context of the associated plugin.
         /// </summary>
-        Assembly Assembly { get; }
+        IPluginContext PluginContext { get; }
 
         /// <summary>
-        /// Liefert den Kontext des zugehörigen Plugins
+        /// Returns the application id or '*' for all applications.
         /// </summary>
-        IPluginContext Plugin { get; }
+        string ApplicationID { get; }
 
         /// <summary>
-        /// Liefert den Kontext der zugehörigen Anwendung 
-        /// </summary>
-        IApplicationContext Application { get; }
-
-        /// <summary>
-        /// Liefert das zugehörige Modul
-        /// </summary>
-        IModuleContext Module { get; }
-
-        /// <summary>
-        /// Liefert die Bedingungen, die erfüllt sein müssen, damit die Ressource aktiv ist
+        /// Returns the conditions that must be met for the component to be active.
         /// </summary>
         ICollection<ICondition> Conditions { get; }
 
         /// <summary>
-        /// Bestimmt, ob die Ressource einmalig erstellt und bei jedem Aufruf wiederverwendet wird.
+        /// Determines whether the component is created once and reused on each execution.
         /// </summary>
         bool Cache { get; }
 
         /// <summary>
-        /// Liefert oder setzt das Log, zum schreiben von Statusnachrichten auf die Konsole und in eine Log-Datei
+        /// Returns the log for writing status messages to the console and to a log file.
         /// </summary>
         Log Log { get; }
     }

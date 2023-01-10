@@ -11,7 +11,7 @@ namespace WebExpress.WebApp.WebUser
     public static class UserManager
     {
         /// <summary>
-        /// Liefert oder setzt den Verweis auf Kontext des Hostes
+        /// Returns or sets the reference to the context of the host
         /// </summary>
         private static IHttpServerContext Context { get; set; }
 
@@ -32,9 +32,9 @@ namespace WebExpress.WebApp.WebUser
 
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
-        /// <param name="context">Der Verweis auf den Kontext des Hostes</param>
+        /// <param name="context">The reference to the context of the host.</param>
         internal static void Initialization(IHttpServerContext context)
         {
             Context = context;

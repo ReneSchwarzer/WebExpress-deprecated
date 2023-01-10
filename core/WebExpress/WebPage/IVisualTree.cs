@@ -68,7 +68,7 @@ namespace WebExpress.WebPage
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
-        /// <param name="context">Der Kontext zum Rendern der Seite</param>
+        /// <param name="context">The context for rendering the page.</param>
         /// <returns>Die Seite als HTML</returns>
         IHtmlNode Render(RenderContext context);
     }

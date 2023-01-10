@@ -14,7 +14,7 @@ namespace WebExpress.Html
         public List<IHtmlNode> Elements { get; private set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public HtmlList()
         {
@@ -22,7 +22,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="nodes">Der Inhalt</param>
         public HtmlList(params IHtmlNode[] nodes)
@@ -32,7 +32,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="nodes">Der Inhalt</param>
         public HtmlList(IEnumerable<IHtmlNode> nodes)

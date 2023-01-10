@@ -3,7 +3,7 @@
     public class NameAttribute : System.Attribute, IPluginAttribute, IApplicationAttribute, IModuleAttribute
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="name">Der Name</param>
         public NameAttribute(string name)

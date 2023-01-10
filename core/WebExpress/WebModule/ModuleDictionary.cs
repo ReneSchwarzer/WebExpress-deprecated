@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
-using WebExpress.WebApplication;
+using WebExpress.WebPlugin;
 
 namespace WebExpress.WebModule
 {
     /// <summary>
-    /// Anwendung -> ID -> Item
+    /// Key = plugin context 
+    /// Value = { Key = module id, Value = module item }
     /// </summary>
-    internal class ModuleDictionary : Dictionary<IApplicationContext, Dictionary<string, ModuleItem>>
+    internal class ModuleDictionary : Dictionary<IPluginContext, Dictionary<string, ModuleItem>>
     {
     }
 }

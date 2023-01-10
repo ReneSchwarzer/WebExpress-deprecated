@@ -5,11 +5,8 @@ plugin.description=Provides basic components of a web application.
 module.name=WebExpress.WebApp
 module.description=Provides basic components of a web application.
 
-usermanager.initialization=The user manager has been initialized.
-usermanager.user.save=User '{0}' has been saved.
-usermanager.user.delete=User '{0}' has been deleted.
-usermanager.group.save=Group '{0}' has been saved.
-usermanager.group.delete=Group '{0}' has been deleted.
+identitymanager.initialization=The identity manager has been initialized.
+identitymanager.moduleless=No module was specified.
 
 header.quickcreate.label=Create
 header.help.label=Help

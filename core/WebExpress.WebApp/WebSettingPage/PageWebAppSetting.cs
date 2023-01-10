@@ -9,17 +9,17 @@ using WebExpress.WebResource;
 namespace WebExpress.WebApp.WebSettingPage
 {
     /// <summary>
-    /// Seite, welche für Einstellungen verwendet werden kann
+    /// Page that can be used for settings.
     /// </summary>
     public abstract class PageWebAppSetting : PageWebApp, IPageSetting
     {
         /// <summary>
-        /// Das Symbol der Einstellungsseite
+        /// The settings page icon.
         /// </summary>
         public PropertyIcon Icon { get; set; }
 
         /// <summary>
-        /// Liefert das Menü, indem Einstellungsseiten aufgelistet sind
+        /// Returns the menu by listing settings pages.
         /// </summary>
         public ControlNavigation SettingMenu { get; } = new ControlNavigation("settingmenu")
         {
@@ -29,7 +29,7 @@ namespace WebExpress.WebApp.WebSettingPage
         };
 
         /// <summary>
-        /// Liefert das Tab-Control, indem Einstellungsseiten aufgelistet sind
+        /// Returns the tab control by listing settings pages.
         /// </summary>
         public ControlNavigation SettingTab = new ControlNavigation("settingtab")
         {
@@ -38,35 +38,35 @@ namespace WebExpress.WebApp.WebSettingPage
         };
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
-        /// <param name="context">Der Kontext</param>
+        /// <param name="context">The context of the resource.</param>
         public override void Initialization(IResourceContext context)
         {
             base.Initialization(context);
         }
 
         /// <summary>
-        /// Verarbeitung
+        /// Processing of the setting page.
         /// </summary>
-        /// <param name="context">Der Kontext zum Rendern der Seite</param>
+        /// <param name="context">The context for rendering the page.</param>
         public override void Process(RenderContextWebApp context)
         {
             SettingMenu.Items.Clear();
             SettingTab.Items.Clear();
 
-            var path = SettingPageManager.FindPage(Context.Application.ApplicationID, ID);
+            var path = SettingPageManager.FindPage(ApplicationContext.ApplicationID, ID);
             if (path != null)
             {
-                var contexts = SettingPageManager.GetContexts(Context.Application.ApplicationID);
-                var section = SettingPageManager.GetSections(Context.Application.ApplicationID, path?.Context);
+                var contexts = SettingPageManager.GetContexts(ApplicationContext.ApplicationID);
+                var section = SettingPageManager.GetSections(ApplicationContext.ApplicationID, path?.Context);
 
-                // SettingMenü
+                // setting menu
                 AddSettingMenu(section, SettingSection.Preferences, SettingMenu, context);
                 AddSettingMenu(section, SettingSection.Primary, SettingMenu, context);
                 AddSettingMenu(section, SettingSection.Secondary, SettingMenu, context);
 
-                // SettingTab
+                // setting tab
                 foreach (var settingContext in contexts.Select(x => new { Name = x.Key, ContextName = x.Key, Sections = x.Value }).Where(x => x.Name != "*").OrderBy(x => x.Name))
                 {
                     var firstPage = settingContext.Sections.FindFirstPage();
@@ -100,12 +100,12 @@ namespace WebExpress.WebApp.WebSettingPage
         }
 
         /// <summary>
-        /// Fügt die Links der Einstellungsseiten ein
+        /// Inserts the links of the settings pages.
         /// </summary>
-        /// <param name="sections">Die Sektionen</param>
-        /// <param name="section">Die ausgewählte Sektion</param>
-        /// <param name="control">Die Sektion, welche eingefügt werden soll</param>
-        /// <param name="context">Der Kontext zum Rendern der Seite</param>
+        /// <param name="sections">The sections.</param>
+        /// <param name="section">The selected section.</param>
+        /// <param name="control">The section to be inserted.</param>
+        /// <param name="context">The context for rendering the page.</param>
         private void AddSettingMenu(SettingPageDictionaryItemSection sections, SettingSection section, ControlNavigation control, RenderContextWebApp context)
         {
             var groups = sections.GetGroups(section);
@@ -133,7 +133,6 @@ namespace WebExpress.WebApp.WebSettingPage
                         });
                     }
                 }
-
             }
         }
     }

@@ -6,62 +6,62 @@ namespace WebExpress.WebPlugin
     public class PluginContext : IPluginContext
     {
         /// <summary>
-        /// Das Assembly, welches das Plugin enthällt
+        /// The assembly that contains the plugin.
         /// </summary>
         public Assembly Assembly { get; internal set; }
 
         /// <summary>
-        /// Liefert oder setzt die ID
+        /// Returns the plugin id.
         /// </summary>
-        public string PluginId { get; internal set; }
+        public string PluginID { get; internal set; }
 
         /// <summary>
-        /// Liefert oder setzt den Name des Plugins 
+        /// Returns the name of the plugin.
         /// </summary>
         public string PluginName { get; internal set; }
 
         /// <summary>
-        /// Liefert oder setzt die HerstellerID
+        /// Returns the manufacturer of the plugin.
         /// </summary>
         public string Manufacturer { get; internal set; }
 
         /// <summary>
-        /// Liefert oder setzt die Copyright-Informationen
+        /// Returns the copyright information.
         /// </summary>
         public string Copyright { get; internal set; }
 
         /// <summary>
-        /// Liefert oder setzt die Beschreibung
+        /// Returns the description of the plugin.
         /// </summary>
         public string Description { get; internal set; }
 
         /// <summary>
-        /// Liefert oder setzt die Version
+        /// Returns the version of the plugin.
         /// </summary>
         public string Version { get; internal set; }
 
         /// <summary>
-        /// Liefert oder setzt die Lizenz-Informationen
+        /// Returns the license information.
         /// </summary>
         public string License { get; internal set; }
 
         /// <summary>
-        /// Liefert das Icon des Plugins
+        /// Returns the icon of the plugin.
         /// </summary>
         public IUri Icon { get; internal set; }
 
         /// <summary>
-        /// Liefert das Log, zum schreiben von Statusnachrichten auf die Konsole und in eine Log-Datei
+        /// Returns the log to write status messages to the console and to a log file.
         /// </summary>
         public Log Log { get; internal set; }
 
         /// <summary>
-        /// Liefert den Host-Kontext
+        /// Returns the host context.
         /// </summary>
         public IHttpServerContext Host { get; internal set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public PluginContext()
         {

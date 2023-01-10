@@ -8,7 +8,7 @@ namespace WebExpress.Html
     public class HtmlElementTextContentHr : HtmlElement, IHtmlElementTextContent
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public HtmlElementTextContentHr()
             : base("hr", false)

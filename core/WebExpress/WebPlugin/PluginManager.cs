@@ -5,32 +5,37 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using WebExpress.Uri;
+using WebExpress.WebApplication;
 using WebExpress.WebAttribute;
+using WebExpress.WebModule;
 using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.WebPlugin
 {
+    /// <summary>
+    /// The plugin manager manages the WebExpress plugins.
+    /// </summary>
     public static class PluginManager
     {
         /// <summary>
-        /// Liefert oder setzt den Verweis auf Kontext des Hostes
+        /// Returns or sets the reference to the context of the host.
         /// </summary>
         public static IHttpServerContext Context { get; private set; }
 
         /// <summary>
-        /// Liefert oder setzt das Verzeichnis, indem die Plugins gelistet sind
+        /// Returns the directory where the plugins are listed.
         /// </summary>
         private static PluginDictionary Dictionary { get; } = new PluginDictionary();
 
         /// <summary>
-        /// Liefert alle gespeicherten Plugins
+        /// Returns all plugins.
         /// </summary>
         public static ICollection<IPluginContext> Plugins => Dictionary.Values.Select(x => x.Context).ToList();
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
-        /// <param name="context">Der Verweis auf den Kontext des Hostes
+        /// <param name="context">The reference to the context of the host.</param>
         internal static void Initialization(IHttpServerContext context)
         {
             Context = context;
@@ -39,19 +44,58 @@ namespace WebExpress.WebPlugin
         }
 
         /// <summary>
-        /// Lädt und registriert die Plugins
+        /// Loads and registers the plugins that are static (i.e. located in the application's folder).
         /// </summary>
-        /// <param name="path">Das Verzeichnis, indem sich die Plugins befinden</param>
-        internal static void Register(string path)
+        /// <returns>A list of registered plugins.</returns>
+        internal static IEnumerable<IPluginContext> Register()
         {
-            if (!File.Exists(path))
-            {
-                path = Environment.CurrentDirectory;
-            }
-
+            var list = new List<IPluginContext>();
+            var path = Environment.CurrentDirectory;
             var assemblies = new List<Assembly>();
 
-            // Plugins erstellen
+            // create plugins
+            foreach (var assemblyFile in Directory.EnumerateFiles(path, "*.dll", SearchOption.TopDirectoryOnly))
+            {
+                try
+                {
+                    var assembly = Assembly.LoadFrom(assemblyFile);
+                    if (assembly != null)
+                    {
+                        assemblies.Add(assembly);
+                        Context.Log.Info(message: I18N("webexpress:pluginmanager.load"), args: new object[] { assembly.GetName().Name, assembly.GetName().Version.ToString() });
+                    }
+                }
+                catch (BadImageFormatException)
+                {
+
+                }
+            }
+
+            // register plugin
+            foreach (var assembly in assemblies)
+            {
+                list.AddRange(Register(assembly));
+            }
+
+            return list;
+        }
+
+        /// <summary>
+        /// Loads and registers the plugins from a path.
+        /// </summary>
+        /// <param name="path">The directory where the plugins are located.</param>
+        /// <returns>A list of registered plugins.</returns>
+        internal static IEnumerable<IPluginContext> Register(string path)
+        {
+            var list = new List<IPluginContext>();
+            var assemblies = new List<Assembly>();
+
+            if (!Directory.Exists(path))
+            {
+                return list;
+            }
+
+            // create plugins
             foreach (var assemblyFile in Directory.EnumerateFiles(path, "*.dll", SearchOption.AllDirectories))
             {
                 try
@@ -69,19 +113,24 @@ namespace WebExpress.WebPlugin
                 }
             }
 
-            // Plugin registrieren
+            // register plugin
             foreach (var assembly in assemblies)
             {
-                Register(assembly);
+                list.AddRange(Register(assembly));
             }
+
+            return list;
         }
 
         /// <summary>
-        /// Lädt und registriert das Plugin aus einem Assembly
+        /// Loads and registers the plugin from an assembly.
         /// </summary>
-        /// <param name="assembly">Das Assembly, indem sich das Plugins befindet</param>
-        public static void Register(Assembly assembly)
+        /// <param name="assembly">The assembly where the plugin is located.</param>
+        /// <returns>A list of registered plugins.</returns>
+        public static IEnumerable<IPluginContext> Register(Assembly assembly)
         {
+            var list = new List<IPluginContext>();
+
             try
             {
                 foreach (var type in assembly.GetExportedTypes())
@@ -119,7 +168,7 @@ namespace WebExpress.WebPlugin
                         var context = new PluginContext()
                         {
                             Assembly = type.Assembly,
-                            PluginId = id,
+                            PluginID = id,
                             PluginName = name,
                             Manufacturer = type.Assembly.GetCustomAttribute<AssemblyCompanyAttribute>()?.Company,
                             Copyright = type.Assembly.GetCustomAttribute<AssemblyCopyrightAttribute>()?.Copyright,
@@ -147,6 +196,8 @@ namespace WebExpress.WebPlugin
                         {
                             Context.Log.Warning(message: I18N("webexpress:pluginmanager.duplicate"), args: id);
                         }
+
+                        list.Add(context);
                     }
                     //else
                     //{
@@ -154,119 +205,60 @@ namespace WebExpress.WebPlugin
                     //}
                 }
             }
-            catch
+            catch (Exception ex)
             {
-
-            }
-        }
-
-        /// <summary>
-        /// Ermittelt alle Plugins
-        /// </summary>
-        /// <returns>Die Auflistung der registrierten Plugins</returns>
-        public static IEnumerable<IPluginContext> GetPlugins()
-        {
-            return Dictionary.Values.Select(x => x.Context);
-        }
-
-        /// <summary>
-        /// Ermittelt das Plugin zu einer gegebenen ID
-        /// </summary>
-        /// <param name="pluginID">Die PluginID</param>
-        /// <returns>Der Kontext des Plugins oder null</returns>
-        public static IPluginContext GetPlugin(string pluginID)
-        {
-            if (Dictionary.ContainsKey(pluginID?.ToLower()))
-            {
-                return Dictionary[pluginID?.ToLower()].Context;
+                Context.Log.Exception(ex);
             }
 
-            return null;
+            return list;
         }
 
         /// <summary>
-        /// Ermittelt ein Plugin anhand der Dateinamens
+        /// Boots the specified plugins.
         /// </summary>
-        /// <param name="pluginFileName">Der Dateiname</param>
-        /// <returns>Der Kontext des Plugins oder null</returns>
-        public static IPluginContext GetPluginByFileName(string pluginFileName)
+        /// <param name="contexts">A list with the contexts of the plugins to run.</param>
+        internal static void Boot(IEnumerable<IPluginContext> contexts)
         {
-            var pluginContext = Dictionary.Values.Where(x => x.Context.Assembly.ManifestModule.Name == pluginFileName).FirstOrDefault()?.Context;
-
-            return pluginContext;
-        }
-
-        /// <summary>
-        /// Fürt die Plugins aus
-        /// </summary>
-        internal static void Boot()
-        {
-            // Piugins initialisieren
-            foreach (var plugin in Dictionary.Values)
+            foreach (var context in contexts)
             {
+                if (!Dictionary.ContainsKey(context?.PluginID?.ToLower()))
+                {
+                    Context.Log.Warning(message: I18N("webexpress:pluginmanager.notavailable"), args: context?.PluginID);
+
+                    return;
+                }
+
+                var plugin = Dictionary[context?.PluginID?.ToLower()];
+
+                // initialize plugin
                 plugin.Plugin.Initialization(plugin.Context);
-                Context.Log.Info(message: I18N("webexpress:pluginmanager.plugin.initialization"), args: plugin.Context.PluginId);
-            }
+                Context.Log.Info(message: I18N("webexpress:pluginmanager.plugin.initialization"), args: plugin.Context.PluginID);
 
-            // Plugins nebenläufig ausführen
-            foreach (var plugin in Dictionary.Values)
-            {
+                // run plugin concurrently
                 Task.Run(() =>
                 {
-                    Context.Log.Info(message: I18N("webexpress:pluginmanager.plugin.processing.start"), args: plugin.Context.PluginId);
+                    Context.Log.Info(message: I18N("webexpress:pluginmanager.plugin.processing.start"), args: plugin.Context.PluginID);
 
                     plugin.Plugin.Run();
 
-                    Context.Log.Info(message: I18N("webexpress:pluginmanager.plugin.processing.end"), args: plugin.Context.PluginId);
+                    Context.Log.Info(message: I18N("webexpress:pluginmanager.plugin.processing.end"), args: plugin.Context.PluginID);
                 });
+
+                // booting applications
+                ApplicationManager.Boot(context);
+
+                // booting modules
+                ModuleManager.Boot(context);
             }
         }
 
         /// <summary>
-        /// Fürt die Plugins aus
+        /// Shut down the plugin.
         /// </summary>
-        /// <param name="context">Der Kontext des auszuführenden Plugins</param>
-        internal static void Boot(IPluginContext context)
-        {
-            if (!Dictionary.ContainsKey(context?.PluginId?.ToLower()))
-            {
-                Context.Log.Warning(message: I18N("webexpress:pluginmanager.notavailable"), args: context?.PluginId);
-
-                return;
-            }
-
-            var plugin = Dictionary[context?.PluginId?.ToLower()];
-
-            // Piugin initialisieren
-            plugin.Plugin.Initialization(plugin.Context);
-            Context.Log.Info(message: I18N("webexpress:pluginmanager.plugin.initialization"), args: plugin.Context.PluginId);
-
-            // Plugin nebenläufig ausführen
-            Task.Run(() =>
-            {
-                Context.Log.Info(message: I18N("webexpress:pluginmanager.plugin.processing.start"), args: plugin.Context.PluginId);
-
-                plugin.Plugin.Run();
-
-                Context.Log.Info(message: I18N("webexpress:pluginmanager.plugin.processing.end"), args: plugin.Context.PluginId);
-            });
-        }
-
-        /// <summary>
-        /// Zerstört die Plugins
-        /// </summary>
-        public static void ShutDown()
+        /// <param name="contexts">A list of contexts of plugins to shut down.</param>
+        public static void ShutDown(IEnumerable<IPluginContext> contexts)
         {
 
         }
-
-        /// <summary>
-        /// Meldet ein Plugin ab und zerstört alle darin enthaltenden Elemente
-        /// </summary>
-        public static void Unsubscribe(string name)
-        {
-
-        }
-
     }
 }

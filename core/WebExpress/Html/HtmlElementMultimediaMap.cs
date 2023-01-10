@@ -6,7 +6,7 @@
     public class HtmlElementMultimediaMap : HtmlElement, IHtmlElementMultimedia
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public HtmlElementMultimediaMap()
             : base("map", false)

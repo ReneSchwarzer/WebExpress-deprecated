@@ -32,7 +32,7 @@ namespace WebExpress.UI.WebControl
         public bool ShowBorder { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlTree(string id = null)
@@ -42,7 +42,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="items">Die Listeneinträge</param>
@@ -53,7 +53,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="items">Die Listeneinträge</param>
         public ControlTree(params ControlTreeItem[] items)
@@ -62,7 +62,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="items">Die Listeneinträge</param>
@@ -73,7 +73,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="items">Die Listeneinträge</param>
         public ControlTree(List<ControlTreeItem> items)
@@ -82,7 +82,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
         private void Init()
         {

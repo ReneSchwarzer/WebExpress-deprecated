@@ -91,7 +91,7 @@ namespace WebExpress.UI.WebControl
         public virtual string Value { get; set; } = string.Empty;
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlFormularItemInput(string id)
@@ -101,7 +101,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
         private void Init()
         {

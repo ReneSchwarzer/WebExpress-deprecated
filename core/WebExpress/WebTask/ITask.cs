@@ -35,7 +35,7 @@ namespace WebExpress.WebTask
         string Message { get; set; }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
         void Initialization();
 

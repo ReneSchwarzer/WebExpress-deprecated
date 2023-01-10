@@ -6,7 +6,7 @@ webexpress.webapp.selectionCtrl = class extends webexpress.ui.selectionCtrl {
     _spinner = $("<div class='spinner-border spinner-border-sm text-secondary' role='status'/>");
 
     /**
-     * Konstruktor
+     * Constructor
      * @param settings Optionen zur Gestaltung des Steuerelementes
      *        - ID Die ID des Steuerelements
      *        - CSS CSS-Klasse zur Gestaltung des Steuerelementes

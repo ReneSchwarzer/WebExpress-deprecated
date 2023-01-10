@@ -10,77 +10,74 @@ using WebExpress.Setting;
 namespace WebExpress
 {
     /// <summary>
-    /// Klasse zum loggen von Ereignissen in deine Log-Datei
+    /// Class for logging events to your log file
     /// 
-    /// Das Programm schreibt eine Vielzahl von Informationen in eine Ereignisprotokolldatei (Log). Das 
-    /// Protokoll wird im Log-Verzeichnis gespeichert. Der Name besteht aus dem Datum und der Endung „.log“. 
-    /// Der Aufbau ist so konzipiert, dass die Logdatei mit einem Texteditor gelesen und analysiert werden 
-    /// kann. Fehlermeldungen und Hinweise werden im Protokoll persistent (dauernd) verfügbar gemacht, somit 
-    /// eigenen sich die Ereignisprotokolldateien für die Fehleranalyse und zur Überprüfung der korrekten 
-    /// Arbeitsweise des Programms.
-    /// Das Protokoll ist in Tabellenform organisiert. In der ersten Spalte wird die Urzeit angegeben. 
-    /// Die zweite Spalte legt die Ebene des Log-Eintrages fest. In der dritten Spalte wird die Funktion 
-    /// genannt, welche den Eintrag produzierte. In der letzten Spalte wird ein Hinweis oder eine 
-    /// Fehlerbeschreibung angegeben.
+    /// The program writes a variety of information to an event log file. The log 
+    /// is stored in the log directory. The name consists of the date and the ending ".log". 
+    /// The structure is designed in such a way that the log file can be read and analyzed with a text editor.
+    /// Error messages and notes are made available persistently in the log, so the event log files 
+    /// are suitable for error analysis and for checking the correct functioning of the program. The minutes 
+    /// are organized in tabular form. In the first column, the primeval time is indicated. The second 
+    /// column defines the level of the log entry. The third column lists the function that produced the entry. 
+    /// The last column indicates a note or error description.
     /// </summary>
     /// <example>
-    /// <b>Beispiel:</b><br>
-    /// 08:26:30 Info      Program.Main                   Programmstart<br>
+    /// <b>Example:</b><br>
+    /// 08:26:30 Info      Program.Main                   Startup<br>
     /// 08:26:30 Info      Program.Main                   --------------------------------------------------<br>
-    /// 08:26:30 Info      Program.Main                   Programmversion: 0.0.0.1<br>
-    /// 08:26:30 Info      Program.Main                   Argumente: -test <br>
-    /// 08:26:30 Info      Program.Main                   Konfigurationsversion: V1<br>
-    /// 08:26:30 Info      Program.Main                   Verarbeitung: sequentiell<br>
-    /// 08:26:30 Info      Program.Main                   Imagefile wurde importiert.<br>
+    /// 08:26:30 Info      Program.Main                   Version: 0.0.0.1<br>
+    /// 08:26:30 Info      Program.Main                   Arguments: -test <br>
+    /// 08:26:30 Info      Program.Main                   Configuration version: V1<br>
+    /// 08:26:30 Info      Program.Main                   Processing: sequentiell<br>
     /// </example>
     public class Log : ILogger
     {
         /// <summary>
-        /// Aufzählung definiert die verschiedenen Log-Level
+        /// Enumeration defines the different log levels.
         /// </summary>
         public enum Level { Info, Warning, FatalError, Error, Exception, Debug, Seperartor };
 
         /// <summary>
-        /// Aufzählungen zum LogModus
+        /// Enumerations of the log mode.
         /// </summary>
         public enum Modus { Off, Append, Override };
 
         /// <summary>
-        /// Liefert oder Setzt das Encoding
+        /// Returns or sets the encoding.
         /// </summary>
         public Encoding Encoding { get; set; }
 
         /// <summary>
-        /// Logeintrag
+        /// Log entry
         /// </summary>
         public class LogItem
         {
             /// <summary>
-            /// Level des Eintrages
+            /// Level of the entry.
             /// </summary>
             private readonly Level m_level;
 
             /// <summary>
-            /// Instanz (Ort)
+            /// The instance (location).
             /// </summary>
             private readonly string m_instance;
 
             /// <summary>
-            /// Nachricht
+            /// The log message.
             /// </summary>
             private readonly string m_message;
 
             /// <summary>
-            /// Timestamp
+            /// The timestamp.
             /// </summary>
             private readonly DateTime m_timestamp;
 
             /// <summary>
-            /// Konstruktor
+            /// Constructor
             /// </summary>
-            /// <param name="level">Level</param>
-            /// <param name="instance">Modul/Funktion</param>
-            /// <param name="message">Nachricht</param>
+            /// <param name="level">The level.</param>
+            /// <param name="instance">The modul/funktion.</param>
+            /// <param name="message">The log message.</param>
             public LogItem(Level level, string instance, string message, string timePattern)
             {
                 m_level = level;
@@ -91,9 +88,9 @@ namespace WebExpress
             }
 
             /// <summary>
-            /// Konvertiert den Wert dieser Instanz in eine Zeichnkette
+            /// Converts the value of this instance to a string.
             /// </summary>
-            /// <returns>Dieser String</returns>
+            /// <returns>The log entry as a string</returns>
             public override string ToString()
             {
                 if (m_level != Level.Seperartor)
@@ -107,28 +104,28 @@ namespace WebExpress
             }
 
             /// <summary>
-            /// Liefert den Level des Eintrages
+            /// Returns the level of the entry.
             /// </summary>
             public Level Level => m_level;
 
             /// <summary>
-            /// Liefert die Instanz (Ort)
+            /// Returns the instance (location).
             /// </summary>
             public string Instance => m_instance;
 
             /// <summary>
-            /// Liefert die Nachricht
+            /// Returns the message.
             /// </summary>
             public string Message => m_message;
 
             /// <summary>
-            /// Liefert den Timestamp
+            /// Returns the timestamp.
             /// </summary>
             public DateTime Timestamp => m_timestamp;
 
 
             /// <summary>
-            /// Zeitmusterfür Logeinträge festlegen
+            /// Returns the or set the time patterns for log entries.
             /// </summary>
             public string TimePattern { set; get; }
         };
@@ -139,17 +136,17 @@ namespace WebExpress
         private const int m_seperatorWidth = 260;
 
         /// <summary>
-        /// Lebenszyklus des Workerthreads beenden
+        /// End worker thread lifecycle.
         /// </summary>
         private bool m_done = false;
 
         /// <summary>
-        /// Warteschlange für noch nicht gespeicherte Einträge
+        /// Unsaved Entries Queue.
         /// </summary>
         private readonly Queue<LogItem> m_queue = new Queue<LogItem>();
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public Log()
         {
@@ -160,22 +157,23 @@ namespace WebExpress
         }
 
         /// <summary>
-        /// Beginnt mit dem Loggen
+        /// Starts logging
         /// </summary>
-        /// <param name="path">Der Pfad indem die Datei erstellt wird</param>
+        /// <param name="path">The path where the log file is created.</param>
+        /// <param name="name">The file name of the log file.</param>
         public void Begin(string path, string name)
         {
             Filename = Path.Combine(path, name);
             m_path = path;
 
-            // Verzeichnis Überprüfen
+            // check directory
             if (!Directory.Exists(m_path))
             {
-                // Noch kein Log-Verzeichnis vorhanden -> erstellen
+                // no log directory exists yet -create >
                 Directory.CreateDirectory(m_path);
             }
 
-            // Vorhandene Logdatei löschen wenn Modus überschreiben aktiv ist
+            // Delete existing log file when overwrite mode is active
             if (LogModus == Modus.Override)
             {
                 try
@@ -187,11 +185,11 @@ namespace WebExpress
                 }
             }
 
-            // Thread erstellen
+            // create thread
             m_workerThread = new Thread(new ThreadStart(ThreadProc))
             {
 
-                // Hintergrundthread
+                // Background thread
                 IsBackground = true
             };
 
@@ -199,18 +197,18 @@ namespace WebExpress
         }
 
         /// <summary>
-        /// Beginnt mit dem Loggen
+        /// Starts logging
         /// </summary>
-        /// <param name="path">Der Pfad indem die Datei erstellt wird</param>
+        /// <param name="path">The path where the log file is created.</param>
         public void Begin(string path)
         {
             Begin(path, DateTime.Today.ToString(FilePattern) + ".log");
         }
 
         /// <summary>
-        /// Beginnt mit dem Loggen
+        /// Starts logging
         /// </summary>
-        /// <param name="settings">Die Logeinstellungen</param>
+        /// <param name="settings">The log settings</param>
         public void Begin(SettingLogItem settings)
         {
             Filename = settings.Filename;
@@ -222,19 +220,34 @@ namespace WebExpress
         }
 
         /// <summary>
-        /// Fügt eine Nachricht dem Log hinzu.
+        /// Adds a message to the log.
         /// </summary>
-        /// <param name="level">Das Level</param>
-        /// <param name="message">Die Nachricht</param>
-        /// <param name="instance">Methode, die loggen möchte</param>
-        /// <param name="line">Die Zeilennummer</param>
-        /// <param name="file">Die Quelldatei</param>
+        /// <param name="level">The Level.</param>
+        /// <param name="message">The log message.</param>
+        /// <param name="instance">Method/ function that wants to log.</param>
+        /// <param name="line">The line number.</param>
+        /// <param name="file">The source file.</param>
         protected virtual void Add(Level level, string message, [CallerMemberName] string instance = null, [CallerLineNumber] int? line = null, [CallerFilePath] string file = null)
         {
             foreach (var l in message?.Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries))
             {
                 var item = new LogItem(level, instance, l, TimePattern);
-                Console.WriteLine(item.ToString().Length > m_seperatorWidth ? item.ToString().Substring(0, m_seperatorWidth - 3) + "..." : item.ToString());
+                switch (level)
+                {
+                    case Level.Error:
+                    case Level.FatalError:
+                    case Level.Exception:
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        break;
+                    case Level.Warning:
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        break;
+                    default:
+                        break;
+                }
+
+                Console.WriteLine(item.ToString().Length > m_seperatorWidth ? item.ToString().Substring(0, m_seperatorWidth - 3) + "..." : item.ToString().PadRight(Console.WindowWidth, ' '));
+                Console.ResetColor();
 
                 lock (m_queue)
                 {
@@ -244,7 +257,7 @@ namespace WebExpress
         }
 
         /// <summary>
-        /// Eine Trennlinie mit * Zeichen
+        /// A dividing line with * characters
         /// </summary>
         public void Seperator()
         {
@@ -252,33 +265,33 @@ namespace WebExpress
         }
 
         /// <summary>
-        /// Eine Trennlinie mit benutzerdefinierten Zeichen
+        /// A separator with custom characters
         /// </summary>
-        /// <param name="sepChar">Die Nachricht</param>
+        /// <param name="sepChar">The separator.</param>
         public void Seperator(char sepChar)
         {
             Add(Level.Seperartor, "".PadRight(m_seperatorWidth, sepChar));
         }
 
         /// <summary>
-        /// Logt eine Info-Nachricht
+        /// Logs an info message.
         /// </summary>
-        /// <param name="message">Die Loggnachricht</param>
-        /// <param name="instance">Methode, die loggen möchte</param>
-        /// <param name="line">Die Zeilennummer</param>
-        /// <param name="file">Die Quelldatei</param>
+        /// <param name="message">The log message.</param>
+        /// <param name="instance">>Method/ function that wants to log.</param>
+        /// <param name="line">The line number.</param>
+        /// <param name="file">The source file.</param>
         public void Info(string message, [CallerMemberName] string instance = null, [CallerLineNumber] int? line = null, [CallerFilePath] string file = null)
         {
             Add(Level.Info, message, instance, line, file);
         }
 
         /// <summary>
-        /// Logt eine Info-Nachricht
+        /// Logs an info message.
         /// </summary>
-        /// <param name="message">Die Loggnachricht</param>
-        /// <param name="instance">Methode, die loggen möchte</param>
-        /// <param name="line">Die Zeilennummer</param>
-        /// <param name="file">Die Quelldatei</param>
+        /// <param name="message">The log message.</param>
+        /// <param name="instance">>Method/ function that wants to log.</param>
+        /// <param name="line">The line number.</param>
+        /// <param name="file">The source file.</param>
         /// <param name="args">Parameter für die Formatierung der Nachricht</param>
         public void Info(string message, [CallerMemberName] string instance = null, [CallerLineNumber] int? line = null, [CallerFilePath] string file = null, params object[] args)
         {
@@ -286,12 +299,12 @@ namespace WebExpress
         }
 
         /// <summary>
-        /// Logt eine Warnungs-Nachricht
+        /// Logs a warning message.
         /// </summary>
-        /// <param name="message">Die Nachricht</param>
-        /// <param name="instance">Methode, die loggen möchte</param>
-        /// <param name="line">Die Zeilennummer</param>
-        /// <param name="file">Die Quelldatei</param>
+        /// <param name="message">The log message.</param>
+        /// <param name="instance">>Method/ function that wants to log.</param>
+        /// <param name="line">The line number.</param>
+        /// <param name="file">The source file.</param>
         public void Warning(string message, [CallerMemberName] string instance = null, [CallerLineNumber] int? line = null, [CallerFilePath] string file = null)
         {
             Add(Level.Warning, message, instance, line, file);
@@ -300,12 +313,12 @@ namespace WebExpress
         }
 
         /// <summary>
-        /// Logt eine Warnungs-Nachricht
+        /// Logs a warning message.
         /// </summary>
-        /// <param name="message">Die Loggnachricht</param>
-        /// <param name="instance">Methode, die loggen möchte</param>
-        /// <param name="line">Die Zeilennummer</param>
-        /// <param name="file">Die Quelldatei</param>
+        /// <param name="message">The log message.</param>
+        /// <param name="instance">>Method/ function that wants to log.</param>
+        /// <param name="line">The line number.</param>
+        /// <param name="file">The source file.</param>
         /// <param name="args">Parameter für die Formatierung der Nachricht</param>
         public void Warning(string message, [CallerMemberName] string instance = null, [CallerLineNumber] int? line = null, [CallerFilePath] string file = null, params object[] args)
         {
@@ -315,12 +328,12 @@ namespace WebExpress
         }
 
         /// <summary>
-        /// Logt eine Fehler-Nachricht
+        /// Logs an error message.
         /// </summary>
-        /// <param name="message">Die Nachricht</param>
-        /// <param name="instance">Methode, die loggen möchte</param>
-        /// <param name="line">Die Zeilennummer</param>
-        /// <param name="file">Die Quelldatei</param>
+        /// <param name="message">The log message.</param>
+        /// <param name="instance">>Method/ function that wants to log.</param>
+        /// <param name="line">The line number.</param>
+        /// <param name="file">The source file.</param>
         public void Error(string message, [CallerMemberName] string instance = null, [CallerLineNumber] int? line = null, [CallerFilePath] string file = null)
         {
             Add(Level.Error, message, instance, line, file);
@@ -329,12 +342,12 @@ namespace WebExpress
         }
 
         /// <summary>
-        /// Logt eine Fehler-Nachricht
+        /// Logs an error message.
         /// </summary>
-        /// <param name="message">Die Loggnachricht</param>
-        /// <param name="instance">Methode, die loggen möchte</param>
-        /// <param name="line">Die Zeilennummer</param>
-        /// <param name="file">Die Quelldatei</param>
+        /// <param name="message">The log message.</param>
+        /// <param name="instance">>Method/ function that wants to log.</param>
+        /// <param name="line">The line number.</param>
+        /// <param name="file">The source file.</param>
         /// <param name="args">Parameter für die Formatierung der Nachricht</param>
         public void Error(string message, [CallerMemberName] string instance = null, [CallerLineNumber] int? line = null, [CallerFilePath] string file = null, params object[] args)
         {
@@ -344,12 +357,12 @@ namespace WebExpress
         }
 
         /// <summary>
-        /// Logt eine Fehler-Nachricht
+        /// Logs an error message.
         /// </summary>
-        /// <param name="message">Die Nachricht</param>
-        /// <param name="instance">Methode, die loggen möchte</param>
-        /// <param name="line">Die Zeilennummer</param>
-        /// <param name="file">Die Quelldatei</param>
+        /// <param name="message">The log message.</param>
+        /// <param name="instance">>Method/ function that wants to log.</param>
+        /// <param name="line">The line number.</param>
+        /// <param name="file">The source file.</param>
         public void FatalError(string message, [CallerMemberName] string instance = null, [CallerLineNumber] int? line = null, [CallerFilePath] string file = null)
         {
             Add(Level.FatalError, message, instance, line, file);
@@ -358,12 +371,12 @@ namespace WebExpress
         }
 
         /// <summary>
-        /// Logt eine Fehler-Nachricht
+        /// Logs an error message.
         /// </summary>
-        /// <param name="message">Die Loggnachricht</param>
-        /// <param name="instance">Methode, die loggen möchte</param>
-        /// <param name="line">Die Zeilennummer</param>
-        /// <param name="file">Die Quelldatei</param>
+        /// <param name="message">The log message.</param>
+        /// <param name="instance">>Method/ function that wants to log.</param>
+        /// <param name="line">The line number.</param>
+        /// <param name="file">The source file.</param>
         /// <param name="args">Parameter für die Formatierung der Nachricht</param>
         public void FatalError(string message, [CallerMemberName] string instance = null, [CallerLineNumber] int? line = null, [CallerFilePath] string file = null, params object[] args)
         {
@@ -373,12 +386,12 @@ namespace WebExpress
         }
 
         /// <summary>
-        /// Logt eine Exception-Nachricht
+        /// Logs an exception message.
         /// </summary>
-        /// <param name="ex">Ausnahmebeschreibung</param>
-        /// <param name="instance">Methode, die loggen möchte</param>
-        /// <param name="line">Die Zeilennummer</param>
-        /// <param name="file">Die Quelldatei</param>
+        /// <param name="ex">The exception</param>
+        /// <param name="instance">>Method/ function that wants to log.</param>
+        /// <param name="line">The line number.</param>
+        /// <param name="file">The source file.</param>
         public void Exception(Exception ex, [CallerMemberName] string instance = null, [CallerLineNumber] int? line = null, [CallerFilePath] string file = null)
         {
             lock (m_queue)
@@ -393,12 +406,12 @@ namespace WebExpress
         }
 
         /// <summary>
-        /// Logt eine Debug-Nachricht
+        /// Logs a debug message.
         /// </summary>
-        /// <param name="message">Die Nachricht</param>
-        /// <param name="instance">Methode, die loggen möchte</param>
-        /// <param name="line">Die Zeilennummer</param>
-        /// <param name="file">Die Quelldatei</param>
+        /// <param name="message">The log message.</param>
+        /// <param name="instance">>Method/ function that wants to log.</param>
+        /// <param name="line">The line number.</param>
+        /// <param name="file">The source file.</param>
         public void Debug(string message, [CallerMemberName] string instance = null, [CallerLineNumber] int? line = null, [CallerFilePath] string file = null)
         {
 #if DEBUG
@@ -407,12 +420,12 @@ namespace WebExpress
         }
 
         /// <summary>
-        /// Logt eine Debug-Nachricht
+        /// Logs a debug message.
         /// </summary>
-        /// <param name="message">Die Loggnachricht</param>
-        /// <param name="instance">Methode, die loggen möchte</param>
-        /// <param name="line">Die Zeilennummer</param>
-        /// <param name="file">Die Quelldatei</param>
+        /// <param name="message">The log message.</param>
+        /// <param name="instance">>Method/ function that wants to log.</param>
+        /// <param name="line">The line number.</param>
+        /// <param name="file">The source file.</param>
         /// <param name="args">Parameter für die Formatierung der Nachricht</param>
         public void Debug(string message, [CallerMemberName] string instance = null, [CallerLineNumber] int? line = null, [CallerFilePath] string file = null, params object[] args)
         {
@@ -422,13 +435,13 @@ namespace WebExpress
         }
 
         /// <summary>
-        /// Beendet das Logging
+        /// Stops logging.
         /// </summary>
         public void Close()
         {
             m_done = true;
 
-            // Dateischreiben vor nebenläufigen Zugriff schützen
+            // protect file writing from concurrent access
             lock (m_path)
             {
                 Flush();
@@ -436,7 +449,7 @@ namespace WebExpress
         }
 
         /// <summary>
-        /// Bereinigt das Log
+        /// Cleans up the log.
         /// </summary>
         public void Clear()
         {
@@ -446,20 +459,20 @@ namespace WebExpress
         }
 
         /// <summary>
-        /// Schreibt den Inhalt der Warteschlange in dem Log
+        /// Writes the contents of the queue to the log.
         /// </summary>
         public void Flush()
         {
             var list = new List<LogItem>();
 
-            // Warteschlange vor nebenläufigen Zugriff sperren
+            // lock queue before concurrent access
             lock (m_queue)
             {
                 list.AddRange(m_queue);
                 m_queue.Clear();
             }
 
-            // Dateischreiben vor nebenläufigen Zugriff schützen
+            // protect file writing from concurrent access
             if (list.Count > 0 && LogModus != Modus.Off)
             {
                 lock (m_path)
@@ -476,7 +489,7 @@ namespace WebExpress
         }
 
         /// <summary>
-        /// Threadstart-Funktion
+        /// Thread Start Function
         /// </summary>
         private void ThreadProc()
         {
@@ -484,7 +497,7 @@ namespace WebExpress
             {
                 Thread.Sleep(5000);
 
-                // Dateischreiben vor nebenläufigen Zugriff schützen
+                // protect file writing from concurrent access
                 lock (m_path)
                 {
                     Flush();
@@ -495,14 +508,14 @@ namespace WebExpress
         }
 
         /// <summary>
-        /// Schreibt einen Protokolleintrag.
+        /// Writes a log entry.
         /// </summary>
-        /// <typeparam name="TState">Der Typ des zu schreibenden Objekts.</typeparam>
-        /// <param name="logLevel">Der Eintrag wird auf dieser Ebene geschrieben.</param>
-        /// <param name="eventId">ID des Ereignisses.</param>
-        /// <param name="state">Der zu schreibende Eintrag. Kann auch ein Objekt sein.</param>
-        /// <param name="exception">Die Ausnahme, die sich auf diesen Eintrag bezieht.</param>
-        /// <param name="formatter">unktion zum Erstellen einer String-Nachricht des state-Parameters und exception-Parameters.</param>
+        /// <typeparam name="TState">The type of object to write.</typeparam>
+        /// <param name="logLevel">The entry is written at this level.</param>
+        /// <param name="eventId">ID of the event.</param>
+        /// <param name="state">The entry to write. Can also be an object.</param>
+        /// <param name="exception">The exception that applies to this entry.</param>
+        /// <param name="formatter">Function to create a string message of the state and exception parameters.</param>
         void ILogger.Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
         {
             if (logLevel == LogLevel.Error)
@@ -514,38 +527,38 @@ namespace WebExpress
         }
 
         /// <summary>
-        /// Überprüft, ob der angegebene logLevel-Parameter aktiviert ist.
+        /// Verifies that the specified logLevel parameter is enabled.
         /// </summary>
-        /// <param name="logLevel">Ebene, die überprüft werden soll.</param>
-        /// <returns>Im aktivierten Zustand true; andernfalls false.</returns>
+        /// <param name="logLevel">Level to be checked.</param>
+        /// <returns>True in the enabled state, false otherwise.</returns>
         public bool IsEnabled(LogLevel logLevel)
         {
             return true;
         }
 
         /// <summary>
-        /// Formatiert die Meldung und erstellt einen Bereich.
+        /// Formats the message and creates a range.
         /// </summary>
-        /// <typeparam name="TState">Die ILogger-Schnittstelle</typeparam>
-        /// <param name="state">Die ILogger-Schnittstelle, in der der Bereich erstellt werden soll.</param>
-        /// <returns>Ein verwerfbares Bereichsobjekt. Kann NULL sein.</returns>
+        /// <typeparam name="TState">The type of object to write.</typeparam>
+        /// <param name="state">The ILogger interface in which to create the scope.</param>
+        /// <returns>A disposable range object. Can be NULL.</returns>
         public IDisposable BeginScope<TState>(TState state)
         {
             return null;
         }
 
         /// <summary>
-        /// Zeitmuster des Dateinamens festlegen
+        /// Set file name time patterns.
         /// </summary>
         public string FilePattern { set; get; }
 
         /// <summary>
-        /// Zeitmusterfür Logeinträge festlegen
+        /// Time patternsspecifying log entries.
         /// </summary>
         public string TimePattern { set; get; }
 
         /// <summary>
-        /// Liefert das aktuelle Log-Objekt 
+        /// Returns the current log object.
         /// </summary>
         public static Log Current
         {
@@ -554,32 +567,32 @@ namespace WebExpress
         }
 
         /// <summary>
-        /// Liefert den Dateinamen des Log
+        /// Returns the file name of the log
         /// </summary>
         public string Filename { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Anzahl der Ausnahmen (Exceptions)
+        /// Returns the number of exceptions.
         /// </summary>
         public int ExceptionCount { get; protected set; }
 
         /// <summary>
-        /// Liefert oder setzt die Anzahl der Fehler (Fehler + Exceptions)
+        /// Returns the number of errors (errors + exceptions).
         /// </summary>
         public int ErrorCount { get; protected set; }
 
         /// <summary>
-        /// Liefert oder setzt die Anzahl der Warnungen
+        /// Returns the number of warnings.
         /// </summary>
         public int WarningCount { get; protected set; }
 
         /// <summary>
-        /// Prüft ob das Log zum Schreiben geöffnet wurde
+        /// Checks if the log has been opened for writing.
         /// </summary>
         public bool IsOpen => m_workerThread != null;
 
         /// <summary>
-        /// Setzt oder liefert den LogModus
+        /// Returns the log mode.
         /// </summary>
         public Modus LogModus { get; set; }
     }

@@ -25,7 +25,7 @@ namespace WebExpress.UI.WebControl
         public bool Right { get; private set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public PropertyBorder()
         {
@@ -33,7 +33,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="showBorder">Bestimmt, ob ein einheitlicher Rahmen angezeigt werden soll</param>
         public PropertyBorder(bool showBorder = true)
@@ -42,7 +42,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="horizontal">Der horzontale Rahmen</param>
         /// <param name="vertical">Der vertikale Rahmen</param>
@@ -53,7 +53,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="left">Der linke Rahmen</param>
         /// <param name="right">Der rechte Rahmen</param>

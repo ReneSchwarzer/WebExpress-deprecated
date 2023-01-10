@@ -65,7 +65,7 @@ namespace WebExpress.WebApp.WebApiControl
         public string OnClick { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public ControlApiTableOptionItem()
         {
@@ -73,7 +73,7 @@ namespace WebExpress.WebApp.WebApiControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="label">Die Beschriftung der Splalte</param>
         /// <param name="type">Der Typ des Optionseintrages</param>

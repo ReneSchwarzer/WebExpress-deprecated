@@ -6,7 +6,7 @@
     public class ResponseRedirectPermanentlyMoved : Response
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public ResponseRedirectPermanentlyMoved(string location)
         {

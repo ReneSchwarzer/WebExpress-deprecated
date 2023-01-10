@@ -15,7 +15,7 @@ namespace WebExpress.Html
         public TypeFavicon Mediatype { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="url">Die URL</param>
         /// <param name="mediatype">Den Mediatyp</param>
@@ -26,7 +26,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="url">Die URL</param>
         /// <param name="mediatype">Den Mediatyp</param>
@@ -36,7 +36,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="url">Die URL</param>
         /// <param name="mediatype">Den Mediatyp</param>
@@ -47,7 +47,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="url">Die URL</param>
         /// <param name="mediatype">Den Mediatyp</param>

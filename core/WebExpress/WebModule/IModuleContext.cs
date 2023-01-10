@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Collections.Generic;
+using System.Reflection;
 using WebExpress.Uri;
 using WebExpress.WebApplication;
 using WebExpress.WebPlugin;
@@ -8,58 +9,95 @@ namespace WebExpress.WebModule
     public interface IModuleContext
     {
         /// <summary>
-        /// Das Assembly, welches das Modul enthällt
+        /// The assembly that contains the module.
         /// </summary>
         Assembly Assembly { get; }
 
         /// <summary>
-        /// Liefert den Kontext des zugehörigen Plugins
+        /// Returns the context of the associated plugin.
         /// </summary>
-        IPluginContext Plugin { get; }
+        IPluginContext PluginContext { get; }
 
         /// <summary>
-        /// Liefert den Kontext der zugehörigen Anwendung 
+        /// Returns the associated application ids.
         /// </summary>
-        IApplicationContext Application { get; }
+        IEnumerable<string> Applications { get; }
 
         /// <summary>
-        /// Liefert die ModulID. 
+        /// Returns the modul id.
         /// </summary>
         string ModuleID { get; }
 
         /// <summary>
-        /// Liefert den Modulnamen. 
+        /// Returns the module name.
         /// </summary>
         string ModuleName { get; }
 
         /// <summary>
-        /// Liefert oder setzt die Beschreibung
+        /// Returns the description.
         /// </summary>
         string Description { get; }
 
         /// <summary>
-        /// Liefert das Dokumentenverzeichnis. Dieser wird in dem AssetPath des Servers eingehangen.
+        /// Returns the asset directory.
         /// </summary>
         string AssetPath { get; }
 
         /// <summary>
-        /// Liefert oder setzt den Kontextpfad Dieser wird in dem ContextPath des Servers eingehangen.
-        /// </summary>
-        IUri ContextPath { get; }
-
-        /// <summary>
-        /// Liefert das Datenverzeichnis. Dieser wird in dem DataPath des Servers eingehangen.
+        /// Returns the data directory.
         /// </summary>
         string DataPath { get; }
 
         /// <summary>
-        /// Liefert oder setzt die IconUrl
+        /// Returns the context path.
+        /// </summary>
+        IUri ContextPath { get; }
+
+        /// <summary>
+        /// Returns the icon uri.
         /// </summary>
         IUri Icon { get; }
 
         /// <summary>
-        /// Liefert oder setzt das Log, zum schreiben von Statusnachrichten auf die Konsole und in eine Log-Datei
+        /// Returns the log to write status messages to the console and to a log file.
         /// </summary>
         Log Log { get; }
+
+        /// <summary>
+        /// Determines the contexts of the applications referenced by the module.
+        /// </summary>
+        /// <returns>A list of application contexts associated with the module.</returns>
+        IEnumerable<IApplicationContext> GetApplicationContexts();
+
+        /// <summary>
+        /// Checks whether the application context is related to the module context.
+        /// </summary>
+        /// <returns>True if successful, false otherwise.</returns>
+        bool LinkedWithApplication(IApplicationContext applicationContext);
+
+        /// <summary>
+        /// Returns the asset directory. This is mounted in the asset directory of the application.
+        /// </summary>
+        /// <param name="applicationContext">The application context.</param>
+        string GetAssetPath(IApplicationContext applicationContext);
+
+        /// <summary>
+        /// Returns the data directory. This is mounted in the data directory of the application.
+        /// </summary>
+        /// <param name="applicationContext">The application context.</param>
+        string GetDataPath(IApplicationContext applicationContext);
+
+        /// <summary>
+        /// Returns a context path. This is hooked in the context paths of the linked application.
+        /// </summary>
+        /// <param name="applicationContext">The application context to determine the context path.</param>
+        /// <returns>The currently valid context paths that address the module.</returns>
+        IUri GetContextPath(IApplicationContext applicationContext);
+
+        /// <summary>
+        /// Returns the icon uri. This is mounted in the context path of the application.
+        /// </summary>
+        /// <param name="applicationContext">The application context.</param>
+        IUri GetIcon(IApplicationContext applicationContext);
     }
 }

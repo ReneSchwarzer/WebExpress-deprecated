@@ -21,7 +21,7 @@ namespace WebExpress.WebApp.WebComponent
         public ICollection<ComponentCrudTableEditorItem> Editors { get; } = new List<ComponentCrudTableEditorItem>();
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ComponentCrudTable(string id = null)
@@ -30,9 +30,9 @@ namespace WebExpress.WebApp.WebComponent
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
-        /// <param name="context">Der Kontext</param>
+        /// <param name="context">The context.</param>
         /// <param name="page">Die Seite, indem die Komonente aktiv ist</param>
         public override void Initialization(IComponentContext context, IPage page)
         {

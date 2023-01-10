@@ -16,7 +16,7 @@ namespace WebExpress.WebResource
         public string Display { get; private set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="segment">Der Wert</param>
         /// <param name="display">Der Anzeigestring</param>

@@ -18,7 +18,7 @@ webexpress.ui.selectionCtrl = class extends webexpress.ui.events {
     _optionfilter = function (x, y) { return x?.toLowerCase().startsWith(y?.toLowerCase()); };
 
     /**
-     * Konstruktor
+     * Constructor
      * @param settings Optionen zur Gestaltung des Steuerelementes
      *        - id Die ID des Steuerelements
      *        - css CSS-Klasse zur Gestaltung des Steuerelementes

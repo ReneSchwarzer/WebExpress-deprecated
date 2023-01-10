@@ -55,7 +55,7 @@ namespace WebExpress.Message
         public CookieCollection Cookies { get; } = new CookieCollection();
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public ResponseHeaderFields()
         {

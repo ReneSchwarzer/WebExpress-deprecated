@@ -9,47 +9,47 @@ namespace WebExpress.Message
     public class HttpContext
     {
         /// <summary>
-        /// Der Kontext des Webservers
+        /// The context of the web server.
         /// </summary>
         public IHttpServerContext ServerContext { get; protected set; }
 
         /// <summary>
-        /// Liefert die ID
+        /// Returns the id.
         /// </summary>
         public string ID { get; protected set; }
 
         /// <summary>
-        /// Liefert die Anforderung
+        /// Returns the request.
         /// </summary>
         public Request Request { get; protected set; }
 
         /// <summary>
-        /// Ruft die IP-Adresse und Anschlussnummer des Servers ab, an den die Anforderung gerichtet ist.
+        /// Gets the ip address and port number of the server to which the request is made.
         /// </summary>
         public EndPoint LocalEndPoint { get; protected set; }
 
         /// <summary>
-        /// Ruft die IP-Adresse und Anschlussnummer des Clients ab, von dem die Anforderung stammt.
+        /// Gets the ip address and port number of the client from which the request originated.
         /// </summary>
         public EndPoint RemoteEndPoint { get; protected set; }
 
         /// <summary>
-        /// Satz von Features.
+        /// Set of features.
         /// </summary>
         public IFeatureCollection Features { get; protected set; }
 
         /// <summary>
-        /// Das Encoding
+        /// The encoding.
         /// </summary>
         public Encoding Encoding { get; protected set; } = Encoding.Default;
 
         /// <summary>
-        /// Liefert die URL
+        /// Returns the uri.
         /// </summary>
         public IUri Uri { get; internal set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         internal HttpContext()
         {
@@ -57,10 +57,10 @@ namespace WebExpress.Message
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
-        /// <param name="contextFeatures">Anfänglicher Satz von Features.</param>
-        /// <param name="serverContext">Der Kontext des Webservers</param>
+        /// <param name="contextFeatures">Initial set of features.</param>
+        /// <param name="serverContext">The context of the Web server.</param>
         public HttpContext(IFeatureCollection contextFeatures, IHttpServerContext serverContext)
         {
             var connectionFeature = contextFeatures.Get<IHttpConnectionFeature>();

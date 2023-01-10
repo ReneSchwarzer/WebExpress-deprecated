@@ -7,46 +7,46 @@ using WebExpress.WebResource;
 
 namespace WebExpress.WebAttribute
 {
-    public class SegmentGuidAttribute : System.Attribute, IResourceAttribute, ISegmentAttribute
+    public class SegmentGuidAttribute : Attribute, IResourceAttribute, ISegmentAttribute
     {
         /// <summary>
-        /// Die Anzeigeformate der Guid
+        /// The display formats of the guid.
         /// </summary>
         public enum Format { Full, Simple }
 
         /// <summary>
-        /// Liefert oder setzt den Namen der Variable
+        /// Returns or sets the name of the variable.
         /// </summary>
         private string VariableName { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt den Anzeigestring
+        /// Returns or sets the display string.
         /// </summary>
         private string Display { get; set; }
 
 
         /// <summary>
-        /// Liefert oder setzt das Anzeigeformat
+        /// Delivers or sets the display format.
         /// </summary>
         private Format DisplayFormat { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
-        /// <param name="variableName">Der Name der Variabel</param>
-        /// <param name="display">Der Anzeigestring</param>
-        /// <param name="displayStyle">Das Anzeigeformat</param>
-        public SegmentGuidAttribute(string variableName, string display, Format displayFotmat = Format.Simple)
+        /// <param name="variableName">The name of the variable.</param>
+        /// <param name="display">The display string.</param>
+        /// <param name="displayFormat">The display format.</param>
+        public SegmentGuidAttribute(string variableName, string display, Format displayFormat = Format.Simple)
         {
             VariableName = variableName;
             Display = display;
-            DisplayFormat = displayFotmat;
+            DisplayFormat = displayFormat;
         }
 
         /// <summary>
-        /// Umwandlung in ein Pfadsegment
+        /// Conversion to a path segment.
         /// </summary>
-        /// <returns>Das Pfadsegment</returns>
+        /// <returns>The path segment.</returns>
         public IPathSegment ToPathSegment()
         {
             var expression = @"^(\{){0,1}(([0-9a-fA-F]{8})\-([0-9a-fA-F]{4})\-([0-9a-fA-F]{4})\-([0-9a-fA-F]{4})\-([0-9a-fA-F]{12}))(\}){0,1}$";

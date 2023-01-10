@@ -44,7 +44,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlPanelFlexbox(string id = null)
@@ -53,7 +53,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="content">Die Listeneinträge</param>
@@ -63,7 +63,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="content">Die Listeneinträge</param>
         public ControlPanelFlexbox(params IControl[] content)
@@ -72,7 +72,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="items">Die Listeneinträge</param>
@@ -82,7 +82,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="items">Die Listeneinträge</param>
         public ControlPanelFlexbox(IEnumerable<IControl> content)

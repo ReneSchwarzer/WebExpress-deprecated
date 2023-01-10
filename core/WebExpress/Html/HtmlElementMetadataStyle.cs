@@ -13,7 +13,7 @@ namespace WebExpress.Html
         public string Code { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public HtmlElementMetadataStyle()
             : base("style")
@@ -22,7 +22,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="code">Der Text</param>
         public HtmlElementMetadataStyle(string code)

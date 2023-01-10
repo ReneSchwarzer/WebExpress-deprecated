@@ -1,9 +1,13 @@
 ﻿using System.Collections.Generic;
-using WebExpress.WebModule;
+using WebExpress.WebPlugin;
 
 namespace WebExpress.WebResource
 {
-    internal class ResourceDictionary : Dictionary<IModuleContext, SitemapNode>
+    /// <summary>
+    /// key = plugin context
+    /// value = { key = resource id, value = ressource item }
+    /// </summary>
+    internal class ResourceDictionary : Dictionary<IPluginContext, Dictionary<string, ResourceItem>>
     {
     }
 }

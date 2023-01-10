@@ -18,7 +18,7 @@ namespace WebExpress.UI.WebControl
         public List<ControlMultipleProgressBarItem> Items { get; private set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlMultipleProgressBar(string id = null)
@@ -28,7 +28,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="value">Der Wert</param>
@@ -39,7 +39,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
         private void Init()
         {

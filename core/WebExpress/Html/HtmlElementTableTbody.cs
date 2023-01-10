@@ -8,7 +8,7 @@ namespace WebExpress.Html
     public class HtmlElementTableTbody : HtmlElement, IHtmlElementTable
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public HtmlElementTableTbody()
             : base("tbody")
@@ -16,7 +16,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="nodes">Der Inhalt</param>
         public HtmlElementTableTbody(params IHtmlNode[] nodes)
@@ -26,7 +26,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="nodes">Der Inhalt</param>
         public HtmlElementTableTbody(IEnumerable<IHtmlNode> nodes)

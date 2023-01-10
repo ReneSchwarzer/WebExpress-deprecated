@@ -3,7 +3,7 @@
     public class PropertyColorNavbar : PropertyColor<TypeColorNavbar>
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="color">Die Farbe</param>
         public PropertyColorNavbar(TypeColorNavbar color)
@@ -12,7 +12,7 @@
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="color">Die Farbe</param>
         public PropertyColorNavbar(string color)

@@ -15,7 +15,7 @@ namespace WebExpress.Html
         public new List<IHtmlNode> Elements => base.Elements;
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public HtmlElementEmbeddedObject()
             : base("object")
@@ -24,7 +24,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="nodes">Der Inhalt</param>
         public HtmlElementEmbeddedObject(params IHtmlNode[] nodes)
@@ -34,7 +34,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="nodes">Der Inhalt</param>
         public HtmlElementEmbeddedObject(IEnumerable<IHtmlNode> nodes)

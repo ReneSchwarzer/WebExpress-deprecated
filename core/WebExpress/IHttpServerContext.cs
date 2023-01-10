@@ -6,57 +6,62 @@ using WebExpress.Uri;
 namespace WebExpress
 {
     /// <summary>
-    /// Der Kontext des Http-Servers
+    /// The context interface of the http server.
     /// </summary>
     public interface IHttpServerContext
     {
         /// <summary>
-        /// Liefert die Uri des Webservers
+        /// Returns the uri of the web server.
         /// </summary>
         string Uri { get; }
 
         /// <summary>
-        /// Liefert die Endpunkte, auf die der Webserver reagiert
+        /// Returns the endpoints to which the web server responds.
         /// </summary>
         ICollection<EndpointConfig> Endpoints { get; }
 
         /// <summary>
-        /// Liefert die Version des Http-Servers 
+        /// Returns the version of the http(s) server.
         /// </summary>
         string Version { get; }
 
         /// <summary>
-        /// Liefert das Asset-Basisverzeichnis
+        /// Returns the package home directory.
+        /// </summary>
+        string PackagePath { get; }
+
+        /// <summary>
+        /// Returns the asset home directory.
         /// </summary>
         string AssetPath { get; }
 
         /// <summary>
-        /// Liefert das Daten-Basisverzeichnis
+        /// Returns the data home directory.
         /// </summary>
         string DataPath { get; }
 
         /// <summary>
-        /// Liefert das Konfigurationserzeichnis
+        /// Returns the configuration directory.
         /// </summary>
         string ConfigPath { get; }
 
         /// <summary>
-        /// Liefert den Basispfad 
+        /// Returns the basic context path.
         /// </summary>
         IUri ContextPath { get; }
 
         /// <summary>
-        /// Liefert die Kultur
+        /// Returns the culture.
         /// </summary>
         CultureInfo Culture { get; }
 
         /// <summary>
-        /// Liefert das Log, zum schreiben von Statusnachrichten auf die Konsole und in eine Log-Datei
+        /// Returns the log for writing status messages to the console and to a log file.
         /// </summary>
         Log Log { get; }
 
         /// <summary>
-        /// Liefert den Host
+        /// Returns the host.
         /// </summary>
         IHost Host { get; }
     }

@@ -7,7 +7,7 @@ webexpress.ui.searchCtrl = class extends webexpress.ui.events {
     _container = $("<span class='search form-control'>");
 
     /**
-     * Konstruktor
+     * Constructor
      * @param settings Optionen zur Gestaltung des Steuerelementes
      *        - id Die ID des Steuerelements
      *        - css CSS-Klasse zur Gestaltung des Steuerelementes

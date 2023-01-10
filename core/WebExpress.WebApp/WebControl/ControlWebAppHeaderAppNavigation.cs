@@ -27,7 +27,7 @@ namespace WebExpress.WebApp.WebControl
         public List<IControlNavigationItem> Secondary { get; protected set; } = new List<IControlNavigationItem>();
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlWebAppHeaderAppNavigation(string id = null)
@@ -37,7 +37,7 @@ namespace WebExpress.WebApp.WebControl
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
         private void Init()
         {

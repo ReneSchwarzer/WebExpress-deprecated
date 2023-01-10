@@ -34,7 +34,7 @@ namespace WebExpress.WebApp.WebSettingPage
         public IUri DownloadUri { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public PageWebAppSettingLog()
         {
@@ -44,7 +44,7 @@ namespace WebExpress.WebApp.WebSettingPage
         /// <summary>
         /// Vorverarbeitung
         /// </summary>
-        /// <param name="request">Die Anfrage</param>
+        /// <param name="request">The request.</param>
         public override void PreProcess(Request request)
         {
             DownloadUri = request.Uri.Append("download");
@@ -55,12 +55,12 @@ namespace WebExpress.WebApp.WebSettingPage
         /// <summary>
         /// Vorverarbeitung
         /// </summary>
-        /// <param name="context">Der Kontext zum Rendern der Seite</param>
+        /// <param name="context">The context for rendering the page.</param>
         public override void Process(RenderContextWebApp context)
         {
             base.Process(context);
 
-            var file = new FileInfo(Context.Log.Filename);
+            var file = new FileInfo(ResourceContext.Log.Filename);
             var fileSize = string.Format(new FileSizeFormatProvider() { Culture = Culture }, "{0:fs}", file.Exists ? file.Length : 0);
 
             var deleteForm = new ControlModalFormularConfirmDelete("delte_log")
@@ -71,7 +71,7 @@ namespace WebExpress.WebApp.WebSettingPage
 
             deleteForm.Confirm += (s, e) =>
             {
-                File.Delete(Context.Log.Filename);
+                File.Delete(ResourceContext.Log.Filename);
             };
 
             var switchOnForm = new ControlModalFormularConfirm("swichon_log")
@@ -85,14 +85,14 @@ namespace WebExpress.WebApp.WebSettingPage
 
             switchOnForm.Confirm += (s, e) =>
             {
-                Context.Log.LogModus = Log.Modus.Override;
-                Context.Log.Info(this.I18N("webexpress.webapp", "setting.logfile.switchon.success"));
+                ResourceContext.Log.LogModus = Log.Modus.Override;
+                ResourceContext.Log.Info(this.I18N("webexpress.webapp", "setting.logfile.switchon.success"));
             };
 
             var info = new ControlTable() { Striped = false };
             info.AddRow
             (
-                new ControlText() { Text = this.I18N("webexpress.webapp", "setting.logfile.path") }, new ControlText() { Text = Context.Log.Filename, Format = TypeFormatText.Code },
+                new ControlText() { Text = this.I18N("webexpress.webapp", "setting.logfile.path") }, new ControlText() { Text = ResourceContext.Log.Filename, Format = TypeFormatText.Code },
                 DownloadUri != null && file.Exists ? new ControlButtonLink()
                 {
                     Text = this.I18N("webexpress.webapp", "setting.logfile.download"),
@@ -116,8 +116,8 @@ namespace WebExpress.WebApp.WebSettingPage
 
             info.AddRow
             (
-                new ControlText() { Text = this.I18N("webexpress.webapp", "setting.logfile.modus") }, new ControlText() { Text = Context.Log.LogModus.ToString(), Format = TypeFormatText.Code },
-                Context.Log.LogModus == Log.Modus.Off ? new ControlButton()
+                new ControlText() { Text = this.I18N("webexpress.webapp", "setting.logfile.modus") }, new ControlText() { Text = ResourceContext.Log.LogModus.ToString(), Format = TypeFormatText.Code },
+                ResourceContext.Log.LogModus == Log.Modus.Off ? new ControlButton()
                 {
                     Text = this.I18N("webexpress.webapp", "setting.logfile.switchon.label"),
                     Modal = new PropertyModal(TypeModal.Modal, switchOnForm),
@@ -131,7 +131,7 @@ namespace WebExpress.WebApp.WebSettingPage
 
             if (file.Exists)
             {
-                var content = File.ReadLines(Context.Log.Filename).TakeLast(100);
+                var content = File.ReadLines(ResourceContext.Log.Filename).TakeLast(100);
 
                 context.VisualTree.Content.Primary.Add(new ControlText()
                 {

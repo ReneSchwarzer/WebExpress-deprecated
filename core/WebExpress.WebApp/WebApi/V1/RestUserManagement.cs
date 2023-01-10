@@ -24,25 +24,25 @@ namespace WebExpress.WebApp.WebAPI.V1
     public sealed class RestUserManagement : ResourceRestCrud<WebItemUser>
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public RestUserManagement()
         {
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
-        /// <param name="context">Der Kontext</param>
+        /// <param name="context">The context.</param>
         public override void Initialization(IResourceContext context)
         {
             base.Initialization(context);
         }
 
         /// <summary>
-        /// Verarbeitung des GET-Request
+        /// Processing of the resource. des GET-Request
         /// </summary>
-        /// <param name="request">Die Anfrage</param>
+        /// <param name="request">The request.</param>
         /// <returns>Eine Aufzählung, welche JsonSerializer serialisiert werden kann.</returns>
         public override IEnumerable<ResourceRestCrudColumn> GetColumns(Request request)
         {
@@ -69,10 +69,10 @@ namespace WebExpress.WebApp.WebAPI.V1
         }
 
         /// <summary>
-        /// Verarbeitung des GET-Request
+        /// Processing of the resource. des GET-Request
         /// </summary>
         /// <param name="wql">Der Filter</param>
-        /// <param name="request">Die Anfrage</param>
+        /// <param name="request">The request.</param>
         /// <returns>Eine Aufzählung, welche JsonSerializer serialisiert werden kann.</returns>
         public override IEnumerable<WebItemUser> GetData(WqlStatement wql, Request request)
         {
@@ -91,10 +91,10 @@ namespace WebExpress.WebApp.WebAPI.V1
         }
 
         /// <summary>
-        /// Verarbeitung des DELETE-Request
+        /// Processing of the resource. des DELETE-Request
         /// </summary>
         /// <param name="id">Die zu löschende ID</param>
-        /// <param name="request">Die Anfrage</param>
+        /// <param name="request">The request.</param>
         /// <returns>Das Ergebnis der Löschung</returns>
         public override bool DeleteData(string id, Request request)
         {

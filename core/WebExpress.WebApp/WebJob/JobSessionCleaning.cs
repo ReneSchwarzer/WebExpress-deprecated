@@ -12,7 +12,7 @@ namespace WebExpress.WebApp.WebJob
     internal sealed class JobSessionCleaning : Job
     {
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
         /// <param name="context">Der Kontext indem der Job ausgeführt wird</param>
         public override void Initialization(JobContext context)
@@ -21,7 +21,7 @@ namespace WebExpress.WebApp.WebJob
         }
 
         /// <summary>
-        /// Verarbeitung
+        /// Processing of the resource.
         /// </summary>
         public override void Process()
         {

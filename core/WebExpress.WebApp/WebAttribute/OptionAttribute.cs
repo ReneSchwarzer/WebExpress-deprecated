@@ -10,7 +10,7 @@ namespace WebExpress.WebApp.WebAttribute
     public class OptionAttribute : System.Attribute, IResourceAttribute
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="option">Die Option, welche aktiviert werden soll</param>
         public OptionAttribute(string option)

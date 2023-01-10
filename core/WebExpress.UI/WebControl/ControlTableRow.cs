@@ -14,7 +14,7 @@ namespace WebExpress.UI.WebControl
         public List<Control> Cells { get; private set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlTableRow(string id = null)

@@ -50,7 +50,7 @@ namespace WebExpress.UI.WebControl
         public int Likes { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlTimelineItem(string id = null)
@@ -60,7 +60,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
         private void Init()
         {

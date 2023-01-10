@@ -19,7 +19,7 @@ namespace WebExpress.UI.WebControl
         public string Title { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlButtonLink(string id = null)
@@ -29,7 +29,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
         private void Init()
         {

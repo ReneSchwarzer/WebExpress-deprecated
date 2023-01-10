@@ -11,7 +11,7 @@ namespace WebExpress.UI.WebControl
         public string Name { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlFormularItem(string id = null)

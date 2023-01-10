@@ -1,7 +1,7 @@
 namespace WebExpress.Uri
 {
     /// <summary>
-    /// Typ der Uri
+    /// The typ of the uri.
     /// </summary>
     public enum UriScheme
     {

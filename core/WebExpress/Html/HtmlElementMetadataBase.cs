@@ -25,7 +25,7 @@
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public HtmlElementMetadataBase()
             : base("base")
@@ -34,7 +34,7 @@
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="url">Die Url</param>
         public HtmlElementMetadataBase(string url)

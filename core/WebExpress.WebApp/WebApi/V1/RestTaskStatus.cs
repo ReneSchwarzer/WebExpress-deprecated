@@ -19,25 +19,25 @@ namespace WebExpress.WebApp.WebAPI.V1
     public sealed class RestTaskStatus : ResourceRest
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public RestTaskStatus()
         {
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
-        /// <param name="context">Der Kontext</param>
+        /// <param name="context">The context.</param>
         public override void Initialization(IResourceContext context)
         {
             base.Initialization(context);
         }
 
         /// <summary>
-        /// Verarbeitung
+        /// Processing of the resource.
         /// </summary>
-        /// <param name="request">Die Anfrage</param>
+        /// <param name="request">The request.</param>
         /// <returns>Eine Aufzählung, welche mittels JsonSerializer serialisiert werden kann.</returns>
         public override ICollection GetData(Request request)
         {

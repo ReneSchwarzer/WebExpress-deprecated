@@ -13,8 +13,9 @@
 
 	<culture>de-DE</culture>
 
-	<assets>./</assets>
+	<packages>./packages</packages>
+	<assets>./assets</assets>
+	<data>./data</data>
 	<contextpath></contextpath>
-	<stagedirectory>./</stagedirectory>
     
 </config>

@@ -1,30 +1,30 @@
 namespace WebExpress.Uri
 {
     /// <summary>
-    /// Statisches Pfadsegment
+    /// Static path segment.
     /// </summary>
     public class UriPathSegment : IUriPathSegment
     {
         /// <summary>
-        /// Liefert oder setzt den Pfadtext
+        /// Returns or sets the path text.
         /// </summary>
         public string Value { get; set; }
 
         /// <summary>
-        /// Liefert den Anzeigetext
+        /// Returns or sets the display text.
         /// </summary>
         public string Display { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt den Tag
+        /// Returns or sets the tag.
         /// </summary>
         public object Tag { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
-        /// <param name="value">Der Pfadtext</param>
-        /// <param name="tag">Der Tag oder null</param>
+        /// <param name="value">The path text.</param>
+        /// <param name="tag">The tag or null</param>
         public UriPathSegment(string value, object tag = null)
         {
             Value = value;
@@ -33,9 +33,22 @@ namespace WebExpress.Uri
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
-        /// <param name="segment">Das zu kopierende Pfadsegment</param>
+        /// <param name="value">The path text.</param>
+        /// <param name="display">The display text.</param>
+        /// <param name="tag">The tag or null</param>
+        public UriPathSegment(string value, string display, object tag = null)
+        {
+            Value = value;
+            Display = display;
+            Tag = tag;
+        }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="segment">The path segment to copy.</param>
         public UriPathSegment(IUriPathSegment segment)
         {
             Value = segment.Value;
@@ -44,12 +57,12 @@ namespace WebExpress.Uri
         }
 
         /// <summary>
-        /// Wandelt das Segment in einen String um
+        /// Converts the segment to a string.
         /// </summary>
-        /// <returns>Die Stringrepräsentation des Segmentes</returns>
+        /// <returns>The string representation of the segment.</returns>
         public override string ToString()
         {
-            return Value;
+            return Value ?? Tag?.ToString();
         }
     }
 }

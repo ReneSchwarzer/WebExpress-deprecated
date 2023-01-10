@@ -9,7 +9,7 @@ namespace WebExpress.UI.WebControl
     public class ControlFormularItemGroupMix : ControlFormularItemGroup
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlFormularItemGroupMix(string id = null)
@@ -18,7 +18,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         ///<param name="items">Das Formularsteuerelemente</param> 
@@ -28,7 +28,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         ///<param name="items">Das Formularsteuerelemente</param> 
         public ControlFormularItemGroupMix(params ControlFormularItem[] items)

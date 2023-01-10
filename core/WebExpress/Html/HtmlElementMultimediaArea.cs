@@ -6,7 +6,7 @@
     public class HtmlElementMultimediaArea : HtmlElement, IHtmlElementMultimedia
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public HtmlElementMultimediaArea()
             : base("area", false)

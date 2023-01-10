@@ -12,7 +12,7 @@ namespace WebExpress.UI.WebControl
         public IUri Uri { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlTagCloud(string id = null)
@@ -22,7 +22,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
         private void Init()
         {

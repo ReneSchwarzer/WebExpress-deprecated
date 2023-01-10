@@ -83,7 +83,7 @@ namespace WebExpress.WebApp.WebControl
         };
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlWebAppHeader(string id = null)
@@ -93,7 +93,7 @@ namespace WebExpress.WebApp.WebControl
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
         private void Init()
         {

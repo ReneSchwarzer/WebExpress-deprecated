@@ -11,7 +11,7 @@ namespace WebExpress.WebJob
     public class Cron
     {
         /// <summary>
-        /// Liefert oder setzt den Verweis auf Kontext des Hostes
+        /// Returns or sets the reference to the context of the host
         /// </summary>
         private static IHttpServerContext Context { get; set; }
 
@@ -41,7 +41,7 @@ namespace WebExpress.WebJob
         private List<int> Weekday { get; } = new List<int>();
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="context">Der Verweis auf Kontext des Hostes</param>
         /// <param name="minute">Die Minute 0-59 oder * für belibig. Möglich sind auch kommaseperierte Werte oder Bereiche (-)</param>

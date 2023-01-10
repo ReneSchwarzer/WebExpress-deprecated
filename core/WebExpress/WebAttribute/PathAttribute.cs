@@ -6,7 +6,7 @@ namespace WebExpress.WebAttribute
     public class PathAttribute : System.Attribute, IResourceAttribute
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="path">Der Pfad</param>
         public PathAttribute(string path)

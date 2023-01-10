@@ -20,7 +20,7 @@ namespace WebExpress.UI.WebControl
         public int Height { get; protected set; } = -1;
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="size">Die Größe</param>
         /// <param name="unit">Die Einheit</param>
@@ -32,7 +32,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="width">Die Weite in Pixel</param>
         /// <param name="height">Die Höhe in Pixel</param>

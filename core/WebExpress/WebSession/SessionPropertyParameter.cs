@@ -11,7 +11,7 @@ namespace WebExpress.WebSession
         public Dictionary<string, Parameter> Params { get; private set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public SessionPropertyParameter()
         {
@@ -19,7 +19,7 @@ namespace WebExpress.WebSession
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="param">Die Parameter</param>
         public SessionPropertyParameter(Dictionary<string, Parameter> param)

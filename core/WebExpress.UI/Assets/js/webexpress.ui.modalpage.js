@@ -8,7 +8,7 @@ webexpress.ui.modalPageCtrl = class extends webexpress.ui.events {
     _container = $("<div class='modal modalpage fade' data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-hidden='true'></div>");
     
     /**
-     * Konstruktor
+     * Constructor
      * @param settings Optionen zur Gestaltung des Steuerelementes
      *        - id Die ID des Steuerelements
      *        - close Der Name der Schließenschaltfläche

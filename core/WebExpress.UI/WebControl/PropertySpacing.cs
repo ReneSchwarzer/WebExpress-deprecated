@@ -28,7 +28,7 @@
         public Space Right { get; private set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public PropertySpacing()
         {
@@ -36,7 +36,7 @@
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="size">Die Abstände</param>
         public PropertySpacing(Space size)
@@ -45,7 +45,7 @@
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="horizontal">Der horzontale Abstand</param>
         /// <param name="vertical">Der vertikale Abstand</param>
@@ -56,7 +56,7 @@
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="left">Der linke Abstand</param>
         /// <param name="right">Der rechte Abstand</param>

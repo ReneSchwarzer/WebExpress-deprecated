@@ -3,18 +3,18 @@
 namespace WebExpress.WebApplication
 {
     /// <summary>
-    /// Diese Interface repräsentiert eine Anwendung
+    /// This interface represents an application.
     /// </summary>
     public interface IApplication : IDisposable
     {
         /// <summary>
-        /// Initialisierung der Anwendung. 
+        /// Initialization of the application .
         /// </summary>
-        /// <param name="context">Der Kontext</param>
+        /// <param name="context">The context.</param>
         void Initialization(IApplicationContext context);
 
         /// <summary>
-        /// Wird aufgerufen, wenn die Anwendung die Arbeit aufnimmt. Der Aufruf erfolgt nebenläufig.
+        /// Called when the application starts working. The call is concurrent.
         /// </summary>
         void Run();
     }

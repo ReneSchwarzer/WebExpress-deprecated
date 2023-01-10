@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <catalog version = "1">
-	<packages>
-		<package id="WebExpress.Tutorial.HelloWorld" version="1.0.0.0" state="Active"/>
-	</packages>
+	<package id="WebExpress.Tutorial.HelloWorld" state="Active"/>
 </catalog>

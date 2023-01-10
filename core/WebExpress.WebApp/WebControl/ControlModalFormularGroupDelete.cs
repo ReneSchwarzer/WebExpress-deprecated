@@ -20,7 +20,7 @@ namespace WebExpress.WebApp.WebControl
         private ControlFormularItemStaticText Description { get; } = new ControlFormularItemStaticText();
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlModalFormularGroupDelete(string id = null)
@@ -35,7 +35,7 @@ namespace WebExpress.WebApp.WebControl
         /// <summary>
         /// Wird aufgerufen, wenn das Löschen bestätigt wurde
         /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="sender">The trigger of the event.</param>
         /// <param name="e">Das Eventargument</param>
         /// <exception cref="NotImplementedException"></exception>
         private void OnConfirm(object sender, FormularEventArgs e)

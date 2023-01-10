@@ -62,7 +62,7 @@ namespace WebExpress.UI.WebControl
         public ICollection<ControlChartDataset> Data { get; set; } = new List<ControlChartDataset>();
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlChart(string id = null)

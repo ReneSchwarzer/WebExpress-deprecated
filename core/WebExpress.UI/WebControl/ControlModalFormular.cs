@@ -13,7 +13,7 @@ namespace WebExpress.UI.WebControl
         public ControlFormular Formular { get; private set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlModalFormular(string id = null)
@@ -23,7 +23,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="header">Die Überschrift</param>
@@ -34,7 +34,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="content">Die Formularsteuerelemente</param>
@@ -45,7 +45,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="header">Die Überschrift</param>
@@ -63,7 +63,7 @@ namespace WebExpress.UI.WebControl
         /// Aufruf erfolgt, wenn das Formular initialisiert wird.
         /// </summary>
         /// <param name="sender">Der Auslöser</param>
-        /// <param name="e">Die Eventargumente</param>
+        /// <param name="e">The event argument.</param>
         private void OnInitializeFormular(object sender, FormularEventArgs e)
         {
             ShowIfCreated = false;
@@ -73,7 +73,7 @@ namespace WebExpress.UI.WebControl
         /// Wird aufgerufen, wenn das Formular validiert wurde
         /// </summary>
         /// <param name="sender">Der Auslöser</param>
-        /// <param name="e">Die Eventargumente</param>
+        /// <param name="e">The event argument.</param>
         private void OnValidatedFormular(object sender, ValidationResultEventArgs e)
         {
             if (!e.Valid)

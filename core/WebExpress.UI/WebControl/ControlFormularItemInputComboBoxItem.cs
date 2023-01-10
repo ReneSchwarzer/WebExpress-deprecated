@@ -22,7 +22,7 @@ namespace WebExpress.UI.WebControl
         public object Tag { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public ControlFormularItemInputComboBoxItem()
         {
@@ -30,7 +30,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="subitems">Die untergeordnetetn Einträge</param>
         public ControlFormularItemInputComboBoxItem(params ControlFormularItemInputComboBoxItem[] subitems)
@@ -40,7 +40,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="subitems">Die untergeordnetetn Einträge</param>
         public ControlFormularItemInputComboBoxItem(IEnumerable<ControlFormularItemInputComboBoxItem> subitems)

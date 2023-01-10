@@ -6,7 +6,7 @@
     public class ModuleAttribute : System.Attribute, IResourceAttribute, IModuleAttribute
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="moduleID">Die ID des Moduls</param>
         public ModuleAttribute(string moduleID)

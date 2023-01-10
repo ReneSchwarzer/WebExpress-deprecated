@@ -65,7 +65,7 @@ namespace WebExpress.WebApp.WebControl
         private ControlFormularItemInputMove Groups { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlModalFormularUserEdit(string id = null)
@@ -101,7 +101,7 @@ namespace WebExpress.WebApp.WebControl
         /// <summary>
         /// Wird aufgerufen, wenn das Formular mit Initialwerten gefüllt werden soll
         /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="sender">The trigger of the event.</param>
         /// <param name="e">Das Eventargument</param>
         private void OnFillFormular(object sender, FormularEventArgs e)
         {
@@ -125,7 +125,7 @@ namespace WebExpress.WebApp.WebControl
         /// <summary>
         /// Wird aufgerufen, wenn die eingegebene Loginkennung überprüft werden soll
         /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="sender">The trigger of the event.</param>
         /// <param name="e">Das Eventargument</param>
         private void OnLoginValidation(object sender, ValidationEventArgs e)
         {
@@ -143,7 +143,7 @@ namespace WebExpress.WebApp.WebControl
         /// <summary>
         /// Wird aufgerufen, wenn der eingegebene Vorname überprüft werden soll
         /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="sender">The trigger of the event.</param>
         /// <param name="e">Das Eventargument</param>
         private void OnFirstnameValidation(object sender, ValidationEventArgs e)
         {
@@ -156,7 +156,7 @@ namespace WebExpress.WebApp.WebControl
         /// <summary>
         /// Wird aufgerufen, wenn der eingegebene Nachname überprüft werden soll
         /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="sender">The trigger of the event.</param>
         /// <param name="e">Das Eventargument</param>
         private void OnLastnameValidation(object sender, ValidationEventArgs e)
         {
@@ -169,7 +169,7 @@ namespace WebExpress.WebApp.WebControl
         /// <summary>
         /// Wird aufgerufen, wenn die eingegebene E-Mail-Adresse überprüft werden soll
         /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="sender">The trigger of the event.</param>
         /// <param name="e">Das Eventargument</param>
         private void OnEmailValidation(object sender, ValidationEventArgs e)
         {
@@ -182,7 +182,7 @@ namespace WebExpress.WebApp.WebControl
         /// <summary>
         /// Wird aufgerufen, wenn die Löschaktion bestätigt wurde
         /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="sender">The trigger of the event.</param>
         /// <param name="e">Das Eventargument</param>
         private void OnConfirm(object sender, FormularEventArgs e)
         {

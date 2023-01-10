@@ -77,7 +77,7 @@ namespace WebExpress.UI.WebControl
         public ICollection<ValidationResult> ValidationResults { get; } = new List<ValidationResult>();
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlFormularInline(string id = null)
@@ -97,7 +97,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="items">Die Steuerelemente, welche dem Formular zugeordnet werden</param>
@@ -109,7 +109,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="items">Die Steuerelemente, welche dem Formular zugeordnet werden</param>
         public ControlFormularInline(params ControlFormularItem[] items)

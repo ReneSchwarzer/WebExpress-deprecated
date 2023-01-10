@@ -13,7 +13,7 @@
         public string UserValue { get; protected set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="value">Der System-Wert</param>
         public PropertyOnChange(TypeOnChange value)
@@ -22,7 +22,7 @@
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="value">Der benutzerdefinierte Wert</param>
         public PropertyOnChange(string value)

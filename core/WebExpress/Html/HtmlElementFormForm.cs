@@ -69,7 +69,7 @@ namespace WebExpress.Html
         public new List<IHtmlNode> Elements => base.Elements;
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public HtmlElementFormForm()
             : base("form")
@@ -78,7 +78,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="text">Der Inhalt</param>
         public HtmlElementFormForm(string text)
@@ -87,7 +87,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="nodes">Der Inhalt</param>
         public HtmlElementFormForm(params IHtmlNode[] nodes)

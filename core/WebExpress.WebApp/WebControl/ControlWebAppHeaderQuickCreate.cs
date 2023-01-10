@@ -29,7 +29,7 @@ namespace WebExpress.WebApp.WebControl
         public List<IControlSplitButtonItem> Secondary { get; protected set; } = new List<IControlSplitButtonItem>();
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlWebAppHeaderQuickCreate(string id = null)
@@ -39,7 +39,7 @@ namespace WebExpress.WebApp.WebControl
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
         private void Init()
         {

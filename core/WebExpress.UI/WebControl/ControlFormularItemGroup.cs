@@ -50,7 +50,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlFormularItemGroup(string id = null)
@@ -59,7 +59,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         ///<param name="item">Das Formularitem</param> 
@@ -70,7 +70,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         ///<param name="item">Das Formularitem</param> 
         public ControlFormularItemGroup(params ControlFormularItem[] item)

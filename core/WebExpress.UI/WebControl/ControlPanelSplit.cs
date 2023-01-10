@@ -58,7 +58,7 @@ namespace WebExpress.UI.WebControl
         public int Panel2InitialSize { get; set; } = -1;
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlPanelSplit(string id = null)
@@ -67,7 +67,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="panel1">Steuerelemente des linken oder oberen Bereiches</param>
@@ -80,7 +80,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="panel1">Steuerelemente des linken oder oberen Bereiches</param>
         /// <param name="panel2">Steuerelemente des rechten oder unteren Bereiches</param>

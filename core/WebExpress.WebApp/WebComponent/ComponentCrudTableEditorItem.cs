@@ -6,7 +6,7 @@
     public abstract class ComponentCrudTableEditorItem
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public ComponentCrudTableEditorItem()
         {

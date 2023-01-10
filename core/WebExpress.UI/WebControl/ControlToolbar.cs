@@ -40,7 +40,7 @@ namespace WebExpress.UI.WebControl
         public List<IControlToolBarItem> Items { get; private set; } = new List<IControlToolBarItem>();
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlToolbar(string id = null)
@@ -50,7 +50,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="items">Die Toolitems</param>
@@ -61,7 +61,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="items">Die Toolitems</param>
         public ControlToolbar(params IControlToolBarItem[] items)
@@ -71,7 +71,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
         private void Init()
         {

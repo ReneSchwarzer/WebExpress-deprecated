@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using WebExpress.Uri;
 using WebExpress.WebApplication;
@@ -11,62 +12,80 @@ namespace WebExpress.WebResource
     public class ResourceContext : IResourceContext
     {
         /// <summary>
-        /// Das Assembly, welches das Modul enthällt
+        /// The assembly that contains the module
         /// </summary>
         public Assembly Assembly { get; private set; }
 
         /// <summary>
-        /// Liefert das zugehörige Plugins
+        /// Returns the associated plugin.
         /// </summary>
-        public IPluginContext Plugin { get; private set; }
+        public IPluginContext PluginContext { get; private set; }
 
         /// <summary>
-        /// Liefert den Kontext der zugehörigen Anwendung 
+        /// Returns the corresponding module.
         /// </summary>
-        public IApplicationContext Application { get; private set; }
+        public IModuleContext ModuleContext { get; private set; }
 
         /// <summary>
-        /// Liefert das zugehörige Modul. 
+        /// Returns or sets the context name that provides the resource. The context name 
+        /// is a string with a name (e.g. global, admin), which can be used by elements to 
+        /// determine whether content and how content should be displayed.
         /// </summary>
-        public IModuleContext Module { get; private set; }
+        public IReadOnlyList<string> ResourceContextFilter { get; internal set; }
 
         /// <summary>
-        /// Liefert oder setzt den Kontextpfad Dieser wird in dem ContextPath des Servers eingehangen.
-        /// </summary>
-        public IUri ContextPath { get; private set; }
-
-        /// <summary>
-        /// Liefert oder setzt den Ressourcenkontext
-        /// </summary>
-        public IReadOnlyList<string> Context { get; internal set; }
-
-        /// <summary>
-        /// Liefert die Bedingungen, die erfüllt sein müssen, damit die Ressource aktiv ist
+        /// Returns the conditions that must be met for the resource to be active.
         /// </summary>
         public ICollection<ICondition> Conditions { get; internal set; } = new List<ICondition>();
 
         /// <summary>
-        /// Bestimmt, ob die Ressource einmalig erstellt und bei jedem Aufruf wiederverwendet wird.
+        /// Returns whether the resource is created once and reused each time it is called.
         /// </summary>
         public bool Cache { get; internal set; }
 
         /// <summary>
-        /// Liefert oder setzt das Log, zum schreiben von Statusnachrichten auf die Konsole und in eine Log-Datei
+        /// Returns the log to write status messages to the console and to a log file.
         /// </summary>
         public Log Log { get; private set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
-        /// <param name="moduleContext">Der Modulkontext</param>
+        /// <param name="moduleContext">The module context.</param>
         internal ResourceContext(IModuleContext moduleContext)
         {
             Assembly = moduleContext?.Assembly;
-            Plugin = moduleContext?.Plugin;
-            Application = moduleContext?.Application;
-            Module = moduleContext;
-            ContextPath = moduleContext?.ContextPath;
+            PluginContext = moduleContext?.PluginContext;
+            ModuleContext = moduleContext;
             Log = moduleContext?.Log;
+        }
+
+        /// <summary>
+        /// Determines the contexts of the applications referenced by the module.
+        /// </summary>
+        /// <returns>A list of application contexts associated with the module.</returns>
+        public IEnumerable<IApplicationContext> GetApplicationContexts()
+        {
+            return ApplicationManager.GetApplcations(ModuleContext.Applications);
+        }
+
+        /// <summary>
+        /// Checks whether the application context is related to the module context.
+        /// </summary>
+        /// <returns>True if successful, false otherwise.</returns>
+        public bool LinkedWithApplication(IApplicationContext applicationContext)
+        {
+            return GetApplicationContexts().Where(x => x == applicationContext).Any();
+        }
+
+        /// <summary>
+        /// Returns a context path. This is hooked in the context paths of the linked modules.
+        /// </summary>
+        /// <param name="applicationContext">The application context to determine the context path.</param>
+        /// <returns>The currently valid context paths that address the resource.</returns>
+        public IUri GetContextPath(IApplicationContext applicationContext)
+        {
+            return ModuleContext.GetContextPath(applicationContext);                
         }
     }
 }

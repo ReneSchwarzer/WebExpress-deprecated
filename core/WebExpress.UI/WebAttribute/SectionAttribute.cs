@@ -6,7 +6,7 @@
     public class SectionAttribute : System.Attribute, IComponentAttribute
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="section">Die Sektion, indem die Komponente eingebettet wird</param>
         public SectionAttribute(string section)

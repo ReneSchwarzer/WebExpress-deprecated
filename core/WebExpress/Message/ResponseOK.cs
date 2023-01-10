@@ -6,7 +6,7 @@
     public class ResponseOK : Response
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public ResponseOK()
         {

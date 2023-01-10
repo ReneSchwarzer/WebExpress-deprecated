@@ -55,7 +55,7 @@ namespace WebExpress.UI.WebControl
         public int Rows { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlFormularItemInputTextBox(string id = null)
@@ -66,7 +66,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="name">Der Name der TextBox</param>

@@ -15,7 +15,7 @@ namespace WebExpress.UI.WebControl
         public List<ControlCarouselItem> Items { get; private set; } = new List<ControlCarouselItem>();
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlCarousel(string id = null)
@@ -24,7 +24,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="items">Die Inhalte der Slideshow</param>
         public ControlCarousel(params ControlCarouselItem[] items)

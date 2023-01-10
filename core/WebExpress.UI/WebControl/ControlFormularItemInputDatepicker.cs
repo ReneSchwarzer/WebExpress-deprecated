@@ -37,12 +37,12 @@ namespace WebExpress.UI.WebControl
         public string Pattern { get; set; }
 
         ///// <summary>
-        ///// Liefert den Initialisierungscode (JQuerry)
+        ///// Liefert den Initializationscode (JQuerry)
         ///// </summary>
         //public string InitializeCode => "$('#" + ID + " input').datepicker({ startDate: -3 });";
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlFormularItemInputDatepicker(string id = null)

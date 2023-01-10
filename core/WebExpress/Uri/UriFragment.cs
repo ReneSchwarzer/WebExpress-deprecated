@@ -4,107 +4,111 @@ using System.Collections.Generic;
 namespace WebExpress.Uri
 {
     /// <summary>
-    /// URI welche nur aus dem Fragment besteht (z.B. #)
+    /// Uri which consists only of the fragment (e.g. #).
     /// </summary>
     public class UriFragment : IUri
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public UriFragment()
         {
         }
 
         /// <summary>
-        /// Der Pfad (z.B. /over/there)
+        /// The path (e.g. /over/there).
         /// </summary>
         public ICollection<IUriPathSegment> Path => throw new NotImplementedException();
 
         /// <summary>
-        /// Der Abfrageteil (z.B. ?title=Uniform_Resource_Identifier&action=submit)
+        /// The query part (e.g. ? title=Uniform_Resource_Identifier&action=submit).
         /// </summary>
         public ICollection<UriQuerry> Query => throw new NotImplementedException();
 
         /// <summary>
-        /// Referenziert eine Stelle innerhalb einer Ressource (z.B. #Anker)
+        /// References a position within a resource (e.g. #Anchor).
         /// </summary>
         public string Fragment { get; set; }
 
+        /// <summary>
+        /// Returns the display string of the Uri
+        /// </summary>
         public string Display { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         /// <summary>
-        /// Liefert oder setzt den Anzeigestring der Uri
+        /// Determines if the uri is empty.
         /// </summary>
         public bool Empty => throw new NotImplementedException();
 
         /// <summary>
-        /// Liefert die Wurzel
+        /// Returns the root.
         /// </summary>
         public IUri Root => throw new NotImplementedException();
 
         /// <summary>
-        /// Ermittelt, ob es sich bei der Uri um die Wurzel handelt
+        /// Determines if the uri is the root.
         /// </summary>
         public bool IsRoot => throw new NotImplementedException();
 
         /// <summary>
-        /// Fügt ein Pfad hinzu
+        /// Adds a path element.
         /// </summary>
-        /// <param name="path">Der anzufügende Pfad</param>
+        /// <param name="path">The path to append.</param>
+        /// <returns>The extended path.</returns>
         public IUri Append(string path)
         {
             throw new NotImplementedException();
         }
 
         /// <summary>
-        /// Ermittelt, ob das gegebene Segment Teil der Uri ist
+        /// Return a shortened uri containing n-elements.
+        /// count > 0 count elements are included
+        /// count < 0 count elements are truncated
+        /// count = 0 an empty uri is returned
         /// </summary>
-        /// <param name="segment">Das Segment, welches geprüft wird</param>
-        /// <returns>true wenn erfolgreich, false sonst</returns>
-        public bool Contains(string segment)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Liefere eine verkürzte Uri indem die ersten n-Elemente nicht enthalten sind
-        /// count > 0 es werden count-Elemente übersprungen
-        /// count <= 0 es wird eine leere Uri zurückgegeben
-        /// </summary>
-        /// <param name="count">Die Anzahl</param>
-        /// <returns>Die Teiluri</returns>
-        public IUri Skip(int count)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Prüft, ob eine gegebene Uri Teil dieser Uri ist
-        /// </summary>
-        /// <param name="uri">Die zu prüfende Uri</param>
-        /// <returns>true, wenn Teil der Uri</returns>
-        public bool StartsWith(IUri uri)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Liefere eine verkürzte Uri welche n-Elemente enthällt
-        /// count > 0 es sind count-Elemente enthalten 
-        /// count < 0 es werden count-Elemente abgeschnitten
-        /// count = 0 es wird eine leere Uri zurückgegeben
-        /// </summary>
-        /// <param name="count">Die Anzahl</param>
-        /// <returns>Die Teiluri</returns>
+        /// <param name="count">The count.</param>
+        /// <returns>The sub uri.</returns>
         public IUri Take(int count)
         {
             throw new NotImplementedException();
         }
 
         /// <summary>
-        /// Wandelt die Uri in einen String um
+        /// Return a shortened uri by not including the first n elements.
+        /// count > 0 count elements are skipped
+        /// count <= 0 an empty Uri is returned
         /// </summary>
-        /// <returns>Die Stringrepräsentation der Uri</returns>
+        /// <param name="count">The count.</param>
+        /// <returns>The sub uri.</returns>
+        public IUri Skip(int count)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Determines whether the given segment is part of the uri.
+        /// </summary>
+        /// <param name="segment">The segment to be tested.</param>
+        /// <returns>true if successful, false otherwise.</returns>
+        public bool Contains(string segment)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Checks whether a given uri is part of that uri.
+        /// </summary>
+        /// <param name="uri">The Uri to be checked.</param>
+        /// <returns>true if part of the uri, false otherwise.</returns>
+        public bool StartsWith(IUri uri)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Converts the uri to a string.
+        /// </summary>
+        /// <returns>The string representation of the uri.</returns>
         public override string ToString()
         {
             return "#" + Fragment;

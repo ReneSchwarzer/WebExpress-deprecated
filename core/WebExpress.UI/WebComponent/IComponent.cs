@@ -11,9 +11,9 @@ namespace WebExpress.UI.WebComponent
         IComponentContext Context { get; }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
-        /// <param name="context">Der Kontext</param>
+        /// <param name="context">The context.</param>
         /// <param name="page">Die Seite, indem die Komonente aktiv ist</param>
         void Initialization(IComponentContext context, IPage page);
     }

@@ -49,7 +49,7 @@ namespace WebExpress.UI.WebControl
         public bool Checked { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlFormularItemInputRadio(string id = null)
@@ -59,7 +59,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="name">Der Name der TextBox</param>

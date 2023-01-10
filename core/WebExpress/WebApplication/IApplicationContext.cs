@@ -6,62 +6,62 @@ using WebExpress.WebPlugin;
 namespace WebExpress.WebApplication
 {
     /// <summary>
-    /// Der Anwendungskontext
+    /// The application context.
     /// </summary>
     public interface IApplicationContext
     {
         /// <summary>
-        /// Das Assembly, welches die Anwendung enthällt
+        /// The assembly that contains the application.
         /// </summary>
         Assembly Assembly { get; }
 
         /// <summary>
-        /// Liefert den Kontext des zugehörigen Plugins
+        /// Provides the context of the associated plugin.
         /// </summary>
-        IPluginContext Plugin { get; }
+        IPluginContext PluginContext { get; }
 
         /// <summary>
-        /// Liefert den AnwendungsID. 
+        /// Returns the application id.
         /// </summary>
         string ApplicationID { get; }
 
         /// <summary>
-        /// Liefert den Anwendungsnamen. 
+        /// Returns the application name.
         /// </summary>
         string ApplicationName { get; }
 
         /// <summary>
-        /// Liefert oder setzt die Beschreibung
+        /// Provides the description.
         /// </summary>
         string Description { get; }
 
         /// <summary>
-        /// Liefert die verwendeten Optionen
+        /// Provides the options used.
         /// </summary>
         IReadOnlyCollection<string> Options { get; }
 
         /// <summary>
-        /// Liefert das Dokumentenverzeichnis. Dieser wird in dem AssetPath des Servers eingehangen.
+        /// Returns the asset directory. This is mounted in the asset directory of the server.
         /// </summary>
         string AssetPath { get; }
 
         /// <summary>
-        /// Liefert das Datenverzeichnis. Dieser wird in dem DataPath des Servers eingehangen.
+        /// Returns the data directory. This is mounted in the data directory of the server.
         /// </summary>
         string DataPath { get; }
 
         /// <summary>
-        /// Liefert oder setzt den Kontextpfad Dieser wird in dem ContextPath des Servers eingehangen.
+        /// Returns the context path. This is mounted in the context path of the server.
         /// </summary>
         IUri ContextPath { get; }
 
         /// <summary>
-        /// Liefert oder setzt die IconUrl
+        /// Returns the icon uri.
         /// </summary>
         IUri Icon { get; }
 
         /// <summary>
-        /// Liefert oder setzt das Log, zum schreiben von Statusnachrichten auf die Konsole und in eine Log-Datei
+        /// Returns the log to write status messages to the console and to a log file.
         /// </summary>
         Log Log { get; }
     }

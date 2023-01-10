@@ -6,7 +6,7 @@ namespace WebExpress.WebAttribute
     public class ContextAttribute : System.Attribute, IResourceAttribute
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="name">Der Name</param>
         public ContextAttribute(string name)

@@ -14,7 +14,7 @@
         public int Columns { get; private set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public PropertyGrid()
         {
@@ -22,7 +22,7 @@
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="device">Bestimmt, ob ein einheitlicher Rahmen angezeigt werden soll</param>
         /// <param name="columns">Die Anzahl der verwendeten Spalten. Hinweis: Alle Spalten innerhalb eines PannelGrids muss die Summer 12 ergeben!</param>

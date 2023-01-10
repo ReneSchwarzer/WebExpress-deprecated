@@ -5,7 +5,7 @@ webexpress.ui.events = class {
     _listeners = new Map();
     
     /**
-     * Konstruktor
+     * Constructor
      */
     constructor() {
     }

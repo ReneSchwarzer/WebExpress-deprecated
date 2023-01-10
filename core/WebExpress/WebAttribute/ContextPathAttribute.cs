@@ -3,7 +3,7 @@
     public class ContextPathAttribute : System.Attribute, IApplicationAttribute, IModuleAttribute
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="contetxPath">Der Kontextpfad</param>
         public ContextPathAttribute(string contetxPath)

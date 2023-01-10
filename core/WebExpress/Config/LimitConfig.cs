@@ -21,7 +21,7 @@ namespace WebExpress.Config
         public long UploadLimit { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public LimitConfig()
         {

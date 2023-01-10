@@ -40,7 +40,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public HtmlElementScriptingScript()
             : base("script")
@@ -49,7 +49,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="code">Der Text</param>
         public HtmlElementScriptingScript(string code)

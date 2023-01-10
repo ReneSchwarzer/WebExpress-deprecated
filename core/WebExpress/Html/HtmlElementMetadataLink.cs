@@ -33,7 +33,7 @@
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public HtmlElementMetadataLink()
             : base("link", false)

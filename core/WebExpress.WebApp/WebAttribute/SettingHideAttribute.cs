@@ -5,7 +5,7 @@ namespace WebExpress.WebApp.WebAttribute
     public class SettingHideAttribute : System.Attribute, IResourceAttribute
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public SettingHideAttribute()
         {

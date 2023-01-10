@@ -14,7 +14,7 @@ namespace WebExpress.Html
         public string Name { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public HtmlAttributeNoneValue()
         {
@@ -22,7 +22,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="name">Der Name</param>
         public HtmlAttributeNoneValue(string name)

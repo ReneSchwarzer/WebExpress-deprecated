@@ -16,7 +16,7 @@ namespace WebExpress.WebApp.WebComponent
     public sealed class ComponentUserManagementTable : ComponentCrudTable
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public ComponentUserManagementTable()
             : base("4fd155dd-f6e2-4411-b6ed-14ee78713272")
@@ -24,15 +24,15 @@ namespace WebExpress.WebApp.WebComponent
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
-        /// <param name="context">Der Kontext</param>
-        /// <param name="page">Die Seite, indem die Komonente aktiv ist</param>
+        /// <param name="context">The context of the component.</param>
+        /// <param name="page">The page to display the component.</param>
         public override void Initialization(IComponentContext context, IPage page)
         {
             base.Initialization(context, page);
 
-            var module = ModuleManager.GetModule(context.Application, "webexpress.webapp");
+            var module = ModuleManager.GetModule(page.ApplicationContext, "webexpress.webapp");
 
             RestApiUri = module.ContextPath.Append("/api/v1/user");
 
@@ -42,10 +42,10 @@ namespace WebExpress.WebApp.WebComponent
         }
 
         /// <summary>
-        /// In HTML konvertieren
+        /// Convert to HTML.
         /// </summary>
-        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
-        /// <returns>Das Control als HTML</returns>
+        /// <param name="context">The context in which the control is rendered.</param>
+        /// <returns>The control as HTML.</returns>
         public override IHtmlNode Render(RenderContext context)
         {
             return base.Render(context);

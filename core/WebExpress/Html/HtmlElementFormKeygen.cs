@@ -8,7 +8,7 @@ namespace WebExpress.Html
     public class HtmlElementFormKeygen : HtmlElement, IHtmlFormularItem
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public HtmlElementFormKeygen()
             : base("keygen")
@@ -17,7 +17,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="nodes">Der Inhalt</param>
         public HtmlElementFormKeygen(params IHtmlNode[] nodes)

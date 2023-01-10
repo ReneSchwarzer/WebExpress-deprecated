@@ -5,27 +5,27 @@ using System.Linq;
 namespace WebExpress.Uri
 {
     /// <summary>
-    /// Relative Uri (z.B: /image.png)
+    /// A relative uri (e.g. /image.png).
     /// </summary>
     public class UriRelative : IUri
     {
         /// <summary>
-        /// Der Pfad (z.B. /over/there)
+        /// The path (e.g. /over/there).
         /// </summary>
         public ICollection<IUriPathSegment> Path { get; } = new List<IUriPathSegment>();
 
         /// <summary>
-        /// Der Abfrageteil (z.B. ?title=Uniform_Resource_Identifier&action=submit)
+        /// The query part (e.g. ?title=Uniform_Resource_Identifier&action=submit).
         /// </summary>
         public ICollection<UriQuerry> Query { get; } = new List<UriQuerry>();
 
         /// <summary>
-        /// Referenziert eine Stelle innerhalb einer Ressource (z.B. #Anker)
+        /// References a position within a resource (e.g. #Anchor).
         /// </summary>
         public string Fragment { get; set; }
 
         /// <summary>
-        /// Liefert den Anzeigestring der Uri
+        /// Returns the display string of the Uri
         /// </summary>
         public virtual string Display
         {
@@ -46,12 +46,12 @@ namespace WebExpress.Uri
         }
 
         /// <summary>
-        /// Ermittelt, ob die Uri leer ist
+        /// Determines if the uri is empty.
         /// </summary>
         public bool Empty => Path.Count == 0;
 
         /// <summary>
-        /// Liefert die Wurzel
+        /// Returns the root.
         /// </summary>
         public virtual IUri Root
         {
@@ -66,14 +66,14 @@ namespace WebExpress.Uri
                 return root;
             }
         }
-
+        
         /// <summary>
-        /// Ermittelt, ob es sich bei der Uri um die Wurzel handelt
+        /// Determines if the Uri is the root.
         /// </summary>
         public bool IsRoot => string.IsNullOrWhiteSpace(Path.FirstOrDefault()?.Value);
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public UriRelative()
         {
@@ -81,9 +81,9 @@ namespace WebExpress.Uri
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
-        /// <param name="uri">die Uri</param>
+        /// <param name="url">The actual uri called by the web browser.</param>
         public UriRelative(string uri)
         {
             if (uri == null) return;
@@ -114,10 +114,10 @@ namespace WebExpress.Uri
         }
 
         /// <summary>
-        /// Copy-Konstruktor
+        /// Constructor
         /// </summary>
-        /// <param name="uri">Die zu kopierende Uir</param>
-        public UriRelative(UriRelative uri)
+        /// <param name="url">The uri.</param>
+        public UriRelative(IUri uri)
         {
             Path = uri.Path.Select(x => new UriPathSegment(x) as IUriPathSegment).ToList();
             Query = uri.Query.Select(x => new UriQuerry(x.Key, x.Value)).ToList();
@@ -125,10 +125,10 @@ namespace WebExpress.Uri
         }
 
         /// <summary>
-        /// Fügt ein Pfad hinzu
+        /// Adds a path element.
         /// </summary>
-        /// <param name="path">Der anzufügende Pfad</param>
-        /// <returns>Der erweiterte Pfad</returns>
+        /// <param name="path">The path to append.</param>
+        /// <returns>The extended path.</returns>
         public virtual IUri Append(string path)
         {
             if (string.IsNullOrWhiteSpace(path))
@@ -147,13 +147,13 @@ namespace WebExpress.Uri
         }
 
         /// <summary>
-        /// Liefere eine verkürzte Uri indem die ersten n-Elemente enthalten sind
-        /// count > 0 es sind count-Elemente enthalten 
-        /// count < 0 es werden count-Elemente abgeshnitten
-        /// count = 0 es wird eine leere Uri zurückgegeben
+        /// Return a shortened uri containing n-elements.
+        /// count > 0 count elements are included
+        /// count < 0 count elements are truncated
+        /// count = 0 an empty uri is returned
         /// </summary>
-        /// <param name="count">Die Anzahl</param>
-        /// <returns>Die Teiluri</returns>
+        /// <param name="count">The count.</param>
+        /// <returns>The sub uri.</returns>
         public virtual IUri Take(int count)
         {
             var copy = new UriRelative(this);
@@ -181,12 +181,12 @@ namespace WebExpress.Uri
         }
 
         /// <summary>
-        /// Liefere eine verkürzte Uri indem die ersten n-Elemente nicht enthalten sind
-        /// count > 0 es werden count-Elemente übersprungen
-        /// count <= 0 es wird eine leere Uri zurückgegeben
+        /// Return a shortened uri by not including the first n elements.
+        /// count > 0 count elements are skipped
+        /// count <= 0 an empty Uri is returned
         /// </summary>
-        /// <param name="count">Die Anzahl</param>
-        /// <returns>Die Teiluri oder null</returns>
+        /// <param name="count">The count.</param>
+        /// <returns>The sub uri.</returns>
         public IUri Skip(int count)
         {
             if (count >= Path.Count)
@@ -207,29 +207,29 @@ namespace WebExpress.Uri
         }
 
         /// <summary>
-        /// Ermittelt, ob das gegebene Segment Teil der Uri ist
+        /// Determines whether the given segment is part of the uri.
         /// </summary>
-        /// <param name="segment">Das Segment, welches geprüft wird</param>
-        /// <returns>true wenn erfolgreich, false sonst</returns>
+        /// <param name="segment">The segment to be tested.</param>
+        /// <returns>true if successful, false otherwise.</returns>
         public virtual bool Contains(string segment)
         {
             return Path.Where(x => x.Value.Equals(segment, StringComparison.OrdinalIgnoreCase)).Any();
         }
 
         /// <summary>
-        /// Prüft, ob eine gegebene Uri Teil dieser Uri ist
+        /// Checks whether a given uri is part of that uri.
         /// </summary>
-        /// <param name="uri">Die zu prüfende Uri</param>
-        /// <returns>true, wenn Teil der Uri</returns>
+        /// <param name="uri">The Uri to be checked.</param>
+        /// <returns>true if part of the uri, false otherwise.</returns>
         public bool StartsWith(IUri uri)
         {
             return ToString().StartsWith(uri.ToString());
         }
 
         /// <summary>
-        /// Wandelt die Uri in einen String um
+        /// Converts the uri to a string.
         /// </summary>
-        /// <returns>Die Stringrepräsentation der Uri</returns>
+        /// <returns>The string representation of the uri.</returns>
         public override string ToString()
         {
             var path = "/" + string.Join("/", Path.Where(x => !string.IsNullOrWhiteSpace(x.Value)).Select(x => x.Value));
@@ -238,10 +238,10 @@ namespace WebExpress.Uri
         }
 
         /// <summary>
-        /// Verknüft die angegebenen uris zu einer relaiven Uri
+        /// Combines the specified uris into a compound uri.
         /// </summary>
-        /// <param name="uris">Die zu verknüpfenden Uris</param>
-        /// <returns>Eine kombinierte Uri</returns>
+        /// <param name="uris">The uris to be combine.</param>
+        /// <returns>A combined uri.</returns>
         public static UriRelative Combine(params string[] uris)
         {
             var uri = new UriRelative();
@@ -255,24 +255,24 @@ namespace WebExpress.Uri
         }
 
         /// <summary>
-        /// Verknüft die angegebenen uris zu einer relaiven Uri
+        /// Combines the specified uris into a compound uri.
         /// </summary>
-        /// <param name="uris">Die zu verknüpfenden Uris</param>
-        /// <returns>Eine kombinierte Uri</returns>
+        /// <param name="uris">The uris to be combine.</param>
+        /// <returns>A combined uri.</returns>
         public static UriRelative Combine(params IUri[] uris)
         {
-            var uri = new UriRelative();
-            (uri.Path as List<IUriPathSegment>).AddRange(uris.Where(x => x != null).SelectMany(x => x.Path));
+            var uri = new UriRelative(uris.FirstOrDefault());
+            (uri.Path as List<IUriPathSegment>).AddRange(uris.Skip(1).SelectMany(x => x.Path.Skip(1)));
 
             return uri;
         }
 
         /// <summary>
-        /// Verknüft die angegebenen uris zu einer relaiven Uri
+        /// Combines the specified uris into a compound uri.
         /// </summary>
-        /// <param name="uri">Eine Uri</param>
-        /// <param name="uris">Die zu verknüpfenden Uris</param>
-        /// <returns>Eine kombinierte Uri</returns>
+        /// <param name="uri">The first uri to be combine.</param>
+        /// <param name="uris">The uris to be combine.</param>
+        /// <returns>A combined uri.</returns>
         public static UriRelative Combine(IUri uri, params string[] uris)
         {
             var copy = new UriRelative(uri as UriRelative);

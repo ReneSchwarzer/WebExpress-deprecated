@@ -10,7 +10,7 @@ webexpress.ui.expandCtrl = class extends webexpress.ui.events {
     _expand = true;
 
     /**
-     * Konstruktor
+     * Constructor
      * @param settings Optionen zur Gestaltung des Steuerelementes
      *        - id Die ID des Steuerelements
      *        - css CSS-Klasse zur Gestaltung des Steuerelementes

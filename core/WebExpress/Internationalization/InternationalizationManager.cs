@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -9,29 +9,29 @@ using WebExpress.WebPlugin;
 namespace WebExpress.Internationalization
 {
     /// <summary>
-    /// Internationalisierung
+    /// Internationalization
     /// </summary>
     public class InternationalizationManager
     {
         /// <summary>
-        /// Liefert oder setzt die Standardsprache
+        /// Returns the default language.
         /// </summary>
         public static CultureInfo DefaultCulture { get; private set; }
 
         /// <summary>
-        /// Liefert oder setzt das Verzeichnis, indem die Internationalisierungs-Schlüssel-Wert-Paare gelistet sind
+        /// Returns the directory by listing the internationalization key-value pairs.
         /// </summary>
         private static InternationalizationDictionary Dictionary { get; } = new InternationalizationDictionary();
 
         /// <summary>
-        /// Liefert oder setzt den Verweis auf Kontext des Hostes
+        /// Returns or sets the reference to the context of the host.
         /// </summary>
         private static IHttpServerContext Context { get; set; }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
-        /// <param name="context">Der Verweis auf den Kontext des Hostes
+        /// <param name="context">The reference to the context of the host.</param>
         internal static void Initialization(IHttpServerContext context)
         {
             Context = context;
@@ -41,33 +41,25 @@ namespace WebExpress.Internationalization
         }
 
         /// <summary>
-        /// Fügt die Internationalisierungs-Schlüssel-Wert-Paare aus dem angegebenen Plugin hinzu
+        /// Adds the internationalization key-value pairs from the specified plugins.
         /// </summary>
-        public static void Register()
+        /// <param name="pluginContexts">The plugins containing the key-value pairs to be inserted.</param>
+        public static void Register(IEnumerable<IPluginContext> pluginContexts)
         {
-            foreach (var plugin in PluginManager.Plugins)
+            foreach (var pluginContext in pluginContexts)
             {
-                Register(plugin);
+                var pluginID = pluginContext.PluginID;
+                Register(pluginContext.Assembly, pluginID);
+
+                Context.Log.Info(message: I18N("webexpress:internationalizationmanager.register", pluginID));
             }
         }
 
         /// <summary>
-        /// Fügt die Internationalisierungs-Schlüssel-Wert-Paare aus dem angegebenen Plugin hinzu
+        /// Adds the internationalization key-value pairs from the specified assembly.
         /// </summary>
-        /// <param name="plugin">Das Plugin, welches die einzufügenden Schlüssel-Wert-Paare enthällt</param>
-        public static void Register(IPluginContext plugin)
-        {
-            var pluginID = plugin.PluginId;
-            Register(plugin.Assembly, pluginID);
-
-            Context.Log.Info(message: I18N("webexpress:internationalizationmanager.register"), args: pluginID);
-        }
-
-        /// <summary>
-        /// Fügt die Internationalisierungs-Schlüssel-Wert-Paare aus dem angegebenen Plugin hinzu
-        /// </summary>
-        /// <param name="assembly">Das Assembly, welches die einzufügenden Schlüssel-Wert-Paare enthällt</param>
-        /// <param name="pluginID">Das Plufin, welche die Internationalisierungsdaten zugewiesen werden</param>
+        /// <param name="assembly">The assembly that contains the key-value pairs to insert.</param>
+        /// <param name="pluginID">The id of the plugin to which the internationalization data will be assigned.</param>
         internal static void Register(Assembly assembly, string pluginID)
         {
             var assemblyName = assembly.GetName().Name.ToLower();
@@ -105,68 +97,58 @@ namespace WebExpress.Internationalization
         }
 
         /// <summary>
-        /// Entfernt alle Internationalisierungs-Schlüssel-Wert-Paare, welche dem angegebenen Plugin zugeordnet sind
+        /// Removes all internationalization key-value pairs associated with the specified plugin context.
         /// </summary>
-        /// <param name="plugin">Das Plugin, welches die zu entfernenden Schlüssel-Wert-Paare enthällt</param>
-        public static void Remove(IPlugin plugin)
+        /// <param name="pluginContext">The context of the plugin containing the key-value pairs to remove.</param>
+        public static void Remove(IPluginContext pluginContext)
         {
-            //Remove(plugin.GetType().Assembly, plugin.Context.ApplicationID);
+
         }
 
         /// <summary>
-        /// Entfernt alle Internationalisierungs-Schlüssel-Wert-Paare, welche dem angegebenen Plugin zugeordnet sind
+        /// Internationalization of a key.
         /// </summary>
-        /// <param name="assembly">Das Assembly, welches die zu entfernenden Schlüssel-Wert-Paare enthällt</param>
-        /// <param name="application">Die Anwendung, welche die Internationalisierungsdaten zugewiesen werden</param>
-        internal static void Remove(Assembly assembly, string application)
-        {
-            throw new NotImplementedException("todo");
-        }
-
-        /// <summary>
-        /// Internationalisierung
-        /// </summary>
-        /// <param name="obj">Das Objekt, welches erweitert wird</param>
-        /// <param name="key">Der Schlüssel</param>
-        /// <returns>Der Wert des Schlüssels in der aktuellen Sprache</returns>
+        /// <param name="obj">An internationalization object that is being extended.</param>
+        /// <param name="key">The internationalization key.</param>
+        /// <returns>The value of the key in the current language.</returns>
         public static string I18N(II18N obj, string key)
         {
             return I18N(obj.Culture, key);
         }
 
         /// <summary>
-        /// Internationalisierung
+        /// Internationalization of a key.
         /// </summary>
-        /// <param name="request">Die Anfrage</param>
-        /// <param name="key">Der Schlüssel</param>
-        /// <returns>Der Wert des Schlüssels in der aktuellen Sprache</returns>
+        /// <param name="request">The request with the language to use.</param>
+        /// <param name="key">The internationalization key.</param>
+        /// <returns>The value of the key in the current language.</returns>
         public static string I18N(Request request, string key)
         {
             return I18N(request.Culture, null, key);
         }
 
         /// <summary>
-        /// Internationalisierung
+        /// Internationalization of a key.
         /// </summary>
-        /// <param name="culture">Die Kultur</param>
-        /// <param name="key">Der Schlüssel</param>
-        /// <returns>Der Wert des Schlüssels in der aktuellen Sprache</returns>
+        /// <param name="culture">The culture with the language to use.</param>
+        /// <param name="key">The internationalization key.</param>
+        /// <returns>The value of the key in the current language.</returns>
         public static string I18N(CultureInfo culture, string key)
         {
             return I18N(culture, null, key);
         }
 
         /// <summary>
-        /// Internationalisierung
+        /// Internationalization of a key.
         /// </summary>
-        /// <param name="culture">Die Kultur</param>
-        /// <param name="pluginID">Die PluginID</param>
-        /// <param name="key">Der Schlüssel</param>
-        /// <returns>Der Wert des Schlüssels in der aktuellen Sprache</returns>
+        /// <param name="culture">The culture with the language to use.</param>
+        /// <param name="pluginID">The plugin id.</param>
+        /// <param name="key">The internationalization key.</param>
+        /// <returns>The value of the key in the current language.</returns>
         public static string I18N(CultureInfo culture, string pluginID, string key)
         {
             var language = culture?.TwoLetterISOLanguageName;
-            var k = string.IsNullOrWhiteSpace(key) || string.IsNullOrWhiteSpace(pluginID) || key.StartsWith($"{pluginID}:") ? key : $"{pluginID}:{key}";
+            var k = string.IsNullOrWhiteSpace(key) || string.IsNullOrWhiteSpace(pluginID) || key.StartsWith($"{pluginID?.ToLower()}:") ? key?.ToLower() : $"{pluginID?.ToLower()}:{key?.ToLower()}";
 
             if (string.IsNullOrWhiteSpace(key))
             {
@@ -189,13 +171,24 @@ namespace WebExpress.Internationalization
         }
 
         /// <summary>
-        /// Internationalisierung
+        /// Internationalization of a key.
         /// </summary>
-        /// <param name="key">Der Schlüssel</param>
-        /// <returns>Der Wert des Schlüssels in der aktuellen Sprache</returns>
+        /// <param name="key">The internationalization key.</param>
+        /// <returns>The value of the key in the current language.</returns>
         public static string I18N(string key)
         {
             return I18N(DefaultCulture, null, key);
+        }
+
+        /// <summary>
+        /// Internationalization of a key.
+        /// </summary>
+        /// <param name="key">The internationalization key.</param>
+        /// <param name="args">The formatting arguments.</param>
+        /// <returns>The value of the key in the current language.</returns>
+        public static string I18N(string key, params object[] args)
+        {
+            return string.Format(I18N(DefaultCulture, null, key), args);
         }
     }
 }

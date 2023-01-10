@@ -19,7 +19,7 @@ namespace WebExpress.WebResource
         public string RootDirectory { get; protected set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public ResourceFile()
         {
@@ -27,24 +27,25 @@ namespace WebExpress.WebResource
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
-        /// <param name="context">Der Kontext</param>
+        /// <param name="context">The context.</param>
         public override void Initialization(IResourceContext context)
         {
             base.Initialization(context);
         }
 
         /// <summary>
-        /// Verarbeitung
+        /// Processing of the resource.
         /// </summary>
-        /// <param name="request">Die Anfrage</param>
-        /// <returns>Die Antwort</returns>
+        /// <param name="request">The request.</param>
+        /// <returns>The response.</returns>
         public override Response Process(Request request)
         {
             lock (Gard)
             {
-                var url = request.Uri.ToString()[Context.ContextPath.ToString().Length..];
+                var contextPath = ResourceContext.GetContextPath(ApplicationContext);
+                var url = request.Uri.ToString()[contextPath.ToString().Length..];
 
                 var path = System.IO.Path.GetFullPath(RootDirectory + url);
 
@@ -116,7 +117,7 @@ namespace WebExpress.WebResource
                         break;
                 }
 
-                Context.Log.Debug(message: I18N("webexpress:resource.file"), args: new object[] { request.RemoteEndPoint, request.Uri });
+                ResourceContext.Log.Debug(message: I18N("webexpress:resource.file"), args: new object[] { request.RemoteEndPoint, request.Uri });
 
                 return response;
             }

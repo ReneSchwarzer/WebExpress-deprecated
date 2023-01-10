@@ -26,7 +26,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public HtmlElementScriptingCanvas()
             : base("canvas", false)

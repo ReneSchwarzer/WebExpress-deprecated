@@ -1,69 +1,86 @@
 ﻿using System.Globalization;
 using WebExpress.Message;
 using WebExpress.Uri;
+using WebExpress.WebApplication;
+using WebExpress.WebModule;
 
 namespace WebExpress.WebResource
 {
     public abstract class Resource : IResource
     {
         /// <summary>
-        /// Liefert die RessourcenID
+        /// Returns the resource id.
         /// </summary>
         public string ID { get; internal set; }
 
         /// <summary>
-        /// Liefert oder setzt den Modulkontext indem die Ressource existiert
+        /// Returns the context of the application.
         /// </summary>
-        public IResourceContext Context { get; private set; }
+        public IApplicationContext ApplicationContext { get; internal set; }
 
         /// <summary>
-        /// Die Uri der Ressource
+        /// Returns the context of the module.
         /// </summary>
-        public IUri Uri { get; internal set; }
+        public IModuleContext ModuleContext { get; internal set; }
 
         /// <summary>
-        /// Liefert die Kultur
+        /// Returns the module context where the resource exists.
+        /// </summary>
+        public IResourceContext ResourceContext { get; private set; }
+
+        /// <summary>
+        /// Returns the uri of the resource.
+        /// </summary>
+        public IUriResource Uri { get; internal set; }
+
+        /// <summary>
+        /// Returns the context path.
+        /// </summary>
+        public IUri ContextPath => ModuleContext?.GetContextPath(ApplicationContext);
+
+        /// <summary>
+        /// Provides the culture.
         /// </summary>
         public CultureInfo Culture { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public Resource()
         {
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
-        /// <param name="context">Der Kontext</param>
-        public virtual void Initialization(IResourceContext context)
+        /// <param name="resourceContext">The context of the resource.</param>
+        public virtual void Initialization(IResourceContext resourceContext)
         {
-            Context = context;
+            ResourceContext = resourceContext;
         }
 
         /// <summary>
-        /// Vorverarbeitung
+        /// Preprocessing of the resource.
         /// </summary>
-        /// <param name="request">Die Anfrage</param>
+        /// <param name="request">The request.</param>
         public virtual void PreProcess(Request request)
         {
             return;
         }
 
         /// <summary>
-        /// Verarbeitung
+        /// Processing of the resource.
         /// </summary>
-        /// <param name="request">Die Anfrage</param>
-        /// <returns>Die Antwort</returns>
+        /// <param name="request">The request.</param>
+        /// <returns>The response.</returns>
         public abstract Response Process(Request request);
 
         /// <summary>
-        /// Nachbeitung
+        /// Post-processing of the resource.
         /// </summary>
-        /// <param name="request">Die Anfrage</param>
-        /// <param name="response">Die Antwort</param>
-        /// <returns>Die Antwort</returns>
+        /// <param name="request">The request.</param>
+        /// <param name="response">The response.</param>
+        /// <returns>The response.</returns>
         public virtual Response PostProcess(Request request, Response response)
         {
             return response;

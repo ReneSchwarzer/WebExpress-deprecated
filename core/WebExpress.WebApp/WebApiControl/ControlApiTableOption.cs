@@ -26,7 +26,7 @@ namespace WebExpress.WebApp.WebApiControl
         public string Color { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public ControlApiTableOption()
         {

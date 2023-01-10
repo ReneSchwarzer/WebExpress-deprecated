@@ -13,14 +13,14 @@ namespace WebExpress.UI
     public sealed class Module : IModule
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public Module()
         {
         }
 
         /// <summary>
-        /// Initialisierung des Moduls. Hier können z.B. verwaltete Ressourcen geladen werden. 
+        /// Initialization des Moduls. Hier können z.B. verwaltete Ressourcen geladen werden. 
         /// </summary>
         /// <param name="context">Der Kontext, welcher für die Ausführung des Plugins gilt</param>
         public void Initialization(IModuleContext context)
@@ -36,7 +36,7 @@ namespace WebExpress.UI
         }
 
         /// <summary>
-        /// Freigeben von nicht verwalteten Ressourcen, welche wärend der Verwendung reserviert wurden.
+        /// Freigeben von nicht verwalteten Ressourcen, welche während der Verwendung reserviert wurden.
         /// </summary>
         public void Dispose()
         {

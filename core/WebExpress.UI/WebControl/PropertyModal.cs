@@ -30,7 +30,7 @@ namespace WebExpress.UI.WebControl
         public IUri RedirectUri { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="type">Der Typ</param>
         /// <param name="modal">Das benutzerdefinierte Modal oder null</param>
@@ -43,7 +43,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="type">Der Typ</param>
         /// <param name="size">Die Größe des Modals</param>
@@ -56,7 +56,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="type">Der Typ</param>
         /// <param name="modal">Das benutzerdefinierte Modal</param>
@@ -70,7 +70,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="type">Der Typ</param>
         /// <param name="uri">Die Uri</param>

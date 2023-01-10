@@ -18,7 +18,7 @@ namespace WebExpress.Html
         public HtmlElementSectionBody Body { get; private set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public HtmlElementRootHtml()
             : base("html")

@@ -20,7 +20,7 @@ namespace WebExpress.UI.WebControl
         public PropertySizeIcon Size { get; protected set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="icon">Das System-Icon</param>
         public PropertyIcon(TypeIcon icon)
@@ -29,7 +29,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="icon">Das benutzerdefinierte Icon</param>
         public PropertyIcon(IUri icon, PropertySizeIcon size = null)

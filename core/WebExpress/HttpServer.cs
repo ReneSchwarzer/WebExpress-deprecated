@@ -23,62 +23,65 @@ using WebExpress.Uri;
 using WebExpress.WebApplication;
 using WebExpress.WebJob;
 using WebExpress.WebModule;
+using WebExpress.WebPackage;
 using WebExpress.WebPage;
 using WebExpress.WebPlugin;
 using WebExpress.WebResource;
+using WebExpress.WebSitemap;
 
 namespace WebExpress
 {
     /// <summary>
-    /// siehe RFC 2616
+    /// The web server for processing http requests (see RFC 2616). The web server uses Kestrel internally.
     /// </summary>
     public class HttpServer : IHost, II18N, IHttpApplication<HttpContext>
     {
         /// <summary>
-        /// Event wird nach dem Start des Webservers ausgelöst
+        /// Event is triggered after the web server is started.
         /// </summary>
         public event EventHandler Started;
 
         /// <summary>
-        /// Liefert den KestrelServer, welcher auf die Anfragen reagiert
+        /// Provides the KestrelServer, which responds to the requests.
         /// </summary>
         private KestrelServer Kestrel { get; set; }
 
         /// <summary>
-        /// Threadbeendigung des Servers
+        /// Server thread termination.
         /// </summary>
         private CancellationToken ServerToken { get; } = new CancellationToken();
 
         /// <summary>
-        /// Liefert oder setzt die Konfiguration
+        /// Returns or sets the configuration
         /// </summary>
         public HttpServerConfig Config { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt den Kontext
+        /// Returns or sets the context.
         /// </summary>
         public IHttpServerContext Context { get; protected set; }
 
         /// <summary>
-        /// Liefert die Kultur
+        /// Returns the culture.
         /// </summary>
         public CultureInfo Culture { get; set; }
 
         /// <summary>
-        /// Liefert die Ausführungszeit des Webservers
+        /// Returns the execution time of the web server.
         /// </summary>
         public static DateTime ExecutionTime { get; } = DateTime.Now;
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
-        /// <param name="context">Der Serverkontext</param>
+        /// <param name="context">Der Serverkontext.</param>
         public HttpServer(HttpServerContext context)
         {
             Context = new HttpServerContext
             (
                 context.Uri,
                 context.Endpoints,
+                context.PackagePath,
                 context.AssetPath,
                 context.DataPath,
                 context.ConfigPath,
@@ -93,16 +96,18 @@ namespace WebExpress
             InternationalizationManager.Register(typeof(HttpServer).Assembly, "webexpress");
 
             InternationalizationManager.Initialization(Context);
-            PluginManager.Initialization(Context);
-            ApplicationManager.Initialization(Context);
-            ModuleManager.Initialization(Context);
+            SitemapManager.Initialization(Context);
             ResourceManager.Initialization(Context);
             ResponseManager.Initialization(Context);
             ScheduleManager.Initialization(Context);
+            ModuleManager.Initialization(Context);
+            ApplicationManager.Initialization(Context);
+            PluginManager.Initialization(Context);
+            PackageManager.Initialization(Context);
         }
 
         /// <summary>
-        /// Startet den HTTPServer
+        /// Starts the HTTP(S) server.
         /// </summary>
         public void Start()
         {
@@ -118,38 +123,11 @@ namespace WebExpress
 
             if (Config != null)
             {
-                // Plugins laden
-                PluginManager.Register(Config.Deployment);
+                // start packages
+                PackageManager.Execute();
 
-                // Internationalisierung laden
-                InternationalizationManager.Register();
-
-                // Anwendungen laden
-                ApplicationManager.Register();
-
-                // Module laden
-                ModuleManager.Register();
-
-                // Ressourcen laden
-                ResourceManager.Register();
-
-                // Statusseiten
-                ResponseManager.Register();
-
-                // Jobs
-                ScheduleManager.Register();
-
-                // Ausführung der Plugins starten
-                PluginManager.Boot();
-
-                // Ausführung der Anwendungen starten
-                ApplicationManager.Boot();
-
-                // Ausführung der Module starten
-                ModuleManager.Boot();
-
-                // Ausführung des Terminplaners starten
-                ScheduleManager.Boot();
+                // start running the scheduler
+                ScheduleManager.Execute();
             }
 
             var logger = new LogFactory();
@@ -195,10 +173,10 @@ namespace WebExpress
         }
 
         /// <summary>
-        /// Fügt ein Endpunkt hinzu
+        /// Adds an endpoint.
         /// </summary>
-        /// <param name="serverOptions">Die Serveroptionen</param>
-        /// <param name="endPoint">Der Endpunkt</param>
+        /// <param name="serverOptions">The server options.</param>
+        /// <param name="endPoint">The endpoint.</param>
         private void AddEndpoint(OptionsWrapper<KestrelServerOptions> serverOptions, EndpointConfig endPoint)
         {
             try
@@ -245,10 +223,10 @@ namespace WebExpress
         }
 
         /// <summary>
-        /// Fügt ein Endpunkt hinzu
+        /// Adds an endpoint.
         /// </summary>
-        /// <param name="serverOptions">Die Serveroptionen</param>
-        /// <param name="endPoint">Der Endpunkt</param>
+        /// <param name="serverOptions">The server options.</param>
+        /// <param name="endPoint">The endpoint.</param>
         private void AddEndpoint(OptionsWrapper<KestrelServerOptions> serverOptions, IPEndPoint endPoint)
         {
             serverOptions.Value.Listen(endPoint);
@@ -257,12 +235,12 @@ namespace WebExpress
         }
 
         /// <summary>
-        /// Fügt ein Endpunkt hinzu
+        /// Adds an endpoint.
         /// </summary>
-        /// <param name="serverOptions">Die Serveroptionen</param>
-        /// <param name="pfxFile">Das Zertifikat</param>
-        /// <param name="password">Das Passwort zum Zertifikat</param>
-        /// <param name="endPoint">Der Endpunkt</param>
+        /// <param name="serverOptions">The server options.</param>
+        /// <param name="pfxFile">The certificate.</param>
+        /// <param name="password">The password to the certificate.</param>
+        /// <param name="endPoint">The endpoint.</param>
         private void AddEndpoint(OptionsWrapper<KestrelServerOptions> serverOptions, IPEndPoint endPoint, string pfxFile, string password)
         {
             serverOptions.Value.Listen(endPoint, configure =>
@@ -276,32 +254,23 @@ namespace WebExpress
         }
 
         /// <summary>
-        /// Stoppt den HTTPServer
+        /// Stops the HTTP(S) server
         /// </summary>
         public void Stop()
         {
-            // Laufende Threads beenden
+            // End running threads
             Kestrel.StopAsync(ServerToken);
 
-            // Ausführung der Module beenden
-            ModuleManager.ShutDown();
-
-            // Ausführung der Anwendungen beenden
-            ApplicationManager.ShutDown();
-
-            // Ausführung der Plugins beenden
-            PluginManager.ShutDown();
-
-            // Ausführung des Terminplaners beenden
+            // Stop running the scheduler
             ScheduleManager.ShutDown();
         }
 
         /// <summary>
-        /// Behandelt einen eingehenden Anforderung
-        /// Wird nebenläufig ausgeführt
+        /// Handles an incoming request
+        /// Concurrent execution
         /// </summary>
-        /// <param name="context">Der Kontext der Webanforderung.</param>
-        /// <returns>Die Antwort, welche an den Aufrufer zurückgeschickt werden soll.</returns>
+        /// <param name="context">The context of the web request.</param>
+        /// <returns>The response to be sent back to the caller.</returns>
         private Response HandleClient(HttpContext context)
         {
             var stopwatch = Stopwatch.StartNew();
@@ -316,17 +285,17 @@ namespace WebExpress
             {
                 Context.Log.Debug(message: this.I18N("webexpress:httpserver.request"), args: new object[] { context.RemoteEndPoint, $"{request?.Method} {request?.Uri} {request?.Protocoll}" });
 
-                // Suche Seite in Sitemap
-                var resource = ResourceManager.Find(context?.Uri.ToString(), new SearchContext()
+                // search page in sitemap
+                var resource = SitemapManager.Find(context?.Uri.ToString(), new SearchContext()
                 {
                     Culture = culture,
                     Uri = request?.Uri
                 });
 
-                // Ressource ausführen
+                // execute resource
                 if (resource?.Instance != null)
                 {
-                    var moduleContext = resource?.Context?.Module;
+                    var moduleContext = resource?.Context?.ModuleContext;
                     request.Uri = new UriResource(moduleContext, uri, resource, culture);
                     request.AddParameter(resource.Variables.Select(x => new Parameter(x.Key, x.Value, ParameterScope.Url)));
 
@@ -341,7 +310,7 @@ namespace WebExpress
 
                     if (response is ResponseNotFound)
                     {
-                        response = CreateStatusPage<ResponseNotFound>(string.Empty, request, resource.Context);
+                        response = CreateStatusPage<ResponseNotFound>(string.Empty, request, resource.Context, resource.ApplicationContext);
                     }
 
                     if
@@ -357,7 +326,7 @@ namespace WebExpress
                 }
                 else
                 {
-                    // Seite nicht gefunden
+                    // Resource not found
                     response = CreateStatusPage<ResponseNotFound>(string.Empty, request);
                 }
             }
@@ -392,11 +361,11 @@ namespace WebExpress
         }
 
         /// <summary>
-        /// Sendet die Antwortnachricht
+        /// Sends the response message
         /// </summary>
-        /// <param name="context">Der Kontext der Anfrage</param>
-        /// <param name="response">Die Antwortnachricht</param>
-        /// <returns>Das Senden der Nachricht als Aufgabe, welche nebenläufig ausgeführt wird.</returns>
+        /// <param name="context">The context of the request</param>
+        /// <param name="response">The reply message</param>
+        /// <returns>Sending the message as a task, which is executed concurrently.</returns>
         private async Task SendResponseAsync(HttpContext context, Response response)
         {
             try
@@ -433,11 +402,6 @@ namespace WebExpress
                     responseFeature.Headers.SetCookie = string.Join(" ", response.Header.Cookies);
                 }
 
-                //    foreach (var c in response.Header.CustomHeader)
-                //    {
-                //        context.Response.AppendHeader(c.Key, c.Value);
-                //    }
-
                 if (response?.Content is byte[] byteContent)
                 {
                     responseFeature.Headers.ContentLength = byteContent.Length;
@@ -470,17 +434,18 @@ namespace WebExpress
         }
 
         /// <summary>
-        /// Erstellt eine Statusseite
+        /// Creates a status page
         /// </summary>
-        /// <param name="massage">Die Fehlernachricht</param>
-        /// <param name="request">Die Anfrage</param>
-        /// <param name="context">Der Kontext der aufgerufenen Ressource oder null</param>
-        /// <returns>Die Antwort</returns>
-        private Response CreateStatusPage<T>(string massage, Request request, IResourceContext context = null) where T : Response, new()
+        /// <param name="massage">The error message.</param>
+        /// <param name="request">The request.</param>
+        /// <param name="applicationContext">The context of the application being called or null.</param>
+        /// <param name="resourceContext">The context of the resource being called or null.</param>
+        /// <returns>The response.</returns>
+        private Response CreateStatusPage<T>(string massage, Request request, IResourceContext resourceContext = null, IApplicationContext applicationContext = null) where T : Response, new()
         {
             var response = new T() as Response;
             var culture = Culture;
-            var moduleContext = ResponseManager.GetDefaultModule(response.Status, request?.Uri.ToString(), context?.Module);
+            var moduleContext = ResponseManager.GetDefaultModule(response.Status, request?.Uri.ToString(), resourceContext?.ModuleContext);
 
             try
             {
@@ -490,7 +455,7 @@ namespace WebExpress
             {
             }
 
-            IPageStatus statusPage = ResponseManager.Create(massage, response.Status, moduleContext, new UriAbsolute(request?.Uri.ToString()));
+            IPageStatus statusPage = ResponseManager.Create(massage, response.Status, applicationContext, moduleContext, new UriAbsolute(request?.Uri.ToString()));
 
             if (statusPage != null)
             {
@@ -515,18 +480,18 @@ namespace WebExpress
         }
 
         /// <summary>
-        /// Erstellt eine Statusseite
+        /// Creates a status page
         /// </summary>
-        /// <param name="massage">Die Fehlernachricht</param>
-        /// <param name="context">Der Anfragekontext</param>
-        /// <returns>Die Antwort</returns>
+        /// <param name="massage">The error message</param>
+        /// <param name="context">The context of the request</param>
+        /// <returns>The response</returns>
         private Response CreateStatusPage<T>(string massage, HttpContext context) where T : Response, new()
         {
             var response = new T() as Response;
             var culture = Culture;
             var moduleContext = ResponseManager.GetDefaultModule(response.Status, context.Uri.ToString());
 
-            IPageStatus statusPage = ResponseManager.Create(massage, response.Status, moduleContext, new UriAbsolute(context?.Uri.ToString()));
+            IPageStatus statusPage = ResponseManager.Create(massage, response.Status, null, moduleContext, new UriAbsolute(context?.Uri.ToString()));
 
             if (statusPage != null)
             {
@@ -551,10 +516,10 @@ namespace WebExpress
         }
 
         /// <summary>
-        /// Erstellen Sie einen HttpContext mit einer Auflistung von HTTP-Features.
+        /// Create an HttpContext with a collection of HTTP features.
         /// </summary>
-        /// <param name="contextFeatures">Eine Auflistung von HTTP-Features, die zum Erstellen des HttpContexts verwendet werden sollen.</param>
-        /// <returns>Der erstellte HttpContext.</returns>
+        /// <param name="contextFeatures">A collection of HTTP features to use to create the HttpContext.</param>
+        /// <returns>The HttpContext created.</returns>
         public HttpContext CreateContext(IFeatureCollection contextFeatures)
         {
             try

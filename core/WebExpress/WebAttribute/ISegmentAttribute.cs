@@ -5,9 +5,9 @@ namespace WebExpress.WebAttribute
     public interface ISegmentAttribute
     {
         /// <summary>
-        /// Umwandlung in einem Pfadsegment
+        /// Conversion to a path segment.
         /// </summary>
-        /// <returns>Das Pfadsegment</returns>
+        /// <returns>The path segment.</returns>
         IPathSegment ToPathSegment();
     }
 }

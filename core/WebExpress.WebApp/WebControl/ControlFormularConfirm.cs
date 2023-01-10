@@ -36,7 +36,7 @@ namespace WebExpress.WebApp.WebControl
         };
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlFormularConfirm(string id = null)

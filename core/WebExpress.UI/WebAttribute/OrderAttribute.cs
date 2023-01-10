@@ -6,7 +6,7 @@
     public class OrderAttribute : System.Attribute, IComponentAttribute
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="order">Die Reihenfolge innerhalb der Sektion</param>
         public OrderAttribute(int order)

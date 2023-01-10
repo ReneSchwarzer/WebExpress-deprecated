@@ -36,14 +36,14 @@ namespace WebExpress.WebApp.Model
         public virtual string Image { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public WebItem()
         {
         }
 
         /// <summary>
-        /// Copy-Konstruktor
+        /// Copy-Constructor
         /// Erstellt eine Tiefenkopie.
         /// </summary>
         /// <param name="item">Das zu kopierende Objekt</param>

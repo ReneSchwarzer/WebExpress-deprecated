@@ -10,7 +10,7 @@ namespace WebExpress.Html
         public string Html { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public HtmlRaw()
         {
@@ -18,7 +18,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="html">Der Text</param>
         public HtmlRaw(string html)

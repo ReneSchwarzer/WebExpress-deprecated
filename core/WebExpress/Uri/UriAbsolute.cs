@@ -6,27 +6,27 @@ using System.Text.RegularExpressions;
 namespace WebExpress.Uri
 {
     /// <summary>
-    /// Absolute Uri (z.B: https://de.wikipedia.org/wiki/Uniform_Resource_Identifier)
+    /// Absolute uri (e.g. https://de.wikipedia.org/wiki/Uniform_Resource_Identifier).
     /// </summary>
     public class UriAbsolute : UriRelative
     {
         /// <summary>
-        /// Pattern der Uri
+        /// Pattern of the uri.
         /// </summary>
         private const string Pattern = "^([a-z0-9+.-]+):(?://(?:((?:[a-z0-9-._~!$&'()*+,;=:]|%[0-9A-F]{2})*)@)?((?:[a-z0-9-._~!$&'()*+,;=]|%[0-9A-F]{2})*)(?::(\\d*))?(.*)?)$";
 
         /// <summary>
-        /// Der Typ
+        /// The scheme (e.g. Http, FTP).
         /// </summary>
         public UriScheme Scheme { get; set; }
 
         /// <summary>
-        /// Die Zuständigkeit (z.B. user@example.com:8080)
+        /// The authority (e.g. user@example.com:8080).
         /// </summary>
         public UriAuthority Authority { get; set; }
 
         /// <summary>
-        /// Liefert die Wurzel
+        /// Returns the root.
         /// </summary>
         public override IUri Root
         {
@@ -43,16 +43,16 @@ namespace WebExpress.Uri
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public UriAbsolute()
         {
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
-        /// <param name="url">Die Url</param>
+        /// <param name="uri">The uri.</param>
         public UriAbsolute(string url)
         {
             if (url == null) return;
@@ -82,11 +82,11 @@ namespace WebExpress.Uri
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
-        /// <param name="scheme"></param>
-        /// <param name="authority">Die Zuständigkeit (z.B. user@example.com:8080)</param>
-        /// <param name="uri">Die Uri</param>
+        /// <param name="scheme">The scheme (e.g. Http, FTP).</param>
+        /// <param name="authority">The authority (e.g. user@example.com:8080).</param>
+        /// <param name="uri">The uri.</param>
         public UriAbsolute(UriScheme scheme, UriAuthority authority, IUri uri)
         {
             Scheme = scheme;
@@ -101,9 +101,9 @@ namespace WebExpress.Uri
         }
 
         /// <summary>
-        /// Copy-Konstruktor
+        /// Copy-Constructor
         /// </summary>
-        /// <param name="uri">Die zu kopierende Uri</param>
+        /// <param name="uri">The uri to copy.</param>
         public UriAbsolute(UriAbsolute uri)
         {
             Scheme = uri.Scheme;
@@ -114,10 +114,10 @@ namespace WebExpress.Uri
         }
 
         /// <summary>
-        /// Fügt ein Pfad hinzu
+        /// Adds a path element.
         /// </summary>
-        /// <param name="path">Der anzufügende Pfad</param>
-        /// <returns>Die erweiterte Pfad</returns>
+        /// <param name="path">The path to append.</param>
+        /// <returns>The extended path.</returns>
         public override IUri Append(string path)
         {
             var copy = new UriAbsolute(this);
@@ -131,13 +131,13 @@ namespace WebExpress.Uri
         }
 
         /// <summary>
-        /// Liefere eine verkürzte Uri
-        /// count > 0 es sind count-Elemente enthalten sind
-        /// count < 0 es werden count-Elemente abgeshnitten
-        /// count = 0 es wird eine leere Uri zurückgegeben
+        /// Return a shortened uri containing n-elements.
+        /// count > 0 count elements are included
+        /// count < 0 count elements are truncated
+        /// count = 0 an empty uri is returned
         /// </summary>
-        /// <param name="">Die Anzahl</param>
-        /// <returns>Die Teiluri</returns>
+        /// <param name="count">The count.</param>
+        /// <returns>The sub uri.</returns>
         public override IUri Take(int count)
         {
             var copy = new UriAbsolute(this);
@@ -159,9 +159,9 @@ namespace WebExpress.Uri
         }
 
         /// <summary>
-        /// Wandelt die Uri in einen String um
+        /// Converts the uri to a string.
         /// </summary>
-        /// <returns>Die Stringrepräsentation der Uri</returns>
+        /// <returns>The string representation of the uri.</returns>
         public override string ToString()
         {
             var scheme = Scheme.ToString("g").ToLower() + ":";

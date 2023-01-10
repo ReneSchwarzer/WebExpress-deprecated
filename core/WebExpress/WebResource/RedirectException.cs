@@ -15,7 +15,7 @@ namespace WebExpress.WebResource
         public bool Permanet { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="url">Das Weiterleitungsziel</param> 
         /// <param name="permanent">true wenn 301 gesendet werden soll, flase für 302</param>

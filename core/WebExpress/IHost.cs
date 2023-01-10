@@ -3,17 +3,17 @@
 namespace WebExpress
 {
     /// <summary>
-    /// Hostschnittstelle
+    /// The host interface.
     /// </summary>
     public interface IHost
     {
         /// <summary>
-        /// Liefert den Kontext
+        /// Returns the context of the host.
         /// </summary>
         IHttpServerContext Context { get; }
 
         /// <summary>
-        /// Event wird nach dem Start des Webservers ausgelöst
+        /// Event is triggered after the web server starts.
         /// </summary>
         event EventHandler Started;
     }

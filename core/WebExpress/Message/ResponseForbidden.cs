@@ -6,7 +6,7 @@
     public class ResponseForbidden : Response
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public ResponseForbidden()
         {

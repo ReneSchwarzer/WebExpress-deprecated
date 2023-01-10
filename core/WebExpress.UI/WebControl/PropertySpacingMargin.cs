@@ -3,7 +3,7 @@
     public class PropertySpacingMargin : PropertySpacing
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public PropertySpacingMargin()
         {
@@ -11,7 +11,7 @@
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="size">Die Abstände</param>
         public PropertySpacingMargin(Space size)
@@ -20,7 +20,7 @@
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="horizontal">Der horzontale Abstand</param>
         /// <param name="vertical">Der vertikale Abstand</param>
@@ -30,7 +30,7 @@
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="left">Der linke Abstand</param>
         /// <param name="right">Der rechte Abstand</param>

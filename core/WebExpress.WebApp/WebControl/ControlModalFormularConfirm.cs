@@ -40,7 +40,7 @@ namespace WebExpress.WebApp.WebControl
         public IUri RedirectUri { get { return Formular?.RedirectUri; } set { Formular.RedirectUri = value; } }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlModalFormularConfirm(string id = null)
@@ -50,7 +50,7 @@ namespace WebExpress.WebApp.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="content">Die Formularsteuerelemente</param>
@@ -61,7 +61,7 @@ namespace WebExpress.WebApp.WebControl
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
         private void Init()
         {

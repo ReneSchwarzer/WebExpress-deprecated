@@ -3,7 +3,7 @@
     public class ControlPanelFilter : ControlFormular
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlPanelFilter(string id = null)
@@ -13,7 +13,7 @@
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
         private void Init()
         {

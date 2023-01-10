@@ -1,25 +1,25 @@
 namespace WebExpress.Uri
 {
     /// <summary>
-    /// Statisches Pfadsegment
+    /// The query part (e.g. ?title=Uniform_Resource_Identifier&action=submit).
     /// </summary>
     public class UriQuerry
     {
         /// <summary>
-        /// Liefert oder setzt den Tag
+        /// Returns the key.
         /// </summary>
         public string Key { get; protected set; }
 
         /// <summary>
-        /// Liefert oder setzt den Wert
+        /// Returns the value.
         /// </summary>
         public string Value { get; protected set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
-        /// <param name="key">Der Schlüssel</param>
-        /// <param name="value">Der Wert</param>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
         public UriQuerry(string key, string value)
         {
             Key = key;

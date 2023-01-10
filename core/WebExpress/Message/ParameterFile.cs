@@ -14,14 +14,14 @@
 
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public ParameterFile()
         {
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="key">Der Schlüssel</param>
         /// <param name="value">Der Wert</param>
@@ -32,7 +32,7 @@
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="key">Der Schlüssel</param>
         /// <param name="value">Der Wert</param>
@@ -43,7 +43,7 @@
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="key">Der Schlüssel</param>
         /// <param name="value">Der Wert</param>

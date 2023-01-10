@@ -3,7 +3,7 @@
     public class PropertyColorCallout : PropertyColor<TypeColorCallout>
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="color">Die Farbe</param>
         public PropertyColorCallout(TypeColorCallout color)
@@ -12,7 +12,7 @@
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="color">Die Farbe</param>
         public PropertyColorCallout(string color)

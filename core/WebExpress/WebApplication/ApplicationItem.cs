@@ -1,17 +1,17 @@
 ﻿namespace WebExpress.WebApplication
 {
     /// <summary>
-    /// Repräsentiert ein Anwendungseintrag im Anwendungsverzeichnis
+    /// Represents an application entry in the application directory.
     /// </summary>
     internal class ApplicationItem
     {
         /// <summary>
-        /// Der zur Anwendung zugehörige Kontext
+        /// The context associated with the application.
         /// </summary>
         public IApplicationContext Context { get; set; }
 
         /// <summary>
-        /// Die Anwendung
+        /// The application.
         /// </summary>
         public IApplication Application { get; set; }
     }

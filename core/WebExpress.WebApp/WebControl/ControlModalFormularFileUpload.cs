@@ -83,7 +83,7 @@ namespace WebExpress.WebApp.WebControl
         public IUri RedirectUri { get { return Formular?.RedirectUri; } set { Formular.RedirectUri = value; } }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlModalFormularFileUpload(string id = null)
@@ -92,7 +92,7 @@ namespace WebExpress.WebApp.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="content">Die Formularsteuerelemente</param>
@@ -103,7 +103,7 @@ namespace WebExpress.WebApp.WebControl
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
         private void Init()
         {
@@ -122,7 +122,7 @@ namespace WebExpress.WebApp.WebControl
         /// Validierung der Uploaddatei
         /// </summary>
         /// <param name="sender">Der Auslöser</param>
-        /// <param name="e">Die Eventargumente</param>
+        /// <param name="e">The event argument.</param>
         private void OnValidationFile(object sender, ValidationEventArgs e)
         {
             if (!(e.Context.Request.GetParameter(File.Name) is ParameterFile))
@@ -132,10 +132,10 @@ namespace WebExpress.WebApp.WebControl
         }
 
         /// <summary>
-        /// Verarbeitung des Formulares
+        /// Processing of the resource. des Formulares
         /// </summary>
         /// <param name="sender">Der Auslöser</param>
-        /// <param name="e">Die Eventargumente</param>
+        /// <param name="e">The event argument.</param>
         private void OnProcessFormular(object sender, FormularEventArgs e)
         {
             if (e.Context.Request.GetParameter(File.Name) is ParameterFile file)

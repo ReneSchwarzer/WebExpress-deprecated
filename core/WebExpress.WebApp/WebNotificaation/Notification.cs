@@ -54,7 +54,7 @@ namespace WebExpress.WebApp.WebNotificaation
         public TypeNotification Type { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public Notification()
         {

@@ -17,26 +17,26 @@ namespace WebExpress.WebApp.WebSettingPage
     public sealed class PageWebAppSettingLogDownload : ResourceBinary
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public PageWebAppSettingLogDownload()
         {
         }
 
         /// <summary>
-        /// Verarbeitung
+        /// Processing of the resource.
         /// </summary>
-        /// <param name="request">Die Anfrage</param>
-        /// <returns>Die Antwort</returns>
+        /// <param name="request">The request.</param>
+        /// <returns>The response.</returns>
         public override Response Process(Request request)
         {
-            if (!File.Exists(Context.Log.Filename))
+            if (!File.Exists(ResourceContext.Log.Filename))
             {
                 return new ResponseNotFound();
             }
 
 
-            Data = File.ReadAllBytes(Context.Log.Filename);
+            Data = File.ReadAllBytes(ResourceContext.Log.Filename);
 
             var response = base.Process(request);
             response.Header.CacheControl = "no-cache";

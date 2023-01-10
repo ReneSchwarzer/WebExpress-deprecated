@@ -6,7 +6,7 @@
     public class ResponseBadRequest : Response
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public ResponseBadRequest()
         {

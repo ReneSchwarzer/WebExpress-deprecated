@@ -13,17 +13,17 @@ namespace WebExpress.WebResource
         public byte[] Data { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public ResourceBinary()
         {
         }
 
         /// <summary>
-        /// Verarbeitung
+        /// Processing of the resource.
         /// </summary>
-        /// <param name="request">Die Anfrage</param>
-        /// <returns>Die Antwort</returns>
+        /// <param name="request">The request.</param>
+        /// <returns>The response.</returns>
         public override Response Process(Request request)
         {
             var response = new ResponseOK();

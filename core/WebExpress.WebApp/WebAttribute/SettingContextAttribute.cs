@@ -7,7 +7,7 @@ namespace WebExpress.WebApp.WebAttribute
     public class SettingContextAttribute : System.Attribute, IResourceAttribute
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="context">Der Kontext, indem die Einstellungsseite zugeordnet wird</param>
         public SettingContextAttribute(string context)

@@ -5,7 +5,7 @@ webexpress.ui.moreCtrl = class {
     _container = $("<div class='dropdown'/>");
 
     /**
-     * Konstruktor
+     * Constructor
      * @param options Die Menüeinräge Array von { css: "", icon: "", color: "", label: "", url: "", onclick: "", item: null, disabled: false}
      * @param settings Optionen zur Gestaltung des Steuerelementes
      *        - id Die ID des Steuerelements

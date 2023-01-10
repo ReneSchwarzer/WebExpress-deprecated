@@ -21,14 +21,14 @@ namespace WebExpress.Message
         public string Value { get; internal set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public Parameter()
         {
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="key">Der Schlüssel</param>
         /// <param name="value">Der Wert</param>
@@ -47,7 +47,7 @@ namespace WebExpress.Message
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="key">Der Schlüssel</param>
         /// <param name="value">Der Wert</param>
@@ -60,7 +60,7 @@ namespace WebExpress.Message
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="key">Der Schlüssel</param>
         /// <param name="value">Der Wert</param>
@@ -90,7 +90,7 @@ namespace WebExpress.Message
         {
             var sb = new StringBuilder(Value);
 
-            sb.Replace("%", "%25"); // Achtung! & muss an erster Stelle stehen
+            sb.Replace("%", "%25"); // Attention! & must come first
             sb.Replace(" ", "%20");
             sb.Replace("!", "%21");
             sb.Replace("\"", "%22");
@@ -122,6 +122,5 @@ namespace WebExpress.Message
 
             return string.Format("{0}={1}", Key, sb.ToString());
         }
-
     }
 }

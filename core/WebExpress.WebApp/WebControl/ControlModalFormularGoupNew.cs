@@ -26,7 +26,7 @@ namespace WebExpress.WebApp.WebControl
         };
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlModalFormularGoupNew(string id = null)
@@ -45,7 +45,7 @@ namespace WebExpress.WebApp.WebControl
         /// <summary>
         /// Wird aufgerufen, wenn der eingegebene Gruppenname überprüft werden soll
         /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="sender">The trigger of the event.</param>
         /// <param name="e">Das Eventargument</param>
         private void OnGroupNameValidation(object sender, ValidationEventArgs e)
         {
@@ -63,7 +63,7 @@ namespace WebExpress.WebApp.WebControl
         /// <summary>
         /// Wird aufgerufen, wenn die Löschaktion bestätigt wurde
         /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="sender">The trigger of the event.</param>
         /// <param name="e">Das Eventargument</param>
         private void OnConfirm(object sender, FormularEventArgs e)
         {

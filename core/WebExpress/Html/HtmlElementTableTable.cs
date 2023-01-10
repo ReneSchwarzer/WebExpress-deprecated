@@ -19,7 +19,7 @@ namespace WebExpress.Html
         public List<HtmlElementTableTr> Rows { get; private set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public HtmlElementTableTable()
             : base("table")

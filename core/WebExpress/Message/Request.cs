@@ -132,7 +132,7 @@ namespace WebExpress.Message
         public byte[] Content { get; private set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="contextFeatures">Anfänglicher Satz von Features.</param>
         /// <param name="serverContext">Der Kontext des Webservers</param>

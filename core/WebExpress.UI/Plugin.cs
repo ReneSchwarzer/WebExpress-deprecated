@@ -1,5 +1,6 @@
 ﻿using WebExpress.UI.WebComponent;
 using WebExpress.WebAttribute;
+using WebExpress.WebModule;
 using WebExpress.WebPlugin;
 
 namespace WebExpress.UI
@@ -11,19 +12,19 @@ namespace WebExpress.UI
     public sealed class Plugin : IPlugin
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public Plugin()
         {
         }
 
         /// <summary>
-        /// Initialisierung des Plugins. Hier können z.B. verwaltete Ressourcen geladen werden. 
+        /// Initialization des Plugins. Hier können z.B. verwaltete Ressourcen geladen werden. 
         /// </summary>
         /// <param name="context">Der Kontext, welcher für die Ausführung des Plugins gilt</param>
         public void Initialization(IPluginContext context)
         {
-            ComponentManager.Initialization(context);
+            ComponentManager.Initialization(context.Host);
         }
 
         /// <summary>
@@ -31,11 +32,11 @@ namespace WebExpress.UI
         /// </summary>
         public void Run()
         {
-
+            ComponentManager.Register(PluginManager.Plugins);
         }
 
         /// <summary>
-        /// Freigeben von nicht verwalteten Ressourcen, welche wärend der Verwendung reserviert wurden.
+        /// Freigeben von nicht verwalteten Ressourcen, welche während der Verwendung reserviert wurden.
         /// </summary>
         public void Dispose()
         {

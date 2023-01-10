@@ -38,7 +38,7 @@ namespace WebExpress.WebApp.WebControl
         public bool HasContent => Header.Any() || Preferences.Any() || Primary.Any() || Secondary.Any();
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlWebAppSidebar(string id = null)
@@ -48,7 +48,7 @@ namespace WebExpress.WebApp.WebControl
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
         private void Init()
         {

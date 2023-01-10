@@ -18,7 +18,7 @@ namespace WebExpress.UI.WebControl
         public List<ValidationResult> Results { get; } = new List<ValidationResult>();
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public ValidationEventArgs()
         {

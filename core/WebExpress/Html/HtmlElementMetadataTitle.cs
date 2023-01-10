@@ -13,7 +13,7 @@ namespace WebExpress.Html
         public string Title { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public HtmlElementMetadataTitle()
             : base("title")
@@ -22,7 +22,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="title">Der Titel</param>
         public HtmlElementMetadataTitle(string title)

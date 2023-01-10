@@ -5,38 +5,38 @@ namespace WebExpress.Internationalization
     public static class InternationalizationExtensions
     {
         /// <summary>
-        /// Internationalisierung
+        /// Internationalization of a key.
         /// </summary>
-        /// <param name="obj">Das Objekt, welches erweitert wird</param>
-        /// <param name="key">Der Schlüssel</param>
-        /// <returns>Der Wert des Schlüssels in der aktuellen Sprache</returns>
+        /// <param name="obj">An internationalization object that is being extended.</param>
+        /// <param name="key">The internationalization key.</param>
+        /// <returns>The value of the key in the current language.</returns>
         public static string I18N(this II18N obj, string key)
         {
             return InternationalizationManager.I18N(obj, key);
         }
 
         /// <summary>
-        /// Internationalisierung
+        /// Internationalization of a key.
         /// </summary>
-        /// <param name="obj">Das Objekt, welches erweitert wird</param>
-        /// <param name="pluginID">Die PluginID</param>
-        /// <param name="key">Der Schlüssel</param>
-        /// <returns>Der Wert des Schlüssels in der aktuellen Sprache</returns>
+        /// <param name="obj">An internationalization object that is being extended.</param>
+        /// <param name="pluginID">The plugin id.</param>
+        /// <param name="key">The internationalization key.</param>
+        /// <returns>The value of the key in the current language.</returns>
         public static string I18N(this II18N obj, string pluginID, string key)
         {
             return InternationalizationManager.I18N(obj.Culture, pluginID, key);
         }
 
         /// <summary>
-        /// Internationalisierung
+        /// Internationalization of a key.
         /// </summary>
-        /// <param name="obj">Das Objekt, welches erweitert wird</param>
-        /// <param name="application">Die Anwendung</param>
-        /// <param name="key">Der Schlüssel</param>
-        /// <returns>Der Wert des Schlüssels in der aktuellen Sprache</returns>
-        public static string I18N(this II18N obj, IApplicationContext application, string key)
+        /// <param name="obj">An internationalization object that is being extended.</param>
+        /// <param name="applicationContext">The allication context.</param>
+        /// <param name="key">The internationalization key.</param>
+        /// <returns>The value of the key in the current language.</returns>
+        public static string I18N(this II18N obj, IApplicationContext applicationContext, string key)
         {
-            return InternationalizationManager.I18N(obj.Culture, application?.Plugin?.PluginId, key);
+            return InternationalizationManager.I18N(obj.Culture, applicationContext?.PluginContext?.PluginID, key);
         }
     }
 }

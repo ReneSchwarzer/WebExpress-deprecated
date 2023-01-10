@@ -1,4 +1,5 @@
 ﻿using WebExpress.WebApp.SettingPage;
+using WebExpress.WebApp.WebIdentity;
 using WebExpress.WebApp.WebUser;
 using WebExpress.WebAttribute;
 using WebExpress.WebPlugin;
@@ -12,20 +13,21 @@ namespace WebExpress.WebApp
     public sealed class Plugin : IPlugin
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public Plugin()
         {
         }
 
         /// <summary>
-        /// Initialisierung des Plugins. Hier können z.B. verwaltete Ressourcen geladen werden. 
+        /// Initialization des Plugins. Hier können z.B. verwaltete Ressourcen geladen werden. 
         /// </summary>
         /// <param name="context">Der Kontext, welcher für die Ausführung des Plugins gilt</param>
         public void Initialization(IPluginContext context)
         {
             SettingPageManager.Initialization(context);
             UserManager.Initialization(context.Host);
+            IdentityManager.Initialization(context);
         }
 
         /// <summary>
@@ -37,7 +39,7 @@ namespace WebExpress.WebApp
         }
 
         /// <summary>
-        /// Freigeben von nicht verwalteten Ressourcen, welche wärend der Verwendung reserviert wurden.
+        /// Freigeben von nicht verwalteten Ressourcen, welche während der Verwendung reserviert wurden.
         /// </summary>
         public void Dispose()
         {

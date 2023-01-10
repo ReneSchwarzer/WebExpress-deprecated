@@ -11,7 +11,7 @@ namespace WebExpress.WebApp.WebControl
         public ParameterFile File { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="args">Die Eventargumente</param>
         public FormularUploadEventArgs(FormularEventArgs args)

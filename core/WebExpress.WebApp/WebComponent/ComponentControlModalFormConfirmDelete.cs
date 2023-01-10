@@ -12,7 +12,7 @@ namespace WebExpress.WebApp.WebComponent
         public IComponentContext Context { get; private set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID der Komponente oder null</param>
         public ComponentControlModalFormConfirmDelete(string id = null)
@@ -21,9 +21,9 @@ namespace WebExpress.WebApp.WebComponent
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
-        /// <param name="context">Der Kontext</param>
+        /// <param name="context">The context.</param>
         /// <param name="page">Die Seite, indem die Komonente aktiv ist</param>
         public virtual void Initialization(IComponentContext context, IPage page)
         {

@@ -20,7 +20,7 @@ namespace WebExpress.UI.WebPage
         public new List<Control> Content { get; } = new List<Control>();
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public VisualTreeControl()
         {
@@ -29,7 +29,7 @@ namespace WebExpress.UI.WebPage
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
-        /// <param name="context">Der Kontext zum Rendern der Seite</param>
+        /// <param name="context">The context for rendering the page.</param>
         /// <returns>Die Seite als HTML-Baum</returns>
         public override IHtmlNode Render(RenderContext context)
         {

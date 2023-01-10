@@ -6,7 +6,7 @@ namespace WebExpress.UI.WebControl
     public class ControlSplitButtonItemLink : ControlLink, IControlSplitButtonItem
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlSplitButtonItemLink(string id = null)
@@ -16,7 +16,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
         private void Init()
         {

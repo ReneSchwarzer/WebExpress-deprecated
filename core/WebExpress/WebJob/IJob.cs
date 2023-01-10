@@ -8,13 +8,13 @@ namespace WebExpress.WebJob
     public interface IJob : II18N
     {
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
         /// <param name="context">Der Kontext indem der Job ausgeführt wird</param>
         public void Initialization(JobContext context);
 
         /// <summary>
-        /// Verarbeitung
+        /// Processing of the resource.
         /// </summary>
         public void Process();
 

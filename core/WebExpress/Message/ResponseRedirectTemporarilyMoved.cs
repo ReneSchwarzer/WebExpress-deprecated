@@ -6,7 +6,7 @@
     public class ResponseRedirectTemporarilyMoved : Response
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public ResponseRedirectTemporarilyMoved(string location)
         {

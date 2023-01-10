@@ -15,7 +15,7 @@ public class ControlApiFormularItemInputSelection : ControlFormularItemInputSele
 
 
     /// <summary>
-    /// Konstruktor
+    /// Constructor
     /// </summary>
     /// <param name="id">Die ID</param>
     public ControlApiFormularItemInputSelection(string id = null)

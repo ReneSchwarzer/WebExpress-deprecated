@@ -6,7 +6,7 @@ namespace WebExpress.UI.WebControl
     public class ControlDropdownItemDivider : Control, IControlDropdownItem
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlDropdownItemDivider(string id = null)
@@ -16,7 +16,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
         private void Init()
         {

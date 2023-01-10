@@ -6,15 +6,15 @@ namespace WebExpress.WebPage
     public interface IPage : IResource
     {
         /// <summary>
-        /// Liefert oder setzt den Titel
+        /// Returns or sets the page title.
         /// </summary>
         string Title { get; set; }
 
         /// <summary>
-        /// Weiterleitung an eine andere Seite
-        /// Die Funktion löst die RedirectException aus 
+        /// Redirect to another page.
+        /// The function throws the RedirectException.
         /// </summary>
-        /// <param name="url">Die URL zu der weitergeleitet werden soll</param>
+        /// <param name="url">The uri to redirect to.</param>
         void Redirecting(IUri url);
     }
 }

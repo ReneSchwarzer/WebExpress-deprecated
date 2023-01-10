@@ -10,7 +10,7 @@ webexpress.ui.paginationCtrl = class extends webexpress.ui.events {
     _css = "";
 
     /**
-     * Konstruktor
+     * Constructor
      * @param settings Optionen zur Gestaltung des Steuerelementes
      *                - id Die ID des Steuerelements
      *                - css CSS-Klasse zur Gestaltung des Steuerelementes
@@ -75,7 +75,7 @@ webexpress.ui.paginationCtrl = class extends webexpress.ui.events {
                     this._container.append(page);
                 }
 
-                let placeholder = $("<li class='page-item disabled'><a class='page-link' href='#'>...</a></li>");
+                let placeholder = $("<li class='page-item disabled'><a class='page-link' href='#'>..</a></li>");
                 this._container.append(placeholder);
 
                 let lastpage = $("<li class='page-item'><a class='page-link' href='#'>" + pagecount + "</a></li>");
@@ -87,7 +87,7 @@ webexpress.ui.paginationCtrl = class extends webexpress.ui.events {
                 firstpage.click(function () { this.trigger('webexpress.ui.change.page', 0); }.bind(this));
                 this._container.append(firstpage);
 
-                let placeholder = $("<li class='page-item disabled'><a class='page-link' href='#'>...</a></li>");
+                let placeholder = $("<li class='page-item disabled'><a class='page-link' href='#'>..</a></li>");
                 this._container.append(placeholder);
 
                 for (let i = pagecount - 7; i < pagecount; i++) {
@@ -106,7 +106,7 @@ webexpress.ui.paginationCtrl = class extends webexpress.ui.events {
                 firstpage.click(function () { this.trigger('webexpress.ui.change.page', 0); }.bind(this));
                 this._container.append(firstpage);
 
-                let placeholder = $("<li class='page-item disabled'><a class='page-link' href='#'>...</a></li>");
+                let placeholder = $("<li class='page-item disabled'><a class='page-link' href='#'>..</a></li>");
                 this._container.append(placeholder);
 
                 for (let i = Math.max(currentpage - 2, 0); i < Math.min(currentpage + 3, pagecount); i++) {
@@ -120,7 +120,7 @@ webexpress.ui.paginationCtrl = class extends webexpress.ui.events {
                     this._container.append(page);
                 }
 
-                placeholder = $("<li class='page-item disabled'><a class='page-link' href='#'>...</a></li>");
+                placeholder = $("<li class='page-item disabled'><a class='page-link' href='#'>..</a></li>");
                 this._container.append(placeholder);
 
                 let lastpage = $("<li class='page-item'><a class='page-link' href='#'>" + pagecount + "</a></li>");

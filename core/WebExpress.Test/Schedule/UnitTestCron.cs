@@ -11,7 +11,7 @@ namespace WebExpress.Test.Schedule
         [Fact]
         public void Create_1()
         {
-            var context = new HttpServerContext(null, null, null, null, null, CultureInfo.CurrentCulture, Log.Current);
+            var context = new HttpServerContext(null, null, null, null, null, null, null, CultureInfo.CurrentCulture, Log.Current, null);
 
             InternationalizationManager.Register(typeof(HttpServer).Assembly, "webexpress");
             InternationalizationManager.Initialization(context);
@@ -29,7 +29,7 @@ namespace WebExpress.Test.Schedule
         [Fact]
         public void Create_2()
         {
-            var context = new HttpServerContext(null, null, null, null, null, CultureInfo.CurrentCulture, Log.Current);
+            var context = new HttpServerContext(null, null, null, null, null, null, null, CultureInfo.CurrentCulture, Log.Current, null);
             var dateTime = DateTime.Now;
 
             InternationalizationManager.Register(typeof(HttpServer).Assembly, "webexpress");
@@ -48,7 +48,7 @@ namespace WebExpress.Test.Schedule
         [Fact]
         public void Create_3()
         {
-            var context = new HttpServerContext(null, null, null, null, null, CultureInfo.CurrentCulture, Log.Current);
+            var context = new HttpServerContext(null, null, null, null, null, null, null, CultureInfo.CurrentCulture, Log.Current, null);
             var dateTime = DateTime.Now;
 
             InternationalizationManager.Register(typeof(HttpServer).Assembly, "webexpress");
@@ -67,7 +67,7 @@ namespace WebExpress.Test.Schedule
         [Fact]
         public void Create_4()
         {
-            var context = new HttpServerContext(null, null, null, null, null, CultureInfo.CurrentCulture, Log.Current);
+            var context = new HttpServerContext(null, null, null, null, null, null, null, CultureInfo.CurrentCulture, Log.Current, null);
             var dateTime = DateTime.Now;
             Log.Current.Clear();
 
@@ -87,7 +87,7 @@ namespace WebExpress.Test.Schedule
         [Fact]
         public void Create_5()
         {
-            var context = new HttpServerContext(null, null, null, null, null, CultureInfo.CurrentCulture, Log.Current);
+            var context = new HttpServerContext(null, null, null, null, null, null, null, CultureInfo.CurrentCulture, Log.Current, null);
             var dateTime = DateTime.Now;
 
             InternationalizationManager.Register(typeof(HttpServer).Assembly, "webexpress");
@@ -106,7 +106,7 @@ namespace WebExpress.Test.Schedule
         [Fact]
         public void Create_6()
         {
-            var context = new HttpServerContext(null, null, null, null, null, CultureInfo.CurrentCulture, Log.Current);
+            var context = new HttpServerContext(null, null, null, null, null, null, null, CultureInfo.CurrentCulture, Log.Current, null);
             var dateTime = DateTime.Now;
             Log.Current.Clear();
 
@@ -126,7 +126,7 @@ namespace WebExpress.Test.Schedule
         [Fact]
         public void Matching_1()
         {
-            var context = new HttpServerContext(null, null, null, null, null, CultureInfo.CurrentCulture, Log.Current);
+            var context = new HttpServerContext(null, null, null, null, null, null, null, CultureInfo.CurrentCulture, Log.Current, null);
             var dateTime = DateTime.Now;
 
             InternationalizationManager.Register(typeof(HttpServer).Assembly, "webexpress");
@@ -145,7 +145,7 @@ namespace WebExpress.Test.Schedule
         [Fact]
         public void Matching_2()
         {
-            var context = new HttpServerContext(null, null, null, null, null, CultureInfo.CurrentCulture, Log.Current);
+            var context = new HttpServerContext(null, null, null, null, null, null, null, CultureInfo.CurrentCulture, Log.Current, null);
             var dateTime = DateTime.Now;
 
             InternationalizationManager.Register(typeof(HttpServer).Assembly, "webexpress");
@@ -164,7 +164,7 @@ namespace WebExpress.Test.Schedule
         [Fact]
         public void Matching_3()
         {
-            var context = new HttpServerContext(null, null, null, null, null, CultureInfo.CurrentCulture, Log.Current);
+            var context = new HttpServerContext(null, null, null, null, null, null, null, CultureInfo.CurrentCulture, Log.Current, null);
             var dateTime = DateTime.Now;
 
             InternationalizationManager.Register(typeof(HttpServer).Assembly, "webexpress");

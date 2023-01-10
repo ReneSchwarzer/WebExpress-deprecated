@@ -13,24 +13,24 @@ namespace WebExpress
     public class Program
     {
         /// <summary>
-        /// Liefert oder setzt den Namen der Webservers
+        /// Returns or sets the name of the web server.
         /// </summary>
         public string Name { get; set; } = "WebExpress";
 
         /// <summary>
-        /// Der HttpServer
+        /// The http(s) server.
         /// </summary>
         private HttpServer HttpServer { get; set; }
 
         /// <summary>
-        /// Liefert die Programmversion
+        /// Returns the program version.
         /// </summary>
         public static string Version => Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
         /// <summary>
-        /// Eintrittspunkt der Anwendung
+        /// Entry point of application.
         /// </summary>
-        /// <param name="args">Aufrufsargumente</param>
+        /// <param name="args">Call arguments.</param>
         public static int Main(string[] args)
         {
             var app = new WebExpress.Program()
@@ -42,17 +42,17 @@ namespace WebExpress
         }
 
         /// <summary>
-        /// Eintrittspunkt der Anwendung
+        /// Running the application.
         /// </summary>
-        /// <param name="args">Aufrufsargumente</param>
+        /// <param name="args">Call arguments.</param>
         public int Execution(string[] args)
         {
-            // Aufrufsargumente vorbereiten 
+            // prepare call arguments
             ArgumentParser.Current.Register(new ArgumentParserCommand() { FullName = "help", ShortName = "h" });
             ArgumentParser.Current.Register(new ArgumentParserCommand() { FullName = "config", ShortName = "c" });
             ArgumentParser.Current.Register(new ArgumentParserCommand() { FullName = "port", ShortName = "p" });
 
-            // Aufrufsargumente parsen 
+            // parsing call arguments
             var argumentDict = ArgumentParser.Current.Parse(args);
 
             if (argumentDict.ContainsKey("help"))
@@ -65,7 +65,7 @@ namespace WebExpress
 
             if (!argumentDict.ContainsKey("config"))
             {
-                // Prüfe ob eine Datei namens Config.xml vorhanden ist
+                // check if there is a file called config.xml
                 if (!File.Exists(Path.Combine(Path.Combine(Environment.CurrentDirectory, "Config"), "webexpress.config.xml")))
                 {
                     Console.WriteLine("No configuration file was specified. Usage: " + Name + " -config filename");
@@ -76,33 +76,33 @@ namespace WebExpress
                 argumentDict.Add("config", "webexpress.config.xml");
             }
 
-            // Initialisierung des WebServers
+            // initialization of the web server
             Initialization(ArgumentParser.Current.GetValidArguments(args), Path.Combine(Path.Combine(Environment.CurrentDirectory, "Config"), argumentDict["config"]));
 
-            // Start des WebServers
+            // starting the web server
             Start();
 
-            // Beenden
+            // finish
             Exit();
 
             return 0;
         }
 
         /// <summary>
-        /// Wird aufgerufen, wenn die Anwendung mittels Ctrl+C beendet werden soll
+        /// Called when the application is to be terminated using Ctrl+C.
         /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
-        /// <param name="e">Die Eventargumente</param>
+        /// <param name="sender">The trigger of the event.</param>
+        /// <param name="e">The event argument.</param>
         private void OnCancel(object sender, ConsoleCancelEventArgs e)
         {
             Exit();
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
-        /// <param name="args">Die gültigen Argumente</param>
-        /// <param param name="configFile">Die Konfigurationsdatei</param>
+        /// <param name="args">The valid arguments.</param>
+        /// <param param name="configFile">The configuration file.</param>
         private void Initialization(string args, string configFile)
         {
             // Config laden
@@ -123,6 +123,11 @@ namespace WebExpress
 
             }
 
+            var packageBase = string.IsNullOrWhiteSpace(config.PackageBase) ?
+                Environment.CurrentDirectory : Path.IsPathRooted(config.PackageBase) ?
+                config.PackageBase :
+                Path.Combine(Environment.CurrentDirectory, config.PackageBase);
+
             var assetBase = string.IsNullOrWhiteSpace(config.AssetBase) ?
                 Environment.CurrentDirectory : Path.IsPathRooted(config.AssetBase) ?
                 config.AssetBase :
@@ -137,6 +142,7 @@ namespace WebExpress
             (
                 config.Uri,
                 config.Endpoints,
+                Path.GetFullPath(packageBase),
                 Path.GetFullPath(assetBase),
                 Path.GetFullPath(dataBase),
                 Path.GetDirectoryName(configFile),
@@ -151,17 +157,18 @@ namespace WebExpress
                 Config = config
             };
 
-            // Beginne mit Logging
+            // start logging
             HttpServer.Context.Log.LogModus = (Log.Modus)Enum.Parse(typeof(Log.Modus), config.Log.Modus);
             HttpServer.Context.Log.Begin(config.Log.Path, config.Log.Filename);
 
-            // Log Programmstart
+            // log program start
             HttpServer.Context.Log.Seperator('/');
             HttpServer.Context.Log.Info(message: I18N("webexpress:app.startup"));
             HttpServer.Context.Log.Info(message: "".PadRight(80, '-'));
             HttpServer.Context.Log.Info(message: I18N("webexpress:app.version"), args: Version);
             HttpServer.Context.Log.Info(message: I18N("webexpress:app.arguments"), args: args);
             HttpServer.Context.Log.Info(message: I18N("webexpress:app.workingdirectory"), args: Environment.CurrentDirectory);
+            HttpServer.Context.Log.Info(message: I18N("webexpress:app.packagebase"), args: config.PackageBase);
             HttpServer.Context.Log.Info(message: I18N("webexpress:app.assetbase"), args: config.AssetBase);
             HttpServer.Context.Log.Info(message: I18N("webexpress:app.database"), args: config.DataBase);
             HttpServer.Context.Log.Info(message: I18N("webexpress:app.configurationdirectory"), args: Path.GetDirectoryName(configFile));
@@ -175,11 +182,26 @@ namespace WebExpress
 
             HttpServer.Context.Log.Seperator('=');
 
+            if (!Directory.Exists(config.PackageBase))
+            {
+                Directory.CreateDirectory(config.PackageBase);
+            }
+
+            if (!Directory.Exists(config.AssetBase))
+            {
+                Directory.CreateDirectory(config.AssetBase);
+            }
+
+            if (!Directory.Exists(config.DataBase))
+            {
+                Directory.CreateDirectory(config.DataBase);
+            }
+
             Console.CancelKeyPress += OnCancel;
         }
 
         /// <summary>
-        /// Start des WebServers
+        /// Start the web server.
         /// </summary>
         private void Start()
         {
@@ -189,23 +211,21 @@ namespace WebExpress
         }
 
         /// <summary>
-        /// Beendet die Anwendung
+        /// Quits the application.
         /// </summary>
         private void Exit()
         {
             HttpServer.Stop();
 
-            // Log Programmende
+            // end of program log
             HttpServer.Context.Log.Seperator('=');
             HttpServer.Context.Log.Info(message: I18N("webexpress:app.errors"), args: HttpServer.Context.Log.ErrorCount);
             HttpServer.Context.Log.Info(message: I18N("webexpress:app.warnings"), args: HttpServer.Context.Log.WarningCount);
             HttpServer.Context.Log.Info(message: I18N("webexpress:app.done"));
             HttpServer.Context.Log.Seperator('/');
 
-            // Beende Logging
+            // stop logging
             HttpServer.Context.Log.Close();
         }
-
-
     }
 }

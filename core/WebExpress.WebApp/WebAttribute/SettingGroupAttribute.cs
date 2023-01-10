@@ -7,7 +7,7 @@ namespace WebExpress.WebApp.WebAttribute
     public class SettingGroupAttribute : System.Attribute, IResourceAttribute
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="name">Der Gruppenname</param>
         public SettingGroupAttribute(string name)

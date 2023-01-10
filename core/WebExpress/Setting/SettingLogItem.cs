@@ -24,7 +24,7 @@ namespace WebExpress.Setting
         public string Timepattern { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public SettingLogItem()
         {

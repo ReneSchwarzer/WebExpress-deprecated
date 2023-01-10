@@ -76,7 +76,7 @@ namespace WebExpress.UI.WebControl
         public PropertyIcon Icon { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlFormularItemButton(string id = null)

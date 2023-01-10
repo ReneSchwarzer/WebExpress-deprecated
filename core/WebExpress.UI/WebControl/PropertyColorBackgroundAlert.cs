@@ -3,7 +3,7 @@
     public class PropertyColorBackgroundAlert : PropertyColorBackground
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="color">Die Farbe</param>
         public PropertyColorBackgroundAlert(TypeColorBackground color)
@@ -12,7 +12,7 @@
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="color">Die Farbe</param>
         public PropertyColorBackgroundAlert(string color)

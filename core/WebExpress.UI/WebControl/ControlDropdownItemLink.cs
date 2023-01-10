@@ -6,7 +6,7 @@ namespace WebExpress.UI.WebControl
     public class ControlDropdownItemLink : ControlLink, IControlDropdownItem
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlDropdownItemLink(string id = null)

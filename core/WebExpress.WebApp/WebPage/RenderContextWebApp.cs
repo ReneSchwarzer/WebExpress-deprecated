@@ -16,7 +16,7 @@ namespace WebExpress.WebApp.WebPage
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public RenderContextWebApp()
         {
@@ -24,10 +24,10 @@ namespace WebExpress.WebApp.WebPage
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="page">Die Seite, indem das Steuerelement gerendert wird</param>
-        /// <param name="request">Die Anfrage</param>
+        /// <param name="request">The request.</param>
         /// <param name="visualTree">Der visuelle Baum</param>
         public RenderContextWebApp(IPage page, Request request, VisualTreeWebApp visualTree)
             : base(page, request, visualTree)
@@ -35,7 +35,7 @@ namespace WebExpress.WebApp.WebPage
         }
 
         /// <summary>
-        /// Copy-Konstruktor
+        /// Copy-Constructor
         /// </summary>
         /// <param name="context">Der zu kopierende Kontext/param>
         public RenderContextWebApp(RenderContext context)

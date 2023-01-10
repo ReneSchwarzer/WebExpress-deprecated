@@ -3,7 +3,7 @@
     public class ControlPanelToast : ControlPanel
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlPanelToast(string id)

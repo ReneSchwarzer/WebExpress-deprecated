@@ -4,62 +4,62 @@ using WebExpress.Uri;
 namespace WebExpress.WebPlugin
 {
     /// <summary>
-    /// Der Kontext
+    /// The context of a plugin.
     /// </summary>
     public interface IPluginContext
     {
         /// <summary>
-        /// Das Assembly, welches das Plugin enthällt
+        /// The assembly that contains the plugin.
         /// </summary>
         Assembly Assembly { get; }
 
         /// <summary>
-        /// Liefert oder setzt die ID
+        /// Returns the plugin id.
         /// </summary>
-        string PluginId { get; }
+        string PluginID { get; }
 
         /// <summary>
-        /// Liefert den Name des Plugins 
+        /// Returns the name of the plugin.
         /// </summary>
         string PluginName { get; }
 
         /// <summary>
-        /// Liefert oder setzt den Hersteller
+        /// Returns the manufacturer of the plugin.
         /// </summary>
         string Manufacturer { get; }
 
         /// <summary>
-        /// Liefert oder setzt die Beschreibung
+        /// Returns the description of the plugin.
         /// </summary>
         string Description { get; }
 
         /// <summary>
-        /// Liefert oder setzt die Version
+        /// Returns the version of the plugin.
         /// </summary>
         string Version { get; }
 
         /// <summary>
-        /// Liefert oder setzt die Copyright-Informationen
+        /// Returns the copyright information.
         /// </summary>
         string Copyright { get; }
 
         /// <summary>
-        /// Liefert oder setzt die Lizenz-Informationen
+        /// Returns the license information.
         /// </summary>
         string License { get; }
 
         /// <summary>
-        /// Liefert das Icon des Plugins
+        /// Returns the icon of the plugin.
         /// </summary>
         IUri Icon { get; }
 
         /// <summary>
-        /// Liefert das Log, zum schreiben von Statusnachrichten auf die Konsole und in eine Log-Datei
+        /// Returns the log to write status messages to the console and to a log file.
         /// </summary>
         Log Log { get; }
 
         /// <summary>
-        /// Liefert den Host-Kontext
+        /// Returns the host context.
         /// </summary>
         IHttpServerContext Host { get; }
     }

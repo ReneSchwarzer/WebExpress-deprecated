@@ -13,7 +13,7 @@
         public string UserColor { get; protected set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public PropertyColor()
         {

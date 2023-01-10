@@ -3,18 +3,18 @@
 namespace WebExpress.WebPlugin
 {
     /// <summary>
-    /// Diese Interface repräsentiert ein Plugin
+    /// This interface represents a plugin.
     /// </summary>
     public interface IPlugin : IDisposable
     {
         /// <summary>
-        /// Initialisierung des Plugins.
+        /// Initialization of the plugin.
         /// </summary>
-        /// <param name="context">Der Kontext</param>
+        /// <param name="context">The context.</param>
         void Initialization(IPluginContext context);
 
         /// <summary>
-        /// Wird aufgerufen, wenn das Plugin mit der Arbeit beginnt
+        /// Called when the plugin starts working. The call is concurrent.
         /// </summary>
         void Run();
     }

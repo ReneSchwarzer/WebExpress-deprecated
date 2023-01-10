@@ -13,7 +13,7 @@ namespace WebExpress.UI.WebControl
         public RenderContextFormular Context { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public FormularEventArgs()
         {

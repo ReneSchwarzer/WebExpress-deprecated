@@ -9,7 +9,7 @@ namespace WebExpress.WebAttribute
     public class OptionalAttribute : System.Attribute, IResourceAttribute
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public OptionalAttribute()
         {

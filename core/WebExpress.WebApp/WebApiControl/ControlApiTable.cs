@@ -28,7 +28,7 @@ namespace WebExpress.WebApp.WebApiControl
         public ICollection<ControlApiTableOptionItem> OptionItems { get; private set; } = new List<ControlApiTableOptionItem>();
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlApiTable(string id = null)

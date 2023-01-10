@@ -8,15 +8,15 @@ namespace WebExpress.Message
     public class HttpExceptionContext : HttpContext
     {
         /// <summary>
-        /// Liefert oder setzt eine Fehlernachricht, wenn der Context nicht erstellt werden konnte
+        /// Returns or sets an error message if the context could not be created.
         /// </summary>
         public Exception Exception { get; private set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
-        /// <param name="exception">Eine Ausnahme, welche die Erstellung des Kontextes verhindert hat</param>
-        /// <param name="contextFeatures">Anfänglicher Satz von Features.</param>
+        /// <param name="exception">An exception that prevented the creation of the context.</param>
+        /// <param name="contextFeatures">Initial set of features.</param>
         public HttpExceptionContext(Exception exception, IFeatureCollection contextFeatures)
         {
             var connectionFeature = contextFeatures.Get<IHttpConnectionFeature>();

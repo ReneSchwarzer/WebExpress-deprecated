@@ -5,7 +5,7 @@ namespace WebExpress.WebApp.Wql
     public class WqlStatement
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public WqlStatement()
         {
@@ -13,7 +13,7 @@ namespace WebExpress.WebApp.Wql
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="wql">Die Abfrage in Stringform</param>
         public WqlStatement(string wql)

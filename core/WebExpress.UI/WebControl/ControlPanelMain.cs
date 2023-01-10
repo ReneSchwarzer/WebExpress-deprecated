@@ -7,7 +7,7 @@ namespace WebExpress.UI.WebControl
     public class ControlPanelMain : ControlPanel
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlPanelMain(string id = null)

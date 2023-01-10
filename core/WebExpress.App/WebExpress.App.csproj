@@ -4,16 +4,19 @@
     <Version>1.4.4.0</Version>
     <AssemblyVersion>1.4.4.0</AssemblyVersion>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <ApplicationIcon>Rocket.ico</ApplicationIcon>
     <Authors>Rene_Schwarzer@hotmail.de</Authors>
     <StartupObject>WebExpress.App.Program</StartupObject>
     <RuntimeIdentifiers>win10-x64;win-arm;linux-arm;ubuntu.14.04-arm;ubuntu.16.04-arm</RuntimeIdentifiers>
     <RepositoryUrl>https://github.com/ReneSchwarzer/WebExpress.git</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\WebExpress.UI\WebExpress.UI.csproj" />
+    <ProjectReference Include="..\WebExpress.WebApp\WebExpress.WebApp.csproj" />
     <ProjectReference Include="..\WebExpress\WebExpress.csproj" />
   </ItemGroup>
 

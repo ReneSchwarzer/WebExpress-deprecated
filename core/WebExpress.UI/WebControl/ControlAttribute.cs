@@ -37,7 +37,7 @@ namespace WebExpress.UI.WebControl
         public IUri Uri { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlAttribute(string id = null)

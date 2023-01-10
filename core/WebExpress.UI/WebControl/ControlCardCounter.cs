@@ -29,7 +29,7 @@ namespace WebExpress.UI.WebControl
         public string Text { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlCardCounter(string id = null)
@@ -40,7 +40,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
         private void Init()
         {

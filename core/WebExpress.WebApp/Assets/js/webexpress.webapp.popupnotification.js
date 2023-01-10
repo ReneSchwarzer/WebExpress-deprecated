@@ -9,7 +9,7 @@ webexpress.webapp.popupNotificationCtrl = class extends webexpress.ui.events {
     _activeNotifications = new Map();
 
     /**
-     * Konstruktor
+     * Constructor
      * @param settings Optionen zur Gestaltung des Steuerelementes
      *        - id Die ID des Steuerelements
      *        - resturi Die Uri der REST-API-Schnittstelle, welche die Daten ermittelt

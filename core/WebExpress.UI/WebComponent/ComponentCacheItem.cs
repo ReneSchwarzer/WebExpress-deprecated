@@ -25,7 +25,7 @@ namespace WebExpress.UI.WebComponent
         public IComponentContext Context { get; private set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="context">Der Kontext der Komponente</param>
         /// <param name="type">Der Type</param>
@@ -39,7 +39,7 @@ namespace WebExpress.UI.WebComponent
         /// Erstellt eine neue Instanz oder liefert eine gecachte Instanz zurück
         /// </summary>
         /// <param name="page">Die Seite, in der die Instanz aktiv ist</param>
-        /// <param name="request">Die Anfrage</param>
+        /// <param name="request">The request.</param>
         /// <returns>Eine Aufzählung mit den Instanzen</returns>
         public IEnumerable<T> CreateInstance<T>(IPage page, Request request) where T : IControl
         {
@@ -76,7 +76,7 @@ namespace WebExpress.UI.WebComponent
         /// <summary>
         /// Prüft die Komponente, ob diese angezeigt werden oder deaktiviert sind
         /// </summary>
-        /// <param name="request">Die Anfrage</param>
+        /// <param name="request">The request.</param>
         /// <returns>true die Komponente ist aktiv, false sonst</returns>
         private bool CheckControl(Request request)
         {

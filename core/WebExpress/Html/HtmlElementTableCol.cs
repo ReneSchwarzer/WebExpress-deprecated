@@ -6,7 +6,7 @@
     public class HtmlElementTableCol : HtmlElement, IHtmlElementTable
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public HtmlElementTableCol()
             : base("col")

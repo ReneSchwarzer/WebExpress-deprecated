@@ -21,7 +21,7 @@
         public IControl Control { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public ControlCarouselItem()
         {

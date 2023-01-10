@@ -58,7 +58,7 @@ namespace WebExpress.WebResource
         public IHtmlNode Content { get; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public VisualTree()
         {
@@ -107,7 +107,7 @@ namespace WebExpress.WebResource
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
-        /// <param name="context">Der Kontext zum Rendern der Seite</param>
+        /// <param name="context">The context for rendering the page.</param>
         /// <returns>Die Seite als HTML-Baum</returns>
         public virtual IHtmlNode Render(RenderContext context)
         {

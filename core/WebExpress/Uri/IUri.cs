@@ -3,82 +3,83 @@ using System.Collections.Generic;
 namespace WebExpress.Uri
 {
     /// <summary>
-    /// Uniform Resource Identifier (RFC 3986)
+    /// Uniform resource identifier (RFC 3986).
     /// </summary>
     public interface IUri
     {
         /// <summary>
-        /// Der Pfad (z.B. /over/there)
+        /// The path (e.g. /over/there).
         /// </summary>
         ICollection<IUriPathSegment> Path { get; }
 
         /// <summary>
-        /// Der Abfrageteil (z.B. ?title=Uniform_Resource_Identifier&action=submit)
+        /// The query part (e.g. ?title=Uniform_Resource_Identifier&action=submit).
         /// </summary>
         ICollection<UriQuerry> Query { get; }
 
         /// <summary>
-        /// Referenziert eine Stelle innerhalb einer Ressource (z.B. #Anker)
+        /// References a position within a resource (e.g. #Anchor).
         /// </summary>
         string Fragment { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt den Anzeigestring der Uri
+        /// Returns the display string of the Uri
         /// </summary>
         string Display { get; set; }
 
         /// <summary>
-        /// Ermittelt, ob die Uri leer ist
+        /// Determines if the uri is empty.
         /// </summary>
         bool Empty { get; }
 
         /// <summary>
-        /// Liefert die Wurzel
+        /// Returns the root.
         /// </summary>
         IUri Root { get; }
 
         /// <summary>
-        /// Ermittelt, ob es sich bei der Uri um die Wurzel handelt
+        /// Determines if the Uri is the root.
         /// </summary>
         bool IsRoot { get; }
 
         /// <summary>
-        /// Fügt ein Pfad hinzu
+        /// Adds a path element.
         /// </summary>
-        /// <param name="path">Der anzufügende Pfad</param>
+        /// <param name="path">The path to append.</param>
+        /// <returns>The extended path.</returns>
         IUri Append(string path);
 
         /// <summary>
-        /// Liefere eine verkürzte Uri welche n-Elemente enthällt
-        /// count > 0 es sind count-Elemente enthalten 
-        /// count < 0 es werden count-Elemente abgeschnitten
-        /// count = 0 es wird eine leere Uri zurückgegeben
+        /// Return a shortened uri containing n-elements.
+        /// count > 0 count elements are included
+        /// count < 0 count elements are truncated
+        /// count = 0 an empty uri is returned
         /// </summary>
-        /// <param name="count">Die Anzahl</param>
-        /// <returns>Die Teiluri</returns>
+        /// <param name="count">The count.</param>
+        /// <returns>The sub uri.</returns>
         IUri Take(int count);
 
         /// <summary>
-        /// Liefere eine verkürzte Uri indem die ersten n-Elemente nicht enthalten sind
-        /// count > 0 es werden count-Elemente übersprungen
-        /// count <= 0 es wird eine leere Uri zurückgegeben
+        /// Return a shortened uri by not including the first n elements.
+        /// count > 0 count elements are skipped
+        /// count <= 0 an empty Uri is returned
         /// </summary>
-        /// <param name="count">Die Anzahl</param>
-        /// <returns>Die Teiluri</returns>
+        /// <param name="count">The count.</param>
+        /// <returns>The sub uri.</returns>
         IUri Skip(int count);
 
         /// <summary>
-        /// Ermittelt, ob das gegebene Segment Teil der Uri ist
+        /// Determines whether the given segment is part of the uri.
         /// </summary>
-        /// <param name="segment">Das Segment, welches geprüft wird</param>
-        /// <returns>true wenn erfolgreich, false sonst</returns>
+        /// <param name="segment">The segment to be tested.</param>
+        /// <returns>true if successful, false otherwise.</returns>
         bool Contains(string segment);
 
         /// <summary>
-        /// Prüft, ob eine gegebene Uri Teil dieser Uri ist
+        /// Checks whether a given uri is part of that uri.
         /// </summary>
-        /// <param name="uri">Die zu prüfende Uri</param>
-        /// <returns>true, wenn Teil der Uri</returns>
+        /// <param name="uri">The Uri to be checked.</param>
+        /// <returns>true if part of the uri, false otherwise.</returns>
         bool StartsWith(IUri uri);
     }
 }

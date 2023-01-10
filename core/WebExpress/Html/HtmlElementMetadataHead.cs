@@ -146,7 +146,7 @@ namespace WebExpress.Html
         private List<HtmlElementMetadataMeta> ElementMeta { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public HtmlElementMetadataHead()
             : base("head")

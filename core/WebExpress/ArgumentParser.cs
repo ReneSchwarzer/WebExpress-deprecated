@@ -5,16 +5,22 @@ using System.Linq;
 namespace WebExpress
 {
     /// <summary>
-    /// Parst die Übergabeargumente
+    /// Parse the handoff arguments.
     /// </summary>
     public class ArgumentParser
     {
+        /// <summary>
+        /// The singelton.
+        /// </summary>
         private static ArgumentParser m_this = null;
 
+        /// <summary>
+        /// Enumeration of all registered commands.
+        /// </summary>
         private List<ArgumentParserCommand> Commands { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public ArgumentParser()
         {
@@ -22,23 +28,22 @@ namespace WebExpress
         }
 
         /// <summary>
-        /// Registriert ein Befehl
+        /// Registers a command.
         /// </summary>
-        /// <param name="command">Der zu registrierende Befehl</param>
+        /// <param name="command">The command to register.</param>
         public void Register(ArgumentParserCommand command)
         {
             Commands.Add(command);
         }
 
         /// <summary>
-        /// Programmargumente aufbereiten
-        /// Ein Programmargument besteht aus einem Befehl und einen Wert. 
-        /// Der Wert kann die leere Zeichenfolge enthalten z.B. -help.
-        /// Befehle, die mit -- beginnen werden als Kommentare gewertet und 
-        /// nicht weiter betrachtet
+        /// Prepare program arguments.
+        /// A program argument consists of a command and a value. The value can 
+        /// contain the empty string, for example, -help. Commands beginning 
+        /// with -- are considered comments and are not considered further.
         /// </summary>
-        /// <param name="args">Programmargumente</param>
-        /// <returns>Verzeichnis mit den aufbereiteten Programmargumenten</returns>
+        /// <param name="args">The program arguments.</param>
+        /// <returns>A list of prepared program arguments.</returns>
         public ArguemtParserResult Parse(string[] args)
         {
             var argsDict = new ArguemtParserResult();
@@ -92,10 +97,10 @@ namespace WebExpress
         }
 
         /// <summary>
-        /// Liefert die erkannten Argumente
+        /// Returns the recognized arguments.
         /// </summary>
-        /// <param name="args">Programmargumente</param>
-        /// <returns></returns>
+        /// <param name="args">The program arguments.</param>
+        /// <returns>the recognized argument.</returns>
         public string GetValidArguments(string[] args)
         {
             var argumentDict = Parse(args);
@@ -107,7 +112,7 @@ namespace WebExpress
         }
 
         /// <summary>
-        /// Liefert das aktuelle ArgumentParser-Objekt 
+        /// Returns the current ArgumentParser object.
         /// </summary>
         public static ArgumentParser Current
         {

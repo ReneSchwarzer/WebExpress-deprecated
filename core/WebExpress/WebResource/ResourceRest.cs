@@ -7,7 +7,7 @@ namespace WebExpress.WebResource
     public abstract class ResourceRest : Resource
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public ResourceRest()
         {
@@ -15,18 +15,18 @@ namespace WebExpress.WebResource
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
-        /// <param name="context">Der Kontext</param>
+        /// <param name="context">The context.</param>
         public override void Initialization(IResourceContext context)
         {
             base.Initialization(context);
         }
 
         /// <summary>
-        /// Verarbeitung des GET-Request
+        /// Processing of the resource. des GET-Request
         /// </summary>
-        /// <param name="request">Die Anfrage</param>
+        /// <param name="request">The request.</param>
         /// <returns>Eine Aufzählung, welche JsonSerializer serialisiert werden kann.</returns>
         public virtual object GetData(Request request)
         {
@@ -34,10 +34,10 @@ namespace WebExpress.WebResource
         }
 
         /// <summary>
-        /// Verarbeitung des DELETE-Request
+        /// Processing of the resource. des DELETE-Request
         /// </summary>
         /// <param name="id">Die zu löschende ID</param>
-        /// <param name="request">Die Anfrage</param>
+        /// <param name="request">The request.</param>
         /// <returns>Das Ergebnis der Löschung</returns>
         public virtual bool DeleteData(string id, Request request)
         {
@@ -45,10 +45,10 @@ namespace WebExpress.WebResource
         }
 
         /// <summary>
-        /// Verarbeitung
+        /// Processing of the resource.
         /// </summary>
-        /// <param name="request">Die Anfrage</param>
-        /// <returns>Die Antwort</returns>
+        /// <param name="request">The request.</param>
+        /// <returns>The response.</returns>
         public override Response Process(Request request)
         {
             var options = new JsonSerializerOptions

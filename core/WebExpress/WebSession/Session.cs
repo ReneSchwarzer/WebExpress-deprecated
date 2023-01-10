@@ -26,7 +26,7 @@ namespace WebExpress.WebSession
         public Dictionary<Type, ISessionProperty> Properties { get; private set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public Session()
             : this(Guid.NewGuid())
@@ -34,7 +34,7 @@ namespace WebExpress.WebSession
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public Session(Guid id)
         {

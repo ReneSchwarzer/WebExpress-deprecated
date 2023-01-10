@@ -1,24 +1,25 @@
-﻿using WebExpress.WebResource;
+﻿using System;
+using WebExpress.WebResource;
 
 namespace WebExpress.WebAttribute
 {
-    public class SegmentAttribute : System.Attribute, IResourceAttribute, ISegmentAttribute
+    public class SegmentAttribute : Attribute, IResourceAttribute, ISegmentAttribute
     {
         /// <summary>
-        /// Liefert oder setzt das Segment
+        /// Returns or set the segment of the uri path.
         /// </summary>
         private string Segment { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt den Anzeigestring
+        /// Returns or sets the display string.
         /// </summary>
         private string Display { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
-        /// <param name="segment">Das Segment des Uri-Pfades</param>
-        /// <param name="display">Der Anzeigestring</param>
+        /// <param name="segment">The segment of the uri path.</param>
+        /// <param name="display">The display string.</param>
         public SegmentAttribute(string segment, string display = null)
         {
             Segment = segment;
@@ -26,9 +27,9 @@ namespace WebExpress.WebAttribute
         }
 
         /// <summary>
-        /// Umwandlung in ein Pfadsegment
+        /// Conversion to a path segment.
         /// </summary>
-        /// <returns>Das Pfadsegment</returns>
+        /// <returns>The path segment.</returns>
         public IPathSegment ToPathSegment()
         {
             return new PathSegmentConstant(Segment, Display) { };

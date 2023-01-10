@@ -10,55 +10,55 @@ using WebExpress.WebResource;
 namespace WebExpress.WebApp.WebStatusPage
 {
     /// <summary>
-    /// Statusseite
+    /// A status page.
     /// </summary>
     public abstract class PageStatusWebApp<T> : PageControl<RenderContextWebApp>, IPageStatus where T : Response, new()
     {
         /// <summary>
-        /// Liefert oder setzt den Statuscode
+        /// Returns or sets the status code.
         /// </summary>
         public int StatusCode { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Stausnachricht
+        /// Returns or sets the status title.
         /// </summary>
         public string StatusTitle { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Stausnachricht
+        /// Returns or sets the status message.
         /// </summary>
         public string StatusMessage { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt das Statusicon
+        /// Returns or sets the status icon.
         /// </summary>
         public IUri StatusIcon { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt den Kopf
+        /// Returns or sets the page header.
         /// </summary>
         public ControlWebAppHeader Header { get; protected set; } = new ControlWebAppHeader("header");
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public PageStatusWebApp()
         {
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
-        /// <param name="context">Der Kontext</param>
+        /// <param name="context">The context.</param>
         public override void Initialization(IResourceContext context)
         {
             base.Initialization(context);
         }
 
         /// <summary>
-        /// Verarbeitung
+        /// Processing of the resource.
         /// </summary>
-        /// <param name="context">Der Kontext zum Rendern der Seite</param>
+        /// <param name="context">The context for rendering the page.</param>
         public override void Process(RenderContextWebApp context)
         {
             base.Process(context);
@@ -105,10 +105,10 @@ namespace WebExpress.WebApp.WebStatusPage
         }
 
         /// <summary>
-        /// Verarbeitung
+        /// Processing of the resource.
         /// </summary>
-        /// <param name="request">Die Anfrage</param>
-        /// <returns>Die Antwort</returns>
+        /// <param name="request">The request.</param>
+        /// <returns>The response.</returns>
         public override Response Process(Request request)
         {
             var response = base.Process(request);

@@ -7,7 +7,7 @@
     public class HtmlElementEmbeddedSource : HtmlElement, IHtmlElementEmbedded
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public HtmlElementEmbeddedSource()
             : base("source", false)

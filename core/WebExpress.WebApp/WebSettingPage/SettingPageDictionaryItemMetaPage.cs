@@ -1,7 +1,7 @@
 ﻿using System;
 using WebExpress.UI.WebControl;
 using WebExpress.WebModule;
-using WebExpress.WebResource;
+using WebExpress.WebSitemap;
 
 namespace WebExpress.WebApp.SettingPage
 {

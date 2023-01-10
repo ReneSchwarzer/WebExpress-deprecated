@@ -63,7 +63,7 @@ namespace WebExpress.UI.WebControl
         public IUri RedirectUri { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt das Hiddenfeld, welches die Submit-Methode enthällt
+        /// Liefert oder setzt das Hiddenfeld, welches die Submit-Methode enthält
         /// </summary>
         public ControlFormularItemInputHidden FormularId { get; } = new ControlFormularItemInputHidden(Guid.NewGuid().ToString())
         {
@@ -71,7 +71,7 @@ namespace WebExpress.UI.WebControl
         };
 
         /// <summary>
-        /// Liefert oder setzt das Hiddenfeld, welches die Submit-Methode enthällt
+        /// Liefert oder setzt das Hiddenfeld, welches die Submit-Methode enthält
         /// </summary>
         public ControlFormularItemInputHidden SubmitType { get; } = new ControlFormularItemInputHidden(Guid.NewGuid().ToString())
         {
@@ -96,7 +96,7 @@ namespace WebExpress.UI.WebControl
         public IList<ControlFormularItem> Items { get; } = new List<ControlFormularItem>();
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlFormular(string id = null)
@@ -107,7 +107,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="items">Die Steuerelemente, welche dem Formular zugeordnet werden</param>
@@ -121,7 +121,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="items">Die Steuerelemente, welche dem Formular zugeordnet werden</param>
         public ControlFormular(params ControlFormularItem[] items)
@@ -220,7 +220,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Verarbeitung des Formulars
+        /// Processing of the resource. des Formulars
         /// </summary>
         /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         public virtual void Process(RenderContextFormular context)
@@ -270,7 +270,7 @@ namespace WebExpress.UI.WebControl
                 process = false;
             }
 
-            // Initialisierung
+            // Initialization
             Initialize(renderContext);
             (Items as List<ControlFormularItem>).ForEach(x => x?.Initialize(renderContext));
             OnInitialize(renderContext);
@@ -395,7 +395,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Löst das Initialisierungs-Event aus
+        /// Löst das Initializations-Event aus
         /// </summary>
         /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         protected virtual void OnInitialize(RenderContextFormular context)

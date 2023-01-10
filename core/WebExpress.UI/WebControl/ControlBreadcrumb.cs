@@ -38,7 +38,7 @@ namespace WebExpress.UI.WebControl
         public ushort TakeLast { get; set; } = ushort.MaxValue;
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
@@ -49,7 +49,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="page">Die zugehörige Seite</param>
         /// <param name="uri">Der Verzeichnispfad</param>
@@ -60,7 +60,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
         private void Init()
         {

@@ -18,7 +18,7 @@ namespace WebExpress.Config
         public string ContextPath { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public PluginConfig()
         {

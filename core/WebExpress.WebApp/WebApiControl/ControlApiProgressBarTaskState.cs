@@ -17,7 +17,7 @@ namespace WebExpress.WebApp.WebApiControl
         public string OnFinishScript { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlApiProgressBarTaskState(string id)

@@ -27,7 +27,7 @@ namespace WebExpress.WebApp.WebControl
         public List<IControlDropdownItem> Secondary { get; protected set; } = new List<IControlDropdownItem>();
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlWebAppHeaderHelp(string id = null)
@@ -37,7 +37,7 @@ namespace WebExpress.WebApp.WebControl
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
         private void Init()
         {

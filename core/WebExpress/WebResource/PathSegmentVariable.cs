@@ -22,7 +22,7 @@ namespace WebExpress.WebResource
         private Func<string, IDictionary<string, string>> CallBackVariables { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="expression">Der reguläre Ausdruck</param>
         /// <param name="callBackDisplay">Rückruffunktion zur Ermittlung des Anzeigestrings</param>

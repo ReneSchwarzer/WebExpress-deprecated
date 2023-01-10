@@ -3,7 +3,7 @@
     public class ControlPanelDialog : ControlFormular
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlPanelDialog(string id = null)
@@ -13,7 +13,7 @@
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
         private void Init()
         {

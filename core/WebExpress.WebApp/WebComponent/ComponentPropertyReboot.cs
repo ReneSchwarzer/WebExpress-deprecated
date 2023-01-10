@@ -28,7 +28,7 @@ namespace WebExpress.WebApp.WebComponent
         };
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public ComponentPropertyReboot()
             : base("archive_btn")
@@ -36,9 +36,9 @@ namespace WebExpress.WebApp.WebComponent
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
-        /// <param name="context">Der Kontext</param>
+        /// <param name="context">The context.</param>
         /// <param name="page">Die Seite, indem die Komonente aktiv ist</param>
         public override void Initialization(IComponentContext context, IPage page)
         {
@@ -61,7 +61,7 @@ namespace WebExpress.WebApp.WebComponent
         /// <summary>
         /// Wird aufgerufen, wenn die Löschaktion bestätigt wurde
         /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="sender">The trigger of the event.</param>
         /// <param name="e">Das Eventargument</param>
         private void OnConfirm(object sender, FormularEventArgs e)
         {

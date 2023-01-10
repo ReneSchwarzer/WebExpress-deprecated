@@ -8,7 +8,7 @@ namespace WebExpress.Html
     public class HtmlElementFormOutput : HtmlElement, IHtmlFormularItem
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public HtmlElementFormOutput()
             : base("output")
@@ -17,7 +17,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="nodes">Der Inhalt</param>
         public HtmlElementFormOutput(params IHtmlNode[] nodes)

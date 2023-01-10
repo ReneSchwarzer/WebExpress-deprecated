@@ -15,24 +15,24 @@ namespace WebExpress.WebApp.WebResource
         protected object Guard { get; set; }
 
         /// <summary>
-        /// Verarbeitung des GET-Request
+        /// Processing of the resource. des GET-Request
         /// </summary>
-        /// <param name="request">Die Anfrage</param>
+        /// <param name="request">The request.</param>
         /// <returns>Eine Aufzählung, welche JsonSerializer serialisiert werden kann.</returns>
         public abstract IEnumerable<object> GetColumns(Request request);
 
         /// <summary>
-        /// Verarbeitung des GET-Request
+        /// Processing of the resource. des GET-Request
         /// </summary>
         /// <param name="wql">Der Filter</param>
-        /// <param name="request">Die Anfrage</param>
+        /// <param name="request">The request.</param>
         /// <returns>Eine Aufzählung, welche JsonSerializer serialisiert werden kann.</returns>
         public abstract IEnumerable<T> GetData(WqlStatement wql, Request request);
 
         /// <summary>
-        /// Verarbeitung des GET-Request
+        /// Processing of the resource. des GET-Request
         /// </summary>
-        /// <param name="request">Die Anfrage</param>
+        /// <param name="request">The request.</param>
         /// <returns>Eine Aufzählung, welche JsonSerializer serialisiert werden kann.</returns>
         public override object GetData(Request request)
         {

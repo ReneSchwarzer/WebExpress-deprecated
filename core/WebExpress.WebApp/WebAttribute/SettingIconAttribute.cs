@@ -6,7 +6,7 @@ namespace WebExpress.WebApp.WebAttribute
     public class SettingIconAttribute : System.Attribute, IResourceAttribute
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="icon">Das Icon</param>
         public SettingIconAttribute(TypeIcon icon)
@@ -15,7 +15,7 @@ namespace WebExpress.WebApp.WebAttribute
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="icon">Das Icon</param>
         public SettingIconAttribute(string icon)

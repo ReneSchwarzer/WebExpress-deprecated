@@ -3,7 +3,7 @@
     public class ControlToolBarItemSeperator : ControlLine, IControlToolBarItem
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlToolBarItemSeperator(string id = null)

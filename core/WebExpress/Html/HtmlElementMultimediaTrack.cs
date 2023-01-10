@@ -6,7 +6,7 @@
     public class HtmlElementMultimediaTrack : HtmlElement, IHtmlElementMultimedia
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public HtmlElementMultimediaTrack()
             : base("track", false)

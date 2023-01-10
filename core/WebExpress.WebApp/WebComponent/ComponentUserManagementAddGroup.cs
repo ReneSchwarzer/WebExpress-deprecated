@@ -22,7 +22,7 @@ namespace WebExpress.WebApp.WebComponent
         };
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public ComponentUserManagementAddGroup()
             : base("add_group")
@@ -30,9 +30,9 @@ namespace WebExpress.WebApp.WebComponent
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
-        /// <param name="context">Der Kontext</param>
+        /// <param name="context">The context.</param>
         /// <param name="page">Die Seite, indem die Komonente aktiv ist</param>
         public override void Initialization(IComponentContext context, IPage page)
         {

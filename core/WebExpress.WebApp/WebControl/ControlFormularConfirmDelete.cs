@@ -8,7 +8,7 @@ namespace WebExpress.WebApp.WebControl
     public class ControlFormularConfirmDelete : ControlFormularConfirm
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlFormularConfirmDelete(string id = null)

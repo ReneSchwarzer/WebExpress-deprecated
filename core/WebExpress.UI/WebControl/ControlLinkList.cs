@@ -32,7 +32,7 @@ namespace WebExpress.UI.WebControl
         public List<IControlLink> Links { get; } = new List<IControlLink>();
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlLinkList(string id = null)

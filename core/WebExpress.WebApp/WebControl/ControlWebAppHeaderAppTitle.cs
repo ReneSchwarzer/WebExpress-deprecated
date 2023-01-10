@@ -12,7 +12,7 @@ namespace WebExpress.WebApp.WebControl
     public class ControlWebAppHeaderAppTitle : ControlLink
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlWebAppHeaderAppTitle(string id = null)
@@ -22,7 +22,7 @@ namespace WebExpress.WebApp.WebControl
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
         private void Init()
         {
@@ -48,7 +48,7 @@ namespace WebExpress.WebApp.WebControl
             return new HtmlElementTextSemanticsA(apptitle.Render(context))
             {
                 ID = Id,
-                Href = context?.Page?.Context?.Application?.ContextPath.ToString(),
+                Href = context?.Page?.ApplicationContext?.ContextPath.ToString(),
                 Class = Css.Concatenate("", GetClasses()),
                 Style = Style.Concatenate("", GetStyles()),
                 Role = Role

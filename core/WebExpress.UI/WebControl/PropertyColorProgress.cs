@@ -3,7 +3,7 @@
     public class PropertyColorProgress : PropertyColor<TypeColorProgress>
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="color">Die Farbe</param>
         public PropertyColorProgress(TypeColorProgress color)
@@ -12,7 +12,7 @@
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="color">Die Farbe</param>
         public PropertyColorProgress(string color)

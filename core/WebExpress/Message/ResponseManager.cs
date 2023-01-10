@@ -1,30 +1,36 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Uri;
 using WebExpress.WebApplication;
 using WebExpress.WebAttribute;
 using WebExpress.WebModule;
 using WebExpress.WebPage;
+using WebExpress.WebPlugin;
+using WebExpress.WebResource;
 using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.Message
 {
+    /// <summary>
+    /// Management of status pages
+    /// </summary>
     public static class ResponseManager
     {
         /// <summary>
-        /// Liefert oder setzt den Verweis auf Kontext des Hostes
+        /// Returns or sets the reference to the context of the host
         /// </summary>
         private static IHttpServerContext Context { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt das Verzeichnis, indem die Anwendungen gelistet sind
+        /// Returns the directory where the status pages are listed
         /// </summary>
         private static ResponseDictionary Dictionary { get; } = new ResponseDictionary();
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
-        /// <param name="context">Der Verweis auf den Kontext des Hostes</param>
+        /// <param name="context">The reference to the context of the host.</param>
         internal static void Initialization(IHttpServerContext context)
         {
             Context = context;
@@ -33,93 +39,92 @@ namespace WebExpress.Message
         }
 
         /// <summary>
-        /// Registriert die Statusseiten eines Moduls
+        /// Registers the status pages of the specified plugin.
         /// </summary>
-        internal static void Register()
+        /// <param name="pluginContexts">A list of the contexts of plugins containing the status pages.</param>
+        public static void Register(IEnumerable<IPluginContext> pluginContexts)
         {
-            foreach (var mudule in ModuleManager.Modules)
+            foreach (var pluginContext in pluginContexts)
             {
-                Register(mudule);
-            }
-        }
+                var assembly = pluginContext?.Assembly;
 
-        /// <summary>
-        /// Registriert die Statusseiten einer Anwendung
-        /// </summary>
-        /// <param name="moduleContext">Der Kontext des Moduls, welches die Ressourcen enthält</param>
-        public static void Register(IModuleContext moduleContext)
-        {
-            var assembly = moduleContext?.Assembly;
-
-            foreach (var resource in assembly.GetTypes().Where(x => x.IsClass == true && x.IsSealed && x.GetInterface(typeof(IPageStatus).Name) != null))
-            {
-                var statusCode = -1;
-                var moduleID = string.Empty;
-
-                foreach (var customAttribute in resource.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IApplicationAttribute))))
+                foreach (var resource in assembly.GetTypes().Where(x => x.IsClass == true && x.IsSealed && x.GetInterface(typeof(IPageStatus).Name) != null))
                 {
-                    if (customAttribute.AttributeType == typeof(StatusCodeAttribute))
+                    var statusCode = -1;
+                    var moduleID = string.Empty;
+
+                    foreach (var customAttribute in resource.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IApplicationAttribute))))
                     {
-                        statusCode = Convert.ToInt32(customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString());
+                        if (customAttribute.AttributeType == typeof(StatusCodeAttribute))
+                        {
+                            statusCode = Convert.ToInt32(customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString());
+                        }
+
+                        if (customAttribute.AttributeType == typeof(ModuleAttribute))
+                        {
+                            moduleID = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
+                        }
                     }
 
-                    if (customAttribute.AttributeType == typeof(ModuleAttribute))
+                    if (statusCode > 0)
                     {
-                        moduleID = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
-                    }
-                }
+                        if (!Dictionary.ContainsKey(pluginContext))
+                        {
+                            Dictionary.Add(pluginContext, new Dictionary<int, Type>());
+                        }
 
-                if (statusCode > 0)
-                {
-                    if (!Dictionary.ContainsKey(moduleContext))
-                    {
-                        Dictionary.Add(moduleContext, new System.Collections.Generic.Dictionary<int, Type>());
-                    }
-
-                    var item = Dictionary[moduleContext];
-                    if (!item.ContainsKey(statusCode))
-                    {
-                        item.Add(statusCode, resource);
-                        Context.Log.Info(message: I18N("webexpress:responsemanager.register"), args: new object[] { statusCode, moduleContext.Application.ApplicationID, moduleContext.ModuleID, resource.Name });
+                        var item = Dictionary[pluginContext];
+                        if (!item.ContainsKey(statusCode))
+                        {
+                            item.Add(statusCode, resource);
+                            Context.Log.Info(message: I18N("webexpress:responsemanager.register"), args: new object[] { statusCode, moduleID, resource.Name });
+                        }
+                        else
+                        {
+                            Context.Log.Info(message: I18N("webexpress:responsemanager.duplicat"), args: new object[] { statusCode, moduleID, resource.Name });
+                        }
                     }
                     else
                     {
-                        Context.Log.Info(message: I18N("webexpress:responsemanager.duplicat"), args: new object[] { statusCode, moduleContext.Application.ApplicationID, moduleContext.ModuleID, resource.Name });
+                        Context.Log.Info(message: I18N("webexpress:responsemanager.statuscode"), args: new object[] { moduleID, resource.Name });
                     }
-                }
-                else
-                {
-                    Context.Log.Info(message: I18N("webexpress:responsemanager.statuscode"), args: new object[] { moduleContext.Application.ApplicationID, moduleContext.ModuleID, resource.Name });
                 }
             }
         }
 
         /// <summary>
-        /// Erstellt eine Statusseite
+        /// Creates a status page
         /// </summary>
-        /// <param name="massage">Die Statusnachricht</param>
-        /// <param name="status">Der Status</param>
-        /// <param name="module">Das Module, indem sich die Statusseiten befinden oder null für eine undefinierte Seite (kann aus einem anderen Modul stammen), welche dem Statuscode entspricht</param>
-        /// <param name="uri">Die URI</param>
-        /// <returns>Die Statusseite oder null</returns>
-        public static IPageStatus Create(string massage, int status, IModuleContext module, IUri uri)
+        /// <param name="massage">The status message.</param>
+        /// <param name="status">The status code.</param>
+        /// <param name="applicationContext">The context of the applicationwhere the status pages are located or null for an undefined page (may be from another module) that matches the status code.</param>
+        /// <param name="moduleContext">The module context where the status pages are located or null for an undefined page (may be from another module) that matches the status code.</param>
+        /// <param name="uri">The uri.</param>
+        /// <returns>The created status page or null</returns>
+        public static IPageStatus Create(string massage, int status, IApplicationContext applicationContext, IModuleContext moduleContext, IUri uri)
         {
             try
             {
-                if (module == null)
+                if (moduleContext == null)
                 {
-                    module = GetDefaultModule(status, uri?.ToString(), module);
+                    moduleContext = GetDefaultModule(status, uri?.ToString(), moduleContext);
                 }
 
-                if (module != null && Dictionary.ContainsKey(module))
+                if (moduleContext != null && Dictionary.ContainsKey(moduleContext.PluginContext))
                 {
-                    var item = Dictionary[module];
+                    var item = Dictionary[moduleContext.PluginContext];
                     if (item.ContainsKey(status))
                     {
                         var type = item[status];
-                        var statusPage = module.Assembly.CreateInstance(type?.FullName) as IPageStatus;
+                        var statusPage = moduleContext.Assembly.CreateInstance(type?.FullName) as IPageStatus;
                         statusPage.StatusMessage = massage;
                         statusPage.StatusCode = status;
+
+                        if (statusPage is Resource resource)
+                        {
+                            resource.ApplicationContext = applicationContext;
+                            resource.ModuleContext = moduleContext;
+                        }
 
                         return statusPage;
                     }
@@ -134,35 +139,37 @@ namespace WebExpress.Message
         }
 
         /// <summary>
-        /// Liefert das erste verfügbare Modul, welches über eine Statusseite verfügt
+        /// Returns the first available module that has a status page.
         /// </summary>
-        /// <param name="status">Der Status</param>
-        /// <param name="uri">Die URI</param>
-        /// <param name="module">Der Kontext des Moduls</param>
-        /// <returns>Die erste gefunde Statusseite zu den gegebenen Status oder null</returns>
+        /// <param name="status">The status code.</param>
+        /// <param name="uri">The uri.</param>
+        /// <param name="module">The module context where the status pages are located or null for an undefined page (may be from another module) that matches the status code.</param>
+        /// <returns>The first status page found to the given states or null</returns>
         public static IModuleContext GetDefaultModule(int status, string uri, IModuleContext module = null)
         {
-            var applications = ApplicationManager.GetApplcations().Where(x => uri != null && uri.StartsWith(x.ContextPath.ToString()));
+            var applications = ApplicationManager.Applications.Where(x => uri != null && uri.StartsWith(x.ContextPath.ToString()));
 
-            // 1. Bevorzugte Statusseite 
-            var modules = Dictionary.Where(x => applications.Contains(x.Key.Application))
-                .Where(x => x.Key.ModuleID.Equals(module?.ModuleID, StringComparison.OrdinalIgnoreCase))
-                .Where(x => x.Value.ContainsKey(status));
+            // 1. preferred status page
+            var modules = Dictionary.Where(x => x.Value.ContainsKey(status))
+                .SelectMany(x => ModuleManager.GetModules(x.Key))
+                .Where(x => x.Context.GetApplicationContexts().Intersect(applications).Any())
+                .Where(x => x.Context.ModuleID.Equals(module?.ModuleID, StringComparison.OrdinalIgnoreCase));
 
             var mod = modules.FirstOrDefault();
 
-            if (mod.Key != null)
+            if (mod != null)
             {
-                return mod.Key;
+                return mod.Context;
             }
 
-            // 2. Wenn nicht vorhanden alternativ verfügbarte Statusseite
-            modules = Dictionary.Where(x => applications.Contains(x.Key.Application))
-                .Where(x => x.Value.ContainsKey(status));
+            // 2. if not available, alternatively available status page
+            modules = Dictionary.Where(x => x.Value.ContainsKey(status))
+                .SelectMany(x => ModuleManager.GetModules(x.Key))
+                .Where(x => x.Context.GetApplicationContexts().Intersect(applications).Any());
 
             mod = modules.FirstOrDefault();
 
-            return mod.Key;
+            return mod?.Context;
         }
     }
 }

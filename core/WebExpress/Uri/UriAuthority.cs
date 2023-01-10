@@ -4,34 +4,34 @@ using System.Linq;
 namespace WebExpress.Uri
 {
     /// <summary>
-    /// Die Zuständigkeit (z.B. user@example.com:8080)
+    /// The authority (e.g. user@example.com:8080).
     /// </summary>
     public class UriAuthority
     {
         /// <summary>
-        /// Die Benutzerinformation 
+        /// User information.
         /// </summary>
         public string User { get; set; }
 
         /// <summary>
-        /// Das Passwort
-        /// wird in RFC 3986 (Abschnitt 3.2.1) als überholt bezeichnet 
+        /// The password.
+        /// is deprecated in RFC 3986 (section 3.2.1).
         /// </summary>
-        [ObsoleteAttribute("Die Eigenschaft ist veraltet (siehe RFC 3986 Abschnitt 3.2.1).", false)]
+        [Obsolete("The property is deprecated (see RFC 3986 Section 3.2.1).", false)]
         public string Password { get; set; }
 
         /// <summary>
-        /// Der HOST (z.B. example.com, 192.0.2.16:80)
+        /// The host (e.g. example.com, 192.0.2.16:80).
         /// </summary>
         public string Host { get; set; }
 
         /// <summary>
-        /// Der Port (z.B. example.com, 192.0.2.16:80)
+        /// The port (e.g. example.com, 192.0.2.16:80).
         /// </summary>
         public int? Port { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public UriAuthority()
         {
@@ -39,19 +39,19 @@ namespace WebExpress.Uri
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
-        /// <param name="host">Der Host</param>
+        /// <param name="host">The host.</param>
         public UriAuthority(string host)
         {
             Host = host;
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
-        /// <param name="host">Der Host</param>
-        /// <param name="port">Der Port</param>
+        /// <param name="host">The host.</param>
+        /// <param name="port">The port.</param>
         public UriAuthority(string host, int port)
         {
             Host = host;
@@ -59,9 +59,9 @@ namespace WebExpress.Uri
         }
 
         /// <summary>
-        /// Wandelt die Uri in einen String um
+        /// Converts the authority to a string.
         /// </summary>
-        /// <returns>Die Stringrepräsentation der Uri</returns>
+        /// <returns>The string representation of the authority.</returns>
         public override string ToString()
         {
 #pragma warning disable 618

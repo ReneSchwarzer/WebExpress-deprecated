@@ -1,22 +1,22 @@
 namespace WebExpress.Uri
 {
     /// <summary>
-    /// Das Pfadsegment
+    /// The path segment of a uri.
     /// </summary>
     public interface IUriPathSegment
     {
         /// <summary>
-        /// Liefert den Pfadtext
+        /// Returns the path text.
         /// </summary>
         string Value { get; }
 
         /// <summary>
-        /// Liefert oder setzt den Anzeigetext
+        /// Returns or sets the display text.
         /// </summary>
         string Display { get; set; }
 
         /// <summary>
-        /// Liefert den Tag
+        /// Returns the tag.
         /// </summary>
         object Tag { get; }
     }

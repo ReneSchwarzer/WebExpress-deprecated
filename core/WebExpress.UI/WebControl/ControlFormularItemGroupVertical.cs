@@ -9,7 +9,7 @@ namespace WebExpress.UI.WebControl
     public class ControlFormularItemGroupVertical : ControlFormularItemGroup
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlFormularItemGroupVertical(string id = null)
@@ -18,7 +18,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         ///<param name="items">Das Formularsteuerelemente</param> 
@@ -28,7 +28,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         ///<param name="items">Das Formularsteuerelemente</param> 
         public ControlFormularItemGroupVertical(params ControlFormularItem[] items)

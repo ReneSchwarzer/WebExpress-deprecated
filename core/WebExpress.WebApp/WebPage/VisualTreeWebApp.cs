@@ -48,7 +48,7 @@ namespace WebExpress.WebApp.WebPage
         public ControlWebAppSidebar Sidebar { get; protected set; } = new ControlWebAppSidebar("webexpress.webapp.sidebar");
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public VisualTreeWebApp()
         {

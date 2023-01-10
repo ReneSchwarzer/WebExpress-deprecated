@@ -6,7 +6,7 @@
     public class ResponseNotFound : Response
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public ResponseNotFound()
         {

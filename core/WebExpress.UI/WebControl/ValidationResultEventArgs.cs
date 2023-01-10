@@ -19,14 +19,14 @@ namespace WebExpress.UI.WebControl
         public List<ValidationResult> Results { get; private set; } = new List<ValidationResult>();
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public ValidationResultEventArgs()
         {
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="valid"> true wenn die Validierung erfolgreich abgeschlossen wurde, false sonst</param>
         public ValidationResultEventArgs(bool valid)

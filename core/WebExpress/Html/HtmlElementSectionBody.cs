@@ -44,7 +44,7 @@ namespace WebExpress.Html
         private List<HtmlElementScriptingScript> ElementScriptLinks { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public HtmlElementSectionBody()
             : base("body")
@@ -53,7 +53,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="nodes">Der Inhalt</param>
         public HtmlElementSectionBody(params IHtmlNode[] nodes)

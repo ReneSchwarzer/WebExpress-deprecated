@@ -32,7 +32,7 @@ namespace WebExpress.WebApp.WebResource
         public string Render { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="label">Die Beschriftung der Splalte</param>
         public ResourceRestCrudColumn(string label)

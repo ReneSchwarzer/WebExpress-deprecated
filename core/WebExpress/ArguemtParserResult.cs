@@ -3,7 +3,7 @@
 namespace WebExpress
 {
     /// <summary>
-    /// Verzeichnis mit den aufbereiteten Programmargumenten
+    /// List with the prepared program arguments.
     /// </summary>
     public class ArguemtParserResult : Dictionary<string, string>
     {

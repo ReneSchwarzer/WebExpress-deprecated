@@ -6,7 +6,7 @@
     public class ResponseInternalServerError : Response
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public ResponseInternalServerError()
         {

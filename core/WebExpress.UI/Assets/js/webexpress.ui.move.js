@@ -17,7 +17,7 @@ webexpress.ui.moveCtrl = class extends webexpress.ui.events {
     _availableoptions = new Map(); // Key=Ctrl, Value=options
     
     /**
-     * Konstruktor
+     * Constructor
      * @param settings Optionen zur Gestaltung des Steuerelementes
      *        - id Die ID des Steuerelements
      *        - name Der Steuerelementenname

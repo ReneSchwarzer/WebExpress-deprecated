@@ -23,7 +23,7 @@ namespace WebExpress.WebResource
         public string AssetDirectory { get; protected set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public ResourceAsset()
         {
@@ -31,29 +31,30 @@ namespace WebExpress.WebResource
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
-        /// <param name="context">Der Kontext</param>
+        /// <param name="context">The context.</param>
         public override void Initialization(IResourceContext context)
         {
             base.Initialization(context);
 
-            AssetDirectory = Context.Assembly.GetName().Name;
+            AssetDirectory = ResourceContext.Assembly.GetName().Name;
         }
 
         /// <summary>
-        /// Verarbeitung
+        /// Processing of the resource.
         /// </summary>
-        /// <param name="request">Die Anfrage</param>
-        /// <returns>Die Antwort</returns>
+        /// <param name="request">The request.</param>
+        /// <returns>The response.</returns>
         public override Response Process(Request request)
         {
             lock (Gard)
             {
-                var assembly = Context.Assembly;
+                var assembly = ResourceContext.Assembly;
                 var buf = assembly.GetManifestResourceNames().ToList();
                 var resources = assembly.GetManifestResourceNames().Where(x => x.StartsWith(AssetDirectory, System.StringComparison.OrdinalIgnoreCase));
-                var url = request.Uri.ToString()[Context.ContextPath.ToString().Length..];
+                var contextPath = ResourceContext.GetContextPath(ApplicationContext);
+                var url = request.Uri.ToString().Substring(contextPath.ToString().Length + 1);
                 var fileName = Path.GetFileName(url);
                 var file = string.Join('.', AssetDirectory.Trim('.'), url.Replace("/", ".").Trim('.'));
 
@@ -125,7 +126,7 @@ namespace WebExpress.WebResource
                         break;
                 }
 
-                Context.Log.Debug(message: I18N("webexpress:resource.file"), args: new object[] { request.RemoteEndPoint, request.Uri });
+                ResourceContext.Log.Debug(message: I18N("webexpress:resource.file"), args: new object[] { request.RemoteEndPoint, request.Uri });
 
                 return response;
             }

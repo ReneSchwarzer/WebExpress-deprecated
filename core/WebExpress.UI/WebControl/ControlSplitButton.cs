@@ -75,7 +75,7 @@ namespace WebExpress.UI.WebControl
         protected List<IControlSplitButtonItem> Items { get; private set; } = new List<IControlSplitButtonItem>();
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlSplitButton(string id = null)
@@ -85,7 +85,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="items">Der Inhalt</param>
         public ControlSplitButton(params IControlSplitButtonItem[] items)
@@ -97,7 +97,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="items">Der Inhalt</param>
@@ -110,7 +110,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="items">Der Inhalt</param>
@@ -123,7 +123,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="items">Der Inhalt</param>
         public ControlSplitButton(IEnumerable<IControlSplitButtonItem> items)
@@ -135,7 +135,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
         private void Init()
         {

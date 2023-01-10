@@ -6,7 +6,7 @@
     public class HtmlElementTextSemanticsWbr : HtmlElement, IHtmlElementTextSemantics
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public HtmlElementTextSemanticsWbr()
             : base("wbr", false)

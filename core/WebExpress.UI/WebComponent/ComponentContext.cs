@@ -1,9 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
-using System.Reflection;
-using WebExpress.WebApplication;
 using WebExpress.WebCondition;
-using WebExpress.WebModule;
 using WebExpress.WebPlugin;
 
 namespace WebExpress.UI.WebComponent
@@ -11,47 +8,37 @@ namespace WebExpress.UI.WebComponent
     public class ComponentContext : IComponentContext
     {
         /// <summary>
-        /// Das Assembly, welches die Komponente enthällt
+        /// Returns the context of the associated plugin.
         /// </summary>
-        public Assembly Assembly { get; internal set; }
+        public IPluginContext PluginContext { get; internal set; }
 
         /// <summary>
-        /// Liefert den Kontext des zugehörigen Plugins
+        /// Returns the application id or '*' for all applications.
         /// </summary>
-        public IPluginContext Plugin { get; internal set; }
+        public string ApplicationID { get; internal set; }
 
         /// <summary>
-        /// Liefert den Kontext der zugehörigen Anwendung
-        /// </summary>
-        public IApplicationContext Application { get; internal set; }
-
-        /// <summary>
-        /// Liefert das zugehörige Modul
-        /// </summary>
-        public IModuleContext Module { get; internal set; }
-
-        /// <summary>
-        /// Liefert die Kultur
+        /// Returns the culture.
         /// </summary>
         public CultureInfo Culture { get; set; }
 
         /// <summary>
-        /// Liefert die Bedingungen, die erfüllt sein müssen, damit die Ressource aktiv ist
+        /// Returns the conditions that must be met for the component to be active.
         /// </summary>
         public ICollection<ICondition> Conditions { get; internal set; } = new List<ICondition>();
 
         /// <summary>
-        /// Bestimmt, ob die Ressource einmalig erstellt und bei jedem Aufruf wiederverwendet wird.
+        /// Determines whether the component is created once and reused on each execution.
         /// </summary>
         public bool Cache { get; internal set; }
 
         /// <summary>
-        /// Liefert oder setzt das Log, zum schreiben von Statusnachrichten auf die Konsole und in eine Log-Datei
+        /// Returns the log for writing status messages to the console and to a log file.
         /// </summary>
         public Log Log { get; internal set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public ComponentContext()
         {

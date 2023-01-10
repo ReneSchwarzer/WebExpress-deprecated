@@ -3,7 +3,7 @@
     public class AssetPathAttribute : System.Attribute, IApplicationAttribute, IModuleAttribute
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="assetPath">Der Pfad für Assets</param>
         public AssetPathAttribute(string assetPath)

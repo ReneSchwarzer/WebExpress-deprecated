@@ -15,7 +15,7 @@ namespace WebExpress.Html
         public new List<HtmlElementTextContentLi> Elements { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public HtmlElementTextContentOl()
             : base("ol")
@@ -24,7 +24,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="nodes">Der Inhalt</param>
         public HtmlElementTextContentOl(params HtmlElementTextContentLi[] nodes)

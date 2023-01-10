@@ -56,14 +56,14 @@ namespace WebExpress.WebTask
         public string Message { get; set; }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
         public virtual void Initialization()
         {
         }
 
         /// <summary>
-        /// Verarbeitung
+        /// Processing of the resource.
         /// </summary>
         protected virtual void OnProcess()
         {

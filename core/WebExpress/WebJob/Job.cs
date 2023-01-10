@@ -16,7 +16,7 @@ namespace WebExpress.WebJob
         public IJobContext Context { get; private set; }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
         /// <param name="context">Der Kontext indem der Job ausgeführt wird</param>
         public virtual void Initialization(JobContext context)
@@ -25,7 +25,7 @@ namespace WebExpress.WebJob
         }
 
         /// <summary>
-        /// Verarbeitung
+        /// Processing of the resource.
         /// </summary>
         public virtual void Process()
         {

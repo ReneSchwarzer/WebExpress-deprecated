@@ -25,7 +25,7 @@ namespace WebExpress.UI.WebControl
         public string AvailableHeader { get; set; } = "webexpress.ui:form.selectionmove.available";
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlFormularItemInputMove(string id = null)
@@ -35,7 +35,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="items">Die Einträge</param>

@@ -12,7 +12,7 @@ namespace WebExpress.WebApp.WebStatusPage
     public sealed class PageStatusWebAppNotFound : PageStatusWebApp<ResponseNotFound>
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public PageStatusWebAppNotFound()
         {
@@ -20,9 +20,9 @@ namespace WebExpress.WebApp.WebStatusPage
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
-        /// <param name="context">Der Kontext</param>
+        /// <param name="context">The context.</param>
         public override void Initialization(IResourceContext context)
         {
             base.Initialization(context);

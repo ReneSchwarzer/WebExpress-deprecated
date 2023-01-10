@@ -26,7 +26,7 @@
     //    }
 
     //    /// <summary>
-    //    /// Konstruktor
+    //    /// Constructor
     //    /// </summary>
     //    /// <param name="page">Die zugehörige Seite</param>
     //    /// <param name="id">Die ID</param>
@@ -37,7 +37,7 @@
     //    }
 
     //    /// <summary>
-    //    /// Initialisierung
+    //    /// Initialization
     //    /// </summary>
     //    private void Init()
     //    {

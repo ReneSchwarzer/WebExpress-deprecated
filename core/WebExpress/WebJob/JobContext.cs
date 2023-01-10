@@ -6,7 +6,7 @@ namespace WebExpress.WebJob
     public class JobContext : IJobContext
     {
         /// <summary>
-        /// Das Assembly, welches das Modul enthällt
+        /// Das Assembly, welches das Modul enthält
         /// </summary>
         public Assembly Assembly { get; internal set; }
 

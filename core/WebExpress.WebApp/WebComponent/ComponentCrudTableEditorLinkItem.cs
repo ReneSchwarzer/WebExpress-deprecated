@@ -23,7 +23,7 @@ namespace WebExpress.WebApp.WebComponent
         public PropertyColorText Color { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="label">Die Beschriftung der Splalte</param>
         public ComponentCrudTableEditorLinkItem(string label)

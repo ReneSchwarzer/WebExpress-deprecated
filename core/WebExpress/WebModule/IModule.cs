@@ -5,13 +5,13 @@ namespace WebExpress.WebModule
     public interface IModule : IDisposable
     {
         /// <summary>
-        /// Initialisierung des Moduls. 
+        /// Initialization of the module.
         /// </summary>
-        /// <param name="context">Der Kontext</param>
+        /// <param name="context">The context.</param>
         void Initialization(IModuleContext context);
 
         /// <summary>
-        /// Wird aufgerufen, wenn das Modul die Arbeit aufnimmt. Der Aufruf erfolgt nebenläufig.
+        /// Called when the module starts working. The call is concurrent.
         /// </summary>
         void Run();
     }

@@ -11,7 +11,7 @@ namespace WebExpress.UI.WebControl
         public bool NoWrap { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlNavigationItemLink(string id = null)

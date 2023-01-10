@@ -6,7 +6,7 @@
     public class ResponseUnauthorized : Response
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public ResponseUnauthorized()
         {

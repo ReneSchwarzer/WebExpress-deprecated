@@ -27,7 +27,7 @@ namespace WebExpress.Config
         public string Password { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public EndpointConfig()
         {

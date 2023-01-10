@@ -6,7 +6,7 @@ module.name=WebExpress.UI
 module.description=Provides basic components.
 
 componentmanager.initialization=The component manager has been initialized.
-componentmanager.register=The component '{0}' has been registered in the '{1}' section of the '{2}' module of the '{3}' application.
+componentmanager.register=The component '{0}' has been registered in the '{1}' section of application '{2}'.
 componentmanager.error.section=The section is incorrect.
 componentmanager.wrongtype=The type '{0}' does not implement the interface '{1}'.
 

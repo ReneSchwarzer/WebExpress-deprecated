@@ -28,7 +28,7 @@ namespace WebExpress.WebApp.WebControl
         public List<IControl> Secondary { get; protected set; } = new List<IControl>();
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlWebAppProperty(string id = null)
@@ -38,7 +38,7 @@ namespace WebExpress.WebApp.WebControl
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
         private void Init()
         {

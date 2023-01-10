@@ -6,7 +6,7 @@
     public class ComponentCrudTableEditorSeperatorItem : ComponentCrudTableEditorItem
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public ComponentCrudTableEditorSeperatorItem()
         {
