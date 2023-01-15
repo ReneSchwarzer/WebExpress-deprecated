@@ -22,10 +22,10 @@ namespace WebExpress.UI.WebControl
         List<string> Styles { get; set; }
 
         /// <summary>
-        /// In HTML konvertieren
+        /// Convert to html.
         /// </summary>
-        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
-        /// <returns>Das Control als HTML</returns>
+        /// <param name="context">The context in which the control is rendered.</param>
+        /// <returns>The control as html.</returns>
         IHtmlNode Render(RenderContext context);
     }
 }

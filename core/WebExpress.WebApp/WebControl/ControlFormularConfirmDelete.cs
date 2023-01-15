@@ -21,7 +21,7 @@ namespace WebExpress.WebApp.WebControl
         /// <summary>
         /// Initialisiert das Formular
         /// </summary>
-        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        /// <param name="context">The context in which the control is rendered.</param>
         public override void Initialize(RenderContextFormular context)
         {
             base.Initialize(context);
@@ -31,10 +31,10 @@ namespace WebExpress.WebApp.WebControl
         }
 
         /// <summary>
-        /// In HTML konvertieren
+        /// Convert to html.
         /// </summary>
-        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
-        /// <returns>Das Control als HTML</returns>
+        /// <param name="context">The context in which the control is rendered.</param>
+        /// <returns>The control as html.</returns>
         public override IHtmlNode Render(RenderContext context)
         {
             ButtonLabel = context.Page.I18N("webexpress.webapp", "delete.label");

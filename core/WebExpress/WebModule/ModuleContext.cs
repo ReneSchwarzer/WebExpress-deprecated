@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using WebExpress.Uri;
 using WebExpress.WebApplication;
+using WebExpress.WebComponent;
 using WebExpress.WebPlugin;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -79,7 +80,7 @@ namespace WebExpress.WebModule
         /// <returns>A list of application contexts associated with the module.</returns>
         public IEnumerable<IApplicationContext> GetApplicationContexts() 
         {
-            return ApplicationManager.GetApplcations(Applications);
+            return ComponentManager.ApplicationManager.GetApplcations(Applications);
         }
 
         /// <summary>
@@ -126,6 +127,15 @@ namespace WebExpress.WebModule
         public IUri GetIcon(IApplicationContext applicationContext)
         {
             return new UriResource(applicationContext.ContextPath, ContextPath, Icon);
+        }
+
+        /// <summary>
+        /// Conversion of the module context into its string representation.
+        /// </summary>
+        /// <returns>The string that uniquely represents the module.</returns>
+        public override string ToString()
+        {
+            return ModuleID;
         }
     }
 }

@@ -5,67 +5,67 @@ using WebExpress.Setting;
 namespace WebExpress.Config
 {
     /// <summary>
-    /// Klasse zum Auslesen der Konfigurationsdatei
+    /// Class for reading the configuration file.
     /// </summary>
     [XmlRoot("config", IsNullable = false)]
     public sealed class HttpServerConfig
     {
         /// <summary>
-        /// Die Konfiguarationsversion
+        /// The configuration version.
         /// </summary>
         [XmlAttribute("version", DataType = "int")]
         public int Version { get; set; }
 
         /// <summary>
-        /// Die Endpunkte des Webservers
+        /// The endpoints of the web server.
         /// </summary>
         [XmlElement("endpoint")]
         public List<EndpointConfig> Endpoints { get; set; }
 
         /// <summary>
-        /// Die Uir des Webservers
+        /// The uri of the web server.
         /// </summary>
         [XmlElement("uri")]
         public string Uri { get; set; }
 
         /// <summary>
-        /// Das Limitierungen
+        /// The limitations.
         /// </summary>
         [XmlElement("limit")]
         public LimitConfig Limit { get; set; }
 
         /// <summary>
-        /// Verzeichnis, indem sich die Pakete befinden
+        /// Root directory of packages.
         /// </summary>
         [XmlElement("packages")]
         public string PackageBase { get; set; }
 
         /// <summary>
-        /// Root-Verzeichnis der Assets
+        /// Root directory of assets.
         /// </summary>
         [XmlElement("assets")]
         public string AssetBase { get; set; }
 
         /// <summary>
-        /// Root-Verzeichnis der Daten
+        /// Root directory of the data.
         /// </summary>
         [XmlElement("data")]
         public string DataBase { get; set; }
 
         /// <summary>
-        /// Der URI-Basispfad des WebServers
+        /// The uri base path of the web server.
         /// </summary>
         [XmlElement("contextpath")]
         public string ContextPath { get; set; }
 
         /// <summary>
-        /// Die Kultur
+        /// The culture
         /// </summary>
         [XmlElement("culture")]
         public string Culture { get; set; }
 
         /// <summary>
-        /// Log-Einstellungen
+        /// The log settings.
         /// </summary>
         [XmlElement("log")]
         public SettingLogItem Log { get; set; }

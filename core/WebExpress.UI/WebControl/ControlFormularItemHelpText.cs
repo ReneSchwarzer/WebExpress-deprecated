@@ -42,17 +42,17 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Initialisiert das Formularelement
         /// </summary>
-        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        /// <param name="context">The context in which the control is rendered.</param>
         public override void Initialize(RenderContextFormular context)
         {
             TextColor = new PropertyColorText(TypeColorText.Muted);
         }
 
         /// <summary>
-        /// In HTML konvertieren
+        /// Convert to html.
         /// </summary>
-        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
-        /// <returns>Das Control als HTML</returns>
+        /// <param name="context">The context in which the control is rendered.</param>
+        /// <returns>The control as html.</returns>
         public override IHtmlNode Render(RenderContextFormular context)
         {
             return new HtmlElementTextSemanticsSmall()

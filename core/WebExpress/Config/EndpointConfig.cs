@@ -3,25 +3,25 @@
 namespace WebExpress.Config
 {
     /// <summary>
-    /// Klasse zum Auslesen der Zertifikatseigenschaften
+    /// Class for reading certificate properties.
     /// </summary>
     [XmlRoot("endpoint", IsNullable = false)]
     public sealed class EndpointConfig
     {
         /// <summary>
-        /// Die Uri (z.B. https://localhost:443/)
+        /// The uri (e.g. https://localhost:443/).
         /// </summary>
         [XmlAttribute("uri")]
         public string Uri { get; set; }
 
         /// <summary>
-        /// Das Zertifikat als PFX-Datei
+        /// The certificate as a pfx file.
         /// </summary>
         [XmlAttribute("pfx")]
         public string PfxFile { get; set; }
 
         /// <summary>
-        /// Das Passwort
+        /// The password.
         /// </summary>
         [XmlAttribute("password")]
         public string Password { get; set; }

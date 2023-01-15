@@ -5,7 +5,7 @@ namespace WebExpress.Html
     /// <summary>
     /// Kennzeichnet einen Platzhalter
     /// </summary>
-    public class HtmlElementWebComponentsSlot : HtmlElement, IHtmlElementWebComponents
+    public class HtmlElementWebFragmentsSlot : HtmlElement, IHtmlElementWebFragments
     {
         /// <summary>
         /// Liefert die Elemente
@@ -15,7 +15,7 @@ namespace WebExpress.Html
         /// <summary>
         /// Constructor
         /// </summary>
-        public HtmlElementWebComponentsSlot()
+        public HtmlElementWebFragmentsSlot()
             : base("slot")
         {
 
@@ -25,7 +25,7 @@ namespace WebExpress.Html
         /// Constructor
         /// </summary>
         /// <param name="nodes">Der Inhalt</param>
-        public HtmlElementWebComponentsSlot(params IHtmlNode[] nodes)
+        public HtmlElementWebFragmentsSlot(params IHtmlNode[] nodes)
             : this()
         {
             Elements.AddRange(nodes);
@@ -35,7 +35,7 @@ namespace WebExpress.Html
         /// Constructor
         /// </summary>
         /// <param name="nodes">Der Inhalt</param>
-        public HtmlElementWebComponentsSlot(IEnumerable<IHtmlNode> nodes)
+        public HtmlElementWebFragmentsSlot(IEnumerable<IHtmlNode> nodes)
             : this()
         {
             base.Elements.AddRange(nodes);

@@ -3,7 +3,7 @@
     /// <summary>
     /// Attribut zur Kennzeichnun einer Klasse als Plugin-Komponente
     /// </summary>
-    public class OrderAttribute : System.Attribute, IComponentAttribute
+    public class OrderAttribute : System.Attribute, IFragmentAttribute
     {
         /// <summary>
         /// Constructor

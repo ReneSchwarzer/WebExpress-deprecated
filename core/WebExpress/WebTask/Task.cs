@@ -9,7 +9,7 @@ namespace WebExpress.WebTask
         /// <summary>
         /// Interne Verwaltung des Fortschrittes.
         /// </summary>
-        private int progress { get; set; }
+        private int _Progress { get; set; }
 
         /// <summary>
         /// Event wird ausgelöst, wenn die Aufgabe ausgeführt wird.
@@ -46,8 +46,8 @@ namespace WebExpress.WebTask
         /// </summary>
         public int Progress
         {
-            get => progress;
-            set => progress = Math.Min(value, 100);
+            get => _Progress;
+            set => _Progress = Math.Min(value, 100);
         }
 
         /// <summary>
@@ -83,15 +83,15 @@ namespace WebExpress.WebTask
         /// </summary>
         public void Run()
         {
-            System.Threading.Tasks.Task.Factory.StartNew(() =>
+            System.Threading.Tasks.Task.Factory.StartNew((Action)(() =>
             {
                 State = TaskState.Run;
 
-                Progress = 0;
+                this.Progress = 0;
 
                 OnProcess();
 
-                Progress = 100;
+                this.Progress = 100;
 
                 State = TaskState.Finish;
 
@@ -99,7 +99,7 @@ namespace WebExpress.WebTask
 
                 TaskManager.RemoveTask(this);
 
-            }, TokenSource.Token);
+            }), TokenSource.Token);
         }
 
         /// <summary>

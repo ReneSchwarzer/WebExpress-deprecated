@@ -31,6 +31,12 @@ httpserver.listen.exeption=Fehler beim Einrichten eines Endpunktes für die Uri 
 httpserver.listener.try=Falls Ihnen Zugriffsrechte fehlen, führen Sie unter Windows folgende Anweisung als Administrator aus:
 httpserver.listener.windows=netsh http add urlacl url={0} user=Jeder listen=yes
 
+componentmanager.initialization=Der Komponentenmanager wurde initialisiert.
+componentmanager.register=Die Komponente '{0}' wurde im Komponentenmanager registriert. 
+componentmanager.execute=Startet den Komponenten-Manager.
+componentmanager.shutdown=Herunterfahren des Komponentenmanagers.
+componentmanager.wrongtype=Der Typ '{0}' implementiert die Schnittstelle '{1}' nicht.
+
 internationalizationmanager.initialization=Der Internationalisierungsmanager wurde initialisiert.
 internationalizationmanager.register=Das Plugin '{0}' wurde im Internationalizationmanager registriert.
 

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Linq;
 using WebExpress.Uri;
-using WebExpress.WebApplication;
-using WebExpress.WebModule;
+using WebExpress.WebComponent;
 using WebExpress.WebResource;
 using static WebExpress.Internationalization.InternationalizationManager;
 
@@ -11,12 +10,12 @@ namespace WebExpress.WebSitemap
     /// <summary>
     /// The resource manager manages WebExpress elements, which can be called with a URI (Uniform Resource Identifier).
     /// </summary>
-    public static class SitemapManager
+    public class SitemapManager : IComponent, ISystemComponent
     {
         /// <summary>
         /// Returns the reference to the context of the host.
         /// </summary>
-        private static IHttpServerContext Context { get; set; }
+        public IHttpServerContext Context { get; private set; }
 
         /// <summary>
         /// Returns the side map.
@@ -24,10 +23,18 @@ namespace WebExpress.WebSitemap
         private static SitemapNode SiteMap { get; set; } = new SitemapNode();
 
         /// <summary>
+        /// Constructor
+        /// </summary>
+        internal SitemapManager()
+        {
+
+        }
+
+        /// <summary>
         /// Initialization
         /// </summary>
         /// <param name="context">The reference to the context of the host.</param>
-        internal static void Initialization(IHttpServerContext context)
+        public void Initialization(IHttpServerContext context)
         {
             Context = context;
 
@@ -37,14 +44,14 @@ namespace WebExpress.WebSitemap
         /// <summary>
         /// Rebuilds the sitemap.
         /// </summary>
-        public static void Refresh()
+        public void Refresh()
         {
             var newSiteMap = new SitemapNode() { Dummy = true };
 
             Context.Log.Info(message: I18N("webexpress:sitemapmanager.refresh"));
 
-            foreach (var moduleUri in ApplicationManager.Applications
-                .SelectMany(a => ModuleManager.Modules.Select(x => x.GetContextPath(a))))
+            foreach (var moduleUri in ComponentManager.ApplicationManager.Applications
+                .SelectMany(a => ComponentManager.ModuleManager.Modules.Select(x => x.GetContextPath(a))))
             {
                 var skip = moduleUri.Skip(1);
 
@@ -52,7 +59,7 @@ namespace WebExpress.WebSitemap
                 var node = newSiteMap.Insert(skip, null);
             }
 
-            foreach (var resource in ResourceManager.Resources)
+            foreach (var resource in ComponentManager.ResourceManager.Resources)
             {
                 var moduleID = resource.Context.ModuleContext.ModuleID;
 

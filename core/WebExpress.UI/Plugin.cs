@@ -1,6 +1,5 @@
-﻿using WebExpress.UI.WebComponent;
+﻿using WebExpress.UI.WebFragment;
 using WebExpress.WebAttribute;
-using WebExpress.WebModule;
 using WebExpress.WebPlugin;
 
 namespace WebExpress.UI
@@ -19,24 +18,23 @@ namespace WebExpress.UI
         }
 
         /// <summary>
-        /// Initialization des Plugins. Hier können z.B. verwaltete Ressourcen geladen werden. 
+        /// Initialization of the plugin. Here, for example, managed resources can be loaded. 
         /// </summary>
-        /// <param name="context">Der Kontext, welcher für die Ausführung des Plugins gilt</param>
+        /// <param name="context">The context of the plugin that applies to the execution of the plugin.</param>
         public void Initialization(IPluginContext context)
         {
-            ComponentManager.Initialization(context.Host);
         }
 
         /// <summary>
-        /// Wird aufgerufen, wenn das Plugin mit der Arbeit beginnt. Der Aufruf von Run erfolgt nebenläufig.
+        /// Called when the plugin starts working. Run is called concurrently.
         /// </summary>
         public void Run()
         {
-            ComponentManager.Register(PluginManager.Plugins);
+
         }
 
         /// <summary>
-        /// Freigeben von nicht verwalteten Ressourcen, welche während der Verwendung reserviert wurden.
+        /// Release of unmanaged resources reserved during use.
         /// </summary>
         public void Dispose()
         {

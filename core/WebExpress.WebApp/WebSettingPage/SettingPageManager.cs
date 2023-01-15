@@ -9,23 +9,23 @@ using WebExpress.WebApplication;
 using WebExpress.WebAttribute;
 using WebExpress.WebModule;
 using WebExpress.WebPlugin;
-using WebExpress.WebResource;
+using WebExpress.WebSitemap;
 using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.WebApp.SettingPage
 {
     /// <summary>
-    /// Verwaltung der Einstellungsseiten
+    /// Management of settings pages.
     /// </summary>
     public class SettingPageManager
     {
         /// <summary>
-        /// Liefert oder setzt den Verweis auf Kontext des Plugins
+        /// Returns or sets the reference to the context of the plugin.
         /// </summary>
         private static IPluginContext Context { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt das Verzeichnis, indem die Kompomenten gelistet sind
+        /// Returns the directory where the components are listed.
         /// </summary>
         private static SettingPageDictionary Dictionary { get; } = new SettingPageDictionary();
 
@@ -41,126 +41,115 @@ namespace WebExpress.WebApp.SettingPage
         }
 
         /// <summary>
-        /// Fügt Anwendungs-Einträge aus allen geladenen Plugins hinzu
+        /// Adds the component-key-value pairs from the specified plug-in.
         /// </summary>
-        /// <param name="application">Die Anwendung, welche die Komponenten zugewiesen werden</param>
-        public static void Register(IApplicationContext application)
+        /// <param name="pluginContexts">A list with plugin contexts that contain the components.</param>
+        public static void Register(IEnumerable<IPluginContext> pluginContexts)
         {
-            //foreach (var module in ModuleManager.Modules.Where(x => x.Application.Equals(application)))
-            //{
-            //    Register(module);
-            //}
+            foreach (var pluginContext in pluginContexts)
+            {
+                foreach (var settingPageType in pluginContext.Assembly.GetTypes()
+                    .Where(x => x.IsClass && x.IsSealed && (x.GetInterfaces().Contains(typeof(IPageSetting)))))
+                {
+                    var id = settingPageType.Name?.ToLower();
+                    var context = null as string;
+                    var group = null as string;
+                    var section = SettingSection.Primary;
+                    var hide = false;
+                    var icon = null as PropertyIcon;
+                    var optional = false;
+
+                    // determining Attributes
+                    foreach (var customAttribute in settingPageType.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IResourceAttribute))))
+                    {
+                        if (customAttribute.AttributeType == typeof(IdAttribute))
+                        {
+                            id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
+                        }
+                        else if (customAttribute.AttributeType == typeof(SettingContextAttribute))
+                        {
+                            context = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
+                        }
+                        else if (customAttribute.AttributeType == typeof(SettingGroupAttribute))
+                        {
+                            group = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
+                        }
+                        else if (customAttribute.AttributeType == typeof(SettingSectionAttribute))
+                        {
+                            section = (SettingSection)Enum.Parse(typeof(SettingSection), customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString());
+                        }
+                        else if (customAttribute.AttributeType == typeof(SettingHideAttribute))
+                        {
+                            hide = true;
+                        }
+                        else if (customAttribute.AttributeType == typeof(SettingIconAttribute))
+                        {
+                            var iconAttribute = customAttribute.ConstructorArguments.FirstOrDefault().Value;
+                            icon = iconAttribute?.GetType() == typeof(int) ? new PropertyIcon((TypeIcon)Enum.Parse(typeof(TypeIcon), iconAttribute?.ToString())) : new PropertyIcon(new UriRelative(iconAttribute?.ToString()));
+                        }
+                        else if (customAttribute.AttributeType == typeof(OptionalAttribute))
+                        {
+                            optional = true;
+                        }
+                    }
+
+                        // Prüfe ob eine optionale Ressource
+                    //    if (optional && !(module.Application.Options.Contains($"{module.ModuleID}.*".ToLower()) || module.Application.Options.Contains($"{module.ModuleID}.{id}".ToLower())))
+                        {
+                    //        continue;
+                        }
+
+                        // Seite mit Metainformationen erzeugen
+                        var page = new SettingPageDictionaryItemMetaPage()
+                        {
+                            ID = id,
+                    //        ModuleContext = module,
+                            Type = settingPageType,
+                            //Node = SitemapManager.FindByID(module.Application.ApplicationID, id),
+                            Icon = icon,
+                            Hide = hide
+                        };
+
+                    // Insert the settings page into the dictionary
+                    Dictionary.AddPage(pluginContext, context, section, group, page);
+
+                    // Logging
+                    //var log = new List<string>
+                    //{
+                    //    I18N("webexpress.webapp:pagesettingmanager.register"),
+                    //    "    ApplicationID    = " + module?.Application.ApplicationID,
+                    //    "    ModuleID         = " + module?.ModuleID,
+                    //    "    SettingContext   = " + context ?? "null",
+                    //    "    SettingSection   = " + section.ToString(),
+                    //    "    SettingGroup     = " + group ?? "null",
+                    //    "    SettingPage.ID   = " + page?.ID ?? "null",
+                    //    "    SettingPage.Type = " + (page?.Type != null ? page.Type.ToString() : "null"),
+                    //    "    SettingPage.Node = " + (page?.Node != null ? page.Node?.ToString() : "null"),
+                    //    "    SettingPage.Hide = " + (page?.Hide != null ? page?.Hide.ToString() : "null")
+                    //};
+
+                    //    Context.Log.Info(string.Join(Environment.NewLine, log));
+                }
+            }
         }
 
         /// <summary>
-        /// Fügt die Einstellungseiten-Schlüssel-Wert-Paare aus dem angegebenen Plugin hinzu
+        /// Searches for a page by its id.
         /// </summary>
-        /// <param name="module">Das Modul, welches die Einstellungsseiten enthält</param>
-        /// <param name="application">Die Anwendung, welche die Komponenten zugewiesen werden</param>
-        internal static void Register(IModuleContext module)
+        /// <param name="applicationContext">The application context.</param>
+        /// <param name="pageID">The page.</param>
+        /// <returns>The page found, or null.</returns>
+        /// <summary>
+        public static SettingPageSearchResult FindPage(IApplicationContext applicationContext, string pageID)
         {
-            //var assemblyName = module.Assembly.GetName().Name.ToLower();
-
-            //foreach (var settingPageType in module.Assembly.GetTypes().Where(x => x.IsClass && x.IsSealed && (x.GetInterfaces().Contains(typeof(IPageSetting)))))
-            //{
-            //    var id = settingPageType.Name?.ToLower();
-            //    var context = null as string;
-            //    var group = null as string;
-            //    var section = SettingSection.Primary;
-            //    var hide = false;
-            //    var icon = null as PropertyIcon;
-            //    var optional = false;
-
-            //    // Attribute ermitteln
-            //    foreach (var customAttribute in settingPageType.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IResourceAttribute))))
-            //    {
-            //        if (customAttribute.AttributeType == typeof(IdAttribute))
-            //        {
-            //            id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
-            //        }
-            //        else if (customAttribute.AttributeType == typeof(SettingContextAttribute))
-            //        {
-            //            context = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
-            //        }
-            //        else if (customAttribute.AttributeType == typeof(SettingGroupAttribute))
-            //        {
-            //            group = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
-            //        }
-            //        else if (customAttribute.AttributeType == typeof(SettingSectionAttribute))
-            //        {
-            //            section = (SettingSection)Enum.Parse(typeof(SettingSection), customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString());
-            //        }
-            //        else if (customAttribute.AttributeType == typeof(SettingHideAttribute))
-            //        {
-            //            hide = true;
-            //        }
-            //        else if (customAttribute.AttributeType == typeof(SettingIconAttribute))
-            //        {
-            //            var iconAttribute = customAttribute.ConstructorArguments.FirstOrDefault().Value;
-            //            icon = iconAttribute?.GetType() == typeof(int) ? new PropertyIcon((TypeIcon)Enum.Parse(typeof(TypeIcon), iconAttribute?.ToString())) : new PropertyIcon(new UriRelative(iconAttribute?.ToString()));
-            //        }
-            //        else if (customAttribute.AttributeType == typeof(OptionalAttribute))
-            //        {
-            //            optional = true;
-            //        }
-            //    }
-
-            //    // Prüfe ob eine optionale Ressource
-            //    if (optional && !(module.Application.Options.Contains($"{module.ModuleID}.*".ToLower()) || module.Application.Options.Contains($"{module.ModuleID}.{id}".ToLower())))
-            //    {
-            //        continue;
-            //    }
-
-            //    // Seite mit Metainformationen erzeugen
-            //    var page = new SettingPageDictionaryItemMetaPage()
-            //    {
-            //        ID = id,
-            //        ModuleContext = module,
-            //        Type = settingPageType,
-            //        Node = SitemapManager.FindByID(module.Application.ApplicationID, id),
-            //        Icon = icon,
-            //        Hide = hide
-            //    };
-
-            //    // Seite in das Dictionary einfügen
-            //    Dictionary.AddPage(module.Application.ApplicationID, context, section, group, page);
-
-            //    // Logging
-            //    var log = new List<string>
-            //    {
-            //        I18N("webexpress.webapp:pagesettingmanager.register"),
-            //        "    ApplicationID    = " + module?.Application.ApplicationID,
-            //        "    ModuleID         = " + module?.ModuleID,
-            //        "    SettingContext   = " + context ?? "null",
-            //        "    SettingSection   = " + section.ToString(),
-            //        "    SettingGroup     = " + group ?? "null",
-            //        "    SettingPage.ID   = " + page?.ID ?? "null",
-            //        "    SettingPage.Type = " + (page?.Type != null ? page.Type.ToString() : "null"),
-            //        "    SettingPage.Node = " + (page?.Node != null ? page.Node?.ToString() : "null"),
-            //        "    SettingPage.Hide = " + (page?.Hide != null ? page?.Hide.ToString() : "null")
-            //    };
-
-            //    Context.Log.Info(string.Join(Environment.NewLine, log));
-            //}
+            return Dictionary.FindPage(applicationContext, pageID);
         }
 
         /// <summary>
-        /// Sucht eine Seite anhand seiner ID
+        /// Returns all contexts.
         /// </summary>
-        /// <param name="applicationID">Die AnwendungsID</param>
-        /// <param name="pageID">Die Seite</param>
-        /// <returns>Die gefundene Seite oder null</returns>
-        /// <summary>
-        public static SettingPageSearchResult FindPage(string applicationID, string pageID)
-        {
-            return Dictionary.FindPage(applicationID, pageID);
-        }
-
-        /// <summary>
-        /// Liefere alle Kontexte
-        /// </summary>
-        /// <param name="applicationID">Die AnwendungsID</param>
-        /// <returns>Eine Auflistung aller Kontexte</returns>
+        /// <param name="applicationID">The application id.</param>
+        /// <returns>A listing of all contexts.</returns>
         /// <summary>
         public static SettingPageDictionaryItemContext GetContexts(string applicationID)
         {
@@ -168,11 +157,11 @@ namespace WebExpress.WebApp.SettingPage
         }
 
         /// <summary>
-        /// Liefere alle Sektionen, welche den seleben Settingkontext besitzen
+        /// Returns all sections that have the same setting context.
         /// </summary>
-        /// <param name="applicationID">Die AnwendungsID</param>
+        /// <param name="applicationID">The application id.</param>
         /// <param name="context">The context.</param>
-        /// <returns>Eine Auflistung aller Sektionen des gleichen Kontextes</returns>
+        /// <returns>A listing of all sections of the same context.</returns>
         /// <summary>
         public static SettingPageDictionaryItemSection GetSections(string applicationID, string context)
         {

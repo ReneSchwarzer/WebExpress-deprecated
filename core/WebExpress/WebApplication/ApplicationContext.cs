@@ -68,5 +68,14 @@ namespace WebExpress.WebApplication
         public ApplicationContext()
         {
         }
+
+        /// <summary>
+        /// Conversion of the apllication context into its string representation.
+        /// </summary>
+        /// <returns>The string that uniquely represents the application.</returns>
+        public override string ToString()
+        {
+            return ApplicationID;
+        }
     }
 }

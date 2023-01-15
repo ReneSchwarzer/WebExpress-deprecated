@@ -129,9 +129,9 @@
     //    }
 
     //    /// <summary>
-    //    /// In HTML konvertieren
+    //    /// Convert to html.
     //    /// </summary>
-    //    /// <returns>Das Control als HTML</returns>
+    //    /// <returns>The control as html.</returns>
     //    public override IHtmlNode ToHtml()
     //    {
     //        return base.ToHtml();

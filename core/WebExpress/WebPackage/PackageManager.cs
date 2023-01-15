@@ -10,76 +10,63 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 using WebExpress.Internationalization;
-using WebExpress.Message;
-using WebExpress.WebApplication;
-using WebExpress.WebJob;
-using WebExpress.WebModule;
-using WebExpress.WebPlugin;
-using WebExpress.WebResource;
-using WebExpress.WebSitemap;
+using WebExpress.WebComponent;
 
 namespace WebExpress.WebPackage
 {
     /// <summary>
     /// The package manager manages packages with WebExpress extensions. The packages must be in WebExpressPackage format (*.wxp).
     /// </summary>
-    public static class PackageManager
+    public class PackageManager : IComponent, ISystemComponent
     {
         /// <summary>
         /// Returns or sets the reference to the context of the host.
         /// </summary>
-        public static IHttpServerContext Context { get; private set; }
+        public IHttpServerContext Context { get; private set; }
 
         /// <summary>
         /// Thread Termination.
         /// </summary>
-        private static CancellationTokenSource TokenSource { get; } = new CancellationTokenSource();
+        private CancellationTokenSource TokenSource { get; } = new CancellationTokenSource();
 
         /// <summary>
         /// Returns the catalog of installed packages.
         /// </summary>
-        private static PackageCatalog Catalog { get; } = new PackageCatalog();
+        private PackageCatalog Catalog { get; } = new PackageCatalog();
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        internal PackageManager()
+        {
+
+        }
 
         /// <summary>
         /// Initialization
         /// </summary>
         /// <param name="context">The reference to the context of the host.</param>
-        internal static void Initialization(IHttpServerContext context)
+        public void Initialization(IHttpServerContext context)
         {
             Context = context;
 
             Context.Log.Info(message: InternationalizationManager.I18N("webexpress:packagemanager.initialization"));
-
-            // load the default plugins.
-            var plugins = PluginManager.Register();
-
-            // load internationalization
-            InternationalizationManager.Register(plugins);
-
-            // load applications
-            ApplicationManager.Register(plugins);
-
-            // load modules
-            ModuleManager.Register(plugins);
-
-            // load resources
-            ResourceManager.Register(plugins);
-
-            // load status pages
-            ResponseManager.Register(plugins);
-
-            // load jobs
-            ScheduleManager.Register(plugins);
-
-            // boot the default plugins. 
-            PluginManager.Boot(plugins);
         }
 
         /// <summary>
         /// Starts the manager.
         /// </summary>
-        internal static void Execute()
+        internal void Execute()
         {
+            // load the default plugins
+            var plugins = ComponentManager.PluginManager.Register();
+
+            // register default elements
+            ComponentManager.Register(plugins);
+
+            // boot default elements 
+            ComponentManager.PluginManager.Boot(plugins);
+
             LoadCatalog();
 
             foreach (var package in Catalog.Packages)
@@ -102,7 +89,7 @@ namespace WebExpress.WebPackage
             SaveCatalog();
 
             // build sitemap
-            SitemapManager.Refresh();
+            ComponentManager.SitemapManager.Refresh();
 
             Task.Factory.StartNew(() =>
             {
@@ -120,7 +107,7 @@ namespace WebExpress.WebPackage
         /// <summary>
         /// Stop running the manager.
         /// </summary>
-        public static void ShutDown()
+        public void ShutDown()
         {
             TokenSource.Cancel();
         }
@@ -128,7 +115,7 @@ namespace WebExpress.WebPackage
         /// <summary>
         /// Searches the package directory for new, changed or removed packages.
         /// </summary>
-        public static void Scan()
+        public void Scan()
         {
             Context.Log.Info(message: InternationalizationManager.I18N("webexpress:packagemanager.scan", Context.PackagePath));
 
@@ -200,7 +187,7 @@ namespace WebExpress.WebPackage
             if (newPackages.Any() || removePackages.Any())
             {
                 // build sitemap
-                SitemapManager.Refresh();
+                ComponentManager.SitemapManager.Refresh();
 
                 // save the catalog
                 //SaveCatalog();
@@ -212,7 +199,7 @@ namespace WebExpress.WebPackage
         /// </summary>
         /// <param name="file">The path and file name.</param>
         /// <returns>The package information as a catalog entry.</returns>
-        private static PackageCatalogItem LoadPackage(string file)
+        private PackageCatalogItem LoadPackage(string file)
         {
             try
             {
@@ -284,7 +271,7 @@ namespace WebExpress.WebPackage
         /// <summary>
         /// Load the catalog.
         /// </summary>
-        private static void LoadCatalog()
+        private void LoadCatalog()
         {
             var catalogeFile = Path.Combine(Context.PackagePath, "catalog.xml");
             if (File.Exists(catalogeFile))
@@ -301,7 +288,7 @@ namespace WebExpress.WebPackage
         /// <summary>
         /// Save the catalog.
         /// </summary>
-        private static void SaveCatalog()
+        private void SaveCatalog()
         {
             var catalogeFile = Path.Combine(Context.PackagePath, "catalog.xml");
 
@@ -319,7 +306,7 @@ namespace WebExpress.WebPackage
         /// Extracts the specified package to the file system.
         /// </summary>
         /// <param name="package">The package.</param>
-        private static void ExtractPackage(PackageCatalogItem package)
+        private void ExtractPackage(PackageCatalogItem package)
         {
             var packageFile = Path.Combine(Context.PackagePath, package?.File);
 
@@ -363,28 +350,16 @@ namespace WebExpress.WebPackage
         /// Registers the plungins included in the package.
         /// </summary>
         /// <param name="package">The package.</param>
-        private static void RegisterPackage(PackageCatalogItem package)
+        private void RegisterPackage(PackageCatalogItem package)
         {
             // load plugins
-            var plugins = PluginManager.Register(GetTargetPath(package));
+            var plugins = ComponentManager.PluginManager.Register(GetTargetPath(package));
 
-            // load internationalization
-            InternationalizationManager.Register(plugins);
+            // register default elements
+            ComponentManager.Register(plugins);
 
-            // load applications
-            ApplicationManager.Register(plugins);
-
-            // load modules
-            ModuleManager.Register(plugins);
-
-            // load resources
-            ResourceManager.Register(plugins);
-
-            // load status pages
-            ResponseManager.Register(plugins);
-
-            // load jobs
-            ScheduleManager.Register(plugins);
+            // boot default elements 
+            ComponentManager.PluginManager.Boot(plugins);
 
             package.Plugins.AddRange(plugins);
         }
@@ -393,10 +368,10 @@ namespace WebExpress.WebPackage
         /// Boots the plungins included in the package.
         /// </summary>
         /// <param name="package">The package.</param>
-        private static void BootPackage(PackageCatalogItem package)
+        private void BootPackage(PackageCatalogItem package)
         {
             // Plugins booten
-            PluginManager.Boot(package.Plugins);
+            ComponentManager.PluginManager.Boot(package.Plugins);
         }
 
         /// <summary>
@@ -404,7 +379,7 @@ namespace WebExpress.WebPackage
         /// </summary>
         /// <param name="package">The package.</param>
         /// <returns>The directory (absolutely).</returns>
-        private static string GetTargetPath(PackageCatalogItem package)
+        private string GetTargetPath(PackageCatalogItem package)
         {
             return Path.Combine(Context.PackagePath, Path.GetFileNameWithoutExtension(package?.File), GetTFM());
         }
@@ -413,7 +388,7 @@ namespace WebExpress.WebPackage
         /// Determines the target framework.
         /// </summary>
         /// <returns>The TFM</returns>
-        private static string GetTFM()
+        private string GetTFM()
         {
             var targetFrameworkAttribute = Assembly.GetExecutingAssembly()
                     .GetCustomAttributes(typeof(TargetFrameworkAttribute), false)

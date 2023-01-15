@@ -12,7 +12,7 @@
         /// <summary>
         /// Umwandlung in String
         /// </summary>
-        /// <param name="value">Der Wert</param>
+        /// <param name="value">The value.</param>
         /// <returns>Der String</returns>
         public static string ToValue(this TypeOnChange value)
         {

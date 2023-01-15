@@ -3,12 +3,12 @@
     public class ParameterFile : Parameter
     {
         /// <summary>
-        /// Liefert oder setzt den Inhaltstyp
+        /// Returns the content type.
         /// </summary>
         public string ContentType { get; internal set; }
 
         /// <summary>
-        /// Liefert oder setzt die Daten
+        /// Returns the data.
         /// </summary>
         public byte[] Data { get; internal set; }
 
@@ -23,9 +23,9 @@
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="key">Der Schlüssel</param>
-        /// <param name="value">Der Wert</param>
-        /// <param name="scope">Der Gültigkeitsbereich des Parameters</param>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="scope">The scope of the parameter.</param>
         public ParameterFile(string key, string value, ParameterScope scope)
             : base(key, value, scope)
         {
@@ -34,9 +34,9 @@
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="key">Der Schlüssel</param>
-        /// <param name="value">Der Wert</param>
-        /// <param name="scope">Der Gültigkeitsbereich des Parameters</param>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="scope">The scope of the parameter.</param>
         public ParameterFile(string key, int value, ParameterScope scope)
             : base(key, value, scope)
         {
@@ -45,9 +45,9 @@
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="key">Der Schlüssel</param>
-        /// <param name="value">Der Wert</param>
-        /// <param name="scope">Der Gültigkeitsbereich des Parameters</param>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="scope">The scope of the parameter.</param>
         public ParameterFile(string key, char value, ParameterScope scope)
             : base(key, value, scope)
         {

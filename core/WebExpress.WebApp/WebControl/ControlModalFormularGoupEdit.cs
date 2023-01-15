@@ -52,7 +52,7 @@ namespace WebExpress.WebApp.WebControl
         /// Wird aufgerufen, wenn das Formular mit Initialwerten gefüllt werden soll
         /// </summary>
         /// <param name="sender">The trigger of the event.</param>
-        /// <param name="e">Das Eventargument</param>
+        /// <param name="e">The event argument.</param>
         private void OnFillFormular(object sender, FormularEventArgs e)
         {
             GroupName.Value = Item?.Name;
@@ -62,7 +62,7 @@ namespace WebExpress.WebApp.WebControl
         /// Wird aufgerufen, wenn der eingegebene Gruppenname überprüft werden soll
         /// </summary>
         /// <param name="sender">The trigger of the event.</param>
-        /// <param name="e">Das Eventargument</param>
+        /// <param name="e">The event argument.</param>
         private void OnGroupNameValidation(object sender, ValidationEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(GroupName.Value))
@@ -77,10 +77,10 @@ namespace WebExpress.WebApp.WebControl
         }
 
         /// <summary>
-        /// Wird aufgerufen, wenn die Löschaktion bestätigt wurde
+        /// Called when the delete action has been confirmed.
         /// </summary>
         /// <param name="sender">The trigger of the event.</param>
-        /// <param name="e">Das Eventargument</param>
+        /// <param name="e">The event argument.</param>
         private void OnConfirm(object sender, FormularEventArgs e)
         {
             Item.Name = GroupName.Value;

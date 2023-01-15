@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using WebExpress.Uri;
 using WebExpress.WebApplication;
+using WebExpress.WebComponent;
 using WebExpress.WebCondition;
 using WebExpress.WebModule;
 using WebExpress.WebPlugin;
@@ -31,7 +32,7 @@ namespace WebExpress.WebResource
         /// is a string with a name (e.g. global, admin), which can be used by elements to 
         /// determine whether content and how content should be displayed.
         /// </summary>
-        public IReadOnlyList<string> ResourceContextFilter { get; internal set; }
+        public IReadOnlyList<string> ContentContext { get; internal set; }
 
         /// <summary>
         /// Returns the conditions that must be met for the resource to be active.
@@ -66,7 +67,7 @@ namespace WebExpress.WebResource
         /// <returns>A list of application contexts associated with the module.</returns>
         public IEnumerable<IApplicationContext> GetApplicationContexts()
         {
-            return ApplicationManager.GetApplcations(ModuleContext.Applications);
+            return ComponentManager.ApplicationManager.GetApplcations(ModuleContext.Applications);
         }
 
         /// <summary>

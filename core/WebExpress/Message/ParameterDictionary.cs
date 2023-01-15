@@ -3,7 +3,7 @@
 namespace WebExpress.Message
 {
     /// <summary>
-    /// Verwaltung der Parameter
+    /// Management of parameters.
     /// </summary>
     public class ParameterDictionary : Dictionary<string, Parameter>
     {

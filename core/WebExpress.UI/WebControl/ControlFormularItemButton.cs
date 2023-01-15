@@ -87,7 +87,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Initialisiert das Formularelement
         /// </summary>
-        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        /// <param name="context">The context in which the control is rendered.</param>
         public override void Initialize(RenderContextFormular context)
         {
             Disabled = false;
@@ -105,10 +105,10 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// In HTML konvertieren
+        /// Convert to html.
         /// </summary>
-        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
-        /// <returns>Das Control als HTML</returns>
+        /// <param name="context">The context in which the control is rendered.</param>
+        /// <returns>The control as html.</returns>
         public override IHtmlNode Render(RenderContextFormular context)
         {
             var html = new HtmlElementFieldButton()
@@ -156,7 +156,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Löst das Click-Event aus
         /// </summary>
-        /// <param name="e">Das Eventargument</param>
+        /// <param name="e">The event argument.</param>
         protected virtual void OnClickEvent(FormularEventArgs e)
         {
             Click?.Invoke(this, e);

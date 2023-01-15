@@ -58,7 +58,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Initialisiert das Formularelement
         /// </summary>
-        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        /// <param name="context">The context in which the control is rendered.</param>
         public override void Initialize(RenderContextFormular context)
         {
             if (context.Request.HasParameter(Name))
@@ -68,10 +68,10 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// In HTML konvertieren
+        /// Convert to html.
         /// </summary>
-        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
-        /// <returns>Das Control als HTML</returns>
+        /// <param name="context">The context in which the control is rendered.</param>
+        /// <returns>The control as html.</returns>
         public override IHtmlNode Render(RenderContextFormular context)
         {
             var classes = Classes.ToList();
@@ -114,7 +114,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Erzeugt das Javascript zur Ansteuerung des Steuerelements
         /// </summary>
-        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        /// <param name="context">The context in which the control is rendered.</param>
         /// <param name="id">Die ID des Steuerelmentes</param>
         /// <param name="css">Die CSS-KLassen, die dem Steuerelement zugewiesen werden</param>
         /// <returns>Der Javascript-Code</returns>

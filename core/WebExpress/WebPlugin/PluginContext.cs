@@ -66,5 +66,14 @@ namespace WebExpress.WebPlugin
         public PluginContext()
         {
         }
+
+        /// <summary>
+        /// Conversion of the plugin context into its string representation.
+        /// </summary>
+        /// <returns>The string that uniquely represents the plugin.</returns>
+        public override string ToString()
+        {
+            return PluginID;
+        }
     }
 }

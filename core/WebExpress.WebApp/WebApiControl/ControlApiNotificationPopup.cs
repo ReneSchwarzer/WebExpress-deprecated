@@ -3,6 +3,7 @@ using System.Text;
 using System.Text.Json;
 using WebExpress.Html;
 using WebExpress.UI.WebControl;
+using WebExpress.WebComponent;
 using WebExpress.WebModule;
 using WebExpress.WebPage;
 
@@ -24,13 +25,13 @@ namespace WebExpress.WebApp.WebApiControl
         }
 
         /// <summary>
-        /// In HTML konvertieren
+        /// Convert to html.
         /// </summary>
-        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
-        /// <returns>Das Control als HTML</returns>
+        /// <param name="context">The context in which the control is rendered.</param>
+        /// <returns>The control as html.</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var module = ModuleManager.GetModule(context.Application, "webexpress.webapp");
+            var module = ComponentManager.ModuleManager.GetModule(context.Application, "webexpress.webapp");
 
             var settings = new
             {

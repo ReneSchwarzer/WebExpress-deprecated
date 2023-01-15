@@ -132,7 +132,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Initialisiert das Formular
         /// </summary>
-        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        /// <param name="context">The context in which the control is rendered.</param>
         public virtual void Initialize(RenderContextFormular context)
         {
             // ID überprüfen
@@ -156,7 +156,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Füllung der Formulardate 
         /// </summary>
-        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        /// <param name="context">The context in which the control is rendered.</param>
         public virtual void Fill(RenderContextFormular context)
         {
             OnFill(context);
@@ -213,7 +213,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Vorverarbeitung des Formulars
         /// </summary>
-        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        /// <param name="context">The context in which the control is rendered.</param>
         public virtual void PreProcess(RenderContextFormular context)
         {
 
@@ -222,7 +222,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Processing of the resource. des Formulars
         /// </summary>
-        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        /// <param name="context">The context in which the control is rendered.</param>
         public virtual void Process(RenderContextFormular context)
         {
             OnProcess(context);
@@ -234,10 +234,10 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// In HTML konvertieren
+        /// Convert to html.
         /// </summary>
-        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
-        /// <returns>Das Control als HTML</returns>
+        /// <param name="context">The context in which the control is rendered.</param>
+        /// <returns>The control as html.</returns>
         public override IHtmlNode Render(RenderContext context)
         {
             var renderContext = new RenderContextFormular(context, this);
@@ -379,7 +379,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Löst das Verarbeiten-Event aus
         /// </summary>
-        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        /// <param name="context">The context in which the control is rendered.</param>
         protected virtual void OnProcess(RenderContextFormular context)
         {
             ProcessFormular?.Invoke(this, new FormularEventArgs() { Context = context });
@@ -388,7 +388,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Löst das Verarbeiten-Event aus
         /// </summary>
-        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        /// <param name="context">The context in which the control is rendered.</param>
         protected virtual void OnProcessAndNextFormular(RenderContextFormular context)
         {
             ProcessAndNextFormular?.Invoke(this, new FormularEventArgs() { Context = context });
@@ -397,7 +397,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Löst das Initializations-Event aus
         /// </summary>
-        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        /// <param name="context">The context in which the control is rendered.</param>
         protected virtual void OnInitialize(RenderContextFormular context)
         {
             InitializeFormular?.Invoke(this, new FormularEventArgs() { Context = context });
@@ -406,7 +406,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Löst das Datenbereitstellungs-Event aus
         /// </summary>
-        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        /// <param name="context">The context in which the control is rendered.</param>
         protected virtual void OnFill(RenderContextFormular context)
         {
             FillFormular?.Invoke(this, new FormularEventArgs() { Context = context });
@@ -415,7 +415,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Löst das Validation-Event aus
         /// </summary>
-        /// <param name="e">Das Eventargument</param>
+        /// <param name="e">The event argument.</param>
         protected virtual void OnValidation(ValidationEventArgs e)
         {
             Validation?.Invoke(this, e);
@@ -424,7 +424,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Löst das Validated-Event aus
         /// </summary>
-        /// <param name="e">Das Eventargument</param>
+        /// <param name="e">The event argument.</param>
         protected virtual void OnValidated(ValidationResultEventArgs e)
         {
             Validated?.Invoke(this, e);

@@ -18,7 +18,7 @@ namespace WebExpress.WebResource
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="segment">Der Wert</param>
+        /// <param name="segment">The value.</param>
         /// <param name="display">Der Anzeigestring</param>
         public PathSegmentConstant(string segment, string display)
         {

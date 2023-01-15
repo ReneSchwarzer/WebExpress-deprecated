@@ -6,17 +6,17 @@ namespace WebExpress.Message
     public class Parameter
     {
         /// <summary>
-        /// liefert oder setzt den Gültigkeitsbereich des Parameters
+        /// Returns or sets the scope of the parameter.
         /// </summary>
         public ParameterScope Scope { get; private set; }
 
         /// <summary>
-        /// Der Schlüssel
+        /// The key.
         /// </summary>
         public string Key { get; private set; }
 
         /// <summary>
-        /// Der Wert
+        /// The value.
         /// </summary>
         public string Value { get; internal set; }
 
@@ -30,9 +30,9 @@ namespace WebExpress.Message
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="key">Der Schlüssel</param>
-        /// <param name="value">Der Wert</param>
-        /// <param name="scope">Der Gültigkeitsbereich des Parameters</param>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="scope">The scope of the parameter.</param>
         public Parameter(string key, string value, ParameterScope scope)
         {
             Key = key.ToLower();
@@ -49,9 +49,9 @@ namespace WebExpress.Message
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="key">Der Schlüssel</param>
-        /// <param name="value">Der Wert</param>
-        /// <param name="scope">Der Gültigkeitsbereich des Parameters</param>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="scope">The scope of the parameter.</param>
         public Parameter(string key, int value, ParameterScope scope)
         {
             Key = key.ToLower();
@@ -62,9 +62,9 @@ namespace WebExpress.Message
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="key">Der Schlüssel</param>
-        /// <param name="value">Der Wert</param>
-        /// <param name="scope">Der Gültigkeitsbereich des Parameters</param>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="scope">The scope of the parameter.</param>
         public Parameter(string key, char value, ParameterScope scope)
         {
             Key = key.ToLower();
@@ -73,19 +73,19 @@ namespace WebExpress.Message
         }
 
         /// <summary>
-        /// Erstellt eine Parameterliste
+        /// Creates a parameter list.
         /// </summary>
-        /// <param name="param">Die Elemente der Parameterliste</param>
-        /// <returns>Die Parameterliste</returns>
+        /// <param name="param">The elements of the parameter list.</param>
+        /// <returns>The parameter list.</returns>
         public static List<Parameter> Create(params Parameter[] param)
         {
             return new List<Parameter>(param);
         }
 
         /// <summary>
-        /// Umwandlung in Stringform
+        /// Conversion to string form.
         /// </summary>
-        /// <returns>Das Objekt in seiner Stringrepräsentation</returns>
+        /// <returns>The object in its string representation.</returns>
         public override string ToString()
         {
             var sb = new StringBuilder(Value);

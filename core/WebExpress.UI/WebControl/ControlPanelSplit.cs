@@ -2,6 +2,7 @@
 using System.Linq;
 using WebExpress.Html;
 using WebExpress.Uri;
+using WebExpress.WebComponent;
 using WebExpress.WebModule;
 using WebExpress.WebPage;
 
@@ -92,10 +93,10 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Initialisiert das Formularelement
         /// </summary>
-        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        /// <param name="context">The context in which the control is rendered.</param>
         public void Initialize(RenderContext context)
         {
-            var module = ModuleManager.GetModule(context.Application, "webexpress.ui");
+            var module = ComponentManager.ModuleManager.GetModule(context.Application, "webexpress.ui");
             if (module != null)
             {
                 context.VisualTree.HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/split.min.js")));
@@ -140,10 +141,10 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// In HTML konvertieren
+        /// Convert to html.
         /// </summary>
-        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
-        /// <returns>Das Control als HTML</returns>
+        /// <param name="context">The context in which the control is rendered.</param>
+        /// <returns>The control as html.</returns>
         public override IHtmlNode Render(RenderContext context)
         {
             Initialize(context);

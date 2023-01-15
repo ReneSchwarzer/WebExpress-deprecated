@@ -1,47 +1,47 @@
 ﻿using System.Collections.Generic;
 using WebExpress.WebApp.WebAttribute;
+using WebExpress.WebApplication;
+using WebExpress.WebPlugin;
 
 namespace WebExpress.WebApp.SettingPage
 {
-    public class SettingPageDictionary : Dictionary<string, SettingPageDictionaryItemContext>
+    /// <summary>
+    /// key = The context of the plugin.
+    /// value = 
+    /// </summary>
+    public class SettingPageDictionary : Dictionary<IPluginContext, SettingPageDictionaryItemContext>
     {
         /// <summary>
-        /// Fügt eine Seite hinzu
+        /// Adds a settings page.
         /// </summary>
-        /// <param name="applicationID">Die AnwendungsID</param>
+        /// <param name="pluginContext">The context of the plugin.</param>
         /// <param name="context">The context.</param>
-        /// <param name="section">Die Sektion</param>
-        /// <param name="group">Die Gruppe</param>
-        /// <param name="page">Die einzufügende Seite</param>
-        public void AddPage(string applicationID, string context, SettingSection section, string group, SettingPageDictionaryItemMetaPage page)
+        /// <param name="section">The section.</param>
+        /// <param name="group">The grup.</param>
+        /// <param name="page">The settings page to insert.</param>
+        public void AddPage(IPluginContext pluginContext, string context, SettingSection section, string group, SettingPageDictionaryItemMetaPage page)
         {
-            // Standard für Anwendung festlegen
-            if (string.IsNullOrWhiteSpace(applicationID))
+            if (!ContainsKey(pluginContext))
             {
-                applicationID = "*";
+                Add(pluginContext, new SettingPageDictionaryItemContext());
             }
 
-            if (!ContainsKey(applicationID))
-            {
-                Add(applicationID, new SettingPageDictionaryItemContext());
-            }
-
-            this[applicationID].AddPage(context, section, group, page);
+            this[pluginContext].AddPage(context, section, group, page);
         }
 
         /// <summary>
-        /// Sucht eine Seite anhand seiner ID
+        /// Finds a settings page in an application by its id.
         /// </summary>
-        /// <param name="applicationID">Die AnwendungsID</param>
+        /// <param name="applicationContext">Die AnwendungsID</param>
         /// <param name="pageID">Die Seite</param>
         /// <returns>Die gefundene Seite oder null</returns>
         /// <summary>
-        public SettingPageSearchResult FindPage(string applicationID, string pageID)
+        public SettingPageSearchResult FindPage(IApplicationContext applicationContext, string pageID)
         {
-            if (ContainsKey(applicationID))
-            {
-                return this[applicationID].FindPage(pageID);
-            }
+            //if (ContainsKey(applicationContext))
+            //{
+            //    return this[applicationContext].FindPage(pageID);
+            //}
 
             return null;
         }
@@ -54,10 +54,10 @@ namespace WebExpress.WebApp.SettingPage
         /// <summary>
         public SettingPageDictionaryItemContext GetContexts(string applicationID)
         {
-            if (ContainsKey(applicationID))
-            {
-                return this[applicationID];
-            }
+            //if (ContainsKey(applicationID))
+            //{
+            //    return this[applicationID];
+            //}
 
             return null;
         }
@@ -71,10 +71,10 @@ namespace WebExpress.WebApp.SettingPage
         /// <summary>
         public SettingPageDictionaryItemSection GetSections(string applicationID, string context)
         {
-            if (ContainsKey(applicationID))
-            {
-                return this[applicationID].GetSections(context);
-            }
+            //if (ContainsKey(applicationID))
+            //{
+            //    return this[applicationID].GetSections(context);
+            //}
 
             return null;
         }

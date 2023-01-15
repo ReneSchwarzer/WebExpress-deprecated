@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using WebExpress.Uri;
 using WebExpress.WebApplication;
 using WebExpress.WebAttribute;
+using WebExpress.WebComponent;
 using WebExpress.WebPlugin;
 using static WebExpress.Internationalization.InternationalizationManager;
 
@@ -13,28 +14,36 @@ namespace WebExpress.WebModule
     /// <summary>
     /// The module manager manages the WebExpress modules.
     /// </summary>
-    public static class ModuleManager
+    public class ModuleManager : IComponentPlugin, IExecutableElements, ISystemComponent
     {
         /// <summary>
         /// Returns or sets the reference to the context of the host.
         /// </summary>
-        private static IHttpServerContext Context { get; set; }
+        public IHttpServerContext Context { get; private set; }
 
         /// <summary>
         /// Returns the directory where the modules are listed.
         /// </summary>
-        private static ModuleDictionary Dictionary { get; } = new ModuleDictionary();
+        private ModuleDictionary Dictionary { get; } = new ModuleDictionary();
 
         /// <summary>
         /// Delivers all stored modules.
         /// </summary>
-        public static IEnumerable<IModuleContext> Modules => Dictionary.Values.SelectMany(x => x.Values).Select(x => x.Context).ToList();
+        public IEnumerable<IModuleContext> Modules => Dictionary.Values.SelectMany(x => x.Values).Select(x => x.Context).ToList();
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        internal ModuleManager()
+        {
+
+        }
 
         /// <summary>
         /// Initialization
         /// </summary>
         /// <param name="context">The reference to the context of the host.</param>
-        internal static void Initialization(IHttpServerContext context)
+        public void Initialization(IHttpServerContext context)
         {
             Context = context;
 
@@ -42,124 +51,126 @@ namespace WebExpress.WebModule
         }
 
         /// <summary>
-        /// Adds module entries from the specified plugin.
+        /// Discovers and registers modules from the specified plugin.
         /// </summary>
-        /// <param name="pluginContexts">A list of contexts of plugins containing the modules to be registered.</param>
-        /// <returns>The contexts of the modules created.</returns>
-        public static IEnumerable<IModuleContext> Register(IEnumerable<IPluginContext> pluginContexts)
+        /// <param name="pluginContext">A context of a plugin whose modules are to be registered.</param>
+        public void Register(IPluginContext pluginContext)
         {
-            var list = new List<IModuleContext>();
+            var assembly = pluginContext.Assembly;
 
-            foreach (var pluginContext in pluginContexts)
+            foreach (var type in assembly.GetExportedTypes().Where(x => x.IsClass && x.IsSealed && x.GetInterface(typeof(IModule).Name) != null))
             {
-                var assembly = pluginContext.Assembly;
+                var id = type.Name?.ToLower();
+                var name = type.Name;
+                var icon = string.Empty;
+                var description = string.Empty;
+                var contextPath = string.Empty;
+                var assetPath = string.Empty;
+                var dataPath = string.Empty;
+                var applicationIDs = new List<string>();
 
-                foreach (var type in assembly.GetExportedTypes().Where(x => x.IsClass && x.IsSealed && x.GetInterface(typeof(IModule).Name) != null))
+                foreach (var customAttribute in type.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IModuleAttribute))))
                 {
-                    var id = type.Name?.ToLower();
-                    var name = type.Name;
-                    var icon = string.Empty;
-                    var description = string.Empty;
-                    var contextPath = string.Empty;
-                    var assetPath = string.Empty;
-                    var dataPath = string.Empty;
-                    var applicationIDs = new List<string>();
-
-                    foreach (var customAttribute in type.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IModuleAttribute))))
+                    if (customAttribute.AttributeType == typeof(IdAttribute))
                     {
-                        if (customAttribute.AttributeType == typeof(IdAttribute))
-                        {
-                            id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
-                        }
-
-                        if (customAttribute.AttributeType == typeof(NameAttribute))
-                        {
-                            name = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
-                        }
-
-                        if (customAttribute.AttributeType == typeof(IconAttribute))
-                        {
-                            icon = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
-                        }
-
-                        if (customAttribute.AttributeType == typeof(DescriptionAttribute))
-                        {
-                            description = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
-                        }
-
-                        if (customAttribute.AttributeType == typeof(ContextPathAttribute))
-                        {
-                            contextPath = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
-                        }
-
-                        if (customAttribute.AttributeType == typeof(AssetPathAttribute))
-                        {
-                            assetPath = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
-                        }
-
-                        if (customAttribute.AttributeType == typeof(DataPathAttribute))
-                        {
-                            dataPath = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
-                        }
-
-                        if (customAttribute.AttributeType == typeof(ApplicationAttribute))
-                        {
-                            applicationIDs.Add(customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower());
-                        }
+                        id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
                     }
 
-                    if (!applicationIDs.Any())
+                    if (customAttribute.AttributeType == typeof(NameAttribute))
                     {
-                        // no application specified
-                        Context.Log.Warning(message: I18N("webexpress:modulemanager.applicationless", id));
+                        name = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
 
-                    // create context
-                    var context = new ModuleContext()
+                    if (customAttribute.AttributeType == typeof(IconAttribute))
                     {
-                        Assembly = assembly,
-                        PluginContext = pluginContext,
-                        Applications = applicationIDs,
-                        ModuleID = id,
-                        ModuleName = name,
-                        Description = description,
-                        Icon = UriRelative.Combine(icon),
-                        AssetPath = assetPath,
-                        ContextPath = UriRelative.Combine(contextPath),
-                        DataPath = dataPath,
-                        Log = Context.Log
-                    };
-
-                    // create module
-                    var module = (IModule)type.Assembly.CreateInstance(type.FullName);
-
-                    if (!Dictionary.ContainsKey(pluginContext))
-                    {
-                        Dictionary.Add(pluginContext, new Dictionary<string, ModuleItem>());
+                        icon = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
 
-                    var item = Dictionary[pluginContext];
-
-                    if (!item.ContainsKey(id))
+                    if (customAttribute.AttributeType == typeof(DescriptionAttribute))
                     {
-                        item.Add(id, new ModuleItem()
-                        {
-                            Context = context,
-                            Module = module
-                        });
-
-                        Context.Log.Info(message: I18N("webexpress:modulemanager.register", id, string.Join(", ", applicationIDs)));
-                    }
-                    else
-                    {
-                        Context.Log.Warning(message: I18N("webexpress:modulemanager.duplicate", id, string.Join(", ", applicationIDs)));
+                        description = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
 
-                    list.Add(context);
+                    if (customAttribute.AttributeType == typeof(ContextPathAttribute))
+                    {
+                        contextPath = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
+                    }
+
+                    if (customAttribute.AttributeType == typeof(AssetPathAttribute))
+                    {
+                        assetPath = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
+                    }
+
+                    if (customAttribute.AttributeType == typeof(DataPathAttribute))
+                    {
+                        dataPath = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
+                    }
+
+                    if (customAttribute.AttributeType == typeof(ApplicationAttribute))
+                    {
+                        applicationIDs.Add(customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower());
+                    }
+                }
+
+                if (!applicationIDs.Any())
+                {
+                    // no application specified
+                    Context.Log.Warning(message: I18N("webexpress:modulemanager.applicationless", id));
+                }
+
+                // create context
+                var context = new ModuleContext()
+                {
+                    Assembly = assembly,
+                    PluginContext = pluginContext,
+                    Applications = applicationIDs,
+                    ModuleID = id,
+                    ModuleName = name,
+                    Description = description,
+                    Icon = UriRelative.Combine(icon),
+                    AssetPath = assetPath,
+                    ContextPath = UriRelative.Combine(contextPath),
+                    DataPath = dataPath,
+                    Log = Context.Log
+                };
+
+                // create module
+                var module = (IModule)type.Assembly.CreateInstance(type.FullName);
+
+                if (!Dictionary.ContainsKey(pluginContext))
+                {
+                    Dictionary.Add(pluginContext, new Dictionary<string, ModuleItem>());
+                }
+
+                var item = Dictionary[pluginContext];
+
+                if (!item.ContainsKey(id))
+                {
+                    item.Add(id, new ModuleItem()
+                    {
+                        Context = context,
+                        Module = module
+                    });
+
+                    Context.Log.Info(message: I18N("webexpress:modulemanager.register", id, string.Join(", ", applicationIDs)));
+                }
+                else
+                {
+                    Context.Log.Warning(message: I18N("webexpress:modulemanager.duplicate", id, string.Join(", ", applicationIDs)));
                 }
             }
+        }
 
-            return list;
+        /// <summary>
+        /// Discovers and registers modules from the specified plugin.
+        /// </summary>
+        /// <param name="pluginContexts">A list with plugin contexts that contain the modules.</param>
+        public void Register(IEnumerable<IPluginContext> pluginContexts)
+        {
+            foreach (var pluginContext in pluginContexts)
+            {
+                Register(pluginContext);
+            }
         }
 
         /// <summary>
@@ -168,7 +179,7 @@ namespace WebExpress.WebModule
         /// <param name="applicationContext">The context of the application.</param>
         /// <param name="moduleID">The modul id.</param>
         /// <returns>The context of the module or null.</returns>
-        public static IModuleContext GetModule(IApplicationContext applicationContext, string moduleID)
+        public IModuleContext GetModule(IApplicationContext applicationContext, string moduleID)
         {
             var item = Dictionary.Values
                 .SelectMany(x => x.Values)
@@ -189,7 +200,7 @@ namespace WebExpress.WebModule
         /// <param name="pluginContext">The context of the plugin.</param>
         /// <param name="moduleID">The modul id.</param>
         /// <returns>The context of the module or null.</returns>
-        public static IModuleContext GetModule(IPluginContext pluginContext, string moduleID)
+        public IModuleContext GetModule(IPluginContext pluginContext, string moduleID)
         {
             return GetModules(pluginContext)
                 .Where(x => x.Context.ModuleID.Equals(moduleID, StringComparison.OrdinalIgnoreCase))
@@ -203,14 +214,14 @@ namespace WebExpress.WebModule
         /// <param name="applicationID">The application id.</param>
         /// <param name="moduleID">The modul id.</param>
         /// <returns>The context of the module or null.</returns>
-        public static IModuleContext GetModule(string applicationID, string moduleID)
+        public IModuleContext GetModule(string applicationID, string moduleID)
         {
             if (string.IsNullOrWhiteSpace(applicationID) || string.IsNullOrWhiteSpace(moduleID))
             {
                 return null;
             }
 
-            var application = ApplicationManager.GetApplcation(applicationID);
+            var application = ComponentManager.ApplicationManager.GetApplcation(applicationID);
 
             return GetModule(application, moduleID);
         }
@@ -220,7 +231,7 @@ namespace WebExpress.WebModule
         /// </summary>
         /// <param name="pluginContext">The context of the plugin.</param>
         /// <returns>An enumeration of the module contexts for the given plugin.</returns>
-        internal static IEnumerable<ModuleItem> GetModules(IPluginContext pluginContext)
+        internal IEnumerable<ModuleItem> GetModules(IPluginContext pluginContext)
         {
             if (pluginContext == null)
             {
@@ -239,7 +250,7 @@ namespace WebExpress.WebModule
         /// Boots the modules of a plugin.
         /// </summary>
         /// <param name="pluginContext">The context of the plugin containing the modules.</param>
-        internal static void Boot(IPluginContext pluginContext)
+        public void Boot(IPluginContext pluginContext)
         {
             foreach (var moduleItem in GetModules(pluginContext))
             {
@@ -263,7 +274,16 @@ namespace WebExpress.WebModule
         /// Terminate modules of a plugin.
         /// </summary>
         /// <param name="pluginContext">The context of the plugin containing the modules.</param>
-        public static void ShutDown(IPluginContext pluginContext)
+        public void ShutDown(IPluginContext pluginContext)
+        {
+
+        }
+
+        /// <summary>
+        /// Removes all modules associated with the specified plugin context.
+        /// </summary>
+        /// <param name="pluginContext">The context of the plugin that contains the modules to remove.</param>
+        public void Remove(IPluginContext pluginContext)
         {
 
         }

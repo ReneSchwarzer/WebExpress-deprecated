@@ -31,6 +31,12 @@ httpserver.listen.exeption=Failed to set up an endpoint for the Uri {0}.
 httpserver.listener.try=If you do not have access rights follow the instruction as an administrator in the console: 
 httpserver.listener.windows=netsh http add urlacl url={0} user=everyone listen=yes
 
+componentmanager.initialization=The component manager has been initialized.
+componentmanager.register=The component '{0}' has been registered in the component manager.
+componentmanager.execute=Starts the component manager.
+componentmanager.shutdown=Shutting down the component manager.
+componentmanager.wrongtype=The type '{0}' does not implement the interface '{1}'.
+
 internationalizationmanager.initialization=The internationalization manager has been initialized.
 internationalizationmanager.register=The plugin '{0}' is registered in the internationalization manager.
 

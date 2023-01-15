@@ -36,7 +36,7 @@ namespace WebExpress.WebApp.WebControl
         /// Wird aufgerufen, wenn das Löschen bestätigt wurde
         /// </summary>
         /// <param name="sender">The trigger of the event.</param>
-        /// <param name="e">Das Eventargument</param>
+        /// <param name="e">The event argument.</param>
         /// <exception cref="NotImplementedException"></exception>
         private void OnConfirm(object sender, FormularEventArgs e)
         {
@@ -46,10 +46,10 @@ namespace WebExpress.WebApp.WebControl
         }
 
         /// <summary>
-        /// In HTML konvertieren
+        /// Convert to html.
         /// </summary>
-        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
-        /// <returns>Das Control als HTML</returns>
+        /// <param name="context">The context in which the control is rendered.</param>
+        /// <returns>The control as html.</returns>
         public override IHtmlNode Render(RenderContext context)
         {
             Description.Text = string.Format(I18N(context.Culture, "webexpress.webapp:setting.usermanager.group.delete.description"), Item.Name);

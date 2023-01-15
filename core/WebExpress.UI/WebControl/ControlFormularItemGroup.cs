@@ -82,7 +82,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Initialisiert das Formularelement
         /// </summary>
-        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        /// <param name="context">The context in which the control is rendered.</param>
         public override void Initialize(RenderContextFormular context)
         {
             var groupContex = new RenderContextFormularGroup(context, this);

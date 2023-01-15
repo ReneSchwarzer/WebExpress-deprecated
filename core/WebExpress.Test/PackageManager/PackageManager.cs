@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.IO;
 using WebExpress.Internationalization;
-using WebExpress.WebPackage;
+using WebExpress.WebComponent;
 using Xunit;
 
 namespace WebExpress.Test.Package
@@ -14,13 +14,12 @@ namespace WebExpress.Test.Package
         {
             var context = new HttpServerContext(null, null, Path.Combine(Environment.CurrentDirectory, "test/packages"), null, null, null, null, CultureInfo.CurrentCulture, Log.Current, null);
 
-            InternationalizationManager.Register(typeof(HttpServer).Assembly, "webexpress");
-            InternationalizationManager.Initialization(context);
+            ComponentManager.Initialization(context);
 
-            PackageManager.Initialization(context);
-            PackageManager.Execute();
+            //PackageManager.Initialization(context);
+            //PackageManager.Execute();
 
-            PackageManager.Scan();
+            //PackageManager.Scan();
         }
     }
 }

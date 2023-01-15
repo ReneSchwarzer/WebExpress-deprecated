@@ -1,7 +1,7 @@
 ﻿namespace WebExpress.WebApp.WebSettingPage
 {
     /// <summary>
-    /// Kennzeichnet eine Klasse als Einstellungsseite
+    /// Marks a class as a settings page.
     /// </summary>
     public interface IPageSetting
     {

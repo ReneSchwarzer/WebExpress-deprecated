@@ -1,4 +1,6 @@
-﻿using WebExpress.WebAttribute;
+﻿using WebExpress.UI.WebFragment;
+using WebExpress.WebAttribute;
+using WebExpress.WebComponent;
 using WebExpress.WebModule;
 
 namespace WebExpress.UI
@@ -9,7 +11,7 @@ namespace WebExpress.UI
     [Description("module.description")]
     [Icon("/assets/img/Logo.png")]
     [AssetPath("/")]
-    [ContextPath("/wxui")]
+    [ContextPath("/modules/wxui")]
     public sealed class Module : IModule
     {
         /// <summary>
@@ -25,6 +27,7 @@ namespace WebExpress.UI
         /// <param name="context">Der Kontext, welcher für die Ausführung des Plugins gilt</param>
         public void Initialization(IModuleContext context)
         {
+            ComponentManager.Register(typeof(FragmentManager));
         }
 
         /// <summary>
@@ -32,7 +35,6 @@ namespace WebExpress.UI
         /// </summary>
         public void Run()
         {
-
         }
 
         /// <summary>

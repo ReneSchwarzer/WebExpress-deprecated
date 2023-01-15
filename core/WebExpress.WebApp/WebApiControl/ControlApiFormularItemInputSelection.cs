@@ -26,7 +26,7 @@ public class ControlApiFormularItemInputSelection : ControlFormularItemInputSele
     /// <summary>
     /// Erzeugt das Javascript zur Ansteuerung des Steuerelements
     /// </summary>
-    /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+    /// <param name="context">The context in which the control is rendered.</param>
     /// <param name="id">Die ID des Steuerelmentes</param>
     /// <param name="css">Die CSS-KLassen, die dem Steuerelement zugewiesen werden</param>
     /// <returns>Der Javascript-Code</returns>

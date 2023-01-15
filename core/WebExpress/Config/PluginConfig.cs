@@ -3,16 +3,19 @@
 namespace WebExpress.Config
 {
     /// <summary>
-    /// Klasse zum Auslesen der Konfigurationsdatei
+    /// Class for reading the configuration file.
     /// </summary>
     [XmlRoot("config", IsNullable = false)]
     public sealed class PluginConfig
     {
+        /// <summary>
+        /// The configuration version.
+        /// </summary>
         [XmlAttribute("version", DataType = "int")]
         public int Version { get; set; }
 
         /// <summary>
-        /// Der Basispfad des Plugins
+        /// The uri base path of the plugin.
         /// </summary>
         [XmlElement("contextpath")]
         public string ContextPath { get; set; }

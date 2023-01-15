@@ -4,7 +4,7 @@ using WebExpress.WebAttribute;
 namespace WebExpress.UI.WebResource
 {
     /// <summary>
-    /// Lieferung einer im Assamby eingebetteten Ressource
+    /// Delivery of a resource embedded in the assembly.
     /// </summary>
     [Id("Asset")]
     [Segment("assets")]

@@ -15,97 +15,98 @@ using WebExpress.WebSession;
 namespace WebExpress.Message
 {
     /// <summary>
-    /// siehe RFC 2616, Die Request-Klasse kapselt den orginalen Request des HttpListener-Aufrufes und erweitert diesen.
+    /// See RFC 2616, The Request class encapsulates and extends the 
+    /// original request of the HttpListener call.
     /// </summary>
     public class Request
     {
         /// <summary>
-        /// Der Kontext des Webservers
+        /// The context of the web server.
         /// </summary>
         public IHttpServerContext ServerContext { get; protected set; }
 
         /// <summary>
-        /// Liefert den Anfragetyp
+        /// Returns the request method (e.g. POST).
         /// </summary>
         public RequestMethod Method { get; private set; }
 
         /// <summary>
-        /// Liefert die URL
+        /// Returns the uri.
         /// </summary>
         public IUri Uri { get; internal set; }
 
         /// <summary>
-        /// Liefert die URL
+        /// Returns the base uri.
         /// </summary>
         public IUri BaseUri { get; internal set; }
 
         /// <summary>
-        /// Setzt oder liefert die Parameter
+        /// Returns the parameters.
         /// </summary>
         private ParameterDictionary Param { get; } = new ParameterDictionary();
 
         /// <summary>
-        /// Liefert die Session
+        /// Returns the session.
         /// </summary>
         public Session Session { get; private set; }
 
         /// <summary>
-        /// Setzt oder liefert die HTTP-Version
+        /// Returns the http version.
         /// </summary>
         public string Protocoll { get; private set; }
 
         /// <summary>
-        /// Setzt oder liefert die Optionen im Header
+        /// Returns the options from the header.
         /// </summary>
         public RequestHeaderFields Header { get; private set; }
 
         /// <summary>
-        /// Ruft die IP-Adresse und Anschlussnummer des Servers ab, an den die Anforderung gerichtet ist.
+        /// Returns the ip address and port number of the server to which the request is made.
         /// </summary>
         public EndPoint LocalEndPoint { get; private set; }
 
         /// <summary>
-        /// Ruft die IP-Adresse und Anschlussnummer des Clients ab, von dem die Anforderung stammt.
+        /// Returns the ip address and port number of the client from which the request originated.
         /// </summary>
         public EndPoint RemoteEndPoint { get; private set; }
 
         /// <summary>
-        /// Ruft einen Boolean-Wert ab, der angibt, ob der diese Anforderung sendende Client authentifiziert ist.
+        /// Returns a boolean value that indicates whether the client sending this request is authenticated.
         /// </summary>
         //public bool IsAuthenticated { get; private set; }  //=> RawRequuest.IsAuthenticated;
 
         /// <summary>
-        /// Ruft einen Boolean-Wert ab, der angibt, ob die Anforderung vom lokalen Computer gesendet wurde.
+        /// Returns a boolean value that indicates whether the request was sent from the local computer.
         /// </summary>
         //public bool IsLocal { get; private set; }  //=> RawRequuest.IsLocal;
 
         /// <summary>
-        /// Ruft einen Boolean-Wert ab, der angibt, ob die TCP-Verbindung, mit der die Anforderung gesendet wird, das SSL (Secure Sockets Layer)-Protokoll verwendet.
+        /// Returns a boolean value that indicates whether the tcp connection used to send the request uses the secure sockets layer (ssl) protocol.
         /// </summary>
         public bool IsSecureConnection { get; private set; }
 
         /// <summary>
-        /// Ruft einen Boolean-Wert ab, der angibt, ob die TCP Verbindung eine WEbSocket Anforderung war.
+        /// Returns a boolean value indicating whether the tcp connection was a web socket request.
         /// </summary>
         //public bool IsWebSocketRequest { get; private set; }  // => RawRequuest.IsWebSocketRequest;
 
         /// <summary>
-        /// Ruft einen Boolean-Wert ab, der angibt, ob der Client eine permanente Verbindung anfordert.
+        /// Returns a boolean value that indicates whether the client is requesting a persistent connection.
         /// </summary>
         //public bool KeepAlive { get; private set; }  //=> RawRequuest.KeepAlive;
 
         /// <summary>
-        /// Ruft einen das Schma ab. Dies kann http oder https sein.
+        /// Returns the shema. This can be http or https.
         /// </summary>
         public UriScheme Scheme { get; private set; }
 
         /// <summary>
-        /// Ruft den Anforderungsbezeichner der eingehenden HTTP-Anforderung ab.
+        /// Returns the request identifier of the incoming http request.
         /// </summary>
         public string RequestTraceIdentifier { get; private set; }
 
         /// <summary>
-        /// Ermittelt die Kultur
+        /// Returns the culture.
         /// </summary>
         public CultureInfo Culture
         {
@@ -127,15 +128,15 @@ namespace WebExpress.Message
         }
 
         /// <summary>
-        /// Liefert den Inhalt
+        /// Returns the content.
         /// </summary>
         public byte[] Content { get; private set; }
 
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="contextFeatures">Anfänglicher Satz von Features.</param>
-        /// <param name="serverContext">Der Kontext des Webservers</param>
+        /// <param name="contextFeatures">Initial set of features.</param>
+        /// <param name="serverContext">The context of the web server.</param>
         internal Request(IFeatureCollection contextFeatures, IHttpServerContext serverContext)
         {
             var connectionFeature = contextFeatures.Get<IHttpConnectionFeature>();
@@ -185,10 +186,10 @@ namespace WebExpress.Message
         }
 
         /// <summary>
-        /// Ermittelt den Content
+        /// Returns the content.
         /// </summary>
-        /// <param name="body">Der Inhalt einer Anforderung</param>
-        /// <param name="contentLength">Die Anzahl der Bytes, die im Body gesendet wurden oder Null.</param>
+        /// <param name="body">The content of a request.</param>
+        /// <param name="contentLength">The number of bytes sent in the body or zero.</param>
         /// <returns>Der Content als Byte-Array</returns>
         internal static byte[] GetContent(Stream body, long? contentLength)
         {
@@ -204,9 +205,9 @@ namespace WebExpress.Message
         }
 
         /// <summary>
-        /// Ermittelt die Paramerter aus der Anfragequery(z.B. http://www.example.com?key=value) 
+        /// Returns the parameters from the reuest query (for example, http://www.example.com?key=value).
         /// </summary>
-        /// <param name="query">Die Query</param>
+        /// <param name="query">The query.</param>
         private void ParseQueryParams(string query)
         {
             query = query.TrimStart('?');
@@ -230,7 +231,7 @@ namespace WebExpress.Message
         }
 
         /// <summary>
-        /// Ermittelt den Content einer Anfrage
+        /// Parse the request parameters.
         /// </summary>
         private void ParseRequestParams()
         {
@@ -252,7 +253,7 @@ namespace WebExpress.Message
                         int pos = 0;
                         var dispositions = new List<Tuple<int, int>>(); // Item1=Position, Item2=Länge
 
-                        // ermittle Dispositionen
+                        // determine dispositions
                         for (var i = 0; i < Content.Length; i++)
                         {
                             if (Content[i] == '\r')
@@ -279,7 +280,7 @@ namespace WebExpress.Message
                             }
                             else if (i == Content.Length - 1)
                             {
-                                // Am Ende
+                                // at the end
                                 var c = Encoding.UTF8.GetString(Content, offset, boundaryValue.Length).Trim();
                                 if (c.StartsWith(boundaryValue))
                                 {
@@ -322,13 +323,13 @@ namespace WebExpress.Message
                             match = Regex.Match(str, @"^Content-Type: (.*)$", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled);
                             if (match.Groups[1].Success)
                             {
-                                offset += match.Length + 1; // + Zeilenende
+                                offset += match.Length + 1; // + End of line
                                 contenttype = match.Groups[1].ToString().Trim();
                             }
 
                             if (string.IsNullOrWhiteSpace(filename))
                             {
-                                offset += 2; // + Leerzeile
+                                offset += 2; // + blank line
                                 if (item.Item2 - offset - 1 >= 0)
                                 {
                                     var value = Encoding.UTF8.GetString(Content, item.Item1 + offset, item.Item2 - offset - 2);
@@ -344,7 +345,7 @@ namespace WebExpress.Message
                             }
                             else
                             {
-                                offset += 2; // + Leerzeile
+                                offset += 2; // + blank line
                                 if (item.Item2 - offset - 1 >= 0)
                                 {
                                     var bytes = new byte[item.Item2 - offset - 2];
@@ -380,7 +381,7 @@ namespace WebExpress.Message
                             }
                         }
 
-                        // wenn noch nicht alle Bytes gelesen wurden
+                        // if not all bytes have been read yet
                         if (offset < Content.Length)
                         {
                             lines.Add(Encoding.UTF8.GetString(Content, offset, Content.Length - offset));
@@ -437,7 +438,7 @@ namespace WebExpress.Message
         }
 
         /// <summary>
-        /// Ermittelt den die Parameter aus der Session
+        /// Parse the session parameters.
         /// </summary>
         private void ParseSessionParams()
         {
@@ -454,9 +455,9 @@ namespace WebExpress.Message
         }
 
         /// <summary>
-        /// Fügt mehrere Parameter hinzu
+        /// Adds several parameters.
         /// </summary>
-        /// <param name="param">Die Parameter</param>
+        /// <param name="param">The parameters.</param>
         public void AddParameter(IEnumerable<Parameter> param)
         {
             foreach (var p in param)
@@ -466,9 +467,9 @@ namespace WebExpress.Message
         }
 
         /// <summary>
-        /// Fügt ein Parameter hinzu
+        /// Adds one parameter.
         /// </summary>
-        /// <param name="param">Der Parameter</param>
+        /// <param name="param">The parameter.</param>
         public void AddParameter(Parameter param)
         {
             if (!Param.ContainsKey(param.Key.ToLower()))
@@ -482,10 +483,10 @@ namespace WebExpress.Message
         }
 
         /// <summary>
-        /// Liefert ein Parameter anhand seines Namens
+        /// Returns a parameter by name.
         /// </summary>
-        /// <param name="name">Der Name des Parameters</param>
-        /// <returns>Der Wert</returns>
+        /// <param name="name">The name of the parameter.</param>
+        /// <returns>The value.</returns>
         public Parameter GetParameter(string name)
         {
             if (!string.IsNullOrWhiteSpace(name) && HasParameter(name))
@@ -497,10 +498,10 @@ namespace WebExpress.Message
         }
 
         /// <summary>
-        /// Prüft, ob ein Parameter vorhanden ist
+        /// Checks whether a parameter exists.
         /// </summary>
-        /// <param name="name">Der Name des Parameters</param>
-        /// <returns>true wenn Parameter vorhanden ist, false sonst</returns>
+        /// <param name="name">The name of the parameter.</param>
+        /// <returns>True if parameters are present, false otherwise.</returns>
         public bool HasParameter(string name)
         {
             if (name == null)

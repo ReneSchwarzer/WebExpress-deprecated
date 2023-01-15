@@ -3,7 +3,7 @@
     /// <summary>
     /// Attribut zur Kennzeichnun einer Klasse als Plugin-Komponente
     /// </summary>
-    public class SectionAttribute : System.Attribute, IComponentAttribute
+    public class SectionAttribute : System.Attribute, IFragmentAttribute
     {
         /// <summary>
         /// Constructor

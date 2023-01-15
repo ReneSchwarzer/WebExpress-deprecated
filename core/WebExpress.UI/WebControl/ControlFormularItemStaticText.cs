@@ -28,17 +28,17 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Initialisiert das Formularelement
         /// </summary>
-        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        /// <param name="context">The context in which the control is rendered.</param>
         public override void Initialize(RenderContextFormular context)
         {
         }
 
         /// <summary>
-        /// In HTML konvertieren
+        /// Convert to html.
         /// </summary>
-        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        /// <param name="context">The context in which the control is rendered.</param>
         /// <param name="formular">Das Formular</param>
-        /// <returns>Das Control als HTML</returns>
+        /// <returns>The control as html.</returns>
         public override IHtmlNode Render(RenderContextFormular context)
         {
             var c = new List<string>

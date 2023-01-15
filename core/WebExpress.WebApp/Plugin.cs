@@ -1,4 +1,5 @@
-﻿using WebExpress.WebApp.SettingPage;
+﻿using WebExpress.UI.WebFragment;
+using WebExpress.WebApp.SettingPage;
 using WebExpress.WebApp.WebIdentity;
 using WebExpress.WebApp.WebUser;
 using WebExpress.WebAttribute;
@@ -20,26 +21,29 @@ namespace WebExpress.WebApp
         }
 
         /// <summary>
-        /// Initialization des Plugins. Hier können z.B. verwaltete Ressourcen geladen werden. 
+        /// Initialization of the plugin. Here, for example, managed resources can be loaded. 
         /// </summary>
-        /// <param name="context">Der Kontext, welcher für die Ausführung des Plugins gilt</param>
+        /// <param name="context">The context of the plugin that applies to the execution of the plugin.</param>
         public void Initialization(IPluginContext context)
         {
-            SettingPageManager.Initialization(context);
-            UserManager.Initialization(context.Host);
-            IdentityManager.Initialization(context);
+            //SettingPageManager.Initialization(context);
+            //UserManager.Initialization(context.Host);
+            //IdentityManager.Initialization(context);
+
+            ////FragmentManager.Register(new[] { context });
+            //SettingPageManager.Register(new[] { context });
+            ////IdentityManager.Register(context);
         }
 
         /// <summary>
-        /// Wird aufgerufen, wenn das Plugin mit der Arbeit beginnt. Der Aufruf von Run erfolgt nebenläufig.
+        /// Called when the plugin starts working. Run is called concurrently.
         /// </summary>
         public void Run()
         {
-
         }
 
         /// <summary>
-        /// Freigeben von nicht verwalteten Ressourcen, welche während der Verwendung reserviert wurden.
+        /// Release of unmanaged resources reserved during use.
         /// </summary>
         public void Dispose()
         {

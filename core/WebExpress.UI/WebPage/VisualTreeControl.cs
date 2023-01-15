@@ -27,7 +27,7 @@ namespace WebExpress.UI.WebPage
         }
 
         /// <summary>
-        /// In HTML konvertieren
+        /// Convert to html.
         /// </summary>
         /// <param name="context">The context for rendering the page.</param>
         /// <returns>Die Seite als HTML-Baum</returns>

@@ -29,7 +29,7 @@ namespace WebExpress.WebApp.WebSettingPage
     public sealed class PageWebAppSettingUserManagementGroup : PageWebAppSetting
     {
         /// <summary>
-        /// Liefert die Bezeichnung.
+        /// Returns the label.
         /// </summary>
         private ControlText Label { get; } = new ControlText()
         {

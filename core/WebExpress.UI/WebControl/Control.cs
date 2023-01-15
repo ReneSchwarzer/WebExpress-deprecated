@@ -135,10 +135,10 @@ namespace WebExpress.UI.WebControl
         public bool Enable { get; set; } = true;
 
         /// <summary>
-        /// In HTML konvertieren
+        /// Convert to html.
         /// </summary>
-        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
-        /// <returns>Das Control als HTML</returns>
+        /// <param name="context">The context in which the control is rendered.</param>
+        /// <returns>The control as html.</returns>
         public abstract IHtmlNode Render(RenderContext context);
 
         /// <summary>
@@ -160,7 +160,7 @@ namespace WebExpress.UI.WebControl
         /// </summary>
         /// <param name="defaultValue">Der Standardwert Property</param>
         /// <param name="propertyName">Der Name der Property</param>
-        /// <returns>Der Wert</returns>
+        /// <returns>The value.</returns>
         protected Enum GetProperty(Enum defaultValue, [CallerMemberName] string propertyName = "")
         {
             if (Propertys.ContainsKey(propertyName))
@@ -177,7 +177,7 @@ namespace WebExpress.UI.WebControl
         /// Liefert eine Property
         /// </summary>
         /// <param name="propertyName">Der Name der Property</param>
-        /// <returns>Der Wert</returns>
+        /// <returns>The value.</returns>
         protected Enum GetProperty([CallerMemberName] string propertyName = "")
         {
             if (Propertys.ContainsKey(propertyName))
@@ -194,7 +194,7 @@ namespace WebExpress.UI.WebControl
         /// Liefert eine Property
         /// </summary>
         /// <param name="propertyName">Der Name der Property</param>
-        /// <returns>Der Wert</returns>
+        /// <returns>The value.</returns>
         protected IProperty GetPropertyObject([CallerMemberName] string propertyName = "")
         {
             if (Propertys.ContainsKey(propertyName))
@@ -211,7 +211,7 @@ namespace WebExpress.UI.WebControl
         /// Liefert ein Propertywert
         /// </summary>
         /// <param name="propertyName">Der Name der Property</param>
-        /// <returns>Der Wert</returns>
+        /// <returns>The value.</returns>
         protected string GetPropertyValue([CallerMemberName] string propertyName = "")
         {
             if (Propertys.ContainsKey(propertyName))
@@ -227,7 +227,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Speichert eine Property
         /// </summary>
-        /// <param name="value">Der Wert</param>
+        /// <param name="value">The value.</param>
         /// <param name="callbackClass">Die Rückruffunktion zur Ermittlung der CSS-Klasse</param>
         /// <param name="callbackStyle">Die Rückruffunktion zu Ermittlung des CSS-Styles</param>
         /// <param name="propertyName">Der Name der Property</param>
@@ -245,7 +245,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Speichert eine Property
         /// </summary>
-        /// <param name="value">Der Wert</param>
+        /// <param name="value">The value.</param>
         /// <param name="callbackClass">Die Rückruffunktion zur Ermittlung der CSS-Klasse</param>
         /// <param name="callbackStyle">Die Rückruffunktion zu Ermittlung des CSS-Styles</param>
         /// <param name="propertyName">Der Name der Property</param>
@@ -263,7 +263,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Speichert eine Property
         /// </summary>
-        /// <param name="value">Der Wert</param>
+        /// <param name="value">The value.</param>
         /// <param name="callbackClass">Die Rückruffunktion zur Ermittlung der CSS-Klasse</param>
         /// <param name="callbackStyle">Die Rückruffunktion zur Ermittlung des CSS-Styles</param>
         /// <param name="propertyName">Der Name der Property</param>

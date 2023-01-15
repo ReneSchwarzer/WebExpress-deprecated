@@ -31,7 +31,7 @@ namespace WebExpress.UI.WebControl
         /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
-        /// <param name="value">Der Wert</param>
+        /// <param name="value">The value.</param>
         public ControlMultipleProgressBar(string id, params ControlMultipleProgressBarItem[] items)
             : this(id)
         {
@@ -47,10 +47,10 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// In HTML konvertieren
+        /// Convert to html.
         /// </summary>
-        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
-        /// <returns>Das Control als HTML</returns>
+        /// <param name="context">The context in which the control is rendered.</param>
+        /// <returns>The control as html.</returns>
         public override IHtmlNode Render(RenderContext context)
         {
             var barClass = new List<string>();

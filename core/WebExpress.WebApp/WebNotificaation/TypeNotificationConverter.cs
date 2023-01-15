@@ -25,7 +25,7 @@ namespace WebExpress.WebApp.WebNotificaation
         /// Scheift den Wert als JSON
         /// </summary>
         /// <param name="writer">Der Writer</param>
-        /// <param name="type">Der Wert</param>
+        /// <param name="type">The value.</param>
         /// <param name="options">Die Optionen</param>
         public override void Write(Utf8JsonWriter writer, TypeNotification type, JsonSerializerOptions options)
         {

@@ -3,19 +3,19 @@
 namespace WebExpress.Config
 {
     /// <summary>
-    /// Klasse zum Auslesen der Limitierungen
+    /// Class for reading the limitations.
     /// </summary>
     [XmlRoot("limit", IsNullable = false)]
     public sealed class LimitConfig
     {
         /// <summary>
-        /// Das Verbindungslimit
+        /// The connection limit.
         /// </summary>
         [XmlElement("connectionlimit", DataType = "int")]
         public int ConnectionLimit { get; set; }
 
         /// <summary>
-        /// Das Uploadlimit in Bytes
+        /// The upload limit, in bytes.
         /// </summary>
         [XmlElement("uploadlimit", DataType = "long")]
         public long UploadLimit { get; set; }

@@ -5,7 +5,7 @@ namespace WebExpress.Html
     /// <summary>
     /// Kennzeichnet Html, welches nicht gerendert wird
     /// </summary>
-    public class HtmlElementWebComponentsTemplate : HtmlElement, IHtmlElementWebComponents
+    public class HtmlElementWebFragmentsTemplate : HtmlElement, IHtmlElementWebFragments
     {
         /// <summary>
         /// Liefert die Elemente
@@ -15,7 +15,7 @@ namespace WebExpress.Html
         /// <summary>
         /// Constructor
         /// </summary>
-        public HtmlElementWebComponentsTemplate()
+        public HtmlElementWebFragmentsTemplate()
             : base("template")
         {
 
@@ -25,7 +25,7 @@ namespace WebExpress.Html
         /// Constructor
         /// </summary>
         /// <param name="nodes">Der Inhalt</param>
-        public HtmlElementWebComponentsTemplate(params IHtmlNode[] nodes)
+        public HtmlElementWebFragmentsTemplate(params IHtmlNode[] nodes)
             : this()
         {
             Elements.AddRange(nodes);
@@ -35,7 +35,7 @@ namespace WebExpress.Html
         /// Constructor
         /// </summary>
         /// <param name="nodes">Der Inhalt</param>
-        public HtmlElementWebComponentsTemplate(IEnumerable<IHtmlNode> nodes)
+        public HtmlElementWebFragmentsTemplate(IEnumerable<IHtmlNode> nodes)
             : this()
         {
             base.Elements.AddRange(nodes);

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using WebExpress.Uri;
 using WebExpress.WebApplication;
 using WebExpress.WebAttribute;
+using WebExpress.WebComponent;
 using WebExpress.WebModule;
 using static WebExpress.Internationalization.InternationalizationManager;
 
@@ -15,28 +16,36 @@ namespace WebExpress.WebPlugin
     /// <summary>
     /// The plugin manager manages the WebExpress plugins.
     /// </summary>
-    public static class PluginManager
+    public class PluginManager : IComponent, ISystemComponent
     {
         /// <summary>
         /// Returns or sets the reference to the context of the host.
         /// </summary>
-        public static IHttpServerContext Context { get; private set; }
+        public IHttpServerContext Context { get; private set; }
 
         /// <summary>
         /// Returns the directory where the plugins are listed.
         /// </summary>
-        private static PluginDictionary Dictionary { get; } = new PluginDictionary();
+        private PluginDictionary Dictionary { get; } = new PluginDictionary();
 
         /// <summary>
         /// Returns all plugins.
         /// </summary>
-        public static ICollection<IPluginContext> Plugins => Dictionary.Values.Select(x => x.Context).ToList();
+        public ICollection<IPluginContext> Plugins => Dictionary.Values.Select(x => x.Context).ToList();
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        internal PluginManager()
+        {
+
+        }
 
         /// <summary>
         /// Initialization
         /// </summary>
         /// <param name="context">The reference to the context of the host.</param>
-        internal static void Initialization(IHttpServerContext context)
+        public void Initialization(IHttpServerContext context)
         {
             Context = context;
 
@@ -47,7 +56,7 @@ namespace WebExpress.WebPlugin
         /// Loads and registers the plugins that are static (i.e. located in the application's folder).
         /// </summary>
         /// <returns>A list of registered plugins.</returns>
-        internal static IEnumerable<IPluginContext> Register()
+        internal IEnumerable<IPluginContext> Register()
         {
             var list = new List<IPluginContext>();
             var path = Environment.CurrentDirectory;
@@ -85,7 +94,7 @@ namespace WebExpress.WebPlugin
         /// </summary>
         /// <param name="path">The directory where the plugins are located.</param>
         /// <returns>A list of registered plugins.</returns>
-        internal static IEnumerable<IPluginContext> Register(string path)
+        internal IEnumerable<IPluginContext> Register(string path)
         {
             var list = new List<IPluginContext>();
             var assemblies = new List<Assembly>();
@@ -127,7 +136,7 @@ namespace WebExpress.WebPlugin
         /// </summary>
         /// <param name="assembly">The assembly where the plugin is located.</param>
         /// <returns>A list of registered plugins.</returns>
-        public static IEnumerable<IPluginContext> Register(Assembly assembly)
+        public IEnumerable<IPluginContext> Register(Assembly assembly)
         {
             var list = new List<IPluginContext>();
 
@@ -217,7 +226,7 @@ namespace WebExpress.WebPlugin
         /// Boots the specified plugins.
         /// </summary>
         /// <param name="contexts">A list with the contexts of the plugins to run.</param>
-        internal static void Boot(IEnumerable<IPluginContext> contexts)
+        internal void Boot(IEnumerable<IPluginContext> contexts)
         {
             foreach (var context in contexts)
             {
@@ -245,10 +254,10 @@ namespace WebExpress.WebPlugin
                 });
 
                 // booting applications
-                ApplicationManager.Boot(context);
+                ComponentManager.ApplicationManager.Boot(context);
 
                 // booting modules
-                ModuleManager.Boot(context);
+                ComponentManager.ModuleManager.Boot(context);
             }
         }
 
@@ -256,7 +265,7 @@ namespace WebExpress.WebPlugin
         /// Shut down the plugin.
         /// </summary>
         /// <param name="contexts">A list of contexts of plugins to shut down.</param>
-        public static void ShutDown(IEnumerable<IPluginContext> contexts)
+        public void ShutDown(IEnumerable<IPluginContext> contexts)
         {
 
         }

@@ -59,13 +59,13 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Initialisiert das Formular
         /// </summary>
-        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        /// <param name="context">The context in which the control is rendered.</param>
         void Initialize(RenderContextFormular context);
 
         /// <summary>
         /// Vorverarbeitung des Formulars
         /// </summary>
-        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        /// <param name="context">The context in which the control is rendered.</param>
         void PreProcess(RenderContextFormular context);
 
         /// <summary>

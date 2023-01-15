@@ -21,6 +21,7 @@ using WebExpress.Internationalization;
 using WebExpress.Message;
 using WebExpress.Uri;
 using WebExpress.WebApplication;
+using WebExpress.WebComponent;
 using WebExpress.WebJob;
 using WebExpress.WebModule;
 using WebExpress.WebPackage;
@@ -93,17 +94,7 @@ namespace WebExpress
 
             Culture = Context.Culture;
 
-            InternationalizationManager.Register(typeof(HttpServer).Assembly, "webexpress");
-
-            InternationalizationManager.Initialization(Context);
-            SitemapManager.Initialization(Context);
-            ResourceManager.Initialization(Context);
-            ResponseManager.Initialization(Context);
-            ScheduleManager.Initialization(Context);
-            ModuleManager.Initialization(Context);
-            ApplicationManager.Initialization(Context);
-            PluginManager.Initialization(Context);
-            PackageManager.Initialization(Context);
+            ComponentManager.Initialization(Context);
         }
 
         /// <summary>
@@ -123,11 +114,11 @@ namespace WebExpress
 
             if (Config != null)
             {
-                // start packages
-                PackageManager.Execute();
+                // start the manager
+                ComponentManager.Execute();
 
-                // start running the scheduler
-                ScheduleManager.Execute();
+                //// start running the scheduler
+                //ScheduleManager.Execute();
             }
 
             var logger = new LogFactory();
@@ -261,8 +252,8 @@ namespace WebExpress
             // End running threads
             Kestrel.StopAsync(ServerToken);
 
-            // Stop running the scheduler
-            ScheduleManager.ShutDown();
+            // Stop running
+            ComponentManager.ShutDown();
         }
 
         /// <summary>
@@ -445,7 +436,7 @@ namespace WebExpress
         {
             var response = new T() as Response;
             var culture = Culture;
-            var moduleContext = ResponseManager.GetDefaultModule(response.Status, request?.Uri.ToString(), resourceContext?.ModuleContext);
+            var moduleContext = ComponentManager.ResponseManager.GetDefaultModule(response.Status, request?.Uri.ToString(), resourceContext?.ModuleContext);
 
             try
             {
@@ -455,7 +446,7 @@ namespace WebExpress
             {
             }
 
-            IPageStatus statusPage = ResponseManager.Create(massage, response.Status, applicationContext, moduleContext, new UriAbsolute(request?.Uri.ToString()));
+            IPageStatus statusPage = ComponentManager.ResponseManager.Create(massage, response.Status, applicationContext, moduleContext, new UriAbsolute(request?.Uri.ToString()));
 
             if (statusPage != null)
             {
@@ -489,9 +480,9 @@ namespace WebExpress
         {
             var response = new T() as Response;
             var culture = Culture;
-            var moduleContext = ResponseManager.GetDefaultModule(response.Status, context.Uri.ToString());
+            var moduleContext = ComponentManager.ResponseManager.GetDefaultModule(response.Status, context.Uri.ToString());
 
-            IPageStatus statusPage = ResponseManager.Create(massage, response.Status, null, moduleContext, new UriAbsolute(context?.Uri.ToString()));
+            IPageStatus statusPage = ComponentManager.ResponseManager.Create(massage, response.Status, null, moduleContext, new UriAbsolute(context?.Uri.ToString()));
 
             if (statusPage != null)
             {

@@ -55,7 +55,7 @@ namespace WebExpress.WebApp.WebSettingPage
             SettingMenu.Items.Clear();
             SettingTab.Items.Clear();
 
-            var path = SettingPageManager.FindPage(ApplicationContext.ApplicationID, ID);
+            var path = SettingPageManager.FindPage(ApplicationContext, ID);
             if (path != null)
             {
                 var contexts = SettingPageManager.GetContexts(ApplicationContext.ApplicationID);

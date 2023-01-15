@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using WebExpress.Internationalization;
+using WebExpress.WebComponent;
 using WebExpress.WebJob;
 using Xunit;
 
@@ -13,8 +14,7 @@ namespace WebExpress.Test.Schedule
         {
             var context = new HttpServerContext(null, null, null, null, null, null, null, CultureInfo.CurrentCulture, Log.Current, null);
 
-            InternationalizationManager.Register(typeof(HttpServer).Assembly, "webexpress");
-            InternationalizationManager.Initialization(context);
+            ComponentManager.Initialization(context);
 
             var clock = new Clock();
             var cron = new Cron(context, "0-59", "*", "1-31", "1-2,3,4,5,6,7,8-10,11,12");
@@ -32,8 +32,7 @@ namespace WebExpress.Test.Schedule
             var context = new HttpServerContext(null, null, null, null, null, null, null, CultureInfo.CurrentCulture, Log.Current, null);
             var dateTime = DateTime.Now;
 
-            InternationalizationManager.Register(typeof(HttpServer).Assembly, "webexpress");
-            InternationalizationManager.Initialization(context);
+            ComponentManager.Initialization(context);
 
             var clock = new Clock(new DateTime(dateTime.Year, 2, dateTime.Day, dateTime.Hour, dateTime.Minute, 0));
             var cron = new Cron(context, "*", "*", "0-33", "2, 1-4, x");
@@ -51,8 +50,7 @@ namespace WebExpress.Test.Schedule
             var context = new HttpServerContext(null, null, null, null, null, null, null, CultureInfo.CurrentCulture, Log.Current, null);
             var dateTime = DateTime.Now;
 
-            InternationalizationManager.Register(typeof(HttpServer).Assembly, "webexpress");
-            InternationalizationManager.Initialization(context);
+            ComponentManager.Initialization(context);
 
             var clock = new Clock(new DateTime(dateTime.Year, 12, 31, dateTime.Hour, dateTime.Minute, 0));
             var cron = new Cron(context, "*", "*", "31", "12");
@@ -71,8 +69,7 @@ namespace WebExpress.Test.Schedule
             var dateTime = DateTime.Now;
             Log.Current.Clear();
 
-            InternationalizationManager.Register(typeof(HttpServer).Assembly, "webexpress");
-            InternationalizationManager.Initialization(context);
+            ComponentManager.Initialization(context);
 
             var clock = new Clock(new DateTime(dateTime.Year, 12, 31, dateTime.Hour, dateTime.Minute, 0));
             var cron = new Cron(context, "*", "*", "*", "a");
@@ -90,8 +87,7 @@ namespace WebExpress.Test.Schedule
             var context = new HttpServerContext(null, null, null, null, null, null, null, CultureInfo.CurrentCulture, Log.Current, null);
             var dateTime = DateTime.Now;
 
-            InternationalizationManager.Register(typeof(HttpServer).Assembly, "webexpress");
-            InternationalizationManager.Initialization(context);
+            ComponentManager.Initialization(context);
 
             var clock = new Clock(new DateTime(dateTime.Year, 12, 31, dateTime.Hour, dateTime.Minute, 0));
             var cron = new Cron(context, "*", "*", "*", "");
@@ -110,8 +106,7 @@ namespace WebExpress.Test.Schedule
             var dateTime = DateTime.Now;
             Log.Current.Clear();
 
-            InternationalizationManager.Register(typeof(HttpServer).Assembly, "webexpress");
-            InternationalizationManager.Initialization(context);
+            ComponentManager.Initialization(context);
 
             var clock = new Clock(new DateTime(dateTime.Year, 12, 31, dateTime.Hour, dateTime.Minute, 0));
             var cron = new Cron(context, "99", "*", "*", "*");
@@ -129,8 +124,7 @@ namespace WebExpress.Test.Schedule
             var context = new HttpServerContext(null, null, null, null, null, null, null, CultureInfo.CurrentCulture, Log.Current, null);
             var dateTime = DateTime.Now;
 
-            InternationalizationManager.Register(typeof(HttpServer).Assembly, "webexpress");
-            InternationalizationManager.Initialization(context);
+            ComponentManager.Initialization(context);
 
             var clock = new Clock(new DateTime(dateTime.Year, 12, 31, dateTime.Hour, dateTime.Minute, 0));
             var cron = new Cron(context, "*", "*", "31", "1-11");
@@ -148,8 +142,7 @@ namespace WebExpress.Test.Schedule
             var context = new HttpServerContext(null, null, null, null, null, null, null, CultureInfo.CurrentCulture, Log.Current, null);
             var dateTime = DateTime.Now;
 
-            InternationalizationManager.Register(typeof(HttpServer).Assembly, "webexpress");
-            InternationalizationManager.Initialization(context);
+            ComponentManager.Initialization(context);
 
             var clock = new Clock(new DateTime(2020, 1, 1, dateTime.Hour, dateTime.Minute, 0)); // Mittwoch
             var cron = new Cron(context, "*", "*", "*", "*", "4"); // Mittwoch
@@ -167,8 +160,7 @@ namespace WebExpress.Test.Schedule
             var context = new HttpServerContext(null, null, null, null, null, null, null, CultureInfo.CurrentCulture, Log.Current, null);
             var dateTime = DateTime.Now;
 
-            InternationalizationManager.Register(typeof(HttpServer).Assembly, "webexpress");
-            InternationalizationManager.Initialization(context);
+            ComponentManager.Initialization(context);
 
             var clock = new Clock(new DateTime(2020, 1, 1, dateTime.Hour, dateTime.Minute, 0)); // Mittwoch
             var cron = new Cron(context, "*", "*", "*", "*", "1"); // Sonntag

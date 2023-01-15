@@ -30,7 +30,7 @@ namespace WebExpress.WebResource
         /// is a string with a name (e.g. global, admin), which can be used by elements to 
         /// determine whether content and how content should be displayed.
         /// </summary>
-        IReadOnlyList<string> ResourceContextFilter { get; }
+        IReadOnlyList<string> ContentContext { get; }
 
         /// <summary>
         /// Provides the conditions that must be met for the resource to be active.

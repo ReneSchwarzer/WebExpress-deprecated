@@ -66,7 +66,7 @@ namespace WebExpress.WebPage
         void AddScript(string key, string code);
 
         /// <summary>
-        /// In HTML konvertieren
+        /// Convert to html.
         /// </summary>
         /// <param name="context">The context for rendering the page.</param>
         /// <returns>Die Seite als HTML</returns>

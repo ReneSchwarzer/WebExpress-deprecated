@@ -95,7 +95,7 @@ namespace WebExpress.WebApp.WebControl
         /// Wird aufgerufen, wenn das Formular mit Initialwerten gefüllt werden soll
         /// </summary>
         /// <param name="sender">The trigger of the event.</param>
-        /// <param name="e">Das Eventargument</param>
+        /// <param name="e">The event argument.</param>
         private void OnFillFormular(object sender, FormularEventArgs e)
         {
             foreach (var v in UserManager.Groups.OrderBy(x => x.Name))
@@ -112,7 +112,7 @@ namespace WebExpress.WebApp.WebControl
         /// Wird aufgerufen, wenn die eingegebene Loginkennung überprüft werden soll
         /// </summary>
         /// <param name="sender">The trigger of the event.</param>
-        /// <param name="e">Das Eventargument</param>
+        /// <param name="e">The event argument.</param>
         private void OnLoginValidation(object sender, ValidationEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(Login.Value))
@@ -130,7 +130,7 @@ namespace WebExpress.WebApp.WebControl
         /// Wird aufgerufen, wenn der eingegebene Vorname überprüft werden soll
         /// </summary>
         /// <param name="sender">The trigger of the event.</param>
-        /// <param name="e">Das Eventargument</param>
+        /// <param name="e">The event argument.</param>
         private void OnFirstnameValidation(object sender, ValidationEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(Firstname.Value))
@@ -143,7 +143,7 @@ namespace WebExpress.WebApp.WebControl
         /// Wird aufgerufen, wenn der eingegebene Nachname überprüft werden soll
         /// </summary>
         /// <param name="sender">The trigger of the event.</param>
-        /// <param name="e">Das Eventargument</param>
+        /// <param name="e">The event argument.</param>
         private void OnLastnameValidation(object sender, ValidationEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(Lastname.Value))
@@ -156,7 +156,7 @@ namespace WebExpress.WebApp.WebControl
         /// Wird aufgerufen, wenn die eingegebene E-Mail-Adresse überprüft werden soll
         /// </summary>
         /// <param name="sender">The trigger of the event.</param>
-        /// <param name="e">Das Eventargument</param>
+        /// <param name="e">The event argument.</param>
         private void OnEmailValidation(object sender, ValidationEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(Email.Value))
@@ -166,10 +166,10 @@ namespace WebExpress.WebApp.WebControl
         }
 
         /// <summary>
-        /// Wird aufgerufen, wenn die Löschaktion bestätigt wurde
+        /// Called when the delete action has been confirmed.
         /// </summary>
         /// <param name="sender">The trigger of the event.</param>
-        /// <param name="e">Das Eventargument</param>
+        /// <param name="e">The event argument.</param>
         private void OnConfirm(object sender, FormularEventArgs e)
         {
             var user = new User()

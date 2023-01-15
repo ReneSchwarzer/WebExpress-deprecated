@@ -1,5 +1,4 @@
-﻿using WebExpress.UI.WebComponent;
-using WebExpress.WebAttribute;
+﻿using WebExpress.WebAttribute;
 using WebExpress.WebModule;
 
 namespace WebExpress.WebApp
@@ -10,7 +9,7 @@ namespace WebExpress.WebApp
     [Description("module.description")]
     [Icon("/assets/img/Logo.png")]
     [AssetPath("/")]
-    [ContextPath("/wxapp")]
+    [ContextPath("/modules/wxapp")]
     public sealed class Module : IModule
     {
         /// <summary>
@@ -26,9 +25,7 @@ namespace WebExpress.WebApp
         /// <param name="context">Der Kontext, welcher für die Ausführung des Plugins gilt</param>
         public void Initialization(IModuleContext context)
         {
-            //ComponentManager.Register(new[] { context.PluginContext });
-            //SettingPageManager.Register(context.PluginContext);
-            //IdentityManager.Register(context);
+
         }
 
         /// <summary>

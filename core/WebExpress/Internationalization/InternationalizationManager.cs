@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using WebExpress.Message;
+using WebExpress.WebComponent;
 using WebExpress.WebPlugin;
 
 namespace WebExpress.Internationalization
@@ -11,12 +13,12 @@ namespace WebExpress.Internationalization
     /// <summary>
     /// Internationalization
     /// </summary>
-    public class InternationalizationManager
+    public class InternationalizationManager : IComponentPlugin, ISystemComponent
     {
         /// <summary>
         /// Returns the default language.
         /// </summary>
-        public static CultureInfo DefaultCulture { get; private set; }
+        public static CultureInfo DefaultCulture { get; private set; } = CultureInfo.CurrentCulture;
 
         /// <summary>
         /// Returns the directory by listing the internationalization key-value pairs.
@@ -26,13 +28,21 @@ namespace WebExpress.Internationalization
         /// <summary>
         /// Returns or sets the reference to the context of the host.
         /// </summary>
-        private static IHttpServerContext Context { get; set; }
+        public IHttpServerContext Context { get; private set; }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        internal InternationalizationManager()
+        {
+
+        }
 
         /// <summary>
         /// Initialization
         /// </summary>
         /// <param name="context">The reference to the context of the host.</param>
-        internal static void Initialization(IHttpServerContext context)
+        public void Initialization(IHttpServerContext context)
         {
             Context = context;
             DefaultCulture = Context.Culture;
@@ -41,17 +51,26 @@ namespace WebExpress.Internationalization
         }
 
         /// <summary>
-        /// Adds the internationalization key-value pairs from the specified plugins.
+        /// Discovers and registers entries from the specified plugin.
         /// </summary>
-        /// <param name="pluginContexts">The plugins containing the key-value pairs to be inserted.</param>
-        public static void Register(IEnumerable<IPluginContext> pluginContexts)
+        /// <param name="pluginContext">A context of a plugin whose elements are to be registered.</param>
+        public void Register(IPluginContext pluginContext)
+        {
+            var pluginID = pluginContext.PluginID;
+            Register(pluginContext.Assembly, pluginID);
+
+            Context.Log.Info(message: I18N("webexpress:internationalizationmanager.register", pluginID));
+        }
+
+        /// <summary>
+        /// Discovers and registers entries from the specified plugin.
+        /// </summary>
+        /// <param name="pluginContexts">A list with plugin contexts that contain the elements.</param>
+        public void Register(IEnumerable<IPluginContext> pluginContexts)
         {
             foreach (var pluginContext in pluginContexts)
             {
-                var pluginID = pluginContext.PluginID;
-                Register(pluginContext.Assembly, pluginID);
-
-                Context.Log.Info(message: I18N("webexpress:internationalizationmanager.register", pluginID));
+                Register(pluginContext);
             }
         }
 
@@ -100,7 +119,7 @@ namespace WebExpress.Internationalization
         /// Removes all internationalization key-value pairs associated with the specified plugin context.
         /// </summary>
         /// <param name="pluginContext">The context of the plugin containing the key-value pairs to remove.</param>
-        public static void Remove(IPluginContext pluginContext)
+        public void Remove(IPluginContext pluginContext)
         {
 
         }
@@ -157,7 +176,7 @@ namespace WebExpress.Internationalization
 
             if (string.IsNullOrWhiteSpace(language) || language == "*")
             {
-                language = DefaultCulture.TwoLetterISOLanguageName;
+                language = DefaultCulture?.TwoLetterISOLanguageName;
             }
 
             var item = Dictionary[language];
