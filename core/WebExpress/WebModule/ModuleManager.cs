@@ -14,7 +14,7 @@ namespace WebExpress.WebModule
     /// <summary>
     /// The module manager manages the WebExpress modules.
     /// </summary>
-    public class ModuleManager : IComponentPlugin, IExecutableElements, ISystemComponent
+    public sealed class ModuleManager : IComponentPlugin, IExecutableElements, ISystemComponent
     {
         /// <summary>
         /// Returns or sets the reference to the context of the host.
@@ -24,12 +24,12 @@ namespace WebExpress.WebModule
         /// <summary>
         /// Returns the directory where the modules are listed.
         /// </summary>
-        private ModuleDictionary Dictionary { get; } = new ModuleDictionary();
+        private static ModuleDictionary Dictionary { get; } = new ModuleDictionary();
 
         /// <summary>
         /// Delivers all stored modules.
         /// </summary>
-        public IEnumerable<IModuleContext> Modules => Dictionary.Values.SelectMany(x => x.Values).Select(x => x.Context).ToList();
+        public static IEnumerable<IModuleContext> Modules => Dictionary.Values.SelectMany(x => x.Values).Select(x => x.Context).ToList();
 
         /// <summary>
         /// Constructor

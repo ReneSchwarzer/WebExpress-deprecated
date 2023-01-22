@@ -27,7 +27,7 @@ namespace WebExpress.UI
         /// <param name="context">Der Kontext, welcher für die Ausführung des Plugins gilt</param>
         public void Initialization(IModuleContext context)
         {
-            ComponentManager.Register(typeof(FragmentManager));
+            
         }
 
         /// <summary>
@@ -35,6 +35,7 @@ namespace WebExpress.UI
         /// </summary>
         public void Run()
         {
+
         }
 
         /// <summary>

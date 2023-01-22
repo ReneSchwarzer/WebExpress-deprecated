@@ -229,32 +229,43 @@ namespace WebExpress.WebComponent
             }
             else if (!managerType.GetInterfaces().Where(x => x == typeof(IComponent)).Any())
             {
-                Context.Log.Info(message: InternationalizationManager.I18N("webexpress:componentmanager.wrongtype", managerType?.FullName, typeof(IComponent).FullName));
+                Context.Log.Warning(message: InternationalizationManager.I18N("webexpress:componentmanager.wrongtype", managerType?.FullName, typeof(IComponent).FullName));
 
                 return null;
             }
 
-            var flags = BindingFlags.NonPublic | BindingFlags.Instance;
-            var manager = managerType?.Assembly.CreateInstance
-            (
-                managerType?.FullName,
-                false,
-                flags,
-                null,
-                null,
-                null,
-                null
-            ) as IComponent;
-
-            if (!Dictionary.ContainsKey(managerType))
+            try
             {
-                Dictionary.Add(managerType, manager);
 
-                manager.Initialization(Context);
+                var flags = BindingFlags.NonPublic | BindingFlags.Instance;
+                var manager = managerType?.Assembly.CreateInstance
+                (
+                    managerType?.FullName,
+                    false,
+                    flags,
+                    null,
+                    null,
+                    null,
+                    null
+                ) as IComponent;
 
-                Context.Log.Info(message: InternationalizationManager.I18N("webexpress:componentmanager.register", managerType?.FullName));
+                if (!Dictionary.ContainsKey(managerType))
+                {
+                    Dictionary.Add(managerType, manager);
 
-                return manager;
+                    manager.Initialization(Context);
+
+                    Context.Log.Info(message: InternationalizationManager.I18N("webexpress:componentmanager.register", managerType?.FullName));
+
+                    return manager;
+                }
+
+            }
+            catch(Exception ex)
+            {
+                Context.Log.Exception(ex);
+                
+                return null;
             }
 
             return Dictionary[managerType];

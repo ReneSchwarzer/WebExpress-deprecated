@@ -26,12 +26,12 @@ namespace WebExpress.WebPlugin
         /// <summary>
         /// Returns the directory where the plugins are listed.
         /// </summary>
-        private PluginDictionary Dictionary { get; } = new PluginDictionary();
+        private static PluginDictionary Dictionary { get; } = new PluginDictionary();
 
         /// <summary>
         /// Returns all plugins.
         /// </summary>
-        public ICollection<IPluginContext> Plugins => Dictionary.Values.Select(x => x.Context).ToList();
+        public static ICollection<IPluginContext> Plugins => Dictionary.Values.Select(x => x.Context).ToList();
 
         /// <summary>
         /// Constructor

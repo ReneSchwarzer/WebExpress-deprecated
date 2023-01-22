@@ -447,7 +447,7 @@ namespace WebExpress.WebSitemap
         /// <returns>The tree node in its string representation</returns>
         public override string ToString()
         {
-            return string.IsNullOrWhiteSpace(ExpressionPath) ? "/" : ExpressionPath;
+            return string.IsNullOrWhiteSpace(IDPath) ? "/" : IDPath;
         }
     }
 }

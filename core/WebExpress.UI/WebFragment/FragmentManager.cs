@@ -15,7 +15,7 @@ namespace WebExpress.UI.WebFragment
     /// <summary>
     /// Fragment manager.
     /// </summary>
-    public class FragmentManager : IComponentPlugin
+    public sealed class FragmentManager : IComponentPlugin
     {
         /// <summary>
         /// Returns the reference to the context of the host.

@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Uri;
+using WebExpress.WebApplication;
 using WebExpress.WebComponent;
+using WebExpress.WebModule;
 using WebExpress.WebResource;
 using static WebExpress.Internationalization.InternationalizationManager;
 
@@ -10,7 +13,7 @@ namespace WebExpress.WebSitemap
     /// <summary>
     /// The resource manager manages WebExpress elements, which can be called with a URI (Uniform Resource Identifier).
     /// </summary>
-    public class SitemapManager : IComponent, ISystemComponent
+    public sealed class SitemapManager : IComponent, ISystemComponent
     {
         /// <summary>
         /// Returns the reference to the context of the host.
@@ -50,8 +53,8 @@ namespace WebExpress.WebSitemap
 
             Context.Log.Info(message: I18N("webexpress:sitemapmanager.refresh"));
 
-            foreach (var moduleUri in ComponentManager.ApplicationManager.Applications
-                .SelectMany(a => ComponentManager.ModuleManager.Modules.Select(x => x.GetContextPath(a))))
+            foreach (var moduleUri in ApplicationManager.Applications
+                .SelectMany(a => ModuleManager.Modules.Select(x => x.GetContextPath(a))))
             {
                 var skip = moduleUri.Skip(1);
 
@@ -59,14 +62,15 @@ namespace WebExpress.WebSitemap
                 var node = newSiteMap.Insert(skip, null);
             }
 
-            foreach (var resource in ComponentManager.ResourceManager.Resources)
+            foreach (var resource in ResourceManager.Resources)
             {
                 var moduleID = resource.Context.ModuleContext.ModuleID;
 
                 foreach (var applicationContext in resource.Context.GetApplicationContexts())
                 {
+                    var pathUri = ToUri(resource.Paths);
                     var resourceUri = !string.IsNullOrWhiteSpace(resource.PathSegment.ToString()) ?
-                            UriRelative.Combine(resource.Context.GetContextPath(applicationContext), resource.PathSegment.ToString()) :
+                            UriRelative.Combine(resource.Context.GetContextPath(applicationContext), pathUri.ToString(), resource.PathSegment.ToString()) :
                             resource.Context.GetContextPath(applicationContext);
 
                     // check if an optional resource
@@ -167,6 +171,27 @@ namespace WebExpress.WebSitemap
 
             // 404
             return null;
+        }
+
+        /// <summary>
+        /// Converts the given path to a uri.
+        /// </summary>
+        /// <param name="path">The path to be converted.</param>
+        /// <returns>The uri that represents the path.</returns>
+        private IUri ToUri(IReadOnlyList<string> path)
+        {
+            var uri = new UriRelative() as IUri;
+
+            foreach (var item in path)
+            {
+                var resource = ResourceManager.Resources
+                    .Where(x => x.ID.Equals(item, StringComparison.OrdinalIgnoreCase))
+                    .FirstOrDefault();
+
+                uri = uri.Append(resource?.PathSegment?.ToString() ?? item);
+            }
+
+            return uri;
         }
     }
 }

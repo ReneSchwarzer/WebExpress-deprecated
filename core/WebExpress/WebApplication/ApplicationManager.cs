@@ -15,7 +15,7 @@ namespace WebExpress.WebApplication
     /// <summary>
     /// Management of WebExpress applications.
     /// </summary>
-    public class ApplicationManager : IComponentPlugin, IExecutableElements, ISystemComponent
+    public sealed class ApplicationManager : IComponentPlugin, IExecutableElements, ISystemComponent
     {
         /// <summary>
         /// Returns or sets the reference to the context of the host.
@@ -25,12 +25,12 @@ namespace WebExpress.WebApplication
         /// <summary>
         /// Returns or sets the directory where the applications are listed.
         /// </summary>
-        private ApplicationDictionary Dictionary { get; } = new ApplicationDictionary();
+        private static ApplicationDictionary Dictionary { get; } = new ApplicationDictionary();
 
         /// <summary>
         /// Returns the stored applications.
         /// </summary>
-        public IEnumerable<IApplicationContext> Applications => Dictionary.Values.SelectMany(x => x.Values).Select(x => x.Context);
+        public static IEnumerable<IApplicationContext> Applications => Dictionary.Values.SelectMany(x => x.Values).Select(x => x.Context);
 
         /// <summary>
         /// Constructor

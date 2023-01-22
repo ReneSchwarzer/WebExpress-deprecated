@@ -13,7 +13,7 @@ namespace WebExpress.WebJob
     /// <summary>
     /// Processing of cyclic jobs
     /// </summary>
-    public class ScheduleManager : IComponentPlugin, ISystemComponent
+    public sealed class ScheduleManager : IComponentPlugin, ISystemComponent
     {
         /// <summary>
         /// Thread termination.
@@ -33,7 +33,7 @@ namespace WebExpress.WebJob
         /// <summary>
         /// Returns the directory where the jobs are listed.
         /// </summary>
-        private ScheduleDictionary Dictionary { get; } = new ScheduleDictionary();
+        private static ScheduleDictionary Dictionary { get; } = new ScheduleDictionary();
 
         /// <summary>
         /// Constructor

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -13,7 +12,7 @@ namespace WebExpress.Internationalization
     /// <summary>
     /// Internationalization
     /// </summary>
-    public class InternationalizationManager : IComponentPlugin, ISystemComponent
+    public sealed class InternationalizationManager : IComponentPlugin, ISystemComponent
     {
         /// <summary>
         /// Returns the default language.

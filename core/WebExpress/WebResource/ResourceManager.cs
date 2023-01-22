@@ -12,7 +12,7 @@ namespace WebExpress.WebResource
     /// <summary>
     /// The resource manager manages WebExpress elements, which can be called with a URI (Uniform Resource Identifier).
     /// </summary>
-    public class ResourceManager : IComponentPlugin, ISystemComponent
+    public sealed class ResourceManager : IComponentPlugin, ISystemComponent
     {
         /// <summary>
         /// Returns the reference to the context of the host.
@@ -22,12 +22,12 @@ namespace WebExpress.WebResource
         /// <summary>
         /// Returns the directory where the resources are listed.
         /// </summary>
-        private ResourceDictionary Dictionary { get; } = new ResourceDictionary();
+        private static ResourceDictionary Dictionary { get; } = new ResourceDictionary();
 
         /// <summary>
         /// Returns all resources
         /// </summary>
-        internal IEnumerable<ResourceItem> Resources => Dictionary.Values.SelectMany(x => x.Values);
+        internal static IEnumerable<ResourceItem> Resources => Dictionary.Values.SelectMany(x => x.Values);
 
         /// <summary>
         /// Constructor

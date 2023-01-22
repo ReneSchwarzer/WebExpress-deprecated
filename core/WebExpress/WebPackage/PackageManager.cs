@@ -17,7 +17,7 @@ namespace WebExpress.WebPackage
     /// <summary>
     /// The package manager manages packages with WebExpress extensions. The packages must be in WebExpressPackage format (*.wxp).
     /// </summary>
-    public class PackageManager : IComponent, ISystemComponent
+    public sealed class PackageManager : IComponent, ISystemComponent
     {
         /// <summary>
         /// Returns or sets the reference to the context of the host.

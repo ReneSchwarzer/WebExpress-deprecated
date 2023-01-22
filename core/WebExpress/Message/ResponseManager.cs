@@ -165,7 +165,7 @@ namespace WebExpress.Message
         /// <returns>The first status page found to the given states or null</returns>
         public IModuleContext GetDefaultModule(int status, string uri, IModuleContext module = null)
         {
-            var applications = ComponentManager.ApplicationManager.Applications.Where(x => uri != null && uri.StartsWith(x.ContextPath.ToString()));
+            var applications = ApplicationManager.Applications.Where(x => uri != null && uri.StartsWith(x.ContextPath.ToString()));
 
             // 1. preferred status page
             var modules = Dictionary.Where(x => x.Value.ContainsKey(status))

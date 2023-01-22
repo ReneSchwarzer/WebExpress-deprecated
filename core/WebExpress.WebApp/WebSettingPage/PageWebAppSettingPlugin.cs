@@ -171,7 +171,7 @@ namespace WebExpress.WebApp.WebSettingPage
             plugins.AddColumn(this.I18N("webexpress.webapp", "setting.plugin.name.label"));
             plugins.AddColumn(this.I18N("webexpress.webapp", "setting.plugin.version.label"));
 
-            foreach (var application in ComponentManager.ApplicationManager.Applications.Where(x => !x.ApplicationID.StartsWith("webexpress", StringComparison.OrdinalIgnoreCase)))
+            foreach (var application in ApplicationManager.Applications.Where(x => !x.ApplicationID.StartsWith("webexpress", StringComparison.OrdinalIgnoreCase)))
             {
                 //var plugin = application.PluginContext;
                 //var mudules = ModuleManager.Modules.Where(x => x.Application.ApplicationID.Equals(application.ApplicationID, StringComparison.OrdinalIgnoreCase)).ToList();
