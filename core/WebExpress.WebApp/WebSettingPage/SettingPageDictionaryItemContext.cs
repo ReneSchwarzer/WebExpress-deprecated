@@ -6,17 +6,17 @@ namespace WebExpress.WebApp.SettingPage
     public class SettingPageDictionaryItemContext : Dictionary<string, SettingPageDictionaryItemSection>
     {
         /// <summary>
-        /// Fügt eine Seite hinzu
+        /// Adds a page.
         /// </summary>
-        /// <param name="context">The context.</param>
-        /// <param name="section">Die Sektion</param>
-        /// <param name="group">Die Gruppe</param>
-        /// <param name="page">Die einzufügende Seite</param>
-        public void AddPage(string context, SettingSection section, string group, SettingPageDictionaryItemMetaPage page)
+        /// <param name="context">The settig context.</param>
+        /// <param name="section">The section.</param>
+        /// <param name="group">The group.</param>
+        /// <param name="page">The item to insert.</param>
+        public void AddPage(string context, SettingSection section, string group, SettingPageDictionaryItem page)
         {
             context ??= "*";
 
-            // Kontext registrieren
+            // register context
             if (!ContainsKey(context))
             {
                 Add(context, new SettingPageDictionaryItemSection());
@@ -26,10 +26,10 @@ namespace WebExpress.WebApp.SettingPage
         }
 
         /// <summary>
-        /// Sucht eine Seite anhand seiner ID
+        /// Searches for a setting page by its id.
         /// </summary>
-        /// <param name="pageID">Die Seite</param>
-        /// <returns>Die gefundene Seite oder null</returns>
+        /// <param name="pageID">The setting site.</param>
+        /// <returns>The setting page found or null.</returns>
         public SettingPageSearchResult FindPage(string pageID)
         {
             foreach (var v in this)
@@ -46,10 +46,10 @@ namespace WebExpress.WebApp.SettingPage
         }
 
         /// <summary>
-        /// Liefere alle Sektionen, welche den seleben Settingkontext besitzen
+        /// Provide all sections that have the same setting context.
         /// </summary>
-        /// <param name="context">The context.</param>
-        /// <returns>Eine Auflistung aller Sektionen des gleichen Kontextes</returns>
+        /// <param name="context">The setting context.</param>
+        /// <returns>A listing of all sections of the same context.</returns>
         public SettingPageDictionaryItemSection GetSections(string context)
         {
             if (ContainsKey(context))

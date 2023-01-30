@@ -31,7 +31,7 @@ namespace WebExpress.WebApp.WebApiControl
         /// <returns>The control as html.</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var module = ComponentManager.ModuleManager.GetModule(context.Application, "webexpress.webapp");
+            var module = ModuleManager.GetModule(context.Application, "webexpress.webapp");
 
             var settings = new
             {

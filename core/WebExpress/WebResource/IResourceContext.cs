@@ -48,6 +48,11 @@ namespace WebExpress.WebResource
         Log Log { get; }
 
         /// <summary>
+        /// Returns the context path.
+        /// </summary>
+        IUri ContextPath { get; }
+
+        /// <summary>
         /// Determines the contexts of the applications referenced by the module.
         /// </summary>
         /// <returns>A list of application contexts associated with the module.</returns>

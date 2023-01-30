@@ -22,6 +22,9 @@ status.500.title=Internal Server Error
 
 pagesettingmanager.initialization=The settings page manager has been initialized.
 pagesettingmanager.register=A settings page has been added to the settings page manager.
+pagesettingmanager.idless=A settings page from the plugin '{0}' does not have an id.
+pagesettingmanager.moduleless=The settings page '{0}' from the plugin '{1}' does not have a module assitation.
+pagesettingmanager.resourceless=No associated resource could be found for the settings page '{0}' from the plugin '{1}'.
 
 confirm.label=Confirm
 confirm.header=Get confirmation

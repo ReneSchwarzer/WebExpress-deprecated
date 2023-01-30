@@ -70,7 +70,7 @@ namespace WebExpress.WebSitemap
                 {
                     var pathUri = ToUri(resource.Paths);
                     var resourceUri = !string.IsNullOrWhiteSpace(resource.PathSegment.ToString()) ?
-                            UriRelative.Combine(resource.Context.GetContextPath(applicationContext), pathUri.ToString(), resource.PathSegment.ToString()) :
+                            UriRelative.Combine(resource.Context.GetContextPath(applicationContext), resource.PathSegment.ToString()) :
                             resource.Context.GetContextPath(applicationContext);
 
                     // check if an optional resource

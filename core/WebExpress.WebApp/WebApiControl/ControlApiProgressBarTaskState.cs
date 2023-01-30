@@ -33,7 +33,7 @@ namespace WebExpress.WebApp.WebApiControl
         /// <returns>The control as html.</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var module = ComponentManager.ModuleManager.GetModule(context.Application, "webexpress.webapp");
+            var module = ModuleManager.GetModule(context.Application, "webexpress.webapp");
             var code = $"updateTaskProgressBar('{Id}', '{module?.ContextPath.Append("api/v1/taskstatus")}', {OnFinishScript});";
 
             context.VisualTree.AddScript("webexpress.webapp:controlapiprogressbartaskstate", code);

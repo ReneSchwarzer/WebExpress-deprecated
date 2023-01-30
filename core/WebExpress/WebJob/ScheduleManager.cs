@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
+using WebExpress.WebModule;
 using WebExpress.WebPlugin;
 using static WebExpress.Internationalization.InternationalizationManager;
 
@@ -87,7 +88,7 @@ namespace WebExpress.WebJob
                 }
 
                 // determine the associated module 
-                var module = ComponentManager.ModuleManager.GetModule(pluginContext, moduleID);
+                var module = ModuleManager.GetModule(pluginContext, moduleID);
                 if (string.IsNullOrEmpty(moduleID))
                 {
                     // no module specified

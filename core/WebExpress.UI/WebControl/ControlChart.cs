@@ -77,7 +77,7 @@ namespace WebExpress.UI.WebControl
         /// <param name="context">The context in which the control is rendered.</param>
         public void Initialize(RenderContext context)
         {
-            var module = ComponentManager.ModuleManager.GetModule(context.Application, "webexpress.ui");
+            var module = ModuleManager.GetModule(context.Application, "webexpress.ui");
             if (module != null)
             {
                 context.VisualTree.HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/Chart.min.js")));

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using WebExpress.Uri;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebCondition;
+using WebExpress.WebModule;
 using WebExpress.WebPlugin;
 using static WebExpress.Internationalization.InternationalizationManager;
 
@@ -27,7 +29,7 @@ namespace WebExpress.WebResource
         /// <summary>
         /// Returns all resources
         /// </summary>
-        internal static IEnumerable<ResourceItem> Resources => Dictionary.Values.SelectMany(x => x.Values);
+        public static IEnumerable<ResourceItem> Resources => Dictionary.Values.SelectMany(x => x.Values);
 
         /// <summary>
         /// Constructor
@@ -130,7 +132,7 @@ namespace WebExpress.WebResource
                 }
 
                 // determine the associated module 
-                var module = ComponentManager.ModuleManager.GetModule(pluginContext, moduleID);
+                var module = ModuleManager.GetModule(pluginContext, moduleID);
                 if (string.IsNullOrEmpty(moduleID))
                 {
                     // no module specified
@@ -145,7 +147,13 @@ namespace WebExpress.WebResource
                 {
                     if (!dict.ContainsKey(id))
                     {
-                        var context = new ResourceContext(module) { ContentContext = resourceContext, Conditions = conditions, Cache = cache };
+                        var context = new ResourceContext(module) 
+                        { 
+                            ContextPath = UriRelative.Combine(paths.ToArray()),
+                            ContentContext = resourceContext, 
+                            Conditions = conditions, 
+                            Cache = cache 
+                        };
 
                         dict.Add(id, new ResourceItem()
                         {

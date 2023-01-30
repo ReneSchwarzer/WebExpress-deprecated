@@ -61,7 +61,7 @@ namespace WebExpress.UI.WebControl
 
             Value = context?.Request.GetParameter(Name)?.Value;
 
-            var module = ComponentManager.ModuleManager.GetModule(context.Application, "webexpress.ui");
+            var module = ModuleManager.GetModule(context.Application, "webexpress.ui");
             if (module != null)
             {
                 context.VisualTree.HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/bootstrap-datepicker.min.js")));

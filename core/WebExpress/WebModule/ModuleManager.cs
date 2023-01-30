@@ -179,7 +179,7 @@ namespace WebExpress.WebModule
         /// <param name="applicationContext">The context of the application.</param>
         /// <param name="moduleID">The modul id.</param>
         /// <returns>The context of the module or null.</returns>
-        public IModuleContext GetModule(IApplicationContext applicationContext, string moduleID)
+        public static IModuleContext GetModule(IApplicationContext applicationContext, string moduleID)
         {
             var item = Dictionary.Values
                 .SelectMany(x => x.Values)
@@ -200,7 +200,7 @@ namespace WebExpress.WebModule
         /// <param name="pluginContext">The context of the plugin.</param>
         /// <param name="moduleID">The modul id.</param>
         /// <returns>The context of the module or null.</returns>
-        public IModuleContext GetModule(IPluginContext pluginContext, string moduleID)
+        public static IModuleContext GetModule(IPluginContext pluginContext, string moduleID)
         {
             return GetModules(pluginContext)
                 .Where(x => x.Context.ModuleID.Equals(moduleID, StringComparison.OrdinalIgnoreCase))
@@ -214,7 +214,7 @@ namespace WebExpress.WebModule
         /// <param name="applicationID">The application id.</param>
         /// <param name="moduleID">The modul id.</param>
         /// <returns>The context of the module or null.</returns>
-        public IModuleContext GetModule(string applicationID, string moduleID)
+        public static IModuleContext GetModule(string applicationID, string moduleID)
         {
             if (string.IsNullOrWhiteSpace(applicationID) || string.IsNullOrWhiteSpace(moduleID))
             {
@@ -231,7 +231,7 @@ namespace WebExpress.WebModule
         /// </summary>
         /// <param name="pluginContext">The context of the plugin.</param>
         /// <returns>An enumeration of the module contexts for the given plugin.</returns>
-        internal IEnumerable<ModuleItem> GetModules(IPluginContext pluginContext)
+        internal static IEnumerable<ModuleItem> GetModules(IPluginContext pluginContext)
         {
             if (pluginContext == null)
             {

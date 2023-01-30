@@ -33,7 +33,7 @@ namespace WebExpress.WebApp.WebFragment
         {
             base.Initialization(context, page);
 
-            var module = ComponentManager.ModuleManager.GetModule(page.ApplicationContext, "webexpress.webapp");
+            var module = ModuleManager.GetModule(page.ApplicationContext, "webexpress.webapp");
 
             RestApiUri = module.ContextPath.Append("/api/v1/user");
 

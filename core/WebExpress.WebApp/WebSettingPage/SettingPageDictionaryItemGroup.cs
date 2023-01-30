@@ -3,39 +3,39 @@ using System.Linq;
 
 namespace WebExpress.WebApp.SettingPage
 {
-    public class SettingPageDictionaryItemGroup : Dictionary<string, List<SettingPageDictionaryItemMetaPage>>
+    public class SettingPageDictionaryItemGroup : Dictionary<string, List<SettingPageDictionaryItem>>
     {
         /// <summary>
-        /// Fügt eine Seite hinzu
+        /// Adds a page.
         /// </summary>
-        /// <param name="group">Die Gruppe</param>
-        /// <param name="page">Die einzufügende Seite</param>
-        public void AddPage(string group, SettingPageDictionaryItemMetaPage page)
+        /// <param name="group">The group.</param>
+        /// <param name="page">The item to insert.</param>
+        public void AddPage(string group, SettingPageDictionaryItem page)
         {
             group ??= string.Empty;
 
-            // Sektion registrieren
+            // register group.
             if (!ContainsKey(group))
             {
-                Add(group, new List<SettingPageDictionaryItemMetaPage>());
+                Add(group, new List<SettingPageDictionaryItem>());
             }
 
             this[group].Add(page);
         }
 
         /// <summary>
-        /// Sucht eine Seite anhand seiner ID
+        /// Searches for an item based on its ID.
         /// </summary>
-        /// <param name="pageID">Die Seite</param>
-        /// <returns>Die gefundene Seite oder null</returns>
+        /// <param name="pageID">The setting site.</param>
+        /// <returns>The setting page found or null.</returns>
         public SettingPageSearchResult FindPage(string pageID)
         {
             foreach (var v in this)
             {
-                var page = v.Value.Where(x => x.ID == pageID).FirstOrDefault();
-                if (page != null)
+                var item = v.Value.Where(x => x.ID == pageID).FirstOrDefault();
+                if (item != null)
                 {
-                    return new SettingPageSearchResult() { Group = v.Key, Page = page };
+                    return new SettingPageSearchResult() { Group = v.Key, Item = item };
                 }
             }
 
@@ -43,20 +43,20 @@ namespace WebExpress.WebApp.SettingPage
         }
 
         /// <summary>
-        /// Ermittelt die erste Seite
+        /// Returns the first setting page.
         /// </summary>
-        /// <returns>Die erste Seite</returns>
+        /// <returns>The first setting page.</returns>
         public SettingPageSearchResult FindFirstPage()
         {
-            var firstPage = null as SettingPageDictionaryItemMetaPage;
+            var firstItem = null as SettingPageDictionaryItem;
 
             foreach (var group in this.OrderBy(x => x.Key))
             {
-                firstPage = group.Value.FirstOrDefault();
+                firstItem = group.Value.FirstOrDefault();
 
-                if (firstPage != null)
+                if (firstItem != null)
                 {
-                    return new SettingPageSearchResult() { Group = group.Key, Page = firstPage };
+                    return new SettingPageSearchResult() { Group = group.Key, Item = firstItem };
                 }
             }
 
@@ -64,11 +64,11 @@ namespace WebExpress.WebApp.SettingPage
         }
 
         /// <summary>
-        /// Liefere alle Seiten, welche sich in der gegebenen Gruppe befinden
+        /// Returns all setting pages that are in the given group.
         /// </summary>
-        /// <param name="group">Die Gruppe</param>
-        /// <returns>Eine Auflistung aller Seiten der gleichen Gruppe</returns>
-        public List<SettingPageDictionaryItemMetaPage> GetPages(string group)
+        /// <param name="group">The group.</param>
+        /// <returns>A listing of all pages in the same group.</returns>
+        public List<SettingPageDictionaryItem> GetPages(string group)
         {
             if (ContainsKey(group))
             {

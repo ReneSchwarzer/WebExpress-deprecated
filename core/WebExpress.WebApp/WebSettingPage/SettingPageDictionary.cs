@@ -1,13 +1,15 @@
-﻿using System.Collections.Generic;
-using WebExpress.WebApp.WebAttribute;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using WebExpress.WebApplication;
+using WebExpress.WebModule;
 using WebExpress.WebPlugin;
 
 namespace WebExpress.WebApp.SettingPage
 {
     /// <summary>
     /// key = The context of the plugin.
-    /// value = 
+    /// value = meta data
     /// </summary>
     public class SettingPageDictionary : Dictionary<IPluginContext, SettingPageDictionaryItemContext>
     {
@@ -15,35 +17,42 @@ namespace WebExpress.WebApp.SettingPage
         /// Adds a settings page.
         /// </summary>
         /// <param name="pluginContext">The context of the plugin.</param>
-        /// <param name="context">The context.</param>
-        /// <param name="section">The section.</param>
-        /// <param name="group">The grup.</param>
-        /// <param name="page">The settings page to insert.</param>
-        public void AddPage(IPluginContext pluginContext, string context, SettingSection section, string group, SettingPageDictionaryItemMetaPage page)
+        /// <param name="item">The settings page to insert.</param>
+        public void AddPage(IPluginContext pluginContext, SettingPageDictionaryItem item)
         {
             if (!ContainsKey(pluginContext))
             {
                 Add(pluginContext, new SettingPageDictionaryItemContext());
             }
 
-            this[pluginContext].AddPage(context, section, group, page);
+            this[pluginContext].AddPage(item.Context, item.Section, item.Group, item);
         }
 
         /// <summary>
         /// Finds a settings page in an application by its id.
         /// </summary>
-        /// <param name="applicationContext">Die AnwendungsID</param>
-        /// <param name="pageID">Die Seite</param>
-        /// <returns>Die gefundene Seite oder null</returns>
+        /// <param name="application">The context of the application.</param>
+        /// <param name="module">The context of the module.</param>
+        /// <param name="pageID">The id of the setting page.</param>
+        /// <returns>The setting page found or null.</returns>
         /// <summary>
-        public SettingPageSearchResult FindPage(IApplicationContext applicationContext, string pageID)
+        public SettingPageSearchResult FindPage(IApplicationContext application, IModuleContext module, string pageID)
         {
-            //if (ContainsKey(applicationContext))
-            //{
-            //    return this[applicationContext].FindPage(pageID);
-            //}
+            var results = Values
+                .SelectMany(c => c.Values)
+                .SelectMany(s => s.Values)
+                .SelectMany(g => g.Values)
+                .SelectMany(i => i)
+                .Where(x => x != null && x.ModuleContext.ModuleID.Equals(module.ModuleID, StringComparison.OrdinalIgnoreCase))
+                .Select(x => new SettingPageSearchResult()
+                {
+                    Context = x.Context,
+                    Section = x.Section,
+                    Group = x.Group,
+                    Item = x
+                });
 
-            return null;
+            return results.FirstOrDefault();
         }
 
         /// <summary>
@@ -54,12 +63,16 @@ namespace WebExpress.WebApp.SettingPage
         /// <summary>
         public SettingPageDictionaryItemContext GetContexts(string applicationID)
         {
-            //if (ContainsKey(applicationID))
-            //{
-            //    return this[applicationID];
-            //}
+            var results = Values
+                .Where(
+                    x => x.SelectMany(c => c.Value)
+                          .SelectMany(s => s.Value)
+                          .SelectMany(g => g.Value)
+                          .Where(x => x != null && x.Resource.Context.GetApplicationContexts().Where(x => x.ApplicationID.Equals(applicationID, StringComparison.OrdinalIgnoreCase)).Any())
+                          .Any()
+                );
 
-            return null;
+            return results.FirstOrDefault();
         }
 
         /// <summary>
@@ -71,12 +84,16 @@ namespace WebExpress.WebApp.SettingPage
         /// <summary>
         public SettingPageDictionaryItemSection GetSections(string applicationID, string context)
         {
-            //if (ContainsKey(applicationID))
-            //{
-            //    return this[applicationID].GetSections(context);
-            //}
+            var results = Values
+                .SelectMany(x => x.Values)
+                .Where(
+                    x => x.SelectMany(s => s.Value)
+                          .SelectMany(g => g.Value)
+                          .Where(x => x != null && x.Resource.Context.GetApplicationContexts().Where(x => x.ApplicationID.Equals(applicationID, StringComparison.OrdinalIgnoreCase)).Any())
+                          .Any()
+                );
 
-            return null;
+            return results.FirstOrDefault();
         }
     }
 }

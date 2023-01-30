@@ -7,7 +7,7 @@ namespace WebExpress.WebResource
     /// <summary>
     /// A resource element that contains meta information about a resource.
     /// </summary>
-    internal class ResourceItem
+    public class ResourceItem
     {
         /// <summary>
         /// Returns or sets the resource id.

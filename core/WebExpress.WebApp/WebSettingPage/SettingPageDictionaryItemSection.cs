@@ -6,27 +6,27 @@ namespace WebExpress.WebApp.SettingPage
     public class SettingPageDictionaryItemSection : Dictionary<SettingSection, SettingPageDictionaryItemGroup>
     {
         /// <summary>
-        /// Fügt eine Seite hinzu
+        /// Adds an item.
         /// </summary>
-        /// <param name="section">Die Sektion</param>
-        /// <param name="group">Die Gruppe</param>
-        /// <param name="page">Die einzufügende Seite</param>
-        public void AddPage(SettingSection section, string group, SettingPageDictionaryItemMetaPage page)
+        /// <param name="section">The section.</param>
+        /// <param name="group">The group.</param>
+        /// <param name="item">The item to insert.</param>
+        public void AddPage(SettingSection section, string group, SettingPageDictionaryItem item)
         {
-            // Sektion registrieren
+            // register Section
             if (!ContainsKey(section))
             {
                 Add(section, new SettingPageDictionaryItemGroup());
             }
 
-            this[section].AddPage(group, page);
+            this[section].AddPage(group, item);
         }
 
         /// <summary>
-        /// Sucht eine Seite anhand seiner ID
+        /// Searches for an item based on its id.
         /// </summary>
-        /// <param name="pageID">Die Seite</param>
-        /// <returns>Die gefundene Seite oder null</returns>
+        /// <param name="pageID">The setting site id.</param>
+        /// <returns>The setting page found or null.</returns>
         public SettingPageSearchResult FindPage(string pageID)
         {
             foreach (var v in this)
@@ -43,9 +43,9 @@ namespace WebExpress.WebApp.SettingPage
         }
 
         /// <summary>
-        /// Ermittelt die erste Seite
+        /// Returns the first setting page.
         /// </summary>
-        /// <returns>Die erste Seite</returns>
+        /// <returns> The first setting page.</returns>
         public SettingPageSearchResult FindFirstPage()
         {
             var firstPage = null as SettingPageSearchResult;
@@ -85,10 +85,10 @@ namespace WebExpress.WebApp.SettingPage
         }
 
         /// <summary>
-        /// Liefere alle Gruppen, welche sich in der gegebenen Sektion befinden
+        /// Returns all groups that are in the given section.
         /// </summary>
-        /// <param name="section">Die Sektion</param>
-        /// <returns>Eine Auflistung aller Gruppen der gleichen Sektion</returns>
+        /// <param name="section">The section.</param>
+        /// <returns>A listing of all groups in the same section.</returns>
         public SettingPageDictionaryItemGroup GetGroups(SettingSection section)
         {
             if (ContainsKey(section))

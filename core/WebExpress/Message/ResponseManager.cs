@@ -169,7 +169,7 @@ namespace WebExpress.Message
 
             // 1. preferred status page
             var modules = Dictionary.Where(x => x.Value.ContainsKey(status))
-                .SelectMany(x => ComponentManager.ModuleManager.GetModules(x.Key))
+                .SelectMany(x => ModuleManager.GetModules(x.Key))
                 .Where(x => x.Context.GetApplicationContexts().Intersect(applications).Any())
                 .Where(x => x.Context.ModuleID.Equals(module?.ModuleID, StringComparison.OrdinalIgnoreCase));
 
@@ -182,7 +182,7 @@ namespace WebExpress.Message
 
             // 2. if not available, alternatively available status page
             modules = Dictionary.Where(x => x.Value.ContainsKey(status))
-                .SelectMany(x => ComponentManager.ModuleManager.GetModules(x.Key))
+                .SelectMany(x => ModuleManager.GetModules(x.Key))
                 .Where(x => x.Context.GetApplicationContexts().Intersect(applications).Any());
 
             mod = modules.FirstOrDefault();

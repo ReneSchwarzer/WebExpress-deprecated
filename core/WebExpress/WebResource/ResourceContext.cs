@@ -45,6 +45,11 @@ namespace WebExpress.WebResource
         public bool Cache { get; internal set; }
 
         /// <summary>
+        /// Returns the context path.
+        /// </summary>
+        public IUri ContextPath { get; internal set; }
+
+        /// <summary>
         /// Returns the log to write status messages to the console and to a log file.
         /// </summary>
         public Log Log { get; private set; }
@@ -86,7 +91,7 @@ namespace WebExpress.WebResource
         /// <returns>The currently valid context paths that address the resource.</returns>
         public IUri GetContextPath(IApplicationContext applicationContext)
         {
-            return ModuleContext.GetContextPath(applicationContext);                
+            return UriRelative.Combine(ModuleContext.GetContextPath(applicationContext), ContextPath);            
         }
     }
 }

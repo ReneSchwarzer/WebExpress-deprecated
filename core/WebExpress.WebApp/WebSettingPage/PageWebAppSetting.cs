@@ -1,4 +1,7 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net.WebSockets;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
 using WebExpress.WebApp.SettingPage;
@@ -55,11 +58,11 @@ namespace WebExpress.WebApp.WebSettingPage
             SettingMenu.Items.Clear();
             SettingTab.Items.Clear();
 
-            var path = SettingPageManager.FindPage(ApplicationContext, ID);
-            if (path != null)
+            var searchResult = SettingPageManager.FindPage(ApplicationContext, ModuleContext, ID);
+            if (searchResult != null)
             {
                 var contexts = SettingPageManager.GetContexts(ApplicationContext.ApplicationID);
-                var section = SettingPageManager.GetSections(ApplicationContext.ApplicationID, path?.Context);
+                var section = SettingPageManager.GetSections(ApplicationContext.ApplicationID, searchResult?.Context);
 
                 // setting menu
                 AddSettingMenu(section, SettingSection.Preferences, SettingMenu, context);
@@ -75,9 +78,9 @@ namespace WebExpress.WebApp.WebSettingPage
                     {
                         SettingTab.Items.Add(new ControlNavigationItemLink()
                         {
-                            Uri = new UriResource(firstPage.Page.ModuleContext.ContextPath, firstPage.Page.Node?.ExpressionPath),
+                            Uri = new UriResource(firstPage?.Item?.Resource.Context.GetContextPath(ApplicationContext), firstPage?.Item.Resource?.PathSegment.ToString()),
                             Text = settingContext.Name,
-                            Active = path.Context == settingContext.ContextName ? TypeActive.Active : TypeActive.None,
+                            Active = searchResult.Context == settingContext.ContextName ? TypeActive.Active : TypeActive.None,
                         });
                     }
                 }
@@ -108,7 +111,7 @@ namespace WebExpress.WebApp.WebSettingPage
         /// <param name="context">The context for rendering the page.</param>
         private void AddSettingMenu(SettingPageDictionaryItemSection sections, SettingSection section, ControlNavigation control, RenderContextWebApp context)
         {
-            var groups = sections.GetGroups(section);
+            var groups = sections?.GetGroups(section);
 
             if (groups == null)
             {
@@ -121,13 +124,13 @@ namespace WebExpress.WebApp.WebSettingPage
 
                 foreach (var page in group.Pages)
                 {
-                    if (!page.Hide && (!page.Node.Context.Conditions.Any() || page.Node.Context.Conditions.All(x => x.Fulfillment(context.Request))))
+                    if (!page.Hide && (!page.Resource.Context.Conditions.Any() || page.Resource.Context.Conditions.All(x => x.Fulfillment(context.Request))))
                     {
                         control.Items.Add(new ControlNavigationItemLink()
                         {
-                            Text = page.Node?.Title,
+                            Text = page.Resource?.Title,
                             Icon = page.Icon,
-                            Uri = new UriResource(page.ModuleContext.ContextPath, page.Node?.ExpressionPath),
+                            Uri =  new UriResource(page?.Resource.Context.GetContextPath(ApplicationContext), page?.Resource?.PathSegment.ToString()),
                             Active = page.ID.Equals(ID, System.StringComparison.OrdinalIgnoreCase) ? TypeActive.Active : TypeActive.None,
                             NoWrap = true
                         });

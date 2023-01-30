@@ -8,7 +8,9 @@ using WebExpress.WebApp.WebSettingPage;
 using WebExpress.WebApplication;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
+using WebExpress.WebModule;
 using WebExpress.WebPlugin;
+using WebExpress.WebResource;
 using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.WebApp.SettingPage
@@ -60,9 +62,9 @@ namespace WebExpress.WebApp.SettingPage
                 var context = null as string;
                 var group = null as string;
                 var section = SettingSection.Primary;
+                var module = null as IModuleContext;
                 var hide = false;
                 var icon = null as PropertyIcon;
-                var optional = false;
 
                 // determining Attributes
                 foreach (var customAttribute in settingPageType.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IResourceAttribute))))
@@ -87,53 +89,79 @@ namespace WebExpress.WebApp.SettingPage
                     {
                         hide = true;
                     }
+                    else if (customAttribute.AttributeType == typeof(ModuleAttribute))
+                    {
+                        module = ModuleManager.GetModule(pluginContext, customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString());
+                    }
                     else if (customAttribute.AttributeType == typeof(SettingIconAttribute))
                     {
                         var iconAttribute = customAttribute.ConstructorArguments.FirstOrDefault().Value;
                         icon = iconAttribute?.GetType() == typeof(int) ? new PropertyIcon((TypeIcon)Enum.Parse(typeof(TypeIcon), iconAttribute?.ToString())) : new PropertyIcon(new UriRelative(iconAttribute?.ToString()));
                     }
-                    else if (customAttribute.AttributeType == typeof(OptionalAttribute))
-                    {
-                        optional = true;
-                    }
                 }
 
-                // Prüfe ob eine optionale Ressource
-                //    if (optional && !(module.Application.Options.Contains($"{module.ModuleID}.*".ToLower()) || module.Application.Options.Contains($"{module.ModuleID}.{id}".ToLower())))
+                if (string.IsNullOrEmpty(id))
                 {
-                    //        continue;
+                    Context.Log.Warning(message: I18N("webexpress.webapp:pagesettingmanager.idless", pluginContext.PluginID));
+                    break;
                 }
 
-                // Seite mit Metainformationen erzeugen
-                var page = new SettingPageDictionaryItemMetaPage()
+                if (module == null)
+                {
+                    Context.Log.Warning(message: I18N("webexpress.webapp:pagesettingmanager.moduleless", id, pluginContext.PluginID));
+                    break;
+                }
+
+                var resource = ResourceManager.Resources
+                    .Where
+                    (
+                        x => x.Context.ModuleContext.ModuleID.Equals(module.ModuleID, StringComparison.OrdinalIgnoreCase) &&
+                        x.ID.Equals(id, StringComparison.OrdinalIgnoreCase)
+                    )
+                    .FirstOrDefault();
+
+                if (resource == null)
+                {
+                    Context.Log.Warning(message: I18N("webexpress.webapp:pagesettingmanager.resourceless", id, pluginContext.PluginID));
+                    break;
+                }
+
+                // Check if an optional resource
+                if (resource.Optional)
+                {
+                    //continue;
+                }
+
+                // Create meta information of the setting page
+                var page = new SettingPageDictionaryItem()
                 {
                     ID = id,
-                    //        ModuleContext = module,
-                    Type = settingPageType,
-                    //Node = SitemapManager.FindByID(module.Application.ApplicationID, id),
+                    ModuleContext = module,
+                    Resource = resource,
                     Icon = icon,
-                    Hide = hide
+                    Hide = hide,
+                    Context = context,
+                    Section = section,
+                    Group = group
                 };
 
                 // Insert the settings page into the dictionary
-                Dictionary.AddPage(pluginContext, context, section, group, page);
+                Dictionary.AddPage(pluginContext, page);
 
                 // Logging
-                //var log = new List<string>
-                //{
-                //    I18N("webexpress.webapp:pagesettingmanager.register"),
-                //    "    ApplicationID    = " + module?.Application.ApplicationID,
-                //    "    ModuleID         = " + module?.ModuleID,
-                //    "    SettingContext   = " + context ?? "null",
-                //    "    SettingSection   = " + section.ToString(),
-                //    "    SettingGroup     = " + group ?? "null",
-                //    "    SettingPage.ID   = " + page?.ID ?? "null",
-                //    "    SettingPage.Type = " + (page?.Type != null ? page.Type.ToString() : "null"),
-                //    "    SettingPage.Node = " + (page?.Node != null ? page.Node?.ToString() : "null"),
-                //    "    SettingPage.Hide = " + (page?.Hide != null ? page?.Hide.ToString() : "null")
-                //};
+                var log = new List<string>
+                {
+                    I18N("webexpress.webapp:pagesettingmanager.register"),
+                    "    ModuleID             = " + module?.ModuleID,
+                    "    SettingContext       = " + context ?? "null",
+                    "    SettingSection       = " + section.ToString(),
+                    "    SettingGroup         = " + group ?? "null",
+                    "    SettingPage.ID       = " + page?.ID ?? "null",
+                    "    SettingPage.Resource = " + (page?.Resource.ToString()),
+                    "    SettingPage.Hide     = " + (page?.Hide != null ? page?.Hide.ToString() : "null")
+                };
 
-                //    Context.Log.Info(string.Join(Environment.NewLine, log));
+                Context.Log.Info(string.Join(Environment.NewLine, log));
             }
         }
 
@@ -162,12 +190,13 @@ namespace WebExpress.WebApp.SettingPage
         /// Searches for a page by its id.
         /// </summary>
         /// <param name="applicationContext">The application context.</param>
+        /// <param name="moduleContext">the module context.</param>
         /// <param name="pageID">The page.</param>
         /// <returns>The page found, or null.</returns>
         /// <summary>
-        public static SettingPageSearchResult FindPage(IApplicationContext applicationContext, string pageID)
+        public static SettingPageSearchResult FindPage(IApplicationContext applicationContext, IModuleContext moduleContext, string pageID)
         {
-            return Dictionary.FindPage(applicationContext, pageID);
+            return Dictionary.FindPage(applicationContext, moduleContext, pageID);
         }
 
         /// <summary>
