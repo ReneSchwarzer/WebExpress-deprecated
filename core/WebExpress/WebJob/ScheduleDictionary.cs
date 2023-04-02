@@ -1,9 +1,13 @@
 ﻿using System.Collections.Generic;
-using WebExpress.WebModule;
+using WebExpress.WebPlugin;
 
 namespace WebExpress.WebJob
 {
-    internal class ScheduleDictionary : Dictionary<IModuleContext, List<ScheduleDictionaryItem>>
+    /// <summary>
+    /// key = plugin context
+    /// value = ressource items
+    /// </summary>
+    internal class ScheduleDictionary : Dictionary<IPluginContext, IList<ScheduleItem>>
     {
     }
 }

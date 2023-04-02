@@ -4,15 +4,15 @@ using WebExpress.UI.WebPage;
 using WebExpress.Uri;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebApp.WebPage;
-using WebExpress.WebPage;
 using WebExpress.WebResource;
+using WebExpress.WebResponse;
 
 namespace WebExpress.WebApp.WebStatusPage
 {
     /// <summary>
     /// A status page.
     /// </summary>
-    public abstract class PageStatusWebApp<T> : PageControl<RenderContextWebApp>, IPageStatus where T : Response, new()
+    public abstract class PageStatusWebApp<T> : PageControl<RenderContextWebApp>, IStatusPage where T : Response, new()
     {
         /// <summary>
         /// Returns or sets the status code.

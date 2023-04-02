@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using WebExpress.WebModule;
 using WebExpress.WebPlugin;
 
 namespace WebExpress.WebJob
@@ -6,27 +7,32 @@ namespace WebExpress.WebJob
     public interface IJobContext
     {
         /// <summary>
-        /// Das Assembly, welches das Modul enthält
+        /// The assembly that contains the module.
         /// </summary>
         Assembly Assembly { get; }
 
         /// <summary>
-        /// Liefert den Kontext des zugehörigen Plugins
+        /// Returns the associated plugin context.
         /// </summary>
-        IPluginContext Plugin { get; }
+        IPluginContext PluginContext { get; }
 
         /// <summary>
-        /// Liefert die JobID. 
+        /// Returns the corresponding module context.
+        /// </summary>
+        IModuleContext ModuleContext { get; }
+
+        /// <summary>
+        /// Returns the job id. 
         /// </summary>
         string JobID { get; }
 
         /// <summary>
-        /// Liefert die Cron-Werte
+        /// Returns the cron-object.
         /// </summary>
         Cron Cron { get; }
 
         /// <summary>
-        /// Liefert oder setzt das Log, zum schreiben von Statusnachrichten auf die Konsole und in eine Log-Datei
+        /// Returns the log to write status messages to the console and to a log file.
         /// </summary>
         Log Log { get; }
     }

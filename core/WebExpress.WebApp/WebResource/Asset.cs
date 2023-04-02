@@ -1,5 +1,4 @@
-﻿using System.IO;
-using WebExpress.WebAttribute;
+﻿using WebExpress.WebAttribute;
 
 namespace WebExpress.WebApp.WebResource
 {
@@ -8,7 +7,7 @@ namespace WebExpress.WebApp.WebResource
     /// </summary>
     [Id("Asset")]
     [Segment("assets")]
-    [Path("/")]
+    [ContextPath("/")]
     [IncludeSubPaths(true)]
     [Module("webexpress.webapp")]
     public sealed class Asset : WebExpress.WebResource.ResourceAsset

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using WebExpress.Internationalization;
+using WebExpress.Uri;
 using WebExpress.WebApplication;
 using WebExpress.WebModule;
 using WebExpress.WebResource;
@@ -45,7 +46,7 @@ namespace WebExpress.WebSitemap
         /// <summary>
         /// Returns the context of the resource.
         /// </summary>
-        public IResourceContext Context { get; internal set; }
+        public IResourceContext ResourceContext { get; internal set; }
 
         /// <summary>
         /// Returns the context where the resource exists.
@@ -59,6 +60,12 @@ namespace WebExpress.WebSitemap
         public ICollection<SitemapNode> Path { get; internal set; }
 
         /// <summary>
+        /// Returns the uri.
+        /// </summary>
+        /// <returns>The uri.</returns>
+        public IUri Uri { get; internal set; }
+
+        /// <summary>
         /// Returns the variables.
         /// </summary>
         public IDictionary<string, string> Variables { get; } = new Dictionary<string, string>();
@@ -66,41 +73,9 @@ namespace WebExpress.WebSitemap
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">The resource id.</param>
-        /// <param name="title">The resource title.</param>
-        /// <param name="type">The resource type.</param>
-        /// <param name="instance">The instance.</param>
-        /// <param name="applicationContext">The context of the application.</param>
-        /// <param name="moduleContext">The context of the module.</param>
-        /// <param name="context">The context of the resource.</param>
-        /// <param name="resourceContext">The context where the resource exists.</param>
-        /// <param name="path">The path.</param>
-        /// <param name="variables">Variable-value pairs</param>
-        public SearchResult
-        (
-            string id,
-            string title,
-            Type type,
-            IResource instance, 
-            IApplicationContext applicationContext,
-            IModuleContext moduleContext,
-            IResourceContext context,
-            IReadOnlyList<string> resourceContext,
-            ICollection<SitemapNode> path,
-            IDictionary<string, string> variables
-        )
+        internal SearchResult()
         {
-            ID = id;
-            Title = title;
-            Type = type;
-            Instance = instance;
-            ApplicationContext = applicationContext;
-            ModuleContext = moduleContext;
-            Context = context;
-            ResourceContextFilter = resourceContext;
-            Path = path;
 
-            AddVariables(variables);
         }
 
         /// <summary>
@@ -119,7 +94,7 @@ namespace WebExpress.WebSitemap
                     }
                     else
                     {
-                        Context.Log.Warning(message: InternationalizationManager.I18N(InternationalizationManager.DefaultCulture, "webexpress", "resource.variable.duplicate"), args: v.Key);
+                        ResourceContext.Log.Warning(message: InternationalizationManager.I18N(InternationalizationManager.DefaultCulture, "webexpress", "resource.variable.duplicate"), args: v.Key);
                     }
                 }
             }

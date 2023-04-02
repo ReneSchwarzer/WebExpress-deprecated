@@ -27,14 +27,22 @@ namespace WebExpress.Internationalization
         /// <summary>
         /// Returns or sets the reference to the context of the host.
         /// </summary>
-        public IHttpServerContext Context { get; private set; }
+        public IHttpServerContext HttpServerContext { get; private set; }
 
         /// <summary>
         /// Constructor
         /// </summary>
         internal InternationalizationManager()
         {
+            ComponentManager.PluginManager.AddPlugin += (sender, pluginContext) =>
+            {
+                Register(pluginContext);
+            };
 
+            ComponentManager.PluginManager.RemovePlugin += (sender, pluginContext) =>
+            {
+                Remove(pluginContext);
+            };
         }
 
         /// <summary>
@@ -43,10 +51,13 @@ namespace WebExpress.Internationalization
         /// <param name="context">The reference to the context of the host.</param>
         public void Initialization(IHttpServerContext context)
         {
-            Context = context;
-            DefaultCulture = Context.Culture;
+            HttpServerContext = context;
+            DefaultCulture = HttpServerContext.Culture;
 
-            Context.Log.Info(message: I18N("webexpress:internationalizationmanager.initialization"));
+            HttpServerContext.Log.Debug
+            (
+                I18N("webexpress:internationalizationmanager.initialization")
+            );
         }
 
         /// <summary>
@@ -58,7 +69,10 @@ namespace WebExpress.Internationalization
             var pluginID = pluginContext.PluginID;
             Register(pluginContext.Assembly, pluginID);
 
-            Context.Log.Info(message: I18N("webexpress:internationalizationmanager.register", pluginID));
+            HttpServerContext.Log.Debug
+            (
+                I18N("webexpress:internationalizationmanager.register", pluginID)
+            );
         }
 
         /// <summary>
@@ -207,6 +221,17 @@ namespace WebExpress.Internationalization
         public static string I18N(string key, params object[] args)
         {
             return string.Format(I18N(DefaultCulture, null, key), args);
+        }
+
+        /// <summary>
+        /// Information about the component is collected and prepared for output in the log.
+        /// </summary>
+        /// <param name="pluginContext">The context of the plugin.</param>
+        /// <param name="output">A list of log entries.</param>
+        /// <param name="deep">The shaft deep.</param>
+        public void PrepareForLog(IPluginContext pluginContext, IList<string> output, int deep)
+        {
+
         }
     }
 }

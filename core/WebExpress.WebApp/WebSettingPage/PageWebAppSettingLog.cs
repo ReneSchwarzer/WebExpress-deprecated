@@ -18,7 +18,7 @@ namespace WebExpress.WebApp.WebSettingPage
     [Id("SettingLog")]
     [Title("webexpress.webapp:setting.titel.log.label")]
     [Segment("log", "webexpress.webapp:setting.titel.log.label")]
-    [Path("/Setting")]
+    [ContextPath("/Setting")]
     [SettingSection(SettingSection.Secondary)]
     [SettingIcon(TypeIcon.FileMedicalAlt)]
     [SettingGroup("webexpress.webapp:setting.group.system.label")]
@@ -85,7 +85,7 @@ namespace WebExpress.WebApp.WebSettingPage
 
             switchOnForm.Confirm += (s, e) =>
             {
-                ResourceContext.Log.LogModus = Log.Modus.Override;
+                ResourceContext.Log.LogMode = Log.Mode.Override;
                 ResourceContext.Log.Info(this.I18N("webexpress.webapp", "setting.logfile.switchon.success"));
             };
 
@@ -116,8 +116,8 @@ namespace WebExpress.WebApp.WebSettingPage
 
             info.AddRow
             (
-                new ControlText() { Text = this.I18N("webexpress.webapp", "setting.logfile.modus") }, new ControlText() { Text = ResourceContext.Log.LogModus.ToString(), Format = TypeFormatText.Code },
-                ResourceContext.Log.LogModus == Log.Modus.Off ? new ControlButton()
+                new ControlText() { Text = this.I18N("webexpress.webapp", "setting.logfile.modus") }, new ControlText() { Text = ResourceContext.Log.LogMode.ToString(), Format = TypeFormatText.Code },
+                ResourceContext.Log.LogMode == Log.Mode.Off ? new ControlButton()
                 {
                     Text = this.I18N("webexpress.webapp", "setting.logfile.switchon.label"),
                     Modal = new PropertyModal(TypeModal.Modal, switchOnForm),

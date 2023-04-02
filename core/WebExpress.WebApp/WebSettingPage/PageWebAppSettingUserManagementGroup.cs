@@ -1,5 +1,4 @@
-﻿using System.IO;
-using System.Linq;
+﻿using System.Linq;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
 using WebExpress.WebApp.WebAttribute;
@@ -17,7 +16,7 @@ namespace WebExpress.WebApp.WebSettingPage
     [Id("SettingGroup")]
     [Title("webexpress.webapp:setting.usermanager.group.label")]
     [Segment("group", "webexpress.webapp:setting.usermanager.group.label")]
-    [Path("/Setting")]
+    [ContextPath("/Setting")]
     [SettingSection(SettingSection.Primary)]
     [SettingIcon(TypeIcon.Users)]
     [SettingGroup("webexpress.webapp:setting.usermanager.group.usermanagement.label")]

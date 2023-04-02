@@ -1,15 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
-using WebExpress.UI.WebFragment;
 using WebExpress.UI.WebControl;
+using WebExpress.UI.WebFragment;
 using WebExpress.UI.WebPage;
 using WebExpress.Uri;
 using WebExpress.WebApp.WebApiControl;
 using WebExpress.WebApp.WebFragment;
-using WebExpress.WebModule;
-using WebExpress.WebResource;
 using WebExpress.WebComponent;
+using WebExpress.WebResource;
 
 namespace WebExpress.WebApp.WebPage
 {
@@ -81,66 +80,66 @@ namespace WebExpress.WebApp.WebPage
         {
             base.Initialization(context);
 
-            var fm = ComponentManager.GetManager<FragmentManager>();
-            var module = ModuleManager.GetModule(ApplicationContext, "webexpress.webapp");
+            var fm = ComponentManager.GetComponent<FragmentManager>();
+            var module = ComponentManager.ModuleManager.GetModule(ApplicationContext, "webexpress.webapp");
             if (module != null)
             {
-                CssLinks.Add(new UriResource(module.GetContextPath(ApplicationContext), new UriRelative("/assets/css/webexpress.webapp.css")));
-                CssLinks.Add(new UriResource(module.GetContextPath(ApplicationContext), new UriRelative("/assets/css/webexpress.webapp.popupnotification.css")));
-                CssLinks.Add(new UriResource(module.GetContextPath(ApplicationContext), new UriRelative("/assets/css/webexpress.webapp.taskprogressbar.css")));
-                HeaderScriptLinks.Add(module.GetContextPath(ApplicationContext).Append("assets/js/webexpress.webapp.js"));
-                HeaderScriptLinks.Add(module.GetContextPath(ApplicationContext).Append("assets/js/webexpress.webapp.popupnotification.js"));
-                HeaderScriptLinks.Add(module.GetContextPath(ApplicationContext).Append("assets/js/webexpress.webapp.selection.js"));
-                HeaderScriptLinks.Add(module.GetContextPath(ApplicationContext).Append("assets/js/webexpress.webapp.table.js"));
-                HeaderScriptLinks.Add(module.GetContextPath(ApplicationContext).Append("assets/js/webexpress.webapp.taskprogressbar.js"));
+                CssLinks.Add(UriRelative.Combine(module.ContextPath, new UriRelative("/assets/css/webexpress.webapp.css")));
+                CssLinks.Add(UriRelative.Combine(module.ContextPath, new UriRelative("/assets/css/webexpress.webapp.popupnotification.css")));
+                CssLinks.Add(UriRelative.Combine(module.ContextPath, new UriRelative("/assets/css/webexpress.webapp.taskprogressbar.css")));
+                HeaderScriptLinks.Add(module.ContextPath.Append("assets/js/webexpress.webapp.js"));
+                HeaderScriptLinks.Add(module.ContextPath.Append("assets/js/webexpress.webapp.popupnotification.js"));
+                HeaderScriptLinks.Add(module.ContextPath.Append("assets/js/webexpress.webapp.selection.js"));
+                HeaderScriptLinks.Add(module.ContextPath.Append("assets/js/webexpress.webapp.table.js"));
+                HeaderScriptLinks.Add(module.ContextPath.Append("assets/js/webexpress.webapp.taskprogressbar.js"));
             }
 
             // Header
-            HeaderAppNavigatorPreferences.AddRange(fm.CacheComponent<IControlDropdownItem>(Section.AppPreferences, this, context.ContentContext));
-            HeaderAppNavigatorPrimary.AddRange(fm.CacheComponent<IControlDropdownItem>(Section.AppPrimary, this, context.ContentContext));
-            HeaderAppNavigatorSecondary.AddRange(fm.CacheComponent<IControlDropdownItem>(Section.AppSecondary, this, context.ContentContext));
-            HeaderNavigationPreferences.AddRange(fm.CacheComponent<IControlNavigationItem>(Section.AppNavigationPreferences, this, context.ContentContext));
-            HeaderNavigationPrimary.AddRange(fm.CacheComponent<IControlNavigationItem>(Section.AppNavigationPrimary, this, context.ContentContext));
-            HeaderNavigationSecondary.AddRange(fm.CacheComponent<IControlNavigationItem>(Section.AppNavigationSecondary, this, context.ContentContext));
-            HeaderQuickCreatePreferences.AddRange(fm.CacheComponent<IControlSplitButtonItem>(Section.AppQuickcreatePreferences, this, context.ContentContext));
-            HeaderQuickCreatePrimary.AddRange(fm.CacheComponent<IControlSplitButtonItem>(Section.AppQuickcreatePrimary, this, context.ContentContext));
-            HeaderQuickCreateSecondary.AddRange(fm.CacheComponent<IControlSplitButtonItem>(Section.AppQuickcreateSecondary, this, context.ContentContext));
-            HeaderHelpPreferences.AddRange(fm.CacheComponent<IControlDropdownItem>(Section.AppHelpPreferences, this, context.ContentContext));
-            HeaderHelpPrimary.AddRange(fm.CacheComponent<IControlDropdownItem>(Section.AppHelpPrimary, this, context.ContentContext));
-            HeaderHelpSecondary.AddRange(fm.CacheComponent<IControlDropdownItem>(Section.AppHelpSecondary, this, context.ContentContext));
-            HeaderSettingsPrimary.AddRange(fm.CacheComponent<IControlDropdownItem>(Section.AppSettingsPrimary, this, context.ContentContext));
-            HeaderSettingsSecondary.AddRange(fm.CacheComponent<IControlDropdownItem>(Section.AppSettingsSecondary, this, context.ContentContext));
+            HeaderAppNavigatorPreferences.AddRange(fm.CacheFragment<IControlDropdownItem>(Section.AppPreferences, this, context.Context));
+            HeaderAppNavigatorPrimary.AddRange(fm.CacheFragment<IControlDropdownItem>(Section.AppPrimary, this, context.Context));
+            HeaderAppNavigatorSecondary.AddRange(fm.CacheFragment<IControlDropdownItem>(Section.AppSecondary, this, context.Context));
+            HeaderNavigationPreferences.AddRange(fm.CacheFragment<IControlNavigationItem>(Section.AppNavigationPreferences, this, context.Context));
+            HeaderNavigationPrimary.AddRange(fm.CacheFragment<IControlNavigationItem>(Section.AppNavigationPrimary, this, context.Context));
+            HeaderNavigationSecondary.AddRange(fm.CacheFragment<IControlNavigationItem>(Section.AppNavigationSecondary, this, context.Context));
+            HeaderQuickCreatePreferences.AddRange(fm.CacheFragment<IControlSplitButtonItem>(Section.AppQuickcreatePreferences, this, context.Context));
+            HeaderQuickCreatePrimary.AddRange(fm.CacheFragment<IControlSplitButtonItem>(Section.AppQuickcreatePrimary, this, context.Context));
+            HeaderQuickCreateSecondary.AddRange(fm.CacheFragment<IControlSplitButtonItem>(Section.AppQuickcreateSecondary, this, context.Context));
+            HeaderHelpPreferences.AddRange(fm.CacheFragment<IControlDropdownItem>(Section.AppHelpPreferences, this, context.Context));
+            HeaderHelpPrimary.AddRange(fm.CacheFragment<IControlDropdownItem>(Section.AppHelpPrimary, this, context.Context));
+            HeaderHelpSecondary.AddRange(fm.CacheFragment<IControlDropdownItem>(Section.AppHelpSecondary, this, context.Context));
+            HeaderSettingsPrimary.AddRange(fm.CacheFragment<IControlDropdownItem>(Section.AppSettingsPrimary, this, context.Context));
+            HeaderSettingsSecondary.AddRange(fm.CacheFragment<IControlDropdownItem>(Section.AppSettingsSecondary, this, context.Context));
 
             // Sidebar
-            SidebarHeader.AddRange(fm.CacheComponent<IControl>(Section.SidebarHeader, this, context.ContentContext));
-            SidebarPreferences.AddRange(fm.CacheComponent<IControl>(Section.SidebarPreferences, this, context.ContentContext));
-            SidebarPrimary.AddRange(fm.CacheComponent<IControl>(Section.SidebarPrimary, this, context.ContentContext));
-            SidebarSecondary.AddRange(fm.CacheComponent<IControl>(Section.SidebarSecondary, this, context.ContentContext));
+            SidebarHeader.AddRange(fm.CacheFragment<IControl>(Section.SidebarHeader, this, context.Context));
+            SidebarPreferences.AddRange(fm.CacheFragment<IControl>(Section.SidebarPreferences, this, context.Context));
+            SidebarPrimary.AddRange(fm.CacheFragment<IControl>(Section.SidebarPrimary, this, context.Context));
+            SidebarSecondary.AddRange(fm.CacheFragment<IControl>(Section.SidebarSecondary, this, context.Context));
 
             // Headline
-            ContentHeadlinePrologue.AddRange(fm.CacheComponent<IControl>(Section.HeadlinePrologue, this, context.ContentContext));
-            ContentHeadlinePreferences.AddRange(fm.CacheComponent<IControl>(Section.HeadlinePreferences, this, context.ContentContext));
-            ContentHeadlinePrimary.AddRange(fm.CacheComponent<IControl>(Section.HeadlinePrimary, this, context.ContentContext));
-            ContentHeadlineSecondary.AddRange(fm.CacheComponent<IControl>(Section.HeadlineSecondary, this, context.ContentContext));
-            ContentHeadlineMorePreferences.AddRange(fm.CacheComponent<IControlDropdownItem>(Section.MorePreferences, this, context.ContentContext));
-            ContentHeadlineMorePrimary.AddRange(fm.CacheComponent<IControlDropdownItem>(Section.MorePrimary, this, context.ContentContext));
-            ContentHeadlineMoreSecondary.AddRange(fm.CacheComponent<IControlDropdownItem>(Section.MoreSecondary, this, context.ContentContext));
-            ContentHeadlineMetadata.AddRange(fm.CacheComponent<IControl>(Section.Metadata, this, context.ContentContext));
+            ContentHeadlinePrologue.AddRange(fm.CacheFragment<IControl>(Section.HeadlinePrologue, this, context.Context));
+            ContentHeadlinePreferences.AddRange(fm.CacheFragment<IControl>(Section.HeadlinePreferences, this, context.Context));
+            ContentHeadlinePrimary.AddRange(fm.CacheFragment<IControl>(Section.HeadlinePrimary, this, context.Context));
+            ContentHeadlineSecondary.AddRange(fm.CacheFragment<IControl>(Section.HeadlineSecondary, this, context.Context));
+            ContentHeadlineMorePreferences.AddRange(fm.CacheFragment<IControlDropdownItem>(Section.MorePreferences, this, context.Context));
+            ContentHeadlineMorePrimary.AddRange(fm.CacheFragment<IControlDropdownItem>(Section.MorePrimary, this, context.Context));
+            ContentHeadlineMoreSecondary.AddRange(fm.CacheFragment<IControlDropdownItem>(Section.MoreSecondary, this, context.Context));
+            ContentHeadlineMetadata.AddRange(fm.CacheFragment<IControl>(Section.Metadata, this, context.Context));
 
             // Property
-            ContentPropertyPreferences.AddRange(fm.CacheComponent<IControl>(Section.PropertyPreferences, this, context.ContentContext));
-            ContentPropertyPrimary.AddRange(fm.CacheComponent<IControl>(Section.PropertyPrimary, this, context.ContentContext));
-            ContentPropertySecondary.AddRange(fm.CacheComponent<IControl>(Section.PropertySecondary, this, context.ContentContext));
+            ContentPropertyPreferences.AddRange(fm.CacheFragment<IControl>(Section.PropertyPreferences, this, context.Context));
+            ContentPropertyPrimary.AddRange(fm.CacheFragment<IControl>(Section.PropertyPrimary, this, context.Context));
+            ContentPropertySecondary.AddRange(fm.CacheFragment<IControl>(Section.PropertySecondary, this, context.Context));
 
             // Inhalt
-            ContentPreferences.AddRange(fm.CacheComponent<IControl>(Section.ContentPreferences, this, context.ContentContext));
-            ContentPrimary.AddRange(fm.CacheComponent<IControl>(Section.ContentPrimary, this, context.ContentContext));
-            ContentSecondary.AddRange(fm.CacheComponent<IControl>(Section.ContentSecondary, this, context.ContentContext));
+            ContentPreferences.AddRange(fm.CacheFragment<IControl>(Section.ContentPreferences, this, context.Context));
+            ContentPrimary.AddRange(fm.CacheFragment<IControl>(Section.ContentPrimary, this, context.Context));
+            ContentSecondary.AddRange(fm.CacheFragment<IControl>(Section.ContentSecondary, this, context.Context));
 
             // Footer
-            FooterPreferences.AddRange(fm.CacheComponent<IControl>(Section.FooterPreferences, this, context.ContentContext));
-            FooterPrimary.AddRange(fm.CacheComponent<IControl>(Section.FooterPrimary, this, context.ContentContext));
-            FooterSecondary.AddRange(fm.CacheComponent<IControl>(Section.FooterSecondary, this, context.ContentContext));
+            FooterPreferences.AddRange(fm.CacheFragment<IControl>(Section.FooterPreferences, this, context.Context));
+            FooterPrimary.AddRange(fm.CacheFragment<IControl>(Section.FooterPrimary, this, context.Context));
+            FooterSecondary.AddRange(fm.CacheFragment<IControl>(Section.FooterSecondary, this, context.Context));
         }
 
         /// <summary>
@@ -151,7 +150,7 @@ namespace WebExpress.WebApp.WebPage
         {
             base.Process(context);
 
-            context.VisualTree.Favicons.Add(new Favicon(context.Application?.Icon));
+            context.VisualTree.Favicons.Add(new Favicon(context.ApplicationContext?.Icon));
             //context.VisualTree.Header.Logo = context.Application?.Icon;
             //context.VisualTree.Header.AppTitle.Title = this.I18N(context.Application, context.Application?.ApplicationName);
 

@@ -20,14 +20,10 @@ using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.Message;
 using WebExpress.Uri;
-using WebExpress.WebApplication;
 using WebExpress.WebComponent;
-using WebExpress.WebJob;
-using WebExpress.WebModule;
-using WebExpress.WebPackage;
 using WebExpress.WebPage;
-using WebExpress.WebPlugin;
 using WebExpress.WebResource;
+using WebExpress.WebResponse;
 using WebExpress.WebSitemap;
 
 namespace WebExpress
@@ -110,15 +106,6 @@ namespace WebExpress
             if (!HttpListener.IsSupported)
             {
                 Context.Log.Error(message: this.I18N("webexpress:httpserver.notsupported"));
-            }
-
-            if (Config != null)
-            {
-                // start the manager
-                ComponentManager.Execute();
-
-                //// start running the scheduler
-                //ScheduleManager.Execute();
             }
 
             var logger = new LogFactory();
@@ -271,37 +258,34 @@ namespace WebExpress
             var uri = request?.Uri;
 
             Context.Log.Info(message: this.I18N("webexpress:httpserver.connected"), args: context?.RemoteEndPoint);
+            Context.Log.Debug(message: this.I18N("webexpress:httpserver.request"), args: new object[] { context.RemoteEndPoint, $"{request?.Method} {request?.Uri} {request?.Protocoll}" });
 
-            try
+            // search page in sitemap
+            var searchResult = ComponentManager.SitemapManager.SearchResource(context?.Uri, new SearchContext()
             {
-                Context.Log.Debug(message: this.I18N("webexpress:httpserver.request"), args: new object[] { context.RemoteEndPoint, $"{request?.Method} {request?.Uri} {request?.Protocoll}" });
+                Culture = culture,
+                Uri = request?.Uri
+            });
 
-                // search page in sitemap
-                var resource = SitemapManager.Find(context?.Uri.ToString(), new SearchContext()
+            if (searchResult?.Instance != null)
+            {
+                try
                 {
-                    Culture = culture,
-                    Uri = request?.Uri
-                });
+                    // execute resource
+                    request.AddParameter(searchResult.Variables.Select(x => new Parameter(x.Key, x.Value, ParameterScope.Url)));
 
-                // execute resource
-                if (resource?.Instance != null)
-                {
-                    var moduleContext = resource?.Context?.ModuleContext;
-                    request.Uri = new UriResource(moduleContext, uri, resource, culture);
-                    request.AddParameter(resource.Variables.Select(x => new Parameter(x.Key, x.Value, ParameterScope.Url)));
+                    searchResult.Instance?.PreProcess(request);
+                    response = searchResult.Instance?.Process(request);
+                    response = searchResult.Instance?.PostProcess(request, response);
 
-                    resource.Instance?.PreProcess(request);
-                    response = resource.Instance?.Process(request);
-                    response = resource.Instance?.PostProcess(request, response);
-
-                    if (resource.Instance is IPage)
+                    if (searchResult.Instance is IPage)
                     {
                         response.Content += $"<!-- {stopwatch.ElapsedMilliseconds} ms -->";
                     }
 
                     if (response is ResponseNotFound)
                     {
-                        response = CreateStatusPage<ResponseNotFound>(string.Empty, request, resource.Context, resource.ApplicationContext);
+                        response = CreateStatusPage<ResponseNotFound>(string.Empty, request, searchResult);
                     }
 
                     if
@@ -315,33 +299,33 @@ namespace WebExpress
                         response.Header.Cookies.Add(cookie);
                     }
                 }
-                else
+                catch (RedirectException ex)
                 {
-                    // Resource not found
-                    response = CreateStatusPage<ResponseNotFound>(string.Empty, request);
+                    if (ex.Permanet)
+                    {
+                        response = new ResponseRedirectPermanentlyMoved(ex.Url);
+                    }
+                    else
+                    {
+                        response = new ResponseRedirectTemporarilyMoved(ex.Url);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Context.Log.Exception(ex);
+
+                    var message = $"<h4>Message</h4>{ex.Message}<br/><br/>" +
+                            $"<h5>Source</h5>{ex.Source}<br/><br/>" +
+                            $"<h5>StackTrace</h5>{ex.StackTrace.Replace("\n", "<br/>\n")}<br/><br/>" +
+                            $"<h5>InnerException</h5>{ex.InnerException?.ToString().Replace("\n", "<br/>\n")}";
+
+                    response = CreateStatusPage<ResponseInternalServerError>(message, request, searchResult);
                 }
             }
-            catch (RedirectException ex)
+            else
             {
-                if (ex.Permanet)
-                {
-                    response = new ResponseRedirectPermanentlyMoved(ex.Url);
-                }
-                else
-                {
-                    response = new ResponseRedirectTemporarilyMoved(ex.Url);
-                }
-            }
-            catch (Exception ex)
-            {
-                Context.Log.Exception(ex);
-
-                var message = $"<h4>Message</h4>{ex.Message}<br/><br/>" +
-                        $"<h5>Source</h5>{ex.Source}<br/><br/>" +
-                        $"<h5>StackTrace</h5>{ex.StackTrace.Replace("\n", "<br/>\n")}<br/><br/>" +
-                        $"<h5>InnerException</h5>{ex.InnerException?.ToString().Replace("\n", "<br/>\n")}";
-
-                response = CreateStatusPage<ResponseInternalServerError>(message, request);
+                // Resource not found
+                response = CreateStatusPage<ResponseNotFound>(string.Empty, context);
             }
 
             stopwatch.Stop();
@@ -429,14 +413,14 @@ namespace WebExpress
         /// </summary>
         /// <param name="massage">The error message.</param>
         /// <param name="request">The request.</param>
-        /// <param name="applicationContext">The context of the application being called or null.</param>
-        /// <param name="resourceContext">The context of the resource being called or null.</param>
+        /// <param name="searchResult">The search result.</param>
         /// <returns>The response.</returns>
-        private Response CreateStatusPage<T>(string massage, Request request, IResourceContext resourceContext = null, IApplicationContext applicationContext = null) where T : Response, new()
+        private Response CreateStatusPage<T>(string massage, Request request, SearchResult searchResult) where T : Response, new()
         {
             var response = new T() as Response;
             var culture = Culture;
-            var moduleContext = ComponentManager.ResponseManager.GetDefaultModule(response.Status, request?.Uri.ToString(), resourceContext?.ModuleContext);
+            var applicationContext = searchResult.ApplicationContext;
+            var moduleContext = searchResult.ModuleContext;
 
             try
             {
@@ -446,7 +430,7 @@ namespace WebExpress
             {
             }
 
-            IPageStatus statusPage = ComponentManager.ResponseManager.Create(massage, response.Status, applicationContext, moduleContext, new UriAbsolute(request?.Uri.ToString()));
+            IStatusPage statusPage = ComponentManager.ResponseManager.CreateStatusPage(massage, response.Status, applicationContext, moduleContext);
 
             if (statusPage != null)
             {
@@ -460,9 +444,7 @@ namespace WebExpress
                     resource.Initialization(new ResourceContext(moduleContext));
                 }
 
-                statusPage.PreProcess(request);
                 response = statusPage.Process(request);
-                statusPage.PostProcess(request, response);
 
                 return response;
             }
@@ -480,9 +462,8 @@ namespace WebExpress
         {
             var response = new T() as Response;
             var culture = Culture;
-            var moduleContext = ComponentManager.ResponseManager.GetDefaultModule(response.Status, context.Uri.ToString());
 
-            IPageStatus statusPage = ComponentManager.ResponseManager.Create(massage, response.Status, null, moduleContext, new UriAbsolute(context?.Uri.ToString()));
+            IStatusPage statusPage = ComponentManager.ResponseManager.CreateStatusPage(massage, response.Status, null, null);
 
             if (statusPage != null)
             {
@@ -493,12 +474,10 @@ namespace WebExpress
 
                 if (statusPage is Resource resource)
                 {
-                    resource.Initialization(new ResourceContext(moduleContext));
+                    resource.Initialization(new ResourceContext(null));
                 }
 
-                statusPage.PreProcess(null);
                 response = statusPage.Process(null);
-                statusPage.PostProcess(null, response);
 
                 return response;
             }
@@ -524,10 +503,10 @@ namespace WebExpress
         }
 
         /// <summary>
-        /// Verarbeitet einen HttpContext asynchron.
+        /// Processes an http context asynchronously.
         /// </summary>
-        /// <param name="context">Der HttpContext, den der Vorgang verarbeitet.</param>
-        /// <returns>Stellt einen asynchronen Vorgang zur Verfügung, welcher den HttpContext verarbeitet.</returns>
+        /// <param name="context">The http context that the operation processes.</param>
+        /// <returns>Provides an asynchronous operation that handles the http context.</returns>
         public async Task ProcessRequestAsync(HttpContext context)
         {
             if (context is HttpExceptionContext exceptionContext)
@@ -552,10 +531,10 @@ namespace WebExpress
         }
 
         /// <summary>
-        /// Verwerfen eines angegebenen HttpContexts.
+        /// Discard a specified http context.
         /// </summary>
-        /// <param name="context">Der zu verwerfende HttpContext.</param>
-        /// <param name="exception">Die Ausnahme, die ausgelöst wird, wenn die Verarbeitung nicht erfolgreich abgeschlossen wurde, andernfalls NULL.</param>
+        /// <param name="context">The http context to discard.</param>
+        /// <param name="exception">The exception that is thrown if processing did not complete successfully; otherwise null.</param>
         public void DisposeContext(HttpContext context, Exception exception)
         {
         }

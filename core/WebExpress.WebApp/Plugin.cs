@@ -1,5 +1,4 @@
 ﻿using WebExpress.UI.WebFragment;
-using WebExpress.WebApp.SettingPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebPlugin;
@@ -25,14 +24,14 @@ namespace WebExpress.WebApp
         /// <param name="context">The context of the plugin that applies to the execution of the plugin.</param>
         public void Initialization(IPluginContext context)
         {
-            ComponentManager.Register(typeof(SettingPageManager));
+            //ComponentManager.Register(typeof(SettingPageManager));
 
             //UserManager.Initialization(context.Host);
             //IdentityManager.Initialization(context);
 
-            var fragmentManager = ComponentManager.GetManager<FragmentManager>();
+            var fragmentManager = ComponentManager.GetComponent<FragmentManager>();
 
-            fragmentManager.Register(context);
+            //fragmentManager.Register(context);
             ////IdentityManager.Register(context);
         }
 

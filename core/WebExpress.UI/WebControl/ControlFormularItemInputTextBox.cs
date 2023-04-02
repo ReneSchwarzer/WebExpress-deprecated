@@ -3,7 +3,6 @@ using System.Linq;
 using WebExpress.Html;
 using WebExpress.Uri;
 using WebExpress.WebComponent;
-using WebExpress.WebModule;
 using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.UI.WebControl
@@ -92,11 +91,11 @@ namespace WebExpress.UI.WebControl
 
             if (Format == TypesEditTextFormat.Wysiwyg)
             {
-                var module = ModuleManager.GetModule(context.Application, "webexpress.ui");
+                var module = ComponentManager.ModuleManager.GetModule(context.ApplicationContext, "webexpress.ui");
                 if (module != null)
                 {
-                    context.VisualTree.CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/summernote-bs5.min.css")));
-                    context.VisualTree.HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/summernote-bs5.min.js")));
+                    context.VisualTree.CssLinks.Add(UriRelative.Combine(module.ContextPath, new UriRelative("/assets/css/summernote-bs5.min.css")));
+                    context.VisualTree.HeaderScriptLinks.Add(UriRelative.Combine(module.ContextPath, new UriRelative("/assets/js/summernote-bs5.min.js")));
                 }
             }
         }
@@ -129,8 +128,8 @@ namespace WebExpress.UI.WebControl
 
             if (AutoInitialize && Format == TypesEditTextFormat.Wysiwyg && !string.IsNullOrWhiteSpace(Id))
             {
-                var initializeCode = $"$(document).ready(function() {{ $('#{ id }').summernote({{ tabsize: 2, height: '{Rows}rem', lang: 'de-DE' }}); }});";
-    
+                var initializeCode = $"$(document).ready(function() {{ $('#{id}').summernote({{ tabsize: 2, height: '{Rows}rem', lang: 'de-DE' }}); }});";
+
                 context.AddScript(id, initializeCode);
 
                 AutoInitialize = false;

@@ -15,12 +15,13 @@ namespace WebExpress.UI.WebFragment
     /// <summary>
     /// Fragment manager.
     /// </summary>
+    [Id("webexpress.webui.fragmentmanager")]
     public sealed class FragmentManager : IComponentPlugin
     {
         /// <summary>
         /// Returns the reference to the context of the host.
         /// </summary>
-        public IHttpServerContext Context { get; private set; }
+        public IHttpServerContext HttpServerContext { get; private set; }
 
         /// <summary>
         /// Delivers or sets the directory where the components are listed.
@@ -32,7 +33,15 @@ namespace WebExpress.UI.WebFragment
         /// </summary>
         internal FragmentManager()
         {
+            ComponentManager.PluginManager.AddPlugin += (s, e) =>
+            {
+                //AssignToPlugin(e);
+            };
 
+            ComponentManager.PluginManager.RemovePlugin += (s, e) =>
+            {
+                //DetachFromPlugin(e);
+            };
         }
 
         /// <summary>
@@ -41,9 +50,9 @@ namespace WebExpress.UI.WebFragment
         /// <param name="context">The reference to the context of the host.</param>
         public void Initialization(IHttpServerContext context)
         {
-            Context = context;
+            HttpServerContext = context;
 
-            Context.Log.Info(message: I18N("webexpress.ui:fragmentmanager.initialization"));
+            HttpServerContext.Log.Info(message: I18N("webexpress.ui:fragmentmanager.initialization"));
         }
 
         /// <summary>
@@ -95,7 +104,7 @@ namespace WebExpress.UI.WebFragment
                         }
                         else
                         {
-                            Context.Log.Warning(message: I18N("webexpress.ui:fragmentmanager.wrongtype", condition.Name, typeof(ICondition).Name));
+                            HttpServerContext.Log.Warning(message: I18N("webexpress.ui:fragmentmanager.wrongtype", condition.Name, typeof(ICondition).Name));
                         }
                     }
                     else if (customAttribute.AttributeType == typeof(CacheAttribute))
@@ -157,13 +166,13 @@ namespace WebExpress.UI.WebFragment
                                     ApplicationID = appID,
                                     Conditions = conditions,
                                     Cache = cache,
-                                    Log = Context.Log
+                                    Log = HttpServerContext.Log
                                 },
                                 Fragment = component,
                                 Order = order
                             });
 
-                            Context.Log.Info(message: I18N("webexpress.ui:fragmentmanager.register", component.Name, key, appID));
+                            HttpServerContext.Log.Info(message: I18N("webexpress.ui:fragmentmanager.register", component.Name, key, appID));
                         }
                     }
                     else
@@ -181,19 +190,19 @@ namespace WebExpress.UI.WebFragment
                                 ApplicationID = appID,
                                 Conditions = conditions,
                                 Cache = cache,
-                                Log = Context.Log
+                                Log = HttpServerContext.Log
                             },
                             Fragment = component,
                             Order = order
                         });
 
-                        Context.Log.Info(message: I18N("webexpress.ui:fragmentmanager.register", component.Name, section, appID));
+                        HttpServerContext.Log.Info(message: I18N("webexpress.ui:fragmentmanager.register", component.Name, section, appID));
                     }
 
                 }
                 else if (string.IsNullOrWhiteSpace(section))
                 {
-                    Context.Log.Info(message: I18N("webexpress.ui:fragmentmanager.error.section"));
+                    HttpServerContext.Log.Info(message: I18N("webexpress.ui:fragmentmanager.error.section"));
                 }
 
             }
@@ -229,13 +238,13 @@ namespace WebExpress.UI.WebFragment
         }
 
         /// <summary>
-        /// Determines all components that match the parameters.
+        /// Determines all fragments that match the parameters.
         /// </summary>
-        /// <param name="section">The section where the component is embedded.</param>
-        /// <param name="page">The page that holds the components.</param>
-        /// <param name="resourceContextFilter">The context where the components exists.</param>
+        /// <param name="section">The section where the fragment is embedded.</param>
+        /// <param name="page">The page that holds the fragments.</param>
+        /// <param name="resourceContextFilter">The context where the fragments exists.</param>
         /// <returns>A list of components.</returns>
-        public IEnumerable<FragmentCacheItem> CacheComponent<T>(string section, IPage page, IReadOnlyList<string> resourceContextFilter = null) where T : IControl
+        public IEnumerable<FragmentCacheItem> CacheFragment<T>(string section, IPage page, IReadOnlyList<string> resourceContextFilter = null) where T : IControl
         {
             var list = new List<FragmentCacheItem>();
             var appID = page?.ApplicationContext?.ApplicationName?.ToLower();
@@ -330,6 +339,46 @@ namespace WebExpress.UI.WebFragment
             }
 
             return list.Distinct();
+        }
+
+        /// <summary>
+        /// Returns the fragment items.
+        /// </summary>
+        /// <param name="pluginContext">The context of the plugin.</param>
+        /// <returns>A list with the fragment items.</returns>
+        private IEnumerable<FragmentItem> GetFragmentItems(IPluginContext pluginContext)
+        {
+            if (!Dictionary.ContainsKey(pluginContext))
+            {
+                return new List<FragmentItem>();
+            }
+
+            return Dictionary[pluginContext].Values
+                .SelectMany(x => x.Values)
+                .SelectMany(x => x);
+        }
+
+        /// <summary>
+        /// Information about the component is collected and prepared for output in the log.
+        /// </summary>
+        /// <param name="pluginContext">The context of the plugin.</param>
+        /// <param name="output">A list of log entries.</param>
+        /// <param name="deep">The shaft deep.</param>
+        public void PrepareForLog(IPluginContext pluginContext, IList<string> output, int deep)
+        {
+            foreach (var fragmentItem in GetFragmentItems(pluginContext))
+            {
+                //output.Add
+                //(
+                //    string.Empty.PadRight(deep) +
+                //    InternationalizationManager.I18N
+                //    (
+                //        "webexpress:schedulermanager.job",
+                //        fragmentItem.,
+                //        fragmentItem.
+                //    )
+                //);
+            }
         }
     }
 }

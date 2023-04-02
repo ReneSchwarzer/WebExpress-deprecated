@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -40,7 +41,7 @@ namespace WebExpress
         /// <summary>
         /// Enumerations of the log mode.
         /// </summary>
-        public enum Modus { Off, Append, Override };
+        public enum Mode { Off, Append, Override };
 
         /// <summary>
         /// Returns or sets the encoding.
@@ -48,91 +49,58 @@ namespace WebExpress
         public Encoding Encoding { get; set; }
 
         /// <summary>
-        /// Log entry
+        /// Determines whether to display debug output.
         /// </summary>
-        public class LogItem
-        {
-            /// <summary>
-            /// Level of the entry.
-            /// </summary>
-            private readonly Level m_level;
+        public bool DebugMode { get; private set; } = false;
 
-            /// <summary>
-            /// The instance (location).
-            /// </summary>
-            private readonly string m_instance;
+        /// <summary>
+        /// Returns the file name of the log
+        /// </summary>
+        public string Filename { get; set; }
 
-            /// <summary>
-            /// The log message.
-            /// </summary>
-            private readonly string m_message;
+        /// <summary>
+        /// Returns the number of exceptions.
+        /// </summary>
+        public int ExceptionCount { get; protected set; }
 
-            /// <summary>
-            /// The timestamp.
-            /// </summary>
-            private readonly DateTime m_timestamp;
+        /// <summary>
+        /// Returns the number of errors (errors + exceptions).
+        /// </summary>
+        public int ErrorCount { get; protected set; }
 
-            /// <summary>
-            /// Constructor
-            /// </summary>
-            /// <param name="level">The level.</param>
-            /// <param name="instance">The modul/funktion.</param>
-            /// <param name="message">The log message.</param>
-            public LogItem(Level level, string instance, string message, string timePattern)
-            {
-                m_level = level;
-                m_instance = instance;
-                m_message = message;
-                m_timestamp = DateTime.Now;
-                TimePattern = timePattern;
-            }
+        /// <summary>
+        /// Returns the number of warnings.
+        /// </summary>
+        public int WarningCount { get; protected set; }
 
-            /// <summary>
-            /// Converts the value of this instance to a string.
-            /// </summary>
-            /// <returns>The log entry as a string</returns>
-            public override string ToString()
-            {
-                if (m_level != Level.Seperartor)
-                {
-                    return m_timestamp.ToString(TimePattern) + " " + m_level.ToString().PadRight(9, ' ') + " " + m_instance.PadRight(19, ' ').Substring(0, 19) + " " + m_message;
-                }
-                else
-                {
-                    return m_message;
-                }
-            }
+        /// <summary>
+        /// Checks if the log has been opened for writing.
+        /// </summary>
+        public bool IsOpen => m_workerThread != null;
 
-            /// <summary>
-            /// Returns the level of the entry.
-            /// </summary>
-            public Level Level => m_level;
+        /// <summary>
+        /// Returns the log mode.
+        /// </summary>
+        public Mode LogMode { get; set; }
 
-            /// <summary>
-            /// Returns the instance (location).
-            /// </summary>
-            public string Instance => m_instance;
+        /// <summary>
+        /// The default instance of the logger.
+        /// </summary>
+        public static Log Current { get; } = new Log();
 
-            /// <summary>
-            /// Returns the message.
-            /// </summary>
-            public string Message => m_message;
-
-            /// <summary>
-            /// Returns the timestamp.
-            /// </summary>
-            public DateTime Timestamp => m_timestamp;
-
-
-            /// <summary>
-            /// Returns the or set the time patterns for log entries.
-            /// </summary>
-            public string TimePattern { set; get; }
-        };
-
-        private static Log m_this = new Log();
+        /// <summary>
+        /// The directory where the log is created.
+        /// </summary>
         private string m_path;
+
+        /// <summary>
+        /// The thread that takes care of the cyclic writing in the log file.
+        /// </summary>
         private Thread m_workerThread;
+
+        /// <summary>
+        /// Constant that determines the further of the separator rows.
+        /// </summary>
         private const int m_seperatorWidth = 260;
 
         /// <summary>
@@ -153,7 +121,7 @@ namespace WebExpress
             Encoding = Encoding.UTF8;
             FilePattern = "yyyyMMdd";
             TimePattern = "yyyMMddHHmmss";
-            LogModus = Log.Modus.Append;
+            LogMode = Log.Mode.Append;
         }
 
         /// <summary>
@@ -174,7 +142,7 @@ namespace WebExpress
             }
 
             // Delete existing log file when overwrite mode is active
-            if (LogModus == Modus.Override)
+            if (LogMode == Mode.Override)
             {
                 try
                 {
@@ -212,9 +180,10 @@ namespace WebExpress
         public void Begin(SettingLogItem settings)
         {
             Filename = settings.Filename;
-            LogModus = (Modus)Enum.Parse(typeof(Modus), settings.Modus);
+            LogMode = (Mode)Enum.Parse(typeof(Mode), settings.Modus);
             Encoding = Encoding.GetEncoding(settings.Encoding);
             TimePattern = settings.Timepattern;
+            DebugMode = settings.Debug;
 
             Begin(settings.Path, Filename);
         }
@@ -231,26 +200,26 @@ namespace WebExpress
         {
             foreach (var l in message?.Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries))
             {
-                var item = new LogItem(level, instance, l, TimePattern);
-                switch (level)
-                {
-                    case Level.Error:
-                    case Level.FatalError:
-                    case Level.Exception:
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        break;
-                    case Level.Warning:
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        break;
-                    default:
-                        break;
-                }
-
-                Console.WriteLine(item.ToString().Length > m_seperatorWidth ? item.ToString().Substring(0, m_seperatorWidth - 3) + "..." : item.ToString().PadRight(Console.WindowWidth, ' '));
-                Console.ResetColor();
-
                 lock (m_queue)
                 {
+                    var item = new LogItem(level, instance, l, TimePattern);
+                    switch (level)
+                    {
+                        case Level.Error:
+                        case Level.FatalError:
+                        case Level.Exception:
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            break;
+                        case Level.Warning:
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            break;
+                        default:
+                            break;
+                    }
+
+                    Console.WriteLine(item.ToString().Length > m_seperatorWidth ? item.ToString().Substring(0, m_seperatorWidth - 3) + "..." : item.ToString().PadRight(Console.WindowWidth, ' '));
+                    Console.ResetColor();
+
                     m_queue.Enqueue(item);
                 }
             }
@@ -282,7 +251,10 @@ namespace WebExpress
         /// <param name="file">The source file.</param>
         public void Info(string message, [CallerMemberName] string instance = null, [CallerLineNumber] int? line = null, [CallerFilePath] string file = null)
         {
-            Add(Level.Info, message, instance, line, file);
+            var methodInfo = new StackTrace().GetFrame(1).GetMethod();
+            var className = methodInfo.ReflectedType.Name;
+
+            Add(Level.Info, message, $"{className}.{instance}", line, file);
         }
 
         /// <summary>
@@ -295,7 +267,10 @@ namespace WebExpress
         /// <param name="args">Parameter für die Formatierung der Nachricht</param>
         public void Info(string message, [CallerMemberName] string instance = null, [CallerLineNumber] int? line = null, [CallerFilePath] string file = null, params object[] args)
         {
-            Add(Level.Info, string.Format(message, args), instance, line, file);
+            var methodInfo = new StackTrace().GetFrame(1).GetMethod();
+            var className = methodInfo.ReflectedType.Name;
+
+            Add(Level.Info, string.Format(message, args), $"{className}.{instance}", line, file);
         }
 
         /// <summary>
@@ -307,7 +282,10 @@ namespace WebExpress
         /// <param name="file">The source file.</param>
         public void Warning(string message, [CallerMemberName] string instance = null, [CallerLineNumber] int? line = null, [CallerFilePath] string file = null)
         {
-            Add(Level.Warning, message, instance, line, file);
+            var methodInfo = new StackTrace().GetFrame(1).GetMethod();
+            var className = methodInfo.ReflectedType.Name;
+
+            Add(Level.Warning, message, $"{className}.{instance}", line, file);
 
             WarningCount++;
         }
@@ -322,7 +300,10 @@ namespace WebExpress
         /// <param name="args">Parameter für die Formatierung der Nachricht</param>
         public void Warning(string message, [CallerMemberName] string instance = null, [CallerLineNumber] int? line = null, [CallerFilePath] string file = null, params object[] args)
         {
-            Add(Level.Warning, string.Format(message, args), instance, line, file);
+            var methodInfo = new StackTrace().GetFrame(1).GetMethod();
+            var className = methodInfo.ReflectedType.Name;
+
+            Add(Level.Warning, string.Format(message, args), $"{className}.{instance}", line, file);
 
             WarningCount++;
         }
@@ -336,7 +317,10 @@ namespace WebExpress
         /// <param name="file">The source file.</param>
         public void Error(string message, [CallerMemberName] string instance = null, [CallerLineNumber] int? line = null, [CallerFilePath] string file = null)
         {
-            Add(Level.Error, message, instance, line, file);
+            var methodInfo = new StackTrace().GetFrame(1).GetMethod();
+            var className = methodInfo.ReflectedType.Name;
+
+            Add(Level.Error, message, $"{className}.{instance}", line, file);
 
             ErrorCount++;
         }
@@ -351,7 +335,10 @@ namespace WebExpress
         /// <param name="args">Parameter für die Formatierung der Nachricht</param>
         public void Error(string message, [CallerMemberName] string instance = null, [CallerLineNumber] int? line = null, [CallerFilePath] string file = null, params object[] args)
         {
-            Add(Level.Error, string.Format(message, args), instance, line, file);
+            var methodInfo = new StackTrace().GetFrame(1).GetMethod();
+            var className = methodInfo.ReflectedType.Name;
+
+            Add(Level.Error, string.Format(message, args), $"{className}.{instance}", line, file);
 
             ErrorCount++;
         }
@@ -365,7 +352,10 @@ namespace WebExpress
         /// <param name="file">The source file.</param>
         public void FatalError(string message, [CallerMemberName] string instance = null, [CallerLineNumber] int? line = null, [CallerFilePath] string file = null)
         {
-            Add(Level.FatalError, message, instance, line, file);
+            var methodInfo = new StackTrace().GetFrame(1).GetMethod();
+            var className = methodInfo.ReflectedType.Name;
+
+            Add(Level.FatalError, message, $"{className}.{instance}", line, file);
 
             ErrorCount++;
         }
@@ -380,7 +370,10 @@ namespace WebExpress
         /// <param name="args">Parameter für die Formatierung der Nachricht</param>
         public void FatalError(string message, [CallerMemberName] string instance = null, [CallerLineNumber] int? line = null, [CallerFilePath] string file = null, params object[] args)
         {
-            Add(Level.FatalError, string.Format(message, args), instance, line, file);
+            var methodInfo = new StackTrace().GetFrame(1).GetMethod();
+            var className = methodInfo.ReflectedType.Name;
+
+            Add(Level.FatalError, string.Format(message, args), $"{className}.{instance}", line, file);
 
             ErrorCount++;
         }
@@ -394,12 +387,14 @@ namespace WebExpress
         /// <param name="file">The source file.</param>
         public void Exception(Exception ex, [CallerMemberName] string instance = null, [CallerLineNumber] int? line = null, [CallerFilePath] string file = null)
         {
+            var methodInfo = new StackTrace().GetFrame(1).GetMethod();
+            var className = methodInfo.ReflectedType.Name;
+
             lock (m_queue)
             {
-                Add(Level.Exception, ex?.Message.Trim(), instance, line, file);
-#if DEBUG
-                Add(Level.Exception, ex?.StackTrace != null ? ex?.StackTrace.Trim() : ex?.Message.Trim(), instance, line, file);
-#endif
+                Add(Level.Exception, ex?.Message.Trim(), $"{className}.{instance}", line, file);
+                Add(Level.Exception, ex?.StackTrace != null ? ex?.StackTrace.Trim() : ex?.Message.Trim(), $"{className}.{instance}", line, file);
+
                 ExceptionCount++;
                 ErrorCount++;
             }
@@ -414,9 +409,13 @@ namespace WebExpress
         /// <param name="file">The source file.</param>
         public void Debug(string message, [CallerMemberName] string instance = null, [CallerLineNumber] int? line = null, [CallerFilePath] string file = null)
         {
-#if DEBUG
-            Add(Level.Debug, message, instance, line, file);
-#endif
+            var methodInfo = new StackTrace().GetFrame(1).GetMethod();
+            var className = methodInfo.ReflectedType.Name;
+
+            if (DebugMode)
+            {
+                Add(Level.Debug, message, $"{className}.{instance}", line, file);
+            }
         }
 
         /// <summary>
@@ -429,9 +428,13 @@ namespace WebExpress
         /// <param name="args">Parameter für die Formatierung der Nachricht</param>
         public void Debug(string message, [CallerMemberName] string instance = null, [CallerLineNumber] int? line = null, [CallerFilePath] string file = null, params object[] args)
         {
-#if DEBUG
-            Add(Level.Debug, string.Format(message, args), instance, line, file);
-#endif
+            var methodInfo = new StackTrace().GetFrame(1).GetMethod();
+            var className = methodInfo.ReflectedType.Name;
+
+            if (DebugMode)
+            {
+                Add(Level.Debug, string.Format(message, args), $"{className}.{instance}", line, file);
+            }
         }
 
         /// <summary>
@@ -473,7 +476,7 @@ namespace WebExpress
             }
 
             // protect file writing from concurrent access
-            if (list.Count > 0 && LogModus != Modus.Off)
+            if (list.Count > 0 && LogMode != Mode.Off)
             {
                 lock (m_path)
                 {
@@ -556,44 +559,5 @@ namespace WebExpress
         /// Time patternsspecifying log entries.
         /// </summary>
         public string TimePattern { set; get; }
-
-        /// <summary>
-        /// Returns the current log object.
-        /// </summary>
-        public static Log Current
-        {
-            get => m_this;
-            protected set => m_this = value;
-        }
-
-        /// <summary>
-        /// Returns the file name of the log
-        /// </summary>
-        public string Filename { get; set; }
-
-        /// <summary>
-        /// Returns the number of exceptions.
-        /// </summary>
-        public int ExceptionCount { get; protected set; }
-
-        /// <summary>
-        /// Returns the number of errors (errors + exceptions).
-        /// </summary>
-        public int ErrorCount { get; protected set; }
-
-        /// <summary>
-        /// Returns the number of warnings.
-        /// </summary>
-        public int WarningCount { get; protected set; }
-
-        /// <summary>
-        /// Checks if the log has been opened for writing.
-        /// </summary>
-        public bool IsOpen => m_workerThread != null;
-
-        /// <summary>
-        /// Returns the log mode.
-        /// </summary>
-        public Modus LogModus { get; set; }
     }
 }

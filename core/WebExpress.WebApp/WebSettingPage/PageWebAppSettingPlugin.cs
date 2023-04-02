@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
 using WebExpress.Internationalization;
 using WebExpress.Message;
@@ -8,14 +7,11 @@ using WebExpress.WebApp.WebApiControl;
 using WebExpress.WebApp.WebAttribute;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebApp.WebPage;
-using WebExpress.WebApplication;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
-using WebExpress.WebModule;
 using WebExpress.WebPage;
 using WebExpress.WebResource;
 using WebExpress.WebTask;
-using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.WebApp.WebSettingPage
 {
@@ -25,7 +21,7 @@ namespace WebExpress.WebApp.WebSettingPage
     [Id("SettingPlugin")]
     [Title("webexpress.webapp:setting.titel.plugin.label")]
     [Segment("plugin", "webexpress.webapp:setting.titel.plugin.label")]
-    [Path("/Setting")]
+    [ContextPath("/Setting")]
     [SettingSection(SettingSection.Secondary)]
     [SettingIcon(TypeIcon.PuzzlePiece)]
     [SettingGroup("webexpress.webapp:setting.group.system.label")]
@@ -171,7 +167,7 @@ namespace WebExpress.WebApp.WebSettingPage
             plugins.AddColumn(this.I18N("webexpress.webapp", "setting.plugin.name.label"));
             plugins.AddColumn(this.I18N("webexpress.webapp", "setting.plugin.version.label"));
 
-            foreach (var application in ApplicationManager.Applications.Where(x => !x.ApplicationID.StartsWith("webexpress", StringComparison.OrdinalIgnoreCase)))
+            foreach (var application in ComponentManager.ApplicationManager.Applications.Where(x => !x.ApplicationID.StartsWith("webexpress", StringComparison.OrdinalIgnoreCase)))
             {
                 //var plugin = application.PluginContext;
                 //var mudules = ModuleManager.Modules.Where(x => x.Application.ApplicationID.Equals(application.ApplicationID, StringComparison.OrdinalIgnoreCase)).ToList();

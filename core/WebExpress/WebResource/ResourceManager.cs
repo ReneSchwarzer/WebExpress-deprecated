@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using WebExpress.Internationalization;
 using WebExpress.Uri;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebCondition;
 using WebExpress.WebModule;
 using WebExpress.WebPlugin;
-using static WebExpress.Internationalization.InternationalizationManager;
+using WebExpress.WebResponse;
 
 namespace WebExpress.WebResource
 {
@@ -17,26 +18,61 @@ namespace WebExpress.WebResource
     public sealed class ResourceManager : IComponentPlugin, ISystemComponent
     {
         /// <summary>
+        /// An event that fires when an resource is added.
+        /// </summary>
+        public event EventHandler<IResourceContext> AddResource;
+
+        /// <summary>
+        /// An event that fires when an resource is removed.
+        /// </summary>
+        public event EventHandler<IResourceContext> RemoveResource;
+
+        /// <summary>
         /// Returns the reference to the context of the host.
         /// </summary>
-        public IHttpServerContext Context { get; private set; }
+        public IHttpServerContext HttpServerContext { get; private set; }
 
         /// <summary>
         /// Returns the directory where the resources are listed.
         /// </summary>
-        private static ResourceDictionary Dictionary { get; } = new ResourceDictionary();
+        private ResourceDictionary Dictionary { get; } = new ResourceDictionary();
 
         /// <summary>
-        /// Returns all resources
+        /// Returns all resource items
         /// </summary>
-        public static IEnumerable<ResourceItem> Resources => Dictionary.Values.SelectMany(x => x.Values);
+        internal IEnumerable<ResourceItem> ResourceItems => Dictionary.Values.SelectMany(x => x.Values);
+
+        /// <summary>
+        /// Returns all resource contexts
+        /// </summary>
+        internal IEnumerable<IResourceContext> Resources => Dictionary.Values
+            .SelectMany(x => x.Values)
+            .SelectMany(x => x.ResourceContexts);
 
         /// <summary>
         /// Constructor
         /// </summary>
         internal ResourceManager()
         {
+            ComponentManager.PluginManager.AddPlugin += (sender, pluginContext) =>
+            {
+                Register(pluginContext);
+            };
 
+            ComponentManager.PluginManager.RemovePlugin += (sender, pluginContext) =>
+            {
+                Remove(pluginContext);
+            };
+
+            ComponentManager.ModuleManager.AddModule += (sender, moduleContext) =>
+            {
+                AssignToModule(moduleContext);
+            };
+
+            ComponentManager.ModuleManager.RemoveModule += (sender, moduleContext) =>
+            {
+                DetachFromModule(moduleContext);
+            };
         }
 
         /// <summary>
@@ -45,9 +81,12 @@ namespace WebExpress.WebResource
         /// <param name="context">The reference to the context of the host.</param>
         public void Initialization(IHttpServerContext context)
         {
-            Context = context;
+            HttpServerContext = context;
 
-            Context.Log.Info(message: I18N("webexpress:resourcemanager.initialization"));
+            HttpServerContext.Log.Debug
+            (
+                InternationalizationManager.I18N("webexpress:resourcemanager.initialization")
+            );
         }
 
         /// <summary>
@@ -56,21 +95,25 @@ namespace WebExpress.WebResource
         /// <param name="pluginContext">A context of a plugin whose resources are to be registered.</param>
         public void Register(IPluginContext pluginContext)
         {
-            var assembly = pluginContext?.Assembly;
-
-            if (!Dictionary.ContainsKey(pluginContext))
+            if (Dictionary.ContainsKey(pluginContext))
             {
-                Dictionary.Add(pluginContext, new Dictionary<string, ResourceItem>());
+                return;
             }
 
+            var assembly = pluginContext?.Assembly;
+
+            Dictionary.Add(pluginContext, new Dictionary<string, ResourceItem>());
             var dict = Dictionary[pluginContext];
 
-            foreach (var resource in assembly.GetTypes().Where(x => x.IsClass == true && x.IsSealed && x.GetInterface(typeof(IResource).Name) != null))
+            foreach (var resource in assembly.GetTypes()
+                .Where(x => x.IsClass == true && x.IsSealed)
+                .Where(x => x.GetInterface(typeof(IResource).Name) != null)
+                .Where(x => x.GetInterface(typeof(IStatusPage).Name) == null))
             {
                 var id = resource.Name?.ToLower();
                 var segment = null as ISegmentAttribute;
                 var title = resource.Name;
-                var paths = new List<string>();
+                var contextPath = string.Empty;
                 var includeSubPaths = false;
                 var moduleID = string.Empty;
                 var resourceContext = new List<string>();
@@ -78,11 +121,12 @@ namespace WebExpress.WebResource
                 var conditions = new List<ICondition>();
                 var cache = false;
 
-                foreach (var customAttribute in resource.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IResourceAttribute))))
+                foreach (var customAttribute in resource.CustomAttributes
+                    .Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IResourceAttribute))))
                 {
                     if (customAttribute.AttributeType == typeof(IdAttribute))
                     {
-                        id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
+                        id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
                     }
                     else if (customAttribute.AttributeType.GetInterfaces().Contains(typeof(ISegmentAttribute)))
                     {
@@ -94,7 +138,11 @@ namespace WebExpress.WebResource
                     }
                     else if (customAttribute.AttributeType == typeof(PathAttribute))
                     {
-                        paths.Add(customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString());
+                        contextPath = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
+                    }
+                    else if (customAttribute.AttributeType == typeof(ContextPathAttribute))
+                    {
+                        contextPath = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
                     else if (customAttribute.AttributeType == typeof(IncludeSubPathsAttribute))
                     {
@@ -122,7 +170,14 @@ namespace WebExpress.WebResource
                         }
                         else
                         {
-                            Context.Log.Warning(message: I18N("webexpress:resourcemanager.wrongtype", condition.Name, typeof(ICondition).Name));
+                            HttpServerContext.Log.Warning
+                            (
+                                InternationalizationManager.I18N
+                                (
+                                    "webexpress:resourcemanager.wrongtype",
+                                    condition.Name, typeof(ICondition).Name
+                                )
+                            );
                         }
                     }
                     else if (customAttribute.AttributeType == typeof(CacheAttribute))
@@ -131,51 +186,66 @@ namespace WebExpress.WebResource
                     }
                 }
 
-                // determine the associated module 
-                var module = ModuleManager.GetModule(pluginContext, moduleID);
                 if (string.IsNullOrEmpty(moduleID))
                 {
                     // no module specified
-                    Context.Log.Warning(message: I18N("webexpress:resourcemanager.moduleless", id));
-                }
-                else if (module == null)
-                {
-                    // module not found 
-                    Context.Log.Warning(message: I18N("webexpress:resourcemanager.modulenotfound", id, moduleID));
-                }
-                else
-                {
-                    if (!dict.ContainsKey(id))
-                    {
-                        var context = new ResourceContext(module) 
-                        { 
-                            ContextPath = UriRelative.Combine(paths.ToArray()),
-                            ContentContext = resourceContext, 
-                            Conditions = conditions, 
-                            Cache = cache 
-                        };
+                    HttpServerContext.Log.Warning
+                    (
+                        InternationalizationManager.I18N
+                        (
+                            "webexpress:resourcemanager.moduleless",
+                            id
+                        )
+                    );
 
-                        dict.Add(id, new ResourceItem()
-                        {
-                            ID = id,
-                            Title = title,
-                            Type = resource,
-                            Context = context,
-                            ResourceContext = resourceContext,
-                            Cache = cache,
-                            Optional = optional,
-                            Conditions = conditions,
-                            Paths = paths,
-                            IncludeSubPaths = includeSubPaths,
-                            PathSegment = segment.ToPathSegment()
-                        });
+                    continue;
+                }
 
-                        Context.Log.Info(message: I18N("webexpress:resourcemanager.addresource", id, module.ModuleID));
-                    }
-                    else
+                if (!dict.ContainsKey(id))
+                {
+                    var resourceItem = new ResourceItem()
                     {
-                        Context.Log.Warning(message: I18N("webexpress:resourcemanager.addresource.duplicate", id, module.ModuleID));
-                    }
+                        ID = id,
+                        Title = title,
+                        Type = resource,
+                        ModuleID = moduleID,
+                        Context = resourceContext,
+                        Cache = cache,
+                        Optional = optional,
+                        Conditions = conditions,
+                        ContextPath = new UriRelative(contextPath),
+                        IncludeSubPaths = includeSubPaths,
+                        PathSegment = segment.ToPathSegment(),
+                        Log = HttpServerContext.Log
+                    };
+
+                    resourceItem.AddResource += (s, e) =>
+                    {
+                        OnAddResource(e);
+                    };
+
+                    resourceItem.RemoveResource += (s, e) =>
+                    {
+                        OnRemoveResource(e);
+                    };
+
+                    dict.Add(id, resourceItem);
+
+                    HttpServerContext.Log.Debug
+                    (
+                        InternationalizationManager.I18N
+                        (
+                            "webexpress:resourcemanager.addresource",
+                            id,
+                            moduleID
+                        )
+                    );
+                }
+
+                // assign the resource to existing modules.
+                foreach (var moduleContext in ComponentManager.ModuleManager.GetModules(pluginContext, moduleID))
+                {
+                    AssignToModule(moduleContext);
                 }
             }
         }
@@ -193,12 +263,124 @@ namespace WebExpress.WebResource
         }
 
         /// <summary>
+        /// Assign existing resources to the module.
+        /// </summary>
+        /// <param name="moduleContext">The context of the module.</param>
+        private void AssignToModule(IModuleContext moduleContext)
+        {
+            foreach (var resourceItem in Dictionary.Values
+                .SelectMany(x => x.Values)
+                .Where(x => x.ModuleID.Equals(moduleContext?.ModuleID, StringComparison.OrdinalIgnoreCase))
+                .Where(x => !x.IsAssociatedWithModule(moduleContext)))
+            {
+                resourceItem.AddModule(moduleContext);
+            }
+        }
+
+        /// <summary>
+        /// Remove an existing modules to the application.
+        /// </summary>
+        /// <param name="moduleContext">The context of the module.</param>
+        private void DetachFromModule(IModuleContext moduleContext)
+        {
+            foreach (var resourceItem in Dictionary.Values
+                .SelectMany(x => x.Values)
+                .Where(x => !x.IsAssociatedWithModule(moduleContext)))
+            {
+                resourceItem.DetachModule(moduleContext);
+            }
+        }
+
+        /// <summary>
+        /// Renturns an enumeration of all containing resource items of a plugin.
+        /// </summary>
+        /// <param name="pluginContext">A context of a plugin whose resources are to be registered.</param>
+        /// <returns>An enumeration of resource items.</returns>
+        internal IEnumerable<ResourceItem> GetResorceItems(IPluginContext pluginContext)
+        {
+            if (!Dictionary.ContainsKey(pluginContext))
+            {
+                return new List<ResourceItem>();
+            }
+
+            return Dictionary[pluginContext].Values;
+        }
+
+        /// <summary>
+        /// Renturns an enumeration of all containing resource contexts of a plugin.
+        /// </summary>
+        /// <param name="pluginContext">A context of a plugin whose resources are to be registered.</param>
+        /// <returns>An enumeration of resource contexts.</returns>
+        public IEnumerable<IResourceContext> GetResorces(IPluginContext pluginContext)
+        {
+            if (!Dictionary.ContainsKey(pluginContext))
+            {
+                return new List<IResourceContext>();
+            }
+
+            return Dictionary[pluginContext].Values
+                .SelectMany(x => x.ResourceContexts);
+        }
+
+        /// <summary>
         /// Removes all resources associated with the specified plugin context.
         /// </summary>
         /// <param name="pluginContext">The context of the plugin that contains the resources to remove.</param>
         public void Remove(IPluginContext pluginContext)
         {
+            // the plugin has not been registered in the manager
+            if (!Dictionary.ContainsKey(pluginContext))
+            {
+                return;
+            }
 
+            foreach (var resourceItem in Dictionary[pluginContext].Values)
+            {
+                resourceItem.Dispose();
+            }
+
+            Dictionary.Remove(pluginContext);
+        }
+
+        /// <summary>
+        /// Raises the AddResource event.
+        /// </summary>
+        /// <param name="resourceContext">The resource context.</param>
+        private void OnAddResource(IResourceContext resourceContext)
+        {
+            AddResource?.Invoke(this, resourceContext);
+        }
+
+        /// <summary>
+        /// Raises the RemoveResource event.
+        /// </summary>
+        /// <param name="resourceContext">The resource context.</param>
+        private void OnRemoveResource(IResourceContext resourceContext)
+        {
+            RemoveResource?.Invoke(this, resourceContext);
+        }
+
+        /// <summary>
+        /// Information about the component is collected and prepared for output in the log.
+        /// </summary>
+        /// <param name="pluginContext">The context of the plugin.</param>
+        /// <param name="output">A list of log entries.</param>
+        /// <param name="deep">The shaft deep.</param>
+        public void PrepareForLog(IPluginContext pluginContext, IList<string> output, int deep)
+        {
+            foreach (var resourcenItem in GetResorceItems(pluginContext))
+            {
+                output.Add
+                (
+                    string.Empty.PadRight(deep) +
+                    InternationalizationManager.I18N
+                    (
+                        "webexpress:resourcemanager.resource",
+                        resourcenItem.ID,
+                        string.Join(",", resourcenItem.ModuleID)
+                    )
+                );
+            }
         }
     }
 }

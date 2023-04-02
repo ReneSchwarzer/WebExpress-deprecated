@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using WebExpress.WebPlugin;
 
 namespace WebExpress.WebComponent
 {
     /// <summary>
     /// Internal management of components.
-    /// key = type of manager
-    /// value = instance of manager
+    /// key = plugin
+    /// value = component item
     /// </summary>
-    public class ComponentDictionary : Dictionary<Type, IComponent>
+    public class ComponentDictionary : Dictionary<IPluginContext, IList<ComponentItem>>
     {
 
     }

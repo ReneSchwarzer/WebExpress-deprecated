@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Message;
-using WebExpress.UI.WebControl;
 using WebExpress.WebApp.Model;
-using WebExpress.WebApp.WebApiControl;
 using WebExpress.WebApp.WebResource;
 using WebExpress.WebApp.WebUser;
 using WebExpress.WebApp.Wql;
@@ -18,7 +16,7 @@ namespace WebExpress.WebApp.WebAPI.V1
     /// </summary>
     [Id("ApiUserManagementV1")]
     [Segment("user", "")]
-    [Path("/api/v1")]
+    [ContextPath("/api/v1")]
     [Module("webexpress.webapp")]
     [Optional]
     public sealed class RestUserManagement : ResourceRestCrud<WebItemUser>

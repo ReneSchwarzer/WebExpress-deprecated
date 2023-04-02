@@ -1,11 +1,10 @@
 ﻿using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
-using WebExpress.UI.WebFragment;
 using WebExpress.UI.WebControl;
+using WebExpress.UI.WebFragment;
 using WebExpress.WebAttribute;
-using WebExpress.WebModule;
-using WebExpress.WebPage;
 using WebExpress.WebComponent;
+using WebExpress.WebPage;
 
 namespace WebExpress.WebApp.WebFragment
 {
@@ -33,7 +32,7 @@ namespace WebExpress.WebApp.WebFragment
         {
             base.Initialization(context, page);
 
-            var module = ModuleManager.GetModule(page.ApplicationContext, "webexpress.webapp");
+            var module = ComponentManager.ModuleManager.GetModule(page.ApplicationContext, "webexpress.webapp");
 
             RestApiUri = module.ContextPath.Append("/api/v1/user");
 

@@ -16,7 +16,7 @@ namespace WebExpress.WebApp.WebSettingPage
     [Id("SettingSystemInformation")]
     [Title("webexpress.webapp:setting.titel.systeminformation.label")]
     [Segment("systeminformation", "webexpress.webapp:setting.titel.systeminformation.label")]
-    [Path("/Setting")]
+    [ContextPath("/Setting")]
     [SettingSection(SettingSection.Secondary)]
     [SettingIcon(TypeIcon.InfoCircle)]
     [SettingGroup("webexpress.webapp:setting.group.system.label")]
@@ -66,7 +66,7 @@ namespace WebExpress.WebApp.WebSettingPage
             server.AddRow(new ControlText() { Text = this.I18N("webexpress.webapp", "setting.systeminformation.group.server.version") }, new ControlText() { Text = version, Format = TypeFormatText.Code });
             server.AddRow(new ControlText() { Text = this.I18N("webexpress.webapp", "setting.systeminformation.group.server.systemdate") }, new ControlText() { Text = DateTime.Now.ToString(Culture.DateTimeFormat.LongDatePattern), Format = TypeFormatText.Code });
             server.AddRow(new ControlText() { Text = this.I18N("webexpress.webapp", "setting.systeminformation.group.server.systemtime") }, new ControlText() { Text = DateTime.Now.ToString(Culture.DateTimeFormat.LongTimePattern), Format = TypeFormatText.Code });
-            server.AddRow(new ControlText() { Text = this.I18N("webexpress.webapp", "setting.systeminformation.group.server.basisurl") }, new ControlText() { Text = context?.Application.ContextPath.ToString(), Format = TypeFormatText.Code });
+            server.AddRow(new ControlText() { Text = this.I18N("webexpress.webapp", "setting.systeminformation.group.server.basisurl") }, new ControlText() { Text = context?.ApplicationContext.ContextPath.ToString(), Format = TypeFormatText.Code });
             server.AddRow(new ControlText() { Text = this.I18N("webexpress.webapp", "setting.systeminformation.group.server.currentdirectory") }, new ControlText() { Text = Environment.CurrentDirectory, Format = TypeFormatText.Code });
             server.AddRow(new ControlText() { Text = this.I18N("webexpress.webapp", "setting.systeminformation.group.server.memory") }, new ControlText() { Text = memory.ToString(Culture) + " MB", Format = TypeFormatText.Code });
             server.AddRow(new ControlText() { Text = this.I18N("webexpress.webapp", "setting.systeminformation.group.server.executiontime") }, new ControlText() { Text = converter.Convert(DateTime.Now - HttpServer.ExecutionTime, typeof(string), null, null).ToString(), Format = TypeFormatText.Code });

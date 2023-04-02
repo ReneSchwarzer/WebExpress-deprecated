@@ -1,10 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Xml.Serialization;
-using WebExpress.WebApplication;
-using WebExpress.WebModule;
 using WebExpress.WebPlugin;
-using WebExpress.WebResource;
 
 namespace WebExpress.WebPackage
 {
@@ -12,39 +8,39 @@ namespace WebExpress.WebPackage
     public class PackageCatalogItem
     {
         /// <summary>
-        /// Liefert oder setzt die ID
+        /// Returns or sets the id.
         /// </summary>
         [XmlAttribute("id")]
         public string Id { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt den Dateinamen
+        /// Returns or sets the filename.
         /// </summary>
         [XmlAttribute("file")]
         public string File { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt den Zustand
+        /// Returns or sets the state.
         /// </summary>
         [XmlAttribute("state")]
         public PackageCatalogeItemState State { get; set; }
 
         /// <summary>
-        /// Die zum Paket gehörenden Plugins
+        /// Returns the plugins belonging to the package.
         /// </summary>
         [XmlIgnore]
-        public List<IPluginContext> Plugins { get; } = new List<IPluginContext>();
+        public List<IPluginContext> Plugins { get; internal set; } = new List<IPluginContext>();
 
         /// <summary>
-        /// Liefert oder setzt das Paket. Kann null sein, wenn das Paket nicht vorhanden
+        /// Returns the meta information about the package.
         /// </summary>
         [XmlIgnore]
-        public PackageItem Package { get; set; }
+        public PackageItem Metadata { get; set; }
 
         /// <summary>
-        /// Umwandlung in eine Stringreräsentation des Objektes
+        /// Conversion into a string representation of the object.
         /// </summary>
-        /// <returns>Das Objekt als String</returns>
+        /// <returns>The object as a string.</returns>
         public override string ToString()
         {
             return Id;

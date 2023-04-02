@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using WebExpress.Internationalization;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebModule;
 using WebExpress.WebPlugin;
-using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.WebJob
 {
     /// <summary>
     /// Processing of cyclic jobs
     /// </summary>
-    public sealed class ScheduleManager : IComponentPlugin, ISystemComponent
+    public sealed class ScheduleManager : IComponentPlugin, ISystemComponent, IExecutableElements
     {
         /// <summary>
         /// Thread termination.
@@ -29,12 +29,12 @@ namespace WebExpress.WebJob
         /// <summary>
         /// Returns or sets the reference to the context of the host.
         /// </summary>
-        public IHttpServerContext Context { get; private set; }
+        public IHttpServerContext HttpServerContext { get; private set; }
 
         /// <summary>
         /// Returns the directory where the jobs are listed.
         /// </summary>
-        private static ScheduleDictionary Dictionary { get; } = new ScheduleDictionary();
+        private ScheduleDictionary Dictionary { get; } = new ScheduleDictionary();
 
         /// <summary>
         /// Constructor
@@ -50,9 +50,15 @@ namespace WebExpress.WebJob
         /// <param name="context">The reference to the context of the host.</param>
         public void Initialization(IHttpServerContext context)
         {
-            Context = context;
+            HttpServerContext = context;
 
-            Context.Log.Info(message: I18N("webexpress:schedulermanager.initialization"));
+            HttpServerContext.Log.Debug
+            (
+                InternationalizationManager.I18N
+                (
+                    "webexpress:schedulermanager.initialization"
+                )
+            );
         }
 
         /// <summary>
@@ -87,53 +93,75 @@ namespace WebExpress.WebJob
                     moduleID = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
                 }
 
-                // determine the associated module 
-                var module = ModuleManager.GetModule(pluginContext, moduleID);
-                if (string.IsNullOrEmpty(moduleID))
+                if (string.IsNullOrWhiteSpace(moduleID))
                 {
                     // no module specified
-                    pluginContext.Log.Warning(message: I18N("webexpress:schedulermanager.moduleless", id));
+                    pluginContext.Log.Warning
+                    (
+                        InternationalizationManager.I18N
+                        (
+                            "webexpress:schedulermanager.moduleless", id
+                        )
+                    );
                 }
-                else if (module == null)
+
+                var modules = ComponentManager.ModuleManager.GetModules(pluginContext, moduleID);
+                if (!modules.Any())
                 {
                     // module not found
-                    pluginContext.Log.Warning(message: I18N("webexpress:schedulermanager.modulenotfound", moduleID));
+                    pluginContext.Log.Warning
+                    (
+                        InternationalizationManager.I18N
+                        (
+                            "webexpress:schedulermanager.modulenotfound", moduleID
+                        )
+                    );
+
+                    continue;
                 }
-                else if (module.PluginContext != pluginContext)
+
+                // register the job
+                if (!Dictionary.ContainsKey(pluginContext))
                 {
-                    // job is not part of the module
-                    pluginContext.Log.Warning(message: I18N("webexpress:schedulermanager.wrongmodule", module.ModuleID, id));
+                    Dictionary.Add(pluginContext, new List<ScheduleItem>());
                 }
-                else
+
+                var dictItem = Dictionary[pluginContext];
+
+                dictItem.Add(new ScheduleItem()
                 {
-                    // Job registrieren
-                    if (!Dictionary.ContainsKey(module))
+                    Assembly = assembly,
+                    JobID = id,
+                    Type = job,
+                    Cron = new Cron(pluginContext.Host, minute, hour, day, month, weekday),
+                    moduleID = moduleID
+                });
+
+                pluginContext.Log.Debug
+                (
+                    InternationalizationManager.I18N
+                    (
+                        "webexpress:schedulermanager.job.register", moduleID, id
+                    )
+                );
+
+                // assign the job to existing modules.
+                foreach (var moduleContext in modules)
+                {
+                    if (moduleContext.PluginContext != pluginContext)
                     {
-                        Dictionary.Add(module, new List<ScheduleDictionaryItem>());
+                        // job is not part of the module
+                        pluginContext.Log.Warning
+                        (
+                            InternationalizationManager.I18N
+                            (
+                                "webexpress:schedulermanager.wrongmodule",
+                                moduleContext.ModuleID, id
+                            )
+                        );
                     }
 
-                    var dictItem = Dictionary[module];
-
-                    var instance = job?.Assembly.CreateInstance(job?.FullName) as IJob;
-                    var context = new JobContext()
-                    {
-                        Assembly = assembly,
-                        JobID = id,
-                        Plugin = module.PluginContext,
-                        Cron = new Cron(pluginContext.Host, minute, hour, day, month, weekday),
-                        Log = module.Log
-                    };
-
-                    instance.Initialization(context);
-
-                    dictItem.Add(new ScheduleDictionaryItem()
-                    {
-                        Context = context,
-                        Type = job,
-                        Instance = instance
-                    });
-
-                    pluginContext.Log.Info(message: I18N("webexpress:schedulermanager.job.register", module.ModuleID, id));
+                    AssignToModule(moduleContext);
                 }
             }
         }
@@ -148,6 +176,51 @@ namespace WebExpress.WebJob
             {
                 Register(pluginContext);
             }
+        }
+
+        /// <summary>
+        /// Assign existing job to the module.
+        /// </summary>
+        /// <param name="moduleContext">The context of the module.</param>
+        private void AssignToModule(IModuleContext moduleContext)
+        {
+            foreach (var scheduleItem in Dictionary.Values.SelectMany(x => x))
+            {
+                if (scheduleItem.moduleID.Equals(moduleContext?.ModuleID))
+                {
+                    scheduleItem.AddModule(moduleContext);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Remove an existing modules to the job.
+        /// </summary>
+        /// <param name="moduleContext">The context of the module.</param>
+        private void DetachFromModule(IModuleContext moduleContext)
+        {
+            foreach (var scheduleItem in Dictionary.Values.SelectMany(x => x))
+            {
+                if (scheduleItem.moduleID.Equals(moduleContext?.ModuleID))
+                {
+                    scheduleItem.DetachModule(moduleContext);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Retruns the schedule item for a given plugin.
+        /// </summary>
+        /// <param name="pluginContext">The context of the plugin.</param>
+        /// <returns>An enumeration of the schedule item for the given plugin.</returns>
+        internal IEnumerable<ScheduleItem> GetScheduleItems(IPluginContext pluginContext)
+        {
+            if (pluginContext == null || !Dictionary.ContainsKey(pluginContext))
+            {
+                return Enumerable.Empty<ScheduleItem>();
+            }
+
+            return Dictionary[pluginContext];
         }
 
         /// <summary>
@@ -175,16 +248,25 @@ namespace WebExpress.WebJob
         {
             foreach (var clock in Clock.Synchronize())
             {
-                foreach (var item in Dictionary.Values.SelectMany(x => x))
+                foreach (var scheduleItemValue in Dictionary.Values
+                    .SelectMany(x => x)
+                    .SelectMany(x => x.Dictionary.Values))
                 {
-                    if (item.Context.Cron.Matching(Clock))
+                    if (scheduleItemValue.JobContext.Cron.Matching(Clock))
                     {
-                        Context.Log.Info(message: I18N("webexpress:schedulermanager.job.process", item.Context.JobID));
+                        HttpServerContext.Log.Debug
+                        (
+                            InternationalizationManager.I18N
+                            (
+                                "webexpress:schedulermanager.job.process",
+                                scheduleItemValue.JobContext.JobID
+                            )
+                        );
 
                         Task.Factory.StartNew(() =>
                         {
-                            item.Instance?.Process();
-                        });
+                            scheduleItemValue.Instance?.Process();
+                        }, TokenSource.Token);
                     }
                 }
             }
@@ -204,7 +286,41 @@ namespace WebExpress.WebJob
         /// <param name="pluginContext">The context of the plugin that contains the jobs to remove.</param>
         public void Remove(IPluginContext pluginContext)
         {
+            // the plugin has not been registered in the manager
+            if (!Dictionary.ContainsKey(pluginContext))
+            {
+                return;
+            }
 
+            foreach (var scheduleItem in Dictionary[pluginContext])
+            {
+                scheduleItem.Dispose();
+            }
+
+            Dictionary.Remove(pluginContext);
+        }
+
+        /// <summary>
+        /// Information about the component is collected and prepared for output in the log.
+        /// </summary>
+        /// <param name="pluginContext">The context of the plugin.</param>
+        /// <param name="output">A list of log entries.</param>
+        /// <param name="deep">The shaft deep.</param>
+        public void PrepareForLog(IPluginContext pluginContext, IList<string> output, int deep)
+        {
+            foreach (var scheduleItem in GetScheduleItems(pluginContext))
+            {
+                output.Add
+                (
+                    string.Empty.PadRight(deep) +
+                    InternationalizationManager.I18N
+                    (
+                        "webexpress:schedulermanager.job",
+                        scheduleItem.JobID,
+                        scheduleItem.ModuleContext
+                    )
+                );
+            }
         }
     }
 }

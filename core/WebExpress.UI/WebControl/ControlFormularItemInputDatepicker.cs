@@ -1,7 +1,6 @@
 ﻿using WebExpress.Html;
 using WebExpress.Uri;
 using WebExpress.WebComponent;
-using WebExpress.WebModule;
 
 namespace WebExpress.UI.WebControl
 {
@@ -61,12 +60,12 @@ namespace WebExpress.UI.WebControl
 
             Value = context?.Request.GetParameter(Name)?.Value;
 
-            var module = ModuleManager.GetModule(context.Application, "webexpress.ui");
+            var module = ComponentManager.ModuleManager.GetModule(context.ApplicationContext, "webexpress.ui");
             if (module != null)
             {
-                context.VisualTree.HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/bootstrap-datepicker.min.js")));
-                context.VisualTree.HeaderScriptLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/js/locales_datepicker/bootstrap-datepicker." + context.Culture.TwoLetterISOLanguageName.ToLower() + ".min.js")));
-                context.VisualTree.CssLinks.Add(new UriResource(module.ContextPath, new UriRelative("/assets/css/bootstrap-datepicker3.min.css")));
+                context.VisualTree.HeaderScriptLinks.Add(UriRelative.Combine(module.ContextPath, new UriRelative("/assets/js/bootstrap-datepicker.min.js")));
+                context.VisualTree.HeaderScriptLinks.Add(UriRelative.Combine(module.ContextPath, new UriRelative("/assets/js/locales_datepicker/bootstrap-datepicker." + context.Culture.TwoLetterISOLanguageName.ToLower() + ".min.js")));
+                context.VisualTree.CssLinks.Add(UriRelative.Combine(module.ContextPath, new UriRelative("/assets/css/bootstrap-datepicker3.min.css")));
             }
 
             context.AddScript(Id, @"$('#" + Id + @"').datepicker({format: ""dd.mm.yyyy"", todayBtn: true, language: ""de"", zIndexOffset: 999});");

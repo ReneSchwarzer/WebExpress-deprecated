@@ -19,9 +19,9 @@ namespace WebExpress.WebModule
         IPluginContext PluginContext { get; }
 
         /// <summary>
-        /// Returns the associated application ids.
+        /// Returns the associated application context.
         /// </summary>
-        IEnumerable<string> Applications { get; }
+        IApplicationContext ApplicationContext { get; }
 
         /// <summary>
         /// Returns the modul id.
@@ -63,41 +63,41 @@ namespace WebExpress.WebModule
         /// </summary>
         Log Log { get; }
 
-        /// <summary>
-        /// Determines the contexts of the applications referenced by the module.
-        /// </summary>
-        /// <returns>A list of application contexts associated with the module.</returns>
-        IEnumerable<IApplicationContext> GetApplicationContexts();
+        ///// <summary>
+        ///// Determines the contexts of the applications referenced by the module.
+        ///// </summary>
+        ///// <returns>A list of application contexts associated with the module.</returns>
+        //IEnumerable<IApplicationContext> GetApplicationContexts();
 
-        /// <summary>
-        /// Checks whether the application context is related to the module context.
-        /// </summary>
-        /// <returns>True if successful, false otherwise.</returns>
-        bool LinkedWithApplication(IApplicationContext applicationContext);
+        ///// <summary>
+        ///// Checks whether the application context is related to the module context.
+        ///// </summary>
+        ///// <returns>True if successful, false otherwise.</returns>
+        //bool LinkedWithApplication(IApplicationContext applicationContext);
 
-        /// <summary>
-        /// Returns the asset directory. This is mounted in the asset directory of the application.
-        /// </summary>
-        /// <param name="applicationContext">The application context.</param>
-        string GetAssetPath(IApplicationContext applicationContext);
+        ///// <summary>
+        ///// Returns the asset directory. This is mounted in the asset directory of the application.
+        ///// </summary>
+        ///// <param name="applicationContext">The application context.</param>
+        //string GetAssetPath(IApplicationContext applicationContext);
 
-        /// <summary>
-        /// Returns the data directory. This is mounted in the data directory of the application.
-        /// </summary>
-        /// <param name="applicationContext">The application context.</param>
-        string GetDataPath(IApplicationContext applicationContext);
+        ///// <summary>
+        ///// Returns the data directory. This is mounted in the data directory of the application.
+        ///// </summary>
+        ///// <param name="applicationContext">The application context.</param>
+        //string GetDataPath(IApplicationContext applicationContext);
 
-        /// <summary>
-        /// Returns a context path. This is hooked in the context paths of the linked application.
-        /// </summary>
-        /// <param name="applicationContext">The application context to determine the context path.</param>
-        /// <returns>The currently valid context paths that address the module.</returns>
-        IUri GetContextPath(IApplicationContext applicationContext);
+        ///// <summary>
+        ///// Returns a context path. This is hooked in the context paths of the linked application.
+        ///// </summary>
+        ///// <param name="applicationContext">The application context to determine the context path.</param>
+        ///// <returns>The currently valid context paths that address the module.</returns>
+        //IUri GetContextPath(IApplicationContext applicationContext);
 
-        /// <summary>
-        /// Returns the icon uri. This is mounted in the context path of the application.
-        /// </summary>
-        /// <param name="applicationContext">The application context.</param>
-        IUri GetIcon(IApplicationContext applicationContext);
+        ///// <summary>
+        ///// Returns the icon uri. This is mounted in the context path of the application.
+        ///// </summary>
+        ///// <param name="applicationContext">The application context.</param>
+        //IUri GetIcon(IApplicationContext applicationContext);
     }
 }

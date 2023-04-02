@@ -17,12 +17,12 @@ namespace WebExpress
         /// Method that wants to log.
         /// </summary>
         protected string Instance { get; set; }
-        
+
         /// <summary>
         /// The line number.
         /// </summary>
         protected int Line { get; set; }
-        
+
         /// <summary>
         /// The source file.
         /// </summary>

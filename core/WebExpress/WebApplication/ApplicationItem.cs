@@ -8,7 +8,7 @@
         /// <summary>
         /// The context associated with the application.
         /// </summary>
-        public IApplicationContext Context { get; set; }
+        public IApplicationContext ApplicationContext { get; set; }
 
         /// <summary>
         /// The application.

@@ -1,9 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using WebExpress.Uri;
-using WebExpress.WebApplication;
-using WebExpress.WebComponent;
 using WebExpress.WebCondition;
 using WebExpress.WebModule;
 using WebExpress.WebPlugin;
@@ -18,12 +15,12 @@ namespace WebExpress.WebResource
         public Assembly Assembly { get; private set; }
 
         /// <summary>
-        /// Returns the associated plugin.
+        /// Returns the associated plugin context.
         /// </summary>
         public IPluginContext PluginContext { get; private set; }
 
         /// <summary>
-        /// Returns the corresponding module.
+        /// Returns the corresponding module context.
         /// </summary>
         public IModuleContext ModuleContext { get; private set; }
 
@@ -32,12 +29,22 @@ namespace WebExpress.WebResource
         /// is a string with a name (e.g. global, admin), which can be used by elements to 
         /// determine whether content and how content should be displayed.
         /// </summary>
-        public IReadOnlyList<string> ContentContext { get; internal set; }
+        public IReadOnlyList<string> Context { get; internal set; }
 
         /// <summary>
         /// Returns the conditions that must be met for the resource to be active.
         /// </summary>
         public ICollection<ICondition> Conditions { get; internal set; } = new List<ICondition>();
+
+        /// <summary>
+        /// Returns or sets the resource id.
+        /// </summary>
+        public string ResourceID { get; internal set; }
+
+        /// <summary>
+        /// Returns or sets the resource title.
+        /// </summary>
+        public string ResourceTitle { get; internal set; }
 
         /// <summary>
         /// Returns whether the resource is created once and reused each time it is called.
@@ -64,34 +71,6 @@ namespace WebExpress.WebResource
             PluginContext = moduleContext?.PluginContext;
             ModuleContext = moduleContext;
             Log = moduleContext?.Log;
-        }
-
-        /// <summary>
-        /// Determines the contexts of the applications referenced by the module.
-        /// </summary>
-        /// <returns>A list of application contexts associated with the module.</returns>
-        public IEnumerable<IApplicationContext> GetApplicationContexts()
-        {
-            return ComponentManager.ApplicationManager.GetApplcations(ModuleContext.Applications);
-        }
-
-        /// <summary>
-        /// Checks whether the application context is related to the module context.
-        /// </summary>
-        /// <returns>True if successful, false otherwise.</returns>
-        public bool LinkedWithApplication(IApplicationContext applicationContext)
-        {
-            return GetApplicationContexts().Where(x => x == applicationContext).Any();
-        }
-
-        /// <summary>
-        /// Returns a context path. This is hooked in the context paths of the linked modules.
-        /// </summary>
-        /// <param name="applicationContext">The application context to determine the context path.</param>
-        /// <returns>The currently valid context paths that address the resource.</returns>
-        public IUri GetContextPath(IApplicationContext applicationContext)
-        {
-            return UriRelative.Combine(ModuleContext.GetContextPath(applicationContext), ContextPath);            
         }
     }
 }

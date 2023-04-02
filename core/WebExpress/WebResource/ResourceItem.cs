@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using WebExpress.Internationalization;
+using WebExpress.Uri;
 using WebExpress.WebCondition;
+using WebExpress.WebModule;
 
 namespace WebExpress.WebResource
 {
     /// <summary>
     /// A resource element that contains meta information about a resource.
     /// </summary>
-    public class ResourceItem
+    public class ResourceItem : IDisposable
     {
         /// <summary>
         /// Returns or sets the resource id.
@@ -30,21 +33,21 @@ namespace WebExpress.WebResource
         public IResource Instance { get; set; }
 
         /// <summary>
-        /// Provides or sets the context of the resource.
+        /// Returns or sets the module id.
         /// </summary>
-        public IResourceContext Context { get; set; }
+        public string ModuleID { get; set; }
 
         /// <summary>
         /// Returns or sets the context name that provides the resource. The context name 
         /// is a string with a name (e.g. global, admin), which can be used by elements to 
         /// determine whether content and how content should be displayed.
         /// </summary>
-        public IReadOnlyList<string> ResourceContext { get; set; }
+        public IReadOnlyList<string> Context { get; set; }
 
         /// <summary>
         /// Returns or sets the paths of the resource.
         /// </summary>
-        public IReadOnlyList<string> Paths { get; set; }
+        public IUri ContextPath { get; set; }
 
         /// <summary>
         /// Returns or sets the path segment.
@@ -72,12 +75,137 @@ namespace WebExpress.WebResource
         public bool Cache { get; set; }
 
         /// <summary>
+        /// Returns the log to write status messages to the console and to a log file.
+        /// </summary>
+        public Log Log { get; internal set; }
+
+        /// <summary>
+        /// Returns the directory where the module instances are listed.
+        /// </summary>
+        private IDictionary<IModuleContext, IResourceContext> Dictionary { get; }
+            = new Dictionary<IModuleContext, IResourceContext>();
+
+        /// <summary>
+        /// Returns the associated module contexts.
+        /// </summary>
+        public IEnumerable<IModuleContext> ModuleContexts => Dictionary.Keys;
+
+        /// <summary>
+        /// Returns the resource contexts.
+        /// </summary>
+        public IEnumerable<IResourceContext> ResourceContexts => Dictionary.Values;
+
+        /// <summary>
+        /// An event that fires when an ressource is added.
+        /// </summary>
+        public event EventHandler<IResourceContext> AddResource;
+
+        /// <summary>
+        /// An event that fires when an resource is removed.
+        /// </summary>
+        public event EventHandler<IResourceContext> RemoveResource;
+
+        /// <summary>
+        /// Adds an module assignment
+        /// </summary>
+        /// <param name="moduleContext">The context of the module.</param>
+        public void AddModule(IModuleContext moduleContext)
+        {
+            // only if no instance has been created yet
+            if (Dictionary.ContainsKey(moduleContext))
+            {
+                Log.Warning(message: InternationalizationManager.I18N("webexpress:resourcemanager.addresource.duplicate", ID, moduleContext.ModuleID));
+
+                return;
+            }
+
+            // create context
+            var resourceContext = new ResourceContext(moduleContext)
+            {
+                ContextPath = UriRelative.Combine(moduleContext.ContextPath, ContextPath),
+                Context = Context,
+                Conditions = Conditions,
+                ResourceID = ID,
+                ResourceTitle = Title,
+                Cache = Cache
+            };
+
+            Dictionary.Add(moduleContext, resourceContext);
+
+            OnAddResource(resourceContext);
+        }
+
+        /// <summary>
+        /// Remove an module assignment
+        /// </summary>
+        /// <param name="moduleContext">The context of the module.</param>
+        public void DetachModule(IModuleContext moduleContext)
+        {
+            // not an assignment has been created yet
+            if (!Dictionary.ContainsKey(moduleContext))
+            {
+                return;
+            }
+
+            foreach (var resourceContext in Dictionary.Values)
+            {
+                OnRemoveResource(resourceContext);
+            }
+
+            Dictionary.Remove(moduleContext);
+        }
+
+        /// <summary>
+        /// Checks whether a module context is already assigned to the item.
+        /// </summary>
+        /// <param name="moduleContext">The module context.</param>
+        /// <returns>True a mapping exists, false otherwise.</returns>
+        public bool IsAssociatedWithModule(IModuleContext moduleContext)
+        {
+            return Dictionary.ContainsKey(moduleContext);
+        }
+
+        /// <summary>
+        /// Raises the AddResource event.
+        /// </summary>
+        /// <param name="resourceContext">The resource context.</param>
+        private void OnAddResource(IResourceContext resourceContext)
+        {
+            AddResource?.Invoke(this, resourceContext);
+        }
+
+        /// <summary>
+        /// Raises the RemoveResource event.
+        /// </summary>
+        /// <param name="resourceContext">The resource context.</param>
+        private void OnRemoveResource(IResourceContext resourceContext)
+        {
+            RemoveResource?.Invoke(this, resourceContext);
+        }
+
+        /// <summary>
+        /// Performs application-specific tasks related to sharing, returning, or resetting unmanaged resources.
+        /// </summary>
+        public void Dispose()
+        {
+            foreach (Delegate d in AddResource.GetInvocationList())
+            {
+                AddResource -= (EventHandler<IResourceContext>)d;
+            }
+
+            foreach (Delegate d in RemoveResource.GetInvocationList())
+            {
+                RemoveResource -= (EventHandler<IResourceContext>)d;
+            }
+        }
+
+        /// <summary>
         /// Convert the resource element to a string.
         /// </summary>
         /// <returns>The resource element in its string representation.</returns>
         public override string ToString()
         {
-            return ID;
+            return $"Resource '{ID}'";
         }
     }
 }

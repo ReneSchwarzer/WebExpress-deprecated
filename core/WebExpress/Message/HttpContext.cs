@@ -49,6 +49,11 @@ namespace WebExpress.Message
         public IUri Uri { get; internal set; }
 
         /// <summary>
+        /// Returns the uri.
+        /// </summary>
+        //public System.Uri RealUri { get; internal set; }
+
+        /// <summary>
         /// Constructor
         /// </summary>
         internal HttpContext()
@@ -69,6 +74,7 @@ namespace WebExpress.Message
             Features = contextFeatures;
             ID = connectionFeature.ConnectionId;
             Uri = new UriRelative(requestFeature.Path);
+            //RealUri = new System.Uri(requestFeature.Path + (string.IsNullOrWhiteSpace(requestFeature.QueryString) ? "" : $"?{requestFeature.QueryString}"), UriKind.Relative);
             LocalEndPoint = new IPEndPoint(connectionFeature.LocalIpAddress, connectionFeature.LocalPort);
             RemoteEndPoint = new IPEndPoint(connectionFeature.RemoteIpAddress, connectionFeature.RemotePort);
 

@@ -12,7 +12,7 @@ namespace WebExpress.WebApp.WebAPI.V1
     /// </summary>
     [Id("ApiTaskStatusV1")]
     [Segment("taskstatus", "")]
-    [Path("/api/v1")]
+    [ContextPath("/api/v1")]
     [IncludeSubPaths(true)]
     [Module("webexpress.webapp")]
     [Optional]

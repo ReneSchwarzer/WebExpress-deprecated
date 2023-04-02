@@ -44,7 +44,7 @@ namespace WebExpress.WebResource
         {
             lock (Gard)
             {
-                var contextPath = ResourceContext.GetContextPath(ApplicationContext);
+                var contextPath = ResourceContext.ContextPath;
                 var url = request.Uri.ToString()[contextPath.ToString().Length..];
 
                 var path = System.IO.Path.GetFullPath(RootDirectory + url);

@@ -8,7 +8,7 @@
         /// <summary>
         /// Der zum Plugin zugehörige Kontext
         /// </summary>
-        public IPluginContext Context { get; set; }
+        public IPluginContext PluginContext { get; set; }
 
         /// <summary>
         /// Das Plugin

@@ -25,5 +25,13 @@ namespace WebExpress.WebComponent
         /// </summary>
         /// <param name="pluginContext">The context of the plugin that contains the elemets to remove.</param>
         void Remove(IPluginContext pluginContext);
+
+        /// <summary>
+        /// Information about the component is collected and prepared for output in the log.
+        /// </summary>
+        /// <param name="pluginContext">The context of the plugin.</param>
+        /// <param name="output">A list of log entries.</param>
+        /// <param name="deep">The shaft deep.</param>
+        void PrepareForLog(IPluginContext pluginContext, IList<string> output, int deep);
     }
 }

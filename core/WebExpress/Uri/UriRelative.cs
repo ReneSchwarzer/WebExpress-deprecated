@@ -66,7 +66,7 @@ namespace WebExpress.Uri
                 return root;
             }
         }
-        
+
         /// <summary>
         /// Determines if the Uri is the root.
         /// </summary>
@@ -142,6 +142,25 @@ namespace WebExpress.Uri
             {
                 copy.Path.Add(new UriPathSegment(p));
             }
+
+            return copy;
+        }
+
+        /// <summary>
+        /// Adds a path element.
+        /// </summary>
+        /// <param name="path">The path to append.</param>
+        /// <returns>The extended path.</returns>
+        public virtual IUri Append(IUriPathSegment path)
+        {
+            if (path == null)
+            {
+                return this;
+            }
+
+            var copy = new UriRelative(this);
+
+            copy.Path.Add(path);
 
             return copy;
         }

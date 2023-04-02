@@ -11,7 +11,7 @@ namespace WebExpress.WebApp.WebAPI.V1
     /// </summary>
     [Id("ApiPopupNotificationV1")]
     [Segment("popupnotifications", "")]
-    [Path("/api/v1")]
+    [ContextPath("/api/v1")]
     [Module("webexpress.webapp")]
     [IncludeSubPaths(true)]
     [Optional]

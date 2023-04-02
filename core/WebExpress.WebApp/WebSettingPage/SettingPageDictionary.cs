@@ -56,44 +56,47 @@ namespace WebExpress.WebApp.SettingPage
         }
 
         /// <summary>
-        /// Liefere alle Kontexte
+        /// Returns all existing contexts.
         /// </summary>
-        /// <param name="applicationID">Die AnwendungsID</param>
-        /// <returns>Eine Auflistung aller Kontexte</returns>
+        /// <param name="applicationID">The application id.</param>
+        /// <returns>A collection of all contexts.</returns>
         /// <summary>
         public SettingPageDictionaryItemContext GetContexts(string applicationID)
         {
-            var results = Values
-                .Where(
-                    x => x.SelectMany(c => c.Value)
-                          .SelectMany(s => s.Value)
-                          .SelectMany(g => g.Value)
-                          .Where(x => x != null && x.Resource.Context.GetApplicationContexts().Where(x => x.ApplicationID.Equals(applicationID, StringComparison.OrdinalIgnoreCase)).Any())
-                          .Any()
-                );
+            //var results = Values
+            //    .Where(
+            //        x => x.SelectMany(c => c.Value)
+            //              .SelectMany(s => s.Value)
+            //              .SelectMany(g => g.Value)
+            //              .Where(x => x != null && x.Resource.Context.GetApplicationContexts().Where(x => x.ApplicationID.Equals(applicationID, StringComparison.OrdinalIgnoreCase)).Any())
+            //              .Any()
+            //    );
 
-            return results.FirstOrDefault();
+            //return results.FirstOrDefault();
+
+            return null;
         }
 
         /// <summary>
-        /// Liefere alle Sektionen, welche den seleben Settingkontext besitzen
+        /// Returns all sections that have the same setting context.
         /// </summary>
-        /// <param name="applicationID">Die AnwendungsID</param>
+        /// <param name="applicationID">The application id.</param>
         /// <param name="context">The context.</param>
-        /// <returns>Eine Auflistung aller Sektionen des gleichen Kontextes</returns>
+        /// <returns>A listing of all sections of the same context.</returns>
         /// <summary>
         public SettingPageDictionaryItemSection GetSections(string applicationID, string context)
         {
-            var results = Values
-                .SelectMany(x => x.Values)
-                .Where(
-                    x => x.SelectMany(s => s.Value)
-                          .SelectMany(g => g.Value)
-                          .Where(x => x != null && x.Resource.Context.GetApplicationContexts().Where(x => x.ApplicationID.Equals(applicationID, StringComparison.OrdinalIgnoreCase)).Any())
-                          .Any()
-                );
+            //var results = Values
+            //    .SelectMany(x => x.Values)
+            //    .Where(
+            //        x => x.SelectMany(s => s.Value)
+            //              .SelectMany(g => g.Value)
+            //              .Where(x => x != null && x.Resource.Context.GetApplicationContexts().Where(x => x.ApplicationID.Equals(applicationID, StringComparison.OrdinalIgnoreCase)).Any())
+            //              .Any()
+            //    );
 
-            return results.FirstOrDefault();
+            //return results.FirstOrDefault();
+            return null;
         }
     }
 }

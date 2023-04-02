@@ -1,6 +1,4 @@
-﻿using WebExpress.UI.WebFragment;
-using WebExpress.WebAttribute;
-using WebExpress.WebComponent;
+﻿using WebExpress.WebAttribute;
 using WebExpress.WebPlugin;
 
 namespace WebExpress.UI
@@ -24,7 +22,6 @@ namespace WebExpress.UI
         /// <param name="context">The context of the plugin that applies to the execution of the plugin.</param>
         public void Initialization(IPluginContext context)
         {
-            ComponentManager.Register(typeof(FragmentManager));
         }
 
         /// <summary>

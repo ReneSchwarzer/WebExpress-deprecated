@@ -4,11 +4,11 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using WebExpress.Internationalization;
 using WebExpress.Uri;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebPlugin;
-using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.WebApplication
 {
@@ -18,26 +18,44 @@ namespace WebExpress.WebApplication
     public sealed class ApplicationManager : IComponentPlugin, IExecutableElements, ISystemComponent
     {
         /// <summary>
+        /// An event that fires when an application is added.
+        /// </summary>
+        public event EventHandler<IApplicationContext> AddApplication;
+
+        /// <summary>
+        /// An event that fires when an application is removed.
+        /// </summary>
+        public event EventHandler<IApplicationContext> RemoveApplication;
+
+        /// <summary>
         /// Returns or sets the reference to the context of the host.
         /// </summary>
-        public IHttpServerContext Context { get; private set; }
+        public IHttpServerContext HttpServerContext { get; private set; }
 
         /// <summary>
         /// Returns or sets the directory where the applications are listed.
         /// </summary>
-        private static ApplicationDictionary Dictionary { get; } = new ApplicationDictionary();
+        private ApplicationDictionary Dictionary { get; } = new ApplicationDictionary();
 
         /// <summary>
         /// Returns the stored applications.
         /// </summary>
-        public static IEnumerable<IApplicationContext> Applications => Dictionary.Values.SelectMany(x => x.Values).Select(x => x.Context);
+        public IEnumerable<IApplicationContext> Applications => Dictionary.Values.SelectMany(x => x.Values).Select(x => x.ApplicationContext);
 
         /// <summary>
         /// Constructor
         /// </summary>
         internal ApplicationManager()
         {
+            ComponentManager.PluginManager.AddPlugin += (sender, pluginContext) =>
+            {
+                Register(pluginContext);
+            };
 
+            ComponentManager.PluginManager.RemovePlugin += (sender, pluginContext) =>
+            {
+                Remove(pluginContext);
+            };
         }
 
         /// <summary>
@@ -46,9 +64,12 @@ namespace WebExpress.WebApplication
         /// <param name="context">The reference to the context of the host.</param>
         public void Initialization(IHttpServerContext context)
         {
-            Context = context;
+            HttpServerContext = context;
 
-            Context.Log.Info(message: I18N("webexpress:applicationmanager.initialization"));
+            HttpServerContext.Log.Debug
+            (
+                InternationalizationManager.I18N("webexpress:applicationmanager.initialization")
+            );
         }
 
         /// <summary>
@@ -57,10 +78,13 @@ namespace WebExpress.WebApplication
         /// <param name="pluginContext">A context of a plugin whose applications are to be registered.</param>
         public void Register(IPluginContext pluginContext)
         {
-            if (!Dictionary.ContainsKey(pluginContext))
+            // the plugin has already been registered
+            if (Dictionary.ContainsKey(pluginContext))
             {
-                Dictionary.Add(pluginContext, new Dictionary<string, ApplicationItem>());
+                return;
             }
+
+            Dictionary.Add(pluginContext, new Dictionary<string, ApplicationItem>());
 
             var assembly = pluginContext.Assembly;
             var pluginDict = Dictionary[pluginContext];
@@ -76,7 +100,7 @@ namespace WebExpress.WebApplication
                 var dataPath = Path.DirectorySeparatorChar.ToString();
                 var options = new List<string>();
 
-                // Attribute ermitteln
+                // determining attributes
                 foreach (var customAttribute in type.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IApplicationAttribute))))
                 {
                     if (customAttribute.AttributeType == typeof(IdAttribute))
@@ -113,8 +137,8 @@ namespace WebExpress.WebApplication
                     }
                 }
 
-                // Creating application context
-                var context = new ApplicationContext()
+                // creating application context
+                var applicationContext = new ApplicationContext()
                 {
                     Assembly = assembly,
                     PluginContext = pluginContext,
@@ -122,29 +146,39 @@ namespace WebExpress.WebApplication
                     ApplicationName = name,
                     Description = description,
                     Options = options,
-                    AssetPath = Path.GetFullPath(Context.AssetPath + Path.Combine(assetPath)),
-                    DataPath = Path.GetFullPath(Context.DataPath + dataPath),
-                    ContextPath = UriRelative.Combine(Context.ContextPath, contextPath),
-                    Icon = new UriResource(Context.ContextPath, contextPath, icon),
-                    Log = Context.Log
+                    AssetPath = Path.GetFullPath(HttpServerContext.AssetPath + Path.Combine(assetPath)),
+                    DataPath = Path.GetFullPath(HttpServerContext.DataPath + dataPath),
+                    Icon = UriRelative.Combine(HttpServerContext.ContextPath, contextPath, icon),
+                    Log = HttpServerContext.Log
                 };
 
-                // Create application
-                var application = (IApplication)type.Assembly.CreateInstance(type.FullName);
+                applicationContext.ContextPath = UriRelative.Combine(HttpServerContext.ContextPath, contextPath);
+
+                // create application
+                var applicationInstance = (IApplication)type.Assembly.CreateInstance(type.FullName);
 
                 if (!pluginDict.ContainsKey(id))
                 {
                     pluginDict.Add(id, new ApplicationItem()
                     {
-                        Context = context,
-                        Application = application
+                        ApplicationContext = applicationContext,
+                        Application = applicationInstance
                     });
 
-                    Context.Log.Info(message: I18N("webexpress:applicationmanager.register", id));
+                    HttpServerContext.Log.Debug
+                    (
+                        InternationalizationManager.I18N("webexpress:applicationmanager.register", id)
+                    );
+
+                    // raises the AddApplication event
+                    OnAddApplication(applicationContext);
                 }
                 else
                 {
-                    Context.Log.Warning(message: I18N("webexpress:applicationmanager.duplicate", id));
+                    HttpServerContext.Log.Warning
+                    (
+                        InternationalizationManager.I18N("webexpress:applicationmanager.duplicate", id)
+                    );
                 }
             }
         }
@@ -177,7 +211,7 @@ namespace WebExpress.WebApplication
 
             if (items != null)
             {
-                return items.Context;
+                return items.ApplicationContext;
             }
 
             return null;
@@ -227,7 +261,7 @@ namespace WebExpress.WebApplication
                 return new List<IApplicationContext>();
             }
 
-            return Dictionary[pluginContext].Values.Select(x => x.Context);
+            return Dictionary[pluginContext].Values.Select(x => x.ApplicationContext);
         }
 
         /// <summary>
@@ -238,7 +272,14 @@ namespace WebExpress.WebApplication
         {
             if (!Dictionary.ContainsKey(pluginContext))
             {
-                Context.Log.Warning(message: I18N("webexpress:applicationmanager.application.boot.notfound", pluginContext.PluginID));
+                HttpServerContext.Log.Warning
+                (
+                    InternationalizationManager.I18N
+                    (
+                        "webexpress:applicationmanager.application.boot.notfound",
+                        pluginContext.PluginID
+                    )
+                );
 
                 return;
             }
@@ -246,17 +287,37 @@ namespace WebExpress.WebApplication
             foreach (var applicationItem in Dictionary[pluginContext].Values)
             {
                 // Initialize application
-                applicationItem.Application.Initialization(applicationItem.Context);
-                Context.Log.Info(message: I18N("webexpress:applicationmanager.application.initialization", applicationItem.Context.ApplicationID));
+                applicationItem.Application.Initialization(applicationItem.ApplicationContext);
+                HttpServerContext.Log.Debug
+                (
+                    InternationalizationManager.I18N
+                    (
+                        "webexpress:applicationmanager.application.initialization",
+                        applicationItem.ApplicationContext.ApplicationID
+                    )
+                );
 
                 // Run the application concurrently
                 Task.Run(() =>
                 {
-                    Context.Log.Info(message: I18N("webexpress:applicationmanager.application.processing.start", applicationItem.Context.ApplicationID));
+                    HttpServerContext.Log.Debug
+                    (
+                        InternationalizationManager.I18N
+                        (
+                            "webexpress:applicationmanager.application.processing.start",
+                            applicationItem.ApplicationContext.ApplicationID)
+                        );
 
                     applicationItem.Application.Run();
 
-                    Context.Log.Info(message: I18N("webexpress:applicationmanager.application.processing.end", applicationItem.Context.ApplicationID));
+                    HttpServerContext.Log.Debug
+                    (
+                        InternationalizationManager.I18N
+                        (
+                            "webexpress:applicationmanager.application.processing.end",
+                            applicationItem.ApplicationContext.ApplicationID
+                        )
+                    );
                 });
             }
         }
@@ -276,7 +337,53 @@ namespace WebExpress.WebApplication
         /// <param name="pluginContext">The context of the plugin that contains the applications to remove.</param>
         public void Remove(IPluginContext pluginContext)
         {
+            if (!Dictionary.ContainsKey(pluginContext))
+            {
+                return;
+            }
 
+            foreach (var applicationContext in Dictionary[pluginContext])
+            {
+                OnRemoveApplication(applicationContext.Value.ApplicationContext);
+            }
+
+            Dictionary.Remove(pluginContext);
+        }
+
+        /// <summary>
+        /// Raises the AddApplication event.
+        /// </summary>
+        /// <param name="applicationContext">The application context.</param>
+        private void OnAddApplication(IApplicationContext applicationContext)
+        {
+            AddApplication?.Invoke(this, applicationContext);
+        }
+
+        /// <summary>
+        /// Raises the RemoveApplication event.
+        /// </summary>
+        /// <param name="applicationContext">The application context.</param>
+        private void OnRemoveApplication(IApplicationContext applicationContext)
+        {
+            RemoveApplication?.Invoke(this, applicationContext);
+        }
+
+        /// <summary>
+        /// Information about the component is collected and prepared for output in the log.
+        /// </summary>
+        /// <param name="pluginContext">The context of the plugin.</param>
+        /// <param name="output">A list of log entries.</param>
+        /// <param name="deep">The shaft deep.</param>
+        public void PrepareForLog(IPluginContext pluginContext, IList<string> output, int deep)
+        {
+            foreach (var applicationContext in GetApplcations(pluginContext))
+            {
+                output.Add
+                (
+                    string.Empty.PadRight(deep) +
+                    InternationalizationManager.I18N("webexpress:applicationmanager.application", applicationContext.ApplicationID)
+                );
+            }
         }
     }
 }

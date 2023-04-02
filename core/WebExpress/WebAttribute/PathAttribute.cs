@@ -2,6 +2,7 @@
 
 namespace WebExpress.WebAttribute
 {
+    [Obsolete]
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
     public class PathAttribute : System.Attribute, IResourceAttribute
     {

@@ -10,7 +10,7 @@ namespace WebExpress.WebApp.WebSettingPage
     /// </summary>
     [Id("SettingLogDownload")]
     [Segment("download", "")]
-    [Path("/Setting/SettingLog")]
+    [ContextPath("/Setting/SettingLog")]
     [Module("webexpress.webapp")]
     [Context("admin")]
     [Optional]

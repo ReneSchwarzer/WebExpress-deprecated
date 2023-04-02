@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Session;
 using System.IO;
 using System.Net;
+using WebExpress.Message;
 
 namespace WebExpress.Test.Message
 {
@@ -15,7 +16,7 @@ namespace WebExpress.Test.Message
         /// <param name="method">Die Anfragemethode</param>
         /// <param name="queryString">Der Querystring</param>
         /// <returns>FeatureCollection</returns>
-        protected static IFeatureCollection Prepare(BinaryReader reader, WebExpress.Message.RequestMethod method, string queryString)
+        protected static IFeatureCollection Prepare(BinaryReader reader, RequestMethod method, string queryString)
         {
             var contextFeatures = new FeatureCollection();
             contextFeatures.Set<IHttpConnectionFeature>(new HttpConnectionFeature() 

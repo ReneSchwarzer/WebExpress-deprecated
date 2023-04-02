@@ -138,7 +138,7 @@ namespace WebExpress.UI.WebControl
             // ID überprüfen
             if (string.IsNullOrWhiteSpace(Id))
             {
-                context.Application.Log.Warning(I18N("webexpress.ui:form.empty.id"));
+                context.ApplicationContext.Log.Warning(I18N("webexpress.ui:form.empty.id"));
             }
 
             FormularId.Value = Id;

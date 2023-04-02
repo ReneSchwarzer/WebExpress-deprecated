@@ -20,9 +20,19 @@ namespace WebExpress.WebPackage
     public sealed class PackageManager : IComponent, ISystemComponent
     {
         /// <summary>
+        /// An event that fires when an package is added.
+        /// </summary>
+        public static event EventHandler<PackageCatalogItem> AddPackage;
+
+        /// <summary>
+        /// An event that fires when an package is removed.
+        /// </summary>
+        public static event EventHandler<PackageCatalogItem> RemovePackage;
+
+        /// <summary>
         /// Returns or sets the reference to the context of the host.
         /// </summary>
-        public IHttpServerContext Context { get; private set; }
+        public IHttpServerContext HttpServerContext { get; private set; }
 
         /// <summary>
         /// Thread Termination.
@@ -48,9 +58,12 @@ namespace WebExpress.WebPackage
         /// <param name="context">The reference to the context of the host.</param>
         public void Initialization(IHttpServerContext context)
         {
-            Context = context;
+            HttpServerContext = context;
 
-            Context.Log.Info(message: InternationalizationManager.I18N("webexpress:packagemanager.initialization"));
+            HttpServerContext.Log.Debug
+            (
+                InternationalizationManager.I18N("webexpress:packagemanager.initialization")
+            );
         }
 
         /// <summary>
@@ -59,23 +72,26 @@ namespace WebExpress.WebPackage
         internal void Execute()
         {
             // load the default plugins
-            var plugins = ComponentManager.PluginManager.Register();
+            ComponentManager.PluginManager.Register();
 
-            // register default elements
-            ComponentManager.Register(plugins);
+            //// register default elements
+            //ComponentManager.Register(plugins);
 
-            // boot default elements 
-            ComponentManager.PluginManager.Boot(plugins);
+            //// boot default elements 
+            //ComponentManager.PluginManager.Boot(plugins);
 
             LoadCatalog();
 
             foreach (var package in Catalog.Packages)
             {
-                var packagesFromFile = LoadPackage(Path.Combine(Context.PackagePath, package.File));
+                var packagesFromFile = LoadPackage(Path.Combine(HttpServerContext.PackagePath, package.File));
 
-                package.Package = packagesFromFile?.Package;
+                package.Metadata = packagesFromFile?.Metadata;
 
-                Context.Log.Info(message: InternationalizationManager.I18N("webexpress:packagemanager.existing", package.File));
+                HttpServerContext.Log.Debug
+                (
+                    InternationalizationManager.I18N("webexpress:packagemanager.existing", package.File)
+                );
 
                 if (package.State != PackageCatalogeItemState.Disable)
                 {
@@ -117,10 +133,17 @@ namespace WebExpress.WebPackage
         /// </summary>
         public void Scan()
         {
-            Context.Log.Info(message: InternationalizationManager.I18N("webexpress:packagemanager.scan", Context.PackagePath));
+            HttpServerContext.Log.Debug
+            (
+                InternationalizationManager.I18N
+                (
+                    "webexpress:packagemanager.scan",
+                    HttpServerContext.PackagePath
+                )
+            );
 
             // determine all WebExpress packages from the file system
-            var packageFiles = Directory.GetFiles(Context.PackagePath, "*.wxp").Select(x => Path.GetFileName(x)).ToList();
+            var packageFiles = Directory.GetFiles(HttpServerContext.PackagePath, "*.wxp").Select(x => Path.GetFileName(x)).ToList();
 
             // all packages that are not yet installed
             var newPackages = packageFiles.Except(Catalog.Packages.Where(x => x != null).Select(x => x.File)).ToList();
@@ -133,7 +156,7 @@ namespace WebExpress.WebPackage
 
             foreach (var package in newPackages)
             {
-                var packagesFromFile = LoadPackage(Path.Combine(Context.PackagePath, package));
+                var packagesFromFile = LoadPackage(Path.Combine(HttpServerContext.PackagePath, package));
 
                 ExtractPackage(packagesFromFile);
                 RegisterPackage(packagesFromFile);
@@ -141,16 +164,30 @@ namespace WebExpress.WebPackage
 
                 Catalog.Packages.Add(packagesFromFile);
 
-                Context.Log.Info(message: InternationalizationManager.I18N("webexpress:packagemanager.add", package));
+                HttpServerContext.Log.Debug
+                (
+                    InternationalizationManager.I18N
+                    (
+                        "webexpress:packagemanager.add",
+                        package
+                    )
+                );
             }
 
             foreach (var package in removePackages)
             {
-                var packagesFromFile = LoadPackage(Path.Combine(Context.PackagePath, package));
+                var packagesFromFile = LoadPackage(Path.Combine(HttpServerContext.PackagePath, package));
 
                 Catalog.Packages.Add(packagesFromFile);
 
-                Context.Log.Info(message: InternationalizationManager.I18N("webexpress:packagemanager.remove", package));
+                HttpServerContext.Log.Debug
+                (
+                    InternationalizationManager.I18N
+                    (
+                        "webexpress:packagemanager.remove",
+                        package
+                    )
+                );
             }
 
             // 2. alle WebExpress-Pakete aus dem Filesystem ermitteln 
@@ -237,7 +274,7 @@ namespace WebExpress.WebPackage
                         Id = spec.Id,
                         File = Path.GetFileName(file),
                         State = PackageCatalogeItemState.Available,
-                        Package = new PackageItem()
+                        Metadata = new PackageItem()
                         {
                             FileName = Path.GetFileName(file),
                             Id = spec.Id,
@@ -260,10 +297,17 @@ namespace WebExpress.WebPackage
             }
             catch (Exception ex)
             {
-                Context.Log.Exception(ex);
+                HttpServerContext.Log.Exception(ex);
             }
 
-            Context.Log.Info(message: InternationalizationManager.I18N("webexpress:packagemanager.packagenotfound", file));
+            HttpServerContext.Log.Debug
+            (
+                InternationalizationManager.I18N
+                (
+                    "webexpress:packagemanager.packagenotfound",
+                    file
+                )
+            );
 
             return null;
         }
@@ -273,7 +317,7 @@ namespace WebExpress.WebPackage
         /// </summary>
         private void LoadCatalog()
         {
-            var catalogeFile = Path.Combine(Context.PackagePath, "catalog.xml");
+            var catalogeFile = Path.Combine(HttpServerContext.PackagePath, "catalog.xml");
             if (File.Exists(catalogeFile))
             {
                 using var catalog = new StreamReader(catalogeFile);
@@ -281,6 +325,7 @@ namespace WebExpress.WebPackage
                 var items = (PackageCatalog)serializer.Deserialize(catalog);
 
                 Catalog.Packages.Clear();
+                //Catalog.Packages.RemoveAll(x => !x.System);
                 Catalog.Packages.AddRange(items.Packages);
             }
         }
@@ -290,7 +335,7 @@ namespace WebExpress.WebPackage
         /// </summary>
         private void SaveCatalog()
         {
-            var catalogeFile = Path.Combine(Context.PackagePath, "catalog.xml");
+            var catalogeFile = Path.Combine(HttpServerContext.PackagePath, "catalog.xml");
 
             using var fs = new FileStream(catalogeFile, FileMode.Create);
             using var writer = new XmlTextWriter(fs, Encoding.Unicode);
@@ -299,7 +344,10 @@ namespace WebExpress.WebPackage
             writer.Formatting = Formatting.Indented;
             serializer.Serialize(writer, Catalog, new XmlSerializerNamespaces(new[] { new XmlQualifiedName("", "") }));
 
-            Context.Log.Info(message: InternationalizationManager.I18N("webexpress:packagemanager.save"));
+            HttpServerContext.Log.Debug
+            (
+                InternationalizationManager.I18N("webexpress:packagemanager.save")
+            );
         }
 
         /// <summary>
@@ -308,14 +356,14 @@ namespace WebExpress.WebPackage
         /// <param name="package">The package.</param>
         private void ExtractPackage(PackageCatalogItem package)
         {
-            var packageFile = Path.Combine(Context.PackagePath, package?.File);
+            var packageFile = Path.Combine(HttpServerContext.PackagePath, package?.File);
 
             if (File.Exists(packageFile))
             {
                 using var zip = ZipFile.Open(packageFile, ZipArchiveMode.Read);
 
                 var specEntry = zip.Entries.Where(x => Path.GetExtension(x.FullName) == ".spec").FirstOrDefault();
-                var extractedPath = Path.Combine(Context.PackagePath, Path.GetFileNameWithoutExtension(package?.File));
+                var extractedPath = Path.Combine(HttpServerContext.PackagePath, Path.GetFileNameWithoutExtension(package?.File));
 
                 if (!Directory.Exists(extractedPath))
                 {
@@ -353,15 +401,11 @@ namespace WebExpress.WebPackage
         private void RegisterPackage(PackageCatalogItem package)
         {
             // load plugins
-            var plugins = ComponentManager.PluginManager.Register(GetTargetPath(package));
+            ComponentManager.PluginManager.Register(GetTargetPath(package));
 
-            // register default elements
-            ComponentManager.Register(plugins);
+            //package.Plugins.AddRange(plugins);
 
-            // boot default elements 
-            ComponentManager.PluginManager.Boot(plugins);
-
-            package.Plugins.AddRange(plugins);
+            ComponentManager.LogStatus();
         }
 
         /// <summary>
@@ -381,7 +425,7 @@ namespace WebExpress.WebPackage
         /// <returns>The directory (absolutely).</returns>
         private string GetTargetPath(PackageCatalogItem package)
         {
-            return Path.Combine(Context.PackagePath, Path.GetFileNameWithoutExtension(package?.File), GetTFM());
+            return Path.Combine(HttpServerContext.PackagePath, Path.GetFileNameWithoutExtension(package?.File), GetTFM());
         }
 
         /// <summary>
@@ -396,6 +440,24 @@ namespace WebExpress.WebPackage
                     .SingleOrDefault();
 
             return targetFrameworkAttribute.FrameworkDisplayName.Replace(" ", "").ToLower().Replace(".net", "net");
+        }
+
+        /// <summary>
+        /// Raises the AddPackage event.
+        /// </summary>
+        /// <param name="item">The package catalog item.</param>
+        private void OnAddPackage(PackageCatalogItem item)
+        {
+            AddPackage?.Invoke(this, item);
+        }
+
+        /// <summary>
+        /// Raises the RemovePackage event.
+        /// </summary>
+        /// <param name="item">The package catalog item.</param>
+        private void OnRemovePackage(PackageCatalogItem item)
+        {
+            RemovePackage?.Invoke(this, item);
         }
     }
 }

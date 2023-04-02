@@ -50,6 +50,13 @@ namespace WebExpress.Uri
         IUri Append(string path);
 
         /// <summary>
+        /// Adds a path element.
+        /// </summary>
+        /// <param name="path">The path to append.</param>
+        /// <returns>The extended path.</returns>
+        IUri Append(IUriPathSegment path);
+
+        /// <summary>
         /// Return a shortened uri containing n-elements.
         /// count > 0 count elements are included
         /// count < 0 count elements are truncated

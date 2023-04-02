@@ -4,12 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using WebExpress.Internationalization;
 using WebExpress.Uri;
-using WebExpress.WebApplication;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
-using WebExpress.WebModule;
-using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.WebPlugin
 {
@@ -19,26 +17,44 @@ namespace WebExpress.WebPlugin
     public class PluginManager : IComponent, ISystemComponent
     {
         /// <summary>
+        /// An event that fires when an plugin is added.
+        /// </summary>
+        public event EventHandler<IPluginContext> AddPlugin;
+
+        /// <summary>
+        /// An event that fires when an plugin is removed.
+        /// </summary>
+        public event EventHandler<IPluginContext> RemovePlugin;
+
+        /// <summary>
         /// Returns or sets the reference to the context of the host.
         /// </summary>
-        public IHttpServerContext Context { get; private set; }
+        public IHttpServerContext HttpServerContext { get; private set; }
 
         /// <summary>
         /// Returns the directory where the plugins are listed.
         /// </summary>
-        private static PluginDictionary Dictionary { get; } = new PluginDictionary();
+        private PluginDictionary Dictionary { get; } = new PluginDictionary();
 
         /// <summary>
         /// Returns all plugins.
         /// </summary>
-        public static ICollection<IPluginContext> Plugins => Dictionary.Values.Select(x => x.Context).ToList();
+        public ICollection<IPluginContext> Plugins => Dictionary.Values.Select(x => x.PluginContext).ToList();
 
         /// <summary>
         /// Constructor
         /// </summary>
         internal PluginManager()
         {
+            ComponentManager.AddComponent += (s, e) =>
+            {
+                //AssignToComponent(e);
+            };
 
+            ComponentManager.RemoveComponent += (s, e) =>
+            {
+                //DetachFromcomponent(e);
+            };
         }
 
         /// <summary>
@@ -47,16 +63,18 @@ namespace WebExpress.WebPlugin
         /// <param name="context">The reference to the context of the host.</param>
         public void Initialization(IHttpServerContext context)
         {
-            Context = context;
+            HttpServerContext = context;
 
-            Context.Log.Info(message: I18N("webexpress:pluginmanager.initialization"));
+            HttpServerContext.Log.Debug
+            (
+                InternationalizationManager.I18N("webexpress:pluginmanager.initialization")
+            );
         }
 
         /// <summary>
         /// Loads and registers the plugins that are static (i.e. located in the application's folder).
         /// </summary>
-        /// <returns>A list of registered plugins.</returns>
-        internal IEnumerable<IPluginContext> Register()
+        internal void Register()
         {
             var list = new List<IPluginContext>();
             var path = Environment.CurrentDirectory;
@@ -71,7 +89,15 @@ namespace WebExpress.WebPlugin
                     if (assembly != null)
                     {
                         assemblies.Add(assembly);
-                        Context.Log.Info(message: I18N("webexpress:pluginmanager.load"), args: new object[] { assembly.GetName().Name, assembly.GetName().Version.ToString() });
+                        HttpServerContext.Log.Debug
+                        (
+                            InternationalizationManager.I18N
+                            (
+                                "webexpress:pluginmanager.load",
+                                assembly.GetName().Name,
+                                assembly.GetName().Version.ToString()
+                            )
+                        );
                     }
                 }
                 catch (BadImageFormatException)
@@ -83,25 +109,21 @@ namespace WebExpress.WebPlugin
             // register plugin
             foreach (var assembly in assemblies)
             {
-                list.AddRange(Register(assembly));
+                Register(assembly);
             }
-
-            return list;
         }
 
         /// <summary>
         /// Loads and registers the plugins from a path.
         /// </summary>
         /// <param name="path">The directory where the plugins are located.</param>
-        /// <returns>A list of registered plugins.</returns>
-        internal IEnumerable<IPluginContext> Register(string path)
+        internal void Register(string path)
         {
-            var list = new List<IPluginContext>();
             var assemblies = new List<Assembly>();
 
             if (!Directory.Exists(path))
             {
-                return list;
+                return;
             }
 
             // create plugins
@@ -113,7 +135,15 @@ namespace WebExpress.WebPlugin
                     if (assembly != null)
                     {
                         assemblies.Add(assembly);
-                        Context.Log.Info(message: I18N("webexpress:pluginmanager.load"), args: new object[] { assembly.GetName().Name, assembly.GetName().Version.ToString() });
+                        HttpServerContext.Log.Debug
+                        (
+                            InternationalizationManager.I18N
+                            (
+                                "webexpress:pluginmanager.load",
+                                assembly.GetName().Name,
+                                assembly.GetName().Version.ToString()
+                            )
+                        );
                     }
                 }
                 catch (BadImageFormatException)
@@ -125,101 +155,111 @@ namespace WebExpress.WebPlugin
             // register plugin
             foreach (var assembly in assemblies)
             {
-                list.AddRange(Register(assembly));
+                Register(assembly);
             }
-
-            return list;
         }
 
         /// <summary>
         /// Loads and registers the plugin from an assembly.
         /// </summary>
         /// <param name="assembly">The assembly where the plugin is located.</param>
-        /// <returns>A list of registered plugins.</returns>
-        public IEnumerable<IPluginContext> Register(Assembly assembly)
+        private void Register(Assembly assembly)
         {
-            var list = new List<IPluginContext>();
-
             try
             {
-                foreach (var type in assembly.GetExportedTypes())
+                foreach (var type in assembly
+                    .GetExportedTypes()
+                    .Where(x => x.IsClass && x.IsSealed)
+                    .Where(x => x.GetInterface(typeof(IPlugin).Name) != null)
+                    .Where(x => x.Name.Equals("Plugin")))
                 {
-                    if (type.IsClass && type.IsSealed && type.GetInterface(typeof(IPlugin).Name) != null && type.Name.Equals("Plugin"))
+                    var id = type.Name?.ToLower();
+                    var name = type.Assembly.GetCustomAttribute<AssemblyTitleAttribute>()?.Title;
+                    var icon = string.Empty;
+                    var description = type.Assembly.GetCustomAttribute<AssemblyDescriptionAttribute>()?.Description;
+
+                    foreach (var customAttribute in type.CustomAttributes
+                        .Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IPluginAttribute))))
                     {
-                        var id = type.Name?.ToLower();
-                        var name = type.Assembly.GetCustomAttribute<AssemblyTitleAttribute>()?.Title;
-                        var icon = string.Empty;
-                        var description = type.Assembly.GetCustomAttribute<AssemblyDescriptionAttribute>()?.Description;
-
-                        foreach (var customAttribute in type.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IPluginAttribute))))
+                        if (customAttribute.AttributeType == typeof(IdAttribute))
                         {
-                            if (customAttribute.AttributeType == typeof(IdAttribute))
-                            {
-                                id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
-                            }
-
-                            if (customAttribute.AttributeType == typeof(NameAttribute))
-                            {
-                                name = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
-                            }
-
-                            if (customAttribute.AttributeType == typeof(IconAttribute))
-                            {
-                                icon = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
-                            }
-
-                            if (customAttribute.AttributeType == typeof(DescriptionAttribute))
-                            {
-                                description = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
-                            }
+                            id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
                         }
 
-                        var context = new PluginContext()
+                        if (customAttribute.AttributeType == typeof(NameAttribute))
                         {
-                            Assembly = type.Assembly,
-                            PluginID = id,
-                            PluginName = name,
-                            Manufacturer = type.Assembly.GetCustomAttribute<AssemblyCompanyAttribute>()?.Company,
-                            Copyright = type.Assembly.GetCustomAttribute<AssemblyCopyrightAttribute>()?.Copyright,
-                            //License = type.Assembly.GetCustomAttribute<AssemblyLicenseAttribute>()?.Copyright,
-                            Icon = UriRelative.Combine(Context.ContextPath, icon),
-                            Description = description,
-                            Version = type.Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion,
-                            Host = Context,
-                            Log = Context.Log
-                        };
-
-                        var plugin = (IPlugin)type.Assembly.CreateInstance(type.FullName);
-
-                        if (!Dictionary.ContainsKey(id))
-                        {
-                            Dictionary.Add(id, new PluginItem()
-                            {
-                                Context = context,
-                                Plugin = plugin
-                            });
-
-                            Context.Log.Info(message: I18N("webexpress:pluginmanager.created"), args: id);
-                        }
-                        else
-                        {
-                            Context.Log.Warning(message: I18N("webexpress:pluginmanager.duplicate"), args: id);
+                            name = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                         }
 
-                        list.Add(context);
+                        if (customAttribute.AttributeType == typeof(IconAttribute))
+                        {
+                            icon = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
+                        }
+
+                        if (customAttribute.AttributeType == typeof(DescriptionAttribute))
+                        {
+                            description = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
+                        }
                     }
-                    //else
-                    //{
-                    //    Context.Log.Warning(message: I18N("webexpress:pluginmanager.notfound"), args: assembly.FullName);
-                    //}
+
+                    var pluginContext = new PluginContext()
+                    {
+                        Assembly = type.Assembly,
+                        PluginID = id,
+                        PluginName = name,
+                        Manufacturer = type.Assembly.GetCustomAttribute<AssemblyCompanyAttribute>()?.Company,
+                        Copyright = type.Assembly.GetCustomAttribute<AssemblyCopyrightAttribute>()?.Copyright,
+                        //License = type.Assembly.GetCustomAttribute<AssemblyLicenseAttribute>()?.Copyright,
+                        Icon = UriRelative.Combine(HttpServerContext.ContextPath, icon),
+                        Description = description,
+                        Version = type.Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion,
+                        Host = HttpServerContext,
+                        Log = HttpServerContext.Log
+                    };
+
+                    var plugin = (IPlugin)type.Assembly.CreateInstance(type.FullName);
+
+                    if (!Dictionary.ContainsKey(id))
+                    {
+                        Dictionary.Add(id, new PluginItem()
+                        {
+                            PluginContext = pluginContext,
+                            Plugin = plugin
+                        });
+
+                        HttpServerContext.Log.Debug
+                        (
+                            InternationalizationManager.I18N("webexpress:pluginmanager.created", id)
+                        );
+
+                        OnAddPlugin(pluginContext);
+                    }
+                    else
+                    {
+                        HttpServerContext.Log.Warning
+                        (
+                            InternationalizationManager.I18N("webexpress:pluginmanager.duplicate", id)
+                        );
+                    }
                 }
             }
             catch (Exception ex)
             {
-                Context.Log.Exception(ex);
+                HttpServerContext.Log.Exception(ex);
             }
+        }
 
-            return list;
+        /// <summary>
+        /// Returns a plugin context based on its ID.
+        /// </summary>
+        /// <param name="id">The id of the plugin.</param>
+        /// <returns>The plugin context.</returns>
+        public IPluginContext GetPlugin(string id)
+        {
+            return Dictionary.Values
+                .Where(x => x.PluginContext != null && x.PluginContext.PluginID.Equals(id, StringComparison.OrdinalIgnoreCase))
+                .Select(x => x.PluginContext)
+                .FirstOrDefault();
         }
 
         /// <summary>
@@ -232,7 +272,14 @@ namespace WebExpress.WebPlugin
             {
                 if (!Dictionary.ContainsKey(context?.PluginID?.ToLower()))
                 {
-                    Context.Log.Warning(message: I18N("webexpress:pluginmanager.notavailable"), args: context?.PluginID);
+                    HttpServerContext.Log.Warning
+                    (
+                        InternationalizationManager.I18N
+                        (
+                            "webexpress:pluginmanager.notavailable",
+                            context?.PluginID
+                        )
+                    );
 
                     return;
                 }
@@ -240,24 +287,38 @@ namespace WebExpress.WebPlugin
                 var plugin = Dictionary[context?.PluginID?.ToLower()];
 
                 // initialize plugin
-                plugin.Plugin.Initialization(plugin.Context);
-                Context.Log.Info(message: I18N("webexpress:pluginmanager.plugin.initialization"), args: plugin.Context.PluginID);
+                plugin.Plugin.Initialization(plugin.PluginContext);
+                HttpServerContext.Log.Debug
+                (
+                    InternationalizationManager.I18N
+                    (
+                        "webexpress:pluginmanager.plugin.initialization",
+                        plugin.PluginContext.PluginID
+                    )
+                );
 
                 // run plugin concurrently
                 Task.Run(() =>
                 {
-                    Context.Log.Info(message: I18N("webexpress:pluginmanager.plugin.processing.start"), args: plugin.Context.PluginID);
+                    HttpServerContext.Log.Debug
+                    (
+                        InternationalizationManager.I18N
+                        (
+                            "webexpress:pluginmanager.plugin.processing.start", plugin.PluginContext.PluginID
+                        )
+                    );
 
                     plugin.Plugin.Run();
 
-                    Context.Log.Info(message: I18N("webexpress:pluginmanager.plugin.processing.end"), args: plugin.Context.PluginID);
+                    HttpServerContext.Log.Debug
+                    (
+                        InternationalizationManager.I18N
+                        (
+                            "webexpress:pluginmanager.plugin.processing.end",
+                            plugin.PluginContext.PluginID
+                        )
+                    );
                 });
-
-                // booting applications
-                ComponentManager.ApplicationManager.Boot(context);
-
-                // booting modules
-                ComponentManager.ModuleManager.Boot(context);
             }
         }
 
@@ -268,6 +329,24 @@ namespace WebExpress.WebPlugin
         public void ShutDown(IEnumerable<IPluginContext> contexts)
         {
 
+        }
+
+        /// <summary>
+        /// Raises the AddPlugin event.
+        /// </summary>
+        /// <param name="component">The plugin context.</param>
+        private void OnAddPlugin(IPluginContext pluginContext)
+        {
+            AddPlugin?.Invoke(this, pluginContext);
+        }
+
+        /// <summary>
+        /// Raises the RemovePlugin event.
+        /// </summary>
+        /// <param name="component">The plugin context.</param>
+        private void OnRemovePlugin(IPluginContext pluginContext)
+        {
+            RemovePlugin?.Invoke(this, pluginContext);
         }
     }
 }

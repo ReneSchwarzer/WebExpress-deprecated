@@ -31,12 +31,12 @@ namespace WebExpress.WebResource
         /// <summary>
         /// Returns the uri of the resource.
         /// </summary>
-        public IUriResource Uri { get; internal set; }
+        public IUri Uri { get; internal set; }
 
         /// <summary>
         /// Returns the context path.
         /// </summary>
-        public IUri ContextPath => ModuleContext?.GetContextPath(ApplicationContext);
+        public IUri ContextPath => ModuleContext?.ContextPath;
 
         /// <summary>
         /// Provides the culture.
