@@ -96,7 +96,8 @@ namespace WebExpress.WebModule
 
             var assembly = pluginContext.Assembly;
 
-            foreach (var type in assembly.GetExportedTypes().Where(x => x.IsClass && x.IsSealed && x.GetInterface(typeof(IModule).Name) != null))
+            foreach (var type in assembly.GetExportedTypes()
+                .Where(x => x.IsClass && x.IsSealed && x.GetInterface(typeof(IModule).Name) != null))
             {
                 var id = type.Name?.ToLower();
                 var name = type.Name;
@@ -167,6 +168,7 @@ namespace WebExpress.WebModule
                     var moduleItem = new ModuleItem()
                     {
                         Assembly = assembly,
+                        ModuleClass = type,
                         PluginContext = pluginContext,
                         Applications = applicationIDs,
                         ModuleID = id,
@@ -175,7 +177,8 @@ namespace WebExpress.WebModule
                         Icon = UriRelative.Combine(icon),
                         AssetPath = assetPath,
                         ContextPath = UriRelative.Combine(contextPath),
-                        DataPath = dataPath
+                        DataPath = dataPath,
+                        Log = HttpServerContext.Log
                     };
 
                     moduleItem.AddModule += (s, e) =>

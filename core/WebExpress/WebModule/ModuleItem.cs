@@ -158,7 +158,6 @@ namespace WebExpress.WebModule
         {
             foreach (var item in Dictionary.Values.Where(x => x.ModuleInstance == null))
             {
-
                 // create module
                 item.ModuleInstance = (IModule)ModuleClass.Assembly.CreateInstance(ModuleClass.FullName);
 

@@ -74,11 +74,8 @@ namespace WebExpress.WebPackage
             // load the default plugins
             ComponentManager.PluginManager.Register();
 
-            //// register default elements
-            //ComponentManager.Register(plugins);
-
-            //// boot default elements 
-            //ComponentManager.PluginManager.Boot(plugins);
+            // boot default elements 
+            ComponentManager.PluginManager.Boot();
 
             LoadCatalog();
 

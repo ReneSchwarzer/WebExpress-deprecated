@@ -76,7 +76,6 @@ namespace WebExpress.WebPlugin
         /// </summary>
         internal void Register()
         {
-            var list = new List<IPluginContext>();
             var path = Environment.CurrentDirectory;
             var assemblies = new List<Assembly>();
 
@@ -217,14 +216,13 @@ namespace WebExpress.WebPlugin
                         Log = HttpServerContext.Log
                     };
 
-                    var plugin = (IPlugin)type.Assembly.CreateInstance(type.FullName);
-
                     if (!Dictionary.ContainsKey(id))
                     {
                         Dictionary.Add(id, new PluginItem()
                         {
+                            PluginClass = type,
                             PluginContext = pluginContext,
-                            Plugin = plugin
+                            Plugin = null
                         });
 
                         HttpServerContext.Log.Debug
@@ -263,6 +261,14 @@ namespace WebExpress.WebPlugin
         }
 
         /// <summary>
+        /// Boots the plugins that have not yet been launched.
+        /// </summary>
+        internal void Boot()
+        {
+            Boot(Dictionary.Values.Where(x => x.Plugin == null).Select(x => x.PluginContext));
+        }
+
+        /// <summary>
         /// Boots the specified plugins.
         /// </summary>
         /// <param name="contexts">A list with the contexts of the plugins to run.</param>
@@ -285,6 +291,8 @@ namespace WebExpress.WebPlugin
                 }
 
                 var plugin = Dictionary[context?.PluginID?.ToLower()];
+
+                plugin.Plugin = (IPlugin)plugin.PluginClass.Assembly.CreateInstance(plugin.PluginClass.FullName);
 
                 // initialize plugin
                 plugin.Plugin.Initialization(plugin.PluginContext);
@@ -319,6 +327,9 @@ namespace WebExpress.WebPlugin
                         )
                     );
                 });
+
+                ComponentManager.ApplicationManager.Boot(context);
+                ComponentManager.ModuleManager.Boot(context);
             }
         }
 
