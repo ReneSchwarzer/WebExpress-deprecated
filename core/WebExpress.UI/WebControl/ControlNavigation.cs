@@ -88,7 +88,7 @@ namespace WebExpress.UI.WebControl
         /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
-        /// <param name="content">Der Inhalt</param>
+        /// <param name="content">The content of the html element.</param>
         public ControlNavigation(string id, IEnumerable<IControlNavigationItem> content)
             : base(id)
         {
@@ -100,7 +100,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="content">Der Inhalt</param>
+        /// <param name="content">The content of the html element.</param>
         public ControlNavigation(IEnumerable<IControlNavigationItem> content)
             : base(null)
         {

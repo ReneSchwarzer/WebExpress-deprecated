@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using WebExpress.Html;
-using WebExpress.Uri;
+using WebExpress.WebUri;
 
 namespace WebExpress.WebPage
 {

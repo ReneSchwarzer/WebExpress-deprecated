@@ -18,7 +18,7 @@ namespace WebExpress.UI.WebControl
         public bool Pill { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt den Text
+        /// Returns or sets the text.
         /// </summary>
         public string Text { get; set; }
 
@@ -42,7 +42,7 @@ namespace WebExpress.UI.WebControl
         /// </summary>
         /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        /// <param name="content">Der Inhalt</param>
+        /// <param name="content">The content of the html element.</param>
         public ControlTag(string id, params Control[] content)
             : this(id)
         {
@@ -53,7 +53,7 @@ namespace WebExpress.UI.WebControl
         /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
-        /// <param name="content">Der Inhalt</param>
+        /// <param name="content">The content of the html element.</param>
         public ControlTag(string id, IEnumerable<Control> content)
             : this(id)
         {

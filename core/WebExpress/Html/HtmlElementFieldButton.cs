@@ -5,12 +5,12 @@ using System.Text;
 namespace WebExpress.Html
 {
     /// <summary>
-    /// Markiert einen Button.
+    /// Html-Element Button. 
     /// </summary>
     public class HtmlElementFieldButton : HtmlElement, IHtmlFormularItem
     {
         /// <summary>
-        /// Liefert oder setzt den Namen des Eingabefeldes
+        /// Returns or sets the name of the input field.
         /// </summary>
         public string Name
         {
@@ -19,7 +19,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Liefert oder setzt den Text
+        /// Returns or sets the text.
         /// </summary>
         public string Text
         {
@@ -28,12 +28,12 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Liefert die Elemente
+        /// Returns the elements.
         /// </summary>
         public new List<IHtmlNode> Elements => base.Elements;
 
         /// <summary>
-        /// Liefert oder setzt einen Wert
+        /// Returns or sets a value.
         /// </summary>
         public string Value
         {
@@ -42,7 +42,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Liefert oder setzt ob die Schaltfläche deaktiviert ist
+        /// Returns or sets whether the button is disabled.
         /// </summary>
         public bool Disabled
         {
@@ -51,7 +51,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Liefert oder setzt den Identifizierungsname des form-Elementes mit dem es in Verbindung steht
+        /// Returns or sets the identification name of the form element to which it is associated.
         /// </summary>
         public string Form
         {
@@ -60,7 +60,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Liefert oder setzt den Typ der Schaltfläche (button, submit, reset)
+        /// Returns or sets the type of button (button, submit, reset).
         /// </summary>
         public string Type
         {
@@ -69,7 +69,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Liefert oder setzt den Tooltip
+        /// Returns or sets the tooltip.
         /// </summary>
         public string Title
         {
@@ -89,7 +89,7 @@ namespace WebExpress.Html
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="text">Der Inhalt</param>
+        /// <param name="text">The content of the html element.</param>
         public HtmlElementFieldButton(string text)
             : this()
         {
@@ -99,7 +99,7 @@ namespace WebExpress.Html
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="nodes">Der Inhalt</param>
+        /// <param name="nodes">The content of the html element.</param>
         public HtmlElementFieldButton(params IHtmlNode[] nodes)
             : this()
         {
@@ -109,7 +109,7 @@ namespace WebExpress.Html
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="nodes">Der Inhalt</param>
+        /// <param name="nodes">The content of the html element.</param>
         public HtmlElementFieldButton(IEnumerable<IHtmlNode> nodes)
             : this()
         {
@@ -117,10 +117,10 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// In String konvertieren unter Zuhilfenahme eines StringBuilder
+        /// Convert to a string using a StringBuilder.
         /// </summary>
-        /// <param name="builder">Der StringBuilder</param>
-        /// <param name="deep">Die Aufrufstiefe</param>
+        /// <param name="builder">The string builder.</param>
+        /// <param name="deep">The call depth.</param>
         public override void ToString(StringBuilder builder, int deep)
         {
             //if (Type == "submit" || Type == "reset")

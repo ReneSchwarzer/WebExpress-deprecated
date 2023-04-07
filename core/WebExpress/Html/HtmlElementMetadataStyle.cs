@@ -8,7 +8,7 @@ namespace WebExpress.Html
     public class HtmlElementMetadataStyle : HtmlElement, IHtmlElementMetadata
     {
         /// <summary>
-        /// Liefert oder setzt den Text
+        /// Returns or sets the text.
         /// </summary>
         public string Code { get; set; }
 
@@ -24,7 +24,7 @@ namespace WebExpress.Html
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="code">Der Text</param>
+        /// <param name="code">The text.</param>
         public HtmlElementMetadataStyle(string code)
             : this()
         {
@@ -32,10 +32,10 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// In String konvertieren unter Zuhilfenahme eines StringBuilder
+        /// Convert to a string using a StringBuilder.
         /// </summary>
-        /// <param name="builder">Der StringBuilder</param>
-        /// <param name="deep">Die Aufrufstiefe</param>
+        /// <param name="builder">The string builder.</param>
+        /// <param name="deep">The call depth.</param>
         public override void ToString(StringBuilder builder, int deep)
         {
             builder.Append(string.Empty.PadRight(deep));

@@ -1,4 +1,4 @@
-﻿using WebExpress.Uri;
+﻿using WebExpress.WebUri;
 
 namespace WebExpress.Html
 {

@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Threading;
 using System.Xml.Serialization;
 using WebExpress.Config;
-using WebExpress.Uri;
+using WebExpress.WebUri;
 using WebExpress.WebComponent;
 using static WebExpress.Internationalization.InternationalizationManager;
 

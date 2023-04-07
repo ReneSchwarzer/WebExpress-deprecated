@@ -1,6 +1,6 @@
 ﻿using System;
 using WebExpress.Html;
-using WebExpress.Uri;
+using WebExpress.WebUri;
 using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebControl
@@ -23,7 +23,7 @@ namespace WebExpress.UI.WebControl
         public DateTime Timestamp { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt den Text
+        /// Returns or sets the text.
         /// </summary>
         public string Post { get; set; }
 

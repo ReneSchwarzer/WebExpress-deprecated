@@ -32,7 +32,7 @@ namespace WebExpress.UI.WebControl
         /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
-        /// <param name="text">Der Text</param>
+        /// <param name="text">The text.</param>
         public ControlFormularItemHelpText(string id, string text)
             : this(id)
         {

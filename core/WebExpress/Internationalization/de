@@ -21,9 +21,9 @@ httpserver.notsupported=Das Betriebssystem auf dem WebExpress ausgeführt werden
 httpserver.start=Der HttpServer wurde am {0} um {1} Uhr gestartet.
 httpserver.connected={0}: Client wurde verbunden.
 httpserver.rejected={0}: Client wurde abgelehnt.
-httpserver.request={0}: Anfrage '{1}'
+httpserver.request={0}: Anfrage #{1} '{2}'
 httpserver.request.unexpected={0}: Unerwartete Anfrage '{1}'
-httpserver.request.done={0}: Anfrage wurde in {1} ms bearbeitet. Status = {2}
+httpserver.request.done={0}: Anfrage #{1} wurde in {2} ms bearbeitet. Status = {3}
 httpserver.connectionlimit=Das Limit für gleichzeitige Anfragen wurde überschritten.
 httpserver.endpoint=Endpunkt '{0}' wird registriert.
 httpserver.listen=Der Webserver lauscht auf den Endpunkt {0}.

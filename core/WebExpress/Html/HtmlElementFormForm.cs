@@ -64,7 +64,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Liefert die Elemente
+        /// Returns the elements.
         /// </summary>
         public new List<IHtmlNode> Elements => base.Elements;
 
@@ -80,7 +80,7 @@ namespace WebExpress.Html
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="text">Der Inhalt</param>
+        /// <param name="text">The content of the html element.</param>
         public HtmlElementFormForm(string text)
             : this()
         {
@@ -89,7 +89,7 @@ namespace WebExpress.Html
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="nodes">Der Inhalt</param>
+        /// <param name="nodes">The content of the html element.</param>
         public HtmlElementFormForm(params IHtmlNode[] nodes)
             : this()
         {
@@ -97,10 +97,10 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// In String konvertieren unter Zuhilfenahme eines StringBuilder
+        /// Convert to a string using a StringBuilder.
         /// </summary>
-        /// <param name="builder">Der StringBuilder</param>
-        /// <param name="deep">Die Aufrufstiefe</param>
+        /// <param name="builder">The string builder.</param>
+        /// <param name="deep">The call depth.</param>
         public override void ToString(StringBuilder builder, int deep)
         {
             base.ToString(builder, deep);

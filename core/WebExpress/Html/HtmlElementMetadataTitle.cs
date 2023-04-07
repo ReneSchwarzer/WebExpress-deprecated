@@ -3,12 +3,13 @@
 namespace WebExpress.Html
 {
     /// <summary>
-    /// Definiert den Titel eines Dokuments, der in der Titelzeile des Browsers im Tab der betreffenden Seite angezeigt wird. Darf ausschließlich Text enthalten. Eventuell enthaltene Tags werden nicht interpretiert.
+    /// Defines the title of a document that appears in the browser's title bar in the 
+    /// tab of that page. May contain text only. Any tags contained are not interpreted.
     /// </summary>
     public class HtmlElementMetadataTitle : HtmlElement, IHtmlElementMetadata
     {
         /// <summary>
-        /// Der Titel
+        /// The title.
         /// </summary>
         public string Title { get; set; }
 
@@ -24,7 +25,7 @@ namespace WebExpress.Html
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="title">Der Titel</param>
+        /// <param name="title">The title.</param>
         public HtmlElementMetadataTitle(string title)
             : this()
         {
@@ -32,10 +33,10 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// In String konvertieren unter Zuhilfenahme eines StringBuilder
+        /// Convert to a string using a StringBuilder.
         /// </summary>
-        /// <param name="builder">Der StringBuilder</param>
-        /// <param name="deep">Die Aufrufstiefe</param>
+        /// <param name="builder">The string builder.</param>
+        /// <param name="deep">The call depth.</param>
         public override void ToString(StringBuilder builder, int deep)
         {
             builder.AppendLine();

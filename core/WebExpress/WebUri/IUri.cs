@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace WebExpress.Uri
+namespace WebExpress.WebUri
 {
     /// <summary>
     /// Uniform resource identifier (RFC 3986).

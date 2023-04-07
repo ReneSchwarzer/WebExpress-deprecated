@@ -1,7 +1,7 @@
 ﻿namespace WebExpress.Html
 {
     /// <summary>
-    /// Hiermit kann die Gelegenheit für einen Zeilenumbruch gekennzeichnet werden, mit dem die Lesbarkeit verbessert werden kann, wenn der Text auf mehrere Zeilen verteilt wird.
+    /// Hiermit kann die Gelegenheit für einen Zeilenumbruch gekennzeichnet werden, mit dem die Lesbarkeit verbessert werden kann, wenn The text. auf mehrere Zeilen verteilt wird.
     /// </summary>
     public class HtmlElementTextSemanticsWbr : HtmlElement, IHtmlElementTextSemantics
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using WebExpress.Internationalization;
-using WebExpress.Uri;
+using WebExpress.WebUri;
 using WebExpress.WebCondition;
 using WebExpress.WebModule;
 
@@ -12,6 +12,16 @@ namespace WebExpress.WebResource
     /// </summary>
     public class ResourceItem : IDisposable
     {
+        /// <summary>
+        /// An event that fires when an ressource is added.
+        /// </summary>
+        public event EventHandler<IResourceContext> AddResource;
+
+        /// <summary>
+        /// An event that fires when an resource is removed.
+        /// </summary>
+        public event EventHandler<IResourceContext> RemoveResource;
+
         /// <summary>
         /// Returns or sets the resource id.
         /// </summary>
@@ -25,7 +35,7 @@ namespace WebExpress.WebResource
         /// <summary>
         /// Returns or sets the type of resource.
         /// </summary>
-        public Type Type { get; set; }
+        public Type ResourceClass { get; set; }
 
         /// <summary>
         /// Returns or sets the instance of the resource, if the resource is cached, otherwise null.
@@ -94,16 +104,6 @@ namespace WebExpress.WebResource
         /// Returns the resource contexts.
         /// </summary>
         public IEnumerable<IResourceContext> ResourceContexts => Dictionary.Values;
-
-        /// <summary>
-        /// An event that fires when an ressource is added.
-        /// </summary>
-        public event EventHandler<IResourceContext> AddResource;
-
-        /// <summary>
-        /// An event that fires when an resource is removed.
-        /// </summary>
-        public event EventHandler<IResourceContext> RemoveResource;
 
         /// <summary>
         /// Adds an module assignment

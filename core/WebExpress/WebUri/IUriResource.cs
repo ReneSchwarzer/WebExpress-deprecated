@@ -1,4 +1,4 @@
-namespace WebExpress.Uri
+namespace WebExpress.WebUri
 {
     /// <summary>
     /// Uniform resource identifier (RFC 3986) for resources.

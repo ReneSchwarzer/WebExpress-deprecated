@@ -23,7 +23,7 @@
         TypeBlockButton Block { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt den Text der TextBox
+        /// Returns or sets the text. The text.Box
         /// </summary>
         string Text { get; set; }
 

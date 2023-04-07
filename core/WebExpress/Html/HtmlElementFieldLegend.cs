@@ -8,7 +8,7 @@ namespace WebExpress.Html
     public class HtmlElementFieldLegend : HtmlElement
     {
         /// <summary>
-        /// Liefert oder setzt den Text
+        /// Returns or sets the text.
         /// </summary>
         public string Text
         {
@@ -27,7 +27,7 @@ namespace WebExpress.Html
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="text">Der Inhalt</param>
+        /// <param name="text">The content of the html element.</param>
         public HtmlElementFieldLegend(string text)
             : this()
         {

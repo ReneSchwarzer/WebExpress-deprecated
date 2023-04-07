@@ -4,7 +4,7 @@ using System.Linq;
 using WebExpress.Internationalization;
 using WebExpress.Message;
 using WebExpress.UI.WebControl;
-using WebExpress.Uri;
+using WebExpress.WebUri;
 using WebExpress.WebApp.WebAttribute;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebApp.WebPage;

@@ -9,12 +9,12 @@ namespace WebExpress.Html
     public class HtmlElementSectionFooter : HtmlElement, IHtmlElementSection
     {
         /// <summary>
-        /// Liefert die Elemente
+        /// Returns the elements.
         /// </summary>
         public new List<IHtmlNode> Elements => base.Elements;
 
         /// <summary>
-        /// Liefert oder setzt den Text
+        /// Returns or sets the text.
         /// </summary>
         public string Text
         {
@@ -34,7 +34,7 @@ namespace WebExpress.Html
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="text">Der Inhalt</param>
+        /// <param name="text">The content of the html element.</param>
         public HtmlElementSectionFooter(string text)
             : this()
         {
@@ -44,7 +44,7 @@ namespace WebExpress.Html
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="nodes">Der Inhalt</param>
+        /// <param name="nodes">The content of the html element.</param>
         public HtmlElementSectionFooter(params IHtmlNode[] nodes)
             : this()
         {
@@ -54,7 +54,7 @@ namespace WebExpress.Html
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="nodes">Der Inhalt</param>
+        /// <param name="nodes">The content of the html element.</param>
         public HtmlElementSectionFooter(IEnumerable<IHtmlNode> nodes)
             : this()
         {

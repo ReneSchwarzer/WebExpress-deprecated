@@ -1,4 +1,4 @@
-namespace WebExpress.Uri
+namespace WebExpress.WebUri
 {
     /// <summary>
     /// The query part (e.g. ?title=Uniform_Resource_Identifier&action=submit).

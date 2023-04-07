@@ -1,5 +1,5 @@
 ﻿using WebExpress.Html;
-using WebExpress.Uri;
+using WebExpress.WebUri;
 using WebExpress.WebComponent;
 
 namespace WebExpress.UI.WebControl

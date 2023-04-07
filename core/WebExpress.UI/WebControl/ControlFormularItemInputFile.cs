@@ -40,7 +40,7 @@ namespace WebExpress.UI.WebControl
         /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
-        /// <param name="name">Der Name der TextBox</param>
+        /// <param name="name">Der Name The text.Box</param>
         public ControlFormularItemInputFile(string id, string name)
             : base(!string.IsNullOrWhiteSpace(id) ? id : "file")
         {

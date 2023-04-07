@@ -7,12 +7,12 @@ namespace WebExpress.UI.WebControl
         public List<ControlFormularItemInputComboBoxItem> SubItems { get; private set; }
 
         /// <summary>
-        /// Liefert oder setzt den Text
+        /// Returns or sets the text.
         /// </summary>
         public string Text { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt einen Wert
+        /// Returns or sets a value.
         /// </summary>
         public string Value { get; set; }
 

@@ -35,7 +35,7 @@ namespace WebExpress.UI.WebControl
         /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
-        /// <param name="content">Der Inhalt</param>
+        /// <param name="content">The content of the html element.</param>
         public ControlListItem(string id, params Control[] content)
             : this(id)
         {
@@ -45,7 +45,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="content">Der Inhalt</param>
+        /// <param name="content">The content of the html element.</param>
         public ControlListItem(params Control[] content)
             : this(null, content)
         {
@@ -55,7 +55,7 @@ namespace WebExpress.UI.WebControl
         /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
-        /// <param name="content">Der Inhalt</param>
+        /// <param name="content">The content of the html element.</param>
         public ControlListItem(string id, List<Control> content)
             : base(id)
         {
@@ -67,7 +67,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="content">Der Inhalt</param>
+        /// <param name="content">The content of the html element.</param>
         public ControlListItem(List<Control> content)
             : this(null, content)
         {

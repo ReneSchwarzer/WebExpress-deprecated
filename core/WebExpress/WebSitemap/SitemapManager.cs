@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using WebExpress.Internationalization;
-using WebExpress.Uri;
+using WebExpress.WebUri;
 using WebExpress.WebApplication;
 using WebExpress.WebComponent;
 using WebExpress.WebModule;
@@ -125,9 +125,9 @@ namespace WebExpress.WebSitemap
                             x.ResourceItem != null ? x.ResourceItem?.ID : ""
                         ));
 
-                foreach (var node in newSiteMapNode.GetPreOrder())
+                foreach (var node in preorder)
                 {
-                    HttpServerContext.Log.Info(string.Join(Environment.NewLine, preorder));
+                    HttpServerContext.Log.Info(string.Join(Environment.NewLine, node));
                 }
             }
 
@@ -142,7 +142,8 @@ namespace WebExpress.WebSitemap
         /// <returns>The search result with the found resource or null</returns>
         public SearchResult SearchResource(IUri requestUri, SearchContext searchContext)
         {
-            var result = SearchNode(SiteMap, requestUri.Path.Skip(1), searchContext);
+            var variables = new Dictionary<string, string>();
+            var result = SearchNode(SiteMap, requestUri.Path.Skip(1), searchContext, variables);
 
             if (result != null && result.ResourceContext != null)
             {
@@ -153,7 +154,7 @@ namespace WebExpress.WebSitemap
             }
 
             // 404
-            return null;
+            return result;
         }
 
         /// <summary>
@@ -300,18 +301,25 @@ namespace WebExpress.WebSitemap
         /// <param name="node">The sitemap node.</param>
         /// <param name="pathSegments">The path segments.</param>
         /// <param name="searchContext">The search context.</param>
-        /// <returns>The search result with the found resource or null</returns>
-        private SearchResult SearchNode(SitemapNode node, IEnumerable<IUriPathSegment> pathSegments, SearchContext searchContext)
+        /// <param name="variables">Pick up the variables along the path or null.</param>
+        /// <returns>The search result with the found resource</returns>
+        private SearchResult SearchNode(SitemapNode node, IEnumerable<IUriPathSegment> pathSegments, SearchContext searchContext, IDictionary<string, string> variables = null)
         {
             var pathSegment = pathSegments.FirstOrDefault();
 
             if (pathSegment == null)
             {
                 // 404
-                return null;
+                return new SearchResult()
+                {
+                    ApplicationContext = node.ApplicationContext,
+                    ModuleContext = node.ModuleContext,
+                    ResourceContext = node.ResourceContext,
+                    Variables = variables ?? new Dictionary<string, string>()
+                };
             }
 
-            foreach (var child in node.Children.Where(x => IsMatched(x, pathSegment)))
+            foreach (var child in node.Children.Where(x => IsMatched(x, pathSegment, variables)))
             {
                 if (child.ResourceItem != null && (child.IsLeaf || pathSegments.Count() <= 1))
                 {
@@ -323,6 +331,7 @@ namespace WebExpress.WebSitemap
                         ModuleContext = child.ModuleContext,
                         ResourceContext = child.ResourceContext,
                         Instance = CreateInstance(child, searchContext),
+                        Variables = variables ?? new Dictionary<string, string>(),
                         Uri = UriRelative.Combine
                         (
                             child.ResourceContext?.ContextPath,
@@ -332,14 +341,26 @@ namespace WebExpress.WebSitemap
                 }
                 else if (child.IsLeaf || pathSegments.Count() <= 1)
                 {
-                    return null;
+                    return new SearchResult()
+                    {
+                        ApplicationContext = node.ApplicationContext,
+                        ModuleContext = node.ModuleContext,
+                        ResourceContext = node.ResourceContext,
+                        Variables = variables ?? new Dictionary<string, string>()
+                    };
                 }
 
-                return SearchNode(child, pathSegments.Skip(1), searchContext);
+                return SearchNode(child, pathSegments.Skip(1), searchContext, variables);
             }
 
             // 404
-            return null;
+            return new SearchResult()
+            {
+                ApplicationContext = node.ApplicationContext,
+                ModuleContext = node.ModuleContext,
+                ResourceContext = node.ResourceContext,
+                Variables = variables ?? new Dictionary<string, string>()
+            };
         }
 
         /// <summary>
@@ -360,7 +381,7 @@ namespace WebExpress.WebSitemap
                 return node.Instance;
             }
 
-            var instance = node.ResourceItem.Type?.Assembly.CreateInstance(node.ResourceItem.Type?.FullName) as IResource;
+            var instance = node.ResourceItem.ResourceClass?.Assembly.CreateInstance(node.ResourceItem.ResourceClass?.FullName) as IResource;
 
             if (instance is II18N i18n)
             {
@@ -395,11 +416,10 @@ namespace WebExpress.WebSitemap
         /// </summary>
         /// <param name="node">The sitemap node.</param>
         /// <param name="pathSegement">The path segments.</param>
+        /// <param name="variables">The variable, if set.</param>
         /// <returns>True if the path element matched, false otherwise.</returns>
-        private bool IsMatched(SitemapNode node, IUriPathSegment pathSegement)
+        private bool IsMatched(SitemapNode node, IUriPathSegment pathSegement, IDictionary<string, string> variables = null)
         {
-            var variables = null as IDictionary<string, string>;
-
             if (node == null || string.IsNullOrWhiteSpace(pathSegement?.Value))
             {
                 return false;
@@ -410,7 +430,16 @@ namespace WebExpress.WebSitemap
             }
             else if (node.PathSegment is PathSegmentVariable variable && Regex.IsMatch(pathSegement?.Value, variable.Expression, RegexOptions.IgnoreCase))
             {
-                variables = variable.GetVariables(pathSegement?.Value);
+                if (variables != null)
+                {
+                    foreach (var variableValue in variable.GetVariables(pathSegement?.Value))
+                    {
+                        if (!variables.ContainsKey(variableValue.Key))
+                        {
+                            variables.Add(variableValue);
+                        }
+                    }
+                }
 
                 return true;
             }

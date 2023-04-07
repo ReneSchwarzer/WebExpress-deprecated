@@ -3,7 +3,7 @@
 namespace WebExpress.WebAttribute
 {
     /// <summary>
-    /// Kennzeichnet eine Seite oder eine Komponente, dass diese wiederverwendet werden kann
+    /// Indicates that a page or component can be reused
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
     public class CacheAttribute : System.Attribute, IResourceAttribute

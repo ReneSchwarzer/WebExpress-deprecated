@@ -3,8 +3,8 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
-using WebExpress.UI.WebFragment;
 using WebExpress.UI.WebControl;
+using WebExpress.UI.WebFragment;
 using WebExpress.WebApp.WebCondition;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebAttribute;
@@ -13,7 +13,7 @@ using WebExpress.WebPage;
 namespace WebExpress.WebApp.WebFragment
 {
     [Section(Section.HeadlineSecondary)]
-    [Application("webexpress.webapp")]
+    [Module("webexpress.webapp")]
     [Context("webexpress.webpp.systeminformation")]
     [Condition(typeof(ConditionUnix))]
     public sealed class FragmentPropertyReboot : FragmentControlButtonLink

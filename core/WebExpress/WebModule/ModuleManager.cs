@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Internationalization;
-using WebExpress.Uri;
+using WebExpress.WebUri;
 using WebExpress.WebApplication;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;

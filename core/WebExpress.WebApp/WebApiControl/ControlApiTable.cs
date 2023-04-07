@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json;
 using WebExpress.Html;
 using WebExpress.UI.WebControl;
-using WebExpress.Uri;
+using WebExpress.WebUri;
 using WebExpress.WebPage;
 
 namespace WebExpress.WebApp.WebApiControl

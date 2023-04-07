@@ -1,7 +1,7 @@
 ﻿using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
-using WebExpress.UI.WebFragment;
 using WebExpress.UI.WebControl;
+using WebExpress.UI.WebFragment;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebAttribute;
 using WebExpress.WebPage;
@@ -9,7 +9,7 @@ using WebExpress.WebPage;
 namespace WebExpress.WebApp.WebFragment
 {
     [Section(Section.HeadlineSecondary)]
-    [Application("webexpress.webapp")]
+    [Module("webexpress.webapp")]
     [Context("webexpress.webapp.usermanagement.group")]
     public sealed class FragmentUserManagementAddGroup : FragmentControlButtonLink
     {

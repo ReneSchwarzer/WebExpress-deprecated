@@ -5,7 +5,7 @@ namespace WebExpress.Html
     public class HtmlRaw : IHtmlNode
     {
         /// <summary>
-        /// Liefert oder setzt den Text
+        /// Returns or sets the text.
         /// </summary>
         public string Html { get; set; }
 
@@ -20,7 +20,7 @@ namespace WebExpress.Html
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="html">Der Text</param>
+        /// <param name="html">The text.</param>
         public HtmlRaw(string html)
         {
             Html = html;
@@ -36,10 +36,10 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// In String konvertieren unter Zuhilfenahme eines StringBuilder
+        /// Convert to a string using a StringBuilder.
         /// </summary>
-        /// <param name="builder">Der StringBuilder</param>
-        /// <param name="deep">Die Aufrufstiefe</param>
+        /// <param name="builder">The string builder.</param>
+        /// <param name="deep">The call depth.</param>
         public virtual void ToString(StringBuilder builder, int deep)
         {
             builder.Append(Html);

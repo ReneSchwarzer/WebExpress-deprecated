@@ -1,4 +1,4 @@
-namespace WebExpress.Uri
+namespace WebExpress.WebUri
 {
     /// <summary>
     /// Static path segment.

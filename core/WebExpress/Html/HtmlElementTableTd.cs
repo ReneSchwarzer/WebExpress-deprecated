@@ -18,7 +18,7 @@ namespace WebExpress.Html
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="node">Der Inhalt</param>
+        /// <param name="node">The content of the html element.</param>
         public HtmlElementTableTd(IHtmlNode node)
             : this()
         {
@@ -28,7 +28,7 @@ namespace WebExpress.Html
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="nodes">Der Inhalt</param>
+        /// <param name="nodes">The content of the html element.</param>
         public HtmlElementTableTd(params IHtmlNode[] nodes)
             : this()
         {
@@ -38,7 +38,7 @@ namespace WebExpress.Html
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="nodes">Der Inhalt</param>
+        /// <param name="nodes">The content of the html element.</param>
         public HtmlElementTableTd(IEnumerable<IHtmlNode> nodes)
             : this()
         {

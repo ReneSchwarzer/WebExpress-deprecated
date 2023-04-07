@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WebExpress.Internationalization;
-using WebExpress.Uri;
+using WebExpress.WebUri;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebPlugin;
@@ -146,8 +146,8 @@ namespace WebExpress.WebApplication
                     ApplicationName = name,
                     Description = description,
                     Options = options,
-                    AssetPath = Path.GetFullPath(HttpServerContext.AssetPath + Path.Combine(assetPath)),
-                    DataPath = Path.GetFullPath(HttpServerContext.DataPath + dataPath),
+                    AssetPath = Path.Combine(HttpServerContext.AssetPath, assetPath),
+                    DataPath = Path.Combine(HttpServerContext.DataPath, dataPath),
                     Icon = UriRelative.Combine(HttpServerContext.ContextPath, contextPath, icon),
                     Log = HttpServerContext.Log
                 };

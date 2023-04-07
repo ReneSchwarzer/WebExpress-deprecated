@@ -1,14 +1,14 @@
 ﻿using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
-using WebExpress.UI.WebFragment;
 using WebExpress.UI.WebControl;
+using WebExpress.UI.WebFragment;
 using WebExpress.WebAttribute;
 using WebExpress.WebPage;
 
 namespace WebExpress.WebApp.WebFragment
 {
     [Section(Section.ContentPreferences)]
-    [Application("webexpress.webapp")]
+    [Module("webexpress.webapp")]
     [Context("webexpress.webapp.usermanagement.user")]
     [Cache()]
     public sealed class FragmentUserManagementDescription : FragmentControlPanel

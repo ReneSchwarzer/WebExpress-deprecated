@@ -41,7 +41,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Liefert oder setzt den Text der TextBox
+        /// Returns or sets the text. The text.Box
         /// </summary>
         public string Text { get; set; }
 
@@ -87,7 +87,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="items">Der Inhalt</param>
+        /// <param name="items">The content of the html element.</param>
         public ControlSplitButton(params IControlSplitButtonItem[] items)
             : base(null)
         {
@@ -100,7 +100,7 @@ namespace WebExpress.UI.WebControl
         /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
-        /// <param name="items">Der Inhalt</param>
+        /// <param name="items">The content of the html element.</param>
         public ControlSplitButton(string id, params IControlSplitButtonItem[] items)
             : base(id)
         {
@@ -113,7 +113,7 @@ namespace WebExpress.UI.WebControl
         /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
-        /// <param name="items">Der Inhalt</param>
+        /// <param name="items">The content of the html element.</param>
         public ControlSplitButton(string id, IEnumerable<IControlSplitButtonItem> items)
             : base(id)
         {
@@ -125,7 +125,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="items">Der Inhalt</param>
+        /// <param name="items">The content of the html element.</param>
         public ControlSplitButton(IEnumerable<IControlSplitButtonItem> items)
             : base(null)
         {

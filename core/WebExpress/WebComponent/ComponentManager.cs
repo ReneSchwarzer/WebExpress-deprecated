@@ -297,6 +297,36 @@ namespace WebExpress.WebComponent
         }
 
         /// <summary>
+        /// Boots the components.
+        /// </summary>
+        /// <param name="pluginContext">The plugin context.</param>
+        internal static void BootComponent(IPluginContext pluginContext)
+        {
+            PluginManager.Boot(pluginContext);
+            ApplicationManager.Boot(pluginContext);
+            ModuleManager.Boot(pluginContext);
+
+            foreach (var component in Dictionary.Values
+                .Where(x => x is IExecutableElements)
+                .Select(x => x as IExecutableElements))
+            {
+                component.Boot(pluginContext);
+            }
+        }
+
+        /// <summary>
+        /// Boots the components.
+        /// </summary>
+        /// <param name="pluginContexts">A enumeration of plugin contexts.</param>
+        internal static void BootComponent(IEnumerable<IPluginContext> pluginContexts)
+        {
+            foreach (var pluginContext in pluginContexts)
+            {
+                BootComponent(pluginContext);
+            }
+        }
+
+        /// <summary>
         /// Starts the component.
         /// </summary>
         internal static void Execute()
@@ -311,7 +341,7 @@ namespace WebExpress.WebComponent
         }
 
         /// <summary>
-        /// Shutting down the component.
+        /// Shutting down the component manager.
         /// </summary>
         public static void ShutDown()
         {
@@ -319,6 +349,24 @@ namespace WebExpress.WebComponent
             (
                 InternationalizationManager.I18N("webexpress:componentmanager.shutdown")
             );
+        }
+
+        /// <summary>
+        /// Shutting down the component.
+        /// </summary>
+        /// <param name="pluginContext">The plugin context.</param>
+        public static void ShutDownComponent(IPluginContext pluginContext)
+        {
+            PluginManager.ShutDown(pluginContext);
+            ApplicationManager.ShutDown(pluginContext);
+            ModuleManager.ShutDown(pluginContext);
+
+            foreach (var component in Dictionary.Values
+                .Where(x => x is IExecutableElements)
+                .Select(x => x as IExecutableElements))
+            {
+                component.ShutDown(pluginContext);
+            }
         }
 
         /// <summary>

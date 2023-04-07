@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using WebExpress.Html;
 using WebExpress.Message;
 using WebExpress.UI.WebControl;
-using WebExpress.Uri;
+using WebExpress.WebUri;
 using WebExpress.WebPage;
 using static WebExpress.Internationalization.InternationalizationManager;
 

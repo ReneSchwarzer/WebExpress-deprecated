@@ -75,7 +75,7 @@ namespace WebExpress.WebPackage
             ComponentManager.PluginManager.Register();
 
             // boot default elements 
-            ComponentManager.PluginManager.Boot();
+            ComponentManager.BootComponent(ComponentManager.PluginManager.Plugins);
 
             LoadCatalog();
 
@@ -398,21 +398,20 @@ namespace WebExpress.WebPackage
         private void RegisterPackage(PackageCatalogItem package)
         {
             // load plugins
-            ComponentManager.PluginManager.Register(GetTargetPath(package));
+            var pluginContexts = ComponentManager.PluginManager.Register(GetTargetPath(package));
 
-            //package.Plugins.AddRange(plugins);
+            package.Plugins.AddRange(pluginContexts);
 
             ComponentManager.LogStatus();
         }
 
         /// <summary>
-        /// Boots the plungins included in the package.
+        /// Boots the components included in the package.
         /// </summary>
         /// <param name="package">The package.</param>
         private void BootPackage(PackageCatalogItem package)
         {
-            // Plugins booten
-            ComponentManager.PluginManager.Boot(package.Plugins);
+            ComponentManager.BootComponent(package.Plugins);
         }
 
         /// <summary>

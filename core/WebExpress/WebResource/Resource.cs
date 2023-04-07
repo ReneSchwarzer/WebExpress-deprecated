@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 using WebExpress.Message;
-using WebExpress.Uri;
+using WebExpress.WebUri;
 using WebExpress.WebApplication;
 using WebExpress.WebModule;
 

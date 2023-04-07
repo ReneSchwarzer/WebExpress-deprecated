@@ -11,7 +11,7 @@ webexpress.ui.moreCtrl = class {
      *        - id Die ID des Steuerelements
      *        - css CSS-Klasse zur Gestaltung des Steuerelementes
      *        - menucss CSS-Klasse zur Gestaltung des Popupmenüs
-     *        - label Der Text
+     *        - label The text.
      *        - icon Die Icon-Klasse des Steuerelements
      */
     constructor(options, settings) {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using WebExpress.Internationalization;
 using WebExpress.WebApplication;
@@ -78,18 +79,22 @@ namespace WebExpress.WebResponse
                 .Where(x => x.IsClass == true && x.IsSealed)
                 .Where(x => x.GetInterface(typeof(IStatusPage).Name) != null))
             {
+                var id = resource.Name?.ToLower();
                 var statusCode = -1;
                 var moduleID = string.Empty;
 
                 foreach (var customAttribute in resource.CustomAttributes
                     .Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IApplicationAttribute))))
                 {
-                    if (customAttribute.AttributeType == typeof(StatusCodeAttribute))
+                    if (customAttribute.AttributeType == typeof(IdAttribute))
+                    {
+                        id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
+                    }
+                    else if (customAttribute.AttributeType == typeof(StatusCodeAttribute))
                     {
                         statusCode = Convert.ToInt32(customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString());
                     }
-
-                    if (customAttribute.AttributeType == typeof(ModuleAttribute))
+                    else if (customAttribute.AttributeType == typeof(ModuleAttribute))
                     {
                         moduleID = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
                     }
@@ -99,13 +104,20 @@ namespace WebExpress.WebResponse
                 {
                     if (!Dictionary.ContainsKey(pluginContext))
                     {
-                        Dictionary.Add(pluginContext, new Dictionary<int, Type>());
+                        Dictionary.Add(pluginContext, new Dictionary<int, ResponseItem>());
                     }
 
                     var item = Dictionary[pluginContext];
                     if (!item.ContainsKey(statusCode))
                     {
-                        item.Add(statusCode, resource);
+                        item.Add(statusCode, new ResponseItem()
+                        {
+                            ID = id,
+                            StatusCode = statusCode,
+                            StatusPageClass = resource,
+                            PluginContext = pluginContext,
+                            ModuleID = moduleID
+                        });
                         HttpServerContext.Log.Debug
                         (
                             InternationalizationManager.I18N
@@ -184,7 +196,7 @@ namespace WebExpress.WebResponse
         /// <param name="status">The status code.</param>
         /// <param name="pluginContext">The plugin context where the status pages are located.</param>
         /// <returns>The first status page found to the given states or null</returns>
-        private Type GetStatusPage(int status, IPluginContext pluginContext)
+        private ResponseItem GetStatusPage(int status, IPluginContext pluginContext)
         {
             if (!Dictionary.ContainsKey(pluginContext))
             {
@@ -206,24 +218,44 @@ namespace WebExpress.WebResponse
         /// <param name="status">The status code.</param>
         /// <param name="applicationContext">The context of the applicationwhere the status pages are located or null for an undefined page (may be from another module) that matches the status code.</param>
         /// <param name="moduleContext">The module context where the status pages are located or null for an undefined page (may be from another module) that matches the status code.</param>
+        /// <param name="culture">The culture.</param>
         /// <returns>The created status page or null</returns>
-        public IStatusPage CreateStatusPage(string massage, int status, IApplicationContext applicationContext, IModuleContext moduleContext)
+        public IStatusPage CreateStatusPage(string massage, int status, IApplicationContext applicationContext, IModuleContext moduleContext, CultureInfo culture)
         {
-            var type = GetStatusPage(status, applicationContext, moduleContext);
+            var responseItem = GetStatusPage(status, applicationContext, moduleContext);
 
-            if (type == null)
+            if (responseItem == null)
             {
                 return null;
             }
 
-            var statusPage = type.Assembly.CreateInstance(type?.FullName) as IStatusPage;
+            var statusPage = responseItem.StatusPageClass.Assembly.CreateInstance(responseItem.StatusPageClass?.FullName) as IStatusPage;
             statusPage.StatusMessage = massage;
             statusPage.StatusCode = status;
 
+            if (moduleContext != null)
+            {
+            }
+            else if (applicationContext != null)
+            {
+                moduleContext = ComponentManager.ModuleManager.GetModule(applicationContext, responseItem.ModuleID);
+            }
+            else
+            {
+                moduleContext = ComponentManager.ModuleManager.GetModules(responseItem.PluginContext, responseItem.ModuleID).FirstOrDefault();
+            }
+
+            if (statusPage is II18N i18n)
+            {
+                i18n.Culture = culture;
+            }
+
             if (statusPage is Resource resource)
             {
-                resource.ApplicationContext = applicationContext;
+                resource.ApplicationContext = moduleContext?.ApplicationContext;
                 resource.ModuleContext = moduleContext;
+
+                resource.Initialization(new ResourceContext(moduleContext));
             }
 
             return statusPage;
@@ -239,30 +271,30 @@ namespace WebExpress.WebResponse
         /// <param name="status">The status code.</param>
         /// <param name="applicationContext">The context of the applicationwhere the status pages are located or null for an undefined page (may be from another module) that matches the status code.</param>
         /// <param name="moduleContext">The module context where the status pages are located or null for an undefined page (may be from another module) that matches the status code.</param>
-        /// <returns>The first status page found to the given states or null</returns>
-        private Type GetStatusPage(int status, IApplicationContext applicationContext, IModuleContext moduleContext)
+        /// <returns>The first status page found to the given states</returns>
+        private ResponseItem GetStatusPage(int status, IApplicationContext applicationContext, IModuleContext moduleContext)
         {
-            var type = null as Type;
+            var responseItem = null as ResponseItem;
 
             // 1. Search in the plugin of the module of the accessed resource.
             if (moduleContext != null)
             {
-                type = GetStatusPage(status, moduleContext.PluginContext);
+                responseItem = GetStatusPage(status, moduleContext.PluginContext);
 
-                if (type != null)
+                if (responseItem != null)
                 {
-                    return type;
+                    return responseItem;
                 }
             }
 
             // 2. Search in the plugin of the application of the accessed resource.
             if (applicationContext != null)
             {
-                type = GetStatusPage(status, applicationContext.PluginContext);
+                responseItem = GetStatusPage(status, applicationContext.PluginContext);
 
-                if (type != null)
+                if (responseItem != null)
                 {
-                    return type;
+                    return responseItem;
                 }
             }
 
@@ -270,16 +302,16 @@ namespace WebExpress.WebResponse
             var wexExModuleContext = ComponentManager.PluginManager.GetPlugin("webexpress.webapp");
             if (wexExModuleContext != null)
             {
-                type = GetStatusPage(status, wexExModuleContext);
+                responseItem = GetStatusPage(status, wexExModuleContext);
 
-                if (type != null)
+                if (responseItem != null)
                 {
-                    return type;
+                    return responseItem;
                 }
             }
 
             // 4. Use the system status pages.
-            return null;
+            return responseItem;
         }
 
         /// <summary>

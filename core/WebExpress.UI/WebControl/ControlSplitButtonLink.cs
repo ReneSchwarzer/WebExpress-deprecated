@@ -2,7 +2,7 @@
 using System.Linq;
 using WebExpress.Html;
 using WebExpress.Internationalization;
-using WebExpress.Uri;
+using WebExpress.WebUri;
 using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebControl
@@ -33,7 +33,7 @@ namespace WebExpress.UI.WebControl
         /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
-        /// <param name="content">Der Inhalt</param>
+        /// <param name="content">The content of the html element.</param>
         public ControlSplitButtonLink(string id, params IControlSplitButtonItem[] content)
             : base(id)
         {
@@ -45,7 +45,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="content">Der Inhalt</param>
+        /// <param name="content">The content of the html element.</param>
         public ControlSplitButtonLink(params IControlSplitButtonItem[] content)
             : base(id: null)
         {
@@ -58,7 +58,7 @@ namespace WebExpress.UI.WebControl
         /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
-        /// <param name="content">Der Inhalt</param>
+        /// <param name="content">The content of the html element.</param>
         public ControlSplitButtonLink(string id, IEnumerable<IControlSplitButtonItem> content)
             : base(id)
         {
@@ -71,7 +71,7 @@ namespace WebExpress.UI.WebControl
         /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
-        /// <param name="content">Der Inhalt</param>
+        /// <param name="content">The content of the html element.</param>
         public ControlSplitButtonLink(IEnumerable<IControlSplitButtonItem> content)
             : base(id: null)
         {

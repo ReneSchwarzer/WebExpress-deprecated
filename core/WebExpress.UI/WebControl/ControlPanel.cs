@@ -42,7 +42,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="content">Der Inhalt</param>
+        /// <param name="content">The content of the html element.</param>
         public ControlPanel(params IControl[] content)
             : this()
         {
@@ -52,7 +52,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="content">Der Inhalt</param>
+        /// <param name="content">The content of the html element.</param>
         public ControlPanel(ICollection<IControl> content)
             : this()
         {
@@ -63,7 +63,7 @@ namespace WebExpress.UI.WebControl
         /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
-        /// <param name="content">Der Inhalt</param>
+        /// <param name="content">The content of the html element.</param>
         public ControlPanel(string id, params IControl[] content)
             : this(id)
         {
@@ -74,7 +74,7 @@ namespace WebExpress.UI.WebControl
         /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
-        /// <param name="content">Der Inhalt</param>
+        /// <param name="content">The content of the html element.</param>
         public ControlPanel(string id, IEnumerable<IControl> content)
             : this(id)
         {
@@ -85,7 +85,7 @@ namespace WebExpress.UI.WebControl
         /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
-        /// <param name="content">Der Inhalt</param>
+        /// <param name="content">The content of the html element.</param>
         public ControlPanel(string id, List<IControl> content)
             : base(id)
         {

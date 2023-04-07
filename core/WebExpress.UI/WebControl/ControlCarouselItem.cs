@@ -11,7 +11,7 @@
         public string Headline { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt den Text
+        /// Returns or sets the text.
         /// </summary>
         public string Text { get; set; }
 

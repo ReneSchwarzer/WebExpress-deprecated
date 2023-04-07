@@ -6,7 +6,7 @@ namespace WebExpress.UI.WebControl
     public class ControlFormularItemLabel : ControlFormularItem
     {
         /// <summary>
-        /// Liefert oder setzt den Text des Labels
+        /// Returns or sets the text. des Labels
         /// </summary>
         public string Text { get; set; }
 
@@ -28,7 +28,7 @@ namespace WebExpress.UI.WebControl
         /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
-        /// <param name="text">Der Text</param>
+        /// <param name="text">The text.</param>
         public ControlFormularItemLabel(string id, string text)
             : this(id)
         {

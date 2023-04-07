@@ -1,6 +1,8 @@
 ﻿using WebExpress.WebAttribute;
 using WebExpress.WebPlugin;
 
+[assembly: SystemPlugin()]
+
 namespace WebExpress.UI
 {
     [Id("webexpress.ui")]

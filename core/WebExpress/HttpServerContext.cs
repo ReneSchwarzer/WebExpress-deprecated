@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Reflection;
 using WebExpress.Config;
-using WebExpress.Uri;
+using WebExpress.WebUri;
 
 namespace WebExpress
 {

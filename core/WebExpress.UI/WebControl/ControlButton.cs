@@ -46,7 +46,7 @@ namespace WebExpress.UI.WebControl
         public List<Control> Content { get; private set; }
 
         /// <summary>
-        /// Liefert oder setzt den Text der TextBox
+        /// Returns or sets the text. The text.Box
         /// </summary>
         public string Text { get; set; }
 

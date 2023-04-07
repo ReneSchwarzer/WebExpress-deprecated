@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Internationalization;
-using WebExpress.Uri;
+using WebExpress.WebUri;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebCondition;
@@ -136,10 +136,6 @@ namespace WebExpress.WebResource
                     {
                         title = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
-                    else if (customAttribute.AttributeType == typeof(PathAttribute))
-                    {
-                        contextPath = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
-                    }
                     else if (customAttribute.AttributeType == typeof(ContextPathAttribute))
                     {
                         contextPath = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
@@ -207,7 +203,7 @@ namespace WebExpress.WebResource
                     {
                         ID = id,
                         Title = title,
-                        Type = resource,
+                        ResourceClass = resource,
                         ModuleID = moduleID,
                         Context = resourceContext,
                         Cache = cache,

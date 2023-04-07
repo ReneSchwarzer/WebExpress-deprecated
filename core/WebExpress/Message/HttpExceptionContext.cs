@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http.Features;
 using System;
 using System.Net;
-using WebExpress.Uri;
+using WebExpress.WebUri;
 
 namespace WebExpress.Message
 {

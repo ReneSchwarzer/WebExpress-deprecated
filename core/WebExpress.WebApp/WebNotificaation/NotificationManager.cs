@@ -4,7 +4,7 @@ using System.Linq;
 using WebExpress.Internationalization;
 using WebExpress.Message;
 using WebExpress.UI.WebControl;
-using WebExpress.Uri;
+using WebExpress.WebUri;
 
 namespace WebExpress.WebApp.WebNotificaation
 {

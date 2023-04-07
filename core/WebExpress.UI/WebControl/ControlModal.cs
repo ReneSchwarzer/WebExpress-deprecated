@@ -64,7 +64,7 @@ namespace WebExpress.UI.WebControl
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="header">Die Überschrift</param>
-        /// <param name="content">Der Inhalt</param>
+        /// <param name="content">The content of the html element.</param>
         public ControlModal(string id, string header, params Control[] content)
             : this(id, header)
         {
@@ -78,8 +78,8 @@ namespace WebExpress.UI.WebControl
         /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
-        /// <param name="text">Der Text</param>
-        /// <param name="content">Der Inhalt</param>
+        /// <param name="text">The text.</param>
+        /// <param name="content">The content of the html element.</param>
         public ControlModal(string id, string text, IEnumerable<Control> content)
             : this(id, text)
         {
@@ -90,8 +90,8 @@ namespace WebExpress.UI.WebControl
         /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
-        /// <param name="text">Der Text</param>
-        /// <param name="content">Der Inhalt</param>
+        /// <param name="text">The text.</param>
+        /// <param name="content">The content of the html element.</param>
         public ControlModal(string id = null, params Control[] content)
             : this(id, string.Empty)
         {

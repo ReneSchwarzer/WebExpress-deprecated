@@ -17,7 +17,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Liefert oder setzt den ToolTip
+        /// Returns or sets the tooltip.
         /// </summary>
         public string Title
         {

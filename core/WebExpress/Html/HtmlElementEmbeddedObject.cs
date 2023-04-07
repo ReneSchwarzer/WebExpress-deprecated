@@ -10,7 +10,7 @@ namespace WebExpress.Html
     public class HtmlElementEmbeddedObject : HtmlElement, IHtmlElementEmbedded
     {
         /// <summary>
-        /// Liefert die Elemente
+        /// Returns the elements.
         /// </summary>
         public new List<IHtmlNode> Elements => base.Elements;
 
@@ -26,7 +26,7 @@ namespace WebExpress.Html
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="nodes">Der Inhalt</param>
+        /// <param name="nodes">The content of the html element.</param>
         public HtmlElementEmbeddedObject(params IHtmlNode[] nodes)
             : this()
         {
@@ -36,7 +36,7 @@ namespace WebExpress.Html
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="nodes">Der Inhalt</param>
+        /// <param name="nodes">The content of the html element.</param>
         public HtmlElementEmbeddedObject(IEnumerable<IHtmlNode> nodes)
             : this()
         {

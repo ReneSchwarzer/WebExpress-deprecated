@@ -9,6 +9,10 @@ fragmentmanager.initialization=The fragment manager has been initialized.
 fragmentmanager.register=The fragment '{0}' has been registered in the '{1}' section of application '{2}'.
 fragmentmanager.error.section=The section is incorrect.
 fragmentmanager.wrongtype=The type '{0}' does not implement the interface '{1}'.
+fragmentmanager.moduleless=The fragment '{0}' from the plugin '{1}' has no information about the module.
+fragmentmanager.addfragment.duplicate=The fragment '{0}' of module '{1}' has already been added.
+fragmentmanager.titel=Fragments:
+fragmentmanager.fragment={0}
 
 form.empty.id=The form does not have an ID!
 form.submit.label=Submit

@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using WebExpress.Uri;
+using WebExpress.WebUri;
 using WebExpress.WebApplication;
 using WebExpress.WebPlugin;
 

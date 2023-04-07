@@ -24,7 +24,7 @@ namespace WebExpress.UI.WebControl
         /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
-        /// <param name="text">Der Text</param>
+        /// <param name="text">The text.</param>
         public ControlSplitButtonItemHeader(string id, string text)
             : base(id)
         {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 using WebExpress.Config;
-using WebExpress.Uri;
+using WebExpress.WebUri;
 
 namespace WebExpress
 {

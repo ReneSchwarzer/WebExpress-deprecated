@@ -2,7 +2,7 @@
 using System.Text;
 using System.Text.Json;
 using WebExpress.UI.WebControl;
-using WebExpress.Uri;
+using WebExpress.WebUri;
 
 namespace WebExpress.WebApp.WebApiControl;
 

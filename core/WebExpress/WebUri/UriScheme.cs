@@ -1,4 +1,4 @@
-namespace WebExpress.Uri
+namespace WebExpress.WebUri
 {
     /// <summary>
     /// The typ of the uri.

@@ -2,7 +2,7 @@
 using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
-using WebExpress.Uri;
+using WebExpress.WebUri;
 using WebExpress.WebPage;
 
 namespace WebExpress.WebApp.WebControl

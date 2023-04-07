@@ -1,6 +1,6 @@
 ﻿using System;
 using WebExpress.Html;
-using WebExpress.Uri;
+using WebExpress.WebUri;
 using WebExpress.WebPage;
 using static WebExpress.Internationalization.InternationalizationManager;
 
@@ -89,7 +89,7 @@ namespace WebExpress.UI.WebControl
                 );
             }
 
-            if (Uri is UriResource resourceUri)
+            if (Uri is UriRelative resourceUri)
             {
                 //foreach (var part in resourceUri.Path.TakeLast((int)TakeLast))
                 //{

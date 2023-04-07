@@ -5,16 +5,16 @@ using System.Linq;
 namespace WebExpress.Html
 {
     /// <summary>
-    /// Erweiterungsmethoden für HTMLElemente
+    /// Extension methods for HTMLEelements.
     /// </summary>
     public static class HTMLElementExtension
     {
         /// <summary>
-        /// Fügt eine Klasse hinzu
+        /// Adds a css class.
         /// </summary>
-        /// <param name="html">Das zu erweiternde HTML-Element</param>
-        /// <param name="cssClass">Die Klasse, welche hinzugefügt werden soll</param>
-        /// <returns>Des um die Kasse erweiterte HTML-Element</returns>
+        /// <param name="html">The HTML element to extend.</param>
+        /// <param name="cssClass">The class to add.</param>
+        /// <returns>The HTML element extended by the checkout.</returns>
         public static IHtmlNode AddClass(this IHtmlNode html, string cssClass)
         {
             if (html is HtmlElement)
@@ -37,11 +37,11 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Entfernt eine Klasse
+        /// Removes a css class.
         /// </summary>
-        /// <param name="html">Das HTML-Element</param>
-        /// <param name="cssClass">Die Klasse, welche entfernt werden soll</param>
-        /// <returns>Des um die Kasse reduzierte HTML-Element</returns>
+        /// <param name="html">The HTML element.</param>
+        /// <param name="cssClass">The class to remove.</param>
+        /// <returns>The HTML element reduced by the checkout.</returns>
         public static IHtmlNode RemoveClass(this IHtmlNode html, string cssClass)
         {
             if (cssClass == null) return html;
@@ -66,11 +66,11 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Fügt ein Style hinzu
+        /// Adds a style.
         /// </summary>
-        /// <param name="html">Das zu erweiternde HTML-Element</param>
-        /// <param name="cssStyle">Die Klasse, welche hinzugefügt werden soll</param>
-        /// <returns>Des um die Kasse erweiterte HTML-Element</returns>
+        /// <param name="html">The HTML element to extend.</param>
+        /// <param name="cssStyle">The class to add.</param>
+        /// <returns>The HTML element extended by the checkout.</returns>
         public static IHtmlNode AddStyle(this IHtmlNode html, string cssStyle)
         {
             if (html is HtmlElement)
@@ -93,11 +93,11 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Entfernt ein Style
+        /// Removes a style.
         /// </summary>
-        /// <param name="html">Das HTML-Element</param>
+        /// <param name="html">The HTML element.</param>
         /// <param name="cssStyle">Der Style, welcher entfernt werden soll</param>
-        /// <returns>Des um die Kasse reduzierte HTML-Element</returns>
+        /// <returns>The HTML element reduced by the checkout.</returns>
         public static IHtmlNode RemoveStyle(this IHtmlNode html, string cssStyle)
         {
             if (html is HtmlElement)

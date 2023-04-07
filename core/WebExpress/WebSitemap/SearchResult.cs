@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using WebExpress.Internationalization;
-using WebExpress.Uri;
+using WebExpress.WebUri;
 using WebExpress.WebApplication;
 using WebExpress.WebModule;
 using WebExpress.WebResource;
@@ -68,7 +68,7 @@ namespace WebExpress.WebSitemap
         /// <summary>
         /// Returns the variables.
         /// </summary>
-        public IDictionary<string, string> Variables { get; } = new Dictionary<string, string>();
+        public IDictionary<string, string> Variables { get; internal set; } = new Dictionary<string, string>();
 
         /// <summary>
         /// Constructor

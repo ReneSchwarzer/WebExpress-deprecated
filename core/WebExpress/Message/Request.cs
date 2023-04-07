@@ -9,7 +9,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WebExpress.Html;
-using WebExpress.Uri;
+using WebExpress.WebUri;
 using WebExpress.WebSession;
 
 namespace WebExpress.Message

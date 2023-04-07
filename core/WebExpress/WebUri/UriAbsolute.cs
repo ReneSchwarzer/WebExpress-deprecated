@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace WebExpress.Uri
+namespace WebExpress.WebUri
 {
     /// <summary>
     /// Absolute uri (e.g. https://de.wikipedia.org/wiki/Uniform_Resource_Identifier).

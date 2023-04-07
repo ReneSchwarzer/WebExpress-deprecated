@@ -2,7 +2,7 @@
 using System.Linq;
 using WebExpress.Html;
 using WebExpress.UI.WebFragment;
-using WebExpress.Uri;
+using WebExpress.WebUri;
 using WebExpress.WebPage;
 using static WebExpress.Internationalization.InternationalizationManager;
 

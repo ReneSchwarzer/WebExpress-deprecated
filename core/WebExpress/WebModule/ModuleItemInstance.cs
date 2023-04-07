@@ -2,7 +2,7 @@
 
 namespace WebExpress.WebModule
 {
-    public class ModuleItemValue
+    public class ModuleItemInstance
     {
         /// <summary>
         /// Returns the module context.
@@ -13,7 +13,7 @@ namespace WebExpress.WebModule
         /// Returns the module instance or null if not already created.
         /// </summary>
         public IModule ModuleInstance { get; internal set; }
-        
+
         /// <summary>
         /// Returns the cancel token or null if not already created.
         /// </summary>

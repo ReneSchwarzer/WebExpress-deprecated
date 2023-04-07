@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using WebExpress.Uri;
+using WebExpress.WebUri;
 using WebExpress.WebComponent;
 using WebExpress.WebPage;
 using WebExpress.WebResource;
@@ -42,7 +42,7 @@ namespace WebExpress.UI.WebPage
         {
             base.Initialization(context);
 
-            var module = ComponentManager.ModuleManager.GetModule(ApplicationContext, "webexpress.ui");
+            var module = ComponentManager.ModuleManager.GetModule(context?.ModuleContext?.ApplicationContext, "webexpress.ui");
             if (module != null)
             {
                 var contextPath = module.ContextPath;

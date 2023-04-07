@@ -16,7 +16,7 @@ namespace WebExpress.UI.WebControl
         public TypesLayoutTableRow Layout { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt den Text
+        /// Returns or sets the text.
         /// </summary>
         public string Text { get; set; }
 

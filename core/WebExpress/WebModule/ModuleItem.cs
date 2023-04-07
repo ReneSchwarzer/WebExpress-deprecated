@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using WebExpress.Internationalization;
-using WebExpress.Uri;
+using WebExpress.WebUri;
 using WebExpress.WebApplication;
 using WebExpress.WebPlugin;
 
@@ -79,8 +80,8 @@ namespace WebExpress.WebModule
         /// <summary>
         /// Returns the directory where the module instances are listed.
         /// </summary>
-        public IDictionary<IApplicationContext, ModuleItemValue> Dictionary { get; }
-            = new Dictionary<IApplicationContext, ModuleItemValue>();
+        public IDictionary<IApplicationContext, ModuleItemInstance> Dictionary { get; }
+            = new Dictionary<IApplicationContext, ModuleItemInstance>();
 
         /// <summary>
         /// An event that fires when an module is added.
@@ -114,16 +115,16 @@ namespace WebExpress.WebModule
                 ModuleName = ModuleName,
                 Description = Description,
                 Icon = Icon,
-                AssetPath = AssetPath,
+                AssetPath = Path.Combine(applicationContext.AssetPath, AssetPath),
+                DataPath = Path.Combine(applicationContext.DataPath, DataPath),
                 ContextPath = UriRelative.Combine(applicationContext.ContextPath, ContextPath),
-                DataPath = DataPath,
                 Log = Log
             };
 
             Dictionary.Add
             (
                 applicationContext,
-                new ModuleItemValue()
+                new ModuleItemInstance()
                 {
                     ModuleContext = moduleContext
                 }

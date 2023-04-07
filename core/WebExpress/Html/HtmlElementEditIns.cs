@@ -9,7 +9,7 @@ namespace WebExpress.Html
     public class HtmlElementEditIns : HtmlElement, IHtmlElementEdit
     {
         /// <summary>
-        /// Liefert oder setzt den Text
+        /// Returns or sets the text.
         /// </summary>
         public string Text
         {
@@ -27,7 +27,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Liefert oder setzt die indiziert das Datum und die Uhrzeit, wann der Text geändert wurde. 
+        /// Liefert oder setzt die indiziert das Datum und die Uhrzeit, wann The text. geändert wurde. 
         /// Wenn der Wert nicht als Datum mit optionaler Zeitangabe erkannt werden kann, hat dieses Element keinen Bezug zur Zeit.
         /// </summary>
         public string DateTime
@@ -48,7 +48,7 @@ namespace WebExpress.Html
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="text">Der Inhalt</param>
+        /// <param name="text">The content of the html element.</param>
         public HtmlElementEditIns(string text)
             : this()
         {
@@ -58,7 +58,7 @@ namespace WebExpress.Html
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="nodes">Der Inhalt</param>
+        /// <param name="nodes">The content of the html element.</param>
         public HtmlElementEditIns(params IHtmlNode[] nodes)
             : this()
         {
@@ -66,10 +66,10 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// In String konvertieren unter Zuhilfenahme eines StringBuilder
+        /// Convert to a string using a StringBuilder.
         /// </summary>
-        /// <param name="builder">Der StringBuilder</param>
-        /// <param name="deep">Die Aufrufstiefe</param>
+        /// <param name="builder">The string builder.</param>
+        /// <param name="deep">The call depth.</param>
         public override void ToString(StringBuilder builder, int deep)
         {
             base.ToString(builder, deep);

@@ -10,14 +10,14 @@ namespace WebExpress.UI.Markdown
         public MarkdownMorphemeState Type { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt den Text
+        /// Returns or sets the text.
         /// </summary>
         public StringBuilder Text { get; private set; } = new StringBuilder();
 
         /// <summary>
         /// Erweitert das Morphem
         /// </summary>
-        /// <param name="text">Der Text</param>
+        /// <param name="text">The text.</param>
         public void Append(string text)
         {
             if (Text.Length > 0)

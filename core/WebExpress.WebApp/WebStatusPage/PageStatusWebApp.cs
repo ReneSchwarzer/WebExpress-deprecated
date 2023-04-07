@@ -1,7 +1,7 @@
 ﻿using WebExpress.Message;
 using WebExpress.UI.WebControl;
 using WebExpress.UI.WebPage;
-using WebExpress.Uri;
+using WebExpress.WebUri;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebResource;

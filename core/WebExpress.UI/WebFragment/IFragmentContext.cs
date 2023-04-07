@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using WebExpress.Internationalization;
 using WebExpress.WebCondition;
+using WebExpress.WebModule;
 using WebExpress.WebPlugin;
 
 namespace WebExpress.UI.WebFragment
@@ -13,9 +14,9 @@ namespace WebExpress.UI.WebFragment
         IPluginContext PluginContext { get; }
 
         /// <summary>
-        /// Returns the application id or '*' for all applications.
+        /// Returns the module context.
         /// </summary>
-        string ApplicationID { get; }
+        IModuleContext ModuleContext { get; }
 
         /// <summary>
         /// Returns the conditions that must be met for the component to be active.

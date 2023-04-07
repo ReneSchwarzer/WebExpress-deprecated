@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Security;
 using WebExpress.Internationalization;
-using WebExpress.Uri;
+using WebExpress.WebUri;
 using WebExpress.WebApplication;
 using WebExpress.WebAttribute;
 using WebExpress.WebModule;

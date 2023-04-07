@@ -62,7 +62,7 @@ namespace WebExpress.UI.WebControl
         /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
-        /// <param name="name">Der Name der TextBox</param>
+        /// <param name="name">Der Name The text.Box</param>
         public ControlFormularItemInputRadio(string id, string name)
             : this(id)
         {

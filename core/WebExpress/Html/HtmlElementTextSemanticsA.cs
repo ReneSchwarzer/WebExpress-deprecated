@@ -10,12 +10,12 @@ namespace WebExpress.Html
     public class HtmlElementTextSemanticsA : HtmlElement, IHtmlElementTextSemantics
     {
         /// <summary>
-        /// Liefert die Elemente
+        /// Returns the elements.
         /// </summary>
         public new List<IHtmlNode> Elements => base.Elements;
 
         /// <summary>
-        /// Liefert oder setzt den Text
+        /// Returns or sets the text.
         /// </summary>
         public string Text
         {
@@ -33,7 +33,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Liefert oder setzt den Tooltip
+        /// Returns or sets the tooltip.
         /// </summary>
         public string Title
         {
@@ -71,7 +71,7 @@ namespace WebExpress.Html
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="text">Der Inhalt</param>
+        /// <param name="text">The content of the html element.</param>
         public HtmlElementTextSemanticsA(string text)
             : this()
         {
@@ -81,7 +81,7 @@ namespace WebExpress.Html
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="nodes">Der Inhalt</param>
+        /// <param name="nodes">The content of the html element.</param>
         public HtmlElementTextSemanticsA(params IHtmlNode[] nodes)
             : this()
         {
@@ -91,7 +91,7 @@ namespace WebExpress.Html
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="nodes">Der Inhalt</param>
+        /// <param name="nodes">The content of the html element.</param>
         public HtmlElementTextSemanticsA(IEnumerable<IHtmlNode> nodes)
             : this()
         {

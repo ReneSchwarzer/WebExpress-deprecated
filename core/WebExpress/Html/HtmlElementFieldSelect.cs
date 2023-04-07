@@ -13,12 +13,12 @@ namespace WebExpress.Html
     public class HtmlElementFieldSelect : HtmlElement, IHtmlFormularItem
     {
         /// <summary>
-        /// Liefert die Elemente
+        /// Returns the elements.
         /// </summary>
         public new List<IHtmlNode> Elements => base.Elements;
 
         /// <summary>
-        /// Liefert oder setzt den Namen des Eingabefeldes
+        /// Returns or sets the name of the input field.
         /// </summary>
         public string Name
         {
@@ -36,7 +36,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Liefert oder setzt den Identifizierungsname des form-Elementes mit dem es in Verbindung steht
+        /// Returns or sets the identification name of the form element to which it is associated.
         /// </summary>
         public string Form
         {
@@ -74,7 +74,7 @@ namespace WebExpress.Html
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="nodes">Der Inhalt</param>
+        /// <param name="nodes">The content of the html element.</param>
         public HtmlElementFieldSelect(params IHtmlNode[] nodes)
             : this()
         {
@@ -82,10 +82,10 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// In String konvertieren unter Zuhilfenahme eines StringBuilder
+        /// Convert to a string using a StringBuilder.
         /// </summary>
-        /// <param name="builder">Der StringBuilder</param>
-        /// <param name="deep">Die Aufrufstiefe</param>
+        /// <param name="builder">The string builder.</param>
+        /// <param name="deep">The call depth.</param>
         public override void ToString(StringBuilder builder, int deep)
         {
             base.ToString(builder, deep);

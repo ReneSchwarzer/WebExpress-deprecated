@@ -6,7 +6,7 @@ namespace WebExpress.UI.WebControl
     public abstract class ControlFormularItem : Control
     {
         /// <summary>
-        /// Liefert oder setzt den Namen des Eingabefeldes
+        /// Returns or sets the name of the input field.
         /// </summary>
         public string Name { get; set; }
 

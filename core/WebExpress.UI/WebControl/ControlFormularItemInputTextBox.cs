@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using WebExpress.Html;
-using WebExpress.Uri;
+using WebExpress.WebUri;
 using WebExpress.WebComponent;
 using static WebExpress.Internationalization.InternationalizationManager;
 
@@ -69,7 +69,7 @@ namespace WebExpress.UI.WebControl
         /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
-        /// <param name="name">Der Name der TextBox</param>
+        /// <param name="name">Der Name The text.Box</param>
         public ControlFormularItemInputTextBox(string id, string name)
             : base(id)
         {

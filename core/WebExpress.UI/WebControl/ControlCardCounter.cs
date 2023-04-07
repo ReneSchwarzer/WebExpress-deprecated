@@ -24,7 +24,7 @@ namespace WebExpress.UI.WebControl
         public int Progress { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt den Text des Counters
+        /// Returns or sets the text. des Counters
         /// </summary>
         public string Text { get; set; }
 

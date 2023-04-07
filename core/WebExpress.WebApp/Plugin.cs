@@ -3,6 +3,8 @@ using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebPlugin;
 
+[assembly: SystemPlugin()]
+
 namespace WebExpress.WebApp
 {
     [Id("webexpress.webapp")]

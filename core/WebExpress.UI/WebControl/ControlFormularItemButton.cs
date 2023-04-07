@@ -41,7 +41,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Liefert oder setzt ob die Schaltfläche deaktiviert ist
+        /// Returns or sets whether the button is disabled.
         /// </summary>
         public bool Disabled { get; set; }
 
@@ -56,7 +56,7 @@ namespace WebExpress.UI.WebControl
         public EventHandler<FormularEventArgs> Click;
 
         /// <summary>
-        /// Liefert oder setzt den Text der TextBox
+        /// Returns or sets the text. The text.Box
         /// </summary>
         public string Text { get; set; }
 

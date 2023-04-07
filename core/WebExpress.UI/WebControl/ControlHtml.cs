@@ -24,7 +24,7 @@ namespace WebExpress.UI.WebControl
         /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
-        /// <param name="value">Der Text</param>
+        /// <param name="value">The text.</param>
         public ControlHtml(string id, int value)
             : base(id)
         {

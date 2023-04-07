@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 
-namespace WebExpress.Uri
+namespace WebExpress.WebUri
 {
     /// <summary>
     /// The authority (e.g. user@example.com:8080).

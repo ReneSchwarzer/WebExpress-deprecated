@@ -5,7 +5,7 @@ namespace WebExpress.Html
     public class HtmlComment : IHtmlNode
     {
         /// <summary>
-        /// Liefert oder setzt den Text
+        /// Returns or sets the text.
         /// </summary>
         public string Text { get; set; }
 
@@ -20,17 +20,17 @@ namespace WebExpress.Html
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="text">Der Text</param>
+        /// <param name="text">The text.</param>
         public HtmlComment(string text)
         {
             Text = text;
         }
 
         /// <summary>
-        /// In String konvertieren unter Zuhilfenahme eines StringBuilder
+        /// Convert to a string using a StringBuilder.
         /// </summary>
-        /// <param name="builder">Der StringBuilder</param>
-        /// <param name="deep">Die Aufrufstiefe</param>
+        /// <param name="builder">The string builder.</param>
+        /// <param name="deep">The call depth.</param>
         public virtual void ToString(StringBuilder builder, int deep)
         {
             builder.Append("<!-- ");

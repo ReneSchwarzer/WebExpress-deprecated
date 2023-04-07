@@ -1,5 +1,5 @@
 ﻿using WebExpress.Message;
-using WebExpress.Uri;
+using WebExpress.WebUri;
 using WebExpress.WebResource;
 
 namespace WebExpress.WebPage

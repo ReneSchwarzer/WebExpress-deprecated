@@ -35,7 +35,7 @@ namespace WebExpress.UI.WebControl
         /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
-        /// <param name="group">Der Name der TextBox</param>
+        /// <param name="group">Der Name The text.Box</param>
         public ControlFormularItemInputGroup(string id, ControlFormularItemGroup group)
             : base(id)
         {

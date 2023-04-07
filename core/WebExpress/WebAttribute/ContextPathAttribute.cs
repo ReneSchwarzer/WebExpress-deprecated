@@ -3,7 +3,7 @@
 namespace WebExpress.WebAttribute
 {
     [AttributeUsage(AttributeTargets.All, AllowMultiple = false)]
-    public class ContextPathAttribute : System.Attribute, IApplicationAttribute, IModuleAttribute
+    public class ContextPathAttribute : System.Attribute, IApplicationAttribute, IModuleAttribute, IResourceAttribute
     {
         /// <summary>
         /// Constructor

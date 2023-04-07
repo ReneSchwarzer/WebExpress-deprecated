@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Net;
 using System.Text;
-using WebExpress.Uri;
+using WebExpress.WebUri;
 
 namespace WebExpress.Message
 {

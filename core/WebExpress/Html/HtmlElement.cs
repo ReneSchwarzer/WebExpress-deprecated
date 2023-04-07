@@ -251,7 +251,7 @@ namespace WebExpress.Html
         /// <summary>
         /// Liefert den Text
         /// </summary>
-        /// <returns>Der Text</returns>
+        /// <returns>The text.</returns>
         protected string GetText()
         {
             var a = Elements.Where(x => x is HtmlText).Select(x => (x as HtmlText).Value);
@@ -260,10 +260,10 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// In String konvertieren unter Zuhilfenahme eines StringBuilder
+        /// Convert to a string using a StringBuilder.
         /// </summary>
-        /// <param name="builder">Der StringBuilder</param>
-        /// <param name="deep">Die Aufrufstiefe</param>
+        /// <param name="builder">The string builder.</param>
+        /// <param name="deep">The call depth.</param>
         public virtual void ToString(StringBuilder builder, int deep)
         {
             ToPreString(builder, deep);
@@ -305,10 +305,10 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// In String konvertieren unter Zuhilfenahme eines StringBuilder
+        /// Convert to a string using a StringBuilder.
         /// </summary>
-        /// <param name="builder">Der StringBuilder</param>
-        /// <param name="deep">Die Aufrufstiefe</param>
+        /// <param name="builder">The string builder.</param>
+        /// <param name="deep">The call depth.</param>
         protected virtual void ToPreString(StringBuilder builder, int deep)
         {
             if (!Inline)
@@ -328,10 +328,10 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// In String konvertieren unter Zuhilfenahme eines StringBuilder
+        /// Convert to a string using a StringBuilder.
         /// </summary>
-        /// <param name="builder">Der StringBuilder</param>
-        /// <param name="deep">Die Aufrufstiefe</param>
+        /// <param name="builder">The string builder.</param>
+        /// <param name="deep">The call depth.</param>
         /// <param name="nl">Abschlustag auf neuer Zeile beginnen</param>
         protected virtual void ToPostString(StringBuilder builder, int deep, bool nl = true)
         {

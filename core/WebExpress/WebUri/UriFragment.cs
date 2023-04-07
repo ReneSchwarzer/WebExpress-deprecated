@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace WebExpress.Uri
+namespace WebExpress.WebUri
 {
     /// <summary>
     /// Uri which consists only of the fragment (e.g. #).

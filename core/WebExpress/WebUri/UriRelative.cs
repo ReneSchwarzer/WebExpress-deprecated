@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace WebExpress.Uri
+namespace WebExpress.WebUri
 {
     /// <summary>
     /// A relative uri (e.g. /image.png).

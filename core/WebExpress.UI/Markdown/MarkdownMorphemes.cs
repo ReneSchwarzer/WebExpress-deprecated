@@ -21,7 +21,7 @@ namespace WebExpress.UI.Markdown
         /// Fügt ein neues Morphem hinzu
         /// </summary>
         /// <param name="type">Der Typ</param>
-        /// <param name="text">Der Text</param>
+        /// <param name="text">The text.</param>
         public void Add(MarkdownFragmentState type, string text = null)
         {
             if (Stack.Count == 0)
@@ -208,7 +208,7 @@ namespace WebExpress.UI.Markdown
         /// Fügt ein neues Morphem hinzu
         /// </summary>
         /// <param name="type">Der Typ</param>
-        /// <param name="text">Der Text</param>
+        /// <param name="text">The text.</param>
         private void Push(MarkdownMorphemeState type, string text = null)
         {
             var morpheme = new MarkdownMorpheme() { Type = type };
@@ -225,7 +225,7 @@ namespace WebExpress.UI.Markdown
         /// <summary>
         /// Erweitert das letzte Morphem
         /// </summary>
-        /// <param name="text">Der Text</param>
+        /// <param name="text">The text.</param>
         private void Append(string text = null)
         {
             var morpheme = new MarkdownMorpheme() { };
@@ -257,7 +257,7 @@ namespace WebExpress.UI.Markdown
         /// <summary>
         /// Fügt am Beginn des letzte Morphems ein Wort ein
         /// </summary>
-        /// <param name="text">Der Text</param>
+        /// <param name="text">The text.</param>
         private void Insert(string text = null)
         {
             var peek = Stack.Peek();
@@ -285,7 +285,7 @@ namespace WebExpress.UI.Markdown
         ///// Fügt ein neues Morphem hinzu
         ///// </summary>
         ///// <param name="type">Der Typ</param>
-        ///// <param name="text">Der Text</param>
+        ///// <param name="text">The text.</param>
         //public void Add(MarkdownMorphemeState type, string text = null)
         //{
         //    var morpheme = new MarkdownMorpheme() { Type = type };
@@ -302,7 +302,7 @@ namespace WebExpress.UI.Markdown
         ///// Erweitert das letzte Morphem
         ///// </summary>
         ///// <param name="type">Der Typ</param>
-        ///// <param name="text">Der Text</param>
+        ///// <param name="text">The text.</param>
         //public void Append(string text, MarkdownMorphemeState type = MarkdownMorphemeState.Text)
         //{
         //    var last = Morphemes.LastOrDefault();

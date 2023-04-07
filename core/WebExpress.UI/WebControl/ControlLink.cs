@@ -3,7 +3,7 @@ using System.Linq;
 using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.Message;
-using WebExpress.Uri;
+using WebExpress.WebUri;
 using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebControl
@@ -29,12 +29,12 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Liefert oder setzt den Text
+        /// Returns or sets the text.
         /// </summary>
         public string Text { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt den ToolTip
+        /// Returns or sets the tooltip.
         /// </summary>
         public string Title { get; set; }
 
@@ -105,7 +105,7 @@ namespace WebExpress.UI.WebControl
         /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
-        /// <param name="text">Der Inhalt</param>
+        /// <param name="text">The content of the html element.</param>
         public ControlLink(string id, string text)
             : this(id)
         {
@@ -115,7 +115,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="content">Der Inhalt</param>
+        /// <param name="content">The content of the html element.</param>
         public ControlLink(params Control[] content)
             : this((string)null)
         {
@@ -126,7 +126,7 @@ namespace WebExpress.UI.WebControl
         /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
-        /// <param name="content">Der Inhalt</param>
+        /// <param name="content">The content of the html element.</param>
         public ControlLink(string id, params Control[] content)
             : this(id)
         {
@@ -137,7 +137,7 @@ namespace WebExpress.UI.WebControl
         /// Constructor
         /// </summary>
         /// <param name="id">Die ID</param>
-        /// <param name="content">Der Inhalt</param>
+        /// <param name="content">The content of the html element.</param>
         public ControlLink(string id, List<Control> content)
             : base(id)
         {
