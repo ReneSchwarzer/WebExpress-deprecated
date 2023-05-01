@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
 using WebExpress.Internationalization;
-using WebExpress.Message;
-using WebExpress.WebUri;
+using WebExpress.WebMessage;
 using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebControl
@@ -44,17 +43,17 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Liefert oder setzt die Ziel-Uri
         /// </summary>
-        public IUri Uri { get; set; }
+        public Uri Uri { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Weiterleitungs-Url
         /// </summary>
-        public IUri RedirectUri { get; set; }
+        public Uri RedirectUri { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Abbruchs-Url
         /// </summary>
-        public IUri BackUri { get; set; }
+        public Uri BackUri { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Submit-Schaltfläche

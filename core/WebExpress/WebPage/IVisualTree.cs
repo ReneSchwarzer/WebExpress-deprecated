@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using WebExpress.Html;
-using WebExpress.WebUri;
 
 namespace WebExpress.WebPage
 {
@@ -19,7 +19,7 @@ namespace WebExpress.WebPage
         /// <summary>
         /// Liefert oder setzt die Links auf die zu verwendenden JavaScript-Dateien, welche im Header eingefügt werden
         /// </summary>
-        List<IUri> HeaderScriptLinks { get; }
+        List<Uri> HeaderScriptLinks { get; }
 
         /// <summary>
         /// Liefert oder setzt die Links auf die zu verwendenden JavaScript-Dateien
@@ -39,7 +39,7 @@ namespace WebExpress.WebPage
         /// <summary>
         /// Liefert oder setzt die Links auf die zu verwendenden Css-Dateien
         /// </summary>
-        List<IUri> CssLinks { get; }
+        List<Uri> CssLinks { get; }
 
         /// <summary>
         /// Liefert oder setzt die Metainformationen
@@ -56,7 +56,7 @@ namespace WebExpress.WebPage
         /// Fügt eine Java-Script im Header hinzu
         /// </summary>
         /// <param name="url">Der Link</param>
-        void AddHeaderScriptLinks(IUri url);
+        void AddHeaderScriptLinks(Uri url);
 
         /// <summary>
         /// Fügt eine Java-Script hinzu oder sersetzt dieses, falls vorhanden

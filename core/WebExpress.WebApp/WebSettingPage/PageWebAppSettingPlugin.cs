@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using WebExpress.Internationalization;
-using WebExpress.Message;
+using WebExpress.WebMessage;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebApiControl;
 using WebExpress.WebApp.WebAttribute;
@@ -18,18 +18,18 @@ namespace WebExpress.WebApp.WebSettingPage
     /// <summary>
     /// Settings page with information about the active plugins.
     /// </summary>
-    [Id("SettingPlugin")]
-    [Title("webexpress.webapp:setting.titel.plugin.label")]
-    [Segment("plugin", "webexpress.webapp:setting.titel.plugin.label")]
-    [ContextPath("/Setting")]
+    [WebExID("SettingPlugin")]
+    [WebExTitle("webexpress.webapp:setting.titel.plugin.label")]
+    [WebExSegment("plugin", "webexpress.webapp:setting.titel.plugin.label")]
+    [WebExContextPath("/Setting")]
     [SettingSection(SettingSection.Secondary)]
     [SettingIcon(TypeIcon.PuzzlePiece)]
     [SettingGroup("webexpress.webapp:setting.group.system.label")]
     [SettingContext("webexpress.webapp:setting.tab.general.label")]
-    [Module("webexpress.webapp")]
-    [Context("admin")]
-    [Context("webexpress.webapp.plugin")]
-    [Optional]
+    [WebExModule("webexpress.webapp")]
+    [WebExContext("admin")]
+    [WebExContext("webexpress.webapp.plugin")]
+    [WebExOptional]
     public sealed class PageWebAppSettingPlugin : PageWebAppSetting
     {
         /// <summary>

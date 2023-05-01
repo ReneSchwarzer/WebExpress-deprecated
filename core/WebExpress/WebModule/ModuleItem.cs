@@ -6,9 +6,9 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using WebExpress.Internationalization;
-using WebExpress.WebUri;
 using WebExpress.WebApplication;
 using WebExpress.WebPlugin;
+using WebExpress.WebUri;
 
 namespace WebExpress.WebModule
 {
@@ -65,12 +65,12 @@ namespace WebExpress.WebModule
         /// <summary>
         /// Returns the context path.
         /// </summary>
-        public IUri ContextPath { get; internal set; }
+        public UriResource ContextPath { get; internal set; }
 
         /// <summary>
         /// Returns the icon uri.
         /// </summary>
-        public IUri Icon { get; internal set; }
+        public UriResource Icon { get; internal set; }
 
         /// <summary>
         /// Returns the log to write status messages to the console and to a log file.
@@ -108,17 +108,15 @@ namespace WebExpress.WebModule
             // create context
             var moduleContext = new ModuleContext()
             {
-                Assembly = Assembly,
                 PluginContext = PluginContext,
                 ApplicationContext = applicationContext,
                 ModuleID = ModuleID,
                 ModuleName = ModuleName,
                 Description = Description,
-                Icon = Icon,
+                Icon = UriResource.Combine(applicationContext.ContextPath, ContextPath, Icon),
                 AssetPath = Path.Combine(applicationContext.AssetPath, AssetPath),
                 DataPath = Path.Combine(applicationContext.DataPath, DataPath),
-                ContextPath = UriRelative.Combine(applicationContext.ContextPath, ContextPath),
-                Log = Log
+                ContextPath = UriResource.Combine(applicationContext.ContextPath, ContextPath)
             };
 
             Dictionary.Add
@@ -213,10 +211,7 @@ namespace WebExpress.WebModule
         {
             foreach (var item in Dictionary.Values)
             {
-                if (item.TokenSource != null)
-                {
-                    item.TokenSource.Cancel();
-                }
+                item.TokenSource?.Cancel();
             }
         }
 

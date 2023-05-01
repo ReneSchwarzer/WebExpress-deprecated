@@ -1,5 +1,4 @@
 ﻿using WebExpress.Html;
-using WebExpress.WebUri;
 using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebControl
@@ -9,7 +8,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Liefert oder setzt die Bildquelle
         /// </summary>
-        public IUri Uri { get; set; }
+        public string Uri { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Weite
@@ -40,7 +39,7 @@ namespace WebExpress.UI.WebControl
         /// </summary>
         /// <param name="id">Die ID</param>
         /// <param name="source">Die Bildquelle</param>
-        public ControlImage(string id, IUri source)
+        public ControlImage(string id, string source)
             : base(id)
         {
             Uri = source;

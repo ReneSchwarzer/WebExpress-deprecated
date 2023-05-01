@@ -1,7 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using WebExpress.Html;
 using WebExpress.Internationalization;
-using WebExpress.WebUri;
 using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebControl
@@ -34,7 +34,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Liefert oder setzt ein Link
         /// </summary>
-        public IUri Uri { get; set; }
+        public Uri Uri { get; set; }
 
         /// <summary>
         /// Constructor

@@ -1,4 +1,4 @@
-﻿using WebExpress.WebUri;
+﻿using System;
 
 namespace WebExpress.UI.WebControl
 {
@@ -12,7 +12,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Das benutzerdefinierte Icon
         /// </summary>
-        public IUri UserIcon { get; protected set; }
+        public Uri UserIcon { get; protected set; }
 
         /// <summary>
         /// Die Größe des Icons (nur bei Benutzerdefinierten Icons)
@@ -32,7 +32,7 @@ namespace WebExpress.UI.WebControl
         /// Constructor
         /// </summary>
         /// <param name="icon">Das benutzerdefinierte Icon</param>
-        public PropertyIcon(IUri icon, PropertySizeIcon size = null)
+        public PropertyIcon(Uri icon, PropertySizeIcon size = null)
         {
             SystemIcon = TypeIcon.None;
             UserIcon = icon;

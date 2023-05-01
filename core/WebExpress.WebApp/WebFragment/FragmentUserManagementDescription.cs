@@ -8,9 +8,9 @@ using WebExpress.WebPage;
 namespace WebExpress.WebApp.WebFragment
 {
     [Section(Section.ContentPreferences)]
-    [Module("webexpress.webapp")]
-    [Context("webexpress.webapp.usermanagement.user")]
-    [Cache()]
+    [WebExModule("webexpress.webapp")]
+    [WebExContext("webexpress.webapp.usermanagement.user")]
+    [WebExCache()]
     public sealed class FragmentUserManagementDescription : FragmentControlPanel
     {
         /// <summary>

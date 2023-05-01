@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using WebExpress.Message;
+using WebExpress.WebMessage;
 using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.WebResource
@@ -38,7 +38,7 @@ namespace WebExpress.WebResource
         {
             base.Initialization(context);
 
-            AssetDirectory = ResourceContext.Assembly.GetName().Name;
+            AssetDirectory = ResourceContext.PluginContext.Assembly.GetName().Name;
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace WebExpress.WebResource
         {
             lock (Gard)
             {
-                var assembly = ResourceContext.Assembly;
+                var assembly = ResourceContext.PluginContext.Assembly;
                 var buf = assembly.GetManifestResourceNames().ToList();
                 var resources = assembly.GetManifestResourceNames().Where(x => x.StartsWith(AssetDirectory, System.StringComparison.OrdinalIgnoreCase));
                 var contextPath = ResourceContext.ContextPath;
@@ -126,7 +126,7 @@ namespace WebExpress.WebResource
                         break;
                 }
 
-                ResourceContext.Log.Debug(message: I18N("webexpress:resource.file"), args: new object[] { request.RemoteEndPoint, request.Uri });
+                request.ServerContext.Log.Debug(I18N("webexpress:resource.file", request.RemoteEndPoint, request.Uri));
 
                 return response;
             }

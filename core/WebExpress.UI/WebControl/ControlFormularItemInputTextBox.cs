@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using WebExpress.Html;
-using WebExpress.WebUri;
 using WebExpress.WebComponent;
+using WebExpress.WebUri;
 using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.UI.WebControl
@@ -94,8 +94,8 @@ namespace WebExpress.UI.WebControl
                 var module = ComponentManager.ModuleManager.GetModule(context.ApplicationContext, "webexpress.ui");
                 if (module != null)
                 {
-                    context.VisualTree.CssLinks.Add(UriRelative.Combine(module.ContextPath, new UriRelative("/assets/css/summernote-bs5.min.css")));
-                    context.VisualTree.HeaderScriptLinks.Add(UriRelative.Combine(module.ContextPath, new UriRelative("/assets/js/summernote-bs5.min.js")));
+                    context.VisualTree.CssLinks.Add(UriResource.Combine(module.ContextPath, "/assets/css/summernote-bs5.min.css"));
+                    context.VisualTree.HeaderScriptLinks.Add(UriResource.Combine(module.ContextPath, "/assets/js/summernote-bs5.min.js"));
                 }
             }
         }

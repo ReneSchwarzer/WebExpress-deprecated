@@ -3,14 +3,14 @@ using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebPlugin;
 
-[assembly: SystemPlugin()]
+[assembly: WebExSystemPlugin()]
 
 namespace WebExpress.WebApp
 {
-    [Id("webexpress.webapp")]
-    [Name("WebExpress.WebApp")]
-    [Description("plugin.description")]
-    [Icon("/assets/img/Logo.png")]
+    [WebExID("webexpress.webapp")]
+    [WebExName("WebExpress.WebApp")]
+    [WebExDescription("plugin.description")]
+    [WebExIcon("/assets/img/Logo.png")]
     public sealed class Plugin : IPlugin
     {
         /// <summary>

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Internationalization;
-using WebExpress.WebUri;
 using WebExpress.WebApplication;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebPlugin;
+using WebExpress.WebUri;
 
 namespace WebExpress.WebModule
 {
@@ -108,44 +108,44 @@ namespace WebExpress.WebModule
                 var dataPath = string.Empty;
                 var applicationIDs = new List<string>();
 
-                foreach (var customAttribute in type.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IModuleAttribute))))
+                foreach (var customAttribute in type.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(WebExIModuleAttribute))))
                 {
-                    if (customAttribute.AttributeType == typeof(IdAttribute))
+                    if (customAttribute.AttributeType == typeof(WebExIDAttribute))
                     {
                         id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
                     }
 
-                    if (customAttribute.AttributeType == typeof(NameAttribute))
+                    if (customAttribute.AttributeType == typeof(WebExNameAttribute))
                     {
                         name = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
 
-                    if (customAttribute.AttributeType == typeof(IconAttribute))
+                    if (customAttribute.AttributeType == typeof(WebExIconAttribute))
                     {
                         icon = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
 
-                    if (customAttribute.AttributeType == typeof(DescriptionAttribute))
+                    if (customAttribute.AttributeType == typeof(WebExDescriptionAttribute))
                     {
                         description = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
 
-                    if (customAttribute.AttributeType == typeof(ContextPathAttribute))
+                    if (customAttribute.AttributeType == typeof(WebExContextPathAttribute))
                     {
                         contextPath = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
 
-                    if (customAttribute.AttributeType == typeof(AssetPathAttribute))
+                    if (customAttribute.AttributeType == typeof(WebExAssetPathAttribute))
                     {
                         assetPath = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
 
-                    if (customAttribute.AttributeType == typeof(DataPathAttribute))
+                    if (customAttribute.AttributeType == typeof(WebExDataPathAttribute))
                     {
                         dataPath = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
 
-                    if (customAttribute.AttributeType == typeof(ApplicationAttribute))
+                    if (customAttribute.AttributeType == typeof(WebExApplicationAttribute))
                     {
                         applicationIDs.Add(customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower().Trim());
                     }
@@ -174,9 +174,9 @@ namespace WebExpress.WebModule
                         ModuleID = id,
                         ModuleName = name,
                         Description = description,
-                        Icon = UriRelative.Combine(icon),
+                        Icon = new UriResource(icon),
                         AssetPath = assetPath,
-                        ContextPath = UriRelative.Combine(contextPath),
+                        ContextPath = new UriResource(contextPath),
                         DataPath = dataPath,
                         Log = HttpServerContext.Log
                     };

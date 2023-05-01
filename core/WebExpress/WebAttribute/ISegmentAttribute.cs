@@ -1,4 +1,4 @@
-﻿using WebExpress.WebResource;
+﻿using WebExpress.WebUri;
 
 namespace WebExpress.WebAttribute
 {
@@ -8,6 +8,6 @@ namespace WebExpress.WebAttribute
         /// Conversion to a path segment.
         /// </summary>
         /// <returns>The path segment.</returns>
-        IPathSegment ToPathSegment();
+        IUriPathSegment ToPathSegment();
     }
 }

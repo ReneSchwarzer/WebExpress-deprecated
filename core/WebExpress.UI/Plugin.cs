@@ -1,14 +1,14 @@
 ﻿using WebExpress.WebAttribute;
 using WebExpress.WebPlugin;
 
-[assembly: SystemPlugin()]
+[assembly: WebExSystemPlugin()]
 
 namespace WebExpress.UI
 {
-    [Id("webexpress.ui")]
-    [Name("WebExpress.UI")]
-    [Description("plugin.description")]
-    [Icon("/assets/img/Logo.png")]
+    [WebExID("webexpress.ui")]
+    [WebExName("WebExpress.UI")]
+    [WebExDescription("plugin.description")]
+    [WebExIcon("/assets/img/Logo.png")]
     public sealed class Plugin : IPlugin
     {
         /// <summary>

@@ -3,9 +3,9 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using WebExpress.Html;
-using WebExpress.WebUri;
 using WebExpress.WebComponent;
 using WebExpress.WebPage;
+using WebExpress.WebUri;
 
 namespace WebExpress.UI.WebControl
 {
@@ -79,8 +79,8 @@ namespace WebExpress.UI.WebControl
             var module = ComponentManager.ModuleManager.GetModule(context.ApplicationContext, "webexpress.ui");
             if (module != null)
             {
-                context.VisualTree.HeaderScriptLinks.Add(UriRelative.Combine(module.ContextPath, new UriRelative("/assets/js/Chart.min.js")));
-                context.VisualTree.CssLinks.Add(UriRelative.Combine(module.ContextPath, new UriRelative("/assets/css/Chart.min.css")));
+                context.VisualTree.HeaderScriptLinks.Add(UriResource.Combine(module.ContextPath, "/assets/js/Chart.min.js"));
+                context.VisualTree.CssLinks.Add(UriResource.Combine(module.ContextPath, "/assets/css/Chart.min.css"));
             }
 
             var builder = new StringBuilder();

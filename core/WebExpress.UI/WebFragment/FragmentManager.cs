@@ -17,7 +17,7 @@ namespace WebExpress.UI.WebFragment
     /// <summary>
     /// Fragment manager.
     /// </summary>
-    [Id("webexpress.webui.fragmentmanager")]
+    [WebExID("webexpress.webui.fragmentmanager")]
     public sealed class FragmentManager : IComponentPlugin
     {
         /// <summary>
@@ -119,15 +119,15 @@ namespace WebExpress.UI.WebFragment
                             .Contains(typeof(IResourceAttribute))
                 ))
                 {
-                    if (customAttribute.AttributeType == typeof(ModuleAttribute))
+                    if (customAttribute.AttributeType == typeof(WebExModuleAttribute))
                     {
                         moduleID = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
                     }
-                    if (customAttribute.AttributeType == typeof(ContextAttribute))
+                    if (customAttribute.AttributeType == typeof(WebExContextAttribute))
                     {
                         contexts.Add(customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower());
                     }
-                    else if (customAttribute.AttributeType == typeof(ConditionAttribute))
+                    else if (customAttribute.AttributeType == typeof(WebExConditionAttribute))
                     {
                         var condition = (Type)customAttribute.ConstructorArguments.FirstOrDefault().Value;
 
@@ -145,7 +145,7 @@ namespace WebExpress.UI.WebFragment
                             ));
                         }
                     }
-                    else if (customAttribute.AttributeType == typeof(CacheAttribute))
+                    else if (customAttribute.AttributeType == typeof(WebExCacheAttribute))
                     {
                         cache = true;
                     }

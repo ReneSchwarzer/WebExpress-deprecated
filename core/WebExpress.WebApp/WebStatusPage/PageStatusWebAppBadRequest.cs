@@ -1,5 +1,5 @@
 ﻿using WebExpress.Internationalization;
-using WebExpress.Message;
+using WebExpress.WebMessage;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
 
@@ -8,7 +8,8 @@ namespace WebExpress.WebApp.WebStatusPage
     /// <summary>
     /// Statusseite
     /// </summary>
-    [StatusCode(400)]
+    [WebExStatusCode(400)]
+    [WebExDefault]
     public sealed class PageStatusWebAppBadRequest : PageStatusWebApp<ResponseBadRequest>
     {
         /// <summary>

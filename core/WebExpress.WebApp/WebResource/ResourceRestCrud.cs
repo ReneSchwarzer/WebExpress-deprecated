@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using WebExpress.Message;
+using WebExpress.WebMessage;
 using WebExpress.WebApp.Wql;
 using WebExpress.WebResource;
 
@@ -10,7 +10,7 @@ namespace WebExpress.WebApp.WebResource
     public abstract class ResourceRestCrud<T> : ResourceRest where T : class, new()
     {
         /// <summary>
-        /// Liefert oder setzt das Speerobjekt
+        /// Delivers or sets the lock object.
         /// </summary>
         protected object Guard { get; set; }
 
@@ -18,22 +18,22 @@ namespace WebExpress.WebApp.WebResource
         /// Processing of the resource. des GET-Request
         /// </summary>
         /// <param name="request">The request.</param>
-        /// <returns>Eine Aufzählung, welche JsonSerializer serialisiert werden kann.</returns>
+        /// <returns>An enumeration of which json serializer can be serialized.</returns>
         public abstract IEnumerable<object> GetColumns(Request request);
 
         /// <summary>
         /// Processing of the resource. des GET-Request
         /// </summary>
-        /// <param name="wql">Der Filter</param>
+        /// <param name="wql">The filter.</param>
         /// <param name="request">The request.</param>
-        /// <returns>Eine Aufzählung, welche JsonSerializer serialisiert werden kann.</returns>
+        /// <returns>An enumeration of which json serializer can be serialized.</returns>
         public abstract IEnumerable<T> GetData(WqlStatement wql, Request request);
 
         /// <summary>
         /// Processing of the resource. des GET-Request
         /// </summary>
         /// <param name="request">The request.</param>
-        /// <returns>Eine Aufzählung, welche JsonSerializer serialisiert werden kann.</returns>
+        /// <returns>An enumeration of which json serializer can be serialized.</returns>
         public override object GetData(Request request)
         {
             var itemCount = 50;

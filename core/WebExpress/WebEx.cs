@@ -5,8 +5,8 @@ using System.Reflection;
 using System.Threading;
 using System.Xml.Serialization;
 using WebExpress.Config;
-using WebExpress.WebUri;
 using WebExpress.WebComponent;
+using WebExpress.WebUri;
 using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress
@@ -153,7 +153,7 @@ namespace WebExpress
                 Path.GetFullPath(assetBase),
                 Path.GetFullPath(dataBase),
                 Path.GetDirectoryName(configFile),
-                new UriRelative(config.ContextPath),
+                new UriResource(config.ContextPath),
                 culture,
                 Log.Current,
                 null
@@ -165,29 +165,29 @@ namespace WebExpress
             };
 
             // start logging
-            HttpServer.Context.Log.LogMode = (Log.Mode)Enum.Parse(typeof(Log.Mode), config.Log.Modus);
-            HttpServer.Context.Log.Begin(config.Log.Path, config.Log.Filename);
+            HttpServer.HttpServerContext.Log.LogMode = (Log.Mode)Enum.Parse(typeof(Log.Mode), config.Log.Modus);
+            HttpServer.HttpServerContext.Log.Begin(config.Log.Path, config.Log.Filename);
 
             // log program start
-            HttpServer.Context.Log.Seperator('/');
-            HttpServer.Context.Log.Info(message: I18N("webexpress:app.startup"));
-            HttpServer.Context.Log.Info(message: "".PadRight(80, '-'));
-            HttpServer.Context.Log.Info(message: I18N("webexpress:app.version"), args: Version);
-            HttpServer.Context.Log.Info(message: I18N("webexpress:app.arguments"), args: args);
-            HttpServer.Context.Log.Info(message: I18N("webexpress:app.workingdirectory"), args: Environment.CurrentDirectory);
-            HttpServer.Context.Log.Info(message: I18N("webexpress:app.packagebase"), args: config.PackageBase);
-            HttpServer.Context.Log.Info(message: I18N("webexpress:app.assetbase"), args: config.AssetBase);
-            HttpServer.Context.Log.Info(message: I18N("webexpress:app.database"), args: config.DataBase);
-            HttpServer.Context.Log.Info(message: I18N("webexpress:app.configurationdirectory"), args: Path.GetDirectoryName(configFile));
-            HttpServer.Context.Log.Info(message: I18N("webexpress:app.configuration"), args: Path.GetFileName(configFile));
-            HttpServer.Context.Log.Info(message: I18N("webexpress:app.logdirectory"), args: Path.GetDirectoryName(HttpServer.Context.Log.Filename));
-            HttpServer.Context.Log.Info(message: I18N("webexpress:app.log"), args: Path.GetFileName(HttpServer.Context.Log.Filename));
+            HttpServer.HttpServerContext.Log.Seperator('/');
+            HttpServer.HttpServerContext.Log.Info(message: I18N("webexpress:app.startup"));
+            HttpServer.HttpServerContext.Log.Info(message: "".PadRight(80, '-'));
+            HttpServer.HttpServerContext.Log.Info(message: I18N("webexpress:app.version"), args: Version);
+            HttpServer.HttpServerContext.Log.Info(message: I18N("webexpress:app.arguments"), args: args);
+            HttpServer.HttpServerContext.Log.Info(message: I18N("webexpress:app.workingdirectory"), args: Environment.CurrentDirectory);
+            HttpServer.HttpServerContext.Log.Info(message: I18N("webexpress:app.packagebase"), args: config.PackageBase);
+            HttpServer.HttpServerContext.Log.Info(message: I18N("webexpress:app.assetbase"), args: config.AssetBase);
+            HttpServer.HttpServerContext.Log.Info(message: I18N("webexpress:app.database"), args: config.DataBase);
+            HttpServer.HttpServerContext.Log.Info(message: I18N("webexpress:app.configurationdirectory"), args: Path.GetDirectoryName(configFile));
+            HttpServer.HttpServerContext.Log.Info(message: I18N("webexpress:app.configuration"), args: Path.GetFileName(configFile));
+            HttpServer.HttpServerContext.Log.Info(message: I18N("webexpress:app.logdirectory"), args: Path.GetDirectoryName(HttpServer.HttpServerContext.Log.Filename));
+            HttpServer.HttpServerContext.Log.Info(message: I18N("webexpress:app.log"), args: Path.GetFileName(HttpServer.HttpServerContext.Log.Filename));
             foreach (var v in config.Endpoints)
             {
-                HttpServer.Context.Log.Info(message: I18N("webexpress:app.uri"), args: v.Uri);
+                HttpServer.HttpServerContext.Log.Info(message: I18N("webexpress:app.uri"), args: v.Uri);
             }
 
-            HttpServer.Context.Log.Seperator('=');
+            HttpServer.HttpServerContext.Log.Seperator('=');
 
             if (!Directory.Exists(config.PackageBase))
             {
@@ -225,14 +225,14 @@ namespace WebExpress
             HttpServer.Stop();
 
             // end of program log
-            HttpServer.Context.Log.Seperator('=');
-            HttpServer.Context.Log.Info(message: I18N("webexpress:app.errors"), args: HttpServer.Context.Log.ErrorCount);
-            HttpServer.Context.Log.Info(message: I18N("webexpress:app.warnings"), args: HttpServer.Context.Log.WarningCount);
-            HttpServer.Context.Log.Info(message: I18N("webexpress:app.done"));
-            HttpServer.Context.Log.Seperator('/');
+            HttpServer.HttpServerContext.Log.Seperator('=');
+            HttpServer.HttpServerContext.Log.Info(message: I18N("webexpress:app.errors"), args: HttpServer.HttpServerContext.Log.ErrorCount);
+            HttpServer.HttpServerContext.Log.Info(message: I18N("webexpress:app.warnings"), args: HttpServer.HttpServerContext.Log.WarningCount);
+            HttpServer.HttpServerContext.Log.Info(message: I18N("webexpress:app.done"));
+            HttpServer.HttpServerContext.Log.Seperator('/');
 
             // stop logging
-            HttpServer.Context.Log.Close();
+            HttpServer.HttpServerContext.Log.Close();
         }
     }
 }

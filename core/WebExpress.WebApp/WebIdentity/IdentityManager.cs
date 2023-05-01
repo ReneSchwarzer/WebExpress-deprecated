@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.Linq;
 using System.Security;
 using WebExpress.Internationalization;
-using WebExpress.WebUri;
 using WebExpress.WebApplication;
 using WebExpress.WebAttribute;
 using WebExpress.WebModule;
@@ -16,6 +13,11 @@ namespace WebExpress.WebApp.WebIdentity
     /// </summary>
     public class IdentityManager
     {
+        /// <summary>
+        /// Returns or sets the reference to the context of the host.
+        /// </summary>
+        public IHttpServerContext HttpServerContext { get; private set; }
+
         /// <summary>
         /// Ermittelt die aktuelle angemeldete Identität
         /// </summary>
@@ -34,21 +36,21 @@ namespace WebExpress.WebApp.WebIdentity
         /// <summary>
         /// Initialization
         /// </summary>
-        /// <param name="context">Der Kontext, welcher für die Ausführung des Plugins gilt</param>
-        internal static void Initialization(IPluginContext context)
+        /// <param name="context">The reference to the context of the host.</param>
+        public void Initialization(IHttpServerContext context)
         {
-            Context = context;
+            HttpServerContext = context;
 
-            Context.Log.Info(message: InternationalizationManager.I18N("webexpress:identitymanager.initialization"));
+            HttpServerContext.Log.Debug(message: InternationalizationManager.I18N("webexpress:identitymanager.initialization"));
         }
 
         /// <summary>
         /// Fügt Identitäts-Einträge hinzu
         /// </summary>
         /// <param name="context">Der Kontext, welcher für die Ausführung des Plugins gilt</param>
-        public static void Register(IModuleContext context)
+        public void Register(IModuleContext context)
         {
-            var assembly = context.Assembly;
+            var assembly = context.PluginContext.Assembly;
 
             foreach (var type in assembly.GetExportedTypes().Where(x => x.IsClass && x.IsSealed && x.GetInterface(typeof(IIdentityResource).Name) != null))
             {
@@ -57,24 +59,24 @@ namespace WebExpress.WebApp.WebIdentity
                 var description = string.Empty;
                 var moduleID = string.Empty;
 
-                foreach (var customAttribute in type.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IModuleAttribute))))
+                foreach (var customAttribute in type.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(WebExIModuleAttribute))))
                 {
-                    if (customAttribute.AttributeType == typeof(IdAttribute))
+                    if (customAttribute.AttributeType == typeof(WebExIDAttribute))
                     {
                         id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
                     }
 
-                    if (customAttribute.AttributeType == typeof(NameAttribute))
+                    if (customAttribute.AttributeType == typeof(WebExNameAttribute))
                     {
                         name = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
 
-                    if (customAttribute.AttributeType == typeof(DescriptionAttribute))
+                    if (customAttribute.AttributeType == typeof(WebExDescriptionAttribute))
                     {
                         description = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
 
-                    if (customAttribute.AttributeType == typeof(ModuleAttribute))
+                    if (customAttribute.AttributeType == typeof(WebExModuleAttribute))
                     {
                         moduleID = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
                     }
@@ -83,7 +85,7 @@ namespace WebExpress.WebApp.WebIdentity
                 if (string.IsNullOrWhiteSpace(moduleID))
                 {
                     // Es wurde kein Modul angebgeben
-                    Context.Log.Warning(message: InternationalizationManager.I18N("webexpress:identitymanager.moduleless"), args: id);
+                    HttpServerContext.Log.Warning(message: InternationalizationManager.I18N("webexpress:identitymanager.moduleless"), args: id);
 
                     continue;
                 }

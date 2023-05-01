@@ -27,10 +27,5 @@ namespace WebExpress.UI.WebFragment
         /// Determines whether the component is created once and reused on each execution.
         /// </summary>
         bool Cache { get; }
-
-        /// <summary>
-        /// Returns the log for writing status messages to the console and to a log file.
-        /// </summary>
-        Log Log { get; }
     }
 }

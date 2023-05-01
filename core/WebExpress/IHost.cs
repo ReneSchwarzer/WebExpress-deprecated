@@ -10,7 +10,7 @@ namespace WebExpress
         /// <summary>
         /// Returns the context of the host.
         /// </summary>
-        IHttpServerContext Context { get; }
+        IHttpServerContext HttpServerContext { get; }
 
         /// <summary>
         /// Event is triggered after the web server starts.

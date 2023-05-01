@@ -2,42 +2,40 @@
 using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Internationalization;
-using WebExpress.Message;
-using WebExpress.UI.WebControl;
-using WebExpress.WebUri;
+using WebExpress.WebMessage;
 
 namespace WebExpress.WebApp.WebNotificaation
 {
     public static class NotificationManager
     {
         /// <summary>
-        /// Liefert den Notfication-Speicher für globale Benachrichtigungern
+        /// Provides the notification store for global notifications.
         /// </summary>
         private static IDictionary<string, Notification> GlobalNotifications { get; } = new Dictionary<string, Notification>();
 
         /// <summary>
-        /// Erstellt eine neue globale Benachrichtigung
+        /// Creates a new global notification.
         /// </summary>
-        /// <param name="message">Die Benachrichtigungsnachricht</param>
-        /// <param name="durability">Die Lebensdauer der Benachrichtigung. -1 für unbegrenzt gültig</param>
-        /// <param name="heading">Die Überschrift</param>
-        /// <param name="icon">Ein Icon</param>
-        /// <param name="type">Der Benachrichtigungstype</param>
-        /// <returns>Die erstellte Benachrichtigung</returns>
-        public static Notification CreateNotification(string message, int durability = -1, string heading = null, IUri icon = null, TypeNotification type = TypeNotification.Light)
+        /// <param name="message">The notification message.</param>
+        /// <param name="durability">The lifetime of the notification. -1 for indefinite validity.</param>
+        /// <param name="heading">The headline.</param>
+        /// <param name="icon">An icon.</param>
+        /// <param name="type">The notification type.</param>
+        /// <returns>The created notification.</returns>
+        public static Notification CreateNotification(string message, int durability = -1, string heading = null, string icon = null, TypeNotification type = TypeNotification.Light)
         {
             var notification = new Notification()
             {
                 Message = message,
                 Durability = durability,
                 Heading = heading,
-                Icon = icon?.ToString(),
+                Icon = icon,
                 Type = type
             };
 
             if (!GlobalNotifications.ContainsKey(notification.ID))
             {
-                // Globale Benachrichtigung
+                // global notification
                 lock (GlobalNotifications)
                 {
                     GlobalNotifications.Add(notification.ID, notification);
@@ -48,16 +46,16 @@ namespace WebExpress.WebApp.WebNotificaation
         }
 
         /// <summary>
-        /// Erstellt eine neue Benachrichtigung in der Session
+        /// Creates a new notification in the session.
         /// </summary>
         /// <param name="request">The request.</param>
-        /// <param name="message">Die Benachrichtigungsnachricht</param>
-        /// <param name="durability">Die Lebensdauer der Benachrichtigung. -1 für unbegrenzt gültig</param>
-        /// <param name="heading">Die Überschrift</param>
-        /// <param name="icon">Ein Icon</param>
-        /// <param name="type">Der Benachrichtigungstype</param>
-        /// <returns>Die erstellte Benachrichtigung</returns>
-        public static Notification CreateNotification(Request request, string message, int durability = -1, string heading = null, IUri icon = null, TypeNotification type = TypeNotification.Light)
+        /// <param name="message">The notification message.</param>
+        /// <param name="durability">The lifetime of the notification. -1 for indefinite validity.</param>
+        /// <param name="heading">The headline.</param>
+        /// <param name="icon">An icon.</param>
+        /// <param name="type">The notification type.</param>
+        /// <returns>The created notification.</returns>
+        public static Notification CreateNotification(Request request, string message, int durability = -1, string heading = null, string icon = null, TypeNotification type = TypeNotification.Light)
         {
             var notification = new Notification()
             {
@@ -68,7 +66,7 @@ namespace WebExpress.WebApp.WebNotificaation
                 Type = type
             };
 
-            // Benutzerbenachrichtigung
+            // user Notification
             if (!request.Session.Properties.ContainsKey(typeof(SessionPropertyNotification)))
             {
                 request.Session.Properties.Add(typeof(SessionPropertyNotification), new SessionPropertyNotification());
@@ -88,18 +86,18 @@ namespace WebExpress.WebApp.WebNotificaation
         }
 
         /// <summary>
-        /// Liefert alle Benachrichtigungen aus der Session
+        /// Returns all notifications from the session.
         /// </summary>
         /// <param name="request">The request.</param>
-        /// <returns>Die Benachrichtigungen</returns>
-        public static ICollection<Notification> GetNotifications(Request request)
+        /// <returns>An enumeration of the notifications.</returns>
+        public static IEnumerable<Notification> GetNotifications(Request request)
         {
             var list = new List<Notification>();
 
             var scrapGlobal = GlobalNotifications.Values.Where(x => x.Durability >= 0 && x.Created.AddMilliseconds(x.Durability) < DateTime.Now).ToList();
             lock (GlobalNotifications)
             {
-                // Abgelaufene Benachrichtigungen entfernen
+                // remove expired notifications
                 scrapGlobal.ForEach(x => GlobalNotifications.Remove(x.ID));
             }
 
@@ -112,7 +110,7 @@ namespace WebExpress.WebApp.WebNotificaation
 
                 lock (notificationProperty)
                 {
-                    // Abgelaufene Benachrichtigungen entfernen
+                    // remove expired notifications
                     scrap.ForEach(x => notificationProperty.Remove(x.ID));
                 }
 
@@ -124,17 +122,17 @@ namespace WebExpress.WebApp.WebNotificaation
         }
 
         /// <summary>
-        /// Liefert alle Benachrichtigungen aus der Session
+        /// Returns all notifications from the session.
         /// </summary>
         /// <param name="request">The request.</param>
-        /// <param name="id">Die BenachrichtigungsID</param>
+        /// <param name="id">The notification id.</param>
         public static void RemoveNotification(Request request, string id)
         {
             if (GlobalNotifications.ContainsKey(id))
             {
                 lock (GlobalNotifications)
                 {
-                    // Benachrichtigungen entfernen
+                    // remove notifications
                     GlobalNotifications.Remove(id);
                 }
             }
@@ -143,7 +141,7 @@ namespace WebExpress.WebApp.WebNotificaation
 
             lock (GlobalNotifications)
             {
-                // Abgelaufene Benachrichtigungen entfernen
+                // remove expired notifications
                 scrapGlobal.ForEach(x => GlobalNotifications.Remove(x.ID));
             }
 
@@ -154,7 +152,7 @@ namespace WebExpress.WebApp.WebNotificaation
                 {
                     lock (notificationProperty)
                     {
-                        // Benachrichtigungen entfernen
+                        // remove notifications
                         notificationProperty.Remove(id);
                     }
                 }
@@ -163,7 +161,7 @@ namespace WebExpress.WebApp.WebNotificaation
 
                 lock (notificationProperty)
                 {
-                    // Abgelaufene Benachrichtigungen entfernen
+                    // remove expired notifications
                     scrap.ForEach(x => notificationProperty.Remove(x.ID));
                 }
             }

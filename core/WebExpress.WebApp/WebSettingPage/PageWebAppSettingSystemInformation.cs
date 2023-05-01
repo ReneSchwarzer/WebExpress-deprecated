@@ -13,18 +13,18 @@ namespace WebExpress.WebApp.WebSettingPage
     /// Einstellungsseite mit Systeminformationen
     /// </summary>
     /// 
-    [Id("SettingSystemInformation")]
-    [Title("webexpress.webapp:setting.titel.systeminformation.label")]
-    [Segment("systeminformation", "webexpress.webapp:setting.titel.systeminformation.label")]
-    [ContextPath("/Setting")]
+    [WebExID("SettingSystemInformation")]
+    [WebExTitle("webexpress.webapp:setting.titel.systeminformation.label")]
+    [WebExSegment("systeminformation", "webexpress.webapp:setting.titel.systeminformation.label")]
+    [WebExContextPath("/Setting")]
     [SettingSection(SettingSection.Secondary)]
     [SettingIcon(TypeIcon.InfoCircle)]
     [SettingGroup("webexpress.webapp:setting.group.system.label")]
     [SettingContext("webexpress.webapp:setting.tab.general.label")]
-    [Module("webexpress.webapp")]
-    [Context("admin")]
-    [Context("webexpress.webpp.systeminformation")]
-    [Optional]
+    [WebExModule("webexpress.webapp")]
+    [WebExContext("admin")]
+    [WebExContext("webexpress.webpp.systeminformation")]
+    [WebExOptional]
     public sealed class PageWebAppSettingSystemInformation : PageWebAppSetting
     {
         /// <summary>

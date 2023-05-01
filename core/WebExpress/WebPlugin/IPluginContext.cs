@@ -51,12 +51,7 @@ namespace WebExpress.WebPlugin
         /// <summary>
         /// Returns the icon of the plugin.
         /// </summary>
-        IUri Icon { get; }
-
-        /// <summary>
-        /// Returns the log to write status messages to the console and to a log file.
-        /// </summary>
-        Log Log { get; }
+        UriResource Icon { get; }
 
         /// <summary>
         /// Returns the host context.

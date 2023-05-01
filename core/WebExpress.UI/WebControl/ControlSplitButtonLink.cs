@@ -2,7 +2,6 @@
 using System.Linq;
 using WebExpress.Html;
 using WebExpress.Internationalization;
-using WebExpress.WebUri;
 using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebControl
@@ -17,7 +16,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Liefert oder setzt die Ziel-Url
         /// </summary>
-        public IUri Uri { get; set; }
+        public string Uri { get; set; }
 
         /// <summary>
         /// Constructor

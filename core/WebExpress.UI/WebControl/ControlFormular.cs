@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
 using WebExpress.Internationalization;
-using WebExpress.Message;
-using WebExpress.WebUri;
+using WebExpress.WebMessage;
 using WebExpress.WebPage;
 using static WebExpress.Internationalization.InternationalizationManager;
 
@@ -55,12 +54,12 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Liefert oder setzt die Ziel-Uri
         /// </summary>
-        public IUri Uri { get; set; }
+        public Uri Uri { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Weiterleitungs-Uri
         /// </summary>
-        public IUri RedirectUri { get; set; }
+        public Uri RedirectUri { get; set; }
 
         /// <summary>
         /// Liefert oder setzt das Hiddenfeld, welches die Submit-Methode enthält
@@ -138,7 +137,7 @@ namespace WebExpress.UI.WebControl
             // ID überprüfen
             if (string.IsNullOrWhiteSpace(Id))
             {
-                context.ApplicationContext.Log.Warning(I18N("webexpress.ui:form.empty.id"));
+                context.Host.Log.Warning(I18N("webexpress.ui:form.empty.id"));
             }
 
             FormularId.Value = Id;
@@ -304,7 +303,7 @@ namespace WebExpress.UI.WebControl
                 Method = RequestMethod.POST.ToString(),
                 Enctype = TypeEnctype.None
             };
-            
+
             form.Elements.Add(FormularId.Render(renderContext));
             form.Elements.Add(SubmitType.Render(renderContext));
             var header = new HtmlElementSectionHeader();

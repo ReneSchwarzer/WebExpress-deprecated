@@ -1,6 +1,6 @@
 ﻿using WebExpress.Html;
-using WebExpress.WebUri;
 using WebExpress.WebComponent;
+using WebExpress.WebUri;
 
 namespace WebExpress.UI.WebControl
 {
@@ -63,9 +63,9 @@ namespace WebExpress.UI.WebControl
             var module = ComponentManager.ModuleManager.GetModule(context.ApplicationContext, "webexpress.ui");
             if (module != null)
             {
-                context.VisualTree.HeaderScriptLinks.Add(UriRelative.Combine(module.ContextPath, new UriRelative("/assets/js/bootstrap-datepicker.min.js")));
-                context.VisualTree.HeaderScriptLinks.Add(UriRelative.Combine(module.ContextPath, new UriRelative("/assets/js/locales_datepicker/bootstrap-datepicker." + context.Culture.TwoLetterISOLanguageName.ToLower() + ".min.js")));
-                context.VisualTree.CssLinks.Add(UriRelative.Combine(module.ContextPath, new UriRelative("/assets/css/bootstrap-datepicker3.min.css")));
+                context.VisualTree.HeaderScriptLinks.Add(UriResource.Combine(module.ContextPath, "/assets/js/bootstrap-datepicker.min.js"));
+                context.VisualTree.HeaderScriptLinks.Add(UriResource.Combine(module.ContextPath, "/assets/js/locales_datepicker/bootstrap-datepicker." + context.Culture.TwoLetterISOLanguageName.ToLower() + ".min.js"));
+                context.VisualTree.CssLinks.Add(UriResource.Combine(module.ContextPath, "/assets/css/bootstrap-datepicker3.min.css"));
             }
 
             context.AddScript(Id, @"$('#" + Id + @"').datepicker({format: ""dd.mm.yyyy"", todayBtn: true, language: ""de"", zIndexOffset: 999});");

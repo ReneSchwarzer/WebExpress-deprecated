@@ -10,7 +10,7 @@ using WebExpress.WebModule;
 using WebExpress.WebPackage;
 using WebExpress.WebPlugin;
 using WebExpress.WebResource;
-using WebExpress.WebResponse;
+using WebExpress.WebStatusPage;
 using WebExpress.WebSitemap;
 
 namespace WebExpress.WebComponent
@@ -247,9 +247,9 @@ namespace WebExpress.WebComponent
                 var id = type.Name?.ToLower();
 
                 // determining attributes
-                foreach (var customAttribute in type.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IApplicationAttribute))))
+                foreach (var customAttribute in type.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(WebExIApplicationAttribute))))
                 {
-                    if (customAttribute.AttributeType == typeof(IdAttribute))
+                    if (customAttribute.AttributeType == typeof(WebExIDAttribute))
                     {
                         id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
                     }

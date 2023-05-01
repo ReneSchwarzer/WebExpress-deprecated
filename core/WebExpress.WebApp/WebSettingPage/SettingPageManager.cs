@@ -1,19 +1,36 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using WebExpress.Internationalization;
+using WebExpress.UI.WebControl;
+using WebExpress.WebApp.WebAttribute;
+using WebExpress.WebApp.WebSettingPage;
 using WebExpress.WebApplication;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebModule;
 using WebExpress.WebPlugin;
-using static WebExpress.Internationalization.InternationalizationManager;
+using WebExpress.WebResource;
+using WebExpress.WebUri;
 
 namespace WebExpress.WebApp.SettingPage
 {
     /// <summary>
     /// Management of settings pages.
     /// </summary>
-    [Id("webexpress.webapp.settingpagemanager")]
+    [WebExID("webexpress.webapp.settingpagemanager")]
     public sealed class SettingPageManager : IComponentPlugin
     {
+        /// <summary>
+        /// An event that fires when an setting page is added.
+        /// </summary>
+        public event EventHandler<IResourceContext> AddSettingPage;
+
+        /// <summary>
+        /// An event that fires when an setting page is removed.
+        /// </summary>
+        public event EventHandler<IResourceContext> RemoveSettingPage;
+
         /// <summary>
         /// Returns the reference to the context of the host.
         /// </summary>
@@ -29,7 +46,25 @@ namespace WebExpress.WebApp.SettingPage
         /// </summary>
         internal SettingPageManager()
         {
+            ComponentManager.PluginManager.AddPlugin += (s, pluginContext) =>
+            {
+                Register(pluginContext);
+            };
 
+            ComponentManager.PluginManager.RemovePlugin += (s, pluginContext) =>
+            {
+                Remove(pluginContext);
+            };
+
+            ComponentManager.ModuleManager.AddModule += (sender, moduleContext) =>
+            {
+                AssignToModule(moduleContext);
+            };
+
+            ComponentManager.ModuleManager.RemoveModule += (sender, moduleContext) =>
+            {
+                DetachFromModule(moduleContext);
+            };
         }
 
         /// <summary>
@@ -40,7 +75,7 @@ namespace WebExpress.WebApp.SettingPage
         {
             HttpServerContext = context;
 
-            HttpServerContext.Log.Info(message: I18N("webexpress.webapp:pagesettingmanager.initialization"));
+            HttpServerContext.Log.Info(InternationalizationManager.I18N("webexpress.webapp:pagesettingmanager.initialization"));
         }
 
         /// <summary>
@@ -49,116 +84,140 @@ namespace WebExpress.WebApp.SettingPage
         /// <param name="pluginContext">A context of a plugin whose elements are to be registered.</param>
         public void Register(IPluginContext pluginContext)
         {
-            //foreach (var settingPageType in pluginContext.Assembly.GetTypes()
-            //        .Where(x => x.IsClass && x.IsSealed && (x.GetInterfaces().Contains(typeof(IPageSetting)))))
-            //{
-            //    var id = settingPageType.Name?.ToLower();
-            //    var context = null as string;
-            //    var group = null as string;
-            //    var section = SettingSection.Primary;
-            //    var moduleID = null as string;
-            //    var hide = false;
-            //    var icon = null as PropertyIcon;
+            foreach (var settingPageType in pluginContext.Assembly.GetTypes()
+                    .Where(x => x.IsClass && x.IsSealed && (x.GetInterfaces().Contains(typeof(IPageSetting)))))
+            {
+                var id = settingPageType.Name?.ToLower();
+                var context = null as string;
+                var group = null as string;
+                var section = SettingSection.Primary;
+                var moduleID = null as string;
+                var hide = false;
+                var icon = null as PropertyIcon;
 
-            //    // determining Attributes
-            //    foreach (var customAttribute in settingPageType.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IResourceAttribute))))
-            //    {
-            //        if (customAttribute.AttributeType == typeof(IdAttribute))
-            //        {
-            //            id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
-            //        }
-            //        else if (customAttribute.AttributeType == typeof(SettingContextAttribute))
-            //        {
-            //            context = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
-            //        }
-            //        else if (customAttribute.AttributeType == typeof(SettingGroupAttribute))
-            //        {
-            //            group = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
-            //        }
-            //        else if (customAttribute.AttributeType == typeof(SettingSectionAttribute))
-            //        {
-            //            section = (SettingSection)Enum.Parse(typeof(SettingSection), customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString());
-            //        }
-            //        else if (customAttribute.AttributeType == typeof(SettingHideAttribute))
-            //        {
-            //            hide = true;
-            //        }
-            //        else if (customAttribute.AttributeType == typeof(ModuleAttribute))
-            //        {
-            //            moduleID = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
-            //        }
-            //        else if (customAttribute.AttributeType == typeof(SettingIconAttribute))
-            //        {
-            //            var iconAttribute = customAttribute.ConstructorArguments.FirstOrDefault().Value;
-            //            icon = iconAttribute?.GetType() == typeof(int) ? new PropertyIcon((TypeIcon)Enum.Parse(typeof(TypeIcon), iconAttribute?.ToString())) : new PropertyIcon(new UriRelative(iconAttribute?.ToString()));
-            //        }
-            //    }
+                // determining Attributes
+                foreach (var customAttribute in settingPageType.CustomAttributes
+                    .Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IResourceAttribute))))
+                {
+                    if (customAttribute.AttributeType == typeof(WebExIDAttribute))
+                    {
+                        id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
+                    }
+                    else if (customAttribute.AttributeType == typeof(SettingContextAttribute))
+                    {
+                        context = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
+                    }
+                    else if (customAttribute.AttributeType == typeof(SettingGroupAttribute))
+                    {
+                        group = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
+                    }
+                    else if (customAttribute.AttributeType == typeof(SettingSectionAttribute))
+                    {
+                        section = (SettingSection)Enum.Parse(typeof(SettingSection), customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString());
+                    }
+                    else if (customAttribute.AttributeType == typeof(SettingHideAttribute))
+                    {
+                        hide = true;
+                    }
+                    else if (customAttribute.AttributeType == typeof(WebExModuleAttribute))
+                    {
+                        moduleID = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
+                    }
+                    else if (customAttribute.AttributeType == typeof(SettingIconAttribute))
+                    {
+                        var iconAttribute = customAttribute.ConstructorArguments.FirstOrDefault().Value;
+                        icon = iconAttribute?.GetType() == typeof(int) ?
+                            new PropertyIcon((TypeIcon)Enum.Parse(typeof(TypeIcon), iconAttribute?.ToString())) :
+                            new PropertyIcon(new UriResource(iconAttribute?.ToString()));
+                    }
+                }
 
-            //    if (string.IsNullOrEmpty(id))
-            //    {
-            //        HttpServerContext.Log.Warning(message: I18N("webexpress.webapp:pagesettingmanager.idless", pluginContext.PluginID));
+                if (string.IsNullOrEmpty(id))
+                {
+                    HttpServerContext.Log.Warning(InternationalizationManager.I18N
+                    (
+                        "webexpress.webapp:pagesettingmanager.idless",
+                        pluginContext.PluginID
+                    ));
 
-            //        continue;
-            //    }
+                    continue;
+                }
 
-            //    if (string.IsNullOrEmpty(moduleID))
-            //    {
-            //        HttpServerContext.Log.Warning(message: I18N("webexpress.webapp:pagesettingmanager.moduleless", id, pluginContext.PluginID));
+                if (string.IsNullOrEmpty(moduleID))
+                {
+                    HttpServerContext.Log.Warning(InternationalizationManager.I18N
+                    (
+                        "webexpress.webapp:pagesettingmanager.moduleless",
+                        id,
+                        pluginContext.PluginID
+                    ));
 
-            //        continue;
-            //    }
+                    continue;
+                }
 
-            //    var resource = ResourceManager.ResourceItems
-            //        .Where
-            //        (
-            //            x => x.Context.ModuleContext.ModuleID.Equals(module.ModuleID, StringComparison.OrdinalIgnoreCase) &&
-            //            x.ID.Equals(id, StringComparison.OrdinalIgnoreCase)
-            //        )
-            //        .FirstOrDefault();
+                var resource = ComponentManager.ResourceManager.GetResorces(pluginContext)
+                    .Where
+                    (
+                        x => x.ModuleContext.ModuleID.Equals(moduleID, StringComparison.OrdinalIgnoreCase) &&
+                        x.ResourceID.Equals(id, StringComparison.OrdinalIgnoreCase)
+                    )
+                    .FirstOrDefault();
 
-            //    if (resource == null)
-            //    {
-            //        HttpServerContext.Log.Warning(message: I18N("webexpress.webapp:pagesettingmanager.resourceless", id, pluginContext.PluginID));
-            //        break;
-            //    }
+                if (resource == null)
+                {
+                    HttpServerContext.Log.Warning(InternationalizationManager.I18N
+                    (
+                        "webexpress.webapp:pagesettingmanager.resourceless",
+                        id,
+                        pluginContext.PluginID
+                    ));
 
-            //    // Check if an optional resource
-            //    if (resource.Optional)
-            //    {
-            //        //continue;
-            //    }
+                    continue;
+                }
 
-            //    // Create meta information of the setting page
-            //    var page = new SettingPageDictionaryItem()
-            //    {
-            //        ID = id,
-            //        ModuleContext = module,
-            //        Resource = resource,
-            //        Icon = icon,
-            //        Hide = hide,
-            //        Context = context,
-            //        Section = section,
-            //        Group = group
-            //    };
+                //// Check if an optional resource
+                //if (resource.Optional)
+                //{
+                //    //continue;
+                //}
 
-            //    // Insert the settings page into the dictionary
-            //    Dictionary.AddPage(pluginContext, page);
+                // Create meta information of the setting page
+                var page = new SettingPageDictionaryItem()
+                {
+                    ID = id,
+                    ModuleContext = resource?.ModuleContext,
+                    Resource = resource,
+                    Icon = icon,
+                    Hide = hide,
+                    Context = context,
+                    Section = section,
+                    Group = group
+                };
 
-            //    // Logging
-            //    var log = new List<string>
-            //    {
-            //        I18N("webexpress.webapp:pagesettingmanager.register"),
-            //        "    ModuleID             = " + module?.ModuleID,
-            //        "    SettingContext       = " + context ?? "null",
-            //        "    SettingSection       = " + section.ToString(),
-            //        "    SettingGroup         = " + group ?? "null",
-            //        "    SettingPage.ID       = " + page?.ID ?? "null",
-            //        "    SettingPage.Resource = " + (page?.Resource.ToString()),
-            //        "    SettingPage.Hide     = " + (page?.Hide != null ? page?.Hide.ToString() : "null")
-            //    };
+                // Insert the settings page into the dictionary
+                Dictionary.AddPage(pluginContext, page);
 
-            //    HttpServerContext.Log.Info(string.Join(Environment.NewLine, log));
-            //}
+                // Logging
+                var log = new List<string>
+                {
+                        InternationalizationManager.I18N("webexpress.webapp:pagesettingmanager.register"),
+                        "    ModuleID             = " + moduleID,
+                        "    SettingContext       = " + context ?? "null",
+                        "    SettingSection       = " + section.ToString(),
+                        "    SettingGroup         = " + group ?? "null",
+                        "    SettingPage.ID       = " + page?.ID ?? "null",
+                        "    SettingPage.Resource = " + (page?.Resource.ToString()),
+                        "    SettingPage.Hide     = " + (page?.Hide != null ? page?.Hide.ToString() : "null")
+                };
+
+                HttpServerContext.Log.Debug(string.Join(Environment.NewLine, log));
+
+                // assign the fragments to existing modules.
+                foreach (var moduleContext in ComponentManager.ModuleManager.GetModules(pluginContext, moduleID))
+                {
+                    AssignToModule(moduleContext);
+                }
+            }
         }
 
         /// <summary>
@@ -179,7 +238,56 @@ namespace WebExpress.WebApp.SettingPage
         /// <param name="pluginContext">The context of the plugin that contains the elemets to remove.</param>
         public void Remove(IPluginContext pluginContext)
         {
+            Dictionary.Remove(pluginContext);
+        }
 
+        /// <summary>
+        /// Assign existing resources to the module.
+        /// </summary>
+        /// <param name="moduleContext">The context of the module.</param>
+        private void AssignToModule(IModuleContext moduleContext)
+        {
+            //foreach (var resourceItem in Dictionary.Values
+            //    .SelectMany(x => x.Values)
+            //    .SelectMany(x => x)
+            //    .Where(x => x.ModuleID.Equals(moduleContext?.ModuleID, StringComparison.OrdinalIgnoreCase))
+            //    .Where(x => !x.IsAssociatedWithModule(moduleContext)))
+            //{
+            //    resourceItem.AddModule(moduleContext);
+            //}
+        }
+
+        /// <summary>
+        /// Remove an existing modules to the application.
+        /// </summary>
+        /// <param name="moduleContext">The context of the module.</param>
+        private void DetachFromModule(IModuleContext moduleContext)
+        {
+            //foreach (var resourceItem in Dictionary.Values
+            //    .SelectMany(x => x.Values)
+            //    .SelectMany(x => x)
+            //    .Where(x => !x.IsAssociatedWithModule(moduleContext)))
+            //{
+            //    resourceItem.DetachModule(moduleContext);
+            //}
+        }
+
+        /// <summary>
+        /// Raises the AddSettingPage event.
+        /// </summary>
+        /// <param name="resourceContext">The resource context.</param>
+        private void OnAddSettingPage(IResourceContext resourceContext)
+        {
+            AddSettingPage?.Invoke(this, resourceContext);
+        }
+
+        /// <summary>
+        /// Raises the RemoveSettingPage event.
+        /// </summary>
+        /// <param name="resourceContext">The resource context.</param>
+        private void OnRemoveSettingPage(IResourceContext resourceContext)
+        {
+            RemoveSettingPage?.Invoke(this, resourceContext);
         }
 
         /// <summary>
@@ -226,18 +334,23 @@ namespace WebExpress.WebApp.SettingPage
         /// <param name="deep">The shaft deep.</param>
         public void PrepareForLog(IPluginContext pluginContext, IList<string> output, int deep)
         {
+            output.Add
+            (
+                string.Empty.PadRight(deep) +
+                InternationalizationManager.I18N("webexpress.ui:settingpagemanager.titel")
+            );
+
             //foreach (var fragmentItem in GetFragmentItems(pluginContext))
             //{
-            //output.Add
-            //(
-            //    string.Empty.PadRight(deep) +
-            //    InternationalizationManager.I18N
+            //    output.Add
             //    (
-            //        "webexpress:schedulermanager.job",
-            //        fragmentItem.,
-            //        fragmentItem.
-            //    )
-            //);
+            //        string.Empty.PadRight(deep + 2) +
+            //        InternationalizationManager.I18N
+            //        (
+            //            "webexpress.ui:settingpagemanager.settingpage",
+            //            fragmentItem.FragmentClass.Name
+            //        )
+            //    );
             //}
         }
     }

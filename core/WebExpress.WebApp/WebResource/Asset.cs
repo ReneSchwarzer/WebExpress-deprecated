@@ -5,11 +5,11 @@ namespace WebExpress.WebApp.WebResource
     /// <summary>
     /// Lieferung einer im Assamby eingebetteten Ressource
     /// </summary>
-    [Id("Asset")]
-    [Segment("assets")]
-    [ContextPath("/")]
-    [IncludeSubPaths(true)]
-    [Module("webexpress.webapp")]
+    [WebExID("Asset")]
+    [WebExSegment("assets")]
+    [WebExContextPath("/")]
+    [WebExIncludeSubPaths(true)]
+    [WebExModule("webexpress.webapp")]
     public sealed class Asset : WebExpress.WebResource.ResourceAsset
     {
         /// <summary>

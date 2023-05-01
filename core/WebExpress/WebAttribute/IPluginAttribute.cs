@@ -1,7 +1,7 @@
 ﻿namespace WebExpress.WebAttribute
 {
     /// <summary>
-    /// Kennzeichnet eine Klasse als Plugin-Komponente
+    /// Identifies a class as a plug-in component.
     /// </summary>
     public interface IPluginAttribute
     {

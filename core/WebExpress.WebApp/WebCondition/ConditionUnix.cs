@@ -1,5 +1,5 @@
 ﻿using System;
-using WebExpress.Message;
+using WebExpress.WebMessage;
 using WebExpress.WebCondition;
 
 namespace WebExpress.WebApp.WebCondition

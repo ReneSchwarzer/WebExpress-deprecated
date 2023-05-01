@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.WebPage;
-using WebExpress.WebUri;
 
 namespace WebExpress.WebResource
 {
@@ -25,7 +25,7 @@ namespace WebExpress.WebResource
         /// <summary>
         /// Liefert die Links auf die zu verwendenden JavaScript-Dateien, welche im Header eingefügt werden
         /// </summary>
-        public List<IUri> HeaderScriptLinks { get; } = new List<IUri>();
+        public List<Uri> HeaderScriptLinks { get; } = new List<Uri>();
 
         /// <summary>
         /// Liefert die Links auf die zu verwendenden JavaScript-Dateien
@@ -45,7 +45,7 @@ namespace WebExpress.WebResource
         /// <summary>
         /// Liefert die Links auf die zu verwendenden Css-Dateien
         /// </summary>
-        public List<IUri> CssLinks { get; } = new List<IUri>();
+        public List<Uri> CssLinks { get; } = new List<Uri>();
 
         /// <summary>
         /// Liefert die Metainformationen
@@ -99,7 +99,7 @@ namespace WebExpress.WebResource
         /// Fügt eine Java-Script im Header hinzu
         /// </summary>
         /// <param name="url">Der Link</param>
-        public virtual void AddHeaderScriptLinks(IUri url)
+        public virtual void AddHeaderScriptLinks(Uri url)
         {
             HeaderScriptLinks?.Add(url);
         }
@@ -113,9 +113,9 @@ namespace WebExpress.WebResource
         {
             var html = new HtmlElementRootHtml();
             html.Head.Title = InternationalizationManager.I18N(context.Request, context.Page?.Title);
-            html.Head.Favicons = Favicons?.Select(x => new Favicon(new UriRelative(x.Url).ToString(), x.Mediatype));
+            html.Head.Favicons = Favicons?.Select(x => new Favicon(x.Url, x.Mediatype));
             //html.Head.Base = Context.ContextPath.ToString();
-            html.Head.Styles = Styles?.Select(x => new UriRelative(x).ToString());
+            html.Head.Styles = Styles;
             html.Head.Meta = Meta;
             html.Head.Scripts = HeaderScripts;
             html.Body.Elements.Add(Content);

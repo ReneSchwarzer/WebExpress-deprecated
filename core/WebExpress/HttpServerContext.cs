@@ -49,7 +49,7 @@ namespace WebExpress
         /// <summary>
         /// Returns the basic context path.
         /// </summary>
-        public IUri ContextPath { get; protected set; }
+        public UriResource ContextPath { get; protected set; }
 
         /// <summary>
         /// Returns the culture.
@@ -87,7 +87,7 @@ namespace WebExpress
             string assetBaseFolder,
             string dataBaseFolder,
             string configBaseFolder,
-            IUri contextPath,
+            UriResource contextPath,
             CultureInfo culture,
             Log log,
             IHost host

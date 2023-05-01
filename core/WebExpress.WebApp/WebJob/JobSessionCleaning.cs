@@ -7,8 +7,8 @@ namespace WebExpress.WebApp.WebJob
     /// Job zur zyklischen Reinigung der Session. Nicht mehr benutzte Sessions werden entfernt.
     /// Der Job startet 0:30 Uhr am ersten Tag jeden Monats
     /// </summary>
-    [Job("30", "0", "1", "*", "*")]
-    [Module("webexpress.webapp")]
+    [WebExJob("30", "0", "1", "*", "*")]
+    [WebExModule("webexpress.webapp")]
     internal sealed class JobSessionCleaning : Job
     {
         /// <summary>

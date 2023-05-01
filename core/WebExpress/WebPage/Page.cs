@@ -1,5 +1,5 @@
-﻿using WebExpress.Message;
-using WebExpress.WebUri;
+﻿using System;
+using WebExpress.WebMessage;
 using WebExpress.WebResource;
 
 namespace WebExpress.WebPage
@@ -37,7 +37,7 @@ namespace WebExpress.WebPage
         /// The function throws the RedirectException.
         /// </summary>
         /// <param name="uri">The uri to redirect to.</param>
-        public void Redirecting(IUri uri)
+        public void Redirecting(Uri uri)
         {
             throw new RedirectException(uri?.ToString());
         }

@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WebExpress.Internationalization;
-using WebExpress.WebUri;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebPlugin;
+using WebExpress.WebUri;
 
 namespace WebExpress.WebApplication
 {
@@ -101,46 +101,45 @@ namespace WebExpress.WebApplication
                 var options = new List<string>();
 
                 // determining attributes
-                foreach (var customAttribute in type.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IApplicationAttribute))))
+                foreach (var customAttribute in type.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(WebExIApplicationAttribute))))
                 {
-                    if (customAttribute.AttributeType == typeof(IdAttribute))
+                    if (customAttribute.AttributeType == typeof(WebExIDAttribute))
                     {
                         id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
                     }
-                    else if (customAttribute.AttributeType == typeof(NameAttribute))
+                    else if (customAttribute.AttributeType == typeof(WebExNameAttribute))
                     {
                         name = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
-                    else if (customAttribute.AttributeType == typeof(IconAttribute))
+                    else if (customAttribute.AttributeType == typeof(WebExIconAttribute))
                     {
                         icon = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
-                    else if (customAttribute.AttributeType == typeof(DescriptionAttribute))
+                    else if (customAttribute.AttributeType == typeof(WebExDescriptionAttribute))
                     {
                         description = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
-                    else if (customAttribute.AttributeType == typeof(ContextPathAttribute))
+                    else if (customAttribute.AttributeType == typeof(WebExContextPathAttribute))
                     {
                         contextPath = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
-                    else if (customAttribute.AttributeType == typeof(AssetPathAttribute))
+                    else if (customAttribute.AttributeType == typeof(WebExAssetPathAttribute))
                     {
                         assetPath = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
-                    else if (customAttribute.AttributeType == typeof(DataPathAttribute))
+                    else if (customAttribute.AttributeType == typeof(WebExDataPathAttribute))
                     {
                         dataPath = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
-                    else if (customAttribute.AttributeType == typeof(OptionAttribute))
+                    else if (customAttribute.AttributeType == typeof(WebExOptionAttribute))
                     {
                         options.Add(customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower());
                     }
                 }
 
                 // creating application context
-                var applicationContext = new ApplicationContext()
+                var applicationContext = new ApplicationContext
                 {
-                    Assembly = assembly,
                     PluginContext = pluginContext,
                     ApplicationID = id,
                     ApplicationName = name,
@@ -148,11 +147,9 @@ namespace WebExpress.WebApplication
                     Options = options,
                     AssetPath = Path.Combine(HttpServerContext.AssetPath, assetPath),
                     DataPath = Path.Combine(HttpServerContext.DataPath, dataPath),
-                    Icon = UriRelative.Combine(HttpServerContext.ContextPath, contextPath, icon),
-                    Log = HttpServerContext.Log
+                    Icon = UriResource.Combine(HttpServerContext.ContextPath, contextPath, icon),
+                    ContextPath = UriResource.Combine(HttpServerContext.ContextPath, contextPath)
                 };
-
-                applicationContext.ContextPath = UriRelative.Combine(HttpServerContext.ContextPath, contextPath);
 
                 // create application
                 var applicationInstance = (IApplication)type.Assembly.CreateInstance(type.FullName);

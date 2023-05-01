@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using WebExpress.WebUri;
 
 namespace WebExpress.UI.WebControl
 {
@@ -39,12 +38,12 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Liefert oder setzt die Ziel-Uri
         /// </summary>
-        IUri Uri { get; set; }
+        Uri Uri { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Weiterleitungs-Url
         /// </summary>
-        IUri RedirectUri { get; set; }
+        Uri RedirectUri { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Submit-Schaltfläche

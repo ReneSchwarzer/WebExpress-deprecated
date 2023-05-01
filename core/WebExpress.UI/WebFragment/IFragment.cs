@@ -6,9 +6,9 @@ namespace WebExpress.UI.WebFragment
     public interface IFragment : IControl
     {
         /// <summary>
-        /// Liefert der Kontext des Fragmentes.
+        /// Returns the context of the fragment.
         /// </summary>
-        IFragmentContext Context { get; }
+        IFragmentContext FragmentContext { get; }
 
         /// <summary>
         /// Initialization

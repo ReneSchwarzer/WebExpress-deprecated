@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using WebExpress.Internationalization;
-using WebExpress.WebUri;
+﻿using System.Collections.Generic;
 using WebExpress.WebApplication;
 using WebExpress.WebModule;
 using WebExpress.WebResource;
+using WebExpress.WebUri;
 
 namespace WebExpress.WebSitemap
 {
@@ -24,14 +22,14 @@ namespace WebExpress.WebSitemap
         public string Title { get; internal set; }
 
         /// <summary>
-        /// Returns the resource type (calss).
-        /// </summary>
-        public Type Type { get; internal set; }
-
-        /// <summary>
-        /// Returns the instance
+        /// Returns the instance.
         /// </summary>
         public IResource Instance { get; internal set; }
+
+        /// <summary>
+        /// Returns the search context.
+        /// </summary>
+        public SearchContext SearchContext { get; internal set; }
 
         /// <summary>
         /// Returns the context of the application.
@@ -63,12 +61,7 @@ namespace WebExpress.WebSitemap
         /// Returns the uri.
         /// </summary>
         /// <returns>The uri.</returns>
-        public IUri Uri { get; internal set; }
-
-        /// <summary>
-        /// Returns the variables.
-        /// </summary>
-        public IDictionary<string, string> Variables { get; internal set; } = new Dictionary<string, string>();
+        public UriResource Uri { get; internal set; }
 
         /// <summary>
         /// Constructor
@@ -76,28 +69,6 @@ namespace WebExpress.WebSitemap
         internal SearchResult()
         {
 
-        }
-
-        /// <summary>
-        /// Adds the variable-value pairs to the result.
-        /// </summary>
-        /// <param name="variables">The variable-value pairs.</param>
-        public void AddVariables(IDictionary<string, string> variables)
-        {
-            if (variables != null)
-            {
-                foreach (var v in variables)
-                {
-                    if (!Variables.ContainsKey(v.Key))
-                    {
-                        Variables.Add(v.Key, v.Value);
-                    }
-                    else
-                    {
-                        ResourceContext.Log.Warning(message: InternationalizationManager.I18N(InternationalizationManager.DefaultCulture, "webexpress", "resource.variable.duplicate"), args: v.Key);
-                    }
-                }
-            }
         }
     }
 }

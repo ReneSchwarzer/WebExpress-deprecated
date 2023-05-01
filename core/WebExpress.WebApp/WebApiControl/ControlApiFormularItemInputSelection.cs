@@ -1,8 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Text;
 using System.Text.Json;
 using WebExpress.UI.WebControl;
-using WebExpress.WebUri;
 
 namespace WebExpress.WebApp.WebApiControl;
 
@@ -11,8 +11,7 @@ public class ControlApiFormularItemInputSelection : ControlFormularItemInputSele
     /// <summary>
     /// Liefert oder setzt die Uri, welche die Optionen ermittelt
     /// </summary>
-    public IUri RestUri { get; set; }
-
+    public Uri RestUri { get; set; }
 
     /// <summary>
     /// Constructor

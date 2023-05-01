@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
 using WebExpress.UI.WebFragment;
-using WebExpress.WebUri;
 using WebExpress.WebPage;
 using static WebExpress.Internationalization.InternationalizationManager;
 
@@ -13,7 +13,7 @@ namespace WebExpress.WebApp.WebFragment
         /// <summary>
         /// Returns the uri to the REST API interface.
         /// </summary>
-        public IUri RestApiUri { get; protected set; }
+        public Uri RestApiUri { get; protected set; }
 
         /// <summary>
         /// Returns the editors to manipulate the data.

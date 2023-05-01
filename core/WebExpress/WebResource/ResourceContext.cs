@@ -1,19 +1,16 @@
-﻿using System.Collections.Generic;
-using System.Reflection;
-using WebExpress.WebUri;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using WebExpress.WebComponent;
 using WebExpress.WebCondition;
 using WebExpress.WebModule;
 using WebExpress.WebPlugin;
+using WebExpress.WebUri;
 
 namespace WebExpress.WebResource
 {
     public class ResourceContext : IResourceContext
     {
-        /// <summary>
-        /// The assembly that contains the module
-        /// </summary>
-        public Assembly Assembly { get; private set; }
-
         /// <summary>
         /// Returns the associated plugin context.
         /// </summary>
@@ -25,7 +22,7 @@ namespace WebExpress.WebResource
         public IModuleContext ModuleContext { get; private set; }
 
         /// <summary>
-        /// Returns or sets the context name that provides the resource. The context name 
+        /// Returns the context name that provides the resource. The context name 
         /// is a string with a name (e.g. global, admin), which can be used by elements to 
         /// determine whether content and how content should be displayed.
         /// </summary>
@@ -37,14 +34,23 @@ namespace WebExpress.WebResource
         public ICollection<ICondition> Conditions { get; internal set; } = new List<ICondition>();
 
         /// <summary>
-        /// Returns or sets the resource id.
+        /// Returns the resource id.
         /// </summary>
         public string ResourceID { get; internal set; }
 
         /// <summary>
-        /// Returns or sets the resource title.
+        /// Returns the resource title.
         /// </summary>
         public string ResourceTitle { get; internal set; }
+
+        /// <summary>
+        /// Returns the parent or null if not used.
+        /// </summary>
+        public IResourceContext ParentContext => ComponentManager.ResourceManager.Resources
+            .Where(x => !string.IsNullOrWhiteSpace(ResourceItem.Parent))
+            .Where(x => x.ResourceID.Equals(ResourceItem.Parent, StringComparison.OrdinalIgnoreCase))
+            .Where(x => x.ModuleContext.ApplicationContext == ModuleContext.ApplicationContext)
+            .FirstOrDefault();
 
         /// <summary>
         /// Returns whether the resource is created once and reused each time it is called.
@@ -54,12 +60,24 @@ namespace WebExpress.WebResource
         /// <summary>
         /// Returns the context path.
         /// </summary>
-        public IUri ContextPath { get; internal set; }
+        public UriResource ContextPath
+        {
+            get
+            {
+                var parentContext = ParentContext;
+                if (parentContext != null)
+                {
+                    return UriResource.Combine(ParentContext?.Uri, ResourceItem.ContextPath);
+                }
+
+                return UriResource.Combine(ModuleContext.ContextPath, ResourceItem.ContextPath);
+            }
+        }
 
         /// <summary>
-        /// Returns the log to write status messages to the console and to a log file.
+        /// Returns the uri.
         /// </summary>
-        public Log Log { get; private set; }
+        public UriResource Uri => ContextPath.Append(ResourceItem.PathSegment);
 
         /// <summary>
         /// Constructor
@@ -67,10 +85,13 @@ namespace WebExpress.WebResource
         /// <param name="moduleContext">The module context.</param>
         internal ResourceContext(IModuleContext moduleContext)
         {
-            Assembly = moduleContext?.Assembly;
             PluginContext = moduleContext?.PluginContext;
             ModuleContext = moduleContext;
-            Log = moduleContext?.Log;
         }
+
+        /// <summary>
+        /// Returns or sets the resource item.
+        /// </summary>
+        internal ResourceItem ResourceItem { get; set; }
     }
 }

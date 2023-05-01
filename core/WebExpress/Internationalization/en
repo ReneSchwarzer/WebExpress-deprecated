@@ -104,6 +104,7 @@ sitemapmanager.addresource=The resource '{0}' has been registered in the sitemap
 sitemapmanager.addresource.error=Could not add resource '{0}' in the sitemap.
 sitemapmanager.preorder={0} => {1}
 sitemapmanager.sitemap=Sitemap:
+sitemapmanager.merge.error=The two sitemaps '{0}' and '{1}' could not be merged.
 
 schedulermanager.initialization=The schedule manager has been initialized.
 schedulermanager.register=The plugin '{0}' is registered in the schedule manager manager.

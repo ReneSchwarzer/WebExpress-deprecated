@@ -1,5 +1,5 @@
-﻿using WebExpress.Html;
-using WebExpress.WebUri;
+﻿using System;
+using WebExpress.Html;
 using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebControl
@@ -30,7 +30,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Liefert oder setzt die Ziel-Uri
         /// </summary>
-        public IUri Uri { get; set; }
+        public Uri Uri { get; set; }
 
         /// <summary>
         /// Liefert oder setzt den Wert

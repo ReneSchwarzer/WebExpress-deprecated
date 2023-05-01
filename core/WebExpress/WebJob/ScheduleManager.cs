@@ -79,7 +79,7 @@ namespace WebExpress.WebJob
                 var moduleID = string.Empty;
                 var id = job.Name;
 
-                foreach (var customAttribute in job.CustomAttributes.Where(x => x.AttributeType == typeof(JobAttribute)))
+                foreach (var customAttribute in job.CustomAttributes.Where(x => x.AttributeType == typeof(WebExJobAttribute)))
                 {
                     minute = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     hour = customAttribute.ConstructorArguments.Skip(1).FirstOrDefault().Value?.ToString();
@@ -88,7 +88,7 @@ namespace WebExpress.WebJob
                     weekday = customAttribute.ConstructorArguments.Skip(4).FirstOrDefault().Value?.ToString();
                 }
 
-                foreach (var customAttribute in job.CustomAttributes.Where(x => x.AttributeType == typeof(ModuleAttribute)))
+                foreach (var customAttribute in job.CustomAttributes.Where(x => x.AttributeType == typeof(WebExModuleAttribute)))
                 {
                     moduleID = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
                 }
@@ -96,7 +96,7 @@ namespace WebExpress.WebJob
                 if (string.IsNullOrWhiteSpace(moduleID))
                 {
                     // no module specified
-                    pluginContext.Log.Warning
+                    HttpServerContext.Log.Warning
                     (
                         InternationalizationManager.I18N
                         (
@@ -109,7 +109,7 @@ namespace WebExpress.WebJob
                 if (!modules.Any())
                 {
                     // module not found
-                    pluginContext.Log.Warning
+                    HttpServerContext.Log.Warning
                     (
                         InternationalizationManager.I18N
                         (
@@ -137,7 +137,7 @@ namespace WebExpress.WebJob
                     moduleID = moduleID
                 });
 
-                pluginContext.Log.Debug
+                HttpServerContext.Log.Debug
                 (
                     InternationalizationManager.I18N
                     (
@@ -151,7 +151,7 @@ namespace WebExpress.WebJob
                     if (moduleContext.PluginContext != pluginContext)
                     {
                         // job is not part of the module
-                        pluginContext.Log.Warning
+                        HttpServerContext.Log.Warning
                         (
                             InternationalizationManager.I18N
                             (

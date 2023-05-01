@@ -3,7 +3,6 @@ using System.Linq;
 using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
-using WebExpress.WebUri;
 using WebExpress.WebPage;
 using WebExpress.WebResource;
 
@@ -35,8 +34,8 @@ namespace WebExpress.UI.WebPage
         {
             var html = new HtmlElementRootHtml();
             html.Head.Title = InternationalizationManager.I18N(context.Request, context.Page?.Title);
-            html.Head.Favicons = Favicons?.Select(x => new Favicon(new UriRelative(x.Url).ToString(), x.Mediatype));
-            html.Head.Styles = Styles?.Select(x => new UriRelative(x).ToString());
+            html.Head.Favicons = Favicons?.Select(x => new Favicon(x.Url, x.Mediatype));
+            html.Head.Styles = Styles;
             html.Head.Meta = Meta;
             html.Head.Scripts = HeaderScripts;
             html.Body.Elements.AddRange(Content?.Where(x => x.Enable).Select(x => x.Render(context)));

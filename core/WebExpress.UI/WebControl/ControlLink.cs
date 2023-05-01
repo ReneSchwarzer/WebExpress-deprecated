@@ -2,8 +2,7 @@
 using System.Linq;
 using WebExpress.Html;
 using WebExpress.Internationalization;
-using WebExpress.Message;
-using WebExpress.WebUri;
+using WebExpress.WebMessage;
 using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebControl
@@ -41,7 +40,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Liefert oder setzt die Ziel-Uri
         /// </summary>
-        public IUri Uri { get; set; }
+        public string Uri { get; set; }
 
         /// <summary>
         /// Liefert oder setzt das Ziel

@@ -8,7 +8,7 @@ namespace WebExpress.UI.WebFragment
         /// <summary>
         /// Returns the context of the fragment.
         /// </summary>
-        public IFragmentContext Context { get; private set; }
+        public IFragmentContext FragmentContext { get; private set; }
 
         /// <summary>
         /// Constructor
@@ -26,7 +26,7 @@ namespace WebExpress.UI.WebFragment
         /// <param name="page">The page where the fragment is active.</param>
         public virtual void Initialization(IFragmentContext context, IPage page)
         {
-            Context = context;
+            FragmentContext = context;
         }
     }
 }

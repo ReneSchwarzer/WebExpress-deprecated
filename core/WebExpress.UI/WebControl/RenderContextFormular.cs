@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using WebExpress.Message;
+using WebExpress.WebMessage;
 using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebControl

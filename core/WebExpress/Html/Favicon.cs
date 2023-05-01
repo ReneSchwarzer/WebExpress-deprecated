@@ -1,24 +1,24 @@
-﻿using WebExpress.WebUri;
+﻿using System;
 
 namespace WebExpress.Html
 {
     public class Favicon
     {
         /// <summary>
-        /// Liefert oder setzt die URL
+        /// Returns or sets the uri.
         /// </summary>
         public string Url { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt den Mediatyp
+        /// Returns or sets the media type.
         /// </summary>
         public TypeFavicon Mediatype { get; set; }
 
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="url">Die URL</param>
-        /// <param name="mediatype">Den Mediatyp</param>
+        /// <param name="url">The uri.</param>
+        /// <param name="mediatype">The media type.</param>
         public Favicon(string url, TypeFavicon mediatype)
         {
             Url = url;
@@ -28,9 +28,9 @@ namespace WebExpress.Html
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="url">Die URL</param>
-        /// <param name="mediatype">Den Mediatyp</param>
-        public Favicon(IUri url)
+        /// <param name="url">The uri.</param>
+        /// <param name="mediatype">The media type.</param>
+        public Favicon(Uri url)
         {
             Url = url.ToString();
         }
@@ -38,9 +38,9 @@ namespace WebExpress.Html
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="url">Die URL</param>
-        /// <param name="mediatype">Den Mediatyp</param>
-        public Favicon(IUri url, TypeFavicon mediatype)
+        /// <param name="url">The uri.</param>
+        /// <param name="mediatype">The media type.</param>
+        public Favicon(Uri url, TypeFavicon mediatype)
         {
             Url = url.ToString();
             Mediatype = mediatype;
@@ -49,8 +49,8 @@ namespace WebExpress.Html
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="url">Die URL</param>
-        /// <param name="mediatype">Den Mediatyp</param>
+        /// <param name="url">The uri.</param>
+        /// <param name="mediatype">The media type.</param>
         public Favicon(string url, string mediatype)
         {
             Url = url;
@@ -75,9 +75,9 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Liefert den Medientyp
+        /// Returns the media type.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The media type.</returns>
         public string GetMediatyp()
         {
             return Mediatype switch

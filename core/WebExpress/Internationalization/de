@@ -104,7 +104,8 @@ sitemapmanager.addresource=Die Ressource '{0}' wurde in der Sitemap registriert.
 sitemapmanager.addresource.error=Die Ressource '{0}' konnte nicht in der Sitemap hinzugefügt werden.
 sitemapmanager.preorder={0} => {1}
 sitemapmanager.sitemap=Sitemap:
-={0} => {1}
+sitemapmanager.merge.error=Die beiden Sitemaps '{0}' und '{1}' konnten nicht gemerdged werden.
+
 schedulermanager.initialization=Der Schedulemanager wurde initialisiert.
 schedulermanager.register=Das Plugin '{0}' wurde im Schedulemanager registriert.
 schedulermanager.job.register=Der Job '{1}' wurden dem Modul '{0}' zugewiesen.

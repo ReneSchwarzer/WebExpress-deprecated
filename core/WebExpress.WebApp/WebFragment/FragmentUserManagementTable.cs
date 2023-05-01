@@ -9,9 +9,9 @@ using WebExpress.WebPage;
 namespace WebExpress.WebApp.WebFragment
 {
     [Section(Section.ContentPrimary)]
-    [Module("webexpress.webapp")]
-    [Context("webexpress.webapp.usermanagement.user")]
-    [Cache()]
+    [WebExModule("webexpress.webapp")]
+    [WebExContext("webexpress.webapp.usermanagement.user")]
+    [WebExCache()]
     //[Condition(typeof(ConditionUnix))]
     public sealed class FragmentUserManagementTable : FragmentCrudTable
     {

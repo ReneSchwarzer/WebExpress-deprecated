@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
-using WebExpress.Message;
-using WebExpress.WebUri;
+using WebExpress.WebMessage;
 using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebControl
@@ -12,7 +12,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Liefert oder setzt die Ziel-Uri
         /// </summary>
-        public IUri Uri { get; set; }
+        public Uri Uri { get; set; }
 
         /// <summary>
         /// Returns or sets the text.

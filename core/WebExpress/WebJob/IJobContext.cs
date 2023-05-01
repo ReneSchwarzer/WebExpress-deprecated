@@ -1,16 +1,10 @@
-﻿using System.Reflection;
-using WebExpress.WebModule;
+﻿using WebExpress.WebModule;
 using WebExpress.WebPlugin;
 
 namespace WebExpress.WebJob
 {
     public interface IJobContext
     {
-        /// <summary>
-        /// The assembly that contains the module.
-        /// </summary>
-        Assembly Assembly { get; }
-
         /// <summary>
         /// Returns the associated plugin context.
         /// </summary>
@@ -30,10 +24,5 @@ namespace WebExpress.WebJob
         /// Returns the cron-object.
         /// </summary>
         Cron Cron { get; }
-
-        /// <summary>
-        /// Returns the log to write status messages to the console and to a log file.
-        /// </summary>
-        Log Log { get; }
     }
 }

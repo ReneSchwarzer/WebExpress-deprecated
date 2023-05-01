@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Linq;
-using WebExpress.Message;
 using WebExpress.WebAttribute;
+using WebExpress.WebMessage;
 using WebExpress.WebResource;
 using WebExpress.WebTask;
 
@@ -10,12 +10,12 @@ namespace WebExpress.WebApp.WebAPI.V1
     /// <summary>
     /// Ermittelt den Status und Forschritt einer Aufgabe (WebTask)
     /// </summary>
-    [Id("ApiTaskStatusV1")]
-    [Segment("taskstatus", "")]
-    [ContextPath("/api/v1")]
-    [IncludeSubPaths(true)]
-    [Module("webexpress.webapp")]
-    [Optional]
+    [WebExID("ApiTaskStatusV1")]
+    [WebExSegment("taskstatus", "")]
+    [WebExContextPath("/api/v1")]
+    [WebExIncludeSubPaths(true)]
+    [WebExModule("webexpress.webapp")]
+    [WebExOptional]
     public sealed class RestTaskStatus : ResourceRest
     {
         /// <summary>
@@ -41,7 +41,7 @@ namespace WebExpress.WebApp.WebAPI.V1
         /// <returns>Eine Aufzählung, welche mittels JsonSerializer serialisiert werden kann.</returns>
         public override ICollection GetData(Request request)
         {
-            var id = request.Uri.Path.Last().Value;
+            var id = request.ResourceUri.PathSegments.Last().Value;
 
             if (TaskManager.ContainsTask(id))
             {

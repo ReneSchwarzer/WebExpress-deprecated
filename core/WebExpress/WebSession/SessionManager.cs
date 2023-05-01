@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using WebExpress.Message;
+using WebExpress.WebMessage;
 
 namespace WebExpress.WebSession
 {

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
-using WebExpress.WebUri;
 using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebControl
@@ -17,7 +16,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Liefert oder setzt das Avatarbild
         /// </summary>
-        public IUri Image { get; set; }
+        public Uri Image { get; set; }
 
         /// <summary>
         /// Liefert oder setzt den Namen des Users
@@ -171,7 +170,7 @@ namespace WebExpress.UI.WebControl
             {
                 Icon = new PropertyIcon(TypeIcon.ThumbsUp),
                 Text = likeText,
-                Uri = context.Request.Uri,
+                Uri = context.Request.Uri?.ToString(),
                 Size = TypeSizeButton.Small,
                 BackgroundColor = new PropertyColorButton(TypeColorButton.Light),
                 Outline = true,

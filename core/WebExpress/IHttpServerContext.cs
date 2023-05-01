@@ -48,7 +48,7 @@ namespace WebExpress
         /// <summary>
         /// Returns the basic context path.
         /// </summary>
-        IUri ContextPath { get; }
+        UriResource ContextPath { get; }
 
         /// <summary>
         /// Returns the culture.

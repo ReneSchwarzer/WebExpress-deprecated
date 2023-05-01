@@ -1,6 +1,5 @@
 ﻿using System;
 using WebExpress.Html;
-using WebExpress.WebUri;
 using WebExpress.WebPage;
 using static WebExpress.Internationalization.InternationalizationManager;
 
@@ -11,7 +10,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Liefert oder setzt die Uri
         /// </summary>
-        public IUri Uri { get; set; }
+        public Uri Uri { get; set; }
 
         /// <summary>
         /// Liefert oder setzt das Rootelement
@@ -53,7 +52,7 @@ namespace WebExpress.UI.WebControl
         /// </summary>
         /// <param name="page">Die zugehörige Seite</param>
         /// <param name="uri">Der Verzeichnispfad</param>
-        public ControlBreadcrumb(string id, IUri uri)
+        public ControlBreadcrumb(string id, Uri uri)
             : base(id)
         {
             Uri = uri;
@@ -89,68 +88,68 @@ namespace WebExpress.UI.WebControl
                 );
             }
 
-            if (Uri is UriRelative resourceUri)
-            {
-                //foreach (var part in resourceUri.Path.TakeLast((int)TakeLast))
-                //{
-                //    if (part.Display != null)
-                //    {
-                //        var display = I18N(context.Culture, part.Display);
-                //        var href = part.ToString();
+            //if (Uri is UriResource resourceUri)
+            //{
+            //foreach (var part in resourceUri.Path.TakeLast((int)TakeLast))
+            //{
+            //    if (part.Display != null)
+            //    {
+            //        var display = I18N(context.Culture, part.Display);
+            //        var href = part.ToString();
 
-                //        html.Elements.Add
-                //        (
-                //            new HtmlElementTextContentLi
-                //            (
-                //                //new ControlIcon(Page)
-                //                //{ 
-                //                //    Icon = path.Icon
-                //                //}.ToHtml(),
-                //                new HtmlElementTextSemanticsA(display)
-                //                {
-                //                    Href = href
-                //                }
-                //            )
-                //            {
-                //                Class = "breadcrumb-item"
-                //            }
-                //        );
-                //    }
-                //}
+            //        html.Elements.Add
+            //        (
+            //            new HtmlElementTextContentLi
+            //            (
+            //                //new ControlIcon(Page)
+            //                //{ 
+            //                //    Icon = path.Icon
+            //                //}.ToHtml(),
+            //                new HtmlElementTextSemanticsA(display)
+            //                {
+            //                    Href = href
+            //                }
+            //            )
+            //            {
+            //                Class = "breadcrumb-item"
+            //            }
+            //        );
+            //    }
+            //}
 
-                var takeLast = Math.Min(TakeLast, resourceUri.Path.Count);
-                var from = resourceUri.Path.Count - takeLast;
+            //var takeLast = Math.Min(TakeLast, resourceUri.Path.Count);
+            //var from = resourceUri.Path.Count - takeLast;
 
-                for (int i = from + 1; i < resourceUri.Path.Count + 1; i++)
-                {
-                    var path = resourceUri.Take(i);
+            //for (int i = from + 1; i < resourceUri.Path.Count + 1; i++)
+            //{
+            //    var path = resourceUri.Take(i);
 
-                    if (path.Display != null)
-                    {
-                        var display = I18N(context.Culture, path.Display);
-                        var href = path.ToString();
+            //    if (path.Display != null)
+            //    {
+            //        var display = I18N(context.Culture, path.Display);
+            //        var href = path.ToString();
 
-                        html.Elements.Add
-                        (
-                            new HtmlElementTextContentLi
-                            (
-                                //new ControlIcon(Page)
-                                //{ 
-                                //    Icon = path.Icon
-                                //}.ToHtml(),
-                                new HtmlElementTextSemanticsA(display)
-                                {
-                                    Href = href,
-                                    Class = "link"
-                                }
-                            )
-                            {
-                                Class = "breadcrumb-item"
-                            }
-                        );
-                    }
-                }
-            }
+            //        html.Elements.Add
+            //        (
+            //            new HtmlElementTextContentLi
+            //            (
+            //                //new ControlIcon(Page)
+            //                //{ 
+            //                //    Icon = path.Icon
+            //                //}.ToHtml(),
+            //                new HtmlElementTextSemanticsA(display)
+            //                {
+            //                    Href = href,
+            //                    Class = "link"
+            //                }
+            //            )
+            //            {
+            //                Class = "breadcrumb-item"
+            //            }
+            //        );
+            //    }
+            //}
+            //}
 
             return html;
         }

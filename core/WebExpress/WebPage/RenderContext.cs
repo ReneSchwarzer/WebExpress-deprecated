@@ -1,9 +1,9 @@
 ﻿using System.Globalization;
 using WebExpress.Internationalization;
-using WebExpress.Message;
-using WebExpress.WebUri;
 using WebExpress.WebApplication;
+using WebExpress.WebMessage;
 using WebExpress.WebResource;
+using WebExpress.WebUri;
 
 namespace WebExpress.WebPage
 {
@@ -20,9 +20,19 @@ namespace WebExpress.WebPage
         public Request Request { get; internal set; }
 
         /// <summary>
+        /// Returns the host context.
+        /// </summary>
+        public IHttpServerContext Host => Request.ServerContext;
+
+        /// <summary>
         /// The uri of the request.
         /// </summary>
-        public IUri Uri => Request?.Uri;
+        public UriResource Uri => Request.ResourceUri;
+
+        /// <summary>
+        /// Returns the context path.
+        /// </summary>
+        public UriResource ContextPath => Page?.ResourceContext?.ContextPath;
 
         /// <summary>
         /// Returns the culture.
@@ -67,7 +77,6 @@ namespace WebExpress.WebPage
             Request = request;
             VisualTree = visualTree;
             Culture = (Page as Resource).Culture;
-            Log = page.ResourceContext.Log;
         }
 
         /// <summary>

@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using System.Text.Json;
-using WebExpress.Message;
+using WebExpress.WebMessage;
 
 namespace WebExpress.WebResource
 {
@@ -27,7 +27,7 @@ namespace WebExpress.WebResource
         /// Processing of the resource. des GET-Request
         /// </summary>
         /// <param name="request">The request.</param>
-        /// <returns>Eine Aufzählung, welche JsonSerializer serialisiert werden kann.</returns>
+        /// <returns>An enumeration of which json serializer can be serialized.</returns>
         public virtual object GetData(Request request)
         {
             return null;
@@ -69,7 +69,7 @@ namespace WebExpress.WebResource
                     }
                 case RequestMethod.DELETE:
                     {
-                        content = JsonSerializer.Serialize(DeleteData(request.Uri.Path.Last().Value, request), options);
+                        content = JsonSerializer.Serialize(DeleteData(request.Uri.Segments.Last(), request), options);
 
                         break;
                     }

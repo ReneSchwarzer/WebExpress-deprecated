@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using WebExpress.Html;
-using WebExpress.Message;
 using WebExpress.UI.WebControl;
-using WebExpress.WebUri;
+using WebExpress.WebMessage;
 using WebExpress.WebPage;
 using static WebExpress.Internationalization.InternationalizationManager;
 
@@ -80,7 +79,7 @@ namespace WebExpress.WebApp.WebControl
         /// <summary>
         /// Liefert oder setzt die Weiterleitungs-Uri
         /// </summary>
-        public IUri RedirectUri { get { return Formular?.RedirectUri; } set { Formular.RedirectUri = value; } }
+        public Uri RedirectUri { get { return Formular?.RedirectUri; } set { Formular.RedirectUri = value; } }
 
         /// <summary>
         /// Constructor

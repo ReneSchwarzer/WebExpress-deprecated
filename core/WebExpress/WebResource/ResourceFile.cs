@@ -1,4 +1,4 @@
-﻿using WebExpress.Message;
+﻿using WebExpress.WebMessage;
 using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.WebResource
@@ -117,7 +117,7 @@ namespace WebExpress.WebResource
                         break;
                 }
 
-                ResourceContext.Log.Debug(message: I18N("webexpress:resource.file"), args: new object[] { request.RemoteEndPoint, request.Uri });
+                request.ServerContext.Log.Debug(I18N("webexpress:resource.file", request.RemoteEndPoint, request.Uri));
 
                 return response;
             }

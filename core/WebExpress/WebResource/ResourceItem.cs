@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using WebExpress.Internationalization;
-using WebExpress.WebUri;
 using WebExpress.WebCondition;
 using WebExpress.WebModule;
+using WebExpress.WebUri;
 
 namespace WebExpress.WebResource
 {
@@ -33,6 +33,11 @@ namespace WebExpress.WebResource
         public string Title { get; set; }
 
         /// <summary>
+        /// Returns or sets the parent id.
+        /// </summary>
+        public string Parent { get; set; }
+
+        /// <summary>
         /// Returns or sets the type of resource.
         /// </summary>
         public Type ResourceClass { get; set; }
@@ -57,12 +62,12 @@ namespace WebExpress.WebResource
         /// <summary>
         /// Returns or sets the paths of the resource.
         /// </summary>
-        public IUri ContextPath { get; set; }
+        public UriResource ContextPath { get; set; }
 
         /// <summary>
         /// Returns or sets the path segment.
         /// </summary>
-        public IPathSegment PathSegment { get; internal set; }
+        public IUriPathSegment PathSegment { get; internal set; }
 
         /// <summary>
         /// Returns or sets whether all subpaths should be taken into sitemap.
@@ -122,12 +127,12 @@ namespace WebExpress.WebResource
             // create context
             var resourceContext = new ResourceContext(moduleContext)
             {
-                ContextPath = UriRelative.Combine(moduleContext.ContextPath, ContextPath),
                 Context = Context,
                 Conditions = Conditions,
                 ResourceID = ID,
                 ResourceTitle = Title,
-                Cache = Cache
+                Cache = Cache,
+                ResourceItem = this
             };
 
             Dictionary.Add(moduleContext, resourceContext);

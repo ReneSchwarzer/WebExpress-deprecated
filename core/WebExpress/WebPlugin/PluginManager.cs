@@ -5,9 +5,9 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using WebExpress.Internationalization;
-using WebExpress.WebUri;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
+using WebExpress.WebUri;
 
 namespace WebExpress.WebPlugin
 {
@@ -107,7 +107,7 @@ namespace WebExpress.WebPlugin
             }
 
             // register plugin
-            foreach (var assembly in assemblies.OrderBy(x => x.GetCustomAttribute(typeof(SystemPluginAttribute)) != null ? 0 : 1))
+            foreach (var assembly in assemblies.OrderBy(x => x.GetCustomAttribute(typeof(WebExSystemPluginAttribute)) != null ? 0 : 1))
             {
                 Register(assembly);
             }
@@ -187,22 +187,22 @@ namespace WebExpress.WebPlugin
                     foreach (var customAttribute in type.CustomAttributes
                         .Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IPluginAttribute))))
                     {
-                        if (customAttribute.AttributeType == typeof(IdAttribute))
+                        if (customAttribute.AttributeType == typeof(WebExIDAttribute))
                         {
                             id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
                         }
 
-                        if (customAttribute.AttributeType == typeof(NameAttribute))
+                        if (customAttribute.AttributeType == typeof(WebExNameAttribute))
                         {
                             name = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                         }
 
-                        if (customAttribute.AttributeType == typeof(IconAttribute))
+                        if (customAttribute.AttributeType == typeof(WebExIconAttribute))
                         {
                             icon = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                         }
 
-                        if (customAttribute.AttributeType == typeof(DescriptionAttribute))
+                        if (customAttribute.AttributeType == typeof(WebExDescriptionAttribute))
                         {
                             description = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                         }
@@ -216,11 +216,10 @@ namespace WebExpress.WebPlugin
                         Manufacturer = type.Assembly.GetCustomAttribute<AssemblyCompanyAttribute>()?.Company,
                         Copyright = type.Assembly.GetCustomAttribute<AssemblyCopyrightAttribute>()?.Copyright,
                         //License = type.Assembly.GetCustomAttribute<AssemblyLicenseAttribute>()?.Copyright,
-                        Icon = UriRelative.Combine(HttpServerContext.ContextPath, icon),
+                        Icon = UriResource.Combine(HttpServerContext.ContextPath, icon),
                         Description = description,
                         Version = type.Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion,
-                        Host = HttpServerContext,
-                        Log = HttpServerContext.Log
+                        Host = HttpServerContext
                     };
 
                     if (!Dictionary.ContainsKey(id))

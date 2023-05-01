@@ -13,9 +13,9 @@ using WebExpress.WebPage;
 namespace WebExpress.WebApp.WebFragment
 {
     [Section(Section.HeadlineSecondary)]
-    [Module("webexpress.webapp")]
-    [Context("webexpress.webpp.systeminformation")]
-    [Condition(typeof(ConditionUnix))]
+    [WebExModule("webexpress.webapp")]
+    [WebExContext("webexpress.webpp.systeminformation")]
+    [WebExCondition(typeof(ConditionUnix))]
     public sealed class FragmentPropertyReboot : FragmentControlButtonLink
     {
         /// <summary>

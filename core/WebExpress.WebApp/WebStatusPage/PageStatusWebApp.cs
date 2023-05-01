@@ -1,11 +1,11 @@
-﻿using WebExpress.Message;
-using WebExpress.UI.WebControl;
+﻿using WebExpress.UI.WebControl;
 using WebExpress.UI.WebPage;
-using WebExpress.WebUri;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebApp.WebPage;
+using WebExpress.WebMessage;
 using WebExpress.WebResource;
-using WebExpress.WebResponse;
+using WebExpress.WebStatusPage;
+using WebExpress.WebUri;
 
 namespace WebExpress.WebApp.WebStatusPage
 {
@@ -32,7 +32,7 @@ namespace WebExpress.WebApp.WebStatusPage
         /// <summary>
         /// Returns or sets the status icon.
         /// </summary>
-        public IUri StatusIcon { get; set; }
+        public UriResource StatusIcon { get; set; }
 
         /// <summary>
         /// Returns or sets the page header.

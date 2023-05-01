@@ -5,7 +5,6 @@ using System.Text;
 using System.Text.Json;
 using WebExpress.Html;
 using WebExpress.UI.WebControl;
-using WebExpress.WebUri;
 using WebExpress.WebPage;
 
 namespace WebExpress.WebApp.WebApiControl
@@ -15,7 +14,7 @@ namespace WebExpress.WebApp.WebApiControl
         /// <summary>
         /// Liefert oder setzt die Uri, welche die Daten ermittelt
         /// </summary>
-        public IUri RestUri { get; set; }
+        public Uri RestUri { get; set; }
 
         /// <summary>
         /// Setzt oder liefert die Einstellungen für die Bearbeitungsoptionen (z.B. Edit, Delete, ...)

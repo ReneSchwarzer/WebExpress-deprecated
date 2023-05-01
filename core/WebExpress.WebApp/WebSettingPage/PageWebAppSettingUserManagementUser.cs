@@ -9,18 +9,18 @@ namespace WebExpress.WebApp.WebSettingPage
     /// <summary>
     /// Einstellungsseiteder der Nutzer
     /// </summary>
-    [Id("SettingUser")]
-    [Title("webexpress.webapp:setting.usermanager.user.label")]
-    [Segment("user", "webexpress.webapp:setting.usermanager.user.label")]
-    [ContextPath("/Setting")]
+    [WebExID("SettingUser")]
+    [WebExTitle("webexpress.webapp:setting.usermanager.user.label")]
+    [WebExSegment("user", "webexpress.webapp:setting.usermanager.user.label")]
+    [WebExContextPath("/Setting")]
     [SettingSection(SettingSection.Primary)]
     [SettingIcon(TypeIcon.User)]
     [SettingGroup("webexpress.webapp:setting.usermanager.group.usermanagement.label")]
     [SettingContext("webexpress.webapp:setting.tab.general.label")]
-    [Module("webexpress.webapp")]
-    [Context("admin")]
-    [Context("webexpress.webapp.usermanagement.user")]
-    [Optional]
+    [WebExModule("webexpress.webapp")]
+    [WebExContext("admin")]
+    [WebExContext("webexpress.webapp.usermanagement.user")]
+    [WebExOptional]
     public sealed class PageWebAppSettingUserManagementUser : PageWebAppSetting
     {
         /// <summary>

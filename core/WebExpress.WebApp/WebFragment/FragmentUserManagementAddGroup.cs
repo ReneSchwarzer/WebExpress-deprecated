@@ -9,8 +9,8 @@ using WebExpress.WebPage;
 namespace WebExpress.WebApp.WebFragment
 {
     [Section(Section.HeadlineSecondary)]
-    [Module("webexpress.webapp")]
-    [Context("webexpress.webapp.usermanagement.group")]
+    [WebExModule("webexpress.webapp")]
+    [WebExContext("webexpress.webapp.usermanagement.group")]
     public sealed class FragmentUserManagementAddGroup : FragmentControlButtonLink
     {
         /// <summary>

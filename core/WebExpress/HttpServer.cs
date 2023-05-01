@@ -18,12 +18,14 @@ using System.Threading.Tasks;
 using WebExpress.Config;
 using WebExpress.Html;
 using WebExpress.Internationalization;
-using WebExpress.Message;
-using WebExpress.WebUri;
+using WebExpress.WebApplication;
 using WebExpress.WebComponent;
+using WebExpress.WebMessage;
+using WebExpress.WebModule;
 using WebExpress.WebPage;
 using WebExpress.WebResource;
 using WebExpress.WebSitemap;
+using WebExpress.WebUri;
 
 namespace WebExpress
 {
@@ -55,7 +57,7 @@ namespace WebExpress
         /// <summary>
         /// Returns or sets the context.
         /// </summary>
-        public IHttpServerContext Context { get; protected set; }
+        public IHttpServerContext HttpServerContext { get; protected set; }
 
         /// <summary>
         /// Returns the culture.
@@ -78,7 +80,7 @@ namespace WebExpress
         /// <param name="context">Der Serverkontext.</param>
         public HttpServer(HttpServerContext context)
         {
-            Context = new HttpServerContext
+            HttpServerContext = new HttpServerContext
             (
                 context.Uri,
                 context.Endpoints,
@@ -92,9 +94,9 @@ namespace WebExpress
                 this
             );
 
-            Culture = Context.Culture;
+            Culture = HttpServerContext.Culture;
 
-            ComponentManager.Initialization(Context);
+            ComponentManager.Initialization(HttpServerContext);
         }
 
         /// <summary>
@@ -102,14 +104,14 @@ namespace WebExpress
         /// </summary>
         public void Start()
         {
-            if (Context != null && Context.Log != null)
+            if (HttpServerContext != null && HttpServerContext.Log != null)
             {
-                Context.Log.Info(message: this.I18N("webexpress:httpserver.run"));
+                HttpServerContext.Log.Info(message: this.I18N("webexpress:httpserver.run"));
             }
 
             if (!HttpListener.IsSupported)
             {
-                Context.Log.Error(message: this.I18N("webexpress:httpserver.notsupported"));
+                HttpServerContext.Log.Error(message: this.I18N("webexpress:httpserver.notsupported"));
             }
 
             var logger = new LogFactory();
@@ -149,7 +151,7 @@ namespace WebExpress
 
             Kestrel.StartAsync(this, ServerToken);
 
-            Context.Log.Info(message: this.I18N("webexpress:httpserver.start"), args: new object[] { ExecutionTime.ToShortDateString(), ExecutionTime.ToLongTimeString() });
+            HttpServerContext.Log.Info(message: this.I18N("webexpress:httpserver.start"), args: new object[] { ExecutionTime.ToShortDateString(), ExecutionTime.ToLongTimeString() });
 
             Started?.Invoke(this, new EventArgs());
         }
@@ -163,34 +165,24 @@ namespace WebExpress
         {
             try
             {
-                var uri = new UriAbsolute(endPoint.Uri);
-                var asterisk = uri.Authority.Host.Equals("*");
+                var uri = new UriBuilder(endPoint.Uri);
+                var asterisk = uri.Host.Equals("*");
 
-                var host = asterisk ? Dns.GetHostEntry(Dns.GetHostName()) : Dns.GetHostEntry(uri.Authority.Host);
+                var port = uri.Port;
+                var host = asterisk ? Dns.GetHostEntry(Dns.GetHostName()) : Dns.GetHostEntry(uri.Host);
                 var addressList = host.AddressList
                     .Union(asterisk ? Dns.GetHostEntry("localhost").AddressList : Array.Empty<IPAddress>())
                     .Where(x => x.AddressFamily == AddressFamily.InterNetwork || x.AddressFamily == AddressFamily.InterNetworkV6);
 
-                var port = uri.Authority.Port;
-                if (!port.HasValue)
-                {
-                    port = uri.Scheme switch
-                    {
-                        UriScheme.Http => 80,
-                        UriScheme.Https => 443,
-                        _ => 80
-                    };
-                }
-
-                Context.Log.Info(message: this.I18N("webexpress:httpserver.endpoint"), args: endPoint.Uri);
+                HttpServerContext.Log.Info(message: this.I18N("webexpress:httpserver.endpoint"), args: endPoint.Uri);
 
                 foreach (var ipAddress in addressList)
                 {
-                    var ep = new IPEndPoint(ipAddress, port.Value);
+                    var ep = new IPEndPoint(ipAddress, port);
 
                     switch (uri.Scheme)
                     {
-                        case UriScheme.Https: { AddEndpoint(serverOptions, ep, endPoint.PfxFile, endPoint.Password); break; }
+                        case "HTTPS": { AddEndpoint(serverOptions, ep, endPoint.PfxFile, endPoint.Password); break; }
                         default: { AddEndpoint(serverOptions, ep); break; }
                     }
 
@@ -198,8 +190,8 @@ namespace WebExpress
             }
             catch (Exception ex)
             {
-                Context.Log.Error(message: this.I18N("webexpress:httpserver.listen.exeption"), args: endPoint);
-                Context.Log.Exception(ex);
+                HttpServerContext.Log.Error(message: this.I18N("webexpress:httpserver.listen.exeption"), args: endPoint);
+                HttpServerContext.Log.Exception(ex);
 
             }
         }
@@ -213,7 +205,7 @@ namespace WebExpress
         {
             serverOptions.Value.Listen(endPoint);
 
-            Context.Log.Info(message: this.I18N("webexpress:httpserver.listen"), args: endPoint.ToString());
+            HttpServerContext.Log.Info(message: this.I18N("webexpress:httpserver.listen"), args: endPoint.ToString());
         }
 
         /// <summary>
@@ -232,7 +224,7 @@ namespace WebExpress
                 configure.UseHttps(cert);
             });
 
-            Context.Log.Info(message: this.I18N("webexpress:httpserver.listen"), args: endPoint.ToString());
+            HttpServerContext.Log.Info(message: this.I18N("webexpress:httpserver.listen"), args: endPoint.ToString());
         }
 
         /// <summary>
@@ -261,8 +253,8 @@ namespace WebExpress
             var culture = request.Culture;
             var uri = request?.Uri;
 
-            Context.Log.Debug(message: this.I18N("webexpress:httpserver.connected"), args: context?.RemoteEndPoint);
-            Context.Log.Info(InternationalizationManager.I18N
+            HttpServerContext.Log.Debug(message: this.I18N("webexpress:httpserver.connected"), args: context?.RemoteEndPoint);
+            HttpServerContext.Log.Info(InternationalizationManager.I18N
             (
                 "webexpress:httpserver.request",
                 context.RemoteEndPoint,
@@ -271,18 +263,21 @@ namespace WebExpress
             ));
 
             // search page in sitemap
-            var searchResult = ComponentManager.SitemapManager.SearchResource(context?.Uri, new SearchContext()
+            var searchResult = ComponentManager.SitemapManager.SearchResource(request?.Uri, new SearchContext()
             {
                 Culture = culture,
-                Uri = request?.Uri
+                HttpContext = context,
+                HttpServerContext = HttpServerContext
             });
 
             if (searchResult != null)
             {
+                request.ResourceUri = searchResult.Uri;
+
                 try
                 {
                     // execute resource
-                    request.AddParameter(searchResult.Variables.Select(x => new Parameter(x.Key, x.Value, ParameterScope.Url)));
+                    request.AddParameter(searchResult.Uri.Variables.Select(x => new Parameter(x.Key, x.Value, ParameterScope.Url)));
 
                     if (searchResult.Instance != null)
                     {
@@ -297,7 +292,12 @@ namespace WebExpress
 
                         if (response is ResponseNotFound)
                         {
-                            response = CreateStatusPage<ResponseNotFound>(string.Empty, request, searchResult);
+                            response = CreateStatusPage<ResponseNotFound>
+                            (
+                                string.Empty,
+                                request,
+                                searchResult
+                            );
                         }
 
                         if
@@ -314,7 +314,12 @@ namespace WebExpress
                     else
                     {
                         // Resource not found
-                        response = CreateStatusPage<ResponseNotFound>(string.Empty, request, searchResult);
+                        response = CreateStatusPage<ResponseNotFound>
+                        (
+                            string.Empty,
+                            request,
+                            searchResult
+                        );
                     }
                 }
                 catch (RedirectException ex)
@@ -330,25 +335,30 @@ namespace WebExpress
                 }
                 catch (Exception ex)
                 {
-                    Context.Log.Exception(ex);
+                    HttpServerContext.Log.Exception(ex);
 
                     var message = $"<h4>Message</h4>{ex.Message}<br/><br/>" +
                             $"<h5>Source</h5>{ex.Source}<br/><br/>" +
                             $"<h5>StackTrace</h5>{ex.StackTrace.Replace("\n", "<br/>\n")}<br/><br/>" +
                             $"<h5>InnerException</h5>{ex.InnerException?.ToString().Replace("\n", "<br/>\n")}";
 
-                    response = CreateStatusPage<ResponseInternalServerError>(message, request, searchResult);
+                    response = CreateStatusPage<ResponseInternalServerError>
+                    (
+                        message,
+                        request,
+                        searchResult
+                    );
                 }
             }
             else
             {
                 // Resource not found
-                response = CreateStatusPage<ResponseNotFound>(string.Empty, context);
+                response = CreateStatusPage<ResponseNotFound>(string.Empty, request);
             }
 
             stopwatch.Stop();
 
-            Context.Log.Info(InternationalizationManager.I18N
+            HttpServerContext.Log.Info(InternationalizationManager.I18N
             (
                 "webexpress:httpserver.request.done",
                 context?.RemoteEndPoint,
@@ -429,7 +439,7 @@ namespace WebExpress
             }
             catch (Exception ex)
             {
-                Context.Log.Error(context.RemoteEndPoint + ": " + ex.Message);
+                HttpServerContext.Log.Error(context.RemoteEndPoint + ": " + ex.Message);
             }
         }
 
@@ -438,14 +448,12 @@ namespace WebExpress
         /// </summary>
         /// <param name="massage">The error message.</param>
         /// <param name="request">The request.</param>
-        /// <param name="searchResult">The search result.</param>
+        /// <param name="searchResult">The plugin by searching the status page or null.</param>
         /// <returns>The response.</returns>
-        private Response CreateStatusPage<T>(string massage, Request request, SearchResult searchResult) where T : Response, new()
+        private Response CreateStatusPage<T>(string massage, Request request, SearchResult searchResult = null) where T : Response, new()
         {
             var response = new T() as Response;
             var culture = Culture;
-            var applicationContext = searchResult.ApplicationContext;
-            var moduleContext = searchResult.ModuleContext;
 
             try
             {
@@ -455,20 +463,47 @@ namespace WebExpress
             {
             }
 
-            var statusPage = ComponentManager.ResponseManager.CreateStatusPage(massage, response.Status, applicationContext, moduleContext, culture);
+            if (searchResult != null)
+            {
+                var statusPage = ComponentManager.ResponseManager.CreateStatusPage
+                (
+                    massage,
+                    response.Status,
+                    searchResult?.ModuleContext?.PluginContext ??
+                    searchResult?.ApplicationContext?.PluginContext
+                );
 
-            return statusPage?.Process(request);
-        }
+                if (statusPage is II18N i18n)
+                {
+                    i18n.Culture = culture;
+                }
 
-        /// <summary>
-        /// Creates a status page
-        /// </summary>
-        /// <param name="massage">The error message</param>
-        /// <param name="context">The context of the request</param>
-        /// <returns>The response</returns>
-        private Response CreateStatusPage<T>(string massage, HttpContext context) where T : Response, new()
-        {
-            var response = new T() as Response;
+                if (statusPage is Resource resource)
+                {
+                    resource.ApplicationContext = searchResult?.ApplicationContext ?? new ApplicationContext()
+                    {
+                        PluginContext = searchResult?.ModuleContext?.PluginContext ??
+                        searchResult?.ApplicationContext?.PluginContext,
+                        ApplicationID = "webex",
+                        ApplicationName = "WebExpress",
+                        ContextPath = new UriResource()
+                    };
+
+                    resource.ModuleContext = searchResult?.ModuleContext ?? new ModuleContext()
+                    {
+                        ApplicationContext = resource.ApplicationContext,
+                        PluginContext = searchResult?.ModuleContext?.PluginContext ??
+                        searchResult?.ApplicationContext?.PluginContext,
+                        ModuleID = "webex",
+                        ModuleName = "WebExpress",
+                        ContextPath = new UriResource()
+                    };
+
+                    resource.Initialization(new ResourceContext(resource.ModuleContext));
+                }
+
+                return statusPage.Process(request);
+            }
 
             var message = $"<html><head><title>{response.Status}</title></head><body>" +
                           $"<p>{massage}<br/><p>" +
@@ -490,7 +525,7 @@ namespace WebExpress
         {
             try
             {
-                return new HttpContext(contextFeatures, this.Context);
+                return new HttpContext(contextFeatures, this.HttpServerContext);
             }
             catch (Exception ex)
             {
@@ -514,7 +549,7 @@ namespace WebExpress
                        $"<h5>InnerException</h5>{exceptionContext.Exception.InnerException?.ToString().Replace("\n", "<br/>\n")}" +
                        "</body></html>";
 
-                var response500 = CreateStatusPage<ResponseInternalServerError>(message, context);
+                var response500 = CreateStatusPage<ResponseInternalServerError>(message, context?.Request);
 
                 await SendResponseAsync(exceptionContext, response500);
 

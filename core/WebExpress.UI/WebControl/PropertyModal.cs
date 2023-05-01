@@ -1,4 +1,4 @@
-﻿using WebExpress.WebUri;
+﻿using System;
 
 namespace WebExpress.UI.WebControl
 {
@@ -22,12 +22,12 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Die Uri
         /// </summary>
-        public IUri Uri { get; protected set; }
+        public Uri Uri { get; protected set; }
 
         /// <summary>
         /// Die Weiterleitungs-Uri
         /// </summary>
-        public IUri RedirectUri { get; set; }
+        public Uri RedirectUri { get; set; }
 
         /// <summary>
         /// Constructor
@@ -75,7 +75,7 @@ namespace WebExpress.UI.WebControl
         /// <param name="type">Der Typ</param>
         /// <param name="uri">Die Uri</param>
         /// <param name="size">Die Größe des Modals</param>
-        public PropertyModal(TypeModal type, IUri uri, TypeModalSize size = TypeModalSize.Default)
+        public PropertyModal(TypeModal type, Uri uri, TypeModalSize size = TypeModalSize.Default)
         {
             Type = type;
             Size = size;

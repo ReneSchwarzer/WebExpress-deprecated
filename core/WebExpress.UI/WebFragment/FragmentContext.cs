@@ -34,11 +34,6 @@ namespace WebExpress.UI.WebFragment
         public bool Cache { get; internal set; }
 
         /// <summary>
-        /// Returns the log for writing status messages to the console and to a log file.
-        /// </summary>
-        public Log Log { get; internal set; }
-
-        /// <summary>
         /// Constructor
         /// </summary>
         public FragmentContext()

@@ -1,6 +1,5 @@
 ﻿using System.Globalization;
-using WebExpress.Message;
-using WebExpress.WebUri;
+using WebExpress.WebMessage;
 
 namespace WebExpress.WebSitemap
 {
@@ -15,13 +14,13 @@ namespace WebExpress.WebSitemap
         public CultureInfo Culture { get; internal set; }
 
         /// <summary>
-        /// The uri of the resource being requested.
+        /// Returns the http context.
         /// </summary>
-        public IUri Uri { get; internal set; }
+        public HttpContext HttpContext { get; internal set; }
 
         /// <summary>
-        /// Returns the request.
+        /// Returns the server context.
         /// </summary>
-        public Request Request { get; internal set; }
+        public IHttpServerContext HttpServerContext { get; internal set; }
     }
 }

@@ -82,7 +82,6 @@ namespace WebExpress.WebJob
             // create context
             var jobContext = new JobContext(moduleContext)
             {
-                Assembly = Assembly,
                 JobID = JobID,
                 PluginContext = PluginContext,
                 Cron = Cron

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
-using WebExpress.WebUri;
 using WebExpress.WebComponent;
 using WebExpress.WebPage;
+using WebExpress.WebUri;
 
 namespace WebExpress.UI.WebControl
 {
@@ -98,7 +98,7 @@ namespace WebExpress.UI.WebControl
             var module = ComponentManager.ModuleManager.GetModule(context.ApplicationContext, "webexpress.ui");
             if (module != null)
             {
-                context.VisualTree.HeaderScriptLinks.Add(UriRelative.Combine(module.ContextPath, new UriRelative("/assets/js/split.min.js")));
+                context.VisualTree.HeaderScriptLinks.Add(UriResource.Combine(module.ContextPath, "/assets/js/split.min.js"));
             }
 
             Border = new PropertyBorder(true);

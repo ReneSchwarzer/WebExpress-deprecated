@@ -100,8 +100,7 @@ namespace WebExpress.UI.WebFragment
                 PluginContext = PluginContext,
                 ModuleContext = moduleContext,
                 Conditions = Conditions,
-                Cache = Cache,
-                Log = Log
+                Cache = Cache
             };
 
             Dictionary.Add(moduleContext, fragmentContext);

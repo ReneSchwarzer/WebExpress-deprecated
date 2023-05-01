@@ -1,4 +1,4 @@
-﻿using WebExpress.Message;
+﻿using WebExpress.WebMessage;
 
 namespace WebExpress.WebCondition
 {

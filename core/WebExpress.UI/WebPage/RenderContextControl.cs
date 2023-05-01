@@ -1,4 +1,4 @@
-﻿using WebExpress.Message;
+﻿using WebExpress.WebMessage;
 using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebPage

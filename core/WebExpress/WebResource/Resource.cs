@@ -1,8 +1,8 @@
 ﻿using System.Globalization;
-using WebExpress.Message;
-using WebExpress.WebUri;
 using WebExpress.WebApplication;
+using WebExpress.WebMessage;
 using WebExpress.WebModule;
+using WebExpress.WebUri;
 
 namespace WebExpress.WebResource
 {
@@ -31,12 +31,7 @@ namespace WebExpress.WebResource
         /// <summary>
         /// Returns the uri of the resource.
         /// </summary>
-        public IUri Uri { get; internal set; }
-
-        /// <summary>
-        /// Returns the context path.
-        /// </summary>
-        public IUri ContextPath => ModuleContext?.ContextPath;
+        public UriResource Uri { get; internal set; }
 
         /// <summary>
         /// Provides the culture.

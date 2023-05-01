@@ -2,36 +2,35 @@
 using System.IO;
 using System.Linq;
 using WebExpress.Internationalization;
-using WebExpress.Message;
 using WebExpress.UI.WebControl;
-using WebExpress.WebUri;
 using WebExpress.WebApp.WebAttribute;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
+using WebExpress.WebMessage;
 
 namespace WebExpress.WebApp.WebSettingPage
 {
     /// <summary>
     /// Einstellungsseite mit Systeminformationen
     /// </summary>
-    [Id("SettingLog")]
-    [Title("webexpress.webapp:setting.titel.log.label")]
-    [Segment("log", "webexpress.webapp:setting.titel.log.label")]
-    [ContextPath("/Setting")]
+    [WebExID("SettingLog")]
+    [WebExTitle("webexpress.webapp:setting.titel.log.label")]
+    [WebExSegment("log", "webexpress.webapp:setting.titel.log.label")]
+    [WebExContextPath("/Setting")]
     [SettingSection(SettingSection.Secondary)]
     [SettingIcon(TypeIcon.FileMedicalAlt)]
     [SettingGroup("webexpress.webapp:setting.group.system.label")]
     [SettingContext("webexpress.webapp:setting.tab.general.label")]
-    [Module("webexpress.webapp")]
-    [Context("admin")]
-    [Optional]
+    [WebExModule("webexpress.webapp")]
+    [WebExContext("admin")]
+    [WebExOptional]
     public sealed class PageWebAppSettingLog : PageWebAppSetting
     {
         /// <summary>
         /// Liefert oder setzt die Uri zum Download des Losfiles. Null wenn kein Logfiledownlod erfolgen soll
         /// </summary>
-        public IUri DownloadUri { get; set; }
+        public string DownloadUri { get; set; }
 
         /// <summary>
         /// Constructor
@@ -47,7 +46,7 @@ namespace WebExpress.WebApp.WebSettingPage
         /// <param name="request">The request.</param>
         public override void PreProcess(Request request)
         {
-            DownloadUri = request.Uri.Append("download");
+            DownloadUri = request.ResourceUri.Append("download");
 
             base.PreProcess(request);
         }
@@ -60,7 +59,7 @@ namespace WebExpress.WebApp.WebSettingPage
         {
             base.Process(context);
 
-            var file = new FileInfo(ResourceContext.Log.Filename);
+            var file = new FileInfo(context.Host.Log.Filename);
             var fileSize = string.Format(new FileSizeFormatProvider() { Culture = Culture }, "{0:fs}", file.Exists ? file.Length : 0);
 
             var deleteForm = new ControlModalFormularConfirmDelete("delte_log")
@@ -71,7 +70,7 @@ namespace WebExpress.WebApp.WebSettingPage
 
             deleteForm.Confirm += (s, e) =>
             {
-                File.Delete(ResourceContext.Log.Filename);
+                File.Delete(context.Host.Log.Filename);
             };
 
             var switchOnForm = new ControlModalFormularConfirm("swichon_log")
@@ -85,14 +84,22 @@ namespace WebExpress.WebApp.WebSettingPage
 
             switchOnForm.Confirm += (s, e) =>
             {
-                ResourceContext.Log.LogMode = Log.Mode.Override;
-                ResourceContext.Log.Info(this.I18N("webexpress.webapp", "setting.logfile.switchon.success"));
+                context.Host.Log.LogMode = Log.Mode.Override;
+                context.Host.Log.Info(this.I18N("webexpress.webapp", "setting.logfile.switchon.success"));
             };
 
             var info = new ControlTable() { Striped = false };
             info.AddRow
             (
-                new ControlText() { Text = this.I18N("webexpress.webapp", "setting.logfile.path") }, new ControlText() { Text = ResourceContext.Log.Filename, Format = TypeFormatText.Code },
+                new ControlText()
+                {
+                    Text = this.I18N("webexpress.webapp", "setting.logfile.path")
+                },
+                new ControlText()
+                {
+                    Text = context.Host.Log.Filename,
+                    Format = TypeFormatText.Code
+                },
                 DownloadUri != null && file.Exists ? new ControlButtonLink()
                 {
                     Text = this.I18N("webexpress.webapp", "setting.logfile.download"),
@@ -104,7 +111,15 @@ namespace WebExpress.WebApp.WebSettingPage
 
             info.AddRow
             (
-                new ControlText() { Text = this.I18N("webexpress.webapp", "setting.logfile.size") }, new ControlText() { Text = file.Exists ? fileSize : "n.a.", Format = TypeFormatText.Code },
+                new ControlText()
+                {
+                    Text = this.I18N("webexpress.webapp", "setting.logfile.size")
+                },
+                new ControlText()
+                {
+                    Text = file.Exists ? fileSize : "n.a.",
+                    Format = TypeFormatText.Code
+                },
                 file.Exists ? new ControlButton()
                 {
                     Text = this.I18N("webexpress.webapp", "setting.logfile.delete.label"),
@@ -116,8 +131,16 @@ namespace WebExpress.WebApp.WebSettingPage
 
             info.AddRow
             (
-                new ControlText() { Text = this.I18N("webexpress.webapp", "setting.logfile.modus") }, new ControlText() { Text = ResourceContext.Log.LogMode.ToString(), Format = TypeFormatText.Code },
-                ResourceContext.Log.LogMode == Log.Mode.Off ? new ControlButton()
+                new ControlText()
+                {
+                    Text = this.I18N("webexpress.webapp", "setting.logfile.modus")
+                },
+                new ControlText()
+                {
+                    Text = context.Host.Log.LogMode.ToString(),
+                    Format = TypeFormatText.Code
+                },
+                context.Host.Log.LogMode == Log.Mode.Off ? new ControlButton()
                 {
                     Text = this.I18N("webexpress.webapp", "setting.logfile.switchon.label"),
                     Modal = new PropertyModal(TypeModal.Modal, switchOnForm),
@@ -131,7 +154,7 @@ namespace WebExpress.WebApp.WebSettingPage
 
             if (file.Exists)
             {
-                var content = File.ReadLines(ResourceContext.Log.Filename).TakeLast(100);
+                var content = File.ReadLines(context.Host.Log.Filename).TakeLast(100);
 
                 context.VisualTree.Content.Primary.Add(new ControlText()
                 {

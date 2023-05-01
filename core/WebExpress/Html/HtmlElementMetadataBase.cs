@@ -36,7 +36,7 @@
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="url">Die Url</param>
+        /// <param name="url">The uri.</param>
         public HtmlElementMetadataBase(string url)
             : this()
         {

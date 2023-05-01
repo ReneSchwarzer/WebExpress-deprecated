@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Reflection;
-using WebExpress.WebUri;
 using WebExpress.WebPlugin;
+using WebExpress.WebUri;
 
 namespace WebExpress.WebApplication
 {
@@ -10,11 +9,6 @@ namespace WebExpress.WebApplication
     /// </summary>
     public interface IApplicationContext
     {
-        /// <summary>
-        /// The assembly that contains the application.
-        /// </summary>
-        Assembly Assembly { get; }
-
         /// <summary>
         /// Provides the context of the associated plugin.
         /// </summary>
@@ -53,16 +47,11 @@ namespace WebExpress.WebApplication
         /// <summary>
         /// Returns the context path. This is mounted in the context path of the server.
         /// </summary>
-        IUri ContextPath { get; }
+        UriResource ContextPath { get; }
 
         /// <summary>
         /// Returns the icon uri.
         /// </summary>
-        IUri Icon { get; }
-
-        /// <summary>
-        /// Returns the log to write status messages to the console and to a log file.
-        /// </summary>
-        Log Log { get; }
+        UriResource Icon { get; }
     }
 }

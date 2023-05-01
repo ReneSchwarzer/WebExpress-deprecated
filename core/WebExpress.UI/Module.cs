@@ -5,13 +5,13 @@ using WebExpress.WebModule;
 
 namespace WebExpress.UI
 {
-    [Id("webexpress.ui")]
-    [Application("*")]
-    [Name("module.name")]
-    [Description("module.description")]
-    [Icon("/assets/img/Logo.png")]
-    [AssetPath("/")]
-    [ContextPath("/modules/wxui")]
+    [WebExID("webexpress.ui")]
+    [WebExApplication("*")]
+    [WebExName("module.name")]
+    [WebExDescription("module.description")]
+    [WebExIcon("/assets/img/Logo.png")]
+    [WebExAssetPath("/")]
+    [WebExContextPath("/modules/wxui")]
     public sealed class Module : IModule
     {
         /// <summary>

@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Internationalization;
-using WebExpress.WebUri;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebCondition;
 using WebExpress.WebModule;
 using WebExpress.WebPlugin;
-using WebExpress.WebResponse;
+using WebExpress.WebStatusPage;
+using WebExpress.WebUri;
 
 namespace WebExpress.WebResource
 {
@@ -113,6 +113,7 @@ namespace WebExpress.WebResource
                 var id = resource.Name?.ToLower();
                 var segment = null as ISegmentAttribute;
                 var title = resource.Name;
+                var parent = null as string;
                 var contextPath = string.Empty;
                 var includeSubPaths = false;
                 var moduleID = string.Empty;
@@ -124,7 +125,7 @@ namespace WebExpress.WebResource
                 foreach (var customAttribute in resource.CustomAttributes
                     .Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IResourceAttribute))))
                 {
-                    if (customAttribute.AttributeType == typeof(IdAttribute))
+                    if (customAttribute.AttributeType == typeof(WebExIDAttribute))
                     {
                         id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
                     }
@@ -132,31 +133,35 @@ namespace WebExpress.WebResource
                     {
                         segment = resource.GetCustomAttributes(customAttribute.AttributeType, false).FirstOrDefault() as ISegmentAttribute;
                     }
-                    else if (customAttribute.AttributeType == typeof(TitleAttribute))
+                    else if (customAttribute.AttributeType == typeof(WebExTitleAttribute))
                     {
                         title = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
-                    else if (customAttribute.AttributeType == typeof(ContextPathAttribute))
+                    else if (customAttribute.AttributeType == typeof(WebExParentAttribute))
+                    {
+                        parent = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
+                    }
+                    else if (customAttribute.AttributeType == typeof(WebExContextPathAttribute))
                     {
                         contextPath = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
-                    else if (customAttribute.AttributeType == typeof(IncludeSubPathsAttribute))
+                    else if (customAttribute.AttributeType == typeof(WebExIncludeSubPathsAttribute))
                     {
                         includeSubPaths = Convert.ToBoolean(customAttribute.ConstructorArguments.FirstOrDefault().Value);
                     }
-                    else if (customAttribute.AttributeType == typeof(ModuleAttribute))
+                    else if (customAttribute.AttributeType == typeof(WebExModuleAttribute))
                     {
                         moduleID = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
                     }
-                    else if (customAttribute.AttributeType == typeof(ContextAttribute))
+                    else if (customAttribute.AttributeType == typeof(WebExContextAttribute))
                     {
                         resourceContext.Add(customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower());
                     }
-                    else if (customAttribute.AttributeType == typeof(OptionalAttribute))
+                    else if (customAttribute.AttributeType == typeof(WebExOptionalAttribute))
                     {
                         optional = true;
                     }
-                    else if (customAttribute.AttributeType == typeof(ConditionAttribute))
+                    else if (customAttribute.AttributeType == typeof(WebExConditionAttribute))
                     {
                         var condition = (Type)customAttribute.ConstructorArguments.FirstOrDefault().Value;
 
@@ -176,7 +181,7 @@ namespace WebExpress.WebResource
                             );
                         }
                     }
-                    else if (customAttribute.AttributeType == typeof(CacheAttribute))
+                    else if (customAttribute.AttributeType == typeof(WebExCacheAttribute))
                     {
                         cache = true;
                     }
@@ -203,13 +208,14 @@ namespace WebExpress.WebResource
                     {
                         ID = id,
                         Title = title,
+                        Parent = parent,
                         ResourceClass = resource,
                         ModuleID = moduleID,
                         Context = resourceContext,
                         Cache = cache,
                         Optional = optional,
                         Conditions = conditions,
-                        ContextPath = new UriRelative(contextPath),
+                        ContextPath = new UriResource(contextPath),
                         IncludeSubPaths = includeSubPaths,
                         PathSegment = segment.ToPathSegment(),
                         Log = HttpServerContext.Log

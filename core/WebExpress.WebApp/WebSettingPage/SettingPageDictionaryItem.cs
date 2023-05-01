@@ -20,7 +20,7 @@ namespace WebExpress.WebApp.SettingPage
         /// <summary>
         /// Returns the resource.
         /// </summary>
-        public ResourceItem Resource { get; internal set; }
+        public IResourceContext Resource { get; internal set; }
 
         /// <summary>
         /// Determines whether the page should be displayed or hidden.

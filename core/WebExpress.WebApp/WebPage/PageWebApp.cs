@@ -4,11 +4,11 @@ using WebExpress.Html;
 using WebExpress.UI.WebControl;
 using WebExpress.UI.WebFragment;
 using WebExpress.UI.WebPage;
-using WebExpress.WebUri;
 using WebExpress.WebApp.WebApiControl;
 using WebExpress.WebApp.WebFragment;
 using WebExpress.WebComponent;
 using WebExpress.WebResource;
+using WebExpress.WebUri;
 
 namespace WebExpress.WebApp.WebPage
 {
@@ -84,14 +84,14 @@ namespace WebExpress.WebApp.WebPage
             var module = ComponentManager.ModuleManager.GetModule(ApplicationContext, "webexpress.webapp");
             if (module != null)
             {
-                CssLinks.Add(UriRelative.Combine(module.ContextPath, new UriRelative("/assets/css/webexpress.webapp.css")));
-                CssLinks.Add(UriRelative.Combine(module.ContextPath, new UriRelative("/assets/css/webexpress.webapp.popupnotification.css")));
-                CssLinks.Add(UriRelative.Combine(module.ContextPath, new UriRelative("/assets/css/webexpress.webapp.taskprogressbar.css")));
-                HeaderScriptLinks.Add(module.ContextPath.Append("assets/js/webexpress.webapp.js"));
-                HeaderScriptLinks.Add(module.ContextPath.Append("assets/js/webexpress.webapp.popupnotification.js"));
-                HeaderScriptLinks.Add(module.ContextPath.Append("assets/js/webexpress.webapp.selection.js"));
-                HeaderScriptLinks.Add(module.ContextPath.Append("assets/js/webexpress.webapp.table.js"));
-                HeaderScriptLinks.Add(module.ContextPath.Append("assets/js/webexpress.webapp.taskprogressbar.js"));
+                CssLinks.Add(UriResource.Combine(module.ContextPath, "/assets/css/webexpress.webapp.css"));
+                CssLinks.Add(UriResource.Combine(module.ContextPath, "/assets/css/webexpress.webapp.popupnotification.css"));
+                CssLinks.Add(UriResource.Combine(module.ContextPath, "/assets/css/webexpress.webapp.taskprogressbar.css"));
+                HeaderScriptLinks.Add(UriResource.Combine(module.ContextPath, "assets/js/webexpress.webapp.js"));
+                HeaderScriptLinks.Add(UriResource.Combine(module.ContextPath, "assets/js/webexpress.webapp.popupnotification.js"));
+                HeaderScriptLinks.Add(UriResource.Combine(module.ContextPath, "assets/js/webexpress.webapp.selection.js"));
+                HeaderScriptLinks.Add(UriResource.Combine(module.ContextPath, "assets/js/webexpress.webapp.table.js"));
+                HeaderScriptLinks.Add(UriResource.Combine(module.ContextPath, "assets/js/webexpress.webapp.taskprogressbar.js"));
             }
 
             // Header

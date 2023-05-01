@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using WebExpress.Message;
+using WebExpress.WebMessage;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
@@ -9,12 +9,12 @@ namespace WebExpress.WebApp.WebAPI.V1
     /// <summary>
     /// Ermittelt den Status und Forschritt einer Aufgabe (WebTask)
     /// </summary>
-    [Id("ApiPopupNotificationV1")]
-    [Segment("popupnotifications", "")]
-    [ContextPath("/api/v1")]
-    [Module("webexpress.webapp")]
-    [IncludeSubPaths(true)]
-    [Optional]
+    [WebExID("ApiPopupNotificationV1")]
+    [WebExSegment("popupnotifications", "")]
+    [WebExContextPath("/api/v1")]
+    [WebExModule("webexpress.webapp")]
+    [WebExIncludeSubPaths(true)]
+    [WebExOptional]
     public sealed class RestPopupNotification : ResourceRest
     {
         /// <summary>

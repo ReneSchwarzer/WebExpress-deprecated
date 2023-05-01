@@ -1,17 +1,11 @@
 ﻿using System.Collections.Generic;
-using System.Reflection;
-using WebExpress.WebUri;
 using WebExpress.WebPlugin;
+using WebExpress.WebUri;
 
 namespace WebExpress.WebApplication
 {
     public class ApplicationContext : IApplicationContext
     {
-        /// <summary>
-        /// The assembly containing the application.
-        /// </summary>
-        public Assembly Assembly { get; internal set; }
-
         /// <summary>
         /// Returns the context of the associated plugin.
         /// </summary>
@@ -50,17 +44,12 @@ namespace WebExpress.WebApplication
         /// <summary>
         /// Returns the context path. This is mounted in the context path of the server.
         /// </summary>
-        public IUri ContextPath { get; internal set; }
+        public UriResource ContextPath { get; internal set; }
 
         /// <summary>
         /// Returns the icon uri.
         /// </summary>
-        public IUri Icon { get; internal set; }
-
-        /// <summary>
-        /// Returns the log to write status messages to the console and to a log file.
-        /// </summary>
-        public Log Log { get; internal set; }
+        public UriResource Icon { get; internal set; }
 
         /// <summary>
         /// Constructor
@@ -75,7 +64,7 @@ namespace WebExpress.WebApplication
         /// <returns>The string that uniquely represents the application.</returns>
         public override string ToString()
         {
-            return ApplicationID;
+            return $"Application {ApplicationID}";
         }
     }
 }

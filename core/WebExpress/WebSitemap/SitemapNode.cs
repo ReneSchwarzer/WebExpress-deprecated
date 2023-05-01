@@ -3,6 +3,7 @@ using System.Linq;
 using WebExpress.WebApplication;
 using WebExpress.WebModule;
 using WebExpress.WebResource;
+using WebExpress.WebUri;
 
 namespace WebExpress.WebSitemap
 {
@@ -14,7 +15,7 @@ namespace WebExpress.WebSitemap
         /// <summary>
         /// Returns the node path segment.
         /// </summary>
-        public IPathSegment PathSegment { get; internal set; }
+        public IUriPathSegment PathSegment { get; internal set; }
 
         /// <summary>
         /// Returns the resource item.
@@ -44,7 +45,7 @@ namespace WebExpress.WebSitemap
         /// <summary>
         /// Returns the child nodes.
         /// </summary>
-        public ICollection<SitemapNode> Children { get; } = new List<SitemapNode>();
+        public ICollection<SitemapNode> Children { get; private set; } = new List<SitemapNode>();
 
         /// <summary>
         /// Returns the parent node.
@@ -83,34 +84,7 @@ namespace WebExpress.WebSitemap
         /// Checks whether the node is a leaf.
         /// </summary>
         /// <returns>true if a leaf, otherwise false.</returns>
-        public bool IsLeaf => Children.Count() == 0;
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        public SitemapNode()
-        {
-
-        }
-
-        /// <summary>
-        /// Passes through the tree in pre order.
-        /// </summary>
-        /// <returns>The tree as a list.</returns>
-        public IEnumerable<SitemapNode> GetPreOrder()
-        {
-            var list = new List<SitemapNode>
-            {
-                this
-            };
-
-            foreach (var child in Children)
-            {
-                list.AddRange(child.GetPreOrder());
-            }
-
-            return list;
-        }
+        public bool IsLeaf => !Children.Any();
 
         /// <summary>
         /// Returns the path.
@@ -140,12 +114,65 @@ namespace WebExpress.WebSitemap
         }
 
         /// <summary>
+        /// Constructor
+        /// </summary>
+        public SitemapNode()
+        {
+
+        }
+
+        /// <summary>
+        /// Passes through the tree in pre order.
+        /// </summary>
+        /// <returns>The tree as a list.</returns>
+        public IEnumerable<SitemapNode> GetPreOrder()
+        {
+            var list = new List<SitemapNode>
+            {
+                this
+            };
+
+            foreach (var child in Children.OrderBy(x => x.PathSegment?.ID))
+            {
+                list.AddRange(child.GetPreOrder());
+            }
+
+            return list;
+        }
+
+        /// <summary>
+        /// Creates a copy of the sitemap node.
+        /// </summary>
+        /// <returns>The copy of the sitemap node.</returns>
+        public SitemapNode Copy()
+        {
+            var node = new SitemapNode()
+            {
+                PathSegment = PathSegment,
+                ResourceItem = ResourceItem,
+                ApplicationContext = ApplicationContext,
+                ModuleContext = ModuleContext,
+                ResourceContext = ResourceContext,
+                Instance = Instance,
+                Parent = Parent,
+                Children = Children.Select(x => x.Copy()).ToList()
+            };
+
+            return node;
+        }
+
+        /// <summary>
         /// Convert to string.
         /// </summary>
-        /// <returns>The tree node in its string representation</returns>
+        /// <returns>The tree node in its string representation.</returns>
         public override string ToString()
         {
-            return string.Join("/", Path.Select(x => x.PathSegment?.ToString().ToLower()));
+            return Path.FirstOrDefault()?.PathSegment + string.Join
+            (
+                "/",
+                Path.Where(x => !(x.PathSegment is UriPathSegmentRoot))
+                .Select(x => x.PathSegment?.ToString())
+           );
         }
     }
 }

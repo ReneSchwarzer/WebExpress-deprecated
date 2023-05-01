@@ -1,4 +1,4 @@
-﻿using WebExpress.WebUri;
+﻿using System;
 
 namespace WebExpress.WebApp.WebApiControl
 {
@@ -7,6 +7,6 @@ namespace WebExpress.WebApp.WebApiControl
         /// <summary>
         /// Liefert oder setzt die Uri, welche die Daten ermittelt
         /// </summary>
-        public IUri RestUri { get; set; }
+        public Uri RestUri { get; set; }
     }
 }

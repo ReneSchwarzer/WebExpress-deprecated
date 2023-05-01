@@ -13,18 +13,18 @@ namespace WebExpress.WebApp.WebSettingPage
     /// <summary>
     /// Einstellungsseiteder der Gruppen
     /// </summary>
-    [Id("SettingGroup")]
-    [Title("webexpress.webapp:setting.usermanager.group.label")]
-    [Segment("group", "webexpress.webapp:setting.usermanager.group.label")]
-    [ContextPath("/Setting")]
+    [WebExID("SettingGroup")]
+    [WebExTitle("webexpress.webapp:setting.usermanager.group.label")]
+    [WebExSegment("group", "webexpress.webapp:setting.usermanager.group.label")]
+    [WebExContextPath("/Setting")]
     [SettingSection(SettingSection.Primary)]
     [SettingIcon(TypeIcon.Users)]
     [SettingGroup("webexpress.webapp:setting.usermanager.group.usermanagement.label")]
     [SettingContext("webexpress.webapp:setting.tab.general.label")]
-    [Module("webexpress.webapp")]
-    [Context("admin")]
-    [Context("webexpress.webapp.usermanagement.group")]
-    [Optional]
+    [WebExModule("webexpress.webapp")]
+    [WebExContext("admin")]
+    [WebExContext("webexpress.webapp.usermanagement.group")]
+    [WebExOptional]
     public sealed class PageWebAppSettingUserManagementGroup : PageWebAppSetting
     {
         /// <summary>

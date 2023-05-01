@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using WebExpress.Message;
+using WebExpress.WebMessage;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
 
@@ -8,12 +8,12 @@ namespace WebExpress.WebApp.WebSettingPage
     /// <summary>
     /// Download der Logdatei
     /// </summary>
-    [Id("SettingLogDownload")]
-    [Segment("download", "")]
-    [ContextPath("/Setting/SettingLog")]
-    [Module("webexpress.webapp")]
-    [Context("admin")]
-    [Optional]
+    [WebExID("SettingLogDownload")]
+    [WebExSegment("download", "")]
+    [WebExContextPath("/Setting/SettingLog")]
+    [WebExModule("webexpress.webapp")]
+    [WebExContext("admin")]
+    [WebExOptional]
     public sealed class PageWebAppSettingLogDownload : ResourceBinary
     {
         /// <summary>
@@ -30,13 +30,13 @@ namespace WebExpress.WebApp.WebSettingPage
         /// <returns>The response.</returns>
         public override Response Process(Request request)
         {
-            if (!File.Exists(ResourceContext.Log.Filename))
+            if (!File.Exists(request.ServerContext.Log.Filename))
             {
                 return new ResponseNotFound();
             }
 
 
-            Data = File.ReadAllBytes(ResourceContext.Log.Filename);
+            Data = File.ReadAllBytes(request.ServerContext.Log.Filename);
 
             var response = base.Process(request);
             response.Header.CacheControl = "no-cache";

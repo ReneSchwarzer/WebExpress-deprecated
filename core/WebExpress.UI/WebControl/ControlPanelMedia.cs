@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using WebExpress.Html;
-using WebExpress.WebUri;
 using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebControl
@@ -15,7 +14,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Liefert oder setzt die URL zum Bild
         /// </summary>
-        public IUri Image { get; set; }
+        public string Image { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Weite des Bildes in Pixel
