@@ -116,6 +116,7 @@ namespace WebExpress
             using var reader = new FileStream(configFile, FileMode.Open);
             var serializer = new XmlSerializer(typeof(HttpServerConfig));
             var config = serializer.Deserialize(reader) as HttpServerConfig;
+            var log = new Log();
 
             var culture = CultureInfo.CurrentCulture;
 
@@ -155,7 +156,7 @@ namespace WebExpress
                 Path.GetDirectoryName(configFile),
                 new UriResource(config.ContextPath),
                 culture,
-                Log.Current,
+                log,
                 null
             );
 
@@ -165,8 +166,7 @@ namespace WebExpress
             };
 
             // start logging
-            HttpServer.HttpServerContext.Log.LogMode = (Log.Mode)Enum.Parse(typeof(Log.Mode), config.Log.Modus);
-            HttpServer.HttpServerContext.Log.Begin(config.Log.Path, config.Log.Filename);
+            HttpServer.HttpServerContext.Log.Begin(config.Log);
 
             // log program start
             HttpServer.HttpServerContext.Log.Seperator('/');
