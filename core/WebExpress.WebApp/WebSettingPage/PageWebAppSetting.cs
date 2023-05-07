@@ -1,7 +1,11 @@
-﻿using WebExpress.UI.WebControl;
-using WebExpress.WebApp.SettingPage;
-using WebExpress.WebApp.WebAttribute;
+﻿using System.Collections.Generic;
+using System.Linq;
+using WebExpress.UI.SettingPage;
+using WebExpress.UI.WebAttribute;
+using WebExpress.UI.WebControl;
+using WebExpress.UI.WebSettingPage;
 using WebExpress.WebApp.WebPage;
+using WebExpress.WebComponent;
 using WebExpress.WebResource;
 
 namespace WebExpress.WebApp.WebSettingPage
@@ -50,49 +54,54 @@ namespace WebExpress.WebApp.WebSettingPage
         /// <param name="context">The context for rendering the page.</param>
         public override void Process(RenderContextWebApp context)
         {
-            //SettingMenu.Items.Clear();
-            //SettingTab.Items.Clear();
+            SettingMenu.Items.Clear();
+            SettingTab.Items.Clear();
 
-            //var searchResult = SettingPageManager.FindPage(ApplicationContext, ModuleContext, ID);
-            //if (searchResult != null)
-            //{
-            //    var contexts = SettingPageManager.GetContexts(ApplicationContext.ApplicationID);
-            //    var section = SettingPageManager.GetSections(ApplicationContext.ApplicationID, searchResult?.Context);
+            var settinPageManager = ComponentManager.GetComponent<SettingPageManager>();
+            var searchResult = settinPageManager?.FindPage(ApplicationContext, ModuleContext, ID);
+            if (searchResult != null)
+            {
+                var contexts = settinPageManager.GetContexts(ApplicationContext);
+                var section = settinPageManager.GetSections(ApplicationContext, searchResult?.Context);
 
-            //    // setting menu
-            //    AddSettingMenu(section, SettingSection.Preferences, SettingMenu, context);
-            //    AddSettingMenu(section, SettingSection.Primary, SettingMenu, context);
-            //    AddSettingMenu(section, SettingSection.Secondary, SettingMenu, context);
+                // setting menu
+                AddSettingMenu(section, WebExSettingSection.Preferences, SettingMenu, context);
+                AddSettingMenu(section, WebExSettingSection.Primary, SettingMenu, context);
+                AddSettingMenu(section, WebExSettingSection.Secondary, SettingMenu, context);
 
-            //    // setting tab
-            //    foreach (var settingContext in contexts.Select(x => new { Name = x.Key, ContextName = x.Key, Sections = x.Value }).Where(x => x.Name != "*").OrderBy(x => x.Name))
-            //    {
-            //        var firstPage = settingContext.Sections.FindFirstPage();
+                // setting tab
+                foreach (var settingContext in contexts
+                    .SelectMany(x => x)
+                    .DistinctBy(x => x.Key)
+                    .Select(x => new { Name = x.Key, ContextName = x.Key, Sections = x.Value })
+                    .Where(x => x.Name != "*").OrderBy(x => x.Name))
+                {
+                    var firstPage = settingContext.Sections.FindFirstPage();
 
-            //        if (firstPage != null)
-            //        {
-            //            SettingTab.Items.Add(new ControlNavigationItemLink()
-            //            {
-            //                Uri = new UriResource(firstPage?.Item?.Resource.Context.GetContextPath(ApplicationContext), firstPage?.Item.Resource?.PathSegment.ToString()),
-            //                Text = settingContext.Name,
-            //                Active = searchResult.Context == settingContext.ContextName ? TypeActive.Active : TypeActive.None,
-            //            });
-            //        }
-            //    }
-            //}
+                    if (firstPage != null)
+                    {
+                        SettingTab.Items.Add(new ControlNavigationItemLink()
+                        {
+                            Uri = GetResourceContext(firstPage?.Item)?.Uri,
+                            Text = settingContext.Name,
+                            Active = searchResult.Context == settingContext.ContextName ? TypeActive.Active : TypeActive.None,
+                        });
+                    }
+                }
+            }
 
-            //if (SettingMenu.Items.Count > 1)
-            //{
-            //    context.VisualTree.Sidebar.Primary.Add(SettingMenu);
-            //}
+            if (SettingMenu.Items.Count > 1)
+            {
+                context.VisualTree.Sidebar.Primary.Add(SettingMenu);
+            }
 
-            //if (SettingTab.Items.Count > 1)
-            //{
-            //    context.VisualTree.Prologue.Content.Add(SettingTab);
-            //}
+            if (SettingTab.Items.Count > 1)
+            {
+                context.VisualTree.Prologue.Content.Add(SettingTab);
+            }
 
-            //context.VisualTree.Breadcrumb.Prefix = "webexpress.webapp:setting.label";
-            //context.VisualTree.Breadcrumb.TakeLast = 1;
+            context.VisualTree.Breadcrumb.Prefix = "webexpress.webapp:setting.label";
+            context.VisualTree.Breadcrumb.TakeLast = 1;
 
             base.Process(context);
         }
@@ -104,34 +113,54 @@ namespace WebExpress.WebApp.WebSettingPage
         /// <param name="section">The selected section.</param>
         /// <param name="control">The section to be inserted.</param>
         /// <param name="context">The context for rendering the page.</param>
-        private void AddSettingMenu(SettingPageDictionaryItemSection sections, SettingSection section, ControlNavigation control, RenderContextWebApp context)
+        private void AddSettingMenu(IEnumerable<SettingPageDictionaryItemSection> sections, WebExSettingSection section, ControlNavigation control, RenderContextWebApp context)
         {
-            //var groups = sections?.GetGroups(section);
+            var groups = sections
+                .Select(x => x.GetGroup(section))
+                .Where(x => x != null)
+                .ToList();
 
-            //if (groups == null)
-            //{
-            //    return;
-            //}
+            if (groups == null)
+            {
+                return;
+            }
 
-            //foreach (var group in groups.Select(x => new { Name = x.Key, Pages = x.Value }).OrderBy(x => x.Name))
-            //{
-            //    control.Items.Add(new ControlNavigationItemHeader() { Text = group.Name });
+            foreach (var group in groups
+                .SelectMany(x => x)
+                .Select(x => new { Name = x.Key, Pages = x.Value })
+                .OrderBy(x => x.Name))
+            {
+                control.Items.Add(new ControlNavigationItemHeader() { Text = group.Name });
 
-            //    foreach (var page in group.Pages)
-            //    {
-            //        if (!page.Hide && (!page.Resource.Context.Conditions.Any() || page.Resource.Context.Conditions.All(x => x.Fulfillment(context.Request))))
-            //        {
-            //            control.Items.Add(new ControlNavigationItemLink()
-            //            {
-            //                Text = page.Resource?.Title,
-            //                Icon = page.Icon,
-            //                Uri = new UriResource(page?.Resource.Context.GetContextPath(ApplicationContext), page?.Resource?.PathSegment.ToString()),
-            //                Active = page.ID.Equals(ID, System.StringComparison.OrdinalIgnoreCase) ? TypeActive.Active : TypeActive.None,
-            //                NoWrap = true
-            //            });
-            //        }
-            //    }
-            //}
+                foreach (var page in group.Pages
+                    .Select(x => new { Item = x, ResourceContext = GetResourceContext(x) })
+                    .Where(x => x.ResourceContext != null))
+                {
+                    if (!page.Item.Hide && (!page.ResourceContext.Conditions.Any() || page.ResourceContext.Conditions.All(x => x.Fulfillment(context.Request))))
+                    {
+                        control.Items.Add(new ControlNavigationItemLink()
+                        {
+                            Text = page.ResourceContext?.ResourceTitle,
+                            Icon = page.Item.Icon,
+                            Uri = page?.ResourceContext.Uri,
+                            Active = page.Item.ID.Equals(ID, System.StringComparison.OrdinalIgnoreCase) ? TypeActive.Active : TypeActive.None,
+                            NoWrap = true
+                        });
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Returns the resource context of a status page.
+        /// </summary>
+        /// <param name="item">The meta information of the status page.</param>
+        /// <returns>The resource context or null.</returns>
+        private IResourceContext GetResourceContext(SettingPageDictionaryItem item)
+        {
+            var resourceManager = ComponentManager.ResourceManager;
+
+            return resourceManager.GetResorces(ApplicationContext?.ApplicationID, item.ModuleID, item.ResourceID);
         }
     }
 }

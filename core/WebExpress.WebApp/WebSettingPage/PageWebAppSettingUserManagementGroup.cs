@@ -1,12 +1,12 @@
 ﻿using System.Linq;
+using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
-using WebExpress.WebUri;
-using WebExpress.WebApp.WebAttribute;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebApp.WebUser;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
+using WebExpress.WebUri;
 
 namespace WebExpress.WebApp.WebSettingPage
 {
@@ -17,10 +17,10 @@ namespace WebExpress.WebApp.WebSettingPage
     [WebExTitle("webexpress.webapp:setting.usermanager.group.label")]
     [WebExSegment("group", "webexpress.webapp:setting.usermanager.group.label")]
     [WebExContextPath("/Setting")]
-    [SettingSection(SettingSection.Primary)]
-    [SettingIcon(TypeIcon.Users)]
-    [SettingGroup("webexpress.webapp:setting.usermanager.group.usermanagement.label")]
-    [SettingContext("webexpress.webapp:setting.tab.general.label")]
+    [WebExSettingSection(WebExSettingSection.Primary)]
+    [WebExSettingIcon(TypeIcon.Users)]
+    [WebExSettingGroup("webexpress.webapp:setting.usermanager.group.usermanagement.label")]
+    [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
     [WebExModule("webexpress.webapp")]
     [WebExContext("admin")]
     [WebExContext("webexpress.webapp.usermanagement.group")]

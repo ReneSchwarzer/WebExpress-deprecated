@@ -1,5 +1,5 @@
-﻿using WebExpress.UI.WebControl;
-using WebExpress.WebApp.WebAttribute;
+﻿using WebExpress.UI.WebAttribute;
+using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
@@ -13,10 +13,10 @@ namespace WebExpress.WebApp.WebSettingPage
     [WebExTitle("webexpress.webapp:setting.usermanager.user.label")]
     [WebExSegment("user", "webexpress.webapp:setting.usermanager.user.label")]
     [WebExContextPath("/Setting")]
-    [SettingSection(SettingSection.Primary)]
-    [SettingIcon(TypeIcon.User)]
-    [SettingGroup("webexpress.webapp:setting.usermanager.group.usermanagement.label")]
-    [SettingContext("webexpress.webapp:setting.tab.general.label")]
+    [WebExSettingSection(WebExSettingSection.Primary)]
+    [WebExSettingIcon(TypeIcon.User)]
+    [WebExSettingGroup("webexpress.webapp:setting.usermanager.group.usermanagement.label")]
+    [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
     [WebExModule("webexpress.webapp")]
     [WebExContext("admin")]
     [WebExContext("webexpress.webapp.usermanagement.user")]

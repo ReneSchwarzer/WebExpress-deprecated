@@ -47,4 +47,8 @@
     <Resource Include="Assets\js\webexpress.webapp.js" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="WebAttribute\" />
+  </ItemGroup>
+
 </Project>

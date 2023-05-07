@@ -12,7 +12,7 @@ using WebExpress.WebPage;
 
 namespace WebExpress.WebApp.WebFragment
 {
-    [Section(Section.HeadlineSecondary)]
+    [WebExSection(Section.HeadlineSecondary)]
     [WebExModule("webexpress.webapp")]
     [WebExContext("webexpress.webpp.systeminformation")]
     [WebExCondition(typeof(ConditionUnix))]

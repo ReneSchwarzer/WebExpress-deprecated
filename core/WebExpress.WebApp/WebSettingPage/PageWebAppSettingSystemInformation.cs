@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Reflection;
 using WebExpress.Internationalization;
+using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
-using WebExpress.WebApp.WebAttribute;
+using WebExpress.UI.WebSettingPage;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
@@ -17,10 +18,10 @@ namespace WebExpress.WebApp.WebSettingPage
     [WebExTitle("webexpress.webapp:setting.titel.systeminformation.label")]
     [WebExSegment("systeminformation", "webexpress.webapp:setting.titel.systeminformation.label")]
     [WebExContextPath("/Setting")]
-    [SettingSection(SettingSection.Secondary)]
-    [SettingIcon(TypeIcon.InfoCircle)]
-    [SettingGroup("webexpress.webapp:setting.group.system.label")]
-    [SettingContext("webexpress.webapp:setting.tab.general.label")]
+    [WebExSettingSection(WebExSettingSection.Secondary)]
+    [WebExSettingIcon(TypeIcon.InfoCircle)]
+    [WebExSettingGroup("webexpress.webapp:setting.group.system.label")]
+    [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
     [WebExModule("webexpress.webapp")]
     [WebExContext("admin")]
     [WebExContext("webexpress.webpp.systeminformation")]

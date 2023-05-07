@@ -325,6 +325,25 @@ namespace WebExpress.WebResource
         }
 
         /// <summary>
+        /// Renturns the resource context.
+        /// </summary>
+        /// <param name="applicationID">The application id.</param>
+        /// <param name="moduleID">The module id.</param>
+        /// <param name="resourceID">The resource id.</param>
+        /// <returns>An resource context or null.</returns>
+        public IResourceContext GetResorces(string applicationID, string moduleID, string resourceID)
+        {
+            return Dictionary.Values
+                .SelectMany(x => x.Values)
+                .SelectMany(x => x.ResourceContexts)
+                .Where(x => x.ModuleContext != null && x.ModuleContext.ApplicationContext != null)
+                .Where(x => x.ModuleContext.ApplicationContext.ApplicationID.Equals(applicationID, StringComparison.OrdinalIgnoreCase))
+                .Where(x => x.ModuleContext.ModuleID.Equals(moduleID, StringComparison.OrdinalIgnoreCase))
+                .Where(x => x.ResourceID.Equals(resourceID, StringComparison.OrdinalIgnoreCase))
+                .FirstOrDefault();
+        }
+
+        /// <summary>
         /// Removes all resources associated with the specified plugin context.
         /// </summary>
         /// <param name="pluginContext">The context of the plugin that contains the resources to remove.</param>

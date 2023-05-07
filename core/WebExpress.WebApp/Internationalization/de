@@ -23,8 +23,8 @@ status.500.title=Interner Serverfehler
 pagesettingmanager.initialization=Der Einstellungsseitenmanager wurde inizialisiert.
 pagesettingmanager.register=Eine Einsteuungsseite wurde dem Einstellungsseitenmanager hinzugefügt.
 pagesettingmanager.idless=Eine Einstellungsseite aus dem Plugin '{0}' verfügt über keine ID.
-pagesettingmanager.moduleless=Die Einstellungsseite '{0}' aus dem Pligin '{1}' verfügt über keine Modulzuordnung.
-pagesettingmanager.resourceless=Zu der Einstellungsseite '{0}' aus dem Pligin '{1}' konnte keine zugehörige Ressource ermittelt werden.
+pagesettingmanager.moduleless=Die Einstellungsseite '{0}' aus dem Plugin '{1}' verfügt über keine Modulzuordnung.
+pagesettingmanager.resourceless=Zu der Einstellungsseite '{0}' aus dem Plugin '{1}' konnte keine zugehörige Ressource ermittelt werden.
 
 confirm.label=Bestätigung
 confirm.header=Bestätigung einholen

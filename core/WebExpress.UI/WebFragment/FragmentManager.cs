@@ -156,11 +156,11 @@ namespace WebExpress.UI.WebFragment
                     x => x.AttributeType.GetInterfaces().Contains(typeof(IFragmentAttribute))
                 ))
                 {
-                    if (customAttribute.AttributeType == typeof(SectionAttribute))
+                    if (customAttribute.AttributeType == typeof(WebExSectionAttribute))
                     {
                         section = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
                     }
-                    else if (customAttribute.AttributeType == typeof(OrderAttribute))
+                    else if (customAttribute.AttributeType == typeof(WebExOrderAttribute))
                     {
                         try
                         {

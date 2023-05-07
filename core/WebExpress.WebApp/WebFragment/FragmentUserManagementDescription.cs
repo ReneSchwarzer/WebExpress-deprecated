@@ -7,7 +7,7 @@ using WebExpress.WebPage;
 
 namespace WebExpress.WebApp.WebFragment
 {
-    [Section(Section.ContentPreferences)]
+    [WebExSection(Section.ContentPreferences)]
     [WebExModule("webexpress.webapp")]
     [WebExContext("webexpress.webapp.usermanagement.user")]
     [WebExCache()]

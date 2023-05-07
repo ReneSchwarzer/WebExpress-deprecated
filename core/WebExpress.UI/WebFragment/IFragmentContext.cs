@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using WebExpress.Internationalization;
+using WebExpress.WebApplication;
 using WebExpress.WebCondition;
 using WebExpress.WebModule;
 using WebExpress.WebPlugin;
@@ -12,6 +13,11 @@ namespace WebExpress.UI.WebFragment
         /// Returns the context of the associated plugin.
         /// </summary>
         IPluginContext PluginContext { get; }
+
+        /// <summary>
+        /// Returns the application context.
+        /// </summary>
+        IApplicationContext ApplicationContext { get; }
 
         /// <summary>
         /// Returns the module context.

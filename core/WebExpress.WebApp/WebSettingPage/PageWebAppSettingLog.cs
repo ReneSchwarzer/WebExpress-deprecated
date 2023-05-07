@@ -2,8 +2,8 @@
 using System.IO;
 using System.Linq;
 using WebExpress.Internationalization;
+using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
-using WebExpress.WebApp.WebAttribute;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
@@ -12,23 +12,23 @@ using WebExpress.WebMessage;
 namespace WebExpress.WebApp.WebSettingPage
 {
     /// <summary>
-    /// Einstellungsseite mit Systeminformationen
+    /// Logging settings page
     /// </summary>
     [WebExID("SettingLog")]
     [WebExTitle("webexpress.webapp:setting.titel.log.label")]
     [WebExSegment("log", "webexpress.webapp:setting.titel.log.label")]
-    [WebExContextPath("/Setting")]
-    [SettingSection(SettingSection.Secondary)]
-    [SettingIcon(TypeIcon.FileMedicalAlt)]
-    [SettingGroup("webexpress.webapp:setting.group.system.label")]
-    [SettingContext("webexpress.webapp:setting.tab.general.label")]
+    [WebExContextPath("/setting")]
+    [WebExSettingSection(WebExSettingSection.Secondary)]
+    [WebExSettingIcon(TypeIcon.FileMedicalAlt)]
+    [WebExSettingGroup("webexpress.webapp:setting.group.system.label")]
+    [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
     [WebExModule("webexpress.webapp")]
     [WebExContext("admin")]
     [WebExOptional]
     public sealed class PageWebAppSettingLog : PageWebAppSetting
     {
         /// <summary>
-        /// Liefert oder setzt die Uri zum Download des Losfiles. Null wenn kein Logfiledownlod erfolgen soll
+        /// Delivers or sets the Uri to download the lot file. Null if no log file downlod is to be performed.
         /// </summary>
         public string DownloadUri { get; set; }
 
@@ -41,7 +41,7 @@ namespace WebExpress.WebApp.WebSettingPage
         }
 
         /// <summary>
-        /// Vorverarbeitung
+        /// Pre processing of the request.
         /// </summary>
         /// <param name="request">The request.</param>
         public override void PreProcess(Request request)
@@ -52,7 +52,7 @@ namespace WebExpress.WebApp.WebSettingPage
         }
 
         /// <summary>
-        /// Vorverarbeitung
+        /// Processing of the request.
         /// </summary>
         /// <param name="context">The context for rendering the page.</param>
         public override void Process(RenderContextWebApp context)

@@ -10,8 +10,8 @@ using WebExpress.WebModule;
 using WebExpress.WebPackage;
 using WebExpress.WebPlugin;
 using WebExpress.WebResource;
-using WebExpress.WebStatusPage;
 using WebExpress.WebSitemap;
+using WebExpress.WebStatusPage;
 
 namespace WebExpress.WebComponent
 {
@@ -444,6 +444,20 @@ namespace WebExpress.WebComponent
                 ResourceManager.PrepareForLog(pluginContext, output, 4);
                 ResponseManager.PrepareForLog(pluginContext, output, 4);
                 ScheduleManager.PrepareForLog(pluginContext, output, 4);
+            }
+
+            foreach (var item in Dictionary)
+            {
+                foreach (var component in item.Value)
+                {
+                    output.Add
+                    (
+                       string.Empty.PadRight(2) +
+                       InternationalizationManager.I18N("webexpress:pluginmanager.plugin", item.Key.PluginID)
+                    );
+
+                    component.ComponentInstance.PrepareForLog(item.Key, output, 4);
+                }
             }
 
             HttpServerContext.Log.Info(string.Join(Environment.NewLine, output));

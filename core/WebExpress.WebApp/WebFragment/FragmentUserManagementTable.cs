@@ -8,7 +8,7 @@ using WebExpress.WebPage;
 
 namespace WebExpress.WebApp.WebFragment
 {
-    [Section(Section.ContentPrimary)]
+    [WebExSection(Section.ContentPrimary)]
     [WebExModule("webexpress.webapp")]
     [WebExContext("webexpress.webapp.usermanagement.user")]
     [WebExCache()]

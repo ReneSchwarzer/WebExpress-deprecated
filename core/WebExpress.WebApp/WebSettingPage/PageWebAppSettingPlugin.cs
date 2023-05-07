@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Linq;
 using WebExpress.Internationalization;
-using WebExpress.WebMessage;
+using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebApiControl;
-using WebExpress.WebApp.WebAttribute;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
+using WebExpress.WebMessage;
 using WebExpress.WebPage;
 using WebExpress.WebResource;
 using WebExpress.WebTask;
@@ -22,10 +22,10 @@ namespace WebExpress.WebApp.WebSettingPage
     [WebExTitle("webexpress.webapp:setting.titel.plugin.label")]
     [WebExSegment("plugin", "webexpress.webapp:setting.titel.plugin.label")]
     [WebExContextPath("/Setting")]
-    [SettingSection(SettingSection.Secondary)]
-    [SettingIcon(TypeIcon.PuzzlePiece)]
-    [SettingGroup("webexpress.webapp:setting.group.system.label")]
-    [SettingContext("webexpress.webapp:setting.tab.general.label")]
+    [WebExSettingSection(WebExSettingSection.Secondary)]
+    [WebExSettingIcon(TypeIcon.PuzzlePiece)]
+    [WebExSettingGroup("webexpress.webapp:setting.group.system.label")]
+    [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
     [WebExModule("webexpress.webapp")]
     [WebExContext("admin")]
     [WebExContext("webexpress.webapp.plugin")]
