@@ -27,7 +27,7 @@ namespace WebExpress.WebPage
         /// <summary>
         /// The uri of the request.
         /// </summary>
-        public UriResource Uri => Request.ResourceUri;
+        public UriResource Uri => Request.Uri;
 
         /// <summary>
         /// Returns the context path.

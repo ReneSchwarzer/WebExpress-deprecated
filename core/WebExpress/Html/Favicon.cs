@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace WebExpress.Html
+﻿namespace WebExpress.Html
 {
     public class Favicon
     {
@@ -30,20 +28,9 @@ namespace WebExpress.Html
         /// </summary>
         /// <param name="url">The uri.</param>
         /// <param name="mediatype">The media type.</param>
-        public Favicon(Uri url)
+        public Favicon(string url)
         {
-            Url = url.ToString();
-        }
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="url">The uri.</param>
-        /// <param name="mediatype">The media type.</param>
-        public Favicon(Uri url, TypeFavicon mediatype)
-        {
-            Url = url.ToString();
-            Mediatype = mediatype;
+            Url = url;
         }
 
         /// <summary>

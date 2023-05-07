@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Globalization;
-using WebExpress.Internationalization;
 using WebExpress.WebComponent;
 using WebExpress.WebJob;
 using Xunit;
 
 namespace WebExpress.Test.Schedule
 {
+    /// <summary>
+    /// Test the cron job of the scheduler.
+    /// </summary>
     public class UnitTestCron
     {
         [Fact]
@@ -21,8 +23,7 @@ namespace WebExpress.Test.Schedule
 
             Assert.True
             (
-               cron.Matching(clock),
-               "Fehler in Create_1"
+               cron.Matching(clock)
             );
         }
 
@@ -39,8 +40,7 @@ namespace WebExpress.Test.Schedule
 
             Assert.True
             (
-               cron.Matching(clock),
-               "Fehler in Create_2"
+               cron.Matching(clock)
             );
         }
 
@@ -57,8 +57,7 @@ namespace WebExpress.Test.Schedule
 
             Assert.True
             (
-               cron.Matching(clock),
-               "Fehler in Create_3"
+               cron.Matching(clock)
             );
         }
 
@@ -76,8 +75,7 @@ namespace WebExpress.Test.Schedule
 
             Assert.True
             (
-               context.Log.WarningCount == 1,
-               "Fehler in Create_4"
+               context.Log.WarningCount == 1
             );
         }
 
@@ -94,8 +92,7 @@ namespace WebExpress.Test.Schedule
 
             Assert.True
             (
-               cron.Matching(clock),
-               "Fehler in Create_5"
+               cron.Matching(clock)
             );
         }
 
@@ -113,8 +110,7 @@ namespace WebExpress.Test.Schedule
 
             Assert.True
             (
-               context.Log.WarningCount == 1,
-               "Fehler in Create_6"
+               context.Log.WarningCount == 1
             );
         }
 
@@ -131,8 +127,7 @@ namespace WebExpress.Test.Schedule
 
             Assert.True
             (
-               !cron.Matching(clock),
-               "Fehler in Matching_1"
+               !cron.Matching(clock)
             );
         }
 
@@ -144,13 +139,12 @@ namespace WebExpress.Test.Schedule
 
             ComponentManager.Initialization(context);
 
-            var clock = new Clock(new DateTime(2020, 1, 1, dateTime.Hour, dateTime.Minute, 0)); // Mittwoch
-            var cron = new Cron(context, "*", "*", "*", "*", "4"); // Mittwoch
+            var clock = new Clock(new DateTime(2020, 1, 1, dateTime.Hour, dateTime.Minute, 0)); // wednesday
+            var cron = new Cron(context, "*", "*", "*", "*", "3"); // wednesday
 
             Assert.True
             (
-               cron.Matching(clock),
-               "Fehler in Matching_2"
+               cron.Matching(clock)
             );
         }
 
@@ -162,13 +156,12 @@ namespace WebExpress.Test.Schedule
 
             ComponentManager.Initialization(context);
 
-            var clock = new Clock(new DateTime(2020, 1, 1, dateTime.Hour, dateTime.Minute, 0)); // Mittwoch
-            var cron = new Cron(context, "*", "*", "*", "*", "1"); // Sonntag
+            var clock = new Clock(new DateTime(2020, 1, 1, dateTime.Hour, dateTime.Minute, 0)); // wednesday
+            var cron = new Cron(context, "*", "*", "*", "*", "1"); // sunday
 
             Assert.True
             (
-               !cron.Matching(clock),
-               "Fehler in Matching_3"
+               !cron.Matching(clock)
             );
         }
     }

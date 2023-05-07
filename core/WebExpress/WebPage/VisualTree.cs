@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
 using WebExpress.Internationalization;
@@ -25,7 +24,7 @@ namespace WebExpress.WebResource
         /// <summary>
         /// Liefert die Links auf die zu verwendenden JavaScript-Dateien, welche im Header eingefügt werden
         /// </summary>
-        public List<Uri> HeaderScriptLinks { get; } = new List<Uri>();
+        public List<string> HeaderScriptLinks { get; } = new List<string>();
 
         /// <summary>
         /// Liefert die Links auf die zu verwendenden JavaScript-Dateien
@@ -45,7 +44,7 @@ namespace WebExpress.WebResource
         /// <summary>
         /// Liefert die Links auf die zu verwendenden Css-Dateien
         /// </summary>
-        public List<Uri> CssLinks { get; } = new List<Uri>();
+        public List<string> CssLinks { get; } = new List<string>();
 
         /// <summary>
         /// Liefert die Metainformationen
@@ -99,7 +98,7 @@ namespace WebExpress.WebResource
         /// Fügt eine Java-Script im Header hinzu
         /// </summary>
         /// <param name="url">Der Link</param>
-        public virtual void AddHeaderScriptLinks(Uri url)
+        public virtual void AddHeaderScriptLinks(string url)
         {
             HeaderScriptLinks?.Add(url);
         }

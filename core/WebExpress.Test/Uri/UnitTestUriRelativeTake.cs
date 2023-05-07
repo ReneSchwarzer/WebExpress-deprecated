@@ -1,11 +1,14 @@
-﻿using WebExpress.Uri;
+﻿using WebExpress.WebUri;
 using Xunit;
 
 namespace WebExpress.Test.Uri
 {
+    /// <summary>
+    /// Tests the take method.
+    /// </summary>
     public class UnitTestUriRelativeTake
     {
-        private readonly UriRelative Uri = new UriRelative("/a/b/c");
+        private readonly UriResource Uri = new UriResource("/a/b/c");
 
         [Fact]
         public void Take_0()
@@ -14,8 +17,7 @@ namespace WebExpress.Test.Uri
 
             Assert.True
             (
-                take.ToString().Equals("/") && take.Path.Count == 0,
-                "Fehler in der Funktion Take der UriRelative"
+                take.ToString().Equals("/") && take.PathSegments.Count == 0
             );
         }
 
@@ -26,8 +28,7 @@ namespace WebExpress.Test.Uri
 
             Assert.True
             (
-                take.ToString().Equals("/") && take.Path.Count == 1,
-                "Fehler in der Funktion Take der UriRelative"
+                take.ToString().Equals("/") && take.PathSegments.Count == 1
             );
         }
 
@@ -38,8 +39,7 @@ namespace WebExpress.Test.Uri
 
             Assert.True
             (
-                take.ToString().Equals("/a") && take.Path.Count == 2,
-                "Fehler in der Funktion Take der UriRelative"
+                take.ToString().Equals("/a") && take.PathSegments.Count == 2
             );
         }
 
@@ -50,8 +50,7 @@ namespace WebExpress.Test.Uri
 
             Assert.True
             (
-                take.ToString().Equals("/a/b") && take.Path.Count == 3,
-                "Fehler in der Funktion Take der UriRelative"
+                take.ToString().Equals("/a/b") && take.PathSegments.Count == 3
             );
         }
 
@@ -62,8 +61,7 @@ namespace WebExpress.Test.Uri
 
             Assert.True
             (
-                take.ToString().Equals("/a/b/c") && take.Path.Count == 4,
-                "Fehler in der Funktion Take der UriRelative"
+                take.ToString().Equals("/a/b/c") && take.PathSegments.Count == 4
             );
         }
 
@@ -74,8 +72,7 @@ namespace WebExpress.Test.Uri
 
             Assert.True
             (
-                take.ToString().Equals("/a/b/c") && take.Path.Count == 4,
-                "Fehler in der Funktion Take der UriRelative"
+                take.ToString().Equals("/a/b/c") && take.PathSegments.Count == 4
             );
         }
 
@@ -86,8 +83,7 @@ namespace WebExpress.Test.Uri
 
             Assert.True
             (
-                take.ToString().Equals("/a/b") && take.Path.Count == 3,
-                "Fehler in der Funktion Take der UriRelative"
+                take.ToString().Equals("/a/b") && take.PathSegments.Count == 3
             );
         }
 
@@ -98,8 +94,7 @@ namespace WebExpress.Test.Uri
 
             Assert.True
             (
-                take.ToString().Equals("/a") && take.Path.Count == 2,
-                "Fehler in der Funktion Take der UriRelative"
+                take.ToString().Equals("/a") && take.PathSegments.Count == 2
             );
         }
 
@@ -110,8 +105,7 @@ namespace WebExpress.Test.Uri
 
             Assert.True
             (
-                take.ToString().Equals("/") && take.Path.Count == 1,
-                "Fehler in der Funktion Take der UriRelative"
+                take.ToString().Equals("/") && take.PathSegments.Count == 1
             );
         }
 
@@ -122,8 +116,7 @@ namespace WebExpress.Test.Uri
 
             Assert.True
             (
-                take == null,
-                "Fehler in der Funktion Take der UriRelative"
+                take == null
             );
         }
 
@@ -134,8 +127,7 @@ namespace WebExpress.Test.Uri
 
             Assert.True
             (
-                take == null,
-                "Fehler in der Funktion Take der UriRelative"
+                take == null
             );
         }
     }

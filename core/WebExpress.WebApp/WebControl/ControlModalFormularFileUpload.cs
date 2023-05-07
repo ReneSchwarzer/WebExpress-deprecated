@@ -79,7 +79,7 @@ namespace WebExpress.WebApp.WebControl
         /// <summary>
         /// Liefert oder setzt die Weiterleitungs-Uri
         /// </summary>
-        public Uri RedirectUri { get { return Formular?.RedirectUri; } set { Formular.RedirectUri = value; } }
+        public string RedirectUri { get { return Formular?.RedirectUri; } set { Formular.RedirectUri = value; } }
 
         /// <summary>
         /// Constructor

@@ -36,7 +36,7 @@ namespace WebExpress.WebApp.WebFragment
         public override IHtmlNode Render(RenderContext context)
         {
             Text = InternationalizationManager.I18N("webexpress.webapp:systeminformation.label");
-            Uri = context.Request.ResourceUri.Root.Append("settings/systeminformation");
+            Uri = context.Request.Uri.ModuleRoot.Append("settings/systeminformation");
             //Active = context.Page is IPageSettings ? TypeActive.Active : TypeActive.None;
             Icon = new PropertyIcon(TypeIcon.InfoCircle);
 

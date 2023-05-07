@@ -11,7 +11,6 @@ using WebExpress.WebComponent;
 using WebExpress.WebModule;
 using WebExpress.WebPlugin;
 using WebExpress.WebResource;
-using WebExpress.WebUri;
 
 namespace WebExpress.WebApp.SettingPage
 {
@@ -128,7 +127,7 @@ namespace WebExpress.WebApp.SettingPage
                         var iconAttribute = customAttribute.ConstructorArguments.FirstOrDefault().Value;
                         icon = iconAttribute?.GetType() == typeof(int) ?
                             new PropertyIcon((TypeIcon)Enum.Parse(typeof(TypeIcon), iconAttribute?.ToString())) :
-                            new PropertyIcon(new UriResource(iconAttribute?.ToString()));
+                            new PropertyIcon(iconAttribute?.ToString());
                     }
                 }
 

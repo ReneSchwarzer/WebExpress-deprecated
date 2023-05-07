@@ -1,11 +1,14 @@
-﻿using WebExpress.Uri;
+﻿using WebExpress.WebUri;
 using Xunit;
 
 namespace WebExpress.Test.Uri
 {
+    /// <summary>
+    /// Tests the skip method.
+    /// </summary>
     public class UnitTestUriRelativeSkip
     {
-        private readonly UriRelative Uri = new UriRelative("/a/b/c");
+        private readonly UriResource Uri = new UriResource("/a/b/c");
 
         [Fact]
         public void Skip_0()
@@ -14,8 +17,7 @@ namespace WebExpress.Test.Uri
 
             Assert.True
             (
-                skip.ToString().Equals("/a/b/c") && skip.Path.Count == 4,
-                "Fehler in der Funktion Skip der UriRelative"
+                skip.ToString().Equals("/a/b/c") && skip.PathSegments.Count == 4
             );
         }
 
@@ -26,8 +28,7 @@ namespace WebExpress.Test.Uri
 
             Assert.True
             (
-                skip.ToString().Equals("/a/b/c") && skip.Path.Count == 3,
-                "Fehler in der Funktion Skip der UriRelative"
+                skip.ToString().Equals("/a/b/c") && skip.PathSegments.Count == 3
             );
         }
 
@@ -38,8 +39,7 @@ namespace WebExpress.Test.Uri
 
             Assert.True
             (
-                skip.ToString().Equals("/b/c") && skip.Path.Count == 2,
-                "Fehler in der Funktion Skip der UriRelative"
+                skip.ToString().Equals("/b/c") && skip.PathSegments.Count == 2
             );
         }
 
@@ -50,8 +50,7 @@ namespace WebExpress.Test.Uri
 
             Assert.True
             (
-                skip.ToString().Equals("/c") && skip.Path.Count == 1,
-                "Fehler in der Funktion Skip der UriRelative"
+                skip.ToString().Equals("/c") && skip.PathSegments.Count == 1
             );
         }
 
@@ -62,20 +61,18 @@ namespace WebExpress.Test.Uri
 
             Assert.True
             (
-                skip == null,
-                "Fehler in der Funktion Skip der UriRelative"
+                skip == null
             );
         }
 
         [Fact]
         public void Skip_5()
         {
-            var skip = new UriRelative().Skip(1);
+            var skip = new UriResource().Skip(1);
 
             Assert.True
             (
-                skip == null,
-                "Fehler in der Funktion Skip der UriRelative"
+                skip == null
             );
         }
     }

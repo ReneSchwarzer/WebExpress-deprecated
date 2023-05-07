@@ -33,17 +33,7 @@ namespace WebExpress.WebMessage
         /// <summary>
         /// Returns the uri.
         /// </summary>
-        public Uri Uri { get; internal set; }
-
-        /// <summary>
-        /// Returns the base uri.
-        /// </summary>
-        public Uri BaseUri { get; internal set; }
-
-        /// <summary>
-        /// Returns the resource uri.
-        /// </summary>
-        public UriResource ResourceUri { get; internal set; }
+        public UriResource Uri { get; internal set; }
 
         /// <summary>
         /// Returns the parameters.
@@ -142,7 +132,8 @@ namespace WebExpress.WebMessage
         /// </summary>
         /// <param name="contextFeatures">Initial set of features.</param>
         /// <param name="serverContext">The context of the web server.</param>
-        internal Request(IFeatureCollection contextFeatures, IHttpServerContext serverContext)
+        /// <param name="header">The header.</param>
+        internal Request(IFeatureCollection contextFeatures, IHttpServerContext serverContext, RequestHeaderFields header)
         {
             var connectionFeature = contextFeatures.Get<IHttpConnectionFeature>();
             var requestFeature = contextFeatures.Get<IHttpRequestFeature>();
@@ -175,13 +166,21 @@ namespace WebExpress.WebMessage
                 _ => RequestMethod.GET
             };
 
-            Header = new RequestHeaderFields(contextFeatures);
+            Header = header;
 
             LocalEndPoint = new IPEndPoint(connectionFeature.LocalIpAddress, connectionFeature.LocalPort);
             RemoteEndPoint = new IPEndPoint(connectionFeature.RemoteIpAddress, connectionFeature.RemotePort);
 
-            BaseUri = new UriBuilder(Scheme.ToString(), Header.Host, connectionFeature.LocalPort).Uri;
-            Uri = new Uri(BaseUri, requestFeature.RawTarget);
+            Uri = new UriResource
+            (
+                Scheme,
+                new UriAuthority()
+                {
+                    Host = Header.Host,
+                    Port = connectionFeature.LocalPort
+                },
+                requestFeature.RawTarget
+            );
 
             Content = GetContent(requestFeature.Body, Header.ContentLength);
 

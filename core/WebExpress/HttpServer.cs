@@ -253,7 +253,7 @@ namespace WebExpress
             var culture = request.Culture;
             var uri = request?.Uri;
 
-            HttpServerContext.Log.Debug(message: this.I18N("webexpress:httpserver.connected"), args: context?.RemoteEndPoint);
+            HttpServerContext.Log.Debug(message: this.I18N("webexpress:httpserver.connected"), args: context.RemoteEndPoint);
             HttpServerContext.Log.Info(InternationalizationManager.I18N
             (
                 "webexpress:httpserver.request",
@@ -263,7 +263,7 @@ namespace WebExpress
             ));
 
             // search page in sitemap
-            var searchResult = ComponentManager.SitemapManager.SearchResource(request?.Uri, new SearchContext()
+            var searchResult = ComponentManager.SitemapManager.SearchResource(context.Uri, new SearchContext()
             {
                 Culture = culture,
                 HttpContext = context,
@@ -272,7 +272,14 @@ namespace WebExpress
 
             if (searchResult != null)
             {
-                request.ResourceUri = searchResult.Uri;
+                var resourceUri = new UriResource(request.Uri, searchResult.Uri.PathSegments);
+                resourceUri = new UriResource(resourceUri, resourceUri.PathSegments, request.Uri.Skip(resourceUri.PathSegments.Count())?.PathSegments);
+                resourceUri.ServerRoot = new UriResource(request.Uri, HttpServerContext.ContextPath.PathSegments);
+                resourceUri.ApplicationRoot = new UriResource(request.Uri, searchResult.ApplicationContext?.ContextPath.PathSegments);
+                resourceUri.ModuleRoot = new UriResource(request.Uri, searchResult.ModuleContext?.ContextPath.PathSegments);
+                resourceUri.ResourceRoot = new UriResource(request.Uri, searchResult.Uri.PathSegments);
+
+                request.Uri = resourceUri;
 
                 try
                 {

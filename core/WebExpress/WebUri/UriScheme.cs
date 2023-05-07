@@ -10,6 +10,7 @@ namespace WebExpress.WebUri
         Http,
         Https,
         Ldap,
+        Ldaps,
         Mailto
     }
 }

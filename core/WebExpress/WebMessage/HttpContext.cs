@@ -46,7 +46,7 @@ namespace WebExpress.WebMessage
         /// <summary>
         /// Returns the uri.
         /// </summary>
-        public Uri Uri => Request.Uri;
+        public Uri Uri { get; internal set; }
 
         /// <summary>
         /// Constructor
@@ -65,6 +65,8 @@ namespace WebExpress.WebMessage
         {
             var connectionFeature = contextFeatures.Get<IHttpConnectionFeature>();
             var requestFeature = contextFeatures.Get<IHttpRequestFeature>();
+            var header = new RequestHeaderFields(contextFeatures);
+            var baseUri = new UriBuilder(requestFeature.Scheme, header.Host, connectionFeature.LocalPort).Uri;
 
             Features = contextFeatures;
             ID = connectionFeature.ConnectionId;
@@ -72,8 +74,9 @@ namespace WebExpress.WebMessage
             RemoteEndPoint = new IPEndPoint(connectionFeature.RemoteIpAddress, connectionFeature.RemotePort);
 
             Encoding = requestFeature.Headers.ContentEncoding.Any() ? Encoding.GetEncoding(requestFeature.Headers.ContentEncoding) : Encoding.Default;
+            Uri = new Uri(baseUri, requestFeature.RawTarget);
 
-            Request = new Request(contextFeatures, serverContext);
+            Request = new Request(contextFeatures, serverContext, header);
         }
     }
 }

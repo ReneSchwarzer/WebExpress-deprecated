@@ -43,17 +43,17 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Liefert oder setzt die Ziel-Uri
         /// </summary>
-        public Uri Uri { get; set; }
+        public string Uri { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Weiterleitungs-Url
         /// </summary>
-        public Uri RedirectUri { get; set; }
+        public string RedirectUri { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Abbruchs-Url
         /// </summary>
-        public Uri BackUri { get; set; }
+        public string BackUri { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Submit-Schaltfläche

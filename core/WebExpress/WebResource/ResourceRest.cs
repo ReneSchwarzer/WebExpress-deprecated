@@ -69,7 +69,7 @@ namespace WebExpress.WebResource
                     }
                 case RequestMethod.DELETE:
                     {
-                        content = JsonSerializer.Serialize(DeleteData(request.Uri.Segments.Last(), request), options);
+                        content = JsonSerializer.Serialize(DeleteData(request.Uri.PathSegments.Last()?.ToString(), request), options);
 
                         break;
                     }

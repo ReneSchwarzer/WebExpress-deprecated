@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using WebExpress.WebComponent;
 using WebExpress.WebPage;
 using WebExpress.WebResource;
@@ -15,12 +14,12 @@ namespace WebExpress.UI.WebPage
         /// <summary>
         /// Returns the links to the JavaScript files to be used, which are inserted in the header.
         /// </summary>
-        protected ICollection<Uri> HeaderScriptLinks { get; } = new List<Uri>();
+        protected ICollection<string> HeaderScriptLinks { get; } = new List<string>();
 
         /// <summary>
         /// Returns the links to the css files to use.
         /// </summary>
-        protected ICollection<Uri> CssLinks { get; } = new List<Uri>();
+        protected ICollection<string> CssLinks { get; } = new List<string>();
 
         /// <summary>
         /// Returns the meta information.

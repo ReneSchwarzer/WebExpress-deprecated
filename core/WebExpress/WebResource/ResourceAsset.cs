@@ -54,9 +54,9 @@ namespace WebExpress.WebResource
                 var buf = assembly.GetManifestResourceNames().ToList();
                 var resources = assembly.GetManifestResourceNames().Where(x => x.StartsWith(AssetDirectory, System.StringComparison.OrdinalIgnoreCase));
                 var contextPath = ResourceContext.ContextPath;
-                var url = request.Uri.ToString().Substring(contextPath.ToString().Length + 1);
+                var url = request.Uri.ExtendedPath.ToString();
                 var fileName = Path.GetFileName(url);
-                var file = string.Join('.', AssetDirectory.Trim('.'), url.Replace("/", ".").Trim('.'));
+                var file = string.Join('.', AssetDirectory.Trim('.'), "assets", url.Replace("/", ".").Trim('.'));
 
                 Data = GetData(file, assembly, resources.ToList());
 

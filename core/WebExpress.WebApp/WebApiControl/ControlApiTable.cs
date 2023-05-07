@@ -14,7 +14,7 @@ namespace WebExpress.WebApp.WebApiControl
         /// <summary>
         /// Liefert oder setzt die Uri, welche die Daten ermittelt
         /// </summary>
-        public Uri RestUri { get; set; }
+        public string RestUri { get; set; }
 
         /// <summary>
         /// Setzt oder liefert die Einstellungen für die Bearbeitungsoptionen (z.B. Edit, Delete, ...)

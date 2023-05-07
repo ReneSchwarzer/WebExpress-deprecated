@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
 using WebExpress.WebPage;
@@ -95,7 +94,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Liefert oder setzt das Bild
         /// </summary>
-        public Uri Image { get; set; }
+        public string Image { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Höhe

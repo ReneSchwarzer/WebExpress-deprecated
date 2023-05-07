@@ -54,12 +54,12 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Liefert oder setzt die Ziel-Uri
         /// </summary>
-        public Uri Uri { get; set; }
+        public string Uri { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Weiterleitungs-Uri
         /// </summary>
-        public Uri RedirectUri { get; set; }
+        public string RedirectUri { get; set; }
 
         /// <summary>
         /// Liefert oder setzt das Hiddenfeld, welches die Submit-Methode enthält

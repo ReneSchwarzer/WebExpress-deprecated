@@ -5,6 +5,9 @@ using Xunit;
 
 namespace WebExpress.Test.Schedule
 {
+    /// <summary>
+    /// Tests the scheduler's clock.
+    /// </summary>
     public class UnitTestClock
     {
         [Fact]
@@ -18,8 +21,7 @@ namespace WebExpress.Test.Schedule
 
             Assert.True
             (
-               elapsed.Count() == 5,
-               "Fehler in Synchronize_1"
+               elapsed.Count() == 5
             );
         }
 
@@ -34,8 +36,7 @@ namespace WebExpress.Test.Schedule
 
             Assert.True
             (
-               elapsed.Count() == 60 * 24,
-               "Fehler in Synchronize_2"
+               elapsed.Count() == 60 * 24
             );
         }
 
@@ -49,8 +50,7 @@ namespace WebExpress.Test.Schedule
 
             Assert.True
             (
-               res,
-               "Fehler in Compare_Equals_1"
+               res
             );
         }
 
@@ -64,8 +64,7 @@ namespace WebExpress.Test.Schedule
 
             Assert.True
             (
-               !res,
-               "Fehler in Compare_Equals_2"
+               !res
             );
         }
 
@@ -79,8 +78,7 @@ namespace WebExpress.Test.Schedule
 
             Assert.True
             (
-               !res,
-               "Fehler in Compare_Inequality_1"
+               !res
             );
         }
 
@@ -94,8 +92,7 @@ namespace WebExpress.Test.Schedule
 
             Assert.True
             (
-               res,
-               "Fehler in Compare_Inequality_2"
+               res
             );
         }
 
@@ -109,8 +106,7 @@ namespace WebExpress.Test.Schedule
 
             Assert.True
             (
-               !res,
-               "Fehler in Compare_Less_1"
+               !res
             );
         }
 
@@ -124,8 +120,7 @@ namespace WebExpress.Test.Schedule
 
             Assert.True
             (
-               res,
-               "Fehler in Compare_Less_2"
+               res
             );
         }
 
@@ -139,8 +134,7 @@ namespace WebExpress.Test.Schedule
 
             Assert.True
             (
-               !res,
-               "Fehler in Compare_Greater_1"
+               !res
             );
         }
 
@@ -154,8 +148,7 @@ namespace WebExpress.Test.Schedule
 
             Assert.True
             (
-               res,
-               "Fehler in Compare_Greater_2"
+               res
             );
         }
 
@@ -169,8 +162,7 @@ namespace WebExpress.Test.Schedule
 
             Assert.True
             (
-               res,
-               "Fehler in Compare_LessOrEqual_1"
+               res
             );
         }
 
@@ -184,8 +176,7 @@ namespace WebExpress.Test.Schedule
 
             Assert.True
             (
-               res,
-               "Fehler in Compare_LessOrEqual_2"
+               res
             );
         }
 
@@ -199,8 +190,7 @@ namespace WebExpress.Test.Schedule
 
             Assert.True
             (
-               res,
-               "Fehler in Compare_GreaterOrEqual_1"
+               res
             );
         }
 
@@ -214,8 +204,7 @@ namespace WebExpress.Test.Schedule
 
             Assert.True
             (
-               res,
-               "Fehler in Compare_GreaterOrEqual_2"
+               res
             );
         }
 
@@ -229,8 +218,7 @@ namespace WebExpress.Test.Schedule
 
             Assert.True
             (
-               clock1 == clock2,
-               "Fehler in Carry"
+               clock1 == clock2
             );
         }
 
@@ -244,8 +232,7 @@ namespace WebExpress.Test.Schedule
 
             Assert.True
             (
-               clock1 == clock2,
-               "Fehler in Carry"
+               clock1 == clock2
             );
         }
     }

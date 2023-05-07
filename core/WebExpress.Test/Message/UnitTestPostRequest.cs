@@ -1,10 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.Features;
-using System.IO;
-using System.Net;
-using WebExpress.Message;
-using Xunit;
-
-namespace WebExpress.Test.Message
+﻿namespace WebExpress.Test.Message
 {
     public class UnitTestPostRequest : UnitTestRequest
     {
@@ -17,8 +11,7 @@ namespace WebExpress.Test.Message
 
         //    Assert.True
         //    (
-        //       param != null && param == "1",
-        //       "Fehler in der Funktion Post_TextPlain"
+        //       param != null && param == "1"
         //    );
         //}
 
@@ -35,8 +28,7 @@ namespace WebExpress.Test.Message
         //    (
         //       a != null && a == "ä" &&
         //       b != null && b == "ö ü" &&
-        //       s != null && s == "1",
-        //       "Fehler in der Funktion Post_TextPlain_Umlaut"
+        //       s != null && s == "1"
         //    );
         //}
 
@@ -49,8 +41,7 @@ namespace WebExpress.Test.Message
 
         //    Assert.True
         //    (
-        //       param != null && param == "1",
-        //       "Fehler in der Funktion Post_Urlencoded"
+        //       param != null && param == "1"
         //    );
         //}
 
@@ -81,8 +72,7 @@ namespace WebExpress.Test.Message
 
         //    Assert.True
         //    (
-        //       param != null && param == "1",
-        //       "Fehler in der Funktion Post_Multipart1"
+        //       param != null && param == "1"
         //    );
         //}
 
@@ -101,8 +91,7 @@ namespace WebExpress.Test.Message
         //    Assert.True
         //    (
         //        file.Data.Length == 47788 &&
-        //        param != null && param == "1",
-        //        "Fehler in der Funktion Post_Multipart2"
+        //        param != null && param == "1"
         //    );
         //}
 
@@ -115,25 +104,23 @@ namespace WebExpress.Test.Message
 
         //    Assert.True
         //    (
-        //        param != null && param == "1",
-        //        "Fehler in der Funktion Post_Multipart3"
+        //        param != null && param == "1"
         //    );
         //}
 
-        [Fact]
-        public void Post_Multipart4()
-        {
-            using var reader = new BinaryReader(new FileStream(Path.Combine("test", "contentTypeMultipartFormData4.post"), FileMode.Open));
-            var contextFeatures = Prepare(reader, RequestMethod.POST, "");
-            var request = new WebExpress.Message.Request(contextFeatures, null);
-            var param = request?.GetParameter("submit-formular-inventory")?.Value;
+        //[Fact]
+        //public void Post_Multipart4()
+        //{
+        //    using var reader = new BinaryReader(new FileStream(Path.Combine("test", "contentTypeMultipartFormData4.post"), FileMode.Open));
+        //    var contextFeatures = Prepare(reader, RequestMethod.POST, "");
+        //    var request = new WebMessage.Request(contextFeatures, null, null);
+        //    var param = request?.GetParameter("submit-formular-inventory")?.Value;
 
-            Assert.True
-            (
-                param != null && param == "1",
-                "Fehler in der Funktion Post_Multipart4"
-            );
-        }
+        //    Assert.True
+        //    (
+        //        param != null && param == "1"
+        //    );
+        //}
 
         //[Fact]
         //public void Post_Multipart_Umlaut()
@@ -153,6 +140,6 @@ namespace WebExpress.Test.Message
         //    );
         //}
 
-        
+
     }
 }

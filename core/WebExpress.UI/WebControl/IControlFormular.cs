@@ -38,12 +38,12 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Liefert oder setzt die Ziel-Uri
         /// </summary>
-        Uri Uri { get; set; }
+        string Uri { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Weiterleitungs-Url
         /// </summary>
-        Uri RedirectUri { get; set; }
+        string RedirectUri { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Submit-Schaltfläche

@@ -1,5 +1,4 @@
-﻿using System;
-using WebExpress.Html;
+﻿using WebExpress.Html;
 using WebExpress.WebPage;
 using static WebExpress.Internationalization.InternationalizationManager;
 
@@ -10,7 +9,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Liefert oder setzt die Uri
         /// </summary>
-        public Uri Uri { get; set; }
+        public string Uri { get; set; }
 
         /// <summary>
         /// Liefert oder setzt das Rootelement
@@ -52,7 +51,7 @@ namespace WebExpress.UI.WebControl
         /// </summary>
         /// <param name="page">Die zugehörige Seite</param>
         /// <param name="uri">Der Verzeichnispfad</param>
-        public ControlBreadcrumb(string id, Uri uri)
+        public ControlBreadcrumb(string id, string uri)
             : base(id)
         {
             Uri = uri;

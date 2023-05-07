@@ -46,7 +46,7 @@ namespace WebExpress.WebApp.WebSettingPage
         /// <param name="request">The request.</param>
         public override void PreProcess(Request request)
         {
-            DownloadUri = request.ResourceUri.Append("download");
+            DownloadUri = request.Uri.Append("download");
 
             base.PreProcess(request);
         }

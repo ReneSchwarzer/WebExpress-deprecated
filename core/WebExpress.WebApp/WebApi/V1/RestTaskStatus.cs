@@ -41,7 +41,7 @@ namespace WebExpress.WebApp.WebAPI.V1
         /// <returns>Eine Aufzählung, welche mittels JsonSerializer serialisiert werden kann.</returns>
         public override ICollection GetData(Request request)
         {
-            var id = request.ResourceUri.PathSegments.Last().Value;
+            var id = request.Uri.PathSegments.Last().Value;
 
             if (TaskManager.ContainsTask(id))
             {

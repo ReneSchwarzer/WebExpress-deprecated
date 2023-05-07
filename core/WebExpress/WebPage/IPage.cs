@@ -1,5 +1,4 @@
-﻿using System;
-using WebExpress.WebResource;
+﻿using WebExpress.WebResource;
 
 namespace WebExpress.WebPage
 {
@@ -15,6 +14,6 @@ namespace WebExpress.WebPage
         /// The function throws the RedirectException.
         /// </summary>
         /// <param name="uri">The uri to redirect to.</param>
-        void Redirecting(Uri uri);
+        void Redirecting(string uri);
     }
 }

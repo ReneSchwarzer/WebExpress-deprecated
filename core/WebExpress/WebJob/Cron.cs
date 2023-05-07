@@ -6,8 +6,9 @@ using static WebExpress.Internationalization.InternationalizationManager;
 namespace WebExpress.WebJob
 {
     /// <summary>
-    /// Verwaltet Befehle, welche zeitgesteuert (siehe https://en.wikipedia.org/wiki/Cron) ausgeführt werden (CRON = command run on notice) 
+    /// Manages commands that are executed on a scheduled basis (CRON = command run on notice). 
     /// </summary>
+    /// <see cref="https://en.wikipedia.org/wiki/Cron"/>
     public class Cron
     {
         /// <summary>
@@ -16,39 +17,39 @@ namespace WebExpress.WebJob
         private static IHttpServerContext Context { get; set; }
 
         /// <summary>
-        /// Die Minute 0-59 oder * für belibig. Möglich sind auch kommaseperierte Werte oder Bereiche (-)
+        /// The minute 0-59 or * for any. Comma seperated values or ranges (-) are also possible.
         /// </summary>
         private List<int> Minute { get; } = new List<int>();
 
         /// <summary>
-        /// Die Stunde 0-23 oder * für belibig. Möglich sind auch kommaseperierte Werte oder Bereiche (-)
+        /// The hour 0-23 or * for any. Comma seperated values or ranges (-) are also possible.
         /// </summary>
         private List<int> Hour { get; } = new List<int>();
 
         /// <summary>
-        /// Der Tag 1-31 oder * für belibig. Möglich sind auch kommaseperierte Werte oder Bereiche (-)
+        /// The day 1-31 or * for any. Comma seperated values or ranges (-) are also possible.
         /// </summary>
         private List<int> Day { get; } = new List<int>();
 
         /// <summary>
-        /// Der Monat 1-12 oder * für belibig. Möglich sind auch kommaseperierte Werte oder Bereiche (-)
+        /// The month 1-12 or * for any. Comma seperated values or ranges (-) are also possible.
         /// </summary>
         private List<int> Month { get; } = new List<int>();
 
         /// <summary>
-        /// Der Wochentag 0-6 (Sonntag-Sonnabend) oder * für belibig. Möglich sind auch kommaseperierte Werte oder Bereiche (-)
+        /// The day of the week 0-6 (Sunday-Saturday) or * for any. Comma seperated values or ranges (-) are also possible.
         /// </summary>
         private List<int> Weekday { get; } = new List<int>();
 
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="context">Der Verweis auf Kontext des Hostes</param>
-        /// <param name="minute">Die Minute 0-59 oder * für belibig. Möglich sind auch kommaseperierte Werte oder Bereiche (-)</param>
-        /// <param name="hour">Die Stunde 0-23 oder * für belibig. Möglich sind auch kommaseperierte Werte oder Bereiche (-)</param>
-        /// <param name="day">Der Tag 1-31 oder * für belibig. Möglich sind auch kommaseperierte Werte oder Bereiche (-)</param>
-        /// <param name="month">Der Monat 1-12 oder * für belibig. Möglich sind auch kommaseperierte Werte oder Bereiche (-)</param>
-        /// <param name="weekday">Der Wochentag 0-6 (Sonntag-Sonnabend) oder * für belibig. Möglich sind auch kommaseperierte Werte oder Bereiche (-)</param>
+        /// <param name="context">The reference to the host's context.</param>
+        /// <param name="minute">The minute 0-59 or * for any. Comma seperated values or ranges (-) are also possible.</param>
+        /// <param name="hour">The hour 0-23 or * for any. Comma seperated values or ranges (-) are also possible.</param>
+        /// <param name="day">The day 1-31 or * for any. Comma seperated values or ranges (-) are also possible.</param>
+        /// <param name="month">The month 1-12 or * for any. Comma seperated values or ranges (-) are also possible.</param>
+        /// <param name="weekday">The day of the week 0-6 (Sunday-Saturday) or * for any. Comma seperated values or ranges (-) are also possible.</param>
         public Cron(IHttpServerContext context, string minute = "*", string hour = "*", string day = "*", string month = "*", string weekday = "*")
         {
             Context = context;
@@ -61,12 +62,12 @@ namespace WebExpress.WebJob
         }
 
         /// <summary>
-        /// Parst den Wert
+        /// Parses the value.
         /// </summary>
-        /// <param name="value">Der zu parsende Wert</param>
-        /// <param name="minValue">Das Minimum</param>
-        /// <param name="maxValue">Das Maximum</param>
-        /// <returns>Die Werte</returns>
+        /// <param name="value">The value to parse.</param>
+        /// <param name="minValue">The minimum.</param>
+        /// <param name="maxValue">The maximum.</param>
+        /// <returns>The parsed values.</returns>
         private IEnumerable<int> Parse(string value, int minValue, int maxValue)
         {
             var items = new List<int>() as IEnumerable<int>;
@@ -88,7 +89,7 @@ namespace WebExpress.WebJob
                 var range = i.Split('-', System.StringSplitOptions.RemoveEmptyEntries | System.StringSplitOptions.TrimEntries);
                 if (range.Length == 2)
                 {
-                    // Bereichswerte
+                    // range
                     var min = int.MinValue;
                     var max = int.MinValue;
 
@@ -139,9 +140,9 @@ namespace WebExpress.WebJob
         }
 
         /// <summary>
-        /// Prüft ob die zyklische Abarbeitung eines Befehles erfolgen kann
+        /// Checks whether the cyclic processing of a command can take place.
         /// </summary>
-        /// <returns>True, wenn eine Übereinstimmung vorliegt, false sonst</returns>
+        /// <returns>True if there is a match, false otherwise.</returns>
         public bool Matching(Clock clock)
         {
             return Minute.Contains(clock.Minute) &&

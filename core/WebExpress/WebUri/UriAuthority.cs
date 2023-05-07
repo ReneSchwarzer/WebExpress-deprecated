@@ -64,11 +64,25 @@ namespace WebExpress.WebUri
         /// <returns>The string representation of the authority.</returns>
         public override string ToString()
         {
+            return ToString(-1);
+        }
+
+        /// <summary>
+        /// Converts the authority to a string.
+        /// </summary>
+        /// <param name="defaultPort">The default port for the active scheme.</param>
+        /// <returns>The string representation of the authority.</returns>
+        public virtual string ToString(int defaultPort)
+        {
 #pragma warning disable 618
             var userinfo = string.Join(":", new string[] { User, Password }.Where(x => !string.IsNullOrWhiteSpace(x)));
 #pragma warning restore 618
 
-            var adress = string.Join(":", new string[] { Host, Port?.ToString() }.Where(x => !string.IsNullOrWhiteSpace(x)));
+            var adress = string.Join(":", new string[]
+            {
+                Host,
+                Port != defaultPort ? Port?.ToString() : ""
+            }.Where(x => !string.IsNullOrWhiteSpace(x)));
 
             return "//" + string.Join("@", new string[] { userinfo, adress }.Where(x => !string.IsNullOrWhiteSpace(x)));
         }

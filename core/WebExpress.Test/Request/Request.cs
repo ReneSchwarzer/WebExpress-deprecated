@@ -1,10 +1,8 @@
-﻿using System;
-using System.Linq;
-using Xunit;
+﻿using Xunit;
 
 namespace WebExpress.Test.Request
 {
-    
+
     public class Request
     {
 
@@ -13,8 +11,7 @@ namespace WebExpress.Test.Request
         {
             Assert.True
             (
-               true,
-               "Fehler in Get_1"
+               true
             );
         }
     }

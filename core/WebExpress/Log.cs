@@ -76,7 +76,7 @@ namespace WebExpress
         /// <summary>
         /// Checks if the log has been opened for writing.
         /// </summary>
-        public bool IsOpen => m_workerThread != null;
+        public bool IsOpen => _workerThread != null;
 
         /// <summary>
         /// Returns the log mode.
@@ -91,27 +91,46 @@ namespace WebExpress
         /// <summary>
         /// The directory where the log is created.
         /// </summary>
-        private string m_path;
+        private string _path;
 
         /// <summary>
         /// The thread that takes care of the cyclic writing in the log file.
         /// </summary>
-        private Thread m_workerThread;
+        private Thread _workerThread;
 
         /// <summary>
         /// Constant that determines the further of the separator rows.
         /// </summary>
-        private const int m_seperatorWidth = 260;
+        private const int _seperatorWidth = 260;
 
         /// <summary>
         /// End worker thread lifecycle.
         /// </summary>
-        private bool m_done = false;
+        private bool _done = false;
 
         /// <summary>
         /// Unsaved Entries Queue.
         /// </summary>
-        private readonly Queue<LogItem> m_queue = new Queue<LogItem>();
+        private readonly Queue<LogItem> _queue = new Queue<LogItem>();
+
+        /// <summary>
+        /// Returns the number of characters for log outputs in the console.
+        /// </summary>
+        private int Width
+        {
+            get
+            {
+                try
+                {
+                    return Console.WindowWidth;
+                }
+                catch
+                {
+                }
+
+                return 250;
+            }
+        }
 
         /// <summary>
         /// Constructor
@@ -132,13 +151,13 @@ namespace WebExpress
         public void Begin(string path, string name)
         {
             Filename = Path.Combine(path, name);
-            m_path = path;
+            _path = path;
 
             // check directory
-            if (!Directory.Exists(m_path))
+            if (!Directory.Exists(_path))
             {
                 // no log directory exists yet -create >
-                Directory.CreateDirectory(m_path);
+                Directory.CreateDirectory(_path);
             }
 
             // Delete existing log file when overwrite mode is active
@@ -154,14 +173,14 @@ namespace WebExpress
             }
 
             // create thread
-            m_workerThread = new Thread(new ThreadStart(ThreadProc))
+            _workerThread = new Thread(new ThreadStart(ThreadProc))
             {
 
                 // Background thread
                 IsBackground = true
             };
 
-            m_workerThread.Start();
+            _workerThread.Start();
         }
 
         /// <summary>
@@ -200,7 +219,7 @@ namespace WebExpress
         {
             foreach (var l in message?.Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries))
             {
-                lock (m_queue)
+                lock (_queue)
                 {
                     var item = new LogItem(level, instance, l, TimePattern);
                     switch (level)
@@ -217,10 +236,10 @@ namespace WebExpress
                             break;
                     }
 
-                    Console.WriteLine(item.ToString().Length > m_seperatorWidth ? item.ToString().Substring(0, m_seperatorWidth - 3) + "..." : item.ToString().PadRight(Console.WindowWidth, ' '));
+                    Console.WriteLine(item.ToString().Length > _seperatorWidth ? item.ToString().Substring(0, _seperatorWidth - 3) + "..." : item.ToString().PadRight(Width, ' '));
                     Console.ResetColor();
 
-                    m_queue.Enqueue(item);
+                    _queue.Enqueue(item);
                 }
             }
         }
@@ -239,7 +258,7 @@ namespace WebExpress
         /// <param name="sepChar">The separator.</param>
         public void Seperator(char sepChar)
         {
-            Add(Level.Seperartor, "".PadRight(m_seperatorWidth, sepChar));
+            Add(Level.Seperartor, "".PadRight(_seperatorWidth, sepChar));
         }
 
         /// <summary>
@@ -390,7 +409,7 @@ namespace WebExpress
             var methodInfo = new StackTrace().GetFrame(1).GetMethod();
             var className = methodInfo.ReflectedType.Name;
 
-            lock (m_queue)
+            lock (_queue)
             {
                 Add(Level.Exception, ex?.Message.Trim(), $"{className}.{instance}", line, file);
                 Add(Level.Exception, ex?.StackTrace != null ? ex?.StackTrace.Trim() : ex?.Message.Trim(), $"{className}.{instance}", line, file);
@@ -442,10 +461,10 @@ namespace WebExpress
         /// </summary>
         public void Close()
         {
-            m_done = true;
+            _done = true;
 
             // protect file writing from concurrent access
-            lock (m_path)
+            lock (_path)
             {
                 Flush();
             }
@@ -469,16 +488,16 @@ namespace WebExpress
             var list = new List<LogItem>();
 
             // lock queue before concurrent access
-            lock (m_queue)
+            lock (_queue)
             {
-                list.AddRange(m_queue);
-                m_queue.Clear();
+                list.AddRange(_queue);
+                _queue.Clear();
             }
 
             // protect file writing from concurrent access
             if (list.Count > 0 && LogMode != Mode.Off)
             {
-                lock (m_path)
+                lock (_path)
                 {
                     using var fs = new FileStream(Filename, FileMode.Append);
                     using var w = new StreamWriter(fs, Encoding);
@@ -496,18 +515,18 @@ namespace WebExpress
         /// </summary>
         private void ThreadProc()
         {
-            while (!m_done)
+            while (!_done)
             {
                 Thread.Sleep(5000);
 
                 // protect file writing from concurrent access
-                lock (m_path)
+                lock (_path)
                 {
                     Flush();
                 }
             }
 
-            m_workerThread = null;
+            _workerThread = null;
         }
 
         /// <summary>

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace WebExpress.WebUri
 {
@@ -23,6 +24,17 @@ namespace WebExpress.WebUri
         /// The path (e.g. /over/there).
         /// </summary>
         public ICollection<IUriPathSegment> PathSegments { get; } = new List<IUriPathSegment>();
+
+        /// <summary>
+        /// Returns the extended path. The extended path is the postfix of the resource's path.
+        /// </summary>
+        public UriResource ExtendedPath
+        {
+            get
+            {
+                return new UriResource(Skip(ResourceRoot.PathSegments.Count()).PathSegments?.ToArray());
+            }
+        }
 
         /// <summary>
         /// The query part (e.g. ?title=Uniform_Resource_Identifier&action=submit).
@@ -64,26 +76,34 @@ namespace WebExpress.WebUri
         public bool Empty => !PathSegments.Any();
 
         /// <summary>
-        /// Returns the root.
+        /// Returns the root of the resource.
         /// </summary>
-        public virtual UriResource Root
-        {
-            get
-            {
-                var root = new UriResource(this);
-                if (root.PathSegments.Any())
-                {
-                    return Take(1);
-                }
+        public virtual UriResource ResourceRoot { get; set; }
 
-                return root;
-            }
-        }
+        /// <summary>
+        /// Returns the root of the module.
+        /// </summary>
+        public virtual UriResource ModuleRoot { get; set; }
+
+        /// <summary>
+        /// Returns the root of the application.
+        /// </summary>
+        public virtual UriResource ApplicationRoot { get; set; }
+
+        /// <summary>
+        /// Returns the root of the server.
+        /// </summary>
+        public virtual UriResource ServerRoot { get; set; }
 
         /// <summary>
         /// Determines if the Uri is the root.
         /// </summary>
-        public bool IsRoot => string.IsNullOrWhiteSpace(PathSegments.FirstOrDefault()?.Value);
+        public bool IsRoot => PathSegments.Count() == 1;
+
+        /// <summary>
+        /// Checks if it is a relative uri.
+        /// </summary>
+        public bool IsRelative => Authority == null;
 
         /// <summary>
         /// Returns the variables.
@@ -120,45 +140,82 @@ namespace WebExpress.WebUri
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="url">The actual uri called by the web browser.</param>
-        public UriResource(string uri)
+        /// <param name="scheme">The scheme (e.g. Http, FTP).</param>
+        /// <param name="authority">The authority (e.g. user@example.com:8080).</param>
+        /// <param name="uri">The uri.</param>
+        public UriResource(UriScheme scheme, UriAuthority authority, string uri)
+            : this(uri)
         {
-            if (uri == null) return;
-
-            var fragment = uri.TrimEnd('/').Split('#');
-            if (fragment.Length == 2)
-            {
-                Fragment = fragment[1];
-            }
-
-            var query = fragment[0].Split('?');
-            if (query.Length == 2)
-            {
-                foreach (var q in query[1].Split('&'))
-                {
-                    var item = q.Split('=');
-
-                    Query.Add(new UriQuerry(item[0], item.Length > 1 ? item[1] : null));
-                }
-            }
-
-            PathSegments.Add(new UriPathSegmentRoot());
-
-            foreach (var p in query[0].Split('/', StringSplitOptions.RemoveEmptyEntries))
-            {
-                PathSegments.Add(new UriPathSegmentConstant(p));
-            }
+            Scheme = scheme;
+            Authority = authority;
         }
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="url">The uri.</param>
+        public UriResource(string uri)
+        {
+            if (uri == null) return;
+
+            if (Enum.GetNames(typeof(UriScheme)).Where(x => uri.StartsWith(x, StringComparison.OrdinalIgnoreCase)).Any())
+            {
+                var match = Regex.Match(uri, "^([a-z0-9+.-]+):(?://(?:((?:[a-z0-9-._~!$&'()*+,;=:]|%[0-9A-F]{2})*)@)?((?:[a-z0-9-._~!$&'()*+,;=]|%[0-9A-F]{2})*)(?::(\\d*))?(.*)?)$");
+
+                try
+                {
+                    Scheme = (UriScheme)Enum.Parse(typeof(UriScheme), match.Groups[1].Value, true);
+                }
+                catch
+                {
+                    Scheme = UriScheme.Http;
+                }
+
+                Authority = new UriAuthority()
+                {
+                    User = match.Groups[2].Success ? match.Groups[2].Value : null,
+                    Host = match.Groups[3].Success ? match.Groups[3].Value : null,
+                    Port = match.Groups[4].Success ? Convert.ToInt32(match.Groups[4].Value) : null
+                };
+
+                uri = match.Groups[5].Value;
+
+            }
+
+            var relativeMatch = Regex.Match(uri, @"^(\/([a-zA-Z0-9-+*%()=._/$]*))(#([a-zA-Z0-9-+*%()=._/$]*))?(\?(.*))?$");
+
+            PathSegments.Add(new UriPathSegmentRoot());
+
+            foreach (var p in relativeMatch.Groups[2].Value.Split('/', StringSplitOptions.RemoveEmptyEntries))
+            {
+                PathSegments.Add(new UriPathSegmentConstant(p));
+            }
+
+            Fragment = relativeMatch.Groups[4].Success ? relativeMatch.Groups[4].Value : null;
+
+            foreach (var q in relativeMatch.Groups[6].Success ? relativeMatch.Groups[6].Value?.Split('&') : Enumerable.Empty<string>())
+            {
+                var item = q.Split('=');
+
+                Query.Add(new UriQuerry(item[0], item.Length > 1 ? item[1] : null));
+            }
+        }
+
+        /// <summary>
+        /// Copy constructor
+        /// </summary>
+        /// <param name="uri">The uri.</param>
         public UriResource(UriResource uri)
         {
+            Scheme = uri.Scheme;
+            Authority = uri.Authority;
             PathSegments = uri.PathSegments.Select(x => x.Copy()).ToList();
             Query = uri.Query.Select(x => new UriQuerry(x.Key, x.Value)).ToList();
             Fragment = uri.Fragment;
+            ServerRoot = uri.ServerRoot;
+            ApplicationRoot = uri.ApplicationRoot;
+            ModuleRoot = uri.ModuleRoot;
+            ResourceRoot = uri.ResourceRoot;
         }
 
         /// <summary>
@@ -173,6 +230,58 @@ namespace WebExpress.WebUri
             {
                 PathSegments.Add(segment);
             }
+        }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="uri">The uri.</param>
+        /// <param name="segments">The path segments.</param>
+        public UriResource(UriResource uri, IEnumerable<IUriPathSegment> segments)
+            : this(uri.Scheme, uri.Authority, uri.Fragment, uri.Query, segments)
+        {
+            ServerRoot = uri.ServerRoot;
+            ApplicationRoot = uri.ApplicationRoot;
+            ModuleRoot = uri.ModuleRoot;
+            ResourceRoot = uri.ResourceRoot;
+        }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="uri">The uri.</param>
+        /// <param name="segments">The path segments.</param>
+        /// <param name="extendedSegments">Other segments.</param>
+        public UriResource(UriResource uri, IEnumerable<IUriPathSegment> segments, IEnumerable<IUriPathSegment> extendedSegments)
+            : this(uri.Scheme, uri.Authority, uri.Fragment, uri.Query, extendedSegments != null ? segments.Union(extendedSegments) : segments)
+        {
+            ServerRoot = uri.ServerRoot;
+            ApplicationRoot = uri.ApplicationRoot;
+            ModuleRoot = uri.ModuleRoot;
+            ResourceRoot = uri.ResourceRoot;
+        }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="scheme">The scheme (e.g. Http, FTP).</param>
+        /// <param name="authority">The authority (e.g. user@example.com:8080).</param>
+        /// <param name="fragment">References a position within a resource (e.g. #Anchor).</param>
+        /// <param name="query">The query part (e.g. ?title=Uniform_Resource_Identifier&action=submit).</param>
+        /// <param name="segments">The path segments.</param>
+        public UriResource(UriScheme scheme, UriAuthority authority, string fragment, IEnumerable<UriQuerry> query, IEnumerable<IUriPathSegment> segments)
+        {
+            Scheme = scheme;
+            Authority = authority;
+            PathSegments.Add(new UriPathSegmentRoot());
+
+            foreach (var segment in segments != null ? segments.Where(x => !(x is UriPathSegmentRoot)) : Enumerable.Empty<IUriPathSegment>())
+            {
+                PathSegments.Add(segment.Copy());
+            }
+
+            Query = query.Select(x => new UriQuerry(x.Key, x.Value)).ToList();
+            Fragment = fragment;
         }
 
         /// <summary>
@@ -302,11 +411,40 @@ namespace WebExpress.WebUri
         /// <returns>A string that represents the current uri.</returns>
         public override string ToString()
         {
-            return PathSegments.FirstOrDefault() + string.Join
+            var defaultPort = Scheme switch
+            {
+                UriScheme.Http => 80,
+                UriScheme.Https => 443,
+                UriScheme.FTP => 21,
+                UriScheme.Ldap => 389,
+                UriScheme.Ldaps => 636,
+                _ => -1
+
+            };
+
+            var scheme = Scheme.ToString("g").ToLower() + ":";
+            var authority = Authority?.ToString(defaultPort);
+            var uri = "/" + string.Join
             (
                 "/",
                 PathSegments.Where(x => !(x is UriPathSegmentRoot)).Select(x => x.ToString())
             );
+
+            if (!string.IsNullOrWhiteSpace(Fragment))
+            {
+                uri += "#" + Fragment;
+            }
+
+            if (Query.Any())
+            {
+                uri += "?" + string.Join("&", Query.Select(x => $"{x.Key}={x.Value}"));
+            }
+
+            return Scheme switch
+            {
+                UriScheme.Mailto => string.Format("{0}{1}", scheme, authority),
+                _ => IsRelative ? uri : string.Format("{0}{1}{2}", scheme, authority, uri),
+            };
         }
 
         /// <summary>
@@ -351,15 +489,6 @@ namespace WebExpress.WebUri
                     .SelectMany(x => x.Split('/', StringSplitOptions.RemoveEmptyEntries))
                     .Select(x => new UriPathSegmentConstant(x) as IUriPathSegment));
             return copy;
-        }
-
-        /// <summary>
-        /// Converts a resource uri to a normal uri.
-        /// </summary>
-        /// <param name="uri">The uri to convert.</param>
-        public static implicit operator Uri(UriResource uri)
-        {
-            return new Uri(uri?.ToString(), string.IsNullOrWhiteSpace(uri?.Authority?.Host) ? UriKind.Relative : UriKind.Absolute);
         }
 
         /// <summary>

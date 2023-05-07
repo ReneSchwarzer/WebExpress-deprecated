@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Session;
 using System.IO;
 using System.Net;
-using WebExpress.Message;
+using WebExpress.WebMessage;
 
 namespace WebExpress.Test.Message
 {
@@ -19,20 +19,20 @@ namespace WebExpress.Test.Message
         protected static IFeatureCollection Prepare(BinaryReader reader, RequestMethod method, string queryString)
         {
             var contextFeatures = new FeatureCollection();
-            contextFeatures.Set<IHttpConnectionFeature>(new HttpConnectionFeature() 
-            { 
-                LocalPort = 80, 
+            contextFeatures.Set<IHttpConnectionFeature>(new HttpConnectionFeature()
+            {
+                LocalPort = 80,
                 LocalIpAddress = IPAddress.Loopback,
                 RemoteIpAddress = IPAddress.Loopback,
-                ConnectionId = "43D885B6-DB4D-4EDF-9908-B122A5FFC829" 
+                ConnectionId = "43D885B6-DB4D-4EDF-9908-B122A5FFC829"
             });
-            contextFeatures.Set<IHttpRequestFeature>(new HttpRequestFeature() 
-            { 
-                Path = "/", 
-                Protocol = "HTTP/1.1", 
-                Method = method.ToString(), 
+            contextFeatures.Set<IHttpRequestFeature>(new HttpRequestFeature()
+            {
+                Path = "/",
+                Protocol = "HTTP/1.1",
+                Method = method.ToString(),
                 QueryString = queryString,
-                Headers = new HeaderDictionary() 
+                Headers = new HeaderDictionary()
             });
             contextFeatures.Set<IHttpRequestIdentifierFeature>(new HttpRequestIdentifierFeature() { TraceIdentifier = "16FC666F-D7DC-47FF-9FB8-9D0F8DFCEF99" });
             contextFeatures.Set<ISessionFeature>(new SessionFeature() { });

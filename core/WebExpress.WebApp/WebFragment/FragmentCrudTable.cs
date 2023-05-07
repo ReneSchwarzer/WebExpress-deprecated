@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
 using WebExpress.UI.WebFragment;
@@ -13,7 +12,7 @@ namespace WebExpress.WebApp.WebFragment
         /// <summary>
         /// Returns the uri to the REST API interface.
         /// </summary>
-        public Uri RestApiUri { get; protected set; }
+        public string RestApiUri { get; protected set; }
 
         /// <summary>
         /// Returns the editors to manipulate the data.
