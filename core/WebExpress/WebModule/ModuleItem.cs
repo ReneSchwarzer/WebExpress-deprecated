@@ -166,7 +166,7 @@ namespace WebExpress.WebModule
                 // initialize module
                 item.ModuleInstance.Initialization(item.ModuleContext);
 
-                Log.Info
+                Log.Debug
                 (
                     message: InternationalizationManager.I18N
                     (
@@ -179,7 +179,7 @@ namespace WebExpress.WebModule
                 // execute modules concurrently
                 Task.Run(() =>
                 {
-                    Log.Info
+                    Log.Debug
                     (
                         message: InternationalizationManager.I18N
                         (
@@ -191,7 +191,7 @@ namespace WebExpress.WebModule
 
                     item.ModuleInstance.Run();
 
-                    Log.Info
+                    Log.Debug
                     (
                         message: InternationalizationManager.I18N
                         (

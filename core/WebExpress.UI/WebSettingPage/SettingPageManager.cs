@@ -74,7 +74,7 @@ namespace WebExpress.UI.SettingPage
         {
             HttpServerContext = context;
 
-            HttpServerContext.Log.Info(InternationalizationManager.I18N("webexpress.webapp:pagesettingmanager.initialization"));
+            HttpServerContext.Log.Debug(InternationalizationManager.I18N("webexpress.webapp:pagesettingmanager.initialization"));
         }
 
         /// <summary>
@@ -188,7 +188,7 @@ namespace WebExpress.UI.SettingPage
                         "    SettingPage.Hide     = " + (page?.Hide != null ? page?.Hide.ToString() : "null")
                 };
 
-                HttpServerContext.Log.Info(string.Join(Environment.NewLine, log));
+                HttpServerContext.Log.Debug(string.Join(Environment.NewLine, log));
             }
         }
 

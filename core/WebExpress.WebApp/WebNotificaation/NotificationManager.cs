@@ -2,16 +2,82 @@
 using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Internationalization;
+using WebExpress.WebComponent;
 using WebExpress.WebMessage;
+using WebExpress.WebPlugin;
 
 namespace WebExpress.WebApp.WebNotificaation
 {
-    public static class NotificationManager
+    public sealed class NotificationManager : IComponentPlugin
     {
+        /// <summary>
+        /// An event that fires when an notification is created.
+        /// </summary>
+        public event EventHandler<Notification> CreateNotification;
+
+        /// <summary>
+        /// An event that fires when an notification is destroyed.
+        /// </summary>
+        public event EventHandler<Notification> DestroyNotification;
+
+        /// <summary>
+        /// Returns the reference to the context of the host.
+        /// </summary>
+        public IHttpServerContext HttpServerContext { get; private set; }
+
         /// <summary>
         /// Provides the notification store for global notifications.
         /// </summary>
         private static IDictionary<string, Notification> GlobalNotifications { get; } = new Dictionary<string, Notification>();
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        internal NotificationManager()
+        {
+        }
+
+        /// <summary>
+        /// Initialization
+        /// </summary>
+        /// <param name="context">The reference to the context of the host.</param>
+        public void Initialization(IHttpServerContext context)
+        {
+            HttpServerContext = context;
+
+            HttpServerContext.Log.Debug
+            (
+                InternationalizationManager.I18N("webexpress.webapp:notificationmanager.initialization")
+            );
+        }
+
+        /// <summary>
+        /// Discovers and registers entries from the specified plugin.
+        /// </summary>
+        /// <param name="pluginContext">A context of a plugin whose elements are to be registered.</param>
+        public void Register(IPluginContext pluginContext)
+        {
+        }
+
+        /// <summary>
+        /// Discovers and registers entries from the specified plugin.
+        /// </summary>
+        /// <param name="pluginContexts">A list with plugin contexts that contain the components.</param>
+        public void Register(IEnumerable<IPluginContext> pluginContexts)
+        {
+            foreach (var pluginContext in pluginContexts)
+            {
+                Register(pluginContext);
+            }
+        }
+
+        /// <summary>
+        /// Removes all components associated with the specified plugin context.
+        /// </summary>
+        /// <param name="pluginContext">The context of the plugin that contains the components to remove.</param>
+        public void Remove(IPluginContext pluginContext)
+        {
+        }
 
         /// <summary>
         /// Creates a new global notification.
@@ -22,7 +88,7 @@ namespace WebExpress.WebApp.WebNotificaation
         /// <param name="icon">An icon.</param>
         /// <param name="type">The notification type.</param>
         /// <returns>The created notification.</returns>
-        public static Notification CreateNotification(string message, int durability = -1, string heading = null, string icon = null, TypeNotification type = TypeNotification.Light)
+        public Notification AddNotification(string message, int durability = -1, string heading = null, string icon = null, TypeNotification type = TypeNotification.Light)
         {
             var notification = new Notification()
             {
@@ -42,6 +108,8 @@ namespace WebExpress.WebApp.WebNotificaation
                 }
             }
 
+            OnCreateNotification(notification);
+
             return notification;
         }
 
@@ -55,7 +123,7 @@ namespace WebExpress.WebApp.WebNotificaation
         /// <param name="icon">An icon.</param>
         /// <param name="type">The notification type.</param>
         /// <returns>The created notification.</returns>
-        public static Notification CreateNotification(Request request, string message, int durability = -1, string heading = null, string icon = null, TypeNotification type = TypeNotification.Light)
+        public Notification AddNotification(Request request, string message, int durability = -1, string heading = null, string icon = null, TypeNotification type = TypeNotification.Light)
         {
             var notification = new Notification()
             {
@@ -82,6 +150,8 @@ namespace WebExpress.WebApp.WebNotificaation
                 }
             }
 
+            OnCreateNotification(notification);
+
             return notification;
         }
 
@@ -90,7 +160,7 @@ namespace WebExpress.WebApp.WebNotificaation
         /// </summary>
         /// <param name="request">The request.</param>
         /// <returns>An enumeration of the notifications.</returns>
-        public static IEnumerable<Notification> GetNotifications(Request request)
+        public IEnumerable<Notification> GetNotifications(Request request)
         {
             var list = new List<Notification>();
 
@@ -126,12 +196,14 @@ namespace WebExpress.WebApp.WebNotificaation
         /// </summary>
         /// <param name="request">The request.</param>
         /// <param name="id">The notification id.</param>
-        public static void RemoveNotification(Request request, string id)
+        public void RemoveNotification(Request request, string id)
         {
             if (GlobalNotifications.ContainsKey(id))
             {
                 lock (GlobalNotifications)
                 {
+                    OnDestroyNotification(GlobalNotifications[id]);
+
                     // remove notifications
                     GlobalNotifications.Remove(id);
                 }
@@ -142,7 +214,12 @@ namespace WebExpress.WebApp.WebNotificaation
             lock (GlobalNotifications)
             {
                 // remove expired notifications
-                scrapGlobal.ForEach(x => GlobalNotifications.Remove(x.ID));
+                scrapGlobal.ForEach(x =>
+                {
+                    OnDestroyNotification(GlobalNotifications[x.ID]);
+
+                    GlobalNotifications.Remove(x.ID);
+                });
             }
 
             if (request.Session.Properties.ContainsKey(typeof(SessionPropertyNotification)) &&
@@ -162,9 +239,42 @@ namespace WebExpress.WebApp.WebNotificaation
                 lock (notificationProperty)
                 {
                     // remove expired notifications
-                    scrap.ForEach(x => notificationProperty.Remove(x.ID));
+                    scrap.ForEach(x =>
+                    {
+                        OnDestroyNotification(notificationProperty[x.ID]);
+
+                        notificationProperty.Remove(x.ID);
+                    });
                 }
             }
+        }
+
+        /// <summary>
+        /// Raises the CreateNotification event.
+        /// </summary>
+        /// <param name="notification">The notification.</param>
+        private void OnCreateNotification(Notification notification)
+        {
+            CreateNotification?.Invoke(this, notification);
+        }
+
+        /// <summary>
+        /// Raises the DestroyNotification event.
+        /// </summary>
+        /// <param name="notification">The notification.</param>
+        private void OnDestroyNotification(Notification notification)
+        {
+            DestroyNotification?.Invoke(this, notification);
+        }
+
+        /// <summary>
+        /// Information about the component is collected and prepared for output in the log.
+        /// </summary>
+        /// <param name="pluginContext">The context of the plugin.</param>
+        /// <param name="output">A list of log entries.</param>
+        /// <param name="deep">The shaft deep.</param>
+        public void PrepareForLog(IPluginContext pluginContext, IList<string> output, int deep)
+        {
         }
     }
 }

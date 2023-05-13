@@ -5,7 +5,7 @@ plugin.description=Stellt Basiskomponenten einer Webanwendung bereit.
 module.name=WebExpress.WebApp
 module.description=Stellt Basiskomponenten einer Webanwendung bereit.
 
-identitymanager.initialization=Der Identitätsmanager wurde inizialisiert.
+identitymanager.initialization=Der Identitätsmanager wurde initialisiert.
 identitymanager.moduleless=Es wurde kein Modul angegeben.
 
 header.quickcreate.label=Erstellen
@@ -20,7 +20,9 @@ status.404.title=Ressource nicht gefunden
 status.404.description=Der HTTP-Statuscode 404 bedeutet, dass die aufgerufene Ressource auf dem Webserver nicht zu finden ist. Entweder wurden Inhalte der Webseite entfernt oder auf eine andere URL verlegt. Folgende Ursachen können hierfür verantwortlich sein: <ul><li>Die URL ist fehlerhaft angelegt oder falsch intern verlinkt.</li><li>Die URL wurde falsch eingegeben.</li><li>Der Webserver ist nicht in Betrieb.</li><li>Die URL oder die Inhalte wurden gelöscht oder ausgelagert.</li></ul>
 status.500.title=Interner Serverfehler
 
-pagesettingmanager.initialization=Der Einstellungsseitenmanager wurde inizialisiert.
+notificationmanager.initialization=Der Benachrichtigungsmanager wurde initialisiert.
+
+pagesettingmanager.initialization=Der Einstellungsseitenmanager wurde initialisiert.
 pagesettingmanager.register=Eine Einsteuungsseite wurde dem Einstellungsseitenmanager hinzugefügt.
 pagesettingmanager.idless=Eine Einstellungsseite aus dem Plugin '{0}' verfügt über keine ID.
 pagesettingmanager.moduleless=Die Einstellungsseite '{0}' aus dem Plugin '{1}' verfügt über keine Modulzuordnung.

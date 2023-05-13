@@ -20,6 +20,8 @@ status.404.title=Resource not found
 status.404.description=The HTTP status code 404 means that the called resource cannot be found on the Web server. Either content has been removed or moved to a different URL. The following causes may be responsible for this: <ul><li>The URL is created incorrectly or incorrectly linked internally.</li><li>The URL was entered incorrectly.</li><li>The web server is not in operation.</li><li>The URL or content has been deleted or paged out.</li></ul>
 status.500.title=Internal Server Error
 
+notificationmanager.initialization=The notification manager has been initialized.
+
 pagesettingmanager.initialization=The settings page manager has been initialized.
 pagesettingmanager.register=A settings page has been added to the settings page manager.
 pagesettingmanager.idless=A settings page from the plugin '{0}' does not have an id.

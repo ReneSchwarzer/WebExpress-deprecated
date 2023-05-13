@@ -74,7 +74,7 @@ namespace WebExpress.UI.WebFragment
         {
             HttpServerContext = context;
 
-            HttpServerContext.Log.Info
+            HttpServerContext.Log.Debug
             (
                 InternationalizationManager.I18N("webexpress.ui:fragmentmanager.initialization")
             );

@@ -1,7 +1,8 @@
 ﻿using System.Collections;
-using WebExpress.WebMessage;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebAttribute;
+using WebExpress.WebComponent;
+using WebExpress.WebMessage;
 using WebExpress.WebResource;
 
 namespace WebExpress.WebApp.WebAPI.V1
@@ -40,7 +41,7 @@ namespace WebExpress.WebApp.WebAPI.V1
         /// <returns>Eine Aufzählung, welche mittels JsonSerializer serialisiert werden kann.</returns>
         public override ICollection GetData(Request request)
         {
-            return (ICollection)NotificationManager.GetNotifications(request);
+            return (ICollection)ComponentManager.GetComponent<NotificationManager>()?.GetNotifications(request);
         }
 
         /// <summary>
@@ -51,7 +52,7 @@ namespace WebExpress.WebApp.WebAPI.V1
         /// <returns>Das Ergebnis der Löschung</returns>
         public override bool DeleteData(string id, Request request)
         {
-            NotificationManager.RemoveNotification(request, id);
+            ComponentManager.GetComponent<NotificationManager>()?.RemoveNotification(request, id);
 
             return true;
         }
