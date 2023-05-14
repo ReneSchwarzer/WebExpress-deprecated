@@ -87,7 +87,7 @@ namespace WebExpress.WebStatusPage
                 var defaultItem = false;
 
                 foreach (var customAttribute in resource.CustomAttributes
-                    .Where(x => x.AttributeType.GetInterfaces().Contains(typeof(WebExIApplicationAttribute))))
+                    .Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IApplicationAttribute))))
                 {
                     if (customAttribute.AttributeType == typeof(WebExIDAttribute))
                     {

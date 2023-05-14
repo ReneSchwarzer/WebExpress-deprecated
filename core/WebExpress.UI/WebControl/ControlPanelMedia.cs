@@ -7,7 +7,7 @@ namespace WebExpress.UI.WebControl
     public class ControlPanelMedia : ControlPanel
     {
         /// <summary>
-        /// Liefert oder setzt den Titel
+        /// Returns or sets the title.
         /// </summary>
         public Control Title { get; set; }
 
@@ -17,19 +17,19 @@ namespace WebExpress.UI.WebControl
         public string Image { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Weite des Bildes in Pixel
+        /// Returns or sets the width. des Bildes in Pixel
         /// </summary>
         public int ImageWidth { get; set; } = -1;
 
         /// <summary>
-        /// Liefert oder setzt die Höhe des Bildes in Pixel
+        /// Returns or sets the height. des Bildes in Pixel
         /// </summary>
         public int ImageHeight { get; set; } = -1;
 
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">The id.</param>
         public ControlPanelMedia(string id = null)
             : base(id)
         {
@@ -39,7 +39,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">The id.</param>
         /// <param name="title">Die Überschrift</param>
         public ControlPanelMedia(string id, string title)
             : this(id)

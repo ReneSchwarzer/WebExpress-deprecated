@@ -51,7 +51,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">The id.</param>
         public ControlFormularItemInputRadio(string id = null)
             : base(id)
         {
@@ -61,7 +61,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">The id.</param>
         /// <param name="name">Der Name The text.Box</param>
         public ControlFormularItemInputRadio(string id, string name)
             : this(id)
@@ -70,7 +70,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Initialisiert das Formularelement
+        /// Initializes the form element.
         /// </summary>
         /// <param name="context">The context in which the control is rendered.</param>
         public override void Initialize(RenderContextFormular context)

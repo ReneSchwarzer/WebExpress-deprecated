@@ -59,7 +59,7 @@ namespace WebExpress.WebApp.WebIdentity
                 var description = string.Empty;
                 var moduleID = string.Empty;
 
-                foreach (var customAttribute in type.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(WebExIModuleAttribute))))
+                foreach (var customAttribute in type.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IModuleAttribute))))
                 {
                     if (customAttribute.AttributeType == typeof(WebExIDAttribute))
                     {

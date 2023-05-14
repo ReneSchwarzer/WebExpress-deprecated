@@ -5,7 +5,7 @@
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">The id.</param>
         public ControlToolBarItemButton(string id = null)
             : base(id)
         {

@@ -19,7 +19,7 @@ namespace WebExpress.WebApp.WebApiControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">The id.</param>
         public ControlApiProgressBarTaskState(string id)
             : base(id ?? Guid.NewGuid().ToString())
         {

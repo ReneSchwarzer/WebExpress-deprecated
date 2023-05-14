@@ -15,7 +15,7 @@
         }
 
         /// <summary>
-        /// Liefert oder setzt den Typ
+        /// Returns or sets the type.
         /// </summary>
         public string Rel
         {
@@ -24,7 +24,7 @@
         }
 
         /// <summary>
-        /// Liefert oder setzt den Typ
+        /// Returns or sets the type.
         /// </summary>
         public string Type
         {

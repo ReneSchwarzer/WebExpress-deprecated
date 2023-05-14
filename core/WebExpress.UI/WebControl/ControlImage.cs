@@ -11,12 +11,12 @@ namespace WebExpress.UI.WebControl
         public string Uri { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Weite
+        /// Returns or sets the width.
         /// </summary>
         public new int Width { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Höhe
+        /// Returns or sets the height.
         /// </summary>
         public new int Height { get; set; }
 
@@ -28,7 +28,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">The id.</param>
         public ControlImage(string id = null)
             : base(id)
         {
@@ -37,7 +37,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">The id.</param>
         /// <param name="source">Die Bildquelle</param>
         public ControlImage(string id, string source)
             : base(id)

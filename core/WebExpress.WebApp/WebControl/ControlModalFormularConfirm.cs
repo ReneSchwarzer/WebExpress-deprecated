@@ -34,14 +34,14 @@ namespace WebExpress.WebApp.WebControl
         public new ControlFormularItem Content { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Weiterleitungs-Uri
+        /// Returns or sets the width.rleitungs-Uri
         /// </summary>
         public string RedirectUri { get { return Formular?.RedirectUri; } set { Formular.RedirectUri = value; } }
 
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">The id.</param>
         public ControlModalFormularConfirm(string id = null)
             : this(id, null)
         {
@@ -51,7 +51,7 @@ namespace WebExpress.WebApp.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">The id.</param>
         /// <param name="content">Die Formularsteuerelemente</param>
         public ControlModalFormularConfirm(string id, params ControlFormularItem[] content)
             : base(id, string.Empty, content)

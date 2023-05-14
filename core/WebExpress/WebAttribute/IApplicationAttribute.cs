@@ -3,7 +3,7 @@
     /// <summary>
     /// Kennzeichnet eine Klasse als Anwendungs-Komponente
     /// </summary>
-    public interface WebExIApplicationAttribute
+    public interface IApplicationAttribute
     {
     }
 }

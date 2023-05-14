@@ -3,7 +3,7 @@
     /// <summary>
     /// Angabe der ModulID
     /// </summary>
-    public class WebExModuleAttribute : System.Attribute, IResourceAttribute, WebExIModuleAttribute
+    public class WebExModuleAttribute : System.Attribute, IResourceAttribute, IModuleAttribute
     {
         /// <summary>
         /// Constructor

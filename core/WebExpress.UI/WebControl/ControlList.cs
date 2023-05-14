@@ -34,7 +34,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">The id.</param>
         public ControlList(string id = null)
             : base(id)
         {
@@ -44,7 +44,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">The id.</param>
         /// <param name="items">Die Listeneinträge</param>
         public ControlList(string id, params ControlListItem[] items)
             : base(id)
@@ -64,7 +64,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">The id.</param>
         /// <param name="items">Die Listeneinträge</param>
         public ControlList(string id, List<ControlListItem> items)
             : base(id)

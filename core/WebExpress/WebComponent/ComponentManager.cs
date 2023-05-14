@@ -247,7 +247,7 @@ namespace WebExpress.WebComponent
                 var id = type.Name?.ToLower();
 
                 // determining attributes
-                foreach (var customAttribute in type.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(WebExIApplicationAttribute))))
+                foreach (var customAttribute in type.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IApplicationAttribute))))
                 {
                     if (customAttribute.AttributeType == typeof(WebExIDAttribute))
                     {

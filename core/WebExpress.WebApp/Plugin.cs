@@ -11,6 +11,7 @@ namespace WebExpress.WebApp
     [WebExName("WebExpress.WebApp")]
     [WebExDescription("plugin.description")]
     [WebExIcon("/assets/img/Logo.png")]
+    [WebExDependency("webexpress.ui")]
     public sealed class Plugin : IPlugin
     {
         /// <summary>

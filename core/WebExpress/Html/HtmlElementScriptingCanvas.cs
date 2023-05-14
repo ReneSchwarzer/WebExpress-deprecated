@@ -8,7 +8,7 @@ namespace WebExpress.Html
     public class HtmlElementScriptingCanvas : HtmlElement, IHtmlElementScripting
     {
         /// <summary>
-        /// Liefert oder setzt die Weite
+        /// Returns or sets the width.
         /// </summary>
         public int Width
         {
@@ -17,7 +17,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Liefert oder setzt die Weite
+        /// Returns or sets the width.
         /// </summary>
         public int Height
         {

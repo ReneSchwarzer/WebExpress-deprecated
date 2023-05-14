@@ -20,7 +20,7 @@ namespace WebExpress.WebApp.WebResource
         public string Icon { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Weite der Tabellenspalte in %, null für auto
+        /// Returns or sets the width. der Tabellenspalte in %, null für auto
         /// </summary>
         [JsonPropertyName("width")]
         public uint? Width { get; set; }

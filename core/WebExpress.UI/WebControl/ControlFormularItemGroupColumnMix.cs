@@ -12,7 +12,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">The id.</param>
         public ControlFormularItemGroupColumnMix(string id = null)
             : base(id)
         {
@@ -21,7 +21,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">The id.</param>
         ///<param name="items">Das Formularsteuerelemente</param> 
         public ControlFormularItemGroupColumnMix(string id, params ControlFormularItem[] items)
             : base(id, items)
@@ -38,7 +38,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Initialisiert das Formularelement
+        /// Initializes the form element.
         /// </summary>
         /// <param name="context">The context in which the control is rendered.</param>
         public override void Initialize(RenderContextFormular context)

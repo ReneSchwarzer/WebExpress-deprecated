@@ -14,7 +14,7 @@ namespace WebExpress.Html
         public new List<IHtmlNode> Elements => base.Elements;
 
         /// <summary>
-        /// Liefert oder setzt die Weite
+        /// Returns or sets the width.
         /// </summary>
         public int Width
         {
@@ -23,7 +23,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Liefert oder setzt die Weite
+        /// Returns or sets the width.
         /// </summary>
         public int Height
         {

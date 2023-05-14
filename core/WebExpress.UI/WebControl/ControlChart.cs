@@ -12,66 +12,66 @@ namespace WebExpress.UI.WebControl
     public class ControlChart : Control
     {
         /// <summary>
-        /// Liefert oder setzt den Typ
+        /// Returns or sets the type.
         /// </summary>
         public TypeChart Type { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt den Titel
+        /// Returns or sets the title.
         /// </summary>
         public string Title { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt den Titel der X-Achse
+        /// Returns or sets the title of the x-axis.
         /// </summary>
         public string TitleX { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt den Titel der Y-Achse
+        /// Returns or sets the title of the y-axis.
         /// </summary>
         public string TitleY { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Daten
+        /// Returns or sets the data.
         /// </summary>
         public ICollection<string> Labels { get; set; } = new List<string>();
 
         /// <summary>
-        /// Liefert oder setzt die Weite
+        /// Returns or sets the width.
         /// </summary>
         public new int Width { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Höhe
+        /// Returns or sets the height.
         /// </summary>
         public new int Height { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt das Minimum
+        /// Returns or sets the minimum.
         /// </summary>
         public float Minimum { get; set; } = float.MinValue;
 
         /// <summary>
-        /// Liefert oder setzt das Maximum
+        /// Returns or sets the maximum.
         /// </summary>
         public float Maximum { get; set; } = float.MaxValue;
 
         /// <summary>
-        /// Liefert oder setzt die Daten
+        /// Returns or sets the data.
         /// </summary>
         public ICollection<ControlChartDataset> Data { get; set; } = new List<ControlChartDataset>();
 
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">The id.</param>
         public ControlChart(string id = null)
             : base(id)
         {
         }
 
         /// <summary>
-        /// Initialisiert das Formularelement
+        /// Initializes the form element.
         /// </summary>
         /// <param name="context">The context in which the control is rendered.</param>
         public void Initialize(RenderContext context)

@@ -3,10 +3,10 @@
 namespace WebExpress.WebAttribute
 {
     /// <summary>
-    /// Markeirt eine Ressource als optional. Diese wird aktiv, wenn in der Anwendung die Option angegeben wird.
+    /// Marks a resource as optional. This becomes active when the option is specified in the application.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
-    public class WebExOptionalAttribute : System.Attribute, IResourceAttribute
+    public class WebExOptionalAttribute : Attribute, IResourceAttribute
     {
         /// <summary>
         /// Constructor

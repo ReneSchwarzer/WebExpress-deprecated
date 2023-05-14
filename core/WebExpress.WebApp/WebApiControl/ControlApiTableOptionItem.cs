@@ -13,7 +13,7 @@ namespace WebExpress.WebApp.WebApiControl
         public enum OptionType { Item, Header, Divider };
 
         /// <summary>
-        /// Liefert oder setzt den Typ des Optionseintrages
+        /// Returns or sets the type. des Optionseintrages
         /// </summary>
         [JsonIgnore]
         public OptionType Type { get; private set; }

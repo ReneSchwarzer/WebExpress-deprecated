@@ -58,9 +58,15 @@ pluginmanager.created=The plugin '{0}' was created and registered in the plugin 
 pluginmanager.duplicate=The plugin '{0}' has already been registered in plugin manager.
 pluginmanager.notavailable=The plugin '{0}' does not exist in plugin manager.
 pluginmanager.plugin=Plugin: '{0}'
+pluginmanager.pluginmanager.label=Plugin manager:
+pluginmanager.pluginmanager.system=System plugin: '{0}'
+pluginmanager.pluginmanager.custom=custom plugin: '{0}'
+pluginmanager.pluginmanager.unfulfilleddependencies=Plugin with unfulfilled dependencies: '{0}'
 pluginmanager.plugin.initialization=The plugin '{0}' has been initialized.
 pluginmanager.plugin.processing.start=The plugin '{0}' is running.
 pluginmanager.plugin.processing.end=The running of the plugin '{0}' has been stopped.
+pluginmanager.fulfilleddependencies=The plugin '{0}' fulfills all dependencies.
+pluginmanager.unfulfilleddependencies=The plugin '{0}' does not fulfill a dependency on the plugin '{1}'.
 
 applicationmanager.initialization=The application manager has been initialized.
 applicationmanager.registerapplication=The application '{0}' has been created and registered in the application manager.

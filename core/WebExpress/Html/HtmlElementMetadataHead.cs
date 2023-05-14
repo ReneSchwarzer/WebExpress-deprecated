@@ -10,7 +10,7 @@ namespace WebExpress.Html
     public class HtmlElementMetadataHead : HtmlElement, IHtmlElementMetadata
     {
         /// <summary>
-        /// Liefert oder setzt den Titel
+        /// Returns or sets the title.
         /// </summary>
         public string Title
         {
@@ -24,7 +24,7 @@ namespace WebExpress.Html
         private HtmlElementMetadataTitle ElementTitle { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt den Titel
+        /// Returns or sets the title.
         /// </summary>
         public string Base
         {

@@ -1,6 +1,6 @@
 ﻿namespace WebExpress.WebAttribute
 {
-    public class WebExIconAttribute : System.Attribute, IPluginAttribute, WebExIApplicationAttribute, WebExIModuleAttribute
+    public class WebExIconAttribute : System.Attribute, IPluginAttribute, IApplicationAttribute, IModuleAttribute
     {
         /// <summary>
         /// Constructor

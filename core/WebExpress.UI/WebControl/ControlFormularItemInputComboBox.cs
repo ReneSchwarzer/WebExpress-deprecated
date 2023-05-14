@@ -30,7 +30,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">The id.</param>
         public ControlFormularItemInputComboBox(string id = null)
             : base(id)
         {
@@ -40,7 +40,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">The id.</param>
         /// <param name="items">Die ComboBox-Einträge</param>
         public ControlFormularItemInputComboBox(string id, params string[] items)
             : this(id)
@@ -61,7 +61,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">The id.</param>
         /// <param name="items">Die ComboBox-Einträge</param>
         public ControlFormularItemInputComboBox(string id, string name, IEnumerable<ControlFormularItemInputComboBoxItem> items)
             : this(id, name)
@@ -70,7 +70,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Initialisiert das Formularelement
+        /// Initializes the form element.
         /// </summary>
         /// <param name="context">The context in which the control is rendered.</param>
         public override void Initialize(RenderContextFormular context)

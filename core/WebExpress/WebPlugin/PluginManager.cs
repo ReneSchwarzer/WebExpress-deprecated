@@ -37,6 +37,11 @@ namespace WebExpress.WebPlugin
         private PluginDictionary Dictionary { get; } = new PluginDictionary();
 
         /// <summary>
+        /// Plugins that do not meet the dependencies.
+        /// </summary>
+        private PluginDictionary UnfulfilledDependencies { get; } = new PluginDictionary();
+
+        /// <summary>
         /// Returns all plugins.
         /// </summary>
         public ICollection<IPluginContext> Plugins => Dictionary.Values.Select(x => x.PluginContext).ToList();
@@ -107,10 +112,13 @@ namespace WebExpress.WebPlugin
             }
 
             // register plugin
-            foreach (var assembly in assemblies.OrderBy(x => x.GetCustomAttribute(typeof(WebExSystemPluginAttribute)) != null ? 0 : 1))
+            foreach (var assembly in assemblies
+                .OrderBy(x => x.GetCustomAttribute(typeof(WebExSystemPluginAttribute)) != null ? 0 : 1))
             {
                 Register(assembly);
             }
+
+            Logging();
         }
 
         /// <summary>
@@ -159,6 +167,8 @@ namespace WebExpress.WebPlugin
                 pluginContexts.AddRange(Register(assembly));
             }
 
+            Logging();
+
             return pluginContexts;
         }
 
@@ -183,6 +193,8 @@ namespace WebExpress.WebPlugin
                     var name = type.Assembly.GetCustomAttribute<AssemblyTitleAttribute>()?.Title;
                     var icon = string.Empty;
                     var description = type.Assembly.GetCustomAttribute<AssemblyDescriptionAttribute>()?.Description;
+                    var dependencies = new List<string>();
+                    var hasUnfulfilledDependencies = false;
 
                     foreach (var customAttribute in type.CustomAttributes
                         .Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IPluginAttribute))))
@@ -206,6 +218,11 @@ namespace WebExpress.WebPlugin
                         {
                             description = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                         }
+
+                        if (customAttribute.AttributeType == typeof(WebExDependencyAttribute))
+                        {
+                            dependencies.Add(customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString());
+                        }
                     }
 
                     var pluginContext = new PluginContext()
@@ -222,7 +239,19 @@ namespace WebExpress.WebPlugin
                         Host = HttpServerContext
                     };
 
-                    if (!Dictionary.ContainsKey(id))
+                    hasUnfulfilledDependencies = HasUnfulfilledDependencies(id, dependencies);
+
+                    if (hasUnfulfilledDependencies)
+                    {
+                        UnfulfilledDependencies.Add(id, new PluginItem()
+                        {
+                            PluginClass = type,
+                            PluginContext = pluginContext,
+                            Plugin = null,
+                            Dependencies = dependencies
+                        });
+                    }
+                    else if (!Dictionary.ContainsKey(id))
                     {
                         list.Add(pluginContext);
 
@@ -230,7 +259,8 @@ namespace WebExpress.WebPlugin
                         {
                             PluginClass = type,
                             PluginContext = pluginContext,
-                            Plugin = null
+                            Plugin = null,
+                            Dependencies = dependencies
                         });
 
                         HttpServerContext.Log.Debug
@@ -239,6 +269,8 @@ namespace WebExpress.WebPlugin
                         );
 
                         OnAddPlugin(pluginContext);
+
+                        CheckUnfulfilledDependencies();
                     }
                     else
                     {
@@ -258,6 +290,76 @@ namespace WebExpress.WebPlugin
         }
 
         /// <summary>
+        /// Check if dependencies of other plugins are now fulfilled after a plugin has been added.
+        /// </summary>
+        private void CheckUnfulfilledDependencies()
+        {
+            bool fulfilledDependencies;
+
+            do
+            {
+                fulfilledDependencies = false;
+
+                foreach (var unfulfilledDependencies in UnfulfilledDependencies)
+                {
+                    var hasUnfulfilledDependencies = HasUnfulfilledDependencies
+                    (
+                        unfulfilledDependencies.Key,
+                        unfulfilledDependencies.Value.Dependencies
+                    );
+
+                    if (!hasUnfulfilledDependencies)
+                    {
+                        fulfilledDependencies = true;
+                        UnfulfilledDependencies.Remove(unfulfilledDependencies.Key);
+                        Dictionary.Add(unfulfilledDependencies.Key, unfulfilledDependencies.Value);
+
+                        OnAddPlugin(unfulfilledDependencies.Value.PluginContext);
+
+                        HttpServerContext.Log.Debug
+                        (
+                            InternationalizationManager.I18N
+                            (
+                                "webexpress:pluginmanager.fulfilleddependencies",
+                                unfulfilledDependencies.Key
+                            )
+                        );
+                    }
+                }
+            } while (fulfilledDependencies);
+        }
+
+        /// <summary>
+        /// Checks if there are any unfulfilled dependencies.
+        /// </summary>
+        /// <param name="id">The id of the plugin.</param>
+        /// <param name="dependencies">The dependencies to check.</param>
+        /// <returns>True if dependencies exist, false otherwise</returns>
+        private bool HasUnfulfilledDependencies(string id, IEnumerable<string> dependencies)
+        {
+            var hasUnfulfilledDependencies = false;
+
+            foreach (var dependency in dependencies
+                   .Where(x => !Dictionary.ContainsKey(x.ToLower())))
+            {
+                // dependency was not fulfilled
+                hasUnfulfilledDependencies = true;
+
+                HttpServerContext.Log.Debug
+                (
+                    InternationalizationManager.I18N
+                    (
+                        "webexpress:pluginmanager.unfulfilleddependencies",
+                        id,
+                        dependency
+                    )
+                );
+            }
+
+            return hasUnfulfilledDependencies;
+        }
+
+        /// <summary>
         /// Returns a plugin context based on its ID.
         /// </summary>
         /// <param name="id">The id of the plugin.</param>
@@ -265,7 +367,11 @@ namespace WebExpress.WebPlugin
         public IPluginContext GetPlugin(string id)
         {
             return Dictionary.Values
-                .Where(x => x.PluginContext != null && x.PluginContext.PluginID.Equals(id, StringComparison.OrdinalIgnoreCase))
+                .Where
+                (
+                    x => x.PluginContext != null &&
+                    x.PluginContext.PluginID.Equals(id, StringComparison.OrdinalIgnoreCase)
+                )
                 .Select(x => x.PluginContext)
                 .FirstOrDefault();
         }
@@ -312,7 +418,8 @@ namespace WebExpress.WebPlugin
                 (
                     InternationalizationManager.I18N
                     (
-                        "webexpress:pluginmanager.plugin.processing.start", plugin.PluginContext.PluginID
+                        "webexpress:pluginmanager.plugin.processing.start",
+                        plugin.PluginContext.PluginID
                     )
                 );
 
@@ -378,6 +485,63 @@ namespace WebExpress.WebPlugin
         private void OnRemovePlugin(IPluginContext pluginContext)
         {
             RemovePlugin?.Invoke(this, pluginContext);
+        }
+
+        /// <summary>
+        /// Output of the loaded plugins to the log.
+        /// </summary>
+        private void Logging()
+        {
+            using (var frame = new LogFrameSimple(HttpServerContext.Log))
+            {
+                var list = new List<string>();
+                HttpServerContext.Log.Info
+                (
+                    InternationalizationManager.I18N
+                    (
+                        "webexpress:pluginmanager.pluginmanager.label"
+                    )
+                );
+
+                list.AddRange(Dictionary
+                    .Where
+                    (
+                        x => x.Value.PluginClass.Assembly
+                            .GetCustomAttribute(typeof(WebExSystemPluginAttribute)) != null
+                    )
+                    .Select(x => InternationalizationManager.I18N
+                    (
+                        "webexpress:pluginmanager.pluginmanager.system",
+                        x.Key
+                    ))
+                );
+
+                list.AddRange(Dictionary
+                    .Where
+                    (
+                        x => x.Value.PluginClass.Assembly
+                            .GetCustomAttribute(typeof(WebExSystemPluginAttribute)) == null
+                    )
+                    .Select(x => InternationalizationManager.I18N
+                    (
+                        "webexpress:pluginmanager.pluginmanager.custom",
+                        x.Key
+                    ))
+                );
+
+                list.AddRange(UnfulfilledDependencies
+                    .Select(x => InternationalizationManager.I18N
+                    (
+                        "webexpress:pluginmanager.pluginmanager.unfulfilleddependencies",
+                        x.Key
+                    ))
+                );
+
+                foreach (var item in list)
+                {
+                    HttpServerContext.Log.Info(string.Join(Environment.NewLine, item));
+                }
+            }
         }
     }
 }

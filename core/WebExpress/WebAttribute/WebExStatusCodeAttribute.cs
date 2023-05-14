@@ -3,7 +3,7 @@
 namespace WebExpress.WebAttribute
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
-    public class WebExStatusCodeAttribute : System.Attribute, WebExIApplicationAttribute
+    public class WebExStatusCodeAttribute : System.Attribute, IApplicationAttribute
     {
         /// <summary>
         /// Constructor

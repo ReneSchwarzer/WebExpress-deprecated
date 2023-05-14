@@ -8,7 +8,7 @@ namespace WebExpress.WebResource
     public abstract class ResourceBinary : Resource
     {
         /// <summary>
-        /// Liefert oder setzt die Daten
+        /// Returns or sets the data.
         /// </summary>
         public byte[] Data { get; set; }
 

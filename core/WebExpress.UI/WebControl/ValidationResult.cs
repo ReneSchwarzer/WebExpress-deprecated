@@ -3,7 +3,7 @@
     public class ValidationResult
     {
         /// <summary>
-        /// Liefert oder setzt den Typ des Fehlers
+        /// Returns or sets the type. des Fehlers
         /// </summary>
         public TypesInputValidity Type { get; private set; }
 

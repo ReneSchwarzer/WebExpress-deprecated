@@ -7,7 +7,7 @@ namespace WebExpress.WebMessage
     public class RequestAuthorization
     {
         /// <summary>
-        /// Liefert oder setzt den Type (Basic bei WWW-Authenticate: Basic realm="RealmName")
+        /// Returns or sets the type.e (Basic bei WWW-Authenticate: Basic realm="RealmName")
         /// </summary>
         public string Type { get; set; }
 

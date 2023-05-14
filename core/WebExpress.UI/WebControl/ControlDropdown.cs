@@ -97,19 +97,19 @@ namespace WebExpress.UI.WebControl
         public string Image { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Höhe
+        /// Returns or sets the height.
         /// </summary>
         public new int Height { get; set; } = -1;
 
         /// <summary>
-        /// Liefert oder setzt die Weite
+        /// Returns or sets the width.
         /// </summary>
         public new int Width { get; set; } = -1;
 
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">The id.</param>
         public ControlDropdown(string id = null)
             : base(id)
         {
@@ -119,7 +119,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">The id.</param>
         /// <param name="content">The content of the html element.</param>
         public ControlDropdown(string id, params IControlDropdownItem[] content)
             : base(id)
@@ -144,7 +144,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">The id.</param>
         /// <param name="content">The content of the html element.</param>
         public ControlDropdown(string id, IEnumerable<IControlDropdownItem> content)
             : base(id)

@@ -3,7 +3,7 @@
 namespace WebExpress.WebAttribute
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
-    public class WebExApplicationAttribute : Attribute, WebExIModuleAttribute
+    public class WebExApplicationAttribute : Attribute, IModuleAttribute
     {
         /// <summary>
         /// Constructor

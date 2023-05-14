@@ -5,12 +5,12 @@ namespace WebExpress.UI.WebControl
     public class ControlChartDataset
     {
         /// <summary>
-        /// Liefert oder setzt den Titel
+        /// Returns or sets the title.
         /// </summary>
         public string Title { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Daten
+        /// Returns or sets the data.
         /// </summary>
         public float[] Data { get; set; }
 

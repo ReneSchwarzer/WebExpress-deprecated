@@ -3,7 +3,7 @@
     /// <summary>
     /// Kennzeichnet eine Klasse als Modul-Komponente
     /// </summary>
-    public interface WebExIModuleAttribute
+    public interface IModuleAttribute
     {
     }
 }

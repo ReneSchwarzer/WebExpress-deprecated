@@ -44,14 +44,14 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">The id.</param>
         public ControlFormularItemInputDatepicker(string id = null)
             : base(!string.IsNullOrWhiteSpace(id) ? id : "datepicker")
         {
         }
 
         /// <summary>
-        /// Initialisiert das Formularelement
+        /// Initializes the form element.
         /// </summary>
         /// <param name="context">The context in which the control is rendered.</param>
         public override void Initialize(RenderContextFormular context)

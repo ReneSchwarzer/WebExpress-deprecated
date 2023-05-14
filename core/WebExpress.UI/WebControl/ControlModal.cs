@@ -41,7 +41,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">The id.</param>
         public ControlModal(string id)
             : base(!string.IsNullOrWhiteSpace(id) ? id : "modal")
         {
@@ -51,7 +51,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">The id.</param>
         /// <param name="header">Die Überschrift</param>
         public ControlModal(string id, string header)
             : this(id)
@@ -62,7 +62,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">The id.</param>
         /// <param name="header">Die Überschrift</param>
         /// <param name="content">The content of the html element.</param>
         public ControlModal(string id, string header, params Control[] content)
@@ -77,7 +77,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">The id.</param>
         /// <param name="text">The text.</param>
         /// <param name="content">The content of the html element.</param>
         public ControlModal(string id, string text, IEnumerable<Control> content)
@@ -89,7 +89,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">The id.</param>
         /// <param name="text">The text.</param>
         /// <param name="content">The content of the html element.</param>
         public ControlModal(string id = null, params Control[] content)

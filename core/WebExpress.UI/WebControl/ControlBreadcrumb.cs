@@ -39,7 +39,7 @@ namespace WebExpress.UI.WebControl
         /// Constructor
         /// </summary>
         /// <param name="page">Die zugehörige Seite</param>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">The id.</param>
         public ControlBreadcrumb(string id = null)
             : base(id)
         {

@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace WebExpress.WebPlugin
 {
     /// <summary>
-    /// Repräsentiert ein Plugineintrag
+    /// Represents a plugin entry.
     /// </summary>
     internal class PluginItem
     {
@@ -13,13 +14,18 @@ namespace WebExpress.WebPlugin
         public Type PluginClass { get; internal set; }
 
         /// <summary>
-        /// Der zum Plugin zugehörige Kontext
+        /// The context associated with the plugin.
         /// </summary>
-        public IPluginContext PluginContext { get; set; }
+        public IPluginContext PluginContext { get; internal set; }
 
         /// <summary>
-        /// Das Plugin
+        /// The plugin.
         /// </summary>
-        public IPlugin Plugin { get; set; }
+        public IPlugin Plugin { get; internal set; }
+
+        /// <summary>
+        /// The dependencies of the plugin.
+        /// </summary>
+        public IEnumerable<string> Dependencies { get; internal set; } = new List<string>();
     }
 }

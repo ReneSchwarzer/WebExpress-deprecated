@@ -77,7 +77,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">The id.</param>
         public ControlSplitButton(string id = null)
             : base(id)
         {
@@ -99,7 +99,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">The id.</param>
         /// <param name="items">The content of the html element.</param>
         public ControlSplitButton(string id, params IControlSplitButtonItem[] items)
             : base(id)
@@ -112,7 +112,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">The id.</param>
         /// <param name="items">The content of the html element.</param>
         public ControlSplitButton(string id, IEnumerable<IControlSplitButtonItem> items)
             : base(id)

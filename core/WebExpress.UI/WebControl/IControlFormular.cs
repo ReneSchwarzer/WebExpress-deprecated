@@ -41,7 +41,7 @@ namespace WebExpress.UI.WebControl
         string Uri { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Weiterleitungs-Url
+        /// Returns or sets the width.rleitungs-Url
         /// </summary>
         string RedirectUri { get; set; }
 

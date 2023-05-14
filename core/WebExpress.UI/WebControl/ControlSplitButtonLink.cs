@@ -21,7 +21,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">The id.</param>
         public ControlSplitButtonLink(string id)
             : base(id)
         {
@@ -31,7 +31,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">The id.</param>
         /// <param name="content">The content of the html element.</param>
         public ControlSplitButtonLink(string id, params IControlSplitButtonItem[] content)
             : base(id)
@@ -56,7 +56,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">The id.</param>
         /// <param name="content">The content of the html element.</param>
         public ControlSplitButtonLink(string id, IEnumerable<IControlSplitButtonItem> content)
             : base(id)
@@ -69,7 +69,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">The id.</param>
         /// <param name="content">The content of the html element.</param>
         public ControlSplitButtonLink(IEnumerable<IControlSplitButtonItem> content)
             : base(id: null)

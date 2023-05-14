@@ -108,7 +108,9 @@ namespace WebExpress.WebModule
                 var dataPath = string.Empty;
                 var applicationIDs = new List<string>();
 
-                foreach (var customAttribute in type.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(WebExIModuleAttribute))))
+                foreach (var customAttribute in type.CustomAttributes
+                    .Where(x => x.AttributeType.GetInterfaces()
+                    .Contains(typeof(IModuleAttribute))))
                 {
                     if (customAttribute.AttributeType == typeof(WebExIDAttribute))
                     {

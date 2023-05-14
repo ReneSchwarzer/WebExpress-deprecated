@@ -1,11 +1,17 @@
-﻿namespace WebExpress.WebAttribute
+﻿using System;
+
+namespace WebExpress.WebAttribute
 {
-    public class WebExIDAttribute : System.Attribute, IResourceAttribute, IPluginAttribute, WebExIApplicationAttribute, WebExIModuleAttribute
+    /// <summary>
+    /// Adds an id over the attribute of a class.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
+    public class WebExIDAttribute : Attribute, IResourceAttribute, IPluginAttribute, IApplicationAttribute, IModuleAttribute
     {
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">The id.</param>
         public WebExIDAttribute(string id)
         {
 

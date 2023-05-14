@@ -15,7 +15,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Liefert oder setzt den Titel
+        /// Returns or sets the title.
         /// </summary>
         public string Title { get; set; }
 
@@ -40,7 +40,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">The id.</param>
         public ControlIcon(string id = null)
             : base(id)
         {

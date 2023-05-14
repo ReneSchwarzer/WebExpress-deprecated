@@ -6,7 +6,7 @@ namespace WebExpress.WebAttribute
     /// Aktivierung von Optionen (z.B. WebEx.WebApp.Setting.SystemInformation für die Anzeige der Systeminformationen)
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
-    public class WebExOptionAttribute : System.Attribute, WebExIApplicationAttribute
+    public class WebExOptionAttribute : System.Attribute, IApplicationAttribute
     {
         /// <summary>
         /// Constructor

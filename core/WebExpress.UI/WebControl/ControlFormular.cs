@@ -57,7 +57,7 @@ namespace WebExpress.UI.WebControl
         public string Uri { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Weiterleitungs-Uri
+        /// Returns or sets the width.rleitungs-Uri
         /// </summary>
         public string RedirectUri { get; set; }
 
@@ -97,7 +97,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">The id.</param>
         public ControlFormular(string id = null)
             : base(id)
         {
@@ -108,7 +108,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">The id.</param>
         /// <param name="items">Die Steuerelemente, welche dem Formular zugeordnet werden</param>
         public ControlFormular(string id, params ControlFormularItem[] items)
             : this(id)
