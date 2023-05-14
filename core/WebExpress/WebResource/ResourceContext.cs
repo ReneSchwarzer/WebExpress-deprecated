@@ -47,8 +47,8 @@ namespace WebExpress.WebResource
         /// Returns the parent or null if not used.
         /// </summary>
         public IResourceContext ParentContext => ComponentManager.ResourceManager.Resources
-            .Where(x => !string.IsNullOrWhiteSpace(ResourceItem.Parent))
-            .Where(x => x.ResourceID.Equals(ResourceItem.Parent, StringComparison.OrdinalIgnoreCase))
+            .Where(x => !string.IsNullOrWhiteSpace(ResourceItem.ParentID))
+            .Where(x => x.ResourceID.Equals(ResourceItem.ParentID, StringComparison.OrdinalIgnoreCase))
             .Where(x => x.ModuleContext.ApplicationContext == ModuleContext.ApplicationContext)
             .FirstOrDefault();
 

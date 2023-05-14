@@ -3,15 +3,15 @@
 namespace WebExpress.WebAttribute
 {
     /// <summary>
-    /// Aktivierung von Optionen (z.B. WebEx.WebApp.Setting.SystemInformation für die Anzeige der Systeminformationen)
+    /// Activation of options (e.g. 'webexpress.webapp.settinglog' or 'webexpress.webapp.*').
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
-    public class WebExOptionAttribute : System.Attribute, IApplicationAttribute
+    public class WebExOptionAttribute : Attribute, IApplicationAttribute
     {
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="option">Die Option, welche aktiviert werden soll</param>
+        /// <param name="option">The option to activate.</param>
         public WebExOptionAttribute(string option)
         {
 

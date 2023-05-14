@@ -133,7 +133,7 @@ namespace WebExpress.WebSitemap
                     (
                         "webexpress:sitemapmanager.preorder",
                         "  " + x.ToString().PadRight(60),
-                        x.ResourceItem?.ID ?? ""
+                        x.ResourceItem?.ResourceID ?? ""
                     ));
 
                 foreach (var node in preorder)
@@ -343,7 +343,7 @@ namespace WebExpress.WebSitemap
                 {
                     return new SearchResult()
                     {
-                        ID = node.ResourceItem.ID,
+                        ID = node.ResourceItem.ResourceID,
                         Title = node.ResourceItem.Title,
                         ApplicationContext = node.ApplicationContext,
                         ModuleContext = node.ModuleContext,
@@ -357,7 +357,7 @@ namespace WebExpress.WebSitemap
                 {
                     return new SearchResult()
                     {
-                        ID = node.ResourceItem.ID,
+                        ID = node.ResourceItem.ResourceID,
                         Title = node.ResourceItem.Title,
                         ApplicationContext = node.ApplicationContext,
                         ModuleContext = node.ModuleContext,
@@ -413,7 +413,7 @@ namespace WebExpress.WebSitemap
 
             if (instance is Resource resorce)
             {
-                resorce.ID = node.ResourceItem?.ID;
+                resorce.ID = node.ResourceItem?.ResourceID;
                 resorce.Uri = uri;
                 resorce.ApplicationContext = node.ResourceContext?.ModuleContext?.ApplicationContext;
                 resorce.ModuleContext = node.ResourceContext?.ModuleContext;

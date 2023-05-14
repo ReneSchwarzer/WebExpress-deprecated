@@ -108,6 +108,7 @@ namespace WebExpress.WebModule
                 var dataPath = string.Empty;
                 var applicationIDs = new List<string>();
 
+
                 foreach (var customAttribute in type.CustomAttributes
                     .Where(x => x.AttributeType.GetInterfaces()
                     .Contains(typeof(IModuleAttribute))))
@@ -116,38 +117,31 @@ namespace WebExpress.WebModule
                     {
                         id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
                     }
-
-                    if (customAttribute.AttributeType == typeof(WebExNameAttribute))
+                    else if (customAttribute.AttributeType == typeof(WebExNameAttribute))
                     {
                         name = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
-
-                    if (customAttribute.AttributeType == typeof(WebExIconAttribute))
+                    else if (customAttribute.AttributeType == typeof(WebExIconAttribute))
                     {
                         icon = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
-
-                    if (customAttribute.AttributeType == typeof(WebExDescriptionAttribute))
+                    else if (customAttribute.AttributeType == typeof(WebExDescriptionAttribute))
                     {
                         description = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
-
-                    if (customAttribute.AttributeType == typeof(WebExContextPathAttribute))
+                    else if (customAttribute.AttributeType == typeof(WebExContextPathAttribute))
                     {
                         contextPath = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
-
-                    if (customAttribute.AttributeType == typeof(WebExAssetPathAttribute))
+                    else if (customAttribute.AttributeType == typeof(WebExAssetPathAttribute))
                     {
                         assetPath = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
-
-                    if (customAttribute.AttributeType == typeof(WebExDataPathAttribute))
+                    else if (customAttribute.AttributeType == typeof(WebExDataPathAttribute))
                     {
                         dataPath = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
-
-                    if (customAttribute.AttributeType == typeof(WebExApplicationAttribute))
+                    else if (customAttribute.AttributeType == typeof(WebExApplicationAttribute))
                     {
                         applicationIDs.Add(customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower().Trim());
                     }

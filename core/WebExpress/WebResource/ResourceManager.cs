@@ -118,8 +118,8 @@ namespace WebExpress.WebResource
                 var includeSubPaths = false;
                 var moduleID = string.Empty;
                 var resourceContext = new List<string>();
-                var optional = false;
                 var conditions = new List<ICondition>();
+                var optional = false;
                 var cache = false;
 
                 foreach (var customAttribute in resource.CustomAttributes
@@ -157,10 +157,6 @@ namespace WebExpress.WebResource
                     {
                         resourceContext.Add(customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower());
                     }
-                    else if (customAttribute.AttributeType == typeof(WebExOptionalAttribute))
-                    {
-                        optional = true;
-                    }
                     else if (customAttribute.AttributeType == typeof(WebExConditionAttribute))
                     {
                         var condition = (Type)customAttribute.ConstructorArguments.FirstOrDefault().Value;
@@ -185,6 +181,10 @@ namespace WebExpress.WebResource
                     {
                         cache = true;
                     }
+                    else if (customAttribute.AttributeType == typeof(WebExOptionalAttribute))
+                    {
+                        optional = true;
+                    }
                 }
 
                 if (string.IsNullOrEmpty(moduleID))
@@ -206,18 +206,18 @@ namespace WebExpress.WebResource
                 {
                     var resourceItem = new ResourceItem()
                     {
-                        ID = id,
+                        ResourceID = id,
                         Title = title,
-                        Parent = parent,
+                        ParentID = parent,
                         ResourceClass = resource,
                         ModuleID = moduleID,
                         Context = resourceContext,
                         Cache = cache,
-                        Optional = optional,
                         Conditions = conditions,
                         ContextPath = new UriResource(contextPath),
                         IncludeSubPaths = includeSubPaths,
                         PathSegment = segment.ToPathSegment(),
+                        Optional = optional,
                         Log = HttpServerContext.Log
                     };
 
@@ -397,7 +397,7 @@ namespace WebExpress.WebResource
                     InternationalizationManager.I18N
                     (
                         "webexpress:resourcemanager.resource",
-                        resourcenItem.ID,
+                        resourcenItem.ResourceID,
                         string.Join(",", resourcenItem.ModuleID)
                     )
                 );

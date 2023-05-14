@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 using WebExpress.Internationalization;
 using WebExpress.WebCondition;
 using WebExpress.WebModule;
@@ -25,7 +27,7 @@ namespace WebExpress.WebResource
         /// <summary>
         /// Returns or sets the resource id.
         /// </summary>
-        public string ID { get; set; }
+        public string ResourceID { get; set; }
 
         /// <summary>
         /// Returns or sets the resource title.
@@ -35,7 +37,7 @@ namespace WebExpress.WebResource
         /// <summary>
         /// Returns or sets the parent id.
         /// </summary>
-        public string Parent { get; set; }
+        public string ParentID { get; set; }
 
         /// <summary>
         /// Returns or sets the type of resource.
@@ -75,11 +77,6 @@ namespace WebExpress.WebResource
         public bool IncludeSubPaths { get; set; }
 
         /// <summary>
-        /// Returns whether it is an optional resource that must be enabled in a linked application.
-        /// </summary>
-        public bool Optional { get; set; }
-
-        /// <summary>
         /// Returns the conditions that must be met for the resource to be active.
         /// </summary>
         public ICollection<ICondition> Conditions { get; set; }
@@ -88,6 +85,11 @@ namespace WebExpress.WebResource
         /// Returns whether the resource is created once and reused each time it is called.
         /// </summary>
         public bool Cache { get; set; }
+
+        /// <summary>
+        /// Returns whether it is a optional resource.
+        /// </summary>
+        public bool Optional { get; set; }
 
         /// <summary>
         /// Returns the log to write status messages to the console and to a log file.
@@ -119,7 +121,7 @@ namespace WebExpress.WebResource
             // only if no instance has been created yet
             if (Dictionary.ContainsKey(moduleContext))
             {
-                Log.Warning(message: InternationalizationManager.I18N("webexpress:resourcemanager.addresource.duplicate", ID, moduleContext.ModuleID));
+                Log.Warning(message: InternationalizationManager.I18N("webexpress:resourcemanager.addresource.duplicate", ResourceID, moduleContext.ModuleID));
 
                 return;
             }
@@ -129,15 +131,23 @@ namespace WebExpress.WebResource
             {
                 Context = Context,
                 Conditions = Conditions,
-                ResourceID = ID,
+                ResourceID = ResourceID,
                 ResourceTitle = Title,
                 Cache = Cache,
                 ResourceItem = this
             };
 
-            Dictionary.Add(moduleContext, resourceContext);
-
-            OnAddResource(resourceContext);
+            if
+            (
+                !Optional ||
+                moduleContext.ApplicationContext.Options.Contains($"{ModuleID.ToLower()}.{ResourceID.ToLower()}") ||
+                moduleContext.ApplicationContext.Options.Contains($"{ModuleID.ToLower()}.*") ||
+                moduleContext.ApplicationContext.Options.Where(x => Regex.Match($"{ModuleID.ToLower()}.{ResourceID.ToLower()}", x).Success).Any()
+            )
+            {
+                Dictionary.Add(moduleContext, resourceContext);
+                OnAddResource(resourceContext);
+            }
         }
 
         /// <summary>
@@ -210,7 +220,7 @@ namespace WebExpress.WebResource
         /// <returns>The resource element in its string representation.</returns>
         public override string ToString()
         {
-            return $"Resource '{ID}'";
+            return $"Resource '{ResourceID}'";
         }
     }
 }

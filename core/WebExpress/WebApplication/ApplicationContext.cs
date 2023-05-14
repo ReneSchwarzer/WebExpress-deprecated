@@ -27,9 +27,9 @@ namespace WebExpress.WebApplication
         public string Description { get; internal set; }
 
         /// <summary>
-        /// Returns the options used.
+        /// Returns an enumeration of options. Options enable optional resources.
         /// </summary>
-        public IReadOnlyCollection<string> Options { get; internal set; }
+        public IEnumerable<string> Options { get; internal set; }
 
         /// <summary>
         /// Returns the asset directory. This is mounted in the asset directory of the server.

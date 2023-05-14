@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using WebExpress.Internationalization;
@@ -119,17 +120,25 @@ namespace WebExpress.WebModule
                 ContextPath = UriResource.Combine(applicationContext.ContextPath, ContextPath)
             };
 
-            Dictionary.Add
+            if
             (
-                applicationContext,
-                new ModuleItemInstance()
-                {
-                    ModuleContext = moduleContext
-                }
-            );
+                Applications.Contains("*") ||
+                Applications.Contains(applicationContext.ApplicationID?.ToLower()) ||
+                Applications.Where(x => Regex.Match(applicationContext.ApplicationID?.ToLower(), x).Success).Any()
+            )
+            {
+                Dictionary.Add
+                (
+                    applicationContext,
+                    new ModuleItemInstance()
+                    {
+                        ModuleContext = moduleContext
+                    }
+                );
 
-            // raises the AddModule event
-            OnAddModule(moduleContext);
+                // raises the AddModule event
+                OnAddModule(moduleContext);
+            }
         }
 
         /// <summary>
