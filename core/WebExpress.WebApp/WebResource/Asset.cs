@@ -3,13 +3,12 @@
 namespace WebExpress.WebApp.WebResource
 {
     /// <summary>
-    /// Lieferung einer im Assamby eingebetteten Ressource
+    /// Delivery of a resource embedded in the assamby.
     /// </summary>
-    [WebExID("Asset")]
     [WebExSegment("assets")]
     [WebExContextPath("/")]
     [WebExIncludeSubPaths(true)]
-    [WebExModule("webexpress.webapp")]
+    [WebExModule(typeof(Module))]
     public sealed class Asset : WebExpress.WebResource.ResourceAsset
     {
         /// <summary>

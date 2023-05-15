@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 using WebExpress.Internationalization;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
+using WebExpress.WebModule;
 using WebExpress.WebPlugin;
+using WebExpress.WebResource;
 using WebExpress.WebUri;
 
 namespace WebExpress.WebApplication
@@ -89,9 +91,10 @@ namespace WebExpress.WebApplication
             var assembly = pluginContext.Assembly;
             var pluginDict = Dictionary[pluginContext];
 
-            foreach (var type in assembly.GetExportedTypes().Where(x => x.IsClass && x.IsSealed && x.GetInterface(typeof(IApplication).Name) != null))
+            foreach (var type in assembly.GetExportedTypes()
+                .Where(x => x.IsClass && x.IsSealed && x.GetInterface(typeof(IApplication).Name) != null))
             {
-                var id = type.Name?.ToLower();
+                var id = type.FullName?.ToLower();
                 var name = type.Name;
                 var icon = string.Empty;
                 var description = string.Empty;
@@ -101,9 +104,10 @@ namespace WebExpress.WebApplication
                 var options = new List<string>();
 
                 // determining attributes
-                foreach (var customAttribute in type.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IApplicationAttribute))))
+                foreach (var customAttribute in type.CustomAttributes
+                    .Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IApplicationAttribute))))
                 {
-                    if (customAttribute.AttributeType == typeof(WebExIDAttribute))
+                    if (customAttribute.AttributeType == typeof(WebExIdAttribute))
                     {
                         id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
                     }
@@ -133,7 +137,21 @@ namespace WebExpress.WebApplication
                     }
                     else if (customAttribute.AttributeType == typeof(WebExOptionAttribute))
                     {
-                        options.Add(customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower());
+                        var firstValue = customAttribute.ConstructorArguments.FirstOrDefault().Value;
+                        var secoundValue = customAttribute.ConstructorArguments.Skip(1).FirstOrDefault().Value;
+
+                        if (firstValue is string)
+                        {
+                            options.Add(firstValue?.ToString().ToLower());
+                        }
+                        else if (firstValue is Type m1 && m1.GetInterface(typeof(IModule).Name) != null && secoundValue == null)
+                        {
+                            options.Add($"{m1.FullName.ToLower()}.*");
+                        }
+                        else if (firstValue is Type m2 && m2.GetInterface(typeof(IModule).Name) != null && secoundValue is Type r && r.GetInterface(typeof(IResource).Name) != null)
+                        {
+                            options.Add($"{m2.FullName.ToLower()}.{r.FullName.ToLower()}");
+                        }
                     }
                 }
 

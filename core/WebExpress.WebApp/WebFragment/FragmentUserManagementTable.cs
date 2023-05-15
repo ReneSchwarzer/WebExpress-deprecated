@@ -9,7 +9,7 @@ using WebExpress.WebPage;
 namespace WebExpress.WebApp.WebFragment
 {
     [WebExSection(Section.ContentPrimary)]
-    [WebExModule("webexpress.webapp")]
+    [WebExModule(typeof(Module))]
     [WebExContext("webexpress.webapp.usermanagement.user")]
     [WebExCache()]
     //[Condition(typeof(ConditionUnix))]
@@ -32,7 +32,7 @@ namespace WebExpress.WebApp.WebFragment
         {
             base.Initialization(context, page);
 
-            var module = ComponentManager.ModuleManager.GetModule(page.ApplicationContext, "webexpress.webapp");
+            var module = ComponentManager.ModuleManager.GetModule(page.ApplicationContext, typeof(Module));
 
             RestApiUri = module.ContextPath.Append("/api/v1/user");
 

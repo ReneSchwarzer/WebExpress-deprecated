@@ -13,5 +13,14 @@ namespace WebExpress.WebAttribute
         {
 
         }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="parentClass">The parent class.</param>
+        public WebExParentAttribute(Type parentClass)
+        {
+
+        }
     }
 }

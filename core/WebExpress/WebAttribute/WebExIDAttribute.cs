@@ -6,13 +6,13 @@ namespace WebExpress.WebAttribute
     /// Adds an id over the attribute of a class.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
-    public class WebExIDAttribute : Attribute, IResourceAttribute, IPluginAttribute, IApplicationAttribute, IModuleAttribute
+    public class WebExIdAttribute : Attribute, IResourceAttribute, IPluginAttribute, IApplicationAttribute, IModuleAttribute
     {
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="id">The id.</param>
-        public WebExIDAttribute(string id)
+        public WebExIdAttribute(string id)
         {
 
         }

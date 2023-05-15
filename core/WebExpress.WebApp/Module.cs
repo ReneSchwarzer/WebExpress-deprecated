@@ -3,7 +3,6 @@ using WebExpress.WebModule;
 
 namespace WebExpress.WebApp
 {
-    [WebExID("webexpress.webapp")]
     [WebExApplication("*")]
     [WebExName("module.name")]
     [WebExDescription("module.description")]
@@ -20,16 +19,16 @@ namespace WebExpress.WebApp
         }
 
         /// <summary>
-        /// Initialization des Moduls. Hier können z.B. verwaltete Ressourcen geladen werden. 
+        /// Instillation of the module. Here, for example, managed resources can be loaded. 
         /// </summary>
-        /// <param name="context">Der Kontext, welcher für die Ausführung des Plugins gilt</param>
+        /// <param name="context">The context that applies to the execution of the plugin.</param>
         public void Initialization(IModuleContext context)
         {
 
         }
 
         /// <summary>
-        /// Wird aufgerufen, wenn das Modul mit der Arbeit beginnt. Der Aufruf erfolgt nebenläufig.
+        /// Invoked when the module starts working. The call is concurrent.
         /// </summary>
         public void Run()
         {
@@ -37,7 +36,7 @@ namespace WebExpress.WebApp
         }
 
         /// <summary>
-        /// Freigeben von nicht verwalteten Ressourcen, welche während der Verwendung reserviert wurden.
+        /// Release unmanaged resources that have been reserved during use.
         /// </summary>
         public void Dispose()
         {

@@ -42,7 +42,7 @@ namespace WebExpress.UI.WebPage
         {
             base.Initialization(context);
 
-            var module = ComponentManager.ModuleManager.GetModule(context?.ModuleContext?.ApplicationContext, "webexpress.ui");
+            var module = ComponentManager.ModuleManager.GetModule(context?.ModuleContext?.ApplicationContext, typeof(Module));
             if (module != null)
             {
                 var contextPath = module.ContextPath;

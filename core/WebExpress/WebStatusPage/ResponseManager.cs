@@ -89,7 +89,7 @@ namespace WebExpress.WebStatusPage
                 foreach (var customAttribute in resource.CustomAttributes
                     .Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IApplicationAttribute))))
                 {
-                    if (customAttribute.AttributeType == typeof(WebExIDAttribute))
+                    if (customAttribute.AttributeType == typeof(WebExIdAttribute))
                     {
                         id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
                     }

@@ -110,7 +110,7 @@ namespace WebExpress.WebResource
                 .Where(x => x.GetInterface(typeof(IResource).Name) != null)
                 .Where(x => x.GetInterface(typeof(IStatusPage).Name) == null))
             {
-                var id = resource.Name?.ToLower();
+                var id = resource.FullName?.ToLower();
                 var segment = null as ISegmentAttribute;
                 var title = resource.Name;
                 var parent = null as string;
@@ -125,7 +125,7 @@ namespace WebExpress.WebResource
                 foreach (var customAttribute in resource.CustomAttributes
                     .Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IResourceAttribute))))
                 {
-                    if (customAttribute.AttributeType == typeof(WebExIDAttribute))
+                    if (customAttribute.AttributeType == typeof(WebExIdAttribute))
                     {
                         id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
                     }

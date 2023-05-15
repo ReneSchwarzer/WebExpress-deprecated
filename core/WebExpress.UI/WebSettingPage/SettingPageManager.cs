@@ -17,7 +17,7 @@ namespace WebExpress.UI.SettingPage
     /// <summary>
     /// Management of settings pages.
     /// </summary>
-    [WebExID("webexpress.webapp.settingpagemanager")]
+    [WebExId("webexpress.webapp.settingpagemanager")]
     public sealed class SettingPageManager : IComponentPlugin
     {
         /// <summary>
@@ -86,7 +86,7 @@ namespace WebExpress.UI.SettingPage
             foreach (var settingPageType in pluginContext.Assembly.GetTypes()
                     .Where(x => x.IsClass && x.IsSealed && (x.GetInterfaces().Contains(typeof(IPageSetting)))))
             {
-                var id = settingPageType.Name?.ToLower();
+                var id = settingPageType.FullName?.ToLower();
                 var context = null as string;
                 var group = null as string;
                 var section = WebExSettingSection.Primary;
@@ -94,11 +94,11 @@ namespace WebExpress.UI.SettingPage
                 var hide = false;
                 var icon = null as PropertyIcon;
 
-                // determining Attributes
+                // determining attributes
                 foreach (var customAttribute in settingPageType.CustomAttributes
                     .Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IResourceAttribute))))
                 {
-                    if (customAttribute.AttributeType == typeof(WebExIDAttribute))
+                    if (customAttribute.AttributeType == typeof(WebExIdAttribute))
                     {
                         id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
@@ -120,7 +120,7 @@ namespace WebExpress.UI.SettingPage
                     }
                     else if (customAttribute.AttributeType == typeof(WebExModuleAttribute))
                     {
-                        moduleID = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
+                        moduleID = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
                     }
                     else if (customAttribute.AttributeType == typeof(WebExSettingIconAttribute))
                     {
@@ -153,12 +153,6 @@ namespace WebExpress.UI.SettingPage
 
                     continue;
                 }
-
-                //// Check if an optional resource
-                //if (resource.Optional)
-                //{
-                //    //continue;
-                //}
 
                 // Create meta information of the setting page
                 var page = new SettingPageDictionaryItem()

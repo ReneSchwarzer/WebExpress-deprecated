@@ -13,7 +13,7 @@ using WebExpress.WebPage;
 namespace WebExpress.WebApp.WebFragment
 {
     [WebExSection(Section.HeadlineSecondary)]
-    [WebExModule("webexpress.webapp")]
+    [WebExModule(typeof(Module))]
     [WebExContext("webexpress.webpp.systeminformation")]
     [WebExCondition(typeof(ConditionUnix))]
     public sealed class FragmentPropertyReboot : FragmentControlButtonLink

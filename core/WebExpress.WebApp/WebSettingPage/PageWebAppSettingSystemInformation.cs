@@ -11,18 +11,16 @@ using WebExpress.WebResource;
 namespace WebExpress.WebApp.WebSettingPage
 {
     /// <summary>
-    /// Einstellungsseite mit Systeminformationen
+    /// Settings page with system information.
     /// </summary>
-    /// 
-    [WebExID("SettingSystemInformation")]
     [WebExTitle("webexpress.webapp:setting.titel.systeminformation.label")]
     [WebExSegment("systeminformation", "webexpress.webapp:setting.titel.systeminformation.label")]
-    [WebExContextPath("/Setting")]
+    [WebExContextPath("/setting")]
     [WebExSettingSection(WebExSettingSection.Secondary)]
     [WebExSettingIcon(TypeIcon.InfoCircle)]
     [WebExSettingGroup("webexpress.webapp:setting.group.system.label")]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
-    [WebExModule("webexpress.webapp")]
+    [WebExModule(typeof(Module))]
     [WebExContext("admin")]
     [WebExContext("webexpress.webpp.systeminformation")]
     [WebExOptional]

@@ -17,7 +17,7 @@ namespace WebExpress.UI.WebFragment
     /// <summary>
     /// Fragment manager.
     /// </summary>
-    [WebExID("webexpress.webui.fragmentmanager")]
+    [WebExId("webexpress.webui.fragmentmanager")]
     public sealed class FragmentManager : IComponentPlugin
     {
         /// <summary>

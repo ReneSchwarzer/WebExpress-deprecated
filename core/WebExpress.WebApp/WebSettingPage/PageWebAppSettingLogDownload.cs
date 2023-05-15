@@ -1,17 +1,17 @@
 ﻿using System.IO;
-using WebExpress.WebMessage;
 using WebExpress.WebAttribute;
+using WebExpress.WebMessage;
 using WebExpress.WebResource;
 
 namespace WebExpress.WebApp.WebSettingPage
 {
     /// <summary>
-    /// Download der Logdatei
+    /// Download the log file.
     /// </summary>
-    [WebExID("SettingLogDownload")]
     [WebExSegment("download", "")]
-    [WebExContextPath("/Setting/SettingLog")]
-    [WebExModule("webexpress.webapp")]
+    [WebExContextPath("/")]
+    [WebExParent(typeof(PageWebAppSettingLog))]
+    [WebExModule(typeof(Module))]
     [WebExContext("admin")]
     [WebExOptional]
     public sealed class PageWebAppSettingLogDownload : ResourceBinary
@@ -34,7 +34,6 @@ namespace WebExpress.WebApp.WebSettingPage
             {
                 return new ResponseNotFound();
             }
-
 
             Data = File.ReadAllBytes(request.ServerContext.Log.Filename);
 

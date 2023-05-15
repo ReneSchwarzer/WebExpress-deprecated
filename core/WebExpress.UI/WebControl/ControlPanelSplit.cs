@@ -95,7 +95,7 @@ namespace WebExpress.UI.WebControl
         /// <param name="context">The context in which the control is rendered.</param>
         public void Initialize(RenderContext context)
         {
-            var module = ComponentManager.ModuleManager.GetModule(context.ApplicationContext, "webexpress.ui");
+            var module = ComponentManager.ModuleManager.GetModule(context.ApplicationContext, typeof(Module));
             if (module != null)
             {
                 context.VisualTree.HeaderScriptLinks.Add(UriResource.Combine(module.ContextPath, "/assets/js/split.min.js"));

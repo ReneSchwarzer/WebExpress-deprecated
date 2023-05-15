@@ -5,11 +5,10 @@ namespace WebExpress.UI.WebResource
     /// <summary>
     /// Delivery of a resource embedded in the assembly.
     /// </summary>
-    [WebExID("Asset")]
     [WebExSegment("assets")]
     [WebExContextPath("/")]
     [WebExIncludeSubPaths(true)]
-    [WebExModule("webexpress.ui")]
+    [WebExModule(typeof(Module))]
     public sealed class Asset : WebExpress.WebResource.ResourceAsset
     {
         /// <summary>

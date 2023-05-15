@@ -99,7 +99,7 @@ namespace WebExpress.WebModule
             foreach (var type in assembly.GetExportedTypes()
                 .Where(x => x.IsClass && x.IsSealed && x.GetInterface(typeof(IModule).Name) != null))
             {
-                var id = type.Name?.ToLower();
+                var id = type.FullName?.ToLower();
                 var name = type.Name;
                 var icon = string.Empty;
                 var description = string.Empty;
@@ -108,12 +108,11 @@ namespace WebExpress.WebModule
                 var dataPath = string.Empty;
                 var applicationIDs = new List<string>();
 
-
                 foreach (var customAttribute in type.CustomAttributes
                     .Where(x => x.AttributeType.GetInterfaces()
                     .Contains(typeof(IModuleAttribute))))
                 {
-                    if (customAttribute.AttributeType == typeof(WebExIDAttribute))
+                    if (customAttribute.AttributeType == typeof(WebExIdAttribute))
                     {
                         id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
                     }
@@ -281,6 +280,17 @@ namespace WebExpress.WebModule
                 .FirstOrDefault();
 
             return item;
+        }
+
+        /// <summary>
+        /// Determines the module for a given application context and module id.
+        /// </summary>
+        /// <param name="applicationContext">The context of the application.</param>
+        /// <param name="moduleClass">The module class.</param>
+        /// <returns>The context of the module or null.</returns>
+        public IModuleContext GetModule(IApplicationContext applicationContext, Type moduleClass)
+        {
+            return GetModule(applicationContext, moduleClass.FullName.ToLower());
         }
 
         /// <summary>

@@ -276,7 +276,7 @@ namespace WebExpress.WebModule
         /// <returns>The resource element in its string representation.</returns>
         public override string ToString()
         {
-            return "Module ${ID}";
+            return $"Module '{ModuleID}'";
         }
     }
 }

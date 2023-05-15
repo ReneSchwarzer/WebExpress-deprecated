@@ -18,7 +18,6 @@ namespace WebExpress.WebApp.WebSettingPage
     /// <summary>
     /// Settings page with information about the active plugins.
     /// </summary>
-    [WebExID("SettingPlugin")]
     [WebExTitle("webexpress.webapp:setting.titel.plugin.label")]
     [WebExSegment("plugin", "webexpress.webapp:setting.titel.plugin.label")]
     [WebExContextPath("/Setting")]
@@ -26,7 +25,7 @@ namespace WebExpress.WebApp.WebSettingPage
     [WebExSettingIcon(TypeIcon.PuzzlePiece)]
     [WebExSettingGroup("webexpress.webapp:setting.group.system.label")]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
-    [WebExModule("webexpress.webapp")]
+    [WebExModule(typeof(Module))]
     [WebExContext("admin")]
     [WebExContext("webexpress.webapp.plugin")]
     [WebExOptional]
@@ -119,7 +118,7 @@ namespace WebExpress.WebApp.WebSettingPage
         }
 
         /// <summary>
-        /// Ausführung des WebTask
+        /// Execution of the WebTask.
         /// </summary>
         /// <param name="sender">The trigger.</param>
         /// <param name="e">The event argument.</param>

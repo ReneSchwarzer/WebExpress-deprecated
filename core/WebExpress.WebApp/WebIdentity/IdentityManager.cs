@@ -47,7 +47,7 @@ namespace WebExpress.WebApp.WebIdentity
         /// <summary>
         /// Fügt Identitäts-Einträge hinzu
         /// </summary>
-        /// <param name="context">Der Kontext, welcher für die Ausführung des Plugins gilt</param>
+        /// <param name="context">The context that applies to the execution of the plugin.</param>
         public void Register(IModuleContext context)
         {
             var assembly = context.PluginContext.Assembly;
@@ -61,7 +61,7 @@ namespace WebExpress.WebApp.WebIdentity
 
                 foreach (var customAttribute in type.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IModuleAttribute))))
                 {
-                    if (customAttribute.AttributeType == typeof(WebExIDAttribute))
+                    if (customAttribute.AttributeType == typeof(WebExIdAttribute))
                     {
                         id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
                     }

@@ -7,17 +7,16 @@ using WebExpress.WebResource;
 namespace WebExpress.WebApp.WebSettingPage
 {
     /// <summary>
-    /// Einstellungsseiteder der Nutzer
+    /// Users settings page.
     /// </summary>
-    [WebExID("SettingUser")]
     [WebExTitle("webexpress.webapp:setting.usermanager.user.label")]
     [WebExSegment("user", "webexpress.webapp:setting.usermanager.user.label")]
-    [WebExContextPath("/Setting")]
+    [WebExContextPath("/setting")]
     [WebExSettingSection(WebExSettingSection.Primary)]
     [WebExSettingIcon(TypeIcon.User)]
     [WebExSettingGroup("webexpress.webapp:setting.usermanager.group.usermanagement.label")]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
-    [WebExModule("webexpress.webapp")]
+    [WebExModule(typeof(Module))]
     [WebExContext("admin")]
     [WebExContext("webexpress.webapp.usermanagement.user")]
     [WebExOptional]
@@ -41,7 +40,7 @@ namespace WebExpress.WebApp.WebSettingPage
         }
 
         /// <summary>
-        /// Vorverarbeitung
+        /// The processing of the request.
         /// </summary>
         /// <param name="context">The context for rendering the page.</param>
         public override void Process(RenderContextWebApp context)

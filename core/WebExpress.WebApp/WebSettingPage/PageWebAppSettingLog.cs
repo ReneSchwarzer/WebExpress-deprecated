@@ -12,9 +12,8 @@ using WebExpress.WebMessage;
 namespace WebExpress.WebApp.WebSettingPage
 {
     /// <summary>
-    /// Logging settings page
+    /// Logging settings page.
     /// </summary>
-    [WebExID("SettingLog")]
     [WebExTitle("webexpress.webapp:setting.titel.log.label")]
     [WebExSegment("log", "webexpress.webapp:setting.titel.log.label")]
     [WebExContextPath("/setting")]
@@ -22,7 +21,7 @@ namespace WebExpress.WebApp.WebSettingPage
     [WebExSettingIcon(TypeIcon.FileMedicalAlt)]
     [WebExSettingGroup("webexpress.webapp:setting.group.system.label")]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
-    [WebExModule("webexpress.webapp")]
+    [WebExModule(typeof(Module))]
     [WebExContext("admin")]
     [WebExOptional]
     public sealed class PageWebAppSettingLog : PageWebAppSetting

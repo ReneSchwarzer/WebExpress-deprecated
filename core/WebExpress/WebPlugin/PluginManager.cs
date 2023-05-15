@@ -189,7 +189,7 @@ namespace WebExpress.WebPlugin
                     .Where(x => x.GetInterface(typeof(IPlugin).Name) != null)
                     .Where(x => x.Name.Equals("Plugin")))
                 {
-                    var id = type.Name?.ToLower();
+                    var id = type.Namespace?.ToLower();
                     var name = type.Assembly.GetCustomAttribute<AssemblyTitleAttribute>()?.Title;
                     var icon = string.Empty;
                     var description = type.Assembly.GetCustomAttribute<AssemblyDescriptionAttribute>()?.Description;
@@ -199,7 +199,7 @@ namespace WebExpress.WebPlugin
                     foreach (var customAttribute in type.CustomAttributes
                         .Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IPluginAttribute))))
                     {
-                        if (customAttribute.AttributeType == typeof(WebExIDAttribute))
+                        if (customAttribute.AttributeType == typeof(WebExIdAttribute))
                         {
                             id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
                         }

@@ -36,9 +36,9 @@ namespace WebExpress.WebResource
         /// <summary>
         /// Processing of the resource. des DELETE-Request
         /// </summary>
-        /// <param name="id">Die zu löschende ID</param>
+        /// <param name="id">The id to delete.</param>
         /// <param name="request">The request.</param>
-        /// <returns>Das Ergebnis der Löschung</returns>
+        /// <returns>The result of the deletion.</returns>
         public virtual bool DeleteData(string id, Request request)
         {
             return false;

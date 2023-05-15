@@ -1,23 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using WebExpress.WebMessage;
 using WebExpress.WebApp.Model;
 using WebExpress.WebApp.WebResource;
 using WebExpress.WebApp.WebUser;
 using WebExpress.WebApp.Wql;
 using WebExpress.WebAttribute;
+using WebExpress.WebMessage;
 using WebExpress.WebResource;
 using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.WebApp.WebAPI.V1
 {
     /// <summary>
-    /// REST-API zur Nutzerverwaltiung
+    /// REST API for user management.
     /// </summary>
-    [WebExID("ApiUserManagementV1")]
     [WebExSegment("user", "")]
     [WebExContextPath("/api/v1")]
-    [WebExModule("webexpress.webapp")]
+    [WebExModule(typeof(Module))]
     [WebExOptional]
     public sealed class RestUserManagement : ResourceRestCrud<WebItemUser>
     {
@@ -91,9 +90,9 @@ namespace WebExpress.WebApp.WebAPI.V1
         /// <summary>
         /// Processing of the resource. des DELETE-Request
         /// </summary>
-        /// <param name="id">Die zu löschende ID</param>
+        /// <param name="id">The id to delete.</param>
         /// <param name="request">The request.</param>
-        /// <returns>Das Ergebnis der Löschung</returns>
+        /// <returns>The result of the deletion.</returns>
         public override bool DeleteData(string id, Request request)
         {
             return true;

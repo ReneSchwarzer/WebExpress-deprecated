@@ -1,15 +1,26 @@
-﻿namespace WebExpress.WebAttribute
+﻿using System;
+
+namespace WebExpress.WebAttribute
 {
     /// <summary>
-    /// Angabe der ModulID
+    /// Specifying a module.
     /// </summary>
-    public class WebExModuleAttribute : System.Attribute, IResourceAttribute, IModuleAttribute
+    public class WebExModuleAttribute : Attribute, IResourceAttribute, IModuleAttribute
     {
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="moduleID">Die ID des Moduls</param>
         public WebExModuleAttribute(string moduleID)
+        {
+
+        }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="moduleClass">The module class.</param>
+        public WebExModuleAttribute(Type moduleClass)
         {
 
         }

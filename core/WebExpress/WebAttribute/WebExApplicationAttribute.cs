@@ -13,5 +13,14 @@ namespace WebExpress.WebAttribute
         {
 
         }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="applicationClass">The application class.</param>
+        public WebExApplicationAttribute(Type applicationClass)
+        {
+
+        }
     }
 }

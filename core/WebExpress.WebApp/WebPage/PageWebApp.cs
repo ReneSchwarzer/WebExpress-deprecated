@@ -81,7 +81,7 @@ namespace WebExpress.WebApp.WebPage
             base.Initialization(context);
 
             var fm = ComponentManager.GetComponent<FragmentManager>();
-            var module = ComponentManager.ModuleManager.GetModule(ApplicationContext, "webexpress.webapp");
+            var module = ComponentManager.ModuleManager.GetModule(ApplicationContext, typeof(Module));
             if (module != null)
             {
                 CssLinks.Add(UriResource.Combine(module.ContextPath, "/assets/css/webexpress.webapp.css"));

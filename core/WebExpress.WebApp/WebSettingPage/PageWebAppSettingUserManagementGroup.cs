@@ -11,17 +11,16 @@ using WebExpress.WebUri;
 namespace WebExpress.WebApp.WebSettingPage
 {
     /// <summary>
-    /// Einstellungsseiteder der Gruppen
+    /// Settings page of the groups.
     /// </summary>
-    [WebExID("SettingGroup")]
     [WebExTitle("webexpress.webapp:setting.usermanager.group.label")]
     [WebExSegment("group", "webexpress.webapp:setting.usermanager.group.label")]
-    [WebExContextPath("/Setting")]
+    [WebExContextPath("/setting")]
     [WebExSettingSection(WebExSettingSection.Primary)]
     [WebExSettingIcon(TypeIcon.Users)]
     [WebExSettingGroup("webexpress.webapp:setting.usermanager.group.usermanagement.label")]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
-    [WebExModule("webexpress.webapp")]
+    [WebExModule(typeof(Module))]
     [WebExContext("admin")]
     [WebExContext("webexpress.webapp.usermanagement.group")]
     [WebExOptional]
@@ -38,7 +37,7 @@ namespace WebExpress.WebApp.WebSettingPage
         };
 
         /// <summary>
-        /// Liefert den Hilfetext.
+        /// Returns the help text.
         /// </summary>
         private ControlText Description { get; } = new ControlText()
         {
@@ -64,7 +63,7 @@ namespace WebExpress.WebApp.WebSettingPage
         }
 
         /// <summary>
-        /// Vorverarbeitung
+        /// The processing of the request.
         /// </summary>
         /// <param name="context">The context for rendering the page.</param>
         public override void Process(RenderContextWebApp context)

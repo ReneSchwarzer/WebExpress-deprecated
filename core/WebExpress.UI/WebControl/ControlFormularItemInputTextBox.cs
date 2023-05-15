@@ -91,7 +91,7 @@ namespace WebExpress.UI.WebControl
 
             if (Format == TypesEditTextFormat.Wysiwyg)
             {
-                var module = ComponentManager.ModuleManager.GetModule(context.ApplicationContext, "webexpress.ui");
+                var module = ComponentManager.ModuleManager.GetModule(context.ApplicationContext, typeof(Module));
                 if (module != null)
                 {
                     context.VisualTree.CssLinks.Add(UriResource.Combine(module.ContextPath, "/assets/css/summernote-bs5.min.css"));
