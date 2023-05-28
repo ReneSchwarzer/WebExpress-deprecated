@@ -1,0 +1,1499 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generiert durch Microsoft Visio, SVG Export crud.svg Page-1 -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
+		xmlns:v="http://schemas.microsoft.com/visio/2003/SVGExtensions/" width="6.15782in" height="5.18456in"
+		viewBox="0 0 443.363 373.289" xml:space="preserve" color-interpolation-filters="sRGB" class="st44">
+	<v:documentProperties v:langID="1031" v:metric="true" v:viewMarkup="false">
+		<v:userDefs>
+			<v:ud v:nameU="msvNoAutoConnect" v:val="VT0(1):26"/>
+			<v:ud v:nameU="msvNoApplyDataGraphicAfterLink" v:val="VT0(1):5"/>
+			<v:ud v:nameU="msvNoSubprocess" v:prompt="" v:val="VT0(1):26"/>
+			<v:ud v:nameU="msvConvertTheme"/>
+		</v:userDefs>
+	</v:documentProperties>
+
+	<style type="text/css">
+	<![CDATA[
+		.st1 {fill:#ffffff;stroke:#000000;stroke-dasharray:5.25,3.75;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st2 {fill:#000000;font-family:Calibri;font-size:1.00001em}
+		.st3 {fill:url(#ptrn9-9);shape-rendering:crispEdges;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st4 {fill:#c0c0c0;stroke:#000000;stroke-linecap:butt;stroke-width:0.75}
+		.st5 {fill:#808080;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st6 {fill:#ffffff;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st7 {fill:#c0c0c0;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st8 {fill:none;stroke:#000000;stroke-linecap:butt;stroke-width:0.24}
+		.st9 {fill:#e6e6e6;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st10 {fill:url(#ptrn10-29);shape-rendering:crispEdges;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.24;visibility:hidden}
+		.st11 {fill:#000000;font-family:Calibri;font-size:0.666664em}
+		.st12 {fill:#ff00ff;fill-opacity:0;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:0;stroke-width:0.72}
+		.st13 {fill:url(#grad0-96)}
+		.st14 {stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.36}
+		.st15 {fill:url(#grad11-101)}
+		.st16 {fill:url(#grad12-108);stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.36}
+		.st17 {stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:1}
+		.st18 {fill:url(#grad12-117);stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.36}
+		.st19 {stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.6}
+		.st20 {fill:#000000;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.36}
+		.st21 {fill:url(#grad8-133);stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.12}
+		.st22 {fill:url(#grad10-138);stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.12}
+		.st23 {fill:#000000;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.24}
+		.st24 {stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.36}
+		.st25 {fill:url(#grad7-157)}
+		.st26 {stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.72;visibility:hidden}
+		.st27 {fill:#00ff00;fill-opacity:0.7}
+		.st28 {fill:#000000;visibility:hidden}
+		.st29 {fill:url(#grad0-215);stroke:#4e8ec2;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.72}
+		.st30 {fill:url(#grad0-219);stroke:#4e8ec2;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.24}
+		.st31 {fill:#ffffff;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75;visibility:hidden}
+		.st32 {fill:none;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st33 {fill:#f2f2f2;fill-opacity:0.6;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75;visibility:hidden}
+		.st34 {fill:#8f8f8f;fill-opacity:0;stroke:none;stroke-linecap:butt;stroke-width:0.75}
+		.st35 {fill:url(#grad10-238);stroke:none;stroke-linecap:butt;stroke-width:0.75}
+		.st36 {fill:url(#grad7-246);stroke:none;stroke-linecap:butt;stroke-width:0.75}
+		.st37 {fill:#333333;fill-opacity:0;stroke:none;stroke-linecap:butt;stroke-width:0.75}
+		.st38 {marker-end:url(#mrkr13-272);marker-start:url(#mrkr13-270);stroke:#923931;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st39 {fill:#923931;fill-opacity:1;stroke:#923931;stroke-opacity:1;stroke-width:0.22935779816514}
+		.st40 {fill:#ffffff;stroke:none;stroke-linecap:butt;stroke-width:7.2}
+		.st41 {marker-end:url(#mrkr13-310);marker-start:url(#mrkr13-308);stroke:#ffc000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st42 {fill:#ffc000;fill-opacity:1;stroke:#ffc000;stroke-opacity:1;stroke-width:0.22935779816514}
+		.st43 {stroke:#548bd4;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st44 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
+	]]>
+	</style>
+
+	<defs id="Patterns_And_Gradients">
+		<pattern id="ptrn9-9" v:fillPattern="9" v:foreground="#008080" v:background="#808080" patternUnits="userSpaceOnUse"
+				width="6" height="6" viewBox="0 0 64 64">
+			<image x="0" y="0" width="64" height="64"
+					xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAdSURBVChTY2hoaPgPJP7johnwSUJpvJJDwYSG/wDcr4/BzkvW5gAAAABJRU5ErkJggg=="/>
+		</pattern>
+		<pattern id="ptrn10-29" v:fillPattern="10" v:foreground="#000000" v:foregroundOpacity="0.6" v:background="#ffffff"
+				v:backgroundOpacity="0.6" patternUnits="userSpaceOnUse" width="6" height="6" viewBox="0 0 64 64">
+			<image x="0" y="0" width="64" height="64" image-rendering="optimizeSpeed"
+					xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAbSURBVChTYwCCmf/+/YNjDD5OCSh/OJjwbyYAGcu1IX+6tzoAAAAASUVORK5CYII="/>
+		</pattern>
+		<linearGradient id="grad0-96" x1="0" y1="0" x2="1" y2="0" gradientTransform="rotate(270 0.5 0.5)">
+			<stop offset="0" stop-color="#ffffff" stop-opacity="1"/>
+			<stop offset="1" stop-color="#e1d8c1" stop-opacity="1"/>
+		</linearGradient>
+		<pattern id="grad11-101" x="0" y="0" width="1" height="1" patternContentUnits="objectBoundingBox">
+			<path d="M 0 1 L 0 0 L 1 0 z" style="fill:url(#grad0-102)"/>
+			<path d="M 0 1 L 1 1 L 1 0 z" style="fill:url(#grad0-103)"/>
+		</pattern>
+		<linearGradient id="grad0-102" x1="0" y1="0" x2="1" y2="0" gradientTransform="rotate(180 0.5 0.5)">
+			<stop offset="0" stop-color="#ffffff" stop-opacity="1"/>
+			<stop offset="1" stop-color="#cabb97" stop-opacity="1"/>
+		</linearGradient>
+		<linearGradient id="grad0-103" x1="0" y1="0" x2="1" y2="0" gradientTransform="rotate(90 0.5 0.5)">
+			<stop offset="0" stop-color="#ffffff" stop-opacity="1"/>
+			<stop offset="1" stop-color="#cabb97" stop-opacity="1"/>
+		</linearGradient>
+		<pattern id="grad12-108" x="0" y="0" width="1" height="1" patternContentUnits="objectBoundingBox">
+			<path d="M 0 0 L 0 1 L 1 1 z" style="fill:url(#grad0-109)"/>
+			<path d="M 0 0 L 1 0 L 1 1 z" style="fill:url(#grad0-110)"/>
+		</pattern>
+		<linearGradient id="grad0-109" x1="0" y1="0" x2="1" y2="0" gradientTransform="rotate(90 0.5 0.5)">
+			<stop offset="0" stop-color="#ffffff" stop-opacity="1"/>
+			<stop offset="1" stop-color="#b6a06d" stop-opacity="1"/>
+		</linearGradient>
+		<linearGradient id="grad0-110" x1="0" y1="0" x2="1" y2="0" gradientTransform="rotate(360 0.5 0.5)">
+			<stop offset="0" stop-color="#ffffff" stop-opacity="1"/>
+			<stop offset="1" stop-color="#b6a06d" stop-opacity="1"/>
+		</linearGradient>
+		<pattern id="grad12-117" x="0" y="0" width="1" height="1" patternContentUnits="objectBoundingBox">
+			<path d="M 0 0 L 0 1 L 1 1 z" style="fill:url(#grad0-118)"/>
+			<path d="M 0 0 L 1 0 L 1 1 z" style="fill:url(#grad0-119)"/>
+		</pattern>
+		<linearGradient id="grad0-118" x1="0" y1="0" x2="1" y2="0" gradientTransform="rotate(90 0.5 0.5)">
+			<stop offset="0" stop-color="#ffffff" stop-opacity="1"/>
+			<stop offset="1" stop-color="#339966" stop-opacity="1"/>
+		</linearGradient>
+		<linearGradient id="grad0-119" x1="0" y1="0" x2="1" y2="0" gradientTransform="rotate(360 0.5 0.5)">
+			<stop offset="0" stop-color="#ffffff" stop-opacity="1"/>
+			<stop offset="1" stop-color="#339966" stop-opacity="1"/>
+		</linearGradient>
+		<linearGradient id="grad0-123" x1="0" y1="0" x2="1" y2="0" gradientTransform="rotate(270 0.5 0.5)">
+			<stop offset="0" stop-color="#ffffff" stop-opacity="1"/>
+			<stop offset="1" stop-color="#e7e4cd" stop-opacity="1"/>
+		</linearGradient>
+		<pattern id="grad8-133" x="0" y="0" width="1" height="1" patternContentUnits="objectBoundingBox">
+			<path d="M 0 0 L 1 0 L 1 1 z" style="fill:url(#grad0-123)"/>
+			<path d="M 0 0 L 0 1 L 1 1 z" style="fill:url(#grad0-134)"/>
+		</pattern>
+		<linearGradient id="grad0-134" x1="0" y1="0" x2="1" y2="0" gradientTransform="rotate(180 0.5 0.5)">
+			<stop offset="0" stop-color="#ffffff" stop-opacity="1"/>
+			<stop offset="1" stop-color="#e7e4cd" stop-opacity="1"/>
+		</linearGradient>
+		<pattern id="grad10-138" x="0" y="0" width="1" height="1" patternContentUnits="objectBoundingBox">
+			<path d="M 0.5 0.5 L 0 0 L 0 1 z" style="fill:url(#grad0-139)"/>
+			<path d="M 0.5 0.5 L 1 0 L 1 1 z" style="fill:url(#grad0-140)"/>
+			<path d="M 0.5 0.5 L 0 0 L 1 0 z" style="fill:url(#grad0-141)"/>
+			<path d="M 0.5 0.5 L 0 1 L 1 1 z" style="fill:url(#grad0-142)"/>
+		</pattern>
+		<linearGradient id="grad0-139" x1="0" y1="0" x2="1" y2="0" gradientTransform="rotate(180 0.5 0.5)">
+			<stop offset="0" stop-color="#000000" stop-opacity="0.4"/>
+			<stop offset="1" stop-color="#e7e4cd" stop-opacity="0.4"/>
+		</linearGradient>
+		<linearGradient id="grad0-140" x1="0" y1="0" x2="1" y2="0" gradientTransform="rotate(360 0.5 0.5)">
+			<stop offset="0" stop-color="#000000" stop-opacity="0.4"/>
+			<stop offset="1" stop-color="#e7e4cd" stop-opacity="0.4"/>
+		</linearGradient>
+		<linearGradient id="grad0-141" x1="0" y1="0" x2="1" y2="0" gradientTransform="rotate(270 0.5 0.5)">
+			<stop offset="0" stop-color="#000000" stop-opacity="0.4"/>
+			<stop offset="1" stop-color="#e7e4cd" stop-opacity="0.4"/>
+		</linearGradient>
+		<linearGradient id="grad0-142" x1="0" y1="0" x2="1" y2="0" gradientTransform="rotate(90 0.5 0.5)">
+			<stop offset="0" stop-color="#000000" stop-opacity="0.4"/>
+			<stop offset="1" stop-color="#e7e4cd" stop-opacity="0.4"/>
+		</linearGradient>
+		<radialGradient id="grad7-157" cx="0" cy="0" r="1.4">
+			<stop offset="0" stop-color="#ffffff" stop-opacity="1"/>
+			<stop offset="1" stop-color="#0000ff" stop-opacity="1"/>
+		</radialGradient>
+		<linearGradient id="grad0-215" x1="0" y1="0" x2="1" y2="0" gradientTransform="rotate(270 0.5 0.5)">
+			<stop offset="0" stop-color="#ffffff" stop-opacity="1"/>
+			<stop offset="1" stop-color="#4e8ec2" stop-opacity="1"/>
+		</linearGradient>
+		<linearGradient id="grad0-219" x1="0" y1="0" x2="1" y2="0" gradientTransform="rotate(180 0.5 0.5)">
+			<stop offset="0.01" stop-color="#4e8ec2" stop-opacity="1"/>
+			<stop offset="0.5" stop-color="#ffffff" stop-opacity="1"/>
+			<stop offset="1" stop-color="#4e8ec2" stop-opacity="1"/>
+		</linearGradient>
+		<pattern id="grad10-238" x="0" y="0" width="1" height="1" patternContentUnits="objectBoundingBox">
+			<path d="M 0.5 0.5 L 0 0 L 0 1 z" style="fill:url(#grad0-239)"/>
+			<path d="M 0.5 0.5 L 1 0 L 1 1 z" style="fill:url(#grad0-240)"/>
+			<path d="M 0.5 0.5 L 0 0 L 1 0 z" style="fill:url(#grad0-241)"/>
+			<path d="M 0.5 0.5 L 0 1 L 1 1 z" style="fill:url(#grad0-242)"/>
+		</pattern>
+		<linearGradient id="grad0-239" x1="0" y1="0" x2="1" y2="0" gradientTransform="rotate(180 0.5 0.5)">
+			<stop offset="0" stop-color="#ffffff" stop-opacity="0"/>
+			<stop offset="1" stop-color="#e6e6e6" stop-opacity="0"/>
+		</linearGradient>
+		<linearGradient id="grad0-240" x1="0" y1="0" x2="1" y2="0" gradientTransform="rotate(360 0.5 0.5)">
+			<stop offset="0" stop-color="#ffffff" stop-opacity="0"/>
+			<stop offset="1" stop-color="#e6e6e6" stop-opacity="0"/>
+		</linearGradient>
+		<linearGradient id="grad0-241" x1="0" y1="0" x2="1" y2="0" gradientTransform="rotate(270 0.5 0.5)">
+			<stop offset="0" stop-color="#ffffff" stop-opacity="0"/>
+			<stop offset="1" stop-color="#e6e6e6" stop-opacity="0"/>
+		</linearGradient>
+		<linearGradient id="grad0-242" x1="0" y1="0" x2="1" y2="0" gradientTransform="rotate(90 0.5 0.5)">
+			<stop offset="0" stop-color="#ffffff" stop-opacity="0"/>
+			<stop offset="1" stop-color="#e6e6e6" stop-opacity="0"/>
+		</linearGradient>
+		<radialGradient id="grad7-246" cx="0" cy="0" r="1.4">
+			<stop offset="0" stop-color="#333333" stop-opacity="0"/>
+			<stop offset="1" stop-color="#000000" stop-opacity="0"/>
+		</radialGradient>
+		<radialGradient id="grad6-260" cx="1" cy="0" r="1.4">
+			<stop offset="0" stop-color="#cb2028" stop-opacity="1"/>
+			<stop offset="1" stop-color="#ff4e3b" stop-opacity="1"/>
+		</radialGradient>
+	</defs>
+	<defs id="Markers">
+		<g id="lend13">
+			<path d="M 3 1 L 0 0 L 3 -1 L 3 1 " style="stroke:none"/>
+		</g>
+		<marker id="mrkr13-270" class="st39" v:arrowType="13" v:arrowSize="2" v:setback="12.6" refX="12.6" orient="auto"
+				markerUnits="strokeWidth" overflow="visible">
+			<use xlink:href="#lend13" transform="scale(4.36) "/>
+		</marker>
+		<marker id="mrkr13-272" class="st39" v:arrowType="13" v:arrowSize="2" v:setback="13.08" refX="-13.08" orient="auto"
+				markerUnits="strokeWidth" overflow="visible">
+			<use xlink:href="#lend13" transform="scale(-4.36,-4.36) "/>
+		</marker>
+		<marker id="mrkr13-308" class="st42" v:arrowType="13" v:arrowSize="2" v:setback="12.6" refX="12.6" orient="auto"
+				markerUnits="strokeWidth" overflow="visible">
+			<use xlink:href="#lend13" transform="scale(4.36) "/>
+		</marker>
+		<marker id="mrkr13-310" class="st42" v:arrowType="13" v:arrowSize="2" v:setback="13.08" refX="-13.08" orient="auto"
+				markerUnits="strokeWidth" overflow="visible">
+			<use xlink:href="#lend13" transform="scale(-4.36,-4.36) "/>
+		</marker>
+	</defs>
+	<g v:mID="0" v:index="1" v:groupContext="foregroundPage">
+		<v:userDefs>
+			<v:ud v:nameU="UMLDiagramType" v:val="VT0(0):26"/>
+			<v:ud v:nameU="UMLPageGUID" v:prompt="" v:val="VT15({110F1FB8-D5AC-48F7-B500-A4FF8F1F201F}):41"/>
+			<v:ud v:nameU="UMLShape76" v:prompt="" v:val="VT4(2083;4294967295;8)"/>
+			<v:ud v:nameU="UMLShape20" v:prompt="" v:val="VT4(10291;0;12)"/>
+		</v:userDefs>
+		<title>Statische Struktur-1</title>
+		<v:pageProperties v:drawingScale="0.0393701" v:pageScale="0.0393701" v:drawingUnits="24" v:shadowOffsetX="8.50394"
+				v:shadowOffsetY="-8.50394"/>
+		<v:layer v:name="Verbinder" v:index="0"/>
+		<v:layer v:name="Beschriftung" v:index="1"/>
+		<v:layer v:name="Websiteübersicht-Shapes" v:index="2"/>
+		<g id="shape743-1" v:mID="743" v:groupContext="shape" transform="translate(18.375,-18.375)">
+			<title>Tabelle.743</title>
+			<desc>HTML</desc>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197" v:verticalAlign="0"/>
+			<v:textRect cx="128.835" cy="205.478" width="257.67" height="335.622"/>
+			<rect x="0" y="37.6665" width="257.669" height="335.622" rx="5.66929" ry="5.66929" class="st1"/>
+			<text x="4" y="52.47" class="st2" v:langID="1031"><v:paragraph/><v:tabList/>HTML</text>		</g>
+		<g id="group643-4" transform="translate(215.099,-188.17)" v:mID="643" v:groupContext="group" v:layerMember="2">
+			<v:custProps>
+				<v:cp v:nameU="Error" v:lbl="Fehler" v:type="1"
+						v:format="Ohne;Fehler beim Laden;Sitetimeout;Site nicht gefunden;Kennwort erforderlich;Zugriff verweigert"
+						v:sortKey="2" v:invis="false" v:langID="1031" v:val="VT4(Ohne)"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="CH1" v:val="VT0(5):26"/>
+				<v:ud v:nameU="Button" v:prompt="0=Invisible, 1= Expand, 2 =Collapse" v:val="VT0(2):26"/>
+				<v:ud v:nameU="AntiScale" v:prompt="Antiscale factor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="AL_PrefLayout" v:prompt="The predefined layout that this shape looks best in." v:val="VT0(-1):26"/>
+				<v:ud v:nameU="AL_WantAutoLayout" v:prompt="The default enabling of the auto-layout feature of subordinates."
+						v:val="VT0(1):26"/>
+				<v:ud v:nameU="AL_ChildLayoutStyle" v:prompt="The auto layout style of this shape&#39;s subordinates."
+						v:val="VT0(-1):26"/>
+				<v:ud v:nameU="AL_Justification" v:prompt="" v:val="VT0(-1):26"/>
+				<v:ud v:nameU="AL_JustOffset" v:prompt="" v:val="VT0(0):0"/>
+				<v:ud v:nameU="AL_cyBtwnSubs" v:prompt="" v:val="VT0(0):0"/>
+				<v:ud v:nameU="AL_cyBelowParent" v:prompt="" v:val="VT0(0):0"/>
+				<v:ud v:nameU="AL_cxBtwnSubs" v:prompt="" v:val="VT0(0):0"/>
+				<v:ud v:nameU="AL_cxBtwnAssts" v:prompt="" v:val="VT0(0):0"/>
+				<v:ud v:nameU="AL_PropJustOffset" v:prompt="" v:val="VT0(0):0"/>
+				<v:ud v:nameU="Error" v:prompt="" v:val="VT0(0):26"/>
+				<v:ud v:nameU="Discovered" v:prompt="0=Hand dropped, 1=Dropped by the addon as a result of a disovery"
+						v:val="VT0(0):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+				<v:ud v:nameU="Duplicate" v:prompt="0=Original, 1=Duplicate" v:val="VT0(0):26"/>
+				<v:ud v:nameU="CH1" v:prompt="" v:val="VT0(0):26"/>
+			</v:userDefs>
+			<title>Formular</title>
+			<desc>Create</desc>
+			<g id="group644-5" transform="translate(0,-0.112432)" v:mID="644" v:groupContext="group" v:layerMember="2">
+				<title>Tabelle.644</title>
+				<g id="shape645-6" v:mID="645" v:groupContext="shape" v:layerMember="2" transform="translate(0.132734,0)">
+					<title>Tabelle.645</title>
+					<rect x="0" y="331.299" width="43.0411" height="41.9897" class="st3"/>
+				</g>
+				<g id="shape646-10" v:mID="646" v:groupContext="shape" v:layerMember="2" transform="translate(0,-3.74451)">
+					<title>Tabelle.646</title>
+					<rect x="0" y="333.859" width="40.6342" height="39.4293" class="st4"/>
+				</g>
+				<g id="shape647-12" v:mID="647" v:groupContext="shape" v:layerMember="2"
+						transform="translate(34.9709,727.694) rotate(180)">
+					<title>Tabelle.647</title>
+					<path d="M29.02 364.14 L23.22 369.77 L1.45 365.54 L7.26 365.54 L0 373.29 L0 364.14 L29.02 364.14 Z" class="st5"/>
+				</g>
+				<g id="shape648-14" v:mID="648" v:groupContext="shape" v:layerMember="2" transform="translate(5.94647,-9.37727)">
+					<title>Tabelle.648</title>
+					<path d="M29.02 364.14 L23.22 369.77 L1.45 365.54 L7.26 365.54 L0 373.29 L0 364.14 L29.02 364.14 Z" class="st6"/>
+				</g>
+				<g id="shape649-16" v:mID="649" v:groupContext="shape" v:layerMember="2" transform="translate(7.39769,-10.7855)">
+					<title>Tabelle.649</title>
+					<rect x="0" y="366.952" width="26.122" height="6.33686" class="st7"/>
+				</g>
+				<g id="shape650-18" v:mID="650" v:groupContext="shape" v:layerMember="2" transform="translate(5.80489,-9.56929)">
+					<title>Tabelle.650</title>
+					<rect x="0" y="364.327" width="29.166" height="8.96121" class="st8"/>
+				</g>
+				<g id="shape651-20" v:mID="651" v:groupContext="shape" v:layerMember="2" transform="translate(5.74297,-23.1963)">
+					<title>Tabelle.651</title>
+					<path d="M0 363.83 L28.71 363.83 L28.71 358.57 L0 358.57 L0 363.83 ZM0 373.29 L28.71 373.29 L28.71 368.03 L0
+								 368.03 L0 373.29 Z" class="st6"/>
+				</g>
+				<g id="shape652-22" v:mID="652" v:groupContext="shape" v:layerMember="2" transform="translate(4.65939,-22.1449)">
+					<title>Tabelle.652</title>
+					<path d="M29.8 357.52 L1.08 357.52 L1.08 362.77 L0 363.83 L0 356.47 L30.56 356.47 L29.8 357.52 ZM29.8 366.98
+								 L1.08 366.98 L1.08 372.24 L0 373.29 L0 365.93 L30.56 365.93 L29.8 366.98 Z" class="st5"/>
+				</g>
+				<g id="shape653-24" v:mID="653" v:groupContext="shape" v:layerMember="2" transform="translate(4.65939,-22.1449)">
+					<title>Tabelle.653</title>
+					<path d="M0.76 372.24 L29.47 372.24 L29.47 366.98 L30.56 365.93 L30.56 373.29 L0 373.29 L0.76 372.24 ZM0.76 362.77
+								 L29.47 362.77 L29.47 357.52 L30.56 356.47 L30.56 363.83 L0 363.83 L0.76 362.77 Z" class="st9"/>
+				</g>
+				<g id="shape654-26" v:mID="654" v:groupContext="shape" v:layerMember="2">
+					<title>Tabelle.654</title>
+					<rect x="0" y="330.115" width="43.1738" height="43.1738" class="st10"/>
+				</g>
+			</g>
+			<g id="shape655-30" v:mID="655" v:groupContext="shape" v:layerMember="2" transform="translate(18.6123,0)">
+				<title>Tabelle.655</title>
+			</g>
+			<g id="shape643-32" v:mID="643" v:groupContext="groupContent" v:layerMember="2">
+				<v:textBlock v:margins="rect(0,0,0,0)" v:tabSpace="42.5197"/>
+				<v:textRect cx="21.5869" cy="379.09" width="23.34" height="9.60356"/>
+				<text x="10.82" y="381.49" class="st11" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>Create</text>			</g>
+		</g>
+		<g id="group656-34" transform="translate(215.863,-110.218)" v:mID="656" v:groupContext="group" v:layerMember="2">
+			<v:custProps>
+				<v:cp v:nameU="Error" v:lbl="Fehler" v:type="1"
+						v:format="Ohne;Fehler beim Laden;Sitetimeout;Site nicht gefunden;Kennwort erforderlich;Zugriff verweigert"
+						v:sortKey="2" v:invis="false" v:langID="1031" v:val="VT4(Ohne)"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="CH1" v:val="VT0(5):26"/>
+				<v:ud v:nameU="Button" v:prompt="0=Invisible, 1= Expand, 2 =Collapse" v:val="VT0(2):26"/>
+				<v:ud v:nameU="AntiScale" v:prompt="Antiscale factor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="AL_PrefLayout" v:prompt="The predefined layout that this shape looks best in." v:val="VT0(-1):26"/>
+				<v:ud v:nameU="AL_WantAutoLayout" v:prompt="The default enabling of the auto-layout feature of subordinates."
+						v:val="VT0(1):26"/>
+				<v:ud v:nameU="AL_ChildLayoutStyle" v:prompt="The auto layout style of this shape&#39;s subordinates."
+						v:val="VT0(-1):26"/>
+				<v:ud v:nameU="AL_Justification" v:prompt="" v:val="VT0(-1):26"/>
+				<v:ud v:nameU="AL_JustOffset" v:prompt="" v:val="VT0(0):0"/>
+				<v:ud v:nameU="AL_cyBtwnSubs" v:prompt="" v:val="VT0(0):0"/>
+				<v:ud v:nameU="AL_cyBelowParent" v:prompt="" v:val="VT0(0):0"/>
+				<v:ud v:nameU="AL_cxBtwnSubs" v:prompt="" v:val="VT0(0):0"/>
+				<v:ud v:nameU="AL_cxBtwnAssts" v:prompt="" v:val="VT0(0):0"/>
+				<v:ud v:nameU="AL_PropJustOffset" v:prompt="" v:val="VT0(0):0"/>
+				<v:ud v:nameU="Error" v:prompt="" v:val="VT0(0):26"/>
+				<v:ud v:nameU="Discovered" v:prompt="0=Hand dropped, 1=Dropped by the addon as a result of a disovery"
+						v:val="VT0(0):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+				<v:ud v:nameU="Duplicate" v:prompt="0=Original, 1=Duplicate" v:val="VT0(0):26"/>
+				<v:ud v:nameU="CH1" v:prompt="" v:val="VT0(0):26"/>
+			</v:userDefs>
+			<title>Formular.656</title>
+			<desc>Update</desc>
+			<g id="group657-35" transform="translate(0,-0.112432)" v:mID="657" v:groupContext="group" v:layerMember="2">
+				<title>Tabelle.657</title>
+				<g id="shape658-36" v:mID="658" v:groupContext="shape" v:layerMember="2" transform="translate(0.132734,0)">
+					<title>Tabelle.658</title>
+					<rect x="0" y="331.299" width="43.0411" height="41.9897" class="st3"/>
+				</g>
+				<g id="shape659-39" v:mID="659" v:groupContext="shape" v:layerMember="2" transform="translate(0,-3.74451)">
+					<title>Tabelle.659</title>
+					<rect x="0" y="333.859" width="40.6342" height="39.4293" class="st4"/>
+				</g>
+				<g id="shape660-41" v:mID="660" v:groupContext="shape" v:layerMember="2"
+						transform="translate(34.9709,727.694) rotate(180)">
+					<title>Tabelle.660</title>
+					<path d="M29.02 364.14 L23.22 369.77 L1.45 365.54 L7.26 365.54 L0 373.29 L0 364.14 L29.02 364.14 Z" class="st5"/>
+				</g>
+				<g id="shape661-43" v:mID="661" v:groupContext="shape" v:layerMember="2" transform="translate(5.94647,-9.37727)">
+					<title>Tabelle.661</title>
+					<path d="M29.02 364.14 L23.22 369.77 L1.45 365.54 L7.26 365.54 L0 373.29 L0 364.14 L29.02 364.14 Z" class="st6"/>
+				</g>
+				<g id="shape662-45" v:mID="662" v:groupContext="shape" v:layerMember="2" transform="translate(7.39769,-10.7855)">
+					<title>Tabelle.662</title>
+					<rect x="0" y="366.952" width="26.122" height="6.33686" class="st7"/>
+				</g>
+				<g id="shape663-47" v:mID="663" v:groupContext="shape" v:layerMember="2" transform="translate(5.80489,-9.56929)">
+					<title>Tabelle.663</title>
+					<rect x="0" y="364.327" width="29.166" height="8.96121" class="st8"/>
+				</g>
+				<g id="shape664-49" v:mID="664" v:groupContext="shape" v:layerMember="2" transform="translate(5.74297,-23.1963)">
+					<title>Tabelle.664</title>
+					<path d="M0 363.83 L28.71 363.83 L28.71 358.57 L0 358.57 L0 363.83 ZM0 373.29 L28.71 373.29 L28.71 368.03 L0
+								 368.03 L0 373.29 Z" class="st6"/>
+				</g>
+				<g id="shape665-51" v:mID="665" v:groupContext="shape" v:layerMember="2" transform="translate(4.65939,-22.1449)">
+					<title>Tabelle.665</title>
+					<path d="M29.8 357.52 L1.08 357.52 L1.08 362.77 L0 363.83 L0 356.47 L30.56 356.47 L29.8 357.52 ZM29.8 366.98
+								 L1.08 366.98 L1.08 372.24 L0 373.29 L0 365.93 L30.56 365.93 L29.8 366.98 Z" class="st5"/>
+				</g>
+				<g id="shape666-53" v:mID="666" v:groupContext="shape" v:layerMember="2" transform="translate(4.65939,-22.1449)">
+					<title>Tabelle.666</title>
+					<path d="M0.76 372.24 L29.47 372.24 L29.47 366.98 L30.56 365.93 L30.56 373.29 L0 373.29 L0.76 372.24 ZM0.76 362.77
+								 L29.47 362.77 L29.47 357.52 L30.56 356.47 L30.56 363.83 L0 363.83 L0.76 362.77 Z" class="st9"/>
+				</g>
+				<g id="shape667-55" v:mID="667" v:groupContext="shape" v:layerMember="2">
+					<title>Tabelle.667</title>
+					<rect x="0" y="330.115" width="43.1738" height="43.1738" class="st10"/>
+				</g>
+			</g>
+			<g id="shape668-58" v:mID="668" v:groupContext="shape" v:layerMember="2" transform="translate(18.6123,0)">
+				<title>Tabelle.668</title>
+			</g>
+			<g id="shape656-60" v:mID="656" v:groupContext="groupContent" v:layerMember="2">
+				<v:textBlock v:margins="rect(0,0,0,0)" v:tabSpace="42.5197"/>
+				<v:textRect cx="21.5869" cy="379.09" width="25.85" height="9.60356"/>
+				<text x="9.57" y="381.49" class="st11" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>Update</text>			</g>
+		</g>
+		<g id="group669-62" transform="translate(215.863,-32.2648)" v:mID="669" v:groupContext="group" v:layerMember="2">
+			<v:custProps>
+				<v:cp v:nameU="Error" v:lbl="Fehler" v:type="1"
+						v:format="Ohne;Fehler beim Laden;Sitetimeout;Site nicht gefunden;Kennwort erforderlich;Zugriff verweigert"
+						v:sortKey="2" v:invis="false" v:langID="1031" v:val="VT4(Ohne)"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="CH1" v:val="VT0(5):26"/>
+				<v:ud v:nameU="Button" v:prompt="0=Invisible, 1= Expand, 2 =Collapse" v:val="VT0(2):26"/>
+				<v:ud v:nameU="AntiScale" v:prompt="Antiscale factor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="AL_PrefLayout" v:prompt="The predefined layout that this shape looks best in." v:val="VT0(-1):26"/>
+				<v:ud v:nameU="AL_WantAutoLayout" v:prompt="The default enabling of the auto-layout feature of subordinates."
+						v:val="VT0(1):26"/>
+				<v:ud v:nameU="AL_ChildLayoutStyle" v:prompt="The auto layout style of this shape&#39;s subordinates."
+						v:val="VT0(-1):26"/>
+				<v:ud v:nameU="AL_Justification" v:prompt="" v:val="VT0(-1):26"/>
+				<v:ud v:nameU="AL_JustOffset" v:prompt="" v:val="VT0(0):0"/>
+				<v:ud v:nameU="AL_cyBtwnSubs" v:prompt="" v:val="VT0(0):0"/>
+				<v:ud v:nameU="AL_cyBelowParent" v:prompt="" v:val="VT0(0):0"/>
+				<v:ud v:nameU="AL_cxBtwnSubs" v:prompt="" v:val="VT0(0):0"/>
+				<v:ud v:nameU="AL_cxBtwnAssts" v:prompt="" v:val="VT0(0):0"/>
+				<v:ud v:nameU="AL_PropJustOffset" v:prompt="" v:val="VT0(0):0"/>
+				<v:ud v:nameU="Error" v:prompt="" v:val="VT0(0):26"/>
+				<v:ud v:nameU="Discovered" v:prompt="0=Hand dropped, 1=Dropped by the addon as a result of a disovery"
+						v:val="VT0(0):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+				<v:ud v:nameU="Duplicate" v:prompt="0=Original, 1=Duplicate" v:val="VT0(0):26"/>
+				<v:ud v:nameU="CH1" v:prompt="" v:val="VT0(0):26"/>
+			</v:userDefs>
+			<title>Formular.669</title>
+			<desc>Delete</desc>
+			<g id="group670-63" transform="translate(0,-0.112432)" v:mID="670" v:groupContext="group" v:layerMember="2">
+				<title>Tabelle.670</title>
+				<g id="shape671-64" v:mID="671" v:groupContext="shape" v:layerMember="2" transform="translate(0.132734,0)">
+					<title>Tabelle.671</title>
+					<rect x="0" y="331.299" width="43.0411" height="41.9897" class="st3"/>
+				</g>
+				<g id="shape672-67" v:mID="672" v:groupContext="shape" v:layerMember="2" transform="translate(0,-3.74451)">
+					<title>Tabelle.672</title>
+					<rect x="0" y="333.859" width="40.6342" height="39.4293" class="st4"/>
+				</g>
+				<g id="shape673-69" v:mID="673" v:groupContext="shape" v:layerMember="2"
+						transform="translate(34.9709,727.694) rotate(180)">
+					<title>Tabelle.673</title>
+					<path d="M29.02 364.14 L23.22 369.77 L1.45 365.54 L7.26 365.54 L0 373.29 L0 364.14 L29.02 364.14 Z" class="st5"/>
+				</g>
+				<g id="shape674-71" v:mID="674" v:groupContext="shape" v:layerMember="2" transform="translate(5.94647,-9.37727)">
+					<title>Tabelle.674</title>
+					<path d="M29.02 364.14 L23.22 369.77 L1.45 365.54 L7.26 365.54 L0 373.29 L0 364.14 L29.02 364.14 Z" class="st6"/>
+				</g>
+				<g id="shape675-73" v:mID="675" v:groupContext="shape" v:layerMember="2" transform="translate(7.39769,-10.7855)">
+					<title>Tabelle.675</title>
+					<rect x="0" y="366.952" width="26.122" height="6.33686" class="st7"/>
+				</g>
+				<g id="shape676-75" v:mID="676" v:groupContext="shape" v:layerMember="2" transform="translate(5.80489,-9.56929)">
+					<title>Tabelle.676</title>
+					<rect x="0" y="364.327" width="29.166" height="8.96121" class="st8"/>
+				</g>
+				<g id="shape677-77" v:mID="677" v:groupContext="shape" v:layerMember="2" transform="translate(5.74297,-23.1963)">
+					<title>Tabelle.677</title>
+					<path d="M0 363.83 L28.71 363.83 L28.71 358.57 L0 358.57 L0 363.83 ZM0 373.29 L28.71 373.29 L28.71 368.03 L0
+								 368.03 L0 373.29 Z" class="st6"/>
+				</g>
+				<g id="shape678-79" v:mID="678" v:groupContext="shape" v:layerMember="2" transform="translate(4.65939,-22.1449)">
+					<title>Tabelle.678</title>
+					<path d="M29.8 357.52 L1.08 357.52 L1.08 362.77 L0 363.83 L0 356.47 L30.56 356.47 L29.8 357.52 ZM29.8 366.98
+								 L1.08 366.98 L1.08 372.24 L0 373.29 L0 365.93 L30.56 365.93 L29.8 366.98 Z" class="st5"/>
+				</g>
+				<g id="shape679-81" v:mID="679" v:groupContext="shape" v:layerMember="2" transform="translate(4.65939,-22.1449)">
+					<title>Tabelle.679</title>
+					<path d="M0.76 372.24 L29.47 372.24 L29.47 366.98 L30.56 365.93 L30.56 373.29 L0 373.29 L0.76 372.24 ZM0.76 362.77
+								 L29.47 362.77 L29.47 357.52 L30.56 356.47 L30.56 363.83 L0 363.83 L0.76 362.77 Z" class="st9"/>
+				</g>
+				<g id="shape680-83" v:mID="680" v:groupContext="shape" v:layerMember="2">
+					<title>Tabelle.680</title>
+					<rect x="0" y="330.115" width="43.1738" height="43.1738" class="st10"/>
+				</g>
+			</g>
+			<g id="shape681-86" v:mID="681" v:groupContext="shape" v:layerMember="2" transform="translate(18.6123,0)">
+				<title>Tabelle.681</title>
+			</g>
+			<g id="shape669-88" v:mID="669" v:groupContext="groupContent" v:layerMember="2">
+				<v:textBlock v:margins="rect(0,0,0,0)" v:tabSpace="42.5197"/>
+				<v:textRect cx="21.5869" cy="379.09" width="23.2" height="9.60356"/>
+				<text x="10.9" y="381.49" class="st11" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>Delete</text>			</g>
+		</g>
+		<g id="group690-90" transform="translate(368.17,-244.863)" v:mID="690" v:groupContext="group">
+			<v:custProps>
+				<v:cp v:nameU="Manufacturer" v:lbl="Hersteller" v:type="0" v:sortKey="Equipment" v:invis="false" v:langID="1031"/>
+				<v:cp v:nameU="ProductNumber" v:lbl="Produktnummer" v:type="0" v:sortKey="Equipment" v:invis="false"
+						v:langID="1031"/>
+				<v:cp v:nameU="PartNumber" v:lbl="Teilenummer" v:type="0" v:sortKey="Equipment" v:invis="false" v:langID="1031"/>
+				<v:cp v:nameU="ProductDescription" v:lbl="Produktbeschreibung" v:type="0" v:sortKey="Equipment" v:invis="false"
+						v:langID="1031"/>
+				<v:cp v:nameU="AssetNumber" v:lbl="Inventarnummer" v:type="0" v:sortKey="Asset" v:invis="false" v:langID="1031"/>
+				<v:cp v:nameU="SerialNumber" v:lbl="Seriennummer" v:type="0" v:sortKey="Asset" v:invis="false" v:langID="1031"/>
+				<v:cp v:nameU="Location" v:lbl="Standort" v:type="0" v:sortKey="Asset" v:invis="false" v:langID="1031"/>
+				<v:cp v:nameU="Building" v:lbl="Gebäude" v:type="0" v:sortKey="Asset" v:invis="false" v:langID="1031"/>
+				<v:cp v:nameU="Room" v:lbl="Raum" v:type="0" v:sortKey="Asset" v:invis="false" v:langID="1031"/>
+				<v:cp v:nameU="Department" v:lbl="Abteilung" v:langID="1031"/>
+				<v:cp v:nameU="ShapeClass" v:lbl="ShapeClass" v:type="0" v:invis="true" v:ask="false" v:langID="1031"
+						v:val="VT4(Geräte)"/>
+				<v:cp v:nameU="ShapeType" v:lbl="ShapeType" v:type="0" v:invis="true" v:ask="false" v:langID="1031"
+						v:val="VT4(Server)"/>
+				<v:cp v:nameU="SubShapeType" v:lbl="SubShapeType" v:type="0" v:invis="true" v:ask="false" v:langID="1031"
+						v:val="VT4(Web)"/>
+				<v:cp v:nameU="NetworkName" v:lbl="Netzwerkname" v:type="0" v:sortKey="Network" v:invis="false" v:ask="false"
+						v:langID="1031"/>
+				<v:cp v:nameU="IPAddress" v:lbl="IP-Adresse" v:type="0" v:sortKey="Network" v:invis="false" v:ask="false"
+						v:langID="1031"/>
+				<v:cp v:nameU="SubnetMask" v:lbl="Subnetzmaske" v:type="0" v:sortKey="Network" v:invis="false" v:ask="false"
+						v:langID="1031"/>
+				<v:cp v:nameU="AdminInterface" v:lbl="Administrative Schnittstelle" v:type="0" v:sortKey="Network" v:invis="false"
+						v:ask="false" v:langID="1031"/>
+				<v:cp v:nameU="NumberofPorts" v:lbl="Anzahl der Anschlüsse" v:type="0" v:sortKey="Network" v:invis="false"
+						v:ask="false" v:langID="1031"/>
+				<v:cp v:nameU="MACAddress" v:lbl="MAC-Adresse" v:type="0" v:sortKey="Network" v:invis="false" v:ask="false"
+						v:langID="1031"/>
+				<v:cp v:nameU="CommunityString" v:lbl="Community String" v:type="0" v:sortKey="Network" v:invis="false"
+						v:ask="false" v:langID="1031"/>
+				<v:cp v:nameU="NetworkDescription" v:lbl="Netzwerkbeschreibung" v:type="0" v:sortKey="Network" v:invis="false"
+						v:ask="false" v:langID="1031"/>
+				<v:cp v:nameU="HardDriveSize" v:lbl="Festplattenkapazität" v:type="0" v:sortKey="Workstation" v:invis="false"
+						v:ask="false" v:langID="1031"/>
+				<v:cp v:nameU="CPU" v:lbl="CPU" v:type="0" v:sortKey="Workstation" v:invis="false" v:ask="false" v:langID="1031"/>
+				<v:cp v:nameU="Memory" v:lbl="Arbeitsspeicher" v:type="0" v:sortKey="Workstation" v:invis="false" v:ask="false"
+						v:langID="1031"/>
+				<v:cp v:nameU="OperatingSystem" v:lbl="Betriebssystem" v:type="0" v:sortKey="Workstation" v:invis="false"
+						v:ask="false" v:langID="1031"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="HasText" v:val="VT0(0):5"/>
+				<v:ud v:nameU="SolSH" v:val="VT15({BF0433D9-CD73-4EB5-8390-8653BE590246}):41"/>
+				<v:ud v:nameU="ShapeClass" v:val="VT0(5):26"/>
+				<v:ud v:nameU="ShapeType" v:val="VT0(24):26"/>
+				<v:ud v:nameU="SubShapeType" v:val="VT0(74):26"/>
+				<v:ud v:nameU="visLegendShape" v:val="VT0(2):26"/>
+				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+				<v:ud v:nameU="HasText" v:prompt="" v:val="VT0(1):5"/>
+			</v:userDefs>
+			<title>Webserver</title>
+			<desc>REST-API</desc>
+			<g id="shape691-91" v:mID="691" v:groupContext="shape">
+				<title>Tabelle.691</title>
+				<path d="M45.44 361.67 A6.43747 6.08752 -178.74 0 0 45.27 360.13 A9.9584 9.68178 -180 0 0 45.09 359.38 L51.02 356.18
+							 L51.02 312.93 L31.4 302.42 L0 319.53 L0.01 363.46 A33.0369 30.8521 -180 0 0 19.37 373.29 L28.15 368.5
+							 A9.9584 9.68178 -180 0 0 43.23 368.04 A9.9584 9.68178 -180 0 0 44.26 366.53 A9.78912 9.25704 -1.36 0
+							 0 45.44 361.67 ZM8.71 326.37 A34.0948 31.84 -180 0 0 19.37 330.16 A33.7139 31.4843 0 0 1 8.71 326.37
+							 Z" class="st12"/>
+			</g>
+			<g id="shape692-93" v:mID="692" v:groupContext="shape" transform="translate(0,-43.1295)">
+				<title>Tabelle.692</title>
+				<path d="M19.36 373.29 L51.02 356.06 L31.4 345.55 L0 362.66 A34.0948 31.84 -180 0 0 19.37 373.29 L19.36 373.29 Z"
+						class="st13"/>
+				<path d="M19.36 373.29 L51.02 356.06 L31.4 345.55 L0 362.66 A34.0948 31.84 -180 0 0 19.37 373.29" class="st14"/>
+			</g>
+			<g id="shape693-98" v:mID="693" v:groupContext="shape" transform="translate(0.0115937,0)">
+				<title>Tabelle.693</title>
+				<path d="M19.36 330.16 A33.7139 31.4843 0 0 1 0 319.48 L0 363.46 A33.0369 30.8521 -180 0 0 19.36 373.29 L19.35 330.16
+							 L19.36 330.16 Z" class="st15"/>
+				<path d="M19.36 330.16 A33.7139 31.4843 0 0 1 0 319.48 L0 363.46 A33.0369 30.8521 -180 0 0 19.36 373.29 L19.35 330.16"
+						class="st14"/>
+			</g>
+			<g id="shape694-105" v:mID="694" v:groupContext="shape" transform="translate(19.3628,-0.0487457)">
+				<title>Tabelle.694</title>
+				<path d="M0 330.21 L0 373.29 L31.66 356.23 L31.66 312.98 L0 330.21 Z" class="st16"/>
+			</g>
+			<g id="shape695-111" v:mID="695" v:groupContext="shape" transform="translate(3.19744E-14,-0.00156214)">
+				<title>Tabelle.695</title>
+				<path d="M51.02 312.93 L31.4 302.42 L0 319.53 L0.01 363.46 A33.0369 30.8521 -180 0 0 19.37 373.29 L51.02 356.18 L51.02
+							 312.93" class="st17"/>
+			</g>
+			<g id="shape696-114" v:mID="696" v:groupContext="shape" transform="translate(-119.465,-0.269161) rotate(-20)">
+				<title>Tabelle.696</title>
+				<ellipse cx="1.4821" cy="371.27" rx="1.4821" ry="2.01816" class="st18"/>
+			</g>
+			<g id="shape697-120" v:mID="697" v:groupContext="shape" transform="translate(3.13992,-6.23262)">
+				<title>Tabelle.697</title>
+				<path d="M-0 361.32 A37.8205 34.5426 -96.44 0 0 13.08 368.03" class="st19"/>
+				<path d="M0 363.94 A37.8205 34.5426 -96.44 0 0 13.08 370.66" class="st19"/>
+				<path d="M0 366.57 A37.8205 34.5426 -96.44 0 0 13.08 373.29" class="st19"/>
+			</g>
+			<g id="group698-127" transform="translate(2.6166,-30.546)" v:mID="698" v:groupContext="group">
+				<title>Tabelle.698</title>
+				<g id="shape699-128" v:mID="699" v:groupContext="shape" transform="translate(0,-7.06961)">
+					<title>Tabelle.699</title>
+					<path d="M0.47 366.57 A32.9981 30.8159 -180 0 0 13.55 373.29 a0.670503 0.62616 -180 0 0 3.01981E-14 -1.22178
+								 A32.1003 29.9774 0 0 1 0.73 365.54 a0.434387 0.40566 -180 0 0 -0.725202 0.344859 a0.946727 0.884117
+								 -180 0 0 0.463543 0.681433 Z" class="st20"/>
+				</g>
+				<g id="shape700-130" v:mID="700" v:groupContext="shape" transform="translate(4.16081,-8.60965)">
+					<title>Tabelle.700</title>
+					<path d="M4.02 373.24 A4.90309 2.98481 -90.9 0 0 0.1 371.28 A3.22599 1.60837 -180 0 0 4.02 373.24 Z"
+							class="st21"/>
+				</g>
+				<g id="shape701-135" v:mID="701" v:groupContext="shape" transform="translate(0.523319,-0.0610888)">
+					<title>Tabelle.701</title>
+					<path d="M0 363.15 L0 366.57 A35.496 33.1485 -180 0 0 13.08 373.29 L13.08 369.87 A36.6577 34.2334 0 0 1 -0 363.15
+								 Z" class="st22"/>
+				</g>
+				<g id="shape702-143" v:mID="702" v:groupContext="shape" transform="translate(0.523319,-1.95484)">
+					<title>Tabelle.702</title>
+					<path d="M0 366.57 A32.1279 30.0032 -180 0 0 13.08 373.29 L13.08 372.43 A35.5103 33.1619 0 0 1 0 365.71 L0 366.57
+								 Z" class="st23"/>
+				</g>
+				<g id="shape703-145" v:mID="703" v:groupContext="shape" transform="translate(0.523319,-0.122178)">
+					<title>Tabelle.703</title>
+					<path d="M0 363.15 L0 366.57 A35.496 33.1485 -180 0 0 13.08 373.29" class="st14"/>
+				</g>
+				<g id="shape704-148" v:mID="704" v:groupContext="shape" transform="translate(0.523319,0)">
+					<title>Tabelle.704</title>
+					<path d="M13.08 373.29 L13.08 369.87 A36.6577 34.2334 0 0 1 0 363.15" class="st24"/>
+				</g>
+			</g>
+			<g id="group705-152" transform="translate(25.5273,-1.65118)" v:mID="705" v:groupContext="group">
+				<v:userDefs>
+					<v:ud v:nameU="IsVisable" v:val="VT0(1):5"/>
+				</v:userDefs>
+				<title>Tabelle.705</title>
+				<g id="group706-153" transform="translate(0,-0.00513694)" v:mID="706" v:groupContext="group">
+					<title>Tabelle.706</title>
+					<g id="shape707-154" v:mID="707" v:groupContext="shape">
+						<title>Tabelle.707</title>
+						<ellipse cx="9.9584" cy="363.607" rx="9.9584" ry="9.68178" class="st25"/>
+						<ellipse cx="9.9584" cy="363.607" rx="9.9584" ry="9.68178" class="st26"/>
+					</g>
+					<g id="shape708-159" v:mID="708" v:groupContext="shape" transform="translate(0.828324,-0.217214)">
+						<title>Tabelle.708</title>
+						<path d="M7.89 373.29 L9.04 370.32 A5.25009 4.96708 -3.94 0 0 10.94 367.29 A2.41598 2.28452 -180 0 0 9.08
+									 365.46 A2.60577 2.46398 -180 0 0 7.22 366.54 L6.76 365.83 A1.97644 1.92154 -180 0 0 8.08 364.33
+									 A3.70546 3.50383 0 0 1 6.59 363.23 L8.24 361.92 L8.66 360.17 L7.42 359.38 L8.21 358.44 L6.74
+									 357.43 L7.14 356.33 L9.44 356.96 L9.34 358.79 L10.25 359.06 L11.48 358.5 L12.46 359.28 L13.65
+									 361.95 L13.28 363.42 L12.45 363.95 L12.81 364.95 A1.6741 1.58301 -180 0 0 15.32 365.97 A1.91881
+									 1.8144 0 0 1 16.41 367.65 L16.84 369.89 A9.78912 9.25704 -1.36 0 0 19.08 363.55 A6.43747 6.08752
+									 -178.74 0 0 17.99 360.01 A7.01114 6.62964 -180 0 0 16.29 357.61 A1.91105 1.80706 -180 0 0 14.89
+									 358.9 L15.31 360.2 A1.26932 1.20025 0 0 1 13.78 360.13 L13.57 362.05 A15.502 14.6585 -180 0
+									 0 12.53 359.53 L13.82 359.03 L13.33 358.32 L12.46 358.12 L12.49 357.54 L12.9 355.29 L10.75 354.7
+									 L9.67 355.26 L8.96 354.54 L7.7 354.42 L5 355.88 L6.25 356.63 L5.33 358.02 A1.32913 1.25681 0
+									 0 1 6.5 359.46 a0.501467 0.474181 0 0 1 -0.700995 0.544022 a0.792588 0.74946 0 0 1 -1.08397
+									 -0.803087 L5.08 357.67 L4.64 356.19 L2.71 356.49 L2.76 357.42 L2.31 357.82 L1.4 357.74 A7.82272
+									 7.60542 -180 0 0 -0 360 L1.08 360.4 A3.73445 3.53125 0 0 1 1.9 362.92 A3.4823 3.29282 -180 0
+									 0 5.22 364.66 A2.48634 2.35105 0 0 1 6.94 366.82 A1.35335 1.27971 -180 0 0 6.68 368.48 L7.86
+									 369.04 A1.58292 1.49678 0 0 1 7.22 370.41 A4.29519 4.06147 -180 0 0 7.89 373.29 Z"
+								class="st27"/>
+					</g>
+				</g>
+				<g id="shape709-162" v:mID="709" v:groupContext="shape" transform="translate(0.00268587,0)">
+					<title>Tabelle.709</title>
+					<ellipse cx="9.95872" cy="363.608" rx="9.95872" ry="9.68031" class="st28"/>
+					<ellipse cx="9.95872" cy="363.608" rx="9.95872" ry="9.68031" class="st17"/>
+				</g>
+			</g>
+			<g id="shape690-165" v:mID="690" v:groupContext="groupContent">
+				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+				<v:textRect cx="25.5118" cy="384.49" width="54.3" height="22.4037"/>
+				<text x="3.72" y="388.09" class="st2" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>REST-API</text>			</g>
+		</g>
+		<g id="group710-167" transform="translate(373.84,-103.131)" v:mID="710" v:groupContext="group">
+			<v:custProps>
+				<v:cp v:nameU="Manufacturer" v:lbl="Hersteller" v:type="0" v:sortKey="Equipment" v:invis="false" v:langID="1031"/>
+				<v:cp v:nameU="ProductNumber" v:lbl="Produktnummer" v:type="0" v:sortKey="Equipment" v:invis="false"
+						v:langID="1031"/>
+				<v:cp v:nameU="PartNumber" v:lbl="Teilenummer" v:type="0" v:sortKey="Equipment" v:invis="false" v:langID="1031"/>
+				<v:cp v:nameU="ProductDescription" v:lbl="Produktbeschreibung" v:type="0" v:sortKey="Equipment" v:invis="false"
+						v:langID="1031"/>
+				<v:cp v:nameU="AssetNumber" v:lbl="Inventarnummer" v:type="0" v:sortKey="Asset" v:invis="false" v:langID="1031"/>
+				<v:cp v:nameU="SerialNumber" v:lbl="Seriennummer" v:type="0" v:sortKey="Asset" v:invis="false" v:langID="1031"/>
+				<v:cp v:nameU="Location" v:lbl="Standort" v:type="0" v:sortKey="Asset" v:invis="false" v:langID="1031"/>
+				<v:cp v:nameU="Building" v:lbl="Gebäude" v:type="0" v:sortKey="Asset" v:invis="false" v:langID="1031"/>
+				<v:cp v:nameU="Room" v:lbl="Raum" v:type="0" v:sortKey="Asset" v:invis="false" v:langID="1031"/>
+				<v:cp v:nameU="Department" v:lbl="Abteilung" v:langID="1031"/>
+				<v:cp v:nameU="ShapeClass" v:lbl="ShapeClass" v:type="0" v:invis="true" v:ask="false" v:langID="1031"
+						v:val="VT4(Geräte)"/>
+				<v:cp v:nameU="ShapeType" v:lbl="ShapeType" v:type="0" v:invis="true" v:ask="false" v:langID="1031"
+						v:val="VT4(Server)"/>
+				<v:cp v:nameU="SubShapeType" v:lbl="SubShapeType" v:type="0" v:invis="true" v:ask="false" v:langID="1031"
+						v:val="VT4(Datenbank)"/>
+				<v:cp v:nameU="NetworkName" v:lbl="Netzwerkname" v:type="0" v:sortKey="Network" v:invis="false" v:ask="false"
+						v:langID="1031"/>
+				<v:cp v:nameU="IPAddress" v:lbl="IP-Adresse" v:type="0" v:sortKey="Network" v:invis="false" v:ask="false"
+						v:langID="1031"/>
+				<v:cp v:nameU="SubnetMask" v:lbl="Subnetzmaske" v:type="0" v:sortKey="Network" v:invis="false" v:ask="false"
+						v:langID="1031"/>
+				<v:cp v:nameU="AdminInterface" v:lbl="Administrative Schnittstelle" v:type="0" v:sortKey="Network" v:invis="false"
+						v:ask="false" v:langID="1031"/>
+				<v:cp v:nameU="NumberofPorts" v:lbl="Anzahl der Anschlüsse" v:type="0" v:sortKey="Network" v:invis="false"
+						v:ask="false" v:langID="1031"/>
+				<v:cp v:nameU="MACAddress" v:lbl="MAC-Adresse" v:type="0" v:sortKey="Network" v:invis="false" v:ask="false"
+						v:langID="1031"/>
+				<v:cp v:nameU="CommunityString" v:lbl="Community String" v:type="0" v:sortKey="Network" v:invis="false"
+						v:ask="false" v:langID="1031"/>
+				<v:cp v:nameU="NetworkDescription" v:lbl="Netzwerkbeschreibung" v:type="0" v:sortKey="Network" v:invis="false"
+						v:ask="false" v:langID="1031"/>
+				<v:cp v:nameU="HardDriveSize" v:lbl="Festplattenkapazität" v:type="0" v:sortKey="Workstation" v:invis="false"
+						v:ask="false" v:langID="1031"/>
+				<v:cp v:nameU="CPU" v:lbl="CPU" v:type="0" v:sortKey="Workstation" v:invis="false" v:ask="false" v:langID="1031"/>
+				<v:cp v:nameU="Memory" v:lbl="Arbeitsspeicher" v:type="0" v:sortKey="Workstation" v:invis="false" v:ask="false"
+						v:langID="1031"/>
+				<v:cp v:nameU="OperatingSystem" v:lbl="Betriebssystem" v:type="0" v:sortKey="Workstation" v:invis="false"
+						v:ask="false" v:langID="1031"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="HasText" v:val="VT0(0):5"/>
+				<v:ud v:nameU="SolSH" v:val="VT15({BF0433D9-CD73-4EB5-8390-8653BE590246}):41"/>
+				<v:ud v:nameU="ShapeClass" v:val="VT0(5):26"/>
+				<v:ud v:nameU="ShapeType" v:val="VT0(24):26"/>
+				<v:ud v:nameU="SubShapeType" v:val="VT0(16):26"/>
+				<v:ud v:nameU="visLegendShape" v:val="VT0(2):26"/>
+				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<title>Datenbankserver</title>
+			<g id="shape711-168" v:mID="711" v:groupContext="shape">
+				<title>Tabelle.711</title>
+				<path d="M43.52 360.23 L51.02 356.18 L51.02 312.93 L31.4 302.42 L0 319.53 L0.01 363.46 A33.0369 30.8521 -180 0 0
+							 19.37 373.29 L26.18 369.57 A8.76628 4.03675 -180 0 0 43.51 368.96 L43.52 360.23 ZM8.71 326.37 A34.0948
+							 31.84 -180 0 0 19.37 330.16 A33.7139 31.4843 0 0 1 8.71 326.37 Z" class="st12"/>
+			</g>
+			<g id="shape712-170" v:mID="712" v:groupContext="shape" transform="translate(0,-43.1295)">
+				<title>Tabelle.712</title>
+				<path d="M19.36 373.29 L51.02 356.06 L31.4 345.55 L0 362.66 A34.0948 31.84 -180 0 0 19.37 373.29 L19.36 373.29 Z"
+						class="st13"/>
+				<path d="M19.36 373.29 L51.02 356.06 L31.4 345.55 L0 362.66 A34.0948 31.84 -180 0 0 19.37 373.29" class="st14"/>
+			</g>
+			<g id="shape713-174" v:mID="713" v:groupContext="shape" transform="translate(0.0115937,0)">
+				<title>Tabelle.713</title>
+				<path d="M19.36 330.16 A33.7139 31.4843 0 0 1 0 319.48 L0 363.46 A33.0369 30.8521 -180 0 0 19.36 373.29 L19.35 330.16
+							 L19.36 330.16 Z" class="st15"/>
+				<path d="M19.36 330.16 A33.7139 31.4843 0 0 1 0 319.48 L0 363.46 A33.0369 30.8521 -180 0 0 19.36 373.29 L19.35 330.16"
+						class="st14"/>
+			</g>
+			<g id="shape714-178" v:mID="714" v:groupContext="shape" transform="translate(19.3628,-0.0487457)">
+				<title>Tabelle.714</title>
+				<path d="M0 330.21 L0 373.29 L31.66 356.23 L31.66 312.98 L0 330.21 Z" class="st16"/>
+			</g>
+			<g id="shape715-181" v:mID="715" v:groupContext="shape" transform="translate(3.19744E-14,-0.00156214)">
+				<title>Tabelle.715</title>
+				<path d="M51.02 312.93 L31.4 302.42 L0 319.53 L0.01 363.46 A33.0369 30.8521 -180 0 0 19.37 373.29 L51.02 356.18 L51.02
+							 312.93" class="st17"/>
+			</g>
+			<g id="shape716-184" v:mID="716" v:groupContext="shape" transform="translate(-119.465,-0.269161) rotate(-20)">
+				<title>Tabelle.716</title>
+				<ellipse cx="1.4821" cy="371.27" rx="1.4821" ry="2.01816" class="st18"/>
+			</g>
+			<g id="shape717-187" v:mID="717" v:groupContext="shape" transform="translate(3.13992,-6.23262)">
+				<title>Tabelle.717</title>
+				<path d="M-0 361.32 A37.8205 34.5426 -96.44 0 0 13.08 368.03" class="st19"/>
+				<path d="M0 363.94 A37.8205 34.5426 -96.44 0 0 13.08 370.66" class="st19"/>
+				<path d="M0 366.57 A37.8205 34.5426 -96.44 0 0 13.08 373.29" class="st19"/>
+			</g>
+			<g id="group718-193" transform="translate(2.6166,-30.546)" v:mID="718" v:groupContext="group">
+				<title>Tabelle.718</title>
+				<g id="shape719-194" v:mID="719" v:groupContext="shape" transform="translate(0,-7.06961)">
+					<title>Tabelle.719</title>
+					<path d="M0.47 366.57 A32.9981 30.8159 -180 0 0 13.55 373.29 a0.670503 0.62616 -180 0 0 3.01981E-14 -1.22178
+								 A32.1003 29.9774 0 0 1 0.73 365.54 a0.434387 0.40566 -180 0 0 -0.725202 0.344859 a0.946727 0.884117
+								 -180 0 0 0.463543 0.681433 Z" class="st20"/>
+				</g>
+				<g id="shape720-196" v:mID="720" v:groupContext="shape" transform="translate(4.16081,-8.60965)">
+					<title>Tabelle.720</title>
+					<path d="M4.02 373.24 A4.90309 2.98481 -90.9 0 0 0.1 371.28 A3.22599 1.60837 -180 0 0 4.02 373.24 Z"
+							class="st21"/>
+				</g>
+				<g id="shape721-199" v:mID="721" v:groupContext="shape" transform="translate(0.523319,-0.0610888)">
+					<title>Tabelle.721</title>
+					<path d="M0 363.15 L0 366.57 A35.496 33.1485 -180 0 0 13.08 373.29 L13.08 369.87 A36.6577 34.2334 0 0 1 -0 363.15
+								 Z" class="st22"/>
+				</g>
+				<g id="shape722-202" v:mID="722" v:groupContext="shape" transform="translate(0.523319,-1.95484)">
+					<title>Tabelle.722</title>
+					<path d="M0 366.57 A32.1279 30.0032 -180 0 0 13.08 373.29 L13.08 372.43 A35.5103 33.1619 0 0 1 0 365.71 L0 366.57
+								 Z" class="st23"/>
+				</g>
+				<g id="shape723-204" v:mID="723" v:groupContext="shape" transform="translate(0.523319,-0.122178)">
+					<title>Tabelle.723</title>
+					<path d="M0 363.15 L0 366.57 A35.496 33.1485 -180 0 0 13.08 373.29" class="st14"/>
+				</g>
+				<g id="shape724-207" v:mID="724" v:groupContext="shape" transform="translate(0.523319,0)">
+					<title>Tabelle.724</title>
+					<path d="M13.08 373.29 L13.08 369.87 A36.6577 34.2334 0 0 1 0 363.15" class="st24"/>
+				</g>
+			</g>
+			<g id="group725-211" transform="translate(25.5118,0)" v:mID="725" v:groupContext="group">
+				<v:userDefs>
+					<v:ud v:nameU="IsVisable" v:val="VT0(1):5"/>
+				</v:userDefs>
+				<title>Tabelle.725</title>
+				<g id="shape726-212" v:mID="726" v:groupContext="shape" transform="translate(0.487352,-16.002)">
+					<title>Tabelle.726</title>
+					<ellipse cx="8.76174" cy="369.288" rx="8.76174" ry="4.00051" class="st29"/>
+				</g>
+				<g id="shape727-216" v:mID="727" v:groupContext="shape" transform="translate(0.486609,-0.500196)">
+					<title>Tabelle.727</title>
+					<path d="M0 353.79 L0 369.39 A8.76628 4.03675 -180 0 0 17.52 369.46 L17.52 353.79 A8.76211 4.03483 0 1 1 0 353.79
+								 Z" class="st30"/>
+				</g>
+				<g id="shape728-220" v:mID="728" v:groupContext="shape" transform="translate(0.52973,-0.550136)">
+					<title>Tabelle.728</title>
+					<path d="M17.38 353.79 A8.68758 4.00051 -180 1 0 0 353.82 L0 369.39 A8.69171 4.03675 -180 0 0 17.37 369.46 L17.37
+								 353.79" class="st17"/>
+				</g>
+			</g>
+		</g>
+		<g id="group729-223" transform="translate(61.5265,-206.517)" v:mID="729" v:groupContext="group">
+			<title>Tabelle.729</title>
+			<g id="group631-224" transform="translate(0,-10.2981)" v:mID="631" v:groupContext="group" v:layerMember="2">
+				<v:custProps>
+					<v:cp v:nameU="Title" v:lbl="Titel" v:type="0" v:format="" v:sortKey="" v:invis="false" v:ask="false"
+							v:langID="1031" v:cal="0" v:val="VT4(Unbekannt)"/>
+					<v:cp v:nameU="Error" v:lbl="Fehler" v:type="0" v:format="" v:sortKey="" v:invis="false" v:ask="false"
+							v:langID="1031" v:cal="0" v:val="VT4(Unbekannt)"/>
+					<v:cp v:nameU="FileSize" v:lbl="Dateigröße" v:type="0" v:format="" v:sortKey="" v:invis="false" v:ask="false"
+							v:langID="1031" v:cal="0" v:val="VT4(Unbekannt)"/>
+					<v:cp v:nameU="ModDate" v:lbl="Datum der letzten Änderung" v:type="0" v:format="" v:sortKey="" v:invis="false"
+							v:ask="false" v:langID="1031" v:cal="0" v:val="VT4(Unbekannt)"/>
+				</v:custProps>
+				<v:userDefs>
+					<v:ud v:nameU="WebDiagramShape" v:prompt="1=Not Link, 2=Link" v:val="VT0(1):26"/>
+					<v:ud v:nameU="HasSubpage" v:prompt="0=no subpage, 1=has subpage" v:val="VT0(0):26"/>
+					<v:ud v:nameU="Button" v:prompt="0=Invisible, 1= Collapse, 2 =Expand" v:val="VT0(0):26"/>
+					<v:ud v:nameU="Error" v:prompt="HTTP status code, 0=None , 1=Unknown" v:val="VT0(0):26"/>
+					<v:ud v:nameU="Discovered" v:prompt="0=Hand dropped, 1=Dropped by the addon as a result of a disovery"
+							v:val="VT0(0):26"/>
+					<v:ud v:nameU="Duplicate" v:prompt="0=Original, 1=Duplicate" v:val="VT0(0):26"/>
+					<v:ud v:nameU="IconWidth" v:prompt="" v:val="VT0(0.236220472):1"/>
+					<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+					<v:ud v:nameU="ExpanderWidthScale" v:prompt="" v:val="VT0(0.36):26"/>
+					<v:ud v:nameU="ExpanderOffsetScale" v:prompt="" v:val="VT0(0.08):26"/>
+					<v:ud v:nameU="IconWidth" v:prompt="" v:val="VT0(1.7095516419459):1"/>
+				</v:userDefs>
+				<title>Webdienste</title>
+				<g id="shape631-225" v:mID="631" v:groupContext="groupContent" v:layerMember="2">
+					<rect x="132.935" y="306.545" width="24.8902" height="10.4" class="st31"/>
+				</g>
+				<g id="shape2-227" v:mID="2" v:groupContext="shape" transform="translate(0,-9.59533)">
+					<title>Tabelle.2</title>
+					<rect v:rectContext="foreign" x="0" y="269.391" width="123.088" height="103.897" class="st32"/>
+					<switch>
+						<foreignObject x="-7.54254" y="261.849" width="138.173" height="118.982"
+								requiredExtensions="http://schemas.microsoft.com/visio/2003/SVGExtensions/">
+							<v:foreignData v:orgSize="22572" clip="rect(7.54254 7.54254 7.54254 7.54254)" v:data="data:metafile;base64,
+										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
+										srM29ipltrpK7YRI4Xj9f6gkg00="/>
+						</foreignObject>
+						<svg viewBox="0 0 27.36 23.56" clip="rect(7.54254 7.54254 7.54254 7.54254)" height="118.982"
+								overflow="hidden" preserveAspectRatio="none" width="138.173" x="-7.54254" y="261.849">
+							<!-- GetDC -->
+							<!-- Released DC -->
+							<defs>
+								<path id="mfid1"
+										d="M25.304,3.038 C25.304,2.658 25.304,2.384 25.304,2.22 L25.283,3.038 L25.304,3.038 Z"/>
+							</defs>
+							<mask id="mfid2">
+								<use xlink:href="#mfid1" fill-rule="evenodd" fill="white" stroke="none"/>
+							</mask>
+							<mask id="mfid3" fill="white" stroke="none">
+								<g>
+									<g mask="url(#mfid2)">
+										<rect width="27.36" height="23.56" id="mfid4"/>
+									</g>
+								</g>
+							</mask>
+							<linearGradient id="mfid5" gradientUnits="userSpaceOnUse" x1="-0.010417" y1="0.0042604" x2="0.010635"
+									y2="0.0042604" spreadMethod="repeat">
+								<stop offset="0" stop-color="#ffffff"/>
+								<stop offset="1" stop-color="#d6e1e5"/>
+							</linearGradient>
+							<g mask="url(#mfid3)">
+								<g text-rendering="geometricPrecision">
+									<g transform="matrix(96, 0, 0, -96, 25.283, 3.038)">
+										<g fill="url(#mfid5)">
+											<rect x="-0.010417" y="-0.010417" width="0.021052" height="0.029354" stroke="none"/>
+											<defs>
+												<path id="mfid6"
+														d="M1.556,1.5 L1.5,22.062 L25.864,22.062 L25.864,1.5 L1.556,1.5 Z M25.584,21.782 L1.78,21.782 L1.835,1.78 L25.584,1.78 L25.584,21.782 Z"/>
+											</defs>
+										</g>
+									</g>
+								</g>
+							</g>
+							<g>
+								<g text-rendering="geometricPrecision">
+									<g fill="#6d6b7c">
+										<use xlink:href="#mfid6" fill-rule="evenodd" stroke="none"/>
+										<defs>
+											<path id="mfid7"
+													d="M1.683,21.911 L25.689,21.946 L25.689,1.716 L1.817,1.728 L1.683,21.911 Z M2.12,2.014 L25.308,2.003 L25.303,2.169 C25.303,2.333 25.303,2.608 25.303,2.989 L25.308,2.989 L25.308,3.551 L25.529,3.551 L25.308,3.551 L25.308,4.112 L25.303,4.112 C25.303,9.07 25.303,21.07 25.303,21.502 C24.764,21.502 2.584,21.502 2.042,21.502 C2.043,21.068 2.077,9.069 2.09,4.112 L2.12,2.014 Z"/>
+										</defs>
+										<use xlink:href="#mfid7" fill-rule="evenodd" stroke="none"/>
+										<defs>
+											<path id="mfid8"
+													d="M2.115,2.06 C2.115,2.126 2.113,2.478 2.112,3.039 L25.282,3.039 L25.303,2.221 C25.303,2.143 25.303,2.082 25.303,2.061 C24.765,2.06 2.653,2.06 2.115,2.06 Z M19.818,2.887 L19.213,2.887 L19.213,2.225 L19.818,2.225 L19.818,2.887 Z M21.583,2.887 L20.978,2.887 L20.978,2.225 L21.583,2.225 L21.583,2.887 Z M22.775,2.882 L22.775,2.221 L23.38,2.221 L23.38,2.882 L22.775,2.882 Z"/>
+										</defs>
+									</g>
+									<g fill="#d6e1e5">
+										<use xlink:href="#mfid8" fill-rule="evenodd" stroke="none"/>
+										<defs>
+											<path id="mfid9"
+													d="M2.15,2.06 C2.686,2.06 24.782,1.997 25.321,1.997 C25.321,2.019 25.303,2.143 25.303,2.221 L25.308,2.057 L2.091,2.057 L2.091,3.039 L2.148,3.039 C2.147,2.478 2.15,2.126 2.15,2.06 Z"/>
+										</defs>
+										<use xlink:href="#mfid9" fill-rule="evenodd" stroke="none"/>
+										<defs>
+											<path id="mfid10"
+													d="M25.269,3.599 L25.304,3.599 C25.304,3.396 25.304,3.205 25.304,3.038 L25.283,3.038 L25.269,3.599 Z"/>
+										</defs>
+									</g>
+									<g fill="#9aa7c1">
+										<use xlink:href="#mfid10" fill-rule="evenodd" stroke="none"/>
+										<defs>
+											<path id="mfid11"
+													d="M25.269,3.599 L25.254,4.117 L2.108,4.117 C2.108,4.131 2.108,4.145 2.108,4.158 L25.303,4.158 C25.303,3.961 25.303,3.773 25.303,3.599 L25.269,3.599 Z"/>
+										</defs>
+										<use xlink:href="#mfid11" fill-rule="evenodd" stroke="none"/>
+										<defs>
+											<path id="mfid12"
+													d="M25.309,3.599 L25.309,3.038 L25.304,3.038 C25.304,3.205 25.304,3.395 25.304,3.599 L25.309,3.599 Z"/>
+										</defs>
+										<use xlink:href="#mfid12" fill-rule="evenodd" stroke="none"/>
+										<defs>
+											<path id="mfid13"
+													d="M2.075,4.116 L2.075,4.157 L2.123,4.157 C2.123,4.144 2.123,4.13 2.123,4.116 L2.075,4.116 Z"/>
+										</defs>
+										<use xlink:href="#mfid13" fill-rule="evenodd" stroke="none"/>
+										<defs>
+											<path id="mfid14"
+													d="M25.304,4.157 L25.309,4.157 L25.309,3.599 L25.304,3.599 C25.304,3.772 25.304,3.96 25.304,4.157 Z"/>
+										</defs>
+										<use xlink:href="#mfid14" fill-rule="evenodd" stroke="none"/>
+										<defs>
+											<path id="mfid15"
+													d="M25.282,3.038 L2.112,3.038 C2.11,3.205 2.11,3.396 2.11,3.599 L25.268,3.599 L25.282,3.038 Z"/>
+										</defs>
+										<use xlink:href="#mfid15" fill-rule="evenodd" stroke="none"/>
+										<defs>
+											<path id="mfid16"
+													d="M25.254,4.116 L25.287,3.465 L2.12,3.517 C2.12,3.54 2.11,3.791 2.108,4.117 L25.254,4.117 L25.254,4.116 Z"/>
+										</defs>
+										<use xlink:href="#mfid16" fill-rule="evenodd" stroke="none"/>
+										<defs>
+											<path id="mfid17"
+													d="M2.132,3.599 L2.087,3.599 L2.087,4.117 L2.13,4.117 C2.13,3.933 2.13,3.761 2.132,3.599 Z"/>
+										</defs>
+										<use xlink:href="#mfid17" fill-rule="evenodd" stroke="none"/>
+										<defs>
+											<path id="mfid18"
+													d="M2.132,3.599 C2.133,3.396 2.133,3.205 2.133,3.038 L2.087,3.038 L2.087,3.599 L2.132,3.599 Z"/>
+										</defs>
+										<use xlink:href="#mfid18" fill-rule="evenodd" stroke="none"/>
+									</g>
+									<g fill="#7c859b">
+										<rect x="22.775" y="2.221" width="0.605" height="0.661" stroke="none"/>
+										<rect x="20.978" y="2.225" width="0.605" height="0.662" stroke="none"/>
+										<rect x="19.213" y="2.225" width="0.605" height="0.662" stroke="none"/>
+									</g>
+								</g>
+							</g>
+							<!-- GetDC -->
+							<!-- Released DC -->
+							<defs>
+								<path id="mfid19" d="M2.126,21.567 L25.319,21.567 L25.319,4.194 L2.126,4.194 L2.126,21.567 Z"/>
+							</defs>
+							<mask id="mfid20">
+								<use xlink:href="#mfid19" fill-rule="evenodd" fill="white" stroke="none"/>
+							</mask>
+							<mask id="mfid21" fill="white" stroke="none">
+								<g>
+									<g mask="url(#mfid20)">
+										<use xlink:href="#mfid4"/>
+									</g>
+								</g>
+							</mask>
+							<defs>
+								<path id="mfid22" d="M-0.010417,-0.010417 L0.25201,-0.010417 L0.25201,0.19139 L-0.010417,0.19139 Z"/>
+							</defs>
+							<radialGradient id="mfid23">
+								<stop offset="0" stop-color="#ffffff"/>
+								<stop offset="1" stop-color="#d6e1e5"/>
+							</radialGradient>
+							<g mask="url(#mfid21)">
+								<g text-rendering="geometricPrecision">
+									<g transform="matrix(96, 0, 0, -96, 2.126, 21.567)">
+										<g fill="white">
+											<mask id="mfid24" x="-0.010417" y="-0.010417" width="0.26243" height="0.2018"
+													maskUnits="userSpaceOnUse">
+												<rect x="-0.010417" y="-0.010417" width="0.26243" height="0.2018" stroke="none"/>
+											</mask>
+											<use xlink:href="#mfid22" stroke="none" mask="url(#mfid24)" fill="url(#mfid23)"/>
+										</g>
+									</g>
+								</g>
+							</g>
+							<!-- GetDC -->
+							<!-- Released DC -->
+							<defs>
+								<path id="mfid25"
+										d="M15.33,11.917 C15.33,8.7463 12.76,6.176 9.589,6.176 C6.4183,6.176 3.848,8.7463 3.848,11.917 C3.848,15.088 6.4183,17.658 9.589,17.658 C12.76,17.658 15.33,15.088 15.33,11.917 Z"/>
+							</defs>
+							<mask id="mfid26">
+								<use xlink:href="#mfid25" fill-rule="evenodd" fill="white" stroke="none"/>
+							</mask>
+							<mask id="mfid27" fill="white" stroke="none">
+								<g>
+									<g mask="url(#mfid26)">
+										<use xlink:href="#mfid4"/>
+									</g>
+								</g>
+							</mask>
+							<defs>
+								<path id="mfid28"
+										d="M0.32863,-0.010417 C0.32863,0.099272 0.23971,0.18819 0.13002,0.18819 C0.020332,0.18819 -0.068588,0.099272 -0.068588,-0.010417 C-0.068588,-0.12011 0.020332,-0.20903 0.13002,-0.20903 C0.23971,-0.20903 0.32863,-0.12011 0.32863,-0.010417 Z"/>
+							</defs>
+							<radialGradient id="mfid29">
+								<stop offset="0" stop-color="#1b4995"/>
+								<stop offset="0.70711" stop-color="#266cb5"/>
+								<stop offset="1" stop-color="#266cb5"/>
+							</radialGradient>
+							<g mask="url(#mfid27)">
+								<g text-rendering="geometricPrecision">
+									<g transform="matrix(96, 0, 0, -96, 3.848, 17.658)">
+										<g fill="white">
+											<mask id="mfid30" x="-0.010417" y="-0.010417" width="0.14044" height="0.14044"
+													maskUnits="userSpaceOnUse">
+												<rect x="-0.010417" y="-0.010417" width="0.14044" height="0.14044" stroke="none"/>
+											</mask>
+											<use xlink:href="#mfid28" stroke="none" mask="url(#mfid30)" fill="url(#mfid29)"/>
+										</g>
+									</g>
+								</g>
+							</g>
+							<!-- GetDC -->
+							<!-- Released DC -->
+							<defs>
+								<path id="mfid31"
+										d="M7.411,6.64 C7.411,6.64 7.335,6.894 7.49,6.908 C7.64,6.919 7.63,6.55 7.831,6.64 C8.036,6.728 9.232,6.742 9.27,6.983 C9.31,7.225 9.028,7.632 8.786,7.632 C8.545,7.632 8.509,7.415 8.509,7.415 C8.509,7.415 8.202,7.326 8.164,7.389 C8.126,7.454 7.817,7.44 7.796,7.377 C7.769,7.315 7.171,7.519 7.284,7.747 C7.399,7.976 7.667,7.963 7.602,8.104 C7.54,8.245 7.552,8.396 7.616,8.396 C7.679,8.396 7.999,8.053 8.009,7.887 C8.023,7.72 8.228,7.466 8.341,7.543 C8.456,7.62 8.417,7.798 8.482,7.823 C8.545,7.848 8.645,7.594 8.811,7.81 C8.978,8.027 9.065,8.206 9.13,8.269 C9.195,8.333 9.13,8.664 9.233,8.766 C9.335,8.869 9.449,8.855 9.449,8.855 C9.449,8.855 9.22,9.032 9.108,8.97 C8.991,8.907 9.065,8.6 8.917,8.651 C8.762,8.702 8.417,8.663 8.417,8.663 C8.417,8.663 8.417,8.983 8.545,9.058 C8.675,9.136 8.659,9.365 8.468,9.326 C8.277,9.289 8.228,9.199 8.228,9.199 C8.228,9.199 7.906,9.428 7.919,9.479 C7.935,9.53 7.603,9.556 7.603,9.556 L7.323,9.835 C7.323,9.835 7.144,10.307 6.929,10.346 C6.712,10.384 6.622,10.714 6.622,10.753 C6.622,10.791 6.609,11.35 6.495,11.3 C6.38,11.249 6.481,10.97 6.481,10.97 L6.356,10.651 L5.96,10.472 L5.897,10.587 L5.503,10.421 C5.503,10.421 5.427,10.421 5.399,10.587 C5.376,10.753 5.272,10.93 5.195,10.995 C5.122,11.058 5.223,11.581 5.17,11.581 C5.122,11.581 5.437,11.772 5.437,11.772 L5.578,11.593 L5.846,11.604 C5.846,11.604 5.564,12.064 5.655,12.127 C5.745,12.19 6.075,12.317 6.067,12.458 C6.051,12.598 6.051,13.006 6.051,13.006 L6.229,13.158 L6.153,13.31 C6.153,13.31 5.77,13.184 5.784,12.929 C5.796,12.673 5.631,12.457 5.631,12.457 C5.631,12.457 5.415,12.457 5.429,12.381 C5.439,12.305 5.198,11.973 5.198,11.973 L4.957,11.922 C4.957,11.922 4.687,11.464 4.701,11.298 C4.715,11.132 4.469,10.165 4.701,9.401 C4.98,8.505 5.556,7.734 6.254,7.261 C6.953,6.791 7.411,6.64 7.411,6.64 Z"/>
+							</defs>
+							<mask id="mfid32">
+								<use xlink:href="#mfid31" fill-rule="evenodd" fill="white" stroke="none"/>
+							</mask>
+							<mask id="mfid33" fill="white" stroke="none">
+								<g>
+									<g mask="url(#mfid32)">
+										<use xlink:href="#mfid4"/>
+									</g>
+								</g>
+							</mask>
+							<defs>
+								<path id="mfid34"
+										d="M-0.0090424,-0.010417 L0.062292,-0.010417 L0.062292,0.08004 L-0.0090424,0.08004 Z"/>
+							</defs>
+							<radialGradient id="mfid35">
+								<stop offset="0" stop-color="#4bb748"/>
+								<stop offset="1" stop-color="#bddda1"/>
+							</radialGradient>
+							<g mask="url(#mfid33)">
+								<g text-rendering="geometricPrecision">
+									<g transform="matrix(96, 0, 0, -96, 4.469, 13.31)">
+										<g fill="white">
+											<mask id="mfid36" x="-0.0090424" y="-0.010417" width="0.071334" height="0.090456"
+													maskUnits="userSpaceOnUse">
+												<rect x="-0.0090424" y="-0.010417" width="0.071334" height="0.090456" stroke="none"/>
+											</mask>
+											<use xlink:href="#mfid34" stroke="none" mask="url(#mfid36)" fill="url(#mfid35)"/>
+										</g>
+									</g>
+								</g>
+							</g>
+							<!-- GetDC -->
+							<!-- Released DC -->
+							<defs>
+								<path id="mfid37"
+										d="M6.598,13.478 C6.598,13.478 6.61,13.86 6.495,13.988 C6.38,14.115 6.202,14.267 6.241,14.369 C6.278,14.471 6.341,14.549 6.341,14.549 C6.341,14.549 6.405,14.892 6.495,14.969 C6.583,15.044 6.712,15.198 6.811,15.428 C6.915,15.657 7.129,15.834 7.247,15.861 C7.362,15.885 7.64,15.937 7.64,16.178 C7.64,16.42 7.704,16.906 7.704,16.942 C7.704,16.981 7.755,17.249 7.858,17.311 C7.96,17.375 8.532,17.516 8.532,17.516 C8.532,17.516 9.065,17.223 9.13,17.198 C9.195,17.173 9.745,16.995 9.833,16.776 C9.923,16.562 9.935,16.522 10.047,16.509 C10.163,16.497 10.558,16.562 10.685,16.358 C10.814,16.153 10.939,16.204 10.914,15.962 C10.889,15.719 11.105,15.606 11.105,15.606 C11.105,15.606 11.525,15.11 11.461,14.994 C11.398,14.88 11.192,14.97 11.118,14.932 C11.042,14.892 10.557,14.854 10.557,14.854 C10.557,14.854 9.856,14.625 9.717,14.664 C9.574,14.702 9.705,14.257 9.537,14.116 C9.373,13.975 8.862,13.95 8.862,13.95 C8.862,13.95 8.29,13.226 8.163,13.289 C8.035,13.352 7.998,13.467 7.998,13.467 C7.998,13.467 7.64,13.172 7.49,13.159 C7.335,13.147 7.438,13.388 7.272,13.337 C7.106,13.287 7.158,13.134 7.158,13.134 L6.839,13.12 C6.839,13.12 6.788,13.414 6.598,13.478 Z"/>
+							</defs>
+							<mask id="mfid38">
+								<use xlink:href="#mfid37" fill-rule="evenodd" fill="white" stroke="none"/>
+							</mask>
+							<mask id="mfid39" fill="white" stroke="none">
+								<g>
+									<g mask="url(#mfid38)">
+										<use xlink:href="#mfid4"/>
+									</g>
+								</g>
+							</mask>
+							<linearGradient id="mfid40" gradientUnits="userSpaceOnUse" x1="-0.010068" y1="0.022896" x2="0.065267"
+									y2="0.022896" spreadMethod="repeat"
+									gradientTransform="matrix(-0.000000989, 0.88439, -1.1307, -0.00000013979, 0.053489, -0.0015131)">
+								<stop offset="0" stop-color="#1fa94c"/>
+								<stop offset="1" stop-color="#abd483"/>
+							</linearGradient>
+							<g mask="url(#mfid39)">
+								<g text-rendering="geometricPrecision">
+									<g transform="matrix(96, 0, 0, -96, 6.202, 17.516)">
+										<g fill="url(#mfid40)">
+											<rect x="-0.010068" y="-0.010417" width="0.075335" height="0.066625" stroke="none"/>
+										</g>
+									</g>
+								</g>
+							</g>
+							<!-- GetDC -->
+							<!-- Released DC -->
+							<defs>
+								<path id="mfid41"
+										d="M14.212,9.606 C14.212,9.606 14.111,9.122 13.97,9.211 C13.829,9.3 13.818,9.695 13.65,9.732 C13.488,9.771 13.347,9.808 13.412,9.898 C13.475,9.987 13.385,10.293 13.437,10.33 C13.488,10.369 13.167,10.827 13.208,11.273 C13.244,11.72 13.372,11.783 13.331,11.922 C13.296,12.063 13.155,12.457 13.359,12.571 C13.561,12.686 13.649,12.686 13.678,12.813 C13.702,12.94 13.791,13.106 13.919,13.118 C14.047,13.132 14.211,12.929 14.324,12.901 C14.441,12.876 14.515,12.444 14.658,12.468 C14.797,12.494 14.823,12.571 14.823,12.571 L15.011,12.495 L14.974,12.865 C14.974,12.865 15.026,13.296 15.089,13.335 C15.152,13.374 15.306,12.61 15.306,12.61 L15.306,11.173 L14.899,9.72 L14.683,9.301 L14.567,9.391 L14.53,9.619 C14.53,9.619 14.302,9.683 14.212,9.606 Z"/>
+							</defs>
+							<mask id="mfid42">
+								<use xlink:href="#mfid41" fill-rule="evenodd" fill="white" stroke="none"/>
+							</mask>
+							<mask id="mfid43" fill="white" stroke="none">
+								<g>
+									<g mask="url(#mfid42)">
+										<use xlink:href="#mfid4"/>
+									</g>
+								</g>
+							</mask>
+							<linearGradient id="mfid44" gradientUnits="userSpaceOnUse" x1="-0.0098646" y1="0.02194" x2="0.032823"
+									y2="0.02194" spreadMethod="repeat">
+								<stop offset="0" stop-color="#bddda1"/>
+								<stop offset="1" stop-color="#4bb748"/>
+							</linearGradient>
+							<g mask="url(#mfid43)">
+								<g text-rendering="geometricPrecision">
+									<g transform="matrix(96, 0, 0, -96, 13.155, 13.374)">
+										<g fill="url(#mfid44)">
+											<rect x="-0.0098646" y="-0.01001" width="0.042688" height="0.063902" stroke="none"/>
+										</g>
+									</g>
+								</g>
+							</g>
+							<!-- GetDC -->
+							<!-- Released DC -->
+							<defs>
+								<path id="mfid45"
+										d="M11.55,6.563 C11.55,6.563 11.461,6.715 11.601,6.805 C11.744,6.893 11.998,7.045 12.01,7.096 C12.021,7.148 11.958,7.276 12.059,7.325 C12.162,7.376 12.339,7.466 12.339,7.466 C12.339,7.466 12.53,7.352 12.569,7.492 C12.608,7.631 12.632,7.709 12.632,7.709 C12.632,7.709 12.799,7.631 12.721,7.506 C12.646,7.376 12.391,7.135 12.391,7.135 C12.391,7.135 12.775,7.364 12.874,7.466 C12.978,7.568 12.938,7.746 12.874,7.772 C12.81,7.798 12.986,8.151 12.986,8.151 L12.822,8.447 C12.822,8.447 13.255,8.79 13.155,8.854 C13.053,8.917 12.848,8.854 12.862,8.958 C12.874,9.058 12.964,9.198 13.026,9.364 C13.092,9.53 13.208,9.682 13.383,9.606 C13.561,9.53 13.51,9.262 13.51,9.262 C13.51,9.262 13.436,8.969 13.41,8.907 C13.383,8.841 13.486,8.637 13.486,8.637 C13.486,8.637 13.843,8.912 13.933,8.828 C14.02,8.744 14.085,8.346 14.085,8.346 C14.085,8.346 13.294,7.555 13.024,7.315 C12.759,7.071 12.021,6.589 11.55,6.563 Z"/>
+							</defs>
+							<mask id="mfid46">
+								<use xlink:href="#mfid45" fill-rule="evenodd" fill="white" stroke="none"/>
+							</mask>
+							<mask id="mfid47" fill="white" stroke="none">
+								<g>
+									<g mask="url(#mfid46)">
+										<use xlink:href="#mfid4"/>
+									</g>
+								</g>
+							</mask>
+							<defs>
+								<path id="mfid48"
+										d="M-0.0097801,-0.0098149 L0.03775,-0.0098149 L0.03775,0.042906 L-0.0097801,0.042906 Z"/>
+							</defs>
+							<radialGradient id="mfid49">
+								<stop offset="0" stop-color="#4bb748"/>
+								<stop offset="1" stop-color="#bddda1"/>
+							</radialGradient>
+							<g mask="url(#mfid47)">
+								<g text-rendering="geometricPrecision">
+									<g transform="matrix(96, 0, 0, -96, 11.461, 9.682)">
+										<g fill="white">
+											<mask id="mfid50" x="-0.0097801" y="-0.0098149" width="0.04753" height="0.052721"
+													maskUnits="userSpaceOnUse">
+												<rect x="-0.0097801" y="-0.0098149" width="0.04753" height="0.052721" stroke="none"/>
+											</mask>
+											<use xlink:href="#mfid48" stroke="none" mask="url(#mfid50)" fill="url(#mfid49)"/>
+										</g>
+									</g>
+								</g>
+							</g>
+							<!-- GetDC -->
+							<!-- Released DC -->
+							<defs>
+								<path id="mfid51"
+										d="M8.11,6.364 C8.183,6.495 8.042,6.676 8.107,6.72 C8.202,6.788 8.881,6.765 8.881,6.765 C8.881,6.765 8.908,6.641 9.078,6.663 C9.246,6.684 9.554,6.715 9.588,6.94 C9.627,7.167 9.697,7.094 9.697,7.094 C9.697,7.094 9.501,7.188 9.574,7.364 C9.647,7.538 9.837,7.773 9.837,7.773 C9.837,7.773 9.971,7.764 10.033,7.801 C10.099,7.838 10.168,7.897 10.254,7.838 C10.343,7.78 10.282,7.431 10.282,7.431 C10.282,7.431 10.567,7.298 10.577,7.144 C10.577,7.144 10.798,7.08 10.634,6.869 C10.472,6.655 10.169,6.517 10.169,6.517 L9.94,6.429 L10.169,6.392 C10.169,6.392 10.472,6.341 10.458,6.269 C10.446,6.197 9.188,6.183 9.188,6.183 L8.11,6.364 Z"/>
+							</defs>
+							<mask id="mfid52">
+								<use xlink:href="#mfid51" fill-rule="evenodd" fill="white" stroke="none"/>
+							</mask>
+							<mask id="mfid53" fill="white" stroke="none">
+								<g>
+									<g mask="url(#mfid52)">
+										<use xlink:href="#mfid4"/>
+									</g>
+								</g>
+							</mask>
+							<defs>
+								<path id="mfid54"
+										d="M-0.0099234,-0.010055 L0.038048,-0.010055 L0.038048,0.028271 L-0.0099234,0.028271 Z"/>
+							</defs>
+							<radialGradient id="mfid55">
+								<stop offset="0" stop-color="#4bb748"/>
+								<stop offset="1" stop-color="#bddda1"/>
+							</radialGradient>
+							<g mask="url(#mfid53)">
+								<g text-rendering="geometricPrecision">
+									<g transform="matrix(96, 0, 0, -96, 8.042, 7.897)">
+										<g fill="white">
+											<mask id="mfid56" x="-0.0099234" y="-0.010055" width="0.047971" height="0.038326"
+													maskUnits="userSpaceOnUse">
+												<rect x="-0.0099234" y="-0.010055" width="0.047971" height="0.038326" stroke="none"/>
+											</mask>
+											<use xlink:href="#mfid54" stroke="none" mask="url(#mfid56)" fill="url(#mfid55)"/>
+											<defs>
+												<path id="mfid57"
+														d="M15.33,11.917 C15.33,8.7463 12.76,6.176 9.589,6.176 C6.4183,6.176 3.848,8.7463 3.848,11.917 C3.848,15.088 6.4183,17.658 9.589,17.658 C12.76,17.658 15.33,15.088 15.33,11.917 Z"/>
+											</defs>
+										</g>
+									</g>
+								</g>
+							</g>
+							<g>
+								<g text-rendering="geometricPrecision">
+									<g fill="white" stroke-width="0.25" stroke="#046291" stroke-miterlimit="2">
+										<use xlink:href="#mfid57" fill="none"/>
+									</g>
+								</g>
+							</g>
+							<!-- GetDC -->
+							<!-- Released DC -->
+							<defs>
+								<path id="mfid58" d="M17.813,17.444 L23.239,17.444 L23.239,6.147 L17.813,6.147 L17.813,17.444 Z"/>
+							</defs>
+							<mask id="mfid59">
+								<use xlink:href="#mfid58" fill-rule="evenodd" fill="white" stroke="none"/>
+							</mask>
+							<mask id="mfid60" fill="white" stroke="none">
+								<g>
+									<g mask="url(#mfid59)">
+										<use xlink:href="#mfid4"/>
+									</g>
+								</g>
+							</mask>
+							<defs>
+								<path id="mfid61"
+										d="M-0.010417,-0.010417 L0.066937,-0.010417 L0.066937,0.12809 L-0.010417,0.12809 Z"/>
+							</defs>
+							<radialGradient id="mfid62">
+								<stop offset="0" stop-color="#0030c0"/>
+								<stop offset="1" stop-color="#b5dceb"/>
+							</radialGradient>
+							<g mask="url(#mfid60)">
+								<g text-rendering="geometricPrecision">
+									<g transform="matrix(96, 0, 0, -96, 17.813, 17.444)">
+										<g fill="white" stroke-width="0.25" stroke="#046291" stroke-miterlimit="2">
+											<mask id="mfid63" x="-0.010417" y="-0.010417" width="0.077354" height="0.13851"
+													maskUnits="userSpaceOnUse">
+												<rect x="-0.010417" y="-0.010417" width="0.077354" height="0.13851" stroke="none"/>
+											</mask>
+											<use xlink:href="#mfid61" stroke="none" mask="url(#mfid63)" fill="url(#mfid62)"/>
+										</g>
+									</g>
+								</g>
+							</g>
+							<!-- GetDC -->
+							<!-- Released DC -->
+							<defs>
+								<path id="mfid64" d="M4.854,19.589 L21.247,19.589 L21.247,19.091 L4.854,19.091 L4.854,19.589 Z"/>
+							</defs>
+							<mask id="mfid65">
+								<use xlink:href="#mfid64" fill-rule="evenodd" fill="white" stroke="none"/>
+							</mask>
+							<mask id="mfid66" fill="white" stroke="none">
+								<g>
+									<g mask="url(#mfid65)">
+										<use xlink:href="#mfid4"/>
+									</g>
+								</g>
+							</mask>
+							<linearGradient id="mfid67" gradientUnits="userSpaceOnUse" x1="-0.010417" y1="0.0025938" x2="0.18118"
+									y2="0.0025938" spreadMethod="repeat"
+									gradientTransform="matrix(1, -0, -0, 1, -0.0000000036663, -0.000000001457)">
+								<stop offset="0" stop-color="#9aaab7"/>
+								<stop offset="1" stop-color="#5084d1"/>
+							</linearGradient>
+							<g mask="url(#mfid66)">
+								<g text-rendering="geometricPrecision">
+									<g transform="matrix(96, 0, 0, -96, 4.854, 19.589)">
+										<g fill="url(#mfid67)" stroke-width="0.25" stroke="#046291" stroke-miterlimit="2">
+											<rect x="-0.010417" y="-0.010417" width="0.19159" height="0.026021" stroke="none"/>
+										</g>
+									</g>
+								</g>
+							</g>
+						</svg>
+					</switch>
+					<rect v:rectContext="foreign" x="0" y="269.391" width="123.088" height="103.897" class="st32"/>
+				</g>
+				<g id="shape632-230" v:mID="632" v:groupContext="shape" v:layerMember="2">
+					<title>Tabelle.632</title>
+					<rect x="0" y="250.201" width="123.088" height="123.088" class="st33"/>
+				</g>
+				<g id="group633-232" transform="translate(110.779,-39.3881)" v:mID="633" v:groupContext="group" v:layerMember="2">
+					<title>Tabelle.633</title>
+					<g id="shape634-233" v:mID="634" v:groupContext="shape" v:layerMember="2">
+						<title>Tabelle.634</title>
+						<rect x="0" y="328.977" width="44.3116" height="44.3116" class="st34"/>
+					</g>
+					<g id="shape635-235" v:mID="635" v:groupContext="shape" v:layerMember="2"
+							transform="translate(2.38589,-2.38339)">
+						<title>Tabelle.635</title>
+						<rect x="0" y="333.744" width="39.5448" height="39.5448" class="st35"/>
+					</g>
+					<g id="shape636-243" v:mID="636" v:groupContext="shape" v:layerMember="2"
+							transform="translate(8.14305,-19.7874)">
+						<title>Tabelle.636</title>
+						<rect x="0" y="368.552" width="28.0205" height="4.73677" class="st36"/>
+					</g>
+				</g>
+				<g id="group637-247" transform="translate(110.779,-39.3881)" v:mID="637" v:groupContext="group" v:layerMember="2">
+					<title>Tabelle.637</title>
+					<g id="shape638-248" v:mID="638" v:groupContext="shape" v:layerMember="2">
+						<title>Tabelle.638</title>
+						<rect x="0" y="328.977" width="44.3116" height="44.3116" class="st34"/>
+					</g>
+					<g id="shape639-250" v:mID="639" v:groupContext="shape" v:layerMember="2"
+							transform="translate(2.38589,-2.38089)">
+						<title>Tabelle.639</title>
+						<rect x="0" y="333.744" width="39.5448" height="39.5448" class="st35"/>
+					</g>
+					<g id="shape640-253" v:mID="640" v:groupContext="shape" v:layerMember="2"
+							transform="translate(19.7874,-8.14305)">
+						<title>Tabelle.640</title>
+						<rect x="0" y="345.263" width="4.73677" height="28.0255" class="st37"/>
+					</g>
+					<g id="shape641-255" v:mID="641" v:groupContext="shape" v:layerMember="2"
+							transform="translate(8.14305,-19.7874)">
+						<title>Tabelle.641</title>
+						<rect x="0" y="368.552" width="28.0205" height="4.73677" class="st37"/>
+					</g>
+				</g>
+				<g id="shape642-257" v:mID="642" v:groupContext="shape" v:layerMember="2" transform="translate(-15.386,15.386)">
+					<title>Tabelle.642</title>
+				</g>
+			</g>
+			<g id="shape688-261" v:mID="688" v:groupContext="shape" transform="translate(0.50209,0)">
+				<title>Tabelle.688</title>
+				<desc>Read</desc>
+				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+				<v:textRect cx="60.2362" cy="363.289" width="120.48" height="20"/>
+				<rect x="0" y="353.289" width="120.472" height="20" class="st32"/>
+				<text x="47.97" y="366.89" class="st2" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>Read</text>			</g>
+		</g>
+		<g id="shape735-264" v:mID="735" v:groupContext="shape" transform="translate(183.918,-287.383)">
+			<title>Tabelle.735</title>
+			<desc>Get</desc>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="92.126" cy="373.289" width="184.26" height="0"/>
+			<path d="M9.45 373.29 L9.81 373.29 L174.44 373.29" class="st38"/>
+			<rect v:rectContext="textBkgnd" x="83.3456" y="366.089" width="17.5608" height="14.4001" class="st40"/>
+			<text x="83.35" y="376.89" class="st2" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>Get</text>		</g>
+		<g id="shape736-275" v:mID="736" v:groupContext="shape" transform="translate(71.6215,-159.742) rotate(-30.0013)">
+			<title>Tabelle.736</title>
+			<desc>POST</desc>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="63.4499" cy="373.289" width="126.9" height="0"/>
+			<path d="M9.45 373.29 L9.81 373.29 L117.09 373.29" class="st38"/>
+			<rect v:rectContext="textBkgnd" x="50.697" y="366.089" width="25.5061" height="14.4001" class="st40"/>
+			<text x="50.7" y="376.89" class="st2" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>POST</text>		</g>
+		<g id="shape737-284" v:mID="737" v:groupContext="shape" transform="translate(-14.0476,-13.0143) rotate(-47.0176)">
+			<title>Tabelle.737</title>
+			<desc>PATCH</desc>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="82.1156" cy="373.289" width="164.24" height="0"/>
+			<path d="M9.45 373.29 L9.81 373.29 L154.42 373.29" class="st38"/>
+			<rect v:rectContext="textBkgnd" x="65.6829" y="366.089" width="32.8656" height="14.4001" class="st40"/>
+			<text x="65.68" y="376.89" class="st2" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>PATCH</text>		</g>
+		<g id="shape738-293" v:mID="738" v:groupContext="shape" transform="translate(-61.7334,128.515) rotate(-59.239)">
+			<title>Tabelle.738</title>
+			<desc>DELETE</desc>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="113.617" cy="373.289" width="227.24" height="0"/>
+			<path d="M9.45 373.29 L9.81 373.29 L217.42 373.29" class="st38"/>
+			<rect v:rectContext="textBkgnd" x="95.6901" y="366.089" width="35.8533" height="14.4001" class="st40"/>
+			<text x="95.69" y="376.89" class="st2" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>DELETE</text>		</g>
+		<g id="shape739-302" v:mID="739" v:groupContext="shape" transform="translate(766.971,124.173) rotate(90)">
+			<title>Tabelle.739</title>
+			<path d="M9.45 373.29 L9.81 373.29 L72.39 373.29" class="st41"/>
+		</g>
+		<g id="shape740-311" v:mID="740" v:groupContext="shape" transform="translate(318.775,-198.036) rotate(23.0566)">
+			<title>Tabelle.740</title>
+			<path d="M0 373.29 L46.21 373.29" class="st43"/>
+		</g>
+		<g id="shape741-314" v:mID="741" v:groupContext="shape" transform="translate(496.083,-27.9295) rotate(62.3273)">
+			<title>Tabelle.741</title>
+			<path d="M0 373.29 L108.46 373.29" class="st43"/>
+		</g>
+		<g id="shape742-317" v:mID="742" v:groupContext="shape" transform="translate(494.21,8.18599) rotate(68.428)">
+			<title>Tabelle.742</title>
+			<path d="M0 373.29 L187.11 373.29" class="st43"/>
+		</g>
+	</g>
+</svg>

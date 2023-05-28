@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generiert durch Microsoft Visio, SVG Export architecture.svg Page-1 -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
+		xmlns:v="http://schemas.microsoft.com/visio/2003/SVGExtensions/" width="15.6386in" height="8.77105in"
+		viewBox="0 0 1125.98 631.516" xml:space="preserve" color-interpolation-filters="sRGB" class="st10">
+	<v:documentProperties v:langID="1031" v:metric="true" v:viewMarkup="false">
+		<v:userDefs>
+			<v:ud v:nameU="msvNoAutoConnect" v:val="VT0(0):26"/>
+		</v:userDefs>
+	</v:documentProperties>
+
+	<style type="text/css">
+	<![CDATA[
+		.st1 {fill:#007f46;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.24}
+		.st2 {fill:#ffffff;font-family:Calibri;font-size:1.99999em}
+		.st3 {fill:#d9958f;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.24}
+		.st4 {fill:#ffffff;font-family:Calibri;font-size:1.5em}
+		.st5 {fill:#ccc2d9;fill-opacity:0.66;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.24}
+		.st6 {fill:#7e649e;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.24}
+		.st7 {fill:#ffffff;font-family:Calibri;font-size:1.16666em}
+		.st8 {fill:#ea700d;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.24}
+		.st9 {fill:#ffffff;font-family:Calibri;font-size:0.833336em}
+		.st10 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
+	]]>
+	</style>
+
+	<g v:mID="0" v:index="1" v:groupContext="foregroundPage">
+		<title>Zeichenblatt-1</title>
+		<v:pageProperties v:drawingScale="0.0393701" v:pageScale="0.0393701" v:drawingUnits="24" v:shadowOffsetX="9"
+				v:shadowOffsetY="-9" v:shadowType="1"/>
+		<v:layer v:name="Verbinder" v:index="0"/>
+		<g id="shape79-1" v:mID="79" v:groupContext="shape" transform="translate(18.12,-18.12)">
+			<title>Rechteck</title>
+			<desc>WebExpress</desc>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197" v:verticalAlign="0"/>
+			<v:textRect cx="544.868" cy="333.878" width="1089.74" height="595.276"/>
+			<rect x="0" y="36.24" width="1089.74" height="595.276" rx="5.66929" ry="5.66929" class="st1"/>
+			<text x="485.01" y="61.84" class="st2" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>WebExpress</text>		</g>
+		<g id="shape108-4" v:mID="108" v:groupContext="shape" transform="translate(53.2479,-57.9101)">
+			<title>Rechteck.108</title>
+			<desc>Plugin p1</desc>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197" v:verticalAlign="0"/>
+			<v:textRect cx="301.181" cy="377.867" width="602.37" height="507.297"/>
+			<rect x="0" y="124.219" width="602.362" height="507.297" rx="5.66929" ry="5.66929" class="st3"/>
+			<text x="267.38" y="144.42" class="st4" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>Plugin p1  </text>		</g>
+		<g id="shape109-7" v:mID="109" v:groupContext="shape" transform="translate(662.697,-57.9101)">
+			<title>Rechteck.109</title>
+			<desc>Plugin p2</desc>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197" v:verticalAlign="0"/>
+			<v:textRect cx="208.098" cy="377.867" width="416.2" height="507.297"/>
+			<rect x="0" y="124.219" width="416.197" height="507.297" rx="5.66929" ry="5.66929" class="st3"/>
+			<text x="174.3" y="144.42" class="st4" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>Plugin p2  </text>		</g>
+		<g id="shape91-10" v:mID="91" v:groupContext="shape" transform="translate(859.572,-175.748)">
+			<title>Rechteck.91</title>
+			<desc>Application Z</desc>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197" v:verticalAlign="0"/>
+			<v:textRect cx="104.173" cy="455.211" width="208.35" height="352.608"/>
+			<rect x="0" y="278.907" width="208.346" height="352.608" rx="5.66929" ry="5.66929" class="st5"/>
+			<text x="56.46" y="299.11" class="st4" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>Application Z</text>		</g>
+		<g id="shape90-13" v:mID="90" v:groupContext="shape" transform="translate(294.193,-175.748)">
+			<title>Rechteck.90</title>
+			<desc>Application Y</desc>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197" v:verticalAlign="0"/>
+			<v:textRect cx="276.312" cy="455.211" width="552.63" height="352.608"/>
+			<rect x="0" y="278.907" width="552.623" height="352.608" rx="5.66929" ry="5.66929" class="st5"/>
+			<text x="228.42" y="299.11" class="st4" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>Application Y</text>		</g>
+		<g id="shape87-16" v:mID="87" v:groupContext="shape" transform="translate(311.811,-200.955)">
+			<title>Rechteck.87</title>
+			<desc>Modul B</desc>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197" v:verticalAlign="0"/>
+			<v:textRect cx="79.9461" cy="490.138" width="159.9" height="282.756"/>
+			<rect x="0" y="348.76" width="159.892" height="282.756" rx="5.66929" ry="5.66929" class="st6"/>
+			<text x="55.92" y="365.36" class="st7" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>Modul B</text>		</g>
+		<g id="shape88-19" v:mID="88" v:groupContext="shape" transform="translate(486.983,-200.955)">
+			<title>Rechteck.88</title>
+			<desc>Modul C</desc>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197" v:verticalAlign="0"/>
+			<v:textRect cx="79.9461" cy="490.138" width="159.9" height="282.756"/>
+			<rect x="0" y="348.76" width="159.892" height="282.756" rx="5.66929" ry="5.66929" class="st6"/>
+			<text x="55.99" y="365.36" class="st7" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>Modul C</text>		</g>
+		<g id="shape99-22" v:mID="99" v:groupContext="shape" transform="translate(673.007,-200.955)">
+			<title>Rechteck.99</title>
+			<desc>Modul D</desc>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197" v:verticalAlign="0"/>
+			<v:textRect cx="187.906" cy="490.138" width="375.82" height="282.756"/>
+			<rect x="0" y="348.76" width="375.812" height="282.756" rx="5.66929" ry="5.66929" class="st6"/>
+			<text x="163.38" y="365.36" class="st7" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>Modul D</text>		</g>
+		<g id="shape83-25" v:mID="83" v:groupContext="shape" transform="translate(349.237,-358.986)">
+			<title>Rechteck.83</title>
+			<desc>Resources</desc>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="42.5197" cy="599.626" width="85.04" height="63.7795"/>
+			<rect x="0" y="567.736" width="85.0394" height="63.7795" rx="5.66929" ry="5.66929" class="st8"/>
+			<text x="21.8" y="602.63" class="st9" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>Resources</text>		</g>
+		<g id="shape84-28" v:mID="84" v:groupContext="shape" transform="translate(349.237,-249.144)">
+			<title>Rechteck.84</title>
+			<desc>Fragments</desc>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="42.5197" cy="599.626" width="85.04" height="63.7795"/>
+			<rect x="0" y="567.736" width="85.0394" height="63.7795" rx="5.66929" ry="5.66929" class="st8"/>
+			<text x="20.99" y="602.63" class="st9" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>Fragments</text>		</g>
+		<g id="shape105-31" v:mID="105" v:groupContext="shape" transform="translate(694.488,-358.986)">
+			<title>Rechteck.105</title>
+			<desc>Jobs</desc>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="42.5197" cy="599.626" width="85.04" height="63.7795"/>
+			<rect x="0" y="567.736" width="85.0394" height="63.7795" rx="5.66929" ry="5.66929" class="st8"/>
+			<text x="33.71" y="602.63" class="st9" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>Jobs</text>		</g>
+		<g id="shape106-34" v:mID="106" v:groupContext="shape" transform="translate(524.409,-249.144)">
+			<title>Rechteck.106</title>
+			<desc>Jobs</desc>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="42.5197" cy="599.626" width="85.04" height="63.7795"/>
+			<rect x="0" y="567.736" width="85.0394" height="63.7795" rx="5.66929" ry="5.66929" class="st8"/>
+			<text x="33.71" y="602.63" class="st9" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>Jobs</text>		</g>
+		<g id="shape107-37" v:mID="107" v:groupContext="shape" transform="translate(694.488,-249.144)">
+			<title>Rechteck.107</title>
+			<desc>REST-API</desc>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="42.5197" cy="599.626" width="85.04" height="63.7795"/>
+			<rect x="0" y="567.736" width="85.0394" height="63.7795" rx="5.66929" ry="5.66929" class="st8"/>
+			<text x="24.36" y="602.63" class="st9" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>REST-API</text>		</g>
+		<g id="shape111-40" v:mID="111" v:groupContext="shape" transform="translate(71.6731,-175.748)">
+			<title>Rechteck.111</title>
+			<desc>Application X</desc>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197" v:verticalAlign="0"/>
+			<v:textRect cx="104.173" cy="455.211" width="208.35" height="352.608"/>
+			<rect x="0" y="278.907" width="208.346" height="352.608" rx="5.66929" ry="5.66929" class="st5"/>
+			<text x="56" y="299.11" class="st4" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>Application X</text>		</g>
+		<g id="shape112-43" v:mID="112" v:groupContext="shape" transform="translate(97.5828,-203.081)">
+			<title>Rechteck.112</title>
+			<desc>Modul A</desc>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197" v:verticalAlign="0"/>
+			<v:textRect cx="79.9461" cy="490.138" width="159.9" height="282.756"/>
+			<rect x="0" y="348.76" width="159.892" height="282.756" rx="5.66929" ry="5.66929" class="st6"/>
+			<text x="55.68" y="365.36" class="st7" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>Modul A</text>		</g>
+		<g id="shape113-46" v:mID="113" v:groupContext="shape" transform="translate(135.009,-358.986)">
+			<title>Rechteck.113</title>
+			<desc>Resources</desc>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="42.5197" cy="599.626" width="85.04" height="63.7795"/>
+			<rect x="0" y="567.736" width="85.0394" height="63.7795" rx="5.66929" ry="5.66929" class="st8"/>
+			<text x="21.8" y="602.63" class="st9" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>Resources</text>		</g>
+		<g id="shape116-49" v:mID="116" v:groupContext="shape" transform="translate(133.327,-249.144)">
+			<title>Rechteck.116</title>
+			<desc>Jobs</desc>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="42.5197" cy="599.626" width="85.04" height="63.7795"/>
+			<rect x="0" y="567.736" width="85.0394" height="63.7795" rx="5.66929" ry="5.66929" class="st8"/>
+			<text x="33.71" y="602.63" class="st9" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>Jobs</text>		</g>
+		<g id="shape117-52" v:mID="117" v:groupContext="shape" transform="translate(520.468,-358.986)">
+			<title>Rechteck.117</title>
+			<desc>REST-API</desc>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="42.5197" cy="599.626" width="85.04" height="63.7795"/>
+			<rect x="0" y="567.736" width="85.0394" height="63.7795" rx="5.66929" ry="5.66929" class="st8"/>
+			<text x="24.36" y="602.63" class="st9" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>REST-API</text>		</g>
+		<g id="shape118-55" v:mID="118" v:groupContext="shape" transform="translate(822.047,-361.417)">
+			<title>Rechteck.118</title>
+			<desc>Resources</desc>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="42.5197" cy="599.626" width="85.04" height="63.7795"/>
+			<rect x="0" y="567.736" width="85.0394" height="63.7795" rx="5.66929" ry="5.66929" class="st8"/>
+			<text x="21.8" y="602.63" class="st9" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>Resources</text>		</g>
+		<g id="shape120-58" v:mID="120" v:groupContext="shape" transform="translate(949.606,-361.417)">
+			<title>Rechteck.120</title>
+			<desc>Fragments</desc>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="42.5197" cy="599.626" width="85.04" height="63.7795"/>
+			<rect x="0" y="567.736" width="85.0394" height="63.7795" rx="5.66929" ry="5.66929" class="st8"/>
+			<text x="20.99" y="602.63" class="st9" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>Fragments</text>		</g>
+		<g id="shape123-61" v:mID="123" v:groupContext="shape" transform="translate(71.6731,-70.8661)">
+			<title>Rechteck.123</title>
+			<desc>Global</desc>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197" v:verticalAlign="0"/>
+			<v:textRect cx="431.88" cy="585.883" width="863.76" height="91.2647"/>
+			<rect x="0" y="540.251" width="863.76" height="91.2647" rx="5.66929" ry="5.66929" class="st5"/>
+			<text x="408.29" y="560.45" class="st4" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>Global</text>		</g>
+		<g id="shape115-64" v:mID="115" v:groupContext="shape" transform="translate(127.559,-81.4961)">
+			<title>Rechteck.115</title>
+			<desc>I18N</desc>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="42.5197" cy="599.626" width="85.04" height="63.7795"/>
+			<rect x="0" y="567.736" width="85.0394" height="63.7795" rx="5.66929" ry="5.66929" class="st8"/>
+			<text x="32.96" y="602.63" class="st9" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>I18N</text>		</g>
+		<g id="shape122-67" v:mID="122" v:groupContext="shape" transform="translate(226.772,-81.4961)">
+			<title>Rechteck.122</title>
+			<desc>Components</desc>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="42.5197" cy="599.626" width="85.04" height="63.7795"/>
+			<rect x="0" y="567.736" width="85.0394" height="63.7795" rx="5.66929" ry="5.66929" class="st8"/>
+			<text x="16.59" y="602.63" class="st9" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>Components</text>		</g>
+		<g id="shape104-70" v:mID="104" v:groupContext="shape" transform="translate(708.661,-81.4961)">
+			<title>Rechteck.104</title>
+			<desc>I18N</desc>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="42.5197" cy="599.626" width="85.04" height="63.7795"/>
+			<rect x="0" y="567.736" width="85.0394" height="63.7795" rx="5.66929" ry="5.66929" class="st8"/>
+			<text x="32.96" y="602.63" class="st9" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>I18N</text>		</g>
+		<g id="shape121-73" v:mID="121" v:groupContext="shape" transform="translate(956.693,-81.4961)">
+			<title>Rechteck.121</title>
+			<desc>StatusPages</desc>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="42.5197" cy="599.626" width="85.04" height="63.7795"/>
+			<rect x="0" y="567.736" width="85.0394" height="63.7795" rx="5.66929" ry="5.66929" class="st8"/>
+			<text x="18.12" y="602.63" class="st9" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>StatusPages</text>		</g>
+	</g>
+</svg>

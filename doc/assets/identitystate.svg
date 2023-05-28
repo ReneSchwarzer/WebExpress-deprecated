@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generiert durch Microsoft Visio, SVG Export identitystate.svg Page-1 -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
+		xmlns:v="http://schemas.microsoft.com/visio/2003/SVGExtensions/" width="3.14474in" height="2.86915in"
+		viewBox="0 0 226.421 206.579" xml:space="preserve" color-interpolation-filters="sRGB" class="st10">
+	<v:documentProperties v:langID="1031" v:metric="true" v:viewMarkup="false">
+		<v:userDefs>
+			<v:ud v:nameU="msvSubprocessMaster" v:prompt="" v:val="VT4(Box)"/>
+			<v:ud v:nameU="msvNoAutoConnect" v:val="VT0(1):26"/>
+		</v:userDefs>
+	</v:documentProperties>
+
+	<style type="text/css">
+	<![CDATA[
+		.st1 {fill:#5b9bd5;stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.5}
+		.st2 {fill:#ffffff;font-family:Calibri;font-size:0.833336em}
+		.st3 {fill:#5b9bd5}
+		.st4 {stroke:#0070c0;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.5}
+		.st5 {marker-end:url(#mrkr4-15);stroke:#5692c9;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.5}
+		.st6 {fill:#5692c9;fill-opacity:1;stroke:#5692c9;stroke-opacity:1;stroke-width:0.16556291390728}
+		.st7 {fill:#ffffff;stroke:none;stroke-linecap:butt;stroke-width:7.2}
+		.st8 {fill:#41729d;font-family:Calibri;font-size:0.666664em}
+		.st9 {marker-end:url(#mrkr4-23);stroke:#5692c9;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.5}
+		.st10 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
+	]]>
+	</style>
+
+	<defs id="Markers">
+		<g id="lend4">
+			<path d="M 2 1 L 0 0 L 2 -1 L 2 1 " style="stroke:none"/>
+		</g>
+		<marker id="mrkr4-15" class="st6" v:arrowType="4" v:arrowSize="2" v:setback="12.08" refX="-12.08" orient="auto"
+				markerUnits="strokeWidth" overflow="visible">
+			<use xlink:href="#lend4" transform="scale(-6.04,-6.04) "/>
+		</marker>
+		<marker id="mrkr4-23" class="st6" v:arrowType="4" v:arrowSize="2" v:setback="11.36" refX="-11.36" orient="auto"
+				markerUnits="strokeWidth" overflow="visible">
+			<use xlink:href="#lend4" transform="scale(-6.04,-6.04) "/>
+		</marker>
+	</defs>
+	<g v:mID="0" v:index="1" v:groupContext="foregroundPage">
+		<v:userDefs>
+			<v:ud v:nameU="msvThemeOrder" v:val="VT0(0):26"/>
+		</v:userDefs>
+		<title>Zeichenblatt-1</title>
+		<v:pageProperties v:drawingScale="0.0393701" v:pageScale="0.0393701" v:drawingUnits="24" v:shadowOffsetX="8.50394"
+				v:shadowOffsetY="-8.50394"/>
+		<v:layer v:name="Verbinder" v:index="0"/>
+		<g id="shape10-1" v:mID="10" v:groupContext="shape" transform="translate(32.6922,-45.4291)">
+			<title>Anwendungsfall.3</title>
+			<desc>Deactivated</desc>
+			<v:userDefs>
+				<v:ud v:nameU="UMLShapeType" v:val="VT0(24):26"/>
+				<v:ud v:nameU="UMLError" v:val="VT0(0):26"/>
+				<v:ud v:nameU="UMLObjectGUID" v:val="VT4()"/>
+				<v:ud v:nameU="UMLPresOption1" v:val="VT0(3):26"/>
+				<v:ud v:nameU="UMLPresOption2" v:val="VT0(8):26"/>
+				<v:ud v:nameU="UMLVersion" v:val="VT0(2):26"/>
+				<v:ud v:nameU="visDescription"
+						v:val="VT4(Stellt eine von einem System oder einer Klasse bereitgestellte zusammenhängende Funktionalitätseinheit dar.)"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(14):26"/>
+				<v:ud v:nameU="EnsureWidthOK" v:val="VT0(0.8):0"/>
+				<v:ud v:nameU="DefaultWidth" v:val="VT0(0.8):0"/>
+				<v:ud v:nameU="UMLObjectGUID" v:prompt="" v:val="VT4({BBD70816-0195-4261-8EB3-A24CEEC1C834})"/>
+				<v:ud v:nameU="EnsureWidthOK" v:prompt="" v:val="VT0(0.81863486699392):1"/>
+				<v:ud v:nameU="DefaultWidth" v:prompt="" v:val="VT0(0.81863486699392):1"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="30.3513" cy="191.403" width="58.95" height="28.8"/>
+			<path d="M0 191.4 A30.3513 15.1756 0 1 1 60.7 191.4 A30.3513 15.1756 0 1 1 0 191.4 Z" class="st1"/>
+			<text x="6.01" y="194.4" class="st2" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>Deactivated</text>		</g>
+		<g id="shape11-4" v:mID="11" v:groupContext="shape" transform="translate(126.878,-171.571)">
+			<title>Anfangszustand</title>
+			<v:userDefs>
+				<v:ud v:nameU="UMLShapeType" v:val="VT0(42):26"/>
+				<v:ud v:nameU="UMLObjectGUID" v:val="VT4()"/>
+				<v:ud v:nameU="UMLError" v:val="VT0(0):26"/>
+				<v:ud v:nameU="UMLPresOptions" v:val="VT0(3):26"/>
+				<v:ud v:nameU="UMLVersion" v:val="VT0(2):26"/>
+				<v:ud v:nameU="visDescription" v:val="VT4(Stellt den Anfangspunkt eines neu erstellten Objekts dar. )"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(14):26"/>
+				<v:ud v:nameU="UMLObjectGUID" v:prompt="" v:val="VT4({BEE02715-E5D1-4C30-B459-F4F7C80D6549})"/>
+			</v:userDefs>
+			<path d="M0 198.07 A8.50394 8.50394 0 0 1 17.01 198.07 A8.50394 8.50394 0 1 1 0 198.07 Z" class="st1"/>
+		</g>
+		<g id="shape12-6" v:mID="12" v:groupContext="shape" transform="translate(126.878,-14.248)">
+			<title>Endzustand</title>
+			<v:userDefs>
+				<v:ud v:nameU="UMLShapeType" v:val="VT0(43):26"/>
+				<v:ud v:nameU="UMLObjectGUID" v:val="VT4()"/>
+				<v:ud v:nameU="UMLError" v:val="VT0(0):26"/>
+				<v:ud v:nameU="UMLPresOptions" v:val="VT0(3):26"/>
+				<v:ud v:nameU="UMLVersion" v:val="VT0(2):26"/>
+				<v:ud v:nameU="visDescription"
+						v:val="VT4(Stellt das letzte Vorkommen eines Ereignisses beim Einschließungszustand oder die Beendigung einer Aktivität im Einschließungszustand dar.)"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(14):26"/>
+				<v:ud v:nameU="UMLObjectGUID" v:prompt="" v:val="VT4({436B04C4-F65C-47E2-8827-1C2F111D3515})"/>
+				<v:ud v:nameU="UMLPresOption1" v:prompt="" v:val="VT0(3):26"/>
+			</v:userDefs>
+			<path d="M1.7 198.07 A6.80315 6.80315 0 0 1 15.31 198.07 A6.80315 6.80315 0 1 1 1.7 198.07 Z" class="st3"/>
+			<path d="M1.7 198.07 A6.80315 6.80315 0 0 1 15.31 198.07 A6.80315 6.80315 0 1 1 1.7 198.07" class="st4"/>
+			<path d="M0 198.07 A8.50394 8.50394 0 0 1 17.01 198.07 A8.50394 8.50394 0 1 1 0 198.07" class="st4"/>
+		</g>
+		<g id="shape13-10" v:mID="13" v:groupContext="shape" v:layerMember="0" transform="translate(128.295,-171.571)">
+			<title>Dynamischer Verbinder.33</title>
+			<desc>Create</desc>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(14):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="7.08661" cy="228.585" width="40" height="17.6036"/>
+			<path d="M7.09 206.58 L7.09 244.55" class="st5"/>
+			<rect v:rectContext="textBkgnd" x="-3.67691" y="223.785" width="21.5272" height="9.59985" class="st7"/>
+			<text x="-3.68" y="230.98" class="st8" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>Create</text>		</g>
+		<g id="shape14-18" v:mID="14" v:groupContext="shape" v:layerMember="0" transform="translate(103.151,-111.444)">
+			<title>Dynamischer Verbinder.14</title>
+			<desc>Disable</desc>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(14):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="-31.3777" cy="212.302" width="40" height="17.6036"/>
+			<path d="M0 206.58 C-10.03 206.58 -25.31 206.58 -32.83 213.49 C-38.59 218.78 -39.79 228.12 -40.04 236.2 L-40.05 236.56"
+					class="st9"/>
+			<rect v:rectContext="textBkgnd" x="-43.2467" y="207.502" width="23.7379" height="9.59985" class="st7"/>
+			<text x="-43.25" y="214.7" class="st8" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>Disable</text>		</g>
+		<g id="shape15-26" v:mID="15" v:groupContext="shape" v:layerMember="0" transform="translate(173.237,-104.469)">
+			<title>Dynamischer Verbinder.15</title>
+			<desc>Update</desc>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(14):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="16.5906" cy="201.465" width="40" height="17.6036"/>
+			<path d="M-7.02 204.29 C23.49 236.95 23.83 172.54 -2.51 190.84 L-2.79 191.07" class="st9"/>
+			<rect v:rectContext="textBkgnd" x="4.57523" y="196.665" width="24.0309" height="9.59985" class="st7"/>
+			<text x="4.58" y="203.86" class="st8" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>Update</text>		</g>
+		<g id="shape16-33" v:mID="16" v:groupContext="shape" v:layerMember="0" transform="translate(63.0435,-45.4291)">
+			<title>Dynamischer Verbinder.2</title>
+			<desc>Delete</desc>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(14):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="25.756" cy="227.762" width="40" height="17.6036"/>
+			<path d="M0 206.58 C0 212.25 -0 219.82 9.48 224.02 C19.91 228.64 41.82 229.18 57.79 229.25 L58.15 229.25" class="st9"/>
+			<rect v:rectContext="textBkgnd" x="15.0669" y="222.962" width="21.3783" height="9.59985" class="st7"/>
+			<text x="15.07" y="230.16" class="st8" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>Delete</text>		</g>
+		<g id="shape17-40" v:mID="17" v:groupContext="shape" v:layerMember="0" transform="translate(82.013,-71.9865)">
+			<title>Dynamischer Verbinder.1</title>
+			<desc>Enable</desc>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(14):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="3.62058" cy="182.782" width="40" height="17.6036"/>
+			<path d="M0 206.58 C0 198.73 -0 186.61 5.05 180.73 C8.45 176.78 14.13 175.64 19.42 175.31 L19.78 175.3" class="st9"/>
+			<rect v:rectContext="textBkgnd" x="-7.35965" y="177.982" width="21.9606" height="9.59985" class="st7"/>
+			<text x="-7.36" y="185.18" class="st8" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>Enable</text>		</g>
+		<g id="shape18-47" v:mID="18" v:groupContext="shape" v:layerMember="0" transform="translate(128.295,-95.3287)">
+			<title>Dynamischer Verbinder.4</title>
+			<desc>Delete</desc>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(14):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="7.08661" cy="238.615" width="40" height="17.6036"/>
+			<path d="M7.09 206.58 L7.09 264.61" class="st5"/>
+			<rect v:rectContext="textBkgnd" x="-3.60247" y="233.815" width="21.3783" height="9.59985" class="st7"/>
+			<text x="-3.6" y="241.02" class="st8" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>Delete</text>		</g>
+		<g id="shape21-54" v:mID="21" v:groupContext="shape" transform="translate(103.151,-95.3287)">
+			<title>Anwendungsfall.10</title>
+			<desc>Active</desc>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="32.2304" cy="190.464" width="64.47" height="32.2304"/>
+			<ellipse cx="32.2304" cy="190.464" rx="32.2304" ry="16.1152" class="st1"/>
+			<text x="19.65" y="193.46" class="st2" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>Active</text>		</g>
+	</g>
+</svg>

@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generiert durch Microsoft Visio, SVG Export webappsettingpagemenu.svg Page-1 -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
+		xmlns:v="http://schemas.microsoft.com/visio/2003/SVGExtensions/" width="3.79782in" height="4.10239in"
+		viewBox="0 0 273.443 295.372" xml:space="preserve" color-interpolation-filters="sRGB" class="st10">
+	<v:documentProperties v:langID="1031" v:metric="true" v:viewMarkup="false">
+		<v:userDefs>
+			<v:ud v:nameU="msvNoAutoConnect" v:val="VT0(1):26"/>
+			<v:ud v:nameU="msvNoApplyDataGraphicAfterLink" v:val="VT0(1):5"/>
+			<v:ud v:nameU="msvNoSubprocess" v:prompt="" v:val="VT0(1):26"/>
+			<v:ud v:nameU="msvConvertTheme"/>
+		</v:userDefs>
+	</v:documentProperties>
+
+	<style type="text/css">
+	<![CDATA[
+		.st1 {marker-end:url(#mrkr5-7);stroke:#31859b;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.75}
+		.st2 {fill:#31859b;fill-opacity:1;stroke:#31859b;stroke-opacity:1;stroke-width:0.40983606557377}
+		.st3 {fill:#ea700d;stroke:#c05046;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st4 {fill:#ffffff;font-family:Calibri;font-size:1.00001em}
+		.st5 {fill:#f59d56;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st6 {fill:#ffffff;fill-opacity:0.46;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st7 {fill:#1f477d;font-family:Calibri;font-size:1.00001em}
+		.st8 {font-size:1em;text-decoration:underline}
+		.st9 {fill:#7f7f7f;font-family:Calibri;font-size:1.00001em}
+		.st10 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
+	]]>
+	</style>
+
+	<defs id="Markers">
+		<g id="lend5">
+			<path d="M 2 1 L 0 0 L 1.98117 -0.993387 C 1.67173 -0.364515 1.67301 0.372641 1.98465 1.00043 " style="stroke:none"/>
+		</g>
+		<marker id="mrkr5-7" class="st2" v:arrowType="5" v:arrowSize="2" v:setback="4.27" refX="-4.27" orient="auto"
+				markerUnits="strokeWidth" overflow="visible">
+			<use xlink:href="#lend5" transform="scale(-2.44,-2.44) "/>
+		</marker>
+	</defs>
+	<g v:mID="0" v:index="1" v:groupContext="foregroundPage">
+		<v:userDefs>
+			<v:ud v:nameU="UMLDiagramType" v:val="VT0(0):26"/>
+			<v:ud v:nameU="UMLPageGUID" v:prompt="" v:val="VT15({110F1FB8-D5AC-48F7-B500-A4FF8F1F201F}):41"/>
+			<v:ud v:nameU="UMLShape76" v:prompt="" v:val="VT4(2083;4294967295;8)"/>
+			<v:ud v:nameU="UMLShape20" v:prompt="" v:val="VT4(10291;0;12)"/>
+		</v:userDefs>
+		<title>Statische Struktur-1</title>
+		<v:pageProperties v:drawingScale="0.0393701" v:pageScale="0.0393701" v:drawingUnits="24" v:shadowOffsetX="8.50394"
+				v:shadowOffsetY="-8.50394"/>
+		<v:layer v:name="Verbinder" v:index="0"/>
+		<v:layer v:name="Beschriftung" v:index="1"/>
+		<g id="shape48-1" v:mID="48" v:groupContext="shape" v:layerMember="0" transform="translate(111.918,-253.486)">
+			<title>Dynamischer Verbinder.13</title>
+			<path d="M0 301.63 L29.45 302.95" class="st1"/>
+		</g>
+		<g id="shape49-8" v:mID="49" v:groupContext="shape" transform="translate(18.5775,-239.32)">
+			<title>Tabelle.49</title>
+			<desc>Preferences</desc>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="46.6704" cy="285.372" width="93.35" height="20"/>
+			<rect x="0" y="275.372" width="93.3408" height="20" rx="5.66929" ry="5.66929" class="st3"/>
+			<text x="17.58" y="288.97" class="st4" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>Preferences</text>		</g>
+		<g id="shape50-11" v:mID="50" v:groupContext="shape" v:layerMember="0" transform="translate(123.257,-60.8178)">
+			<title>Dynamischer Verbinder.357</title>
+			<path d="M0 302.14 L18.11 302.59" class="st1"/>
+		</g>
+		<g id="shape51-16" v:mID="51" v:groupContext="shape" transform="translate(29.9161,-45.2254)">
+			<title>Tabelle.51</title>
+			<desc>Secondary</desc>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="46.6704" cy="285.372" width="93.35" height="20"/>
+			<rect x="0" y="275.372" width="93.3408" height="20" rx="5.66929" ry="5.66929" class="st3"/>
+			<text x="21.24" y="288.97" class="st4" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>Secondary</text>		</g>
+		<g id="shape52-19" v:mID="52" v:groupContext="shape" v:layerMember="0" transform="translate(111.716,-158.503)">
+			<title>Dynamischer Verbinder.359</title>
+			<path d="M0 301.47 L29.66 303.05" class="st1"/>
+		</g>
+		<g id="shape53-24" v:mID="53" v:groupContext="shape" transform="translate(18.375,-144.884)">
+			<title>Tabelle.53</title>
+			<desc>Primary</desc>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="46.6704" cy="285.372" width="93.35" height="20"/>
+			<rect x="0" y="275.372" width="93.3408" height="20" rx="5.66929" ry="5.66929" class="st3"/>
+			<text x="27.63" y="288.97" class="st4" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>Primary</text>		</g>
+		<g id="group62-27" transform="translate(145.934,-18.375)" v:mID="62" v:groupContext="group">
+			<title>Tabelle.62</title>
+			<g id="shape43-28" v:mID="43" v:groupContext="shape">
+				<title>Tabelle.43</title>
+				<rect x="0" y="36.75" width="109.134" height="258.622" class="st5"/>
+			</g>
+			<g id="group55-30" transform="translate(2.90386,-193.979)" v:mID="55" v:groupContext="group">
+				<title>Tabelle.55</title>
+				<g id="shape44-31" v:mID="44" v:groupContext="shape" transform="translate(0,-31.0319)">
+					<title>Tabelle.44</title>
+					<desc>Link</desc>
+					<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+					<v:textRect cx="51.6631" cy="287.602" width="103.33" height="15.5404"/>
+					<rect x="0" y="279.832" width="103.326" height="15.5404" class="st6"/>
+					<text x="4" y="291.2" class="st7" v:langID="1031"><v:paragraph/><v:tabList/><tspan class="st8">Link</tspan></text>				</g>
+				<g id="shape45-35" v:mID="45" v:groupContext="shape" transform="translate(0,-46.5723)">
+					<title>Tabelle.45</title>
+					<desc>Group A</desc>
+					<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+					<v:textRect cx="51.6631" cy="287.757" width="103.33" height="15.2313"/>
+					<rect x="0" y="280.141" width="103.326" height="15.2313" class="st6"/>
+					<text x="4" y="291.36" class="st9" v:langID="1031"><v:paragraph/><v:tabList/>Group A</text>				</g>
+				<g id="shape46-38" v:mID="46" v:groupContext="shape" transform="translate(1.59872E-14,-15.4916)">
+					<title>Tabelle.46</title>
+					<desc>Link</desc>
+					<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+					<v:textRect cx="51.6631" cy="287.602" width="103.33" height="15.5404"/>
+					<rect x="0" y="279.832" width="103.326" height="15.5404" class="st6"/>
+					<text x="4" y="291.2" class="st7" v:langID="1031"><v:paragraph/><v:tabList/><tspan class="st8">Link</tspan></text>				</g>
+				<g id="shape47-42" v:mID="47" v:groupContext="shape">
+					<title>Tabelle.47</title>
+					<desc>Link</desc>
+					<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+					<v:textRect cx="51.6631" cy="287.602" width="103.33" height="15.5404"/>
+					<rect x="0" y="279.832" width="103.326" height="15.5404" class="st6"/>
+					<text x="4" y="291.2" class="st7" v:langID="1031"><v:paragraph/><v:tabList/><tspan class="st8">Link</tspan></text>				</g>
+			</g>
+			<g id="group56-46" transform="translate(2.90386,-67.4758)" v:mID="56" v:groupContext="group">
+				<title>Tabelle.56</title>
+				<g id="shape24-47" v:mID="24" v:groupContext="shape" transform="translate(7.99361E-15,-92.8937)">
+					<title>Tabelle.24</title>
+					<desc>Link</desc>
+					<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+					<v:textRect cx="51.6631" cy="287.602" width="103.33" height="15.5404"/>
+					<rect x="0" y="279.832" width="103.326" height="15.5404" class="st6"/>
+					<text x="4" y="291.2" class="st7" v:langID="1031"><v:paragraph/><v:tabList/><tspan class="st8">Link</tspan></text>				</g>
+				<g id="shape25-51" v:mID="25" v:groupContext="shape" transform="translate(7.99361E-15,-108.434)">
+					<title>Tabelle.25</title>
+					<desc>Group B</desc>
+					<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+					<v:textRect cx="51.6631" cy="287.757" width="103.33" height="15.2313"/>
+					<rect x="0" y="280.141" width="103.326" height="15.2313" class="st6"/>
+					<text x="4" y="291.36" class="st9" v:langID="1031"><v:paragraph/><v:tabList/>Group B</text>				</g>
+				<g id="shape26-54" v:mID="26" v:groupContext="shape" transform="translate(-7.99361E-15,-77.3533)">
+					<title>Tabelle.26</title>
+					<desc>Link</desc>
+					<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+					<v:textRect cx="51.6631" cy="287.602" width="103.33" height="15.5404"/>
+					<rect x="0" y="279.832" width="103.326" height="15.5404" class="st6"/>
+					<text x="4" y="291.2" class="st7" v:langID="1031"><v:paragraph/><v:tabList/><tspan class="st8">Link</tspan></text>				</g>
+				<g id="shape27-58" v:mID="27" v:groupContext="shape" transform="translate(-7.99361E-15,-61.8618)">
+					<title>Tabelle.27</title>
+					<desc>Link</desc>
+					<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+					<v:textRect cx="51.6631" cy="287.602" width="103.33" height="15.5404"/>
+					<rect x="0" y="279.832" width="103.326" height="15.5404" class="st6"/>
+					<text x="4" y="291.2" class="st7" v:langID="1031"><v:paragraph/><v:tabList/><tspan class="st8">Link</tspan></text>				</g>
+				<g id="shape28-62" v:mID="28" v:groupContext="shape" transform="translate(-7.99361E-15,-46.6266)">
+					<title>Tabelle.28</title>
+					<desc>Group ...</desc>
+					<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+					<v:textRect cx="51.6631" cy="287.757" width="103.33" height="15.2313"/>
+					<rect x="0" y="280.141" width="103.326" height="15.2313" class="st6"/>
+					<text x="4" y="291.36" class="st9" v:langID="1031"><v:paragraph/><v:tabList/>Group ...</text>				</g>
+				<g id="shape29-65" v:mID="29" v:groupContext="shape" transform="translate(-7.99361E-15,-31.0863)">
+					<title>Tabelle.29</title>
+					<desc>Link</desc>
+					<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+					<v:textRect cx="51.6631" cy="287.602" width="103.33" height="15.5404"/>
+					<rect x="0" y="279.832" width="103.326" height="15.5404" class="st6"/>
+					<text x="4" y="291.2" class="st7" v:langID="1031"><v:paragraph/><v:tabList/><tspan class="st8">Link</tspan></text>				</g>
+				<g id="shape30-69" v:mID="30" v:groupContext="shape" transform="translate(2.39808E-14,-15.5459)">
+					<title>Tabelle.30</title>
+					<desc>Link</desc>
+					<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+					<v:textRect cx="51.6631" cy="287.602" width="103.33" height="15.5404"/>
+					<rect x="0" y="279.832" width="103.326" height="15.5404" class="st6"/>
+					<text x="4" y="291.2" class="st7" v:langID="1031"><v:paragraph/><v:tabList/><tspan class="st8">Link</tspan></text>				</g>
+				<g id="shape31-73" v:mID="31" v:groupContext="shape">
+					<title>Tabelle.31</title>
+					<desc>Link</desc>
+					<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+					<v:textRect cx="51.6631" cy="287.602" width="103.33" height="15.5404"/>
+					<rect x="0" y="279.832" width="103.326" height="15.5404" class="st6"/>
+					<text x="4" y="291.2" class="st7" v:langID="1031"><v:paragraph/><v:tabList/><tspan class="st8">Link</tspan></text>				</g>
+			</g>
+			<g id="group57-77" transform="translate(2.90386,-2.83465)" v:mID="57" v:groupContext="group">
+				<title>Tabelle.57</title>
+				<g id="shape58-78" v:mID="58" v:groupContext="shape" transform="translate(0,-31.0319)">
+					<title>Tabelle.58</title>
+					<desc>Link</desc>
+					<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+					<v:textRect cx="51.6631" cy="287.602" width="103.33" height="15.5404"/>
+					<rect x="0" y="279.832" width="103.326" height="15.5404" class="st6"/>
+					<text x="4" y="291.2" class="st7" v:langID="1031"><v:paragraph/><v:tabList/><tspan class="st8">Link</tspan></text>				</g>
+				<g id="shape59-82" v:mID="59" v:groupContext="shape" transform="translate(0,-46.5723)">
+					<title>Tabelle.59</title>
+					<desc>Group Z</desc>
+					<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+					<v:textRect cx="51.6631" cy="287.757" width="103.33" height="15.2313"/>
+					<rect x="0" y="280.141" width="103.326" height="15.2313" class="st6"/>
+					<text x="4" y="291.36" class="st9" v:langID="1031"><v:paragraph/><v:tabList/>Group Z</text>				</g>
+				<g id="shape60-85" v:mID="60" v:groupContext="shape" transform="translate(1.59872E-14,-15.4916)">
+					<title>Tabelle.60</title>
+					<desc>Link</desc>
+					<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+					<v:textRect cx="51.6631" cy="287.602" width="103.33" height="15.5404"/>
+					<rect x="0" y="279.832" width="103.326" height="15.5404" class="st6"/>
+					<text x="4" y="291.2" class="st7" v:langID="1031"><v:paragraph/><v:tabList/><tspan class="st8">Link</tspan></text>				</g>
+				<g id="shape61-89" v:mID="61" v:groupContext="shape">
+					<title>Tabelle.61</title>
+					<desc>Link</desc>
+					<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+					<v:textRect cx="51.6631" cy="287.602" width="103.33" height="15.5404"/>
+					<rect x="0" y="279.832" width="103.326" height="15.5404" class="st6"/>
+					<text x="4" y="291.2" class="st7" v:langID="1031"><v:paragraph/><v:tabList/><tspan class="st8">Link</tspan></text>				</g>
+			</g>
+		</g>
+	</g>
+</svg>

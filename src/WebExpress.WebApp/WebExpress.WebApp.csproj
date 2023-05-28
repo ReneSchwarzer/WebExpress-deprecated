@@ -1,0 +1,54 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Version>1.4.4.0</Version>
+    <AssemblyVersion>1.4.4.0</AssemblyVersion>
+    <TargetFramework>net7.0</TargetFramework>
+    <ApplicationIcon></ApplicationIcon>
+    <RuntimeIdentifiers>win10-x64;win-arm;linux-arm</RuntimeIdentifiers>
+    <RepositoryUrl>https://github.com/ReneSchwarzer/WebExpress.git</RepositoryUrl>
+    <Authors>Rene_Schwarzer@hotmail.de</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\css\webexpress.webapp.css" />
+    <None Remove="Assets\css\webexpress.webapp.popupnotification.css" />
+    <None Remove="Assets\css\webexpress.webapp.taskprogressbar.css" />
+    <None Remove="Assets\js\webexpress.webapp.js" />
+    <None Remove="Assets\js\webexpress.webapp.popupnotification.js" />
+    <None Remove="Assets\js\webexpress.webapp.selection.js" />
+    <None Remove="Assets\js\webexpress.webapp.table.js" />
+    <None Remove="Assets\js\webexpress.webapp.taskprogressbar.js" />
+    <None Remove="Internationalization\de" />
+    <None Remove="Internationalization\en" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\css\webexpress.webapp.css" />
+    <EmbeddedResource Include="Assets\css\webexpress.webapp.popupnotification.css" />
+    <EmbeddedResource Include="Assets\css\webexpress.webapp.taskprogressbar.css" />
+    <EmbeddedResource Include="Assets\js\webexpress.webapp.popupnotification.js" />
+    <EmbeddedResource Include="Assets\js\webexpress.webapp.table.js" />
+    <EmbeddedResource Include="Assets\js\webexpress.webapp.selection.js" />
+    <EmbeddedResource Include="Assets\js\webexpress.webapp.js" />
+    <EmbeddedResource Include="Assets\js\webexpress.webapp.taskprogressbar.js" />
+    <EmbeddedResource Include="Internationalization\de" />
+    <EmbeddedResource Include="Internationalization\en" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WebExpress.UI\WebExpress.UI.csproj" />
+    <ProjectReference Include="..\WebExpress\WebExpress.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\js\webexpress.webapp.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="WebAttribute\" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generiert durch Microsoft Visio, SVG Export packagedirectories.svg Page-1 -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
+		xmlns:v="http://schemas.microsoft.com/visio/2003/SVGExtensions/" width="3.23948in" height="3.80567in"
+		viewBox="0 0 233.242 274.008" xml:space="preserve" color-interpolation-filters="sRGB" class="st5">
+	<v:documentProperties v:langID="1031" v:metric="true" v:viewMarkup="false">
+		<v:userDefs>
+			<v:ud v:nameU="msvSubprocessMaster" v:prompt="" v:val="VT4(Box)"/>
+			<v:ud v:nameU="msvNoAutoConnect" v:val="VT0(1):26"/>
+		</v:userDefs>
+	</v:documentProperties>
+
+	<style type="text/css">
+	<![CDATA[
+		.st1 {stroke:#5692c9;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.5}
+		.st2 {fill:#4a80b1;stroke:none;stroke-linecap:butt;stroke-width:0.75}
+		.st3 {fill:#31587b;font-family:Calibri;font-size:1.00001em}
+		.st4 {fill:#32587b;font-family:Calibri;font-size:1.00001em}
+		.st5 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
+	]]>
+	</style>
+
+	<g v:mID="0" v:index="1" v:groupContext="foregroundPage">
+		<v:userDefs>
+			<v:ud v:nameU="msvThemeOrder" v:val="VT0(0):26"/>
+		</v:userDefs>
+		<title>Zeichenblatt-1</title>
+		<v:pageProperties v:drawingScale="0.0393701" v:pageScale="0.0393701" v:drawingUnits="24" v:shadowOffsetX="8.50394"
+				v:shadowOffsetY="-8.50394"/>
+		<v:layer v:name="Verbinder" v:index="0"/>
+		<v:layer v:name="Container" v:index="1"/>
+		<g id="shape9-1" v:mID="9" v:groupContext="shape" v:layerMember="0" transform="translate(38.5512,-220.833)">
+			<title>Dynamischer Verbinder</title>
+			<path d="M0 274.01 L0 315.34 L57.67 315.34" class="st1"/>
+		</g>
+		<g id="shape13-4" v:mID="13" v:groupContext="shape" v:layerMember="0" transform="translate(38.5512,-220.833)">
+			<title>Dynamischer Verbinder.13</title>
+			<path d="M0 274.01 L0 382.26 L58.52 382.26" class="st1"/>
+		</g>
+		<g id="shape2-7" v:mID="2" v:groupContext="shape" transform="translate(18.75,-220.827)">
+			<title>Öffnen</title>
+			<desc>packages</desc>
+			<v:userDefs>
+				<v:ud v:nameU="msvShapeCategories" v:prompt="" v:val="VT4(Icon)"/>
+				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(2,2,2,2)" v:tabSpace="42.5197"/>
+			<v:textRect cx="71.191" cy="256.792" width="51.36" height="34.4313"/>
+			<path d="M43.47 250.91 L37.34 250.91 L37.34 248.11 A2.84933 2.89492 -180 0 0 34.5 245.23 L22.73 245.23 A6.5216 6.62594
+						 0 0 1 18.16 242.94 L17.36 241.87 A6.5216 6.62594 -180 0 0 12.79 239.58 L2.85 239.58 A2.84933 2.89492 -180
+						 0 0 0 242.46 L0 271.84 L0.03 271.79 A1.84244 1.87192 -180 0 0 1.99 274 L33.65 274 A4.51314 4.58535 -180
+						 0 0 37.52 271.12 L45.28 253.8 A1.92628 1.9571 -180 0 0 43.47 250.91 ZM2.85 242.46 L12.79 242.46 A3.84227
+						 3.90375 0 0 1 15.1 243.62 L15.91 244.69 A9.27985 9.42833 -180 0 0 22.73 248.11 L34.5 248.11 L34.5 250.91
+						 L11.82 250.91 A4.50777 4.5799 -180 0 0 7.94 253.8 L2.85 265.17 L2.85 242.48 L2.92 242.47 L2.85 242.46 ZM34.86
+						 270.13 A1.78378 1.81232 0 0 1 33.65 271.12 L3.21 271.12 A671.213 681.952 0 0 1 10.61 254.78 A1.78611 1.81469
+						 0 0 1 11.82 253.8 L42.26 253.8 A671.39 682.132 0 0 1 34.86 270.13 Z" class="st2"/>
+			<text x="47.51" y="260.39" class="st3" v:langID="1031"><v:paragraph/><v:tabList/>packages</text>		</g>
+		<g id="shape1-10" v:mID="1" v:groupContext="shape" transform="translate(97.076,-89.8022)">
+			<title>Dokument</title>
+			<desc>catalog.xml</desc>
+			<v:userDefs>
+				<v:ud v:nameU="msvShapeCategories" v:prompt="" v:val="VT4(Icon)"/>
+				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(2,2,2,2)" v:tabSpace="42.5197"/>
+			<v:textRect cx="68.8715" cy="251.252" width="62.61" height="45.5115"/>
+			<path d="M7.22 264.05 L7.22 262.63 L30.34 262.63 L30.34 264.05 L7.22 264.05 ZM7.22 258.36 L7.22 256.94 L30.34 256.94
+						 L30.34 258.36 L7.22 258.36 ZM7.22 252.67 L7.22 251.25 L30.34 251.25 L30.34 252.67 L7.22 252.67 ZM7.22 246.99
+						 L7.22 245.56 L30.34 245.56 L30.34 246.99 L7.22 246.99 ZM7.22 241.3 L7.22 239.87 L21.73 239.87 L21.73 241.3
+						 L7.22 241.3 ZM34.68 271.16 L34.68 239.87 L26.01 239.87 L26.01 231.34 L2.89 231.34 L2.89 271.16 L34.68 271.16
+						 ZM34.32 238.45 L27.45 231.7 L27.45 238.45 L34.32 238.45 ZM28.54 228.5 L37.57 237.39 L37.57 274.01 L0 274.01
+						 L0 228.5 L28.54 228.5 Z" class="st2"/>
+			<text x="39.57" y="254.85" class="st4" v:langID="1031"><v:paragraph/><v:tabList/>catalog.xml</text>		</g>
+		<g id="shape3-13" v:mID="3" v:groupContext="shape" transform="translate(96.2208,-160.854)">
+			<title>Öffnen.3</title>
+			<desc>&#60;package&#62;</desc>
+			<v:userDefs>
+				<v:ud v:nameU="msvShapeCategories" v:prompt="" v:val="VT4(Icon)"/>
+				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(2,2,2,2)" v:tabSpace="42.5197"/>
+			<v:textRect cx="74.8209" cy="256.792" width="58.62" height="34.4313"/>
+			<path d="M43.47 250.91 L37.34 250.91 L37.34 248.11 A2.84933 2.89492 -180 0 0 34.5 245.23 L22.73 245.23 A6.5216 6.62594
+						 0 0 1 18.16 242.94 L17.36 241.87 A6.5216 6.62594 -180 0 0 12.79 239.58 L2.85 239.58 A2.84933 2.89492 -180
+						 0 0 0 242.46 L0 271.84 L0.03 271.79 A1.84244 1.87192 -180 0 0 1.99 274 L33.65 274 A4.51314 4.58535 -180
+						 0 0 37.52 271.12 L45.28 253.8 A1.92628 1.9571 -180 0 0 43.47 250.91 ZM2.85 242.46 L12.79 242.46 A3.84227
+						 3.90375 0 0 1 15.1 243.62 L15.91 244.69 A9.27985 9.42833 -180 0 0 22.73 248.11 L34.5 248.11 L34.5 250.91
+						 L11.82 250.91 A4.50777 4.5799 -180 0 0 7.94 253.8 L2.85 265.17 L2.85 242.48 L2.92 242.47 L2.85 242.46 ZM34.86
+						 270.13 A1.78378 1.81232 0 0 1 33.65 271.12 L3.21 271.12 A671.213 681.952 0 0 1 10.61 254.78 A1.78611 1.81469
+						 0 0 1 11.82 253.8 L42.26 253.8 A671.39 682.132 0 0 1 34.86 270.13 Z" class="st2"/>
+			<text x="47.51" y="260.39" class="st4" v:langID="1031"><v:paragraph/><v:tabList/>&#60;package&#62;</text>		</g>
+		<g id="shape16-16" v:mID="16" v:groupContext="shape" v:layerMember="0" transform="translate(38.5512,-220.833)">
+			<title>Dynamischer Verbinder.16</title>
+			<path d="M0 274.01 L0 453.31 L57.39 453.31" class="st1"/>
+		</g>
+		<g id="shape17-19" v:mID="17" v:groupContext="shape" transform="translate(95.9445,-18.75)">
+			<title>Dokument.17</title>
+			<desc>&#60;package&#62;.wxp</desc>
+			<v:userDefs>
+				<v:ud v:nameU="msvShapeCategories" v:prompt="" v:val="VT4(Icon)"/>
+				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(2,2,2,2)" v:tabSpace="42.5197"/>
+			<v:textRect cx="78.4339" cy="251.252" width="81.73" height="45.5115"/>
+			<path d="M7.22 264.05 L7.22 262.63 L30.34 262.63 L30.34 264.05 L7.22 264.05 ZM7.22 258.36 L7.22 256.94 L30.34 256.94
+						 L30.34 258.36 L7.22 258.36 ZM7.22 252.67 L7.22 251.25 L30.34 251.25 L30.34 252.67 L7.22 252.67 ZM7.22 246.99
+						 L7.22 245.56 L30.34 245.56 L30.34 246.99 L7.22 246.99 ZM7.22 241.3 L7.22 239.87 L21.73 239.87 L21.73 241.3
+						 L7.22 241.3 ZM34.68 271.16 L34.68 239.87 L26.01 239.87 L26.01 231.34 L2.89 231.34 L2.89 271.16 L34.68 271.16
+						 ZM34.32 238.45 L27.45 231.7 L27.45 238.45 L34.32 238.45 ZM28.54 228.5 L37.57 237.39 L37.57 274.01 L0 274.01
+						 L0 228.5 L28.54 228.5 Z" class="st2"/>
+			<text x="39.57" y="254.85" class="st4" v:langID="1031"><v:paragraph/><v:tabList/>&#60;package&#62;.wxp</text>		</g>
+	</g>
+</svg>
