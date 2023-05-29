@@ -1,5 +1,6 @@
-# General
+![WebExpress logo](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/icon.png)
 
+# General
 WebExpress is a lightweight web server that has been optimized for use in low-performance environments. Even on 
 small systems, such as the Raspberry PI, web applications can be operated efficiently. This is achieved through a 
 small footprint with a low resource burden. Furthermore, WebExpress has a powerful and optimized plugin system, with a 
@@ -55,14 +56,13 @@ other operating systems.
 The first step is to write the operating system to an SD card. For this purpose, there is https://downloads.raspberrypi.org/imager/imager.exe 
 a free program (Windows), with the help of which the image is copied to the SD card.
 
-![WebExpress imager](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/imager.png)
+![imager](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/imager.png)
 
 ## Setting up the operating system
 
 In the second step, the SD card is inserted into the Raspberry Pi and the Raspberry Pi is started. Since SSH is not 
 yet active, a keyboard and a monitor must be connected. When the Raspberry Pi has been booted, logging in can be done 
 with the following data:
- 
 
 ```
 User: pi 
@@ -79,23 +79,23 @@ pi@raspberrypi:~ $ sudo raspi-config
 It is recommended to change the password, as well as to set up the Wi-Fi, change the time zone and the host name if necessary. In the 
 remainder of the application guide, the host name ```wx``` is used. In addition, SSH must be activated (to be found under Interface Options).
 
-![WebExpress raspiconfig](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/raspiconfig.png)
+![raspiconfig](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/raspiconfig.png)
 
 All subsequent steps can now be done via SSH and the Raspberry Pi can be disconnected from the keyboard and screen.
 
 ## Installing the .NET Runtime
 After SSH has been activated, a connection to the Raspberry Pi can be established with the help of an SSH client (e.g. Putty, OpenSSH).
 
-![WebExpress piconnect](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/piconnect.png)
+![piconnect](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/piconnect.png)
 
 First, the .NET Runtime and the ASP.NET Core Runtime must be installed. Help for this is offered under [1]. The current versions 
 can be obtained free of charge from Microsoft at https://dotnet.microsoft.com/download/dotnet-core.
 
-![WebExpress downloadnet1](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/downloadnet1.png)
+![downloadnet1](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/downloadnet1.png)
 
 For the Raspberry Pi, the binaries for Linux-Arm32 are to be used. The direct link to the Linux-Arm32 binaries must be copied.
 
-![WebExpress downloadnet2](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/downloadnet2.png)
+![downloadnet2](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/downloadnet2.png)
 
 The Linux Arm32 archive for the ASP.NET Core Runtime is downloaded to the Raspberry using wget.
 
@@ -127,12 +127,12 @@ pi@wx:~ $ sudo apt-get install mc -y
 
 If necessary, the profile can be extended by ```alias ll='ls -l'```.
 
-![WebExpress profile](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/profile.png)
+![profile](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/profile.png)
 
 ## Set static IP
 It is recommended to configure a static IP address for the Raspberry under ```/etc/dhcpcd.conf``` (see [2]).
 
-![WebExpress dhcpcd](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dhcpcd.png)
+![dhcpcd](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dhcpcd.png)
 
 ## Multicast Domain Name Service (mDNS)
 For example, Avahi can be used as mDNS. Avahi is an open-source mDNS implementation. At the command prompt, type the following command to install Avahi:
@@ -147,7 +147,7 @@ Once the installation process is complete, local network queries are accepted an
 WebExpress is provided in packaged form for the Raspberry Pi in the GitHub repository https://github.com/ReneSchwarzer/WebExpress/releases 
 free of charge.
 
-![WebExpress downloadwebexpress](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/downloadwebexpress.png)
+![downloadwebexpress](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/downloadwebexpress.png)
 
 The binaries of WebExpress can be obtained from GitHub via wget.
 
@@ -283,9 +283,8 @@ pi@wx:~ $ openssl pkcs12 -export -out wx.pfx -inkey wxKey.pem -in wx.pem -certfi
 When executing the command, a password must be assigned. Finally, check if the pfx file is correct.
 
 ``` bash
-
-```
 pi@wx:~ $ openssl pkcs12 -info -in wx.pfx
+```
 
 ### Installing certificates in WebExpress
 For an https connection, the pfx file (```wx.pfx```) is required. This serves as a certificate store by containing all relevant certificates. This must 
@@ -320,17 +319,17 @@ WebExpress will start automatically after each restart of the Rasperry Pi.
 If https is used with self-generated certificates, the certificates should be stored in the client. The .pfx file must be placed in the 
 certificate store under Trusted Root Certification Authorities.
 
-![WebExpress certificatestore1](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/certificatestore1.png)
-![WebExpress certificatestore2](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/certificatestore2.png)
-![WebExpress certificatestore3](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/certificatestore3.png)
-![WebExpress certificatestore4](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/certificatestore4.png)
-![WebExpress certificatestore5](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/certificatestore5.png)
-![WebExpress certificatestore6](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/certificatestore6.png)
-![WebExpress certificatestore7](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/certificatestore7.png)
+![certificatestore1](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/certificatestore1.png)
+![certificatestore2](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/certificatestore2.png)
+![certificatestore3](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/certificatestore3.png)
+![certificatestore4](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/certificatestore4.png)
+![certificatestore5](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/certificatestore5.png)
+![certificatestore6](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/certificatestore6.png)
+![certificatestore7](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/certificatestore7.png)
 
 The WebExpress certificate must be trusted in the browser.
 
-![WebExpress trust](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/trust.png)
+![trust](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/trust.png)
 
 # Update
 To ensure security, the Raspberry Pi, its applications and WebExpress must be updated regularly.
@@ -351,6 +350,6 @@ The following hardware is required:
 - Optional housing
 
 # Sources
-[1]	https://dotnet.microsoft.com/download/linux-package-manager/debian10/runtime-current
-[2]	https://www.ionos.de/digitalguide/server/konfiguration/raspberry-pi-mit-fester-ip-adresse-versehen/#:~:text=Den%20Raspberry%20Pi%20mit%20einer%20festen%20IP-Adresse%20ausstatten.,Zeitraum%20mit%20anderen%20Ger%C3%A4ten%20auf%20ihn%20zugreifen%20will
-[3]	https://legacy.thomas-leister.de/eine-eigene-openssl-ca-erstellen-und-zertifikate-ausstellen/
+- [1] https://dotnet.microsoft.com/download/linux-package-manager/debian10/runtime-current
+- [2] https://www.ionos.de/digitalguide/server/konfiguration/raspberry-pi-mit-fester-ip-adresse-versehen/#:~:text=Den%20Raspberry%20Pi%20mit%20einer%20festen%20IP-Adresse%20ausstatten.,Zeitraum%20mit%20anderen%20Ger%C3%A4ten%20auf%20ihn%20zugreifen%20will
+- [3] https://legacy.thomas-leister.de/eine-eigene-openssl-ca-erstellen-und-zertifikate-ausstellen/

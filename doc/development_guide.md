@@ -563,7 +563,7 @@ is personalized. The cookie consists of a guid. Further data is not stored in th
 The session manager delivers the currently used session based on the cookie stored in the request. The session, in turn, stores instances of the ```ISessionProperty``` 
 interface in which the information (e.g. parameters) is stored. 
 
-## 3.14 Job modell
+## Job modell
 Jobs are tasks that are executed in a time-controlled and repetitive manner. When a plugin is loaded, all jobs containing it are determined by the ScheduleManager and 
 instantiated and started at the specified execution time.
 
@@ -688,7 +688,7 @@ events ```Create```, ```Update```, ```Disable```, ```Enable``` or ```Delete``` o
 - Disable: This event disables the user account. However, allocated resources are retained and can no longer be used.
 - Enable: A deactivated user account can be transferred to the activated state with the help of this event.
 - Delete: This event is used for deprovisioning and deletes the user account of an entity.
- 
+
 WebExpress supports two methods of identity management:
 
 - On-premises identity management: Each application has its own user management. The cost of setting up the necessary infrastructure is particularly easy here, as identity management is carried out directly by the application. Each application has its own identity domain, which is disadvantageous from a unified identity management perspective.
@@ -796,7 +796,6 @@ The rights have the following meanings:
 - read - The "read" right means that an identity resource can be opened for reading. The user who has this right can read the content, but cannot modify or delete it.
 - write - The "write" right allows the user to modify the content. As a result, he does not have the right to delete.
 - execute - The "execute" privilege allows a user to perform an action (e.g. start a process). In combination with the "write" right, the user is allowed to delete elements.
-
 
 # WebApp template
 The ```WebExpress.WebApp.dll``` package provides a template for creating business applications.
