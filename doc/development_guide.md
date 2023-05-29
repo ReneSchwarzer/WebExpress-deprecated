@@ -975,3 +975,86 @@ CRUD operations are mapped by the REST API by the following operations (RFC 7231
 |Update           |Form              |PATCH
 |Delete (Destroy) |Confirmation form |DELETE
 
+# WQL
+The WebExpress Query Language (WQL) is a query language that filters and sorts a given amount of data. A statement of the query language is usually sent from the client to the server, which collects, filters and sorts the data and sends it back to the client.
+Example of a WQL:
+
+```
+Name ~ "WebExpress" and Create < now(-3d) orderby Create desc take 5
+```
+
+The example returns the first five elements of the dataset that contain the value "WebExpress" in the Name attribute and that were created three days ago (Create attribute) or earlier. The result is sorted in descending order by creation date.
+
+The following BNF is used to illustrate the grammar:
+
+```
+                 WQL ::= Filter Order Partitioning | ε
+              Filter ::= Filter LogicalOperator Filter | „(“Filter„)“ | Condition | ε
+           Condition ::= Attribute Operator „"“Value„"“ | Attribute Operator Function 
+     LogicalOperator ::= „and“ | „or“
+           Attribute ::= Sign Attribute | Sign
+            Function ::= Name „(“ ParameterList „)“
+                Name ::= Sign Name | Sign
+       ParameterList ::= Parameter „,“ Parameter | Parameter | ε
+           Parameter ::= „"“Value„"“ | Function
+            Operator ::= „=“ | „>“ | „<“ |  „!=“ | „is“ | „is not“ | „in“ | „not in“
+               Order ::= „orderby“ OrderOperator | ε
+       OrderOperator ::= OrderOperator „,“ OrderOperator | Attribute DescendingOrder
+     DescendingOrder ::= „asc“ | „desc“ | ε
+         Partitioning::= Partitioning Partitioning | PartitioningOperator Number | ε
+PartitioningOperator ::= „take“ | „skip“
+                Sign ::= „A“ | … | „Z“ | „a“ | … | „z“ 
+              Number ::= „0“ | … | „9“
+               Value ::= all characters except „"“ 
+```
+
+# Example
+The classic example of the Hello World application is intended to show in the simplest possible way which instructions and components are needed for a complete program.
+
+``` c#
+using WebExpress.WebAttribute;
+using WebExpress.WebApplication;
+using WebExpress.WebModule;
+using WebExpress.WebPlugin;
+using WebExpress.WebResource;
+
+namespace Sample
+{
+    public sealed class MyPlugin : IPlugin
+    {
+        public void Initialization(IPluginContext context) { }
+        public void Run(){ }
+        public void Dispose() { }
+    }
+
+    public sealed class MyApplication : IApplication
+    {
+        public void Initialization(IApplicationContext context) { }
+        public void Run() { }
+        public void Dispose() { }
+    }
+
+    [WebExApplication(typeof(MyApplication))]
+    public sealed class MyModule : IModule
+    {
+        public void Initialization(IModuleContext context) { }
+        public void Run() { }
+        public void Dispose() { }
+    }
+
+    [WebExModule(typeof(MyModule))]
+    public sealed class Home : ResourcePage
+    {
+        public Home (UriRessource uri, IModuleContext context)
+            : base(uri, context)
+        {
+        }
+        
+        public override IHtmlNode Render()
+        {
+            var control = new ControlText(){Text = "Hello World!"};
+            return control.Render(new RenderContext(this));
+        }
+    }
+}
+```
