@@ -1,366 +1,393 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <Version>1.4.4.0</Version>
-    <AssemblyVersion>1.4.4.0</AssemblyVersion>
-    <TargetFramework>net7.0</TargetFramework>
-    <RuntimeIdentifiers>win10-x64;win-arm;linux-arm</RuntimeIdentifiers>
-    <RepositoryUrl>https://github.com/ReneSchwarzer/WebExpress.git</RepositoryUrl>
-    <Authors>Rene_Schwarzer@hotmail.de</Authors>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>Library</OutputType>
+		<Title>WebExpress.UI</Title>
+		<Version>1.4.4.0</Version>
+		<AssemblyVersion>1.4.4.0</AssemblyVersion>
+		<TargetFramework>net7.0</TargetFramework>
+		<RuntimeIdentifiers>any</RuntimeIdentifiers>
+		<RepositoryUrl>https://github.com/ReneSchwarzer/WebExpress.git</RepositoryUrl>
+		<Authors>Rene_Schwarzer@hotmail.de</Authors>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<Company>Rene_Schwarzer@hotmail.de</Company>
+		<EnableDynamicLoading>true</EnableDynamicLoading>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Description>Provide user interface elements to the WebExpress web server.</Description>
+		<PackageVersion>1.4.4-alpha</PackageVersion>
+		<PackageProjectUrl>https://github.com/ReneSchwarzer/WebExpress</PackageProjectUrl>
+		<PackageIcon>icon.png</PackageIcon>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>webexpress</PackageTags>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<IsPackable>true</IsPackable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Assets\js\locales\**" />
-    <EmbeddedResource Remove="Assets\js\locales\**" />
-    <None Remove="Assets\js\locales\**" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Remove="Assets\js\locales\**" />
+		<EmbeddedResource Remove="Assets\js\locales\**" />
+		<None Remove="Assets\js\locales\**" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Remove="Assets\css\bootstrap-datepicker3.css.map" />
-    <None Remove="Assets\css\bootstrap-datepicker3.min.css" />
-    <None Remove="Assets\css\bootstrap.css.map" />
-    <None Remove="Assets\css\bootstrap.min.css" />
-    <None Remove="Assets\css\bootstrap.min.css.map" />
-    <None Remove="Assets\css\Chart.min.css" />
-    <None Remove="Assets\css\fontawesome.min.css" />
-    <None Remove="Assets\css\moveselector.css" />
-    <None Remove="Assets\css\simpletags.css" />
-    <None Remove="Assets\css\solid.css" />
-    <None Remove="Assets\css\summernote-bs4.css" />
-    <None Remove="Assets\css\summernote-bs5.min.css" />
-    <None Remove="Assets\css\webexpress.ui.css" />
-    <None Remove="Assets\css\webexpress.ui.expand.css" />
-    <None Remove="Assets\css\webexpress.ui.form.css" />
-    <None Remove="Assets\css\webexpress.ui.modalformular.css" />
-    <None Remove="Assets\css\webexpress.ui.modalpage.css" />
-    <None Remove="Assets\css\webexpress.ui.more.css" />
-    <None Remove="Assets\css\webexpress.ui.move.css" />
-    <None Remove="Assets\css\webexpress.ui.pagination.css" />
-    <None Remove="Assets\css\webexpress.ui.search.css" />
-    <None Remove="Assets\css\webexpress.ui.selection.css" />
-    <None Remove="Assets\css\webexpress.ui.table.css" />
-    <None Remove="Assets\fonts\fa-solid-900.eot" />
-    <None Remove="Assets\fonts\fa-solid-900.ttf" />
-    <None Remove="Assets\fonts\fa-solid-900.woff" />
-    <None Remove="Assets\fonts\fa-solid-900.woff2" />
-    <None Remove="Assets\fonts\summernote.eot" />
-    <None Remove="Assets\fonts\summernote.ttf" />
-    <None Remove="Assets\fonts\summernote.woff" />
-    <None Remove="Assets\fonts\summernote.woff2" />
-    <None Remove="Assets\img\Banner.png" />
-    <None Remove="Assets\img\Favicon.png" />
-    <None Remove="Assets\img\Icon16.png" />
-    <None Remove="Assets\img\Logo.png" />
-    <None Remove="Assets\img\Rocket.png" />
-    <None Remove="Assets\js\bootstrap-datepicker.de.min.js" />
-    <None Remove="Assets\js\bootstrap-datepicker.js" />
-    <None Remove="Assets\js\bootstrap-datepicker.min.js" />
-    <None Remove="Assets\js\bootstrap.js.map" />
-    <None Remove="Assets\js\bootstrap.min.js" />
-    <None Remove="Assets\js\bootstrap.min.js.map" />
-    <None Remove="Assets\js\Chart.min.js" />
-    <None Remove="Assets\js\jquery-3.5.1.min.js" />
-    <None Remove="Assets\js\jquery-3.6.0.min.js" />
-    <None Remove="Assets\js\jquery-3.6.0.min.map" />
-    <None Remove="Assets\js\lang\summernote-el-GR.min.js" />
-    <None Remove="Assets\js\lang\summernote-en-US.min.js" />
-    <None Remove="Assets\js\lang\summernote-es-ES.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker-en-CA.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.ar-tn.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.ar.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.az.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.bg.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.bm.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.bn.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.br.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.bs.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.ca.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.cs.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.cy.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.da.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.de.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.el.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.en-AU.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.en-CA.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.en-GB.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.en-IE.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.en-NZ.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.en-ZA.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.en.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.eo.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.es.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.et.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.eu.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.fa.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.fi.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.fo.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.fr-CH.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.fr.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.gl.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.he.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.hi.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.hr.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.hu.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.hy.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.id.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.is.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.it-CH.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.it.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.ja.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.ka.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.kh.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.kk.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.km.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.ko.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.kr.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.lt.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.lv.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.me.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.mk.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.mn.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.ms.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.nl-BE.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.nl.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.no.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.oc.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.pl.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.pt-BR.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.pt.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.ro.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.rs-latin.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.rs.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.ru.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.si.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.sk.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.sl.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.sq.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.sr-latin.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.sr.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.sv.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.sw.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.ta.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.tg.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.th.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.tk.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.tr.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.uk.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.uz-cyrl.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.uz-latn.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.vi.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.zh-CN.min.js" />
-    <None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.zh-TW.min.js" />
-    <None Remove="Assets\js\moveselector.js" />
-    <None Remove="Assets\js\popper.min.js" />
-    <None Remove="Assets\js\popper.min.js.map" />
-    <None Remove="Assets\js\simpletags.js" />
-    <None Remove="Assets\js\split.min.js" />
-    <None Remove="Assets\js\summernote-bs5.min.js" />
-    <None Remove="Assets\js\summernote-de-DE.js" />
-    <None Remove="Assets\js\webexpress.ui.expand.js" />
-    <None Remove="Assets\js\webexpress.ui.js" />
-    <None Remove="Assets\js\webexpress.ui.modalformular.js" />
-    <None Remove="Assets\js\webexpress.ui.modalpage.js" />
-    <None Remove="Assets\js\webexpress.ui.more.js" />
-    <None Remove="Assets\js\webexpress.ui.move.js" />
-    <None Remove="Assets\js\webexpress.ui.pagination.js" />
-    <None Remove="Assets\js\webexpress.ui.search.js" />
-    <None Remove="Assets\js\webexpress.ui.selection.js" />
-    <None Remove="Assets\js\webexpress.ui.selection.move.js" />
-    <None Remove="Assets\js\webexpress.ui.table.js" />
-    <None Remove="Internationalization\de" />
-    <None Remove="Internationalization\en" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove="Assets\css\bootstrap-datepicker3.css.map" />
+		<None Remove="Assets\css\bootstrap-datepicker3.min.css" />
+		<None Remove="Assets\css\bootstrap.css.map" />
+		<None Remove="Assets\css\bootstrap.min.css" />
+		<None Remove="Assets\css\bootstrap.min.css.map" />
+		<None Remove="Assets\css\Chart.min.css" />
+		<None Remove="Assets\css\fontawesome.min.css" />
+		<None Remove="Assets\css\moveselector.css" />
+		<None Remove="Assets\css\simpletags.css" />
+		<None Remove="Assets\css\solid.css" />
+		<None Remove="Assets\css\summernote-bs4.css" />
+		<None Remove="Assets\css\summernote-bs5.min.css" />
+		<None Remove="Assets\css\webexpress.ui.css" />
+		<None Remove="Assets\css\webexpress.ui.expand.css" />
+		<None Remove="Assets\css\webexpress.ui.form.css" />
+		<None Remove="Assets\css\webexpress.ui.modalformular.css" />
+		<None Remove="Assets\css\webexpress.ui.modalpage.css" />
+		<None Remove="Assets\css\webexpress.ui.more.css" />
+		<None Remove="Assets\css\webexpress.ui.move.css" />
+		<None Remove="Assets\css\webexpress.ui.pagination.css" />
+		<None Remove="Assets\css\webexpress.ui.search.css" />
+		<None Remove="Assets\css\webexpress.ui.selection.css" />
+		<None Remove="Assets\css\webexpress.ui.table.css" />
+		<None Remove="Assets\fonts\fa-solid-900.eot" />
+		<None Remove="Assets\fonts\fa-solid-900.ttf" />
+		<None Remove="Assets\fonts\fa-solid-900.woff" />
+		<None Remove="Assets\fonts\fa-solid-900.woff2" />
+		<None Remove="Assets\fonts\summernote.eot" />
+		<None Remove="Assets\fonts\summernote.ttf" />
+		<None Remove="Assets\fonts\summernote.woff" />
+		<None Remove="Assets\fonts\summernote.woff2" />
+		<None Remove="Assets\img\Banner.png" />
+		<None Remove="Assets\img\Favicon.png" />
+		<None Remove="Assets\img\Icon16.png" />
+		<None Remove="Assets\img\Logo.png" />
+		<None Remove="Assets\img\Rocket.png" />
+		<None Remove="Assets\js\bootstrap-datepicker.de.min.js" />
+		<None Remove="Assets\js\bootstrap-datepicker.js" />
+		<None Remove="Assets\js\bootstrap-datepicker.min.js" />
+		<None Remove="Assets\js\bootstrap.js.map" />
+		<None Remove="Assets\js\bootstrap.min.js" />
+		<None Remove="Assets\js\bootstrap.min.js.map" />
+		<None Remove="Assets\js\Chart.min.js" />
+		<None Remove="Assets\js\jquery-3.5.1.min.js" />
+		<None Remove="Assets\js\jquery-3.6.0.min.js" />
+		<None Remove="Assets\js\jquery-3.6.0.min.map" />
+		<None Remove="Assets\js\lang\summernote-el-GR.min.js" />
+		<None Remove="Assets\js\lang\summernote-en-US.min.js" />
+		<None Remove="Assets\js\lang\summernote-es-ES.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker-en-CA.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.ar-tn.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.ar.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.az.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.bg.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.bm.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.bn.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.br.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.bs.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.ca.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.cs.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.cy.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.da.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.de.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.el.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.en-AU.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.en-CA.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.en-GB.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.en-IE.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.en-NZ.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.en-ZA.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.en.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.eo.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.es.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.et.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.eu.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.fa.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.fi.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.fo.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.fr-CH.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.fr.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.gl.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.he.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.hi.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.hr.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.hu.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.hy.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.id.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.is.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.it-CH.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.it.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.ja.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.ka.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.kh.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.kk.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.km.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.ko.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.kr.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.lt.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.lv.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.me.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.mk.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.mn.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.ms.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.nl-BE.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.nl.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.no.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.oc.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.pl.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.pt-BR.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.pt.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.ro.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.rs-latin.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.rs.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.ru.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.si.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.sk.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.sl.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.sq.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.sr-latin.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.sr.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.sv.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.sw.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.ta.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.tg.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.th.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.tk.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.tr.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.uk.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.uz-cyrl.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.uz-latn.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.vi.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.zh-CN.min.js" />
+		<None Remove="Assets\js\locales_datepicker\bootstrap-datepicker.zh-TW.min.js" />
+		<None Remove="Assets\js\moveselector.js" />
+		<None Remove="Assets\js\popper.min.js" />
+		<None Remove="Assets\js\popper.min.js.map" />
+		<None Remove="Assets\js\simpletags.js" />
+		<None Remove="Assets\js\split.min.js" />
+		<None Remove="Assets\js\summernote-bs5.min.js" />
+		<None Remove="Assets\js\summernote-de-DE.js" />
+		<None Remove="Assets\js\webexpress.ui.expand.js" />
+		<None Remove="Assets\js\webexpress.ui.js" />
+		<None Remove="Assets\js\webexpress.ui.modalformular.js" />
+		<None Remove="Assets\js\webexpress.ui.modalpage.js" />
+		<None Remove="Assets\js\webexpress.ui.more.js" />
+		<None Remove="Assets\js\webexpress.ui.move.js" />
+		<None Remove="Assets\js\webexpress.ui.pagination.js" />
+		<None Remove="Assets\js\webexpress.ui.search.js" />
+		<None Remove="Assets\js\webexpress.ui.selection.js" />
+		<None Remove="Assets\js\webexpress.ui.selection.move.js" />
+		<None Remove="Assets\js\webexpress.ui.table.js" />
+		<None Remove="Internationalization\de" />
+		<None Remove="Internationalization\en" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Include="Assets\css\bootstrap-datepicker3.css.map" />
-    <EmbeddedResource Include="Assets\css\bootstrap-datepicker3.min.css">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Assets\css\bootstrap.css.map" />
-    <EmbeddedResource Include="Assets\css\bootstrap.min.css">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Assets\css\bootstrap.min.css.map" />
-    <EmbeddedResource Include="Assets\css\Chart.min.css" />
-    <EmbeddedResource Include="Assets\css\webexpress.ui.expand.css" />
-    <EmbeddedResource Include="Assets\css\webexpress.ui.modalformular.css" />
-    <EmbeddedResource Include="Assets\css\webexpress.ui.modalpage.css" />
-    <EmbeddedResource Include="Assets\css\webexpress.ui.more.css" />
-    <EmbeddedResource Include="Assets\css\webexpress.ui.move.css" />
-    <EmbeddedResource Include="Assets\css\webexpress.ui.pagination.css" />
-    <EmbeddedResource Include="Assets\css\webexpress.ui.search.css" />
-    <EmbeddedResource Include="Assets\css\webexpress.ui.selection.css">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Assets\css\webexpress.ui.css">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Assets\css\webexpress.ui.form.css">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Assets\css\fontawesome.min.css" />
-    <EmbeddedResource Include="Assets\css\solid.css">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Assets\css\summernote-bs5.min.css" />
-    <EmbeddedResource Include="Assets\css\webexpress.ui.table.css" />
-    <EmbeddedResource Include="Assets\fonts\fa-solid-900.eot" />
-    <EmbeddedResource Include="Assets\fonts\fa-solid-900.ttf" />
-    <EmbeddedResource Include="Assets\fonts\fa-solid-900.woff" />
-    <EmbeddedResource Include="Assets\fonts\fa-solid-900.woff2" />
-    <EmbeddedResource Include="Assets\fonts\summernote.eot" />
-    <EmbeddedResource Include="Assets\fonts\summernote.ttf" />
-    <EmbeddedResource Include="Assets\fonts\summernote.woff" />
-    <EmbeddedResource Include="Assets\fonts\summernote.woff2" />
-    <EmbeddedResource Include="Assets\img\Banner.png" />
-    <EmbeddedResource Include="Assets\img\Favicon.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Assets\img\Icon16.png" />
-    <EmbeddedResource Include="Assets\img\Logo.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Assets\img\Rocket.png" />
-    <EmbeddedResource Include="Assets\js\bootstrap-datepicker.js" />
-    <EmbeddedResource Include="Assets\js\bootstrap-datepicker.min.js">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Assets\js\bootstrap.js.map" />
-    <EmbeddedResource Include="Assets\js\bootstrap.min.js">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Assets\js\bootstrap.min.js.map" />
-    <EmbeddedResource Include="Assets\js\Chart.min.js" />
-    <EmbeddedResource Include="Assets\js\jquery-3.6.0.min.js" />
-    <EmbeddedResource Include="Assets\js\jquery-3.6.0.min.map" />
-    <EmbeddedResource Include="Assets\js\lang\summernote-es-ES.min.js">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Assets\js\lang\summernote-el-GR.min.js">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Assets\js\lang\summernote-en-US.min.js">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.en.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker-en-CA.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.ar-tn.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.ar.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.az.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.bg.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.bm.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.bn.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.br.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.bs.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.ca.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.cs.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.cy.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.da.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.de.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.el.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.en-AU.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.en-CA.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.en-GB.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.en-IE.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.en-NZ.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.en-ZA.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.eo.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.es.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.et.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.eu.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.fa.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.fi.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.fo.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.fr-CH.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.fr.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.gl.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.he.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.hi.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.hr.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.hu.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.hy.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.id.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.is.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.it-CH.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.it.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.ja.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.ka.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.kh.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.kk.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.km.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.ko.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.kr.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.lt.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.lv.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.me.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.mk.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.mn.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.ms.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.nl-BE.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.nl.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.no.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.oc.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.pl.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.pt-BR.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.pt.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.ro.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.rs-latin.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.rs.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.ru.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.si.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.sk.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.sl.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.sq.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.sr-latin.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.sr.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.sv.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.sw.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.ta.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.tg.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.th.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.tk.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.tr.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.uk.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.uz-cyrl.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.uz-latn.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.vi.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.zh-CN.min.js" />
-    <EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.zh-TW.min.js" />
-    <EmbeddedResource Include="Assets\js\popper.min.js">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Assets\js\popper.min.js.map">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Assets\js\split.min.js" />
-    <EmbeddedResource Include="Assets\js\summernote-bs5.min.js">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Assets\js\lang\summernote-de-DE.min.js">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Assets\js\webexpress.ui.modalformular.js" />
-    <EmbeddedResource Include="Assets\js\webexpress.ui.modalpage.js" />
-    <EmbeddedResource Include="Assets\js\webexpress.ui.move.js" />
-    <EmbeddedResource Include="Assets\js\webexpress.ui.selection.js" />
-    <EmbeddedResource Include="Assets\js\webexpress.ui.more.js" />
-    <EmbeddedResource Include="Assets\js\webexpress.ui.search.js" />
-    <EmbeddedResource Include="Assets\js\webexpress.ui.expand.js" />
-    <EmbeddedResource Include="Assets\js\webexpress.ui.pagination.js" />
-    <EmbeddedResource Include="Assets\js\webexpress.ui.table.js" />
-    <EmbeddedResource Include="Assets\js\webexpress.ui.js" />
-    <EmbeddedResource Include="Internationalization\de" />
-    <EmbeddedResource Include="Internationalization\en" />
-  </ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="Assets\css\bootstrap-datepicker3.css.map" />
+		<EmbeddedResource Include="Assets\css\bootstrap-datepicker3.min.css">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="Assets\css\bootstrap.css.map" />
+		<EmbeddedResource Include="Assets\css\bootstrap.min.css">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="Assets\css\bootstrap.min.css.map" />
+		<EmbeddedResource Include="Assets\css\Chart.min.css" />
+		<EmbeddedResource Include="Assets\css\webexpress.ui.expand.css" />
+		<EmbeddedResource Include="Assets\css\webexpress.ui.modalformular.css" />
+		<EmbeddedResource Include="Assets\css\webexpress.ui.modalpage.css" />
+		<EmbeddedResource Include="Assets\css\webexpress.ui.more.css" />
+		<EmbeddedResource Include="Assets\css\webexpress.ui.move.css" />
+		<EmbeddedResource Include="Assets\css\webexpress.ui.pagination.css" />
+		<EmbeddedResource Include="Assets\css\webexpress.ui.search.css" />
+		<EmbeddedResource Include="Assets\css\webexpress.ui.selection.css">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="Assets\css\webexpress.ui.css">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="Assets\css\webexpress.ui.form.css">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="Assets\css\fontawesome.min.css" />
+		<EmbeddedResource Include="Assets\css\solid.css">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="Assets\css\summernote-bs5.min.css" />
+		<EmbeddedResource Include="Assets\css\webexpress.ui.table.css" />
+		<EmbeddedResource Include="Assets\fonts\fa-solid-900.eot" />
+		<EmbeddedResource Include="Assets\fonts\fa-solid-900.ttf" />
+		<EmbeddedResource Include="Assets\fonts\fa-solid-900.woff" />
+		<EmbeddedResource Include="Assets\fonts\fa-solid-900.woff2" />
+		<EmbeddedResource Include="Assets\fonts\summernote.eot" />
+		<EmbeddedResource Include="Assets\fonts\summernote.ttf" />
+		<EmbeddedResource Include="Assets\fonts\summernote.woff" />
+		<EmbeddedResource Include="Assets\fonts\summernote.woff2" />
+		<EmbeddedResource Include="Assets\img\Banner.png" />
+		<EmbeddedResource Include="Assets\img\Favicon.png">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="Assets\img\Icon16.png" />
+		<EmbeddedResource Include="Assets\img\Logo.png">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="Assets\img\Rocket.png" />
+		<EmbeddedResource Include="Assets\js\bootstrap-datepicker.js" />
+		<EmbeddedResource Include="Assets\js\bootstrap-datepicker.min.js">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="Assets\js\bootstrap.js.map" />
+		<EmbeddedResource Include="Assets\js\bootstrap.min.js">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="Assets\js\bootstrap.min.js.map" />
+		<EmbeddedResource Include="Assets\js\Chart.min.js" />
+		<EmbeddedResource Include="Assets\js\jquery-3.6.0.min.js" />
+		<EmbeddedResource Include="Assets\js\jquery-3.6.0.min.map" />
+		<EmbeddedResource Include="Assets\js\lang\summernote-es-ES.min.js">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="Assets\js\lang\summernote-el-GR.min.js">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="Assets\js\lang\summernote-en-US.min.js">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.en.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker-en-CA.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.ar-tn.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.ar.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.az.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.bg.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.bm.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.bn.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.br.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.bs.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.ca.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.cs.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.cy.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.da.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.de.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.el.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.en-AU.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.en-CA.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.en-GB.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.en-IE.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.en-NZ.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.en-ZA.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.eo.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.es.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.et.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.eu.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.fa.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.fi.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.fo.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.fr-CH.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.fr.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.gl.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.he.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.hi.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.hr.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.hu.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.hy.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.id.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.is.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.it-CH.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.it.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.ja.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.ka.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.kh.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.kk.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.km.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.ko.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.kr.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.lt.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.lv.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.me.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.mk.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.mn.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.ms.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.nl-BE.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.nl.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.no.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.oc.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.pl.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.pt-BR.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.pt.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.ro.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.rs-latin.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.rs.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.ru.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.si.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.sk.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.sl.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.sq.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.sr-latin.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.sr.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.sv.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.sw.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.ta.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.tg.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.th.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.tk.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.tr.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.uk.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.uz-cyrl.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.uz-latn.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.vi.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.zh-CN.min.js" />
+		<EmbeddedResource Include="Assets\js\locales_datepicker\bootstrap-datepicker.zh-TW.min.js" />
+		<EmbeddedResource Include="Assets\js\popper.min.js">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="Assets\js\popper.min.js.map">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="Assets\js\split.min.js" />
+		<EmbeddedResource Include="Assets\js\summernote-bs5.min.js">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="Assets\js\lang\summernote-de-DE.min.js">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="Assets\js\webexpress.ui.modalformular.js" />
+		<EmbeddedResource Include="Assets\js\webexpress.ui.modalpage.js" />
+		<EmbeddedResource Include="Assets\js\webexpress.ui.move.js" />
+		<EmbeddedResource Include="Assets\js\webexpress.ui.selection.js" />
+		<EmbeddedResource Include="Assets\js\webexpress.ui.more.js" />
+		<EmbeddedResource Include="Assets\js\webexpress.ui.search.js" />
+		<EmbeddedResource Include="Assets\js\webexpress.ui.expand.js" />
+		<EmbeddedResource Include="Assets\js\webexpress.ui.pagination.js" />
+		<EmbeddedResource Include="Assets\js\webexpress.ui.table.js" />
+		<EmbeddedResource Include="Assets\js\webexpress.ui.js" />
+		<EmbeddedResource Include="Internationalization\de" />
+		<EmbeddedResource Include="Internationalization\en" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Markdig" Version="0.31.0" />
-  </ItemGroup>
+	<ItemGroup>
+	  <None Include="..\..\icon.png">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	  <None Include="..\..\README.md" Link="README.md">
+	    <PackagePath>\</PackagePath>
+	    <Pack>True</Pack>
+	  </None>
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\WebExpress\WebExpress.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Markdig" Version="0.31.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\WebExpress\WebExpress.csproj">
+			<Private>false</Private>
+			<ExcludeAssets>runtime</ExcludeAssets>
+		</ProjectReference>
+	</ItemGroup>
 
 </Project>

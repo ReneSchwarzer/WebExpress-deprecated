@@ -118,14 +118,14 @@ namespace WebExpress.WebSitemap
                 ));
             }
 
+            SiteMap = newSiteMapNode;
+
             using (var frame = new LogFrameSimple(HttpServerContext.Log))
             {
                 var list = new List<string>();
                 PrepareForLog(null, list, 2);
                 HttpServerContext.Log.Info(string.Join(Environment.NewLine, list));
             }
-
-            SiteMap = newSiteMapNode;
         }
 
         /// <summary>

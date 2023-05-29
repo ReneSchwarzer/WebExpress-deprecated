@@ -170,7 +170,7 @@ namespace WebExpress.WebApplication
                 };
 
                 // create application
-                var applicationInstance = (IApplication)type.Assembly.CreateInstance(type.FullName);
+                var applicationInstance = Activator.CreateInstance(type) as IApplication;
 
                 if (!pluginDict.ContainsKey(id))
                 {

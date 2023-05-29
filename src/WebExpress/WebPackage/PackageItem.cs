@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace WebExpress.WebPackage
 {
     public class PackageItem
     {
         /// <summary>
-        /// Liefert oder setzt den Paketdateinamen
+        /// Returns or sets the package file name.
         /// </summary>
         public string FileName { get; set; }
 
@@ -16,37 +15,32 @@ namespace WebExpress.WebPackage
         public string Id { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Version
+        /// Returns or sets the version.
         /// </summary>
         public string Version { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Titel
+        /// Returns or sets the titles.
         /// </summary>
         public string Title { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Autoren
+        /// Returns or sets the authors.
         /// </summary>
         public string Authors { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Lizenz
+        /// Returns or sets the license.
         /// </summary>
         public string License { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Url der Lizenz
-        /// </summary>
-        public string LicenseUrl { get; set; }
-
-        /// <summary>
-        /// Returns or sets the icon. des Paketes
+        /// Returns or sets the package icon.
         /// </summary>
         public string Icon { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Readme.Datei des Paketes (md-Format)
+        /// Returns or sets the readme file of the package (md format).
         /// </summary>
         public string Readme { get; set; }
 
@@ -56,24 +50,14 @@ namespace WebExpress.WebPackage
         public string Description { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Tags
+        /// Returns or sets the tags.
         /// </summary>
         public string Tags { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt das Repositorie
+        /// Returns or sets the plugin sources.
         /// </summary>
-        public string Repository { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt die Ahängigkeiten
-        /// </summary>
-        //public List<Dependency> Dependencies { get; set; }
-
-        /// <summary>
-        /// Ermittelt die im Paket enthaltenden Dateien
-        /// </summary>
-        public List<Tuple<string, byte[]>> Files { get; set; }
+        public IEnumerable<string> PluginSources { get; set; }
 
         /// <summary>
         /// Constructor

@@ -57,6 +57,12 @@ namespace WebExpress.WebPackage
         public string Readme { get; set; }
 
         /// <summary>
+        /// Returns or sets the package's privacy policy file (md format).
+        /// </summary>
+        [XmlElement("privacypolicy", IsNullable = true)]
+        public string PrivacyPolicy { get; set; }
+
+        /// <summary>
         /// Returns or sets the description.
         /// </summary>
         [XmlElement("description", IsNullable = true)]
@@ -69,15 +75,15 @@ namespace WebExpress.WebPackage
         public string Tags { get; set; }
 
         /// <summary>
-        /// Returns or sets the artifacts.
+        /// Returns or sets the path to the plugins.
         /// </summary>
-        [XmlElement("artifacts", IsNullable = true)]
-        public string[] Artifacts { get; set; }
+        [XmlElement("plugin", IsNullable = true)]
+        public string[] Plugins { get; set; }
 
         /// <summary>
-        /// Returns or sets the dependencies.
+        /// Returns or sets the artifacts.
         /// </summary>
-        [XmlElement("dependencies", IsNullable = true)]
-        public PackageItemSpecDependencies Dependencies { get; set; }
+        [XmlElement("artifact", IsNullable = true)]
+        public string[] Artifacts { get; set; }
     }
 }

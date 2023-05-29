@@ -124,41 +124,40 @@ namespace WebExpress.WebPlugin
         /// <summary>
         /// Loads and registers the plugins from a path.
         /// </summary>
-        /// <param name="path">The directory where the plugins are located.</param>
-        internal IEnumerable<IPluginContext> Register(string path)
+        /// <param name="pluginFile">The directory and filename where the plugins are located.</param>
+        internal IEnumerable<IPluginContext> Register(string pluginFile)
         {
             var assemblies = new List<Assembly>();
             var pluginContexts = new List<IPluginContext>();
 
-            if (!Directory.Exists(path))
+            if (!File.Exists(pluginFile))
             {
                 return pluginContexts;
             }
 
             // create plugins
-            foreach (var assemblyFile in Directory.EnumerateFiles(path, "*.dll", SearchOption.AllDirectories))
+            try
             {
-                try
-                {
-                    var assembly = Assembly.LoadFrom(assemblyFile);
-                    if (assembly != null)
-                    {
-                        assemblies.Add(assembly);
-                        HttpServerContext.Log.Debug
-                        (
-                            InternationalizationManager.I18N
-                            (
-                                "webexpress:pluginmanager.load",
-                                assembly.GetName().Name,
-                                assembly.GetName().Version.ToString()
-                            )
-                        );
-                    }
-                }
-                catch (BadImageFormatException)
-                {
+                var loadContext = new PluginLoadContext(pluginFile);
+                var assembly = loadContext.LoadFromAssemblyName(AssemblyName.GetAssemblyName(pluginFile));
 
+                if (assembly != null)
+                {
+                    assemblies.Add(assembly);
+                    HttpServerContext.Log.Debug
+                    (
+                        InternationalizationManager.I18N
+                        (
+                            "webexpress:pluginmanager.load",
+                            assembly.GetName().Name,
+                            assembly.GetName().Version.ToString()
+                        )
+                    );
                 }
+            }
+            catch (BadImageFormatException)
+            {
+
             }
 
             // register plugin

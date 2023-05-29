@@ -54,6 +54,7 @@ namespace WebExpress
             ArgumentParser.Current.Register(new ArgumentParserCommand() { FullName = "port", ShortName = "p" });
             ArgumentParser.Current.Register(new ArgumentParserCommand() { FullName = "spec", ShortName = "s" });
             ArgumentParser.Current.Register(new ArgumentParserCommand() { FullName = "output", ShortName = "o" });
+            ArgumentParser.Current.Register(new ArgumentParserCommand() { FullName = "target", ShortName = "t" });
 
             // parsing call arguments
             var argumentDict = ArgumentParser.Current.Parse(args);
@@ -76,6 +77,20 @@ namespace WebExpress
                     return 1;
                 }
 
+                if (!argumentDict.ContainsKey("config"))
+                {
+                    Console.WriteLine("*** PackageBuilder: The config (-c) was not specified.");
+
+                    return 1;
+                }
+
+                if (!argumentDict.ContainsKey("target"))
+                {
+                    Console.WriteLine("*** PackageBuilder: The target framework (-t) was not specified.");
+
+                    return 1;
+                }
+
                 if (!argumentDict.ContainsKey("output"))
                 {
                     Console.WriteLine("*** PackageBuilder: The output directory (-o) was not specified.");
@@ -83,7 +98,7 @@ namespace WebExpress
                     return 1;
                 }
 
-                WebPackage.PackageBuilder.Create(argumentDict["spec"], argumentDict["output"]);
+                WebPackage.PackageBuilder.Create(argumentDict["spec"], argumentDict["config"], argumentDict["target"], argumentDict["output"]);
 
                 return 0;
             }
@@ -92,7 +107,7 @@ namespace WebExpress
             if (!argumentDict.ContainsKey("config"))
             {
                 // check if there is a file called config.xml
-                if (!File.Exists(Path.Combine(Path.Combine(Environment.CurrentDirectory, "Config"), "webexpress.config.xml")))
+                if (!File.Exists(Path.Combine(Path.Combine(Environment.CurrentDirectory, "config"), "webexpress.config.xml")))
                 {
                     Console.WriteLine("No configuration file was specified. Usage: " + Name + " -config filename");
 
@@ -103,7 +118,7 @@ namespace WebExpress
             }
 
             // initialization of the web server
-            Initialization(ArgumentParser.Current.GetValidArguments(args), Path.Combine(Path.Combine(Environment.CurrentDirectory, "Config"), argumentDict["config"]));
+            Initialization(ArgumentParser.Current.GetValidArguments(args), Path.Combine(Path.Combine(Environment.CurrentDirectory, "config"), argumentDict["config"]));
 
             // start the manager
             ComponentManager.Execute();

@@ -226,7 +226,7 @@ namespace WebExpress.WebPackage
                 ComponentManager.SitemapManager.Refresh();
 
                 // save the catalog
-                //SaveCatalog();
+                SaveCatalog();
             }
         }
 
@@ -281,15 +281,11 @@ namespace WebExpress.WebPackage
                             Title = spec.Title,
                             Authors = spec.Authors,
                             License = spec.License,
-                            LicenseUrl = spec.LicenseUrl,
                             Icon = spec.Icon,
                             Readme = spec.Readme,
                             Description = spec.Description,
                             Tags = spec.Tags,
-                            //            Repository = package.Metadata.Repository?.Url,
-                            //            Dependencies = package.Metadata.Dependencies != null ? package.Metadata.Dependencies?.Groups.SelectMany(x => x.Dependencies).ToList() : new List<NuPkg.Dependency>(),
-                            //            Files = files
-                            //
+                            PluginSources = spec.Plugins
                         }
                     };
                 }
@@ -405,9 +401,12 @@ namespace WebExpress.WebPackage
         private void RegisterPackage(PackageCatalogItem package)
         {
             // load plugins
-            var pluginContexts = ComponentManager.PluginManager.Register(GetTargetPath(package));
+            foreach (var plugin in package?.Metadata.PluginSources ?? Enumerable.Empty<string>())
+            {
+                var pluginContexts = ComponentManager.PluginManager.Register(GetTargetPath(package, plugin));
 
-            package.Plugins.AddRange(pluginContexts);
+                package.Plugins.AddRange(pluginContexts);
+            }
 
             ComponentManager.LogStatus();
         }
@@ -425,10 +424,15 @@ namespace WebExpress.WebPackage
         /// Determines the target directory where the plug-ins of the package are located for the current target platform
         /// </summary>
         /// <param name="package">The package.</param>
+        /// <param name="plugin">The plugin.</param>
         /// <returns>The directory (absolutely).</returns>
-        private string GetTargetPath(PackageCatalogItem package)
+        private string GetTargetPath(PackageCatalogItem package, string plugin)
         {
-            return Path.Combine(HttpServerContext.PackagePath, Path.GetFileNameWithoutExtension(package?.File), "lib");
+            return Path.GetFullPath(Path.Combine
+            (
+                HttpServerContext.PackagePath,
+                Path.GetFileNameWithoutExtension(package?.File), plugin, GetTFM(), $"{Path.GetFileName(plugin)}.dll"
+            ));
         }
 
         /// <summary>
