@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Threading.Tasks;
 using WebExpress.Internationalization;
 using WebExpress.WebApplication;
@@ -167,10 +166,10 @@ namespace WebExpress.WebModule
             foreach (var item in Dictionary.Values.Where(x => x.ModuleInstance == null))
             {
                 // create module
-                item.ModuleInstance = (IModule)ModuleClass.Assembly.CreateInstance(ModuleClass.FullName);
+                item.ModuleInstance = Activator.CreateInstance(ModuleClass) as IModule;
 
                 // thread termination.
-                item.TokenSource = new CancellationTokenSource();
+                var token = item.CancellationTokenSource.Token;
 
                 // initialize module
                 item.ModuleInstance.Initialization(item.ModuleContext);
@@ -209,7 +208,9 @@ namespace WebExpress.WebModule
                             item.ModuleContext.PluginContext.PluginId
                         )
                     );
-                }, item.TokenSource.Token);
+
+                    token.ThrowIfCancellationRequested();
+                }, token);
             }
         }
 
@@ -220,7 +221,7 @@ namespace WebExpress.WebModule
         {
             foreach (var item in Dictionary.Values)
             {
-                item.TokenSource?.Cancel();
+                item.CancellationTokenSource?.Cancel();
             }
         }
 
@@ -231,9 +232,9 @@ namespace WebExpress.WebModule
         public void ShutDown(IApplicationContext applicationContext)
         {
             if (Dictionary.ContainsKey(applicationContext)
-                && Dictionary[applicationContext].TokenSource != null)
+                && Dictionary[applicationContext].CancellationTokenSource != null)
             {
-                Dictionary[applicationContext].TokenSource.Cancel();
+                Dictionary[applicationContext].CancellationTokenSource.Cancel();
             }
         }
 

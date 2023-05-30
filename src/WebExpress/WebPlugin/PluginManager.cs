@@ -135,10 +135,11 @@ namespace WebExpress.WebPlugin
                 return pluginContexts;
             }
 
+            var loadContext = new PluginLoadContext(pluginFile);
+
             // create plugins
             try
             {
-                var loadContext = new PluginLoadContext(pluginFile);
                 var assembly = loadContext.LoadFromAssemblyName(AssemblyName.GetAssemblyName(pluginFile));
 
                 if (assembly != null)
@@ -163,7 +164,8 @@ namespace WebExpress.WebPlugin
             // register plugin
             foreach (var assembly in assemblies)
             {
-                pluginContexts.AddRange(Register(assembly));
+                var pluginContext = Register(assembly, loadContext);
+                pluginContexts.Add(pluginContext);
             }
 
             Logging();
@@ -175,11 +177,10 @@ namespace WebExpress.WebPlugin
         /// Loads and registers the plugin from an assembly.
         /// </summary>
         /// <param name="assembly">The assembly where the plugin is located.</param>
-        /// <returns>A list of plugins created.</returns>
-        private IEnumerable<IPluginContext> Register(Assembly assembly)
+        /// <param name="loadContext">The plugin load context for isolating and unloading the dependent libraries.</param>
+        /// <returns>A plugin created or null.</returns>
+        private IPluginContext Register(Assembly assembly, PluginLoadContext loadContext = null)
         {
-            var list = new List<IPluginContext>();
-
             try
             {
                 foreach (var type in assembly
@@ -244,6 +245,7 @@ namespace WebExpress.WebPlugin
                     {
                         UnfulfilledDependencies.Add(id, new PluginItem()
                         {
+                            PluginLoadContext = loadContext,
                             PluginClass = type,
                             PluginContext = pluginContext,
                             Plugin = null,
@@ -252,10 +254,9 @@ namespace WebExpress.WebPlugin
                     }
                     else if (!Dictionary.ContainsKey(id))
                     {
-                        list.Add(pluginContext);
-
                         Dictionary.Add(id, new PluginItem()
                         {
+                            PluginLoadContext = loadContext,
                             PluginClass = type,
                             PluginContext = pluginContext,
                             Plugin = null,
@@ -278,6 +279,8 @@ namespace WebExpress.WebPlugin
                             InternationalizationManager.I18N("webexpress:pluginmanager.duplicate", id)
                         );
                     }
+
+                    return pluginContext;
                 }
             }
             catch (Exception ex)
@@ -285,7 +288,19 @@ namespace WebExpress.WebPlugin
                 HttpServerContext.Log.Exception(ex);
             }
 
-            return list;
+            return null;
+        }
+
+        /// <summary>
+        /// Removes all elemets associated with the specified plugin context.
+        /// </summary>
+        /// <param name="pluginContext">The context of the plugin that contains the elemets to remove.</param>
+        public void Remove(IPluginContext pluginContext)
+        {
+            OnRemovePlugin(pluginContext);
+
+            var pluginItem = GetPluginItem(pluginContext);
+            pluginItem?.PluginLoadContext?.Unload();
         }
 
         /// <summary>
@@ -359,7 +374,7 @@ namespace WebExpress.WebPlugin
         }
 
         /// <summary>
-        /// Returns a plugin context based on its Id.
+        /// Returns a plugin context based on its id.
         /// </summary>
         /// <param name="id">The id of the plugin.</param>
         /// <returns>The plugin context.</returns>
@@ -376,37 +391,55 @@ namespace WebExpress.WebPlugin
         }
 
         /// <summary>
-        /// Boots the specified plugin.
+        /// Returns a plugin item based on the context.
         /// </summary>
-        /// <param name="contexts">The context of the plugin to run.</param>
-        internal void Boot(IPluginContext context)
+        /// <param name="pluginContext">The context of the plugin.</param>
+        /// <returns>The plugin item or null.</returns>
+        private PluginItem GetPluginItem(IPluginContext pluginContext)
         {
-            if (!Dictionary.ContainsKey(context?.PluginId?.ToLower()))
+            var pluginId = pluginContext?.PluginId?.ToLower();
+
+            if (pluginId == null || !Dictionary.ContainsKey(pluginId))
             {
                 HttpServerContext.Log.Warning
                 (
                     InternationalizationManager.I18N
                     (
                         "webexpress:pluginmanager.notavailable",
-                        context?.PluginId
+                        pluginId
                     )
                 );
 
+                return null;
+            }
+
+            return Dictionary[pluginId];
+        }
+
+        /// <summary>
+        /// Boots the specified plugin.
+        /// </summary>
+        /// <param name="pluginContext">The context of the plugin to run.</param>
+        internal void Boot(IPluginContext pluginContext)
+        {
+            var pluginItem = GetPluginItem(pluginContext);
+            var token = pluginItem?.CancellationTokenSource.Token;
+
+            if (pluginItem == null)
+            {
                 return;
             }
 
-            var plugin = Dictionary[context?.PluginId?.ToLower()];
-
-            plugin.Plugin = (IPlugin)plugin.PluginClass.Assembly.CreateInstance(plugin.PluginClass.FullName);
+            pluginItem.Plugin = Activator.CreateInstance(pluginItem.PluginClass) as IPlugin;
 
             // initialize plugin
-            plugin.Plugin.Initialization(plugin.PluginContext);
+            pluginItem.Plugin.Initialization(pluginItem.PluginContext);
             HttpServerContext.Log.Debug
             (
                 InternationalizationManager.I18N
                 (
                     "webexpress:pluginmanager.plugin.initialization",
-                    plugin.PluginContext.PluginId
+                    pluginItem.PluginContext.PluginId
                 )
             );
 
@@ -418,21 +451,23 @@ namespace WebExpress.WebPlugin
                     InternationalizationManager.I18N
                     (
                         "webexpress:pluginmanager.plugin.processing.start",
-                        plugin.PluginContext.PluginId
+                        pluginItem.PluginContext.PluginId
                     )
                 );
 
-                plugin.Plugin.Run();
+                pluginItem.Plugin.Run();
 
                 HttpServerContext.Log.Debug
                 (
                     InternationalizationManager.I18N
                     (
                         "webexpress:pluginmanager.plugin.processing.end",
-                        plugin.PluginContext.PluginId
+                        pluginItem.PluginContext.PluginId
                     )
                 );
-            });
+
+                token?.ThrowIfCancellationRequested();
+            }, token.Value);
         }
 
         /// <summary>
@@ -453,6 +488,9 @@ namespace WebExpress.WebPlugin
         /// <param name="pluginContext">The context of the plugin to shut down.</param>
         public void ShutDown(IPluginContext pluginContext)
         {
+            var plugin = GetPluginItem(pluginContext);
+
+            plugin?.CancellationTokenSource.Cancel();
 
         }
 

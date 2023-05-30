@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace WebExpress.WebPlugin
 {
@@ -8,6 +9,11 @@ namespace WebExpress.WebPlugin
     /// </summary>
     internal class PluginItem
     {
+        /// <summary>
+        /// The plugin load context for isolating and unloading the dependent libraries.
+        /// </summary>
+        public PluginLoadContext PluginLoadContext { get; internal set; }
+
         /// <summary>
         /// Returns the plugin class.
         /// </summary>
@@ -27,5 +33,10 @@ namespace WebExpress.WebPlugin
         /// The dependencies of the plugin.
         /// </summary>
         public IEnumerable<string> Dependencies { get; internal set; } = new List<string>();
+
+        /// <summary>
+        /// Thread termination token.
+        /// </summary>
+        public CancellationTokenSource CancellationTokenSource { get; } = new CancellationTokenSource();
     }
 }

@@ -415,6 +415,10 @@ namespace WebExpress.WebComponent
                 );
             }
 
+            ModuleManager.Remove(pluginContext);
+            ApplicationManager.Remove(pluginContext);
+            PluginManager.Remove(pluginContext);
+
             Dictionary.Remove(pluginContext);
         }
 

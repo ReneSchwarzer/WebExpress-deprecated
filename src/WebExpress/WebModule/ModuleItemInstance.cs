@@ -17,6 +17,6 @@ namespace WebExpress.WebModule
         /// <summary>
         /// Returns the cancel token or null if not already created.
         /// </summary>
-        public CancellationTokenSource TokenSource { get; internal set; }
+        public CancellationTokenSource CancellationTokenSource { get; } = new CancellationTokenSource();
     }
 }

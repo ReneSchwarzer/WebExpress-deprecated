@@ -1,4 +1,6 @@
-﻿namespace WebExpress.WebApplication
+﻿using System.Threading;
+
+namespace WebExpress.WebApplication
 {
     /// <summary>
     /// Represents an application entry in the application directory.
@@ -14,5 +16,10 @@
         /// The application.
         /// </summary>
         public IApplication Application { get; set; }
+
+        /// <summary>
+        /// Thread termination token.
+        /// </summary>
+        public CancellationTokenSource CancellationTokenSource { get; } = new CancellationTokenSource();
     }
 }

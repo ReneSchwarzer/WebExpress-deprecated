@@ -299,8 +299,10 @@ namespace WebExpress.WebApplication
                 return;
             }
 
-            foreach (var applicationItem in Dictionary[pluginContext].Values)
+            foreach (var applicationItem in Dictionary[pluginContext]?.Values ?? Enumerable.Empty<ApplicationItem>())
             {
+                var token = applicationItem.CancellationTokenSource.Token;
+
                 // Initialize application
                 applicationItem.Application.Initialization(applicationItem.ApplicationContext);
                 HttpServerContext.Log.Debug
@@ -333,7 +335,9 @@ namespace WebExpress.WebApplication
                             applicationItem.ApplicationContext.ApplicationId
                         )
                     );
-                });
+
+                    token.ThrowIfCancellationRequested();
+                }, token);
             }
         }
 
@@ -343,7 +347,10 @@ namespace WebExpress.WebApplication
         ///  <param name="pluginContext">The context of the plugin that contains the applications.</param>
         public void ShutDown(IPluginContext pluginContext)
         {
-
+            foreach (var applicationItem in Dictionary[pluginContext]?.Values ?? Enumerable.Empty<ApplicationItem>())
+            {
+                applicationItem.CancellationTokenSource.Cancel();
+            }
         }
 
         /// <summary>

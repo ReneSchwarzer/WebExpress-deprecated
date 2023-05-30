@@ -387,7 +387,7 @@ namespace WebExpress.WebSitemap
                 return node.Instance;
             }
 
-            var instance = node.ResourceItem.ResourceClass?.Assembly.CreateInstance(node.ResourceItem.ResourceClass?.FullName) as IResource;
+            var instance = Activator.CreateInstance(node.ResourceItem.ResourceClass) as IResource;
 
             if (instance is II18N i18n)
             {
