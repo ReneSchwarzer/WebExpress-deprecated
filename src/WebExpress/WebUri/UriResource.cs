@@ -108,7 +108,7 @@ namespace WebExpress.WebUri
         /// <summary>
         /// Returns the variables.
         /// </summary>
-        public Dictionary<string, string> Variables
+        public Dictionary<string, string> Parameters
         {
             get
             {
@@ -403,6 +403,35 @@ namespace WebExpress.WebUri
         public bool StartsWith(UriResource uri)
         {
             return ToString().StartsWith(uri.ToString());
+        }
+
+        /// <summary>
+        /// Creates a new resource uri and fills it with the given parameters.
+        /// </summary>
+        /// <param name="parameters">The parameters that fill in the variable parts of the uri.</param>
+        /// <returns>A new resource uri with the populated parameters.</returns>
+        public UriResource SetParameters(params WebMessage.Parameter[] parameters)
+        {
+            var pathSegments = PathSegments.AsEnumerable();
+
+            foreach (var parameter in parameters)
+            {
+                pathSegments = pathSegments.Select(x =>
+                {
+                    if (x is IUriPathSegmentVariable variable &&
+                        variable.VariableName.Equals(parameter.Key, StringComparison.OrdinalIgnoreCase))
+                    {
+                        var copy = variable.Copy() as IUriPathSegmentVariable;
+                        copy.Value = parameter.Value;
+
+                        return copy;
+                    }
+
+                    return x;
+                });
+            }
+
+            return new UriResource(this, pathSegments);
         }
 
         /// <summary>

@@ -20,7 +20,7 @@ webexpress.ui.selectionCtrl = class extends webexpress.ui.events {
     /**
      * Constructor
      * @param settings Optionen zur Gestaltung des Steuerelementes
-     *        - id Die Id des Steuerelements
+     *        - id Returns or sets the id. des Steuerelements
      *        - css CSS-Klasse zur Gestaltung des Steuerelementes
      *        - placeholder Der Platzhaltertext
      *        - multiselect Allows you to select multiple items.
@@ -222,7 +222,7 @@ webexpress.ui.selectionCtrl = class extends webexpress.ui.events {
 
     /**
      * Setzt die ausgewählten Optionen
-     * @param values Die Id des ausgewählten Eintrages
+     * @param values Returns or sets the id. des ausgewählten Eintrages
      */
     set value(values) {
         if (this._values != values) {

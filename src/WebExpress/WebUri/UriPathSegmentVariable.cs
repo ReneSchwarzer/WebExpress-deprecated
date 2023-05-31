@@ -5,12 +5,12 @@ using System.Text.RegularExpressions;
 namespace WebExpress.WebUri
 {
     /// <summary>
-    /// variable path segment.
+    /// Variable path segment.
     /// </summary>
     public abstract class UriPathSegmentVariable : IUriPathSegmentVariable
     {
         /// <summary>
-        /// Returns the Id.
+        /// Returns or sets the id.
         /// </summary>
         public string Id => VariableName?.ToLower();
 

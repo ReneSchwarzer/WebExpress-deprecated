@@ -5,7 +5,7 @@ namespace WebExpress.Html
     public class HtmlAttribute : IHtmlAttribute
     {
         /// <summary>
-        /// Liefert oder setzt den Namen des Attributes
+        /// Returns or sets the name. des Attributes
         /// </summary>
         public string Name { get; set; }
 

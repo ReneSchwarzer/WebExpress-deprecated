@@ -100,7 +100,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Returns or sets the id.
+        /// Returns or sets Returns or sets the id.
         /// </summary>
         public string Id { get; private set; }
 
@@ -144,7 +144,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">The id.</param>
+        /// <param name="id">Returns or sets the id.</param>
         public Control(string id = null)
         {
             Id = id;

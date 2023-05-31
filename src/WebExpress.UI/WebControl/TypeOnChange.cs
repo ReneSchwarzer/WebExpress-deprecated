@@ -10,7 +10,7 @@
     public static class TypeOnChangeExtensions
     {
         /// <summary>
-        /// Umwandlung in String
+        /// Conversion to string.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>Der String</returns>

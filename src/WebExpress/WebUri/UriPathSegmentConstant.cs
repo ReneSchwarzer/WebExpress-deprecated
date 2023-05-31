@@ -8,7 +8,7 @@ namespace WebExpress.WebUri
     public class UriPathSegmentConstant : IUriPathSegmentConstant
     {
         /// <summary>
-        /// Returns the Id.
+        /// Returns or sets the id.
         /// </summary>
         public string Id => Value?.ToLower();
 

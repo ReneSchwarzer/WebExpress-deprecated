@@ -34,7 +34,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">The id.</param>
+        /// <param name="id">Returns or sets the id.</param>
         public ControlTree(string id = null)
             : base(id)
         {
@@ -44,7 +44,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">The id.</param>
+        /// <param name="id">Returns or sets the id.</param>
         /// <param name="items">Die Listeneinträge</param>
         public ControlTree(string id, params ControlTreeItem[] items)
             : base(id)
@@ -64,7 +64,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">The id.</param>
+        /// <param name="id">Returns or sets the id.</param>
         /// <param name="items">Die Listeneinträge</param>
         public ControlTree(string id, List<ControlTreeItem> items)
             : base(id)

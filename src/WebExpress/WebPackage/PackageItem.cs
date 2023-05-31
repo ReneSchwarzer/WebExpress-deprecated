@@ -10,7 +10,7 @@ namespace WebExpress.WebPackage
         public string FileName { get; set; }
 
         /// <summary>
-        /// Returns or sets the id.
+        /// Returns or sets Returns or sets the id.
         /// </summary>
         public string Id { get; set; }
 

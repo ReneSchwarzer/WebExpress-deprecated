@@ -10,7 +10,7 @@ namespace WebExpress.WebAttribute
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="moduleId">Die Id des Moduls</param>
+        /// <param name="moduleId">Returns or sets the id. des Moduls</param>
         public WebExModuleAttribute(string moduleId)
         {
 

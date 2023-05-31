@@ -24,9 +24,9 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="page">Die Seite, indem das Steuerelement gerendert wird</param>
+        /// <param name="page">The page where the control is rendered.</param>
         /// <param name="request">The request.</param>
-        /// <param name="visualTree">Der visuelle Baum</param>
+        /// <param name="visualTree">The visual tree.</param>
         /// <param name="formular">Das Formular, indem das Steuerelement gerendert wird</param>
         public RenderContextFormular(IPage page, Request request, IVisualTree visualTree, IControlForm formular)
                 : base(page, request, visualTree)
@@ -48,7 +48,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Copy-Constructor
         /// </summary>
-        /// <param name="context">Der zu kopierende Kontext/param>
+        /// <param name="context">The render context to copy./param>
         public RenderContextFormular(RenderContextFormular context)
             : this(context, context?.Formular)
         {

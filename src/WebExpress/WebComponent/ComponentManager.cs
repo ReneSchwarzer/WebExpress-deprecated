@@ -218,7 +218,7 @@ namespace WebExpress.WebComponent
         /// <summary>
         /// Returns a component based on its id.
         /// </summary>
-        /// <param name="id">The id.</param>
+        /// <param name="id">Returns or sets the id.</param>
         /// <returns>The instance of the component or null.</returns>
         public static IComponent GetComponent(string id)
         {
@@ -446,12 +446,10 @@ namespace WebExpress.WebComponent
         public static void LogStatus()
         {
             using var frame = new LogFrameSimple(HttpServerContext.Log);
-            var output = new List<string>();
-
-            output.Add
-            (
+            var output = new List<string>
+            {
                 InternationalizationManager.I18N("webexpress:componentmanager.component")
-            );
+            };
 
             foreach (var pluginContext in PluginManager.Plugins)
             {

@@ -62,7 +62,7 @@ namespace WebExpress.UI.WebControl
         public string RedirectUri { get; set; }
 
         /// <summary>
-        /// Returns or sets the hidden field that contains the id.
+        /// Returns or sets the hidden field that contains Returns or sets the id.
         /// </summary>
         public ControlFormItemInputHidden FormularId { get; } = new ControlFormItemInputHidden(Guid.NewGuid().ToString())
         {
@@ -97,7 +97,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">The id.</param>
+        /// <param name="id">Returns or sets the id.</param>
         public ControlForm(string id = null)
             : base(id)
         {
@@ -108,7 +108,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">The id.</param>
+        /// <param name="id">Returns or sets the id.</param>
         /// <param name="items">The controls that are associated with the form.</param>
         public ControlForm(string id, params ControlFormItem[] items)
             : this(id)

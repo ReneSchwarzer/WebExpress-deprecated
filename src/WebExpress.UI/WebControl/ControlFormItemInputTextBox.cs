@@ -57,7 +57,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">The id.</param>
+        /// <param name="id">Returns or sets the id.</param>
         public ControlFormItemInputTextBox(string id = null)
             : base(id)
         {
@@ -68,7 +68,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">The id.</param>
+        /// <param name="id">Returns or sets the id.</param>
         /// <param name="name">The name of the text box.</param>
         public ControlFormItemInputTextBox(string id, string name)
             : base(id)

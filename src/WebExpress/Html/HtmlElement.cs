@@ -7,7 +7,7 @@ namespace WebExpress.Html
     public class HtmlElement : IHtmlNode
     {
         /// <summary>
-        /// Liefert oder setzt den Namen des Attributes
+        /// Returns or sets the name. des Attributes
         /// </summary>
         protected string ElementName { get; set; }
 
@@ -22,7 +22,7 @@ namespace WebExpress.Html
         protected List<IHtmlNode> Elements { get; private set; }
 
         /// <summary>
-        /// Returns or sets the id.
+        /// Returns or sets Returns or sets the id.
         /// </summary>
         public string Id
         {

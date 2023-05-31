@@ -62,7 +62,7 @@ namespace WebExpress.UI.WebPage
                 CssLinks.Add(UriResource.Combine(contextPath, "/assets/css/webexpress.ui.selection.css"));
                 CssLinks.Add(UriResource.Combine(contextPath, "/assets/css/webexpress.ui.table.css"));
 
-                HeaderScriptLinks.Add(UriResource.Combine(contextPath, "/assets/js/jquery-3.6.0.min.js"));
+                HeaderScriptLinks.Add(UriResource.Combine(contextPath, "/assets/js/jquery-3.7.0.min.js"));
                 HeaderScriptLinks.Add(UriResource.Combine(contextPath, "/assets/js/popper.min.js"));
                 HeaderScriptLinks.Add(UriResource.Combine(contextPath, "/assets/js/bootstrap.min.js"));
                 HeaderScriptLinks.Add(UriResource.Combine(contextPath, "/assets/js/summernote-bs5.min.js"));

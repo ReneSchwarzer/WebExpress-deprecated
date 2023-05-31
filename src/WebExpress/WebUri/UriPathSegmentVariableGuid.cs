@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 namespace WebExpress.WebUri
 {
     /// <summary>
-    /// Static path segment.
+    /// Variable path segment.
     /// </summary>
     public class UriPathSegmentVariableGuid : UriPathSegmentVariable
     {

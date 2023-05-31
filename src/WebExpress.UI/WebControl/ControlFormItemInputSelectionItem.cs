@@ -5,7 +5,7 @@ namespace WebExpress.UI.WebControl
     public class ControlFormItemInputSelectionItem
     {
         /// <summary>
-        /// Returns or sets the id.
+        /// Returns or sets Returns or sets the id.
         /// </summary>
         [JsonPropertyName("id")]
         public string Id { get; set; }

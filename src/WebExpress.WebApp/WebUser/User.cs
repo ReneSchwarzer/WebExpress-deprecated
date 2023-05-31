@@ -8,7 +8,7 @@ namespace WebExpress.WebApp.WebUser
     public class User
     {
         /// <summary>
-        /// Die Id
+        /// Returns or sets the id.
         /// </summary>
         [XmlAttribute("id")]
         public string Id { get; set; }
@@ -20,13 +20,13 @@ namespace WebExpress.WebApp.WebUser
         public string Login { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt den Namen
+        /// Returns or sets the name.
         /// </summary>
         [XmlAttribute("firstname")]
         public string Firstname { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt den Namen
+        /// Returns or sets the name.
         /// </summary>
         [XmlAttribute("lastname")]
         public string Lastname { get; set; }
@@ -56,13 +56,13 @@ namespace WebExpress.WebApp.WebUser
         public IEnumerable<Group> Groups => from group1 in UserManager.Groups join group2 in GroupIds on group1.Id equals group2 select group1;
 
         /// <summary>
-        /// Der Zeitstempel der Erstellung
+        /// Returns or sets the timestamp of the creation.
         /// </summary>
         [XmlAttribute("created")]
         public DateTime Created { get; set; }
 
         /// <summary>
-        /// Der Zeitstempel der letzten Änderung
+        /// The timestamp of the last change.
         /// </summary>
         [XmlAttribute("updated")]
         public DateTime Updated { get; set; }

@@ -90,7 +90,7 @@ namespace WebExpress.Html
         }
 
         /// <summary>
-        /// Liefert oder setzt den Namen einer Liste (datalist)
+        /// Returns or sets the name. einer Liste (datalist)
         /// </summary>
         public string List
         {

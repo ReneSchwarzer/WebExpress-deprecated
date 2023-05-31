@@ -10,7 +10,7 @@ webexpress.ui.modalFormularCtrl = class extends webexpress.ui.events {
     /**
      * Constructor
      * @param settings Optionen zur Gestaltung des Steuerelementes
-     *        - id Die Id des Steuerelements
+     *        - id Returns or sets the id. des Steuerelements
      *        - close Der Name der Schließenschaltfläche
      *        - uri Die Url des Formulars
      *        - size Die Größe des Modals (small, default, large, extralarge)

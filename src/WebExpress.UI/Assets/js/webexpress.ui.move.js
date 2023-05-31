@@ -19,7 +19,7 @@ webexpress.ui.moveCtrl = class extends webexpress.ui.events {
     /**
      * Constructor
      * @param settings Optionen zur Gestaltung des Steuerelementes
-     *        - id Die Id des Steuerelements
+     *        - id Returns or sets the id. des Steuerelements
      *        - name Der Steuerelementenname
      *        - css CSS-Klasse zur Gestaltung des Steuerelementes
      *        - header Überschrift { Selected, Available }

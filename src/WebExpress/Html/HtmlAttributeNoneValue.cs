@@ -9,7 +9,7 @@ namespace WebExpress.Html
     public class HtmlAttributeNoneValue : IHtmlAttribute
     {
         /// <summary>
-        /// Liefert oder setzt den Namen des Attributes
+        /// Returns or sets the name. des Attributes
         /// </summary>
         public string Name { get; set; }
 

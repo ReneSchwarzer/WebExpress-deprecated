@@ -9,7 +9,7 @@ namespace WebExpress.UI.WebControl
     public class ControlTimelineItem : Control
     {
         /// <summary>
-        /// Liefert oder setzt den Namen
+        /// Returns or sets the name.
         /// </summary>
         public string Name { get; set; }
 
@@ -19,7 +19,7 @@ namespace WebExpress.UI.WebControl
         public Uri Image { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt den Namen des Users
+        /// Returns or sets the name. des Users
         /// </summary>
         public string User { get; set; }
 
@@ -51,7 +51,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">The id.</param>
+        /// <param name="id">Returns or sets the id.</param>
         public ControlTimelineItem(string id = null)
             : base(id)
         {

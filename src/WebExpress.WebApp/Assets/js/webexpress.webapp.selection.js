@@ -8,7 +8,7 @@ webexpress.webapp.selectionCtrl = class extends webexpress.ui.selectionCtrl {
     /**
      * Constructor
      * @param settings Optionen zur Gestaltung des Steuerelementes
-     *        - Id Die Id des Steuerelements
+     *        - Id Returns or sets the id. des Steuerelements
      *        - CSS CSS-Klasse zur Gestaltung des Steuerelementes
      *        - Placeholder Der Platzhaltertext
      *        - OptionUri Die Uri der REST-API-Schnittstelle, welche die Optionen ermittelt

@@ -8,7 +8,7 @@ namespace WebExpress.WebUri
     public class UriPathSegmentRoot : IUriPathSegment
     {
         /// <summary>
-        /// Returns the Id.
+        /// Returns or sets the id.
         /// </summary>
         public string Id => "ROOT";
 

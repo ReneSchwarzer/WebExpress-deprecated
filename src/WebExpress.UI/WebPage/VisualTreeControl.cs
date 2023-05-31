@@ -9,12 +9,12 @@ using WebExpress.WebResource;
 namespace WebExpress.UI.WebPage
 {
     /// <summary>
-    /// Die inhaltliche Gestanltung einer Seite (Page) wird durch Steuerelemente (Controls) realisiert.
+    /// The content design of a page is realized by controls.
     /// </summary>
     public class VisualTreeControl : VisualTree
     {
         /// <summary>
-        /// Liefert den Inhalt 
+        /// Returns the content.
         /// </summary>
         public new List<Control> Content { get; } = new List<Control>();
 
@@ -29,7 +29,7 @@ namespace WebExpress.UI.WebPage
         /// Convert to html.
         /// </summary>
         /// <param name="context">The context for rendering the page.</param>
-        /// <returns>Die Seite als HTML-Baum</returns>
+        /// <returns>The page as an html tree.</returns>
         public override IHtmlNode Render(RenderContext context)
         {
             var html = new HtmlElementRootHtml();

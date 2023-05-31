@@ -60,7 +60,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">The id.</param>
+        /// <param name="id">Returns or sets the id.</param>
         public ControlPanelSplit(string id = null)
             : base(id)
         {
@@ -69,7 +69,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">The id.</param>
+        /// <param name="id">Returns or sets the id.</param>
         /// <param name="panel1">Steuerelemente des linken oder oberen Bereiches</param>
         /// <param name="panel2">Steuerelemente des rechten oder unteren Bereiches</param>
         public ControlPanelSplit(string id, Control[] panel1, Control[] panel2)

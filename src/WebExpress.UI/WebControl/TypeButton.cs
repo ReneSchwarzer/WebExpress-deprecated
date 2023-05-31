@@ -10,7 +10,7 @@
     public static class TypeButtonExtensions
     {
         /// <summary>
-        /// Umwandlung in String
+        /// Conversion to string.
         /// </summary>
         /// <param name="type">Der Typ</param>
         /// <returns>Der String</returns>

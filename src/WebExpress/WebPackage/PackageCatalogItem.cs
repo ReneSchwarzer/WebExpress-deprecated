@@ -8,7 +8,7 @@ namespace WebExpress.WebPackage
     public class PackageCatalogItem
     {
         /// <summary>
-        /// Returns or sets the id.
+        /// Returns or sets Returns or sets the id.
         /// </summary>
         [XmlAttribute("id")]
         public string Id { get; set; }

@@ -29,7 +29,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">The id.</param>
+        /// <param name="id">Returns or sets the id.</param>
         public ControlPanelMedia(string id = null)
             : base(id)
         {
@@ -39,7 +39,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">The id.</param>
+        /// <param name="id">Returns or sets the id.</param>
         /// <param name="title">Die Überschrift</param>
         public ControlPanelMedia(string id, string title)
             : this(id)

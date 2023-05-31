@@ -529,55 +529,53 @@ namespace WebExpress.WebPlugin
         /// </summary>
         private void Logging()
         {
-            using (var frame = new LogFrameSimple(HttpServerContext.Log))
-            {
-                var list = new List<string>();
-                HttpServerContext.Log.Info
+            using var frame = new LogFrameSimple(HttpServerContext.Log);
+            var list = new List<string>();
+            HttpServerContext.Log.Info
+            (
+                InternationalizationManager.I18N
                 (
-                    InternationalizationManager.I18N
-                    (
-                        "webexpress:pluginmanager.pluginmanager.label"
-                    )
-                );
+                    "webexpress:pluginmanager.pluginmanager.label"
+                )
+            );
 
-                list.AddRange(Dictionary
-                    .Where
-                    (
-                        x => x.Value.PluginClass.Assembly
-                            .GetCustomAttribute(typeof(WebExSystemPluginAttribute)) != null
-                    )
-                    .Select(x => InternationalizationManager.I18N
-                    (
-                        "webexpress:pluginmanager.pluginmanager.system",
-                        x.Key
-                    ))
-                );
+            list.AddRange(Dictionary
+                .Where
+                (
+                    x => x.Value.PluginClass.Assembly
+                        .GetCustomAttribute(typeof(WebExSystemPluginAttribute)) != null
+                )
+                .Select(x => InternationalizationManager.I18N
+                (
+                    "webexpress:pluginmanager.pluginmanager.system",
+                    x.Key
+                ))
+            );
 
-                list.AddRange(Dictionary
-                    .Where
-                    (
-                        x => x.Value.PluginClass.Assembly
-                            .GetCustomAttribute(typeof(WebExSystemPluginAttribute)) == null
-                    )
-                    .Select(x => InternationalizationManager.I18N
-                    (
-                        "webexpress:pluginmanager.pluginmanager.custom",
-                        x.Key
-                    ))
-                );
+            list.AddRange(Dictionary
+                .Where
+                (
+                    x => x.Value.PluginClass.Assembly
+                        .GetCustomAttribute(typeof(WebExSystemPluginAttribute)) == null
+                )
+                .Select(x => InternationalizationManager.I18N
+                (
+                    "webexpress:pluginmanager.pluginmanager.custom",
+                    x.Key
+                ))
+            );
 
-                list.AddRange(UnfulfilledDependencies
-                    .Select(x => InternationalizationManager.I18N
-                    (
-                        "webexpress:pluginmanager.pluginmanager.unfulfilleddependencies",
-                        x.Key
-                    ))
-                );
+            list.AddRange(UnfulfilledDependencies
+                .Select(x => InternationalizationManager.I18N
+                (
+                    "webexpress:pluginmanager.pluginmanager.unfulfilleddependencies",
+                    x.Key
+                ))
+            );
 
-                foreach (var item in list)
-                {
-                    HttpServerContext.Log.Info(string.Join(Environment.NewLine, item));
-                }
+            foreach (var item in list)
+            {
+                HttpServerContext.Log.Info(string.Join(Environment.NewLine, item));
             }
         }
 

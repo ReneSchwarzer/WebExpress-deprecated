@@ -13,7 +13,7 @@ webexpress.webapp.taskProgressBarCtrl = class extends webexpress.ui.events {
     /**
      * Constructor
      * @param settings Optionen zur Gestaltung des Steuerelementes
-     *        - id Die Id des Steuerelements
+     *        - id Returns or sets the id. des Steuerelements
      *        - resturi Die Uri der REST-API-Schnittstelle, welche die Daten ermittelt
      *        - intervall Das Intervall bestimmt den Zeitpunkt der REST-API-Anfragen
      */

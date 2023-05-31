@@ -284,7 +284,7 @@ namespace WebExpress
                 try
                 {
                     // execute resource
-                    request.AddParameter(searchResult.Uri.Variables.Select(x => new Parameter(x.Key, x.Value, ParameterScope.Url)));
+                    request.AddParameter(searchResult.Uri.Parameters.Select(x => new Parameter(x.Key, x.Value, ParameterScope.Url)));
 
                     if (searchResult.Instance != null)
                     {

@@ -8,14 +8,19 @@ namespace WebExpress.WebUri
     public interface IUriPathSegmentVariable : IUriPathSegment
     {
         /// <summary>
+        /// Returns or sets the value.
+        /// </summary>
+        new string Value { get; set; }
+
+        /// <summary>
         /// Returns the variable name.
         /// </summary>
-        public string VariableName { get; }
+        string VariableName { get; }
 
         /// <summary>
         /// Returns the regex expression.
         /// </summary>
-        public string Expression { get; }
+        string Expression { get; }
 
         /// <summary>
         /// Returns the variable.

@@ -17,7 +17,6 @@ namespace WebExpress.UI.SettingPage
     /// <summary>
     /// Management of settings pages.
     /// </summary>
-    [WebExId("webexpress.webapp.settingpagemanager")]
     public sealed class SettingPageManager : IComponentPlugin
     {
         /// <summary>

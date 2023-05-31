@@ -8,7 +8,7 @@ webexpress.ui.moreCtrl = class {
      * Constructor
      * @param options Die Menüeinräge Array von { css: "", icon: "", color: "", label: "", url: "", onclick: "", item: null, disabled: false}
      * @param settings Optionen zur Gestaltung des Steuerelementes
-     *        - id Die Id des Steuerelements
+     *        - id Returns or sets the id. des Steuerelements
      *        - css CSS-Klasse zur Gestaltung des Steuerelementes
      *        - menucss CSS-Klasse zur Gestaltung des Popupmenüs
      *        - label The text.

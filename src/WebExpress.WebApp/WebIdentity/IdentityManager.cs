@@ -29,7 +29,7 @@ namespace WebExpress.WebApp.WebIdentity
         private static IPluginContext Context { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt das Verzeichnis, indem die Identitäten, Rollen und Ressourcen gelistet sind
+        /// Liefert oder setzt das Verzeichnis, indem Returns or sets the id.entitäten, Rollen und Ressourcen gelistet sind
         /// </summary>
         private static IdentityDictionary Dictionary { get; } = new IdentityDictionary();
 
@@ -105,7 +105,7 @@ namespace WebExpress.WebApp.WebIdentity
         /// <summary>
         /// Meldet eine Identität an
         /// </summary>
-        /// <param name="identity">Die Identität</param>
+        /// <param name="identity">Returns or sets the id.entität</param>
         public static void Register(IIdentity identity)
         {
 
@@ -160,7 +160,7 @@ namespace WebExpress.WebApp.WebIdentity
         /// <summary>
         /// Prüft, ob Zugriffsrechte vorhanden sind
         /// </summary>
-        /// <param name="identiy">Die Identität</param>
+        /// <param name="identiy">Returns or sets the id.entität</param>
         /// <param name="mode">Der Zugriffsmodus Read|Write|Execute</param>
         public static void CheckAccess(IIdentity identiy, string mode)
         {

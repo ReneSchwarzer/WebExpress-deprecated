@@ -24,7 +24,7 @@ namespace WebExpress.WebApp.WebApiControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">The id.</param>
+        /// <param name="id">Returns or sets the id.</param>
         public ControlApiModalProgressTaskState(string id)
             : base(id ?? Guid.NewGuid().ToString())
         {

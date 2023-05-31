@@ -6,7 +6,7 @@ namespace WebExpress.UI.WebPage
     public class RenderContextControl : RenderContext
     {
         /// <summary>
-        /// Liefert die visuelle Darstellung der Seite
+        /// Returns or sets the visual representation of the page.
         /// </summary>
         public new VisualTreeControl VisualTree
         {
@@ -25,9 +25,9 @@ namespace WebExpress.UI.WebPage
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="page">Die Seite, indem das Steuerelement gerendert wird</param>
+        /// <param name="page">The page where the control is rendered.</param>
         /// <param name="request">The request.</param>
-        /// <param name="visualTree">Der visuelle Baum</param>
+        /// <param name="visualTree">The visual tree.</param>
         public RenderContextControl(IPage page, Request request, VisualTreeControl visualTree)
             : base(page, request, visualTree)
         {
@@ -36,7 +36,7 @@ namespace WebExpress.UI.WebPage
         /// <summary>
         /// Copy-Constructor
         /// </summary>
-        /// <param name="context">Der zu kopierende Kontext/param>
+        /// <param name="context">The render context to copy./param>
         public RenderContextControl(RenderContext context)
             : this(context?.Page, context?.Request, context?.VisualTree as VisualTreeControl)
         {

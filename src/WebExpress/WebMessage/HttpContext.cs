@@ -14,7 +14,7 @@ namespace WebExpress.WebMessage
         public IHttpServerContext ServerContext { get; protected set; }
 
         /// <summary>
-        /// Returns the id.
+        /// Returns or sets the id.
         /// </summary>
         public string Id { get; protected set; }
 

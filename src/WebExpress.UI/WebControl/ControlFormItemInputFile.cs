@@ -28,7 +28,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">The id.</param>
+        /// <param name="id">Returns or sets the id.</param>
         public ControlFormItemInputFile(string id = null)
             : base(!string.IsNullOrWhiteSpace(id) ? id : "file")
         {
@@ -39,7 +39,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">The id.</param>
+        /// <param name="id">Returns or sets the id.</param>
         /// <param name="name">The name.</param>
         public ControlFormItemInputFile(string id, string name)
             : base(!string.IsNullOrWhiteSpace(id) ? id : "file")

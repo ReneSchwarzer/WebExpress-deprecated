@@ -12,7 +12,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">The id.</param>
+        /// <param name="id">Returns or sets the id.</param>
         public ControlFormItemGroupColumnMix(string id = null)
             : base(id)
         {
@@ -21,7 +21,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">The id.</param>
+        /// <param name="id">Returns or sets the id.</param>
         ///<param name="items">The form controls.</param> 
         public ControlFormItemGroupColumnMix(string id, params ControlFormItem[] items)
             : base(id, items)

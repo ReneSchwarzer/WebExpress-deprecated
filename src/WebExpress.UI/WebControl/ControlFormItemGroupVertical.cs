@@ -11,7 +11,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">The id.</param>
+        /// <param name="id">Returns or sets the id.</param>
         public ControlFormItemGroupVertical(string id = null)
             : base(id)
         {
@@ -20,7 +20,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">The id.</param>
+        /// <param name="id">Returns or sets the id.</param>
         ///<param name="items">The form controls.</param> 
         public ControlFormItemGroupVertical(string id, params ControlFormItem[] items)
             : base(id, items)

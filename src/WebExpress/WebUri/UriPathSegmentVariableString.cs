@@ -3,7 +3,7 @@ using System.Collections.Generic;
 namespace WebExpress.WebUri
 {
     /// <summary>
-    /// Static path segment.
+    /// Variable path segment.
     /// </summary>
     public class UriPathSegmentVariableString : UriPathSegmentVariable
     {

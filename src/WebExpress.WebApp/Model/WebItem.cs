@@ -6,7 +6,7 @@ namespace WebExpress.WebApp.Model
     public class WebItem
     {
         /// <summary>
-        /// Die Guid des Objektes
+        /// Returns or sets the guid. des Objektes
         /// </summary>
         [JsonPropertyName("id")]
         public string Id { get; set; } = Guid.NewGuid().ToString();
@@ -57,7 +57,7 @@ namespace WebExpress.WebApp.Model
         }
 
         /// <summary>
-        /// Umwandlung in Stringform
+        /// Conversion to string.form
         /// </summary>
         /// <returns>Das Objekt in seiner Stringrepräsentation</returns>
         public override string ToString()

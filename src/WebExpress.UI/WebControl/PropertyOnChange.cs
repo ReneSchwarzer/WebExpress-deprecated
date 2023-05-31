@@ -32,7 +32,7 @@
         }
 
         /// <summary>
-        /// Umwandlung in String
+        /// Conversion to string.
         /// </summary>
         /// <returns>Die Stringrepräsentation</returns>
         public override string ToString()

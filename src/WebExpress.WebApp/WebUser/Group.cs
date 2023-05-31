@@ -6,25 +6,25 @@ namespace WebExpress.WebApp.WebUser
     public class Group
     {
         /// <summary>
-        /// Die Id
+        /// Returns or sets the id.
         /// </summary>
         [XmlAttribute("id")]
         public string Id { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt den Namen
+        /// Returns or sets the name.
         /// </summary>
         [XmlAttribute("name")]
         public string Name { get; set; }
 
         /// <summary>
-        /// Der Zeitstempel der Erstellung
+        /// Returns or sets the timestamp of the creation.
         /// </summary>
         [XmlAttribute("created")]
         public DateTime Created { get; set; }
 
         /// <summary>
-        /// Der Zeitstempel der letzten Änderung
+        /// The timestamp of the last change.
         /// </summary>
         [XmlAttribute("updated")]
         public DateTime Updated { get; set; }

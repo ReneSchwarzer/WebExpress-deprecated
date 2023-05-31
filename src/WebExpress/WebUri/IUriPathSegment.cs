@@ -6,12 +6,12 @@ namespace WebExpress.WebUri
     public interface IUriPathSegment
     {
         /// <summary>
-        /// Returns the Id.
+        /// Returns or sets the id.
         /// </summary>
         internal string Id { get; }
 
         /// <summary>
-        /// Returns the path text.
+        /// Returns the value.
         /// </summary>
         string Value { get; }
 

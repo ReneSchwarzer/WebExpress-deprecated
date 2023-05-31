@@ -43,7 +43,7 @@
 
 
         /// <summary>
-        /// Umwandlung in Stringrepräsentation
+        /// Conversion to string.repräsentation
         /// </summary>
         /// <param name="enctype">Die Kodierung</param>
         /// <returns>Die umgewandelte Kodierung</returns>

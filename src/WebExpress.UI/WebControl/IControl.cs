@@ -7,7 +7,7 @@ namespace WebExpress.UI.WebControl
     public interface IControl
     {
         /// <summary>
-        /// Liefert die Id
+        /// Liefert Returns or sets the id.
         /// </summary>
         string Id { get; }
 

@@ -52,7 +52,7 @@ namespace WebExpress.WebResource
         public List<KeyValuePair<string, string>> Meta { get; } = new List<KeyValuePair<string, string>>();
 
         /// <summary>
-        /// Liefert den Inhalt 
+        /// Returns the content.
         /// </summary>
         public IHtmlNode Content { get; }
 
@@ -107,7 +107,7 @@ namespace WebExpress.WebResource
         /// Convert to html.
         /// </summary>
         /// <param name="context">The context for rendering the page.</param>
-        /// <returns>Die Seite als HTML-Baum</returns>
+        /// <returns>The page as an html tree.</returns>
         public virtual IHtmlNode Render(RenderContext context)
         {
             var html = new HtmlElementRootHtml();

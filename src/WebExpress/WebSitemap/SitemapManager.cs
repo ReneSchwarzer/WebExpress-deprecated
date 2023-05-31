@@ -4,6 +4,7 @@ using System.Linq;
 using WebExpress.Internationalization;
 using WebExpress.WebApplication;
 using WebExpress.WebComponent;
+using WebExpress.WebMessage;
 using WebExpress.WebModule;
 using WebExpress.WebPage;
 using WebExpress.WebPlugin;
@@ -155,6 +156,53 @@ namespace WebExpress.WebSitemap
 
             // 404
             return result;
+        }
+
+        /// <summary>
+        /// Determines the Uri from the sitemap of a class, taking into account the context in which the uri is valid.
+        /// </summary>
+        /// <typeparam name="T">The class from which the uri is to be determined. The class uri must not have any dynamic components (such as '/a/<guid>/b').</typeparam>
+        /// <paramref name="parameters"/>
+        /// <returns>Returns the uri taking into account the context or null.</returns>
+        public UriResource GetUri<T>(params Parameter[] parameters) where T : IResource
+        {
+            var node = SiteMap.GetPreOrder()
+                .Where(x => x.ResourceItem?.ResourceClass == typeof(T))
+                .FirstOrDefault();
+
+            return node?.ResourceContext?.Uri.SetParameters(parameters);
+        }
+
+        /// <summary>
+        /// Determines the Uri from the sitemap of a class, taking into account the context in which the uri is valid.
+        /// </summary>
+        /// <typeparam name="T">The class from which the uri is to be determined. The class uri must not have any dynamic components (such as '/a/<guid>/b').</typeparam>
+        /// <param name="resourceContext">The module context.</param>
+        /// <returns>Returns the uri taking into account the context or null.</returns>
+        public UriResource GetUri<T>(IModuleContext moduleContext) where T : IResource
+        {
+            var node = SiteMap.GetPreOrder()
+                .Where(x => x.ResourceItem?.ResourceClass == typeof(T))
+                .Where(x => x.ModuleContext == moduleContext)
+                .FirstOrDefault();
+
+            return node?.ResourceContext?.Uri;
+        }
+
+        /// <summary>
+        /// Determines the Uri from the sitemap of a class, taking into account the context in which the uri is valid.
+        /// </summary>
+        /// <typeparam name="T">The class from which the uri is to be determined. The class uri must not have any dynamic components (such as '/a/<guid>/b').</typeparam>
+        /// <param name="resourceContext">The module context.</param>
+        /// <returns>Returns the uri taking into account the context or null.</returns>
+        public UriResource GetUri<T>(IResourceContext resourceContext) where T : IResource
+        {
+            var node = SiteMap.GetPreOrder()
+                .Where(x => x.ResourceItem?.ResourceClass == typeof(T))
+                .Where(x => x.ModuleContext == resourceContext.ModuleContext)
+                .FirstOrDefault();
+
+            return node?.ResourceContext?.Uri;
         }
 
         /// <summary>

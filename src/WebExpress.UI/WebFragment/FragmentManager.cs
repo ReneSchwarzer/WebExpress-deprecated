@@ -17,7 +17,6 @@ namespace WebExpress.UI.WebFragment
     /// <summary>
     /// Fragment manager.
     /// </summary>
-    [WebExId("webexpress.webui.fragmentmanager")]
     public sealed class FragmentManager : IComponentPlugin
     {
         /// <summary>
@@ -320,7 +319,7 @@ namespace WebExpress.UI.WebFragment
         }
 
         /// <summary>
-        /// Returns all fragment contexts that belong to a given application.
+        /// Returns all fragment contexts that belong to a given section.
         /// </summary>
         /// <param name="section">The section where the fragment is embedded.</param>
         /// <returns>An enumeration of the filtered fragment contexts.</returns>
@@ -339,7 +338,8 @@ namespace WebExpress.UI.WebFragment
         public IEnumerable<IFragmentContext> GetFragmentContexts(string section, IApplicationContext applicationContext)
         {
             return GetFragmentItems(section)
-                .SelectMany(x => x.FragmentContexts);
+                .SelectMany(x => x.FragmentContexts)
+                .Where(x => x.ApplicationContext == applicationContext);
         }
 
         /// <summary>
@@ -370,7 +370,7 @@ namespace WebExpress.UI.WebFragment
         ) where T : IControl
         {
             var applicationContext = page?.ApplicationContext;
-            contexs = contexs ?? Enumerable.Empty<string>();
+            contexs ??= Enumerable.Empty<string>();
 
             var fragmentItems = GetFragmentItems($"{section}:")
                 .Union(contexs.SelectMany(x => GetFragmentItems

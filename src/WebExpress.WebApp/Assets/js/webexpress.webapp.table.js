@@ -11,7 +11,7 @@ webexpress.webapp.tableCtrl = class extends webexpress.ui.tableCtrl {
     /**
      * Constructor
      * @param settings Optionen zur Gestaltung des Steuerelementes
-     *        - id Die Id des Steuerelements
+     *        - id Returns or sets the id. des Steuerelements
      *        - css CSS-Klasse zur Gestaltung des Steuerelementes
      *        - placeholder Der Platzhaltertext
      *        - resturi Die Uri der REST-API-Schnittstelle, welche die Daten ermittelt

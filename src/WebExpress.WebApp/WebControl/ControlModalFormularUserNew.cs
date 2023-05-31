@@ -70,7 +70,7 @@ namespace WebExpress.WebApp.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">The id.</param>
+        /// <param name="id">Returns or sets the id.</param>
         public ControlModalFormularUserNew(string id = null)
             : base(id)
         {
