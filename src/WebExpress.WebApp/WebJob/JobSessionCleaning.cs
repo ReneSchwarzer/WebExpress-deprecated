@@ -8,7 +8,7 @@ namespace WebExpress.WebApp.WebJob
     /// Der Job startet 0:30 Uhr am ersten Tag jeden Monats
     /// </summary>
     [WebExJob("30", "0", "1", "*", "*")]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     internal sealed class JobSessionCleaning : Job
     {
         /// <summary>

@@ -9,7 +9,7 @@ using WebExpress.WebPage;
 namespace WebExpress.WebApp.WebFragment
 {
     [WebExSection(Section.ContentPrimary)]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     [WebExContext("webexpress.webapp.usermanagement.user")]
     [WebExCache()]
     //[Condition(typeof(ConditionUnix))]

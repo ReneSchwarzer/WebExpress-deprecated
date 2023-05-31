@@ -12,7 +12,7 @@ namespace WebExpress.WebApp.WebAPI.V1
     /// </summary>
     [WebExSegment("popupnotifications", "")]
     [WebExContextPath("/api/v1")]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     [WebExIncludeSubPaths(true)]
     [WebExOptional]
     public sealed class RestPopupNotification : ResourceRest

@@ -16,7 +16,7 @@ namespace WebExpress.WebApp.WebAPI.V1
     /// </summary>
     [WebExSegment("user", "")]
     [WebExContextPath("/api/v1")]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     [WebExOptional]
     public sealed class RestUserManagement : ResourceRestCrud<WebItemUser>
     {

@@ -97,9 +97,9 @@ namespace WebExpress.WebStatusPage
                     {
                         statusCode = Convert.ToInt32(customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString());
                     }
-                    else if (customAttribute.AttributeType == typeof(WebExModuleAttribute))
+                    else if (customAttribute.AttributeType.Name == typeof(WebExModuleAttribute<>).Name && customAttribute.AttributeType.Namespace == typeof(WebExModuleAttribute<>).Namespace)
                     {
-                        moduleId = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
+                        moduleId = customAttribute.AttributeType.GenericTypeArguments.FirstOrDefault()?.FullName?.ToLower();
                     }
                 }
 

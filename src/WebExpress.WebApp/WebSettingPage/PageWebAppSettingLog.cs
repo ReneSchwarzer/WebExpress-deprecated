@@ -21,7 +21,7 @@ namespace WebExpress.WebApp.WebSettingPage
     [WebExSettingIcon(TypeIcon.FileMedicalAlt)]
     [WebExSettingGroup("webexpress.webapp:setting.group.system.label")]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     [WebExContext("admin")]
     [WebExOptional]
     public sealed class PageWebAppSettingLog : PageWebAppSetting

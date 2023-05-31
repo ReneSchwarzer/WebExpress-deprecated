@@ -8,7 +8,7 @@ namespace WebExpress.WebApp.WebResource
     [WebExSegment("assets")]
     [WebExContextPath("/")]
     [WebExIncludeSubPaths(true)]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     public sealed class Asset : WebExpress.WebResource.ResourceAsset
     {
         /// <summary>

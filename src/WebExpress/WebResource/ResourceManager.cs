@@ -125,6 +125,8 @@ namespace WebExpress.WebResource
                 foreach (var customAttribute in resource.CustomAttributes
                     .Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IResourceAttribute))))
                 {
+                    var buf = typeof(WebExModuleAttribute<>);
+
                     if (customAttribute.AttributeType == typeof(WebExIdAttribute))
                     {
                         id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
@@ -149,9 +151,9 @@ namespace WebExpress.WebResource
                     {
                         includeSubPaths = Convert.ToBoolean(customAttribute.ConstructorArguments.FirstOrDefault().Value);
                     }
-                    else if (customAttribute.AttributeType == typeof(WebExModuleAttribute))
+                    else if (customAttribute.AttributeType.Name == typeof(WebExModuleAttribute<>).Name && customAttribute.AttributeType.Namespace == typeof(WebExModuleAttribute<>).Namespace)
                     {
-                        moduleId = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
+                        moduleId = customAttribute.AttributeType.GenericTypeArguments.FirstOrDefault()?.FullName?.ToLower();
                     }
                     else if (customAttribute.AttributeType == typeof(WebExContextAttribute))
                     {

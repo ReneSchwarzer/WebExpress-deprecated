@@ -1,12 +1,21 @@
 ﻿using System;
+using WebExpress.WebModule;
 
 namespace WebExpress.WebAttribute
 {
     /// <summary>
     /// Specifying a module.
     /// </summary>
-    public class WebExModuleAttribute : Attribute, IResourceAttribute, IModuleAttribute
+    public class WebExModuleAttribute<T> : Attribute, IResourceAttribute, IModuleAttribute where T : IModule
     {
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        public WebExModuleAttribute()
+        {
+
+        }
+
         /// <summary>
         /// Constructor
         /// </summary>

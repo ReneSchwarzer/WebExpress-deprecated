@@ -117,9 +117,9 @@ namespace WebExpress.UI.SettingPage
                     {
                         hide = true;
                     }
-                    else if (customAttribute.AttributeType == typeof(WebExModuleAttribute))
+                    else if (customAttribute.AttributeType.Name == typeof(WebExModuleAttribute<>).Name && customAttribute.AttributeType.Namespace == typeof(WebExModuleAttribute<>).Namespace)
                     {
-                        moduleId = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
+                        moduleId = customAttribute.AttributeType.GenericTypeArguments.FirstOrDefault()?.FullName?.ToLower();
                     }
                     else if (customAttribute.AttributeType == typeof(WebExSettingIconAttribute))
                     {

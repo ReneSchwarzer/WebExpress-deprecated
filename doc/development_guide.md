@@ -277,7 +277,7 @@ provided with attributes.
 
 ``` c#
 [WebExContextPath("/C/D")]
-[WebExModule(typeof(MyModule))]
+[WebExModule<MyModule>]
 [WebExContext("general")]
 [WebExAuthorization(Permission.RWX, IdentityRoleDefault.SystemAdministrator)]
 [WebExAuthorization(Permission.R, IdentityRoleDefault.Everyone)]
@@ -297,11 +297,11 @@ The following attributes are available:
 |WebExSegmentGuid     |String, String |1            |Yes      |A variable path segment of type `Guid`.
 |WebExContextPath     |String         |1            |Yes      |The URI path from the module to the resource. The URI of the RSresource is composed of the `ContextPath` of the web server, the application, the module, the resource, and the segment.
 |WebExParent          |String         |1            |Yes      |The resource is included below a parent resource. The context path is derived from that of the parent and the resource.
-| ^^                  |Type           | ^^          | ^^      |The class of the parent resource.
+|                     |Type           |             |         |The class of the parent resource.
 |WebExIncludeSubPaths |Bool           |1            |Yes      |Determines whether all resources below the specified path (including segment) are processed.
 |WebExContext         |String         |n            |Yes      |The context of the resource
 |WebExModule          |String         |1            |No       |The id of the module. The module must be defined in the same plugin as the resource.
-| ^^                  |Type           | ^^          | ^^      |The class of the module. The module must be defined in the same plugin as the resource.
+|                     |IModule        |             |         |The class of the module. The module must be defined in the same plugin as the resource.
 |WebExAuthorization   |Int, String    |n            |Yes      |Grants authority to a role (specifying the id) (see section notification model).
 |WebExCondition       |ICondition     |n            |Yes      |Condition that must be met for the resource to be available.
 |WebExCache           |-              |1            |Yes      |Determines whether the resource is created once and reused each time it is called.
@@ -514,7 +514,7 @@ Fragments are derived from the ```IFragment``` interface and are identified by a
 ``` c#
 [WebExSection("Sektionsname")]
 [WebExOrder(0)]
-[WebExModule(typeof(MyModule))]
+[WebExModule<MyModule>]
 [WebExContext("general")]
 [WebExAuthorization(Permission.RW, IdentityRoleDefault.Authenticated)]
 [WebExAuthorization(Permission.R, IdentityRoleDefault.Everyone)]
@@ -531,7 +531,7 @@ The following attributes are available:
 |WebExSection       |String      |1            |No       |The section of the Web page where the fragment is rendered.
 |WebExOrder         |Int         |1            |Yes      |The order within the section. If no value is specified, the order "0" is set as the default.
 |WebExModule        |String      |1            |No       |The ID of the module. The module must be defined in the same plugin as the resource.
-| ^^                |Type        | ^^          | ^^      |The class of the module. The module must be defined in the same plugin as the resource.
+|                   |IModule     |             |         |The class of the module. The module must be defined in the same plugin as the resource.
 |WebExContext       |String      |n            |Yes      |The context in which the fragment is valid.
 |WebExAuthorization |Int, String |n            |Yes      |Grants authority to a role (specifying the id).       
 |WebExCondition     |ICondition  |1            |Yes      |Condition that must be met for the fragment to be available.
@@ -541,7 +541,7 @@ If the fragments are to be created dynamically at runtime, it is necessary to cr
 
 ``` c#
 [WebExSection("section name")]
-[WebExModule(typeof(MyModule))]
+[WebExModule<MyModule>]
 [WebExContext("general")]
 public sealed class C : IFragmentDynamic
 {
@@ -573,7 +573,7 @@ A job is created by creating a class that inherits from Job.
 
 ``` c#
 [WebExJob("30", "0", "1", "*", "*")] // The job starts at 0:30 a.m. on the first day of each month
-[WebExModule(typeof(MyModule))]
+[WebExModule<MyModule>]
 public sealed class MyJob : Job
 {
   public override void Initialization(JobContext context)
@@ -594,7 +594,7 @@ The following attributes are available:
 |------------|-------|-------------|---------|------------
 |WebExJob    |String |1            |No       |Time information about when the job should be executed. The parameters have the following meanings: Minute (0 - 59), Hour (0 - 23), Day of the month (1 - 31), Month (1 - 12), Weekday (0 - 6) for (Sunday - Saturday). The parameters can consist of single values, comma-separated lists (1, 3, 6, 9, ...), range (from-to) or * for all.
 |WebExModule |String |1            |No       |The ID of the module. The module must be defined in the same plugin as the resource.
-| ^^         |Type   | ^^          | ^^      |The class of the module. The module must be defined in the same plugin as the resource.
+|            |IModule   |             |         |The class of the module. The module must be defined in the same plugin as the resource.
 
 ## Task model
 Tasks are another form of concurrent code execution. In contrast to jobs, tasks are executed ad-hoc (e.g. an export task that was triggered by the user). The result 
@@ -726,7 +726,7 @@ In addition to the listed standard roles, self-defined roles from definition cla
 
 ``` c#
 [WebExId("7f2f1d0c-7ef8-48b8-b513-e9fc12cb2c24")]
-[WebExModule(typeof(MyModule))]
+[WebExModule<MyModule>]
 [WebExName("myRole")]
 [WebExParent(IdentityRoleDefault.Authenticated)]
 public sealed class MyIdentityRole : IIdentityRole
@@ -737,21 +737,21 @@ public sealed class MyIdentityRole : IIdentityRole
 
 The role definition classes have the following attributes:
 
-|Attribute        |Type   |Multiplicity |Optional |Description
-|-----------------|-------|-------------|---------|-------------
-|WebExId          |String |1            |No       |The unique identification key.
-|WebExModule      |String |1            |No       |The ID of the module. The module must be defined in the same plugin as the resource.
-| ^^              |Type   | ^^          | ^^      |The class of the module. The module must be defined in the same plugin as the resource.
-|WebExName        |String |1            |No       |The human-readable name of the role or an internationalization key.
-|WebExDescription |String |1            |Yes      |The description of the role. This can be a key to internationalization.
-|WebExParent      |String |1            |Yes      |Inherits the characteristics of the specified role.
+|Attribute        |Type    |Multiplicity |Optional |Description
+|-----------------|--------|-------------|---------|-------------
+|WebExId          |String  |1            |No       |The unique identification key.
+|WebExModule      |String  |1            |No       |The ID of the module. The module must be defined in the same plugin as the resource.
+|                 |IModule |             |         |The class of the module. The module must be defined in the same plugin as the resource.
+|WebExName        |String  |1            |No       |The human-readable name of the role or an internationalization key.
+|WebExDescription |String  |1            |Yes      |The description of the role. This can be a key to internationalization.
+|WebExParent      |String  |1            |Yes      |Inherits the characteristics of the specified role.
 
 Identity resources are usually automatically discovered from the metadata of the web resources and web components and assigned to roles. In addition, identity resources can also be 
 created from definition classes.
 
 ``` c#
 [WebExId("647af2e9-d8a1-4b83-835d-3d7da022fba9")]
-[WebExModule(typeof(MyModule))]
+[WebExModule<MyModule>]
 [WebExName("Passwort zurücksetzen")]
 [WebExAuthorization(Permission.RW, IdentityRoleDefault.Authenticated)]
 [WebExAuthorization(Permission.R, IdentityRoleDefault.Everyone)]
@@ -766,7 +766,7 @@ The identity resource definition classes have the following attributes:
 |-------------------|------------|-------------|---------|-------------
 |WebExId            |String      |1            |No       |The unique identification key.
 |WebExModule        |String      |1            |No       |The ID of the module. The module must be defined in the same plugin as the resource.
-| ^^                |Type        | ^^          | ^^      |The class of the module. The module must be defined in the same plugin as the resource.
+|                   |IModule     |             |         |The class of the module. The module must be defined in the same plugin as the resource.
 |WebExName          |String      |1            |No       |The human-readable name of the role or an internationalization key.
 |WebExDescription   |String      |1            |Yes      |The description of the role. This can be a key to internationalization.
 |WebExAuthorization |Int, String |1            |Yes      |Grants authority for a role (specifying the id).
@@ -1041,7 +1041,7 @@ namespace Sample
         public void Dispose() { }
     }
 
-    [WebExModule(typeof(MyModule))]
+    [WebExModule<MyModule>]
     public sealed class Home : ResourcePage
     {
         public Home (UriRessource uri, IModuleContext context)

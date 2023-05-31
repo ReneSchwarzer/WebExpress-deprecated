@@ -88,9 +88,12 @@ namespace WebExpress.WebJob
                     weekday = customAttribute.ConstructorArguments.Skip(4).FirstOrDefault().Value?.ToString();
                 }
 
-                foreach (var customAttribute in job.CustomAttributes.Where(x => x.AttributeType == typeof(WebExModuleAttribute)))
+                foreach (var customAttribute in job.CustomAttributes.Where(x => x.AttributeType == typeof(WebExModuleAttribute<>)))
                 {
-                    moduleId = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
+                    if (customAttribute.AttributeType.Name == typeof(WebExModuleAttribute<>).Name && customAttribute.AttributeType.Namespace == typeof(WebExModuleAttribute<>).Namespace)
+                    {
+                        moduleId = customAttribute.AttributeType.GenericTypeArguments.FirstOrDefault()?.FullName?.ToLower();
+                    }
                 }
 
                 if (string.IsNullOrWhiteSpace(moduleId))

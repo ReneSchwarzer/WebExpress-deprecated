@@ -65,20 +65,17 @@ namespace WebExpress.WebApp.WebIdentity
                     {
                         id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
                     }
-
-                    if (customAttribute.AttributeType == typeof(WebExNameAttribute))
+                    else if (customAttribute.AttributeType == typeof(WebExNameAttribute))
                     {
                         name = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
-
-                    if (customAttribute.AttributeType == typeof(WebExDescriptionAttribute))
+                    else if (customAttribute.AttributeType == typeof(WebExDescriptionAttribute))
                     {
                         description = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
-
-                    if (customAttribute.AttributeType == typeof(WebExModuleAttribute))
+                    else if (customAttribute.AttributeType.Name == typeof(WebExModuleAttribute<>).Name && customAttribute.AttributeType.Namespace == typeof(WebExModuleAttribute<>).Namespace)
                     {
-                        moduleId = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
+                        moduleId = customAttribute.AttributeType.GenericTypeArguments.FirstOrDefault()?.FullName?.ToLower();
                     }
                 }
 

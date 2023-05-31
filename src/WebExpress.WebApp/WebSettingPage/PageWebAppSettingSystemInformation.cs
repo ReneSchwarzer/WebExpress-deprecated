@@ -20,7 +20,7 @@ namespace WebExpress.WebApp.WebSettingPage
     [WebExSettingIcon(TypeIcon.InfoCircle)]
     [WebExSettingGroup("webexpress.webapp:setting.group.system.label")]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     [WebExContext("admin")]
     [WebExContext("webexpress.webpp.systeminformation")]
     [WebExOptional]

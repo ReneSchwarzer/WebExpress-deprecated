@@ -13,7 +13,7 @@ namespace WebExpress.WebApp.WebAPI.V1
     [WebExSegment("taskstatus", "")]
     [WebExContextPath("/api/v1")]
     [WebExIncludeSubPaths(true)]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     [WebExOptional]
     public sealed class RestTaskStatus : ResourceRest
     {

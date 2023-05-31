@@ -25,7 +25,7 @@ namespace WebExpress.WebApp.WebSettingPage
     [WebExSettingIcon(TypeIcon.PuzzlePiece)]
     [WebExSettingGroup("webexpress.webapp:setting.group.system.label")]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     [WebExContext("admin")]
     [WebExContext("webexpress.webapp.plugin")]
     [WebExOptional]

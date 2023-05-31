@@ -11,7 +11,7 @@ namespace WebExpress.WebApp.WebSettingPage
     [WebExSegment("download", "")]
     [WebExContextPath("/")]
     [WebExParent(typeof(PageWebAppSettingLog))]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     [WebExContext("admin")]
     [WebExOptional]
     public sealed class PageWebAppSettingLogDownload : ResourceBinary

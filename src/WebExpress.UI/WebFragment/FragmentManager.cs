@@ -118,9 +118,9 @@ namespace WebExpress.UI.WebFragment
                             .Contains(typeof(IResourceAttribute))
                 ))
                 {
-                    if (customAttribute.AttributeType == typeof(WebExModuleAttribute))
+                    if (customAttribute.AttributeType.Name == typeof(WebExModuleAttribute<>).Name && customAttribute.AttributeType.Namespace == typeof(WebExModuleAttribute<>).Namespace)
                     {
-                        moduleId = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
+                        moduleId = customAttribute.AttributeType.GenericTypeArguments.FirstOrDefault()?.FullName?.ToLower();
                     }
                     if (customAttribute.AttributeType == typeof(WebExContextAttribute))
                     {

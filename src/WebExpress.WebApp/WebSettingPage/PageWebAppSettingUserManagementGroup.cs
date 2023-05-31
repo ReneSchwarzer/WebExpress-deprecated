@@ -20,7 +20,7 @@ namespace WebExpress.WebApp.WebSettingPage
     [WebExSettingIcon(TypeIcon.Users)]
     [WebExSettingGroup("webexpress.webapp:setting.usermanager.group.usermanagement.label")]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     [WebExContext("admin")]
     [WebExContext("webexpress.webapp.usermanagement.group")]
     [WebExOptional]
