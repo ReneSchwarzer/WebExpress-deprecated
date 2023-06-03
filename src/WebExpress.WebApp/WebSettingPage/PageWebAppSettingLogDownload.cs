@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using WebExpress.WebApp.WebScope;
 using WebExpress.WebAttribute;
 using WebExpress.WebMessage;
 using WebExpress.WebResource;
@@ -10,9 +11,9 @@ namespace WebExpress.WebApp.WebSettingPage
     /// </summary>
     [WebExSegment("download", "")]
     [WebExContextPath("/")]
-    [WebExParent(typeof(PageWebAppSettingLog))]
+    [WebExParent<PageWebAppSettingLog>]
     [WebExModule<Module>]
-    [WebExContext("admin")]
+    [WebExScope<ScopeAdmin>]
     [WebExOptional]
     public sealed class PageWebAppSettingLogDownload : ResourceBinary
     {

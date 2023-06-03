@@ -1,4 +1,6 @@
 ﻿using System;
+using WebExpress.WebModule;
+using WebExpress.WebResource;
 
 namespace WebExpress.WebAttribute
 {
@@ -16,24 +18,25 @@ namespace WebExpress.WebAttribute
         {
 
         }
+    }
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="moduleClass">The module class.</param>
-        public WebExOptionAttribute(Type moduleClass)
-        {
+    /// <summary>
+    /// Activation of options (e.g. 'webexpress.webapp.settinglog' or 'webexpress.webapp.*').
+    /// </summary>
+    /// <typeparamref name="M">The module or resource class.</typeparamref/>
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
+    public class WebExOptionAttribute<M> : Attribute, IApplicationAttribute where M : class, IModule
+    {
 
-        }
+    }
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="moduleClass">The module or resource class.</param>
-        /// <param name="resourceClass">The resource or resource class.</param>
-        public WebExOptionAttribute(Type moduleClass, Type resourceClass)
-        {
-
-        }
+    /// <summary>
+    /// Activation of options (e.g. 'webexpress.webapp.settinglog' or 'webexpress.webapp.*').
+    /// <typeparamref name="M">The module or resource class.</typeparamref/>
+    /// <typeparamref name="R">The resource or resource class.</typeparamref>
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
+    public class WebExOptionAttribute<M, R> : Attribute, IApplicationAttribute where M : class, IModule where R : class, IResource
+    {
     }
 }

@@ -3,9 +3,11 @@ using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebApp.WebPage;
+using WebExpress.WebApp.WebScope;
 using WebExpress.WebApp.WebUser;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
+using WebExpress.WebScope;
 using WebExpress.WebUri;
 
 namespace WebExpress.WebApp.WebSettingPage
@@ -21,10 +23,9 @@ namespace WebExpress.WebApp.WebSettingPage
     [WebExSettingGroup("webexpress.webapp:setting.usermanager.group.usermanagement.label")]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
     [WebExModule<Module>]
-    [WebExContext("admin")]
-    [WebExContext("webexpress.webapp.usermanagement.group")]
+    [WebExScope<ScopeAdmin>]
     [WebExOptional]
-    public sealed class PageWebAppSettingUserManagementGroup : PageWebAppSetting
+    public sealed class PageWebAppSettingUserManagementGroup : PageWebAppSetting, IScope
     {
         /// <summary>
         /// Returns the label.

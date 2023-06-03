@@ -1,6 +1,6 @@
 ﻿using WebExpress.Html;
+using WebExpress.Internationalization;
 using WebExpress.WebPage;
-using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.UI.WebControl
 {
@@ -83,38 +83,45 @@ namespace WebExpress.UI.WebControl
             {
                 html.Elements.Add
                 (
-                    new HtmlElementTextContentLi(new HtmlElementTextContentDiv(new HtmlText(I18N(context.Culture, Prefix))) { Class = "me-2 text-muted" })
+                    new HtmlElementTextContentLi
+                    (
+                        new HtmlElementTextContentDiv
+                        (
+                            new HtmlText(InternationalizationManager.I18N(context.Culture, Prefix))
+                        )
+                        {
+                            Class = "me-2 text-muted"
+                        }
+                    )
                 );
             }
 
-            //if (Uri is UriResource resourceUri)
-            //{
-            //foreach (var part in resourceUri.Path.TakeLast((int)TakeLast))
-            //{
-            //    if (part.Display != null)
-            //    {
-            //        var display = I18N(context.Culture, part.Display);
-            //        var href = part.ToString();
+            foreach (var part in context.Uri.PathSegments)
+            {
+                if (part.Display != null)
+                {
+                    var display = part.GetDisplay(context.Culture);
+                    var href = part.ToString();
 
-            //        html.Elements.Add
-            //        (
-            //            new HtmlElementTextContentLi
-            //            (
-            //                //new ControlIcon(Page)
-            //                //{ 
-            //                //    Icon = path.Icon
-            //                //}.ToHtml(),
-            //                new HtmlElementTextSemanticsA(display)
-            //                {
-            //                    Href = href
-            //                }
-            //            )
-            //            {
-            //                Class = "breadcrumb-item"
-            //            }
-            //        );
-            //    }
-            //}
+                    html.Elements.Add
+                    (
+                        new HtmlElementTextContentLi
+                        (
+                            //new ControlIcon(Page)
+                            //{ 
+                            //    Icon = path.Icon
+                            //}.ToHtml(),
+                            new HtmlElementTextSemanticsA(display)
+                            {
+                                Href = href
+                            }
+                        )
+                        {
+                            Class = "breadcrumb-item"
+                        }
+                    );
+                }
+            }
 
             //var takeLast = Math.Min(TakeLast, resourceUri.Path.Count);
             //var from = resourceUri.Path.Count - takeLast;

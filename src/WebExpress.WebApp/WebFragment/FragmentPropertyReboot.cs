@@ -7,6 +7,7 @@ using WebExpress.UI.WebControl;
 using WebExpress.UI.WebFragment;
 using WebExpress.WebApp.WebCondition;
 using WebExpress.WebApp.WebControl;
+using WebExpress.WebApp.WebSettingPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebPage;
 
@@ -14,8 +15,8 @@ namespace WebExpress.WebApp.WebFragment
 {
     [WebExSection(Section.HeadlineSecondary)]
     [WebExModule<Module>]
-    [WebExContext("webexpress.webpp.systeminformation")]
-    [WebExCondition(typeof(ConditionUnix))]
+    [WebExScope<PageWebAppSettingSystemInformation>]
+    [WebExCondition<ConditionUnix>]
     public sealed class FragmentPropertyReboot : FragmentControlButtonLink
     {
         /// <summary>

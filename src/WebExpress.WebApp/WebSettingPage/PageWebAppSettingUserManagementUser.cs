@@ -1,8 +1,10 @@
 ﻿using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebPage;
+using WebExpress.WebApp.WebScope;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
+using WebExpress.WebScope;
 
 namespace WebExpress.WebApp.WebSettingPage
 {
@@ -17,10 +19,9 @@ namespace WebExpress.WebApp.WebSettingPage
     [WebExSettingGroup("webexpress.webapp:setting.usermanager.group.usermanagement.label")]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
     [WebExModule<Module>]
-    [WebExContext("admin")]
-    [WebExContext("webexpress.webapp.usermanagement.user")]
+    [WebExScope<ScopeAdmin>]
     [WebExOptional]
-    public sealed class PageWebAppSettingUserManagementUser : PageWebAppSetting
+    public sealed class PageWebAppSettingUserManagementUser : PageWebAppSetting, IScope
     {
         /// <summary>
         /// Constructor

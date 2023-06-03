@@ -97,11 +97,7 @@ namespace WebExpress.UI.SettingPage
                 foreach (var customAttribute in settingPageType.CustomAttributes
                     .Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IResourceAttribute))))
                 {
-                    if (customAttribute.AttributeType == typeof(WebExIdAttribute))
-                    {
-                        id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
-                    }
-                    else if (customAttribute.AttributeType == typeof(WebExSettingContextAttribute))
+                    if (customAttribute.AttributeType == typeof(WebExSettingContextAttribute))
                     {
                         context = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }

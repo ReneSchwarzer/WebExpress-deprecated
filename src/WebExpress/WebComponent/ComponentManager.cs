@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reflection;
 using WebExpress.Internationalization;
 using WebExpress.WebApplication;
-using WebExpress.WebAttribute;
 using WebExpress.WebJob;
 using WebExpress.WebModule;
 using WebExpress.WebPackage;
@@ -265,15 +264,7 @@ namespace WebExpress.WebComponent
                 var id = type.FullName?.ToLower();
 
                 // determining attributes
-                foreach (var customAttribute in type.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IApplicationAttribute))))
-                {
-                    if (customAttribute.AttributeType == typeof(WebExIdAttribute))
-                    {
-                        id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
-                    }
-                }
-
-                var componentInstance = CreateInstance(type) as IComponent;
+                var componentInstance = CreateInstance(type);
 
                 if (!componentItems.Where(x => x.ComponentId.Equals(id, StringComparison.OrdinalIgnoreCase)).Any())
                 {

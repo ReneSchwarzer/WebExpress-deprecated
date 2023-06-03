@@ -199,27 +199,19 @@ namespace WebExpress.WebPlugin
                     foreach (var customAttribute in type.CustomAttributes
                         .Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IPluginAttribute))))
                     {
-                        if (customAttribute.AttributeType == typeof(WebExIdAttribute))
-                        {
-                            id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
-                        }
-
                         if (customAttribute.AttributeType == typeof(WebExNameAttribute))
                         {
                             name = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                         }
-
-                        if (customAttribute.AttributeType == typeof(WebExIconAttribute))
+                        else if (customAttribute.AttributeType == typeof(WebExIconAttribute))
                         {
                             icon = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                         }
-
-                        if (customAttribute.AttributeType == typeof(WebExDescriptionAttribute))
+                        else if (customAttribute.AttributeType == typeof(WebExDescriptionAttribute))
                         {
                             description = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                         }
-
-                        if (customAttribute.AttributeType == typeof(WebExDependencyAttribute))
+                        else if (customAttribute.AttributeType == typeof(WebExDependencyAttribute))
                         {
                             dependencies.Add(customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString());
                         }
@@ -248,7 +240,7 @@ namespace WebExpress.WebPlugin
                             PluginLoadContext = loadContext,
                             PluginClass = type,
                             PluginContext = pluginContext,
-                            Plugin = null,
+                            Plugin = Activator.CreateInstance(type) as IPlugin,
                             Dependencies = dependencies
                         });
                     }
@@ -259,7 +251,7 @@ namespace WebExpress.WebPlugin
                             PluginLoadContext = loadContext,
                             PluginClass = type,
                             PluginContext = pluginContext,
-                            Plugin = null,
+                            Plugin = Activator.CreateInstance(type) as IPlugin,
                             Dependencies = dependencies
                         });
 
@@ -429,8 +421,6 @@ namespace WebExpress.WebPlugin
             {
                 return;
             }
-
-            pluginItem.Plugin = Activator.CreateInstance(pluginItem.PluginClass) as IPlugin;
 
             // initialize plugin
             pluginItem.Plugin.Initialization(pluginItem.PluginContext);

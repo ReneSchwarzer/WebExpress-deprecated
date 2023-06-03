@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text.RegularExpressions;
+using WebExpress.Internationalization;
 
 namespace WebExpress.WebUri
 {
@@ -8,6 +10,16 @@ namespace WebExpress.WebUri
     /// </summary>
     public class UriPathSegmentVariableGuid : UriPathSegmentVariable
     {
+        /// <summary>
+        /// The display formats of the guid.
+        /// </summary>
+        public enum Format { Full, Simple }
+
+        /// <summary>
+        /// Returns the display format.
+        /// </summary>
+        public Format DisplayFormat { get; private set; }
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -25,9 +37,22 @@ namespace WebExpress.WebUri
         /// <param name="display">The display text.</param>
         /// <param name="tag">The tag or null</param>
         public UriPathSegmentVariableGuid(string name, string display, object tag = null)
+            : this(name, display, Format.Full, tag)
+        {
+        }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="value">The path text.</param>
+        /// <param name="display">The display text.</param>
+        /// <param name="displayFormat">The display format.</param>
+        /// <param name="tag">The tag or null</param>
+        public UriPathSegmentVariableGuid(string name, string display, Format displayFormat, object tag = null)
             : base(name, display, tag)
         {
             VariableName = name;
+            DisplayFormat = displayFormat;
             Expression = @"^(\{){0,1}(([0-9a-fA-F]{8})\-([0-9a-fA-F]{4})\-([0-9a-fA-F]{4})\-([0-9a-fA-F]{4})\-([0-9a-fA-F]{12}))(\}){0,1}$";
         }
 
@@ -38,6 +63,7 @@ namespace WebExpress.WebUri
         public UriPathSegmentVariableGuid(UriPathSegmentVariableGuid segment)
             : base(segment.VariableName, segment.Display, segment.Tag)
         {
+            DisplayFormat = segment.DisplayFormat;
             Expression = segment.Expression;
         }
 
@@ -70,6 +96,21 @@ namespace WebExpress.WebUri
         public override IUriPathSegment Copy()
         {
             return new UriPathSegmentVariableGuid(this) { Value = Value };
+        }
+
+        /// <summary>
+        /// Returns or sets the display text.
+        /// </summary>
+        /// <param name="culture">The culture.</param>
+        public override string GetDisplay(CultureInfo culture)
+        {
+            var match = Regex.Match(Value, Expression, RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
+            return string.Format
+            (
+                InternationalizationManager.I18N(culture, Display),
+                DisplayFormat == Format.Simple ? match.Groups[7].ToString() : match.Groups[2].ToString()
+            );
         }
 
         /// <summary>

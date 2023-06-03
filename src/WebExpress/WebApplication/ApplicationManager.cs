@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 using WebExpress.Internationalization;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
-using WebExpress.WebModule;
 using WebExpress.WebPlugin;
-using WebExpress.WebResource;
 using WebExpress.WebUri;
 
 namespace WebExpress.WebApplication
@@ -107,11 +105,7 @@ namespace WebExpress.WebApplication
                 foreach (var customAttribute in type.CustomAttributes
                     .Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IApplicationAttribute))))
                 {
-                    if (customAttribute.AttributeType == typeof(WebExIdAttribute))
-                    {
-                        id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
-                    }
-                    else if (customAttribute.AttributeType == typeof(WebExNameAttribute))
+                    if (customAttribute.AttributeType == typeof(WebExNameAttribute))
                     {
                         name = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
@@ -137,21 +131,20 @@ namespace WebExpress.WebApplication
                     }
                     else if (customAttribute.AttributeType == typeof(WebExOptionAttribute))
                     {
-                        var firstValue = customAttribute.ConstructorArguments.FirstOrDefault().Value;
-                        var secoundValue = customAttribute.ConstructorArguments.Skip(1).FirstOrDefault().Value;
+                        var value = customAttribute.ConstructorArguments.FirstOrDefault().Value.ToString().ToLower().Trim();
+                        options.Add(value);
+                    }
+                    else if (customAttribute.AttributeType.Name == typeof(WebExOptionAttribute<>).Name && customAttribute.AttributeType.Namespace == typeof(WebExOptionAttribute<>).Namespace)
+                    {
+                        var value = customAttribute.AttributeType.GenericTypeArguments.FirstOrDefault()?.FullName?.ToLower();
+                        options.Add(value);
+                    }
+                    else if (customAttribute.AttributeType.Name == typeof(WebExOptionAttribute<,>).Name && customAttribute.AttributeType.Namespace == typeof(WebExOptionAttribute<,>).Namespace)
+                    {
+                        var firstValue = customAttribute.AttributeType.GenericTypeArguments.FirstOrDefault()?.FullName?.ToLower();
+                        var secoundValue = customAttribute.AttributeType.GenericTypeArguments.LastOrDefault()?.FullName?.ToLower();
 
-                        if (firstValue is string)
-                        {
-                            options.Add(firstValue?.ToString().ToLower());
-                        }
-                        else if (firstValue is Type m1 && m1.GetInterface(typeof(IModule).Name) != null && secoundValue == null)
-                        {
-                            options.Add($"{m1.FullName.ToLower()}.*");
-                        }
-                        else if (firstValue is Type m2 && m2.GetInterface(typeof(IModule).Name) != null && secoundValue is Type r && r.GetInterface(typeof(IResource).Name) != null)
-                        {
-                            options.Add($"{m2.FullName.ToLower()}.{r.FullName.ToLower()}");
-                        }
+                        options.Add($"{firstValue}.{secoundValue}");
                     }
                 }
 

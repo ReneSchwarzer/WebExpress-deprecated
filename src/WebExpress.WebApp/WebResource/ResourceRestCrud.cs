@@ -10,7 +10,7 @@ namespace WebExpress.WebApp.WebResource
     public abstract class ResourceRestCrud<T> : ResourceRest where T : class, new()
     {
         /// <summary>
-        /// Delivers or sets the lock object.
+        /// Returns or sets the lock object.
         /// </summary>
         protected object Guard { get; set; }
 

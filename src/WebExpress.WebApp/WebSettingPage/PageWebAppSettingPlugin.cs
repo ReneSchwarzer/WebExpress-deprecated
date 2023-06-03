@@ -6,11 +6,13 @@ using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebApiControl;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebApp.WebPage;
+using WebExpress.WebApp.WebScope;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebMessage;
 using WebExpress.WebPage;
 using WebExpress.WebResource;
+using WebExpress.WebScope;
 using WebExpress.WebTask;
 
 namespace WebExpress.WebApp.WebSettingPage
@@ -26,10 +28,9 @@ namespace WebExpress.WebApp.WebSettingPage
     [WebExSettingGroup("webexpress.webapp:setting.group.system.label")]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
     [WebExModule<Module>]
-    [WebExContext("admin")]
-    [WebExContext("webexpress.webapp.plugin")]
+    [WebExScope<ScopeAdmin>]
     [WebExOptional]
-    public sealed class PageWebAppSettingPlugin : PageWebAppSetting
+    public sealed class PageWebAppSettingPlugin : PageWebAppSetting, IScope
     {
         /// <summary>
         /// The id of the web task for importing a plugin.

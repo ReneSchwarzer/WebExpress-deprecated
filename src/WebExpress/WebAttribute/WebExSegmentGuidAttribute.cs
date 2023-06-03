@@ -4,13 +4,12 @@ using WebExpress.WebUri;
 
 namespace WebExpress.WebAttribute
 {
-    public class WebExSegmentGuidAttribute : Attribute, IResourceAttribute, ISegmentAttribute
+    /// <summary>
+    /// A dynamic path segment of type guid.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
+    public class WebExSegmentGuidAttribute<T> : Attribute, IResourceAttribute, ISegmentAttribute where T : Parameter
     {
-        /// <summary>
-        /// The display formats of the Guid.
-        /// </summary>
-        public enum Format { Full, Simple }
-
         /// <summary>
         /// Returns or sets the name of the variable.
         /// </summary>
@@ -21,24 +20,10 @@ namespace WebExpress.WebAttribute
         /// </summary>
         private string Display { get; set; }
 
-
         /// <summary>
-        /// Delivers or sets the display format.
+        /// Returns or sets the display format.
         /// </summary>
-        private Format DisplayFormat { get; set; }
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="variableName">The name of the variable.</param>
-        /// <param name="display">The display string.</param>
-        /// <param name="displayFormat">The display format.</param>
-        public WebExSegmentGuidAttribute(string variableName, string display, Format displayFormat = Format.Simple)
-        {
-            VariableName = variableName;
-            Display = display;
-            DisplayFormat = displayFormat;
-        }
+        private UriPathSegmentVariableGuid.Format DisplayFormat { get; set; }
 
         /// <summary>
         /// Constructor
@@ -46,9 +31,9 @@ namespace WebExpress.WebAttribute
         /// <param name="parameter">The type of the variable.</param>
         /// <param name="display">The display string.</param>
         /// <param name="displayFormat">The display format.</param>
-        public WebExSegmentGuidAttribute(Type parameter, string display, Format displayFormat = Format.Simple)
+        public WebExSegmentGuidAttribute(string display, UriPathSegmentVariableGuid.Format displayFormat = UriPathSegmentVariableGuid.Format.Simple)
         {
-            VariableName = (Activator.CreateInstance(parameter) as Parameter)?.Key?.ToLower();
+            VariableName = (Activator.CreateInstance(typeof(T)) as Parameter)?.Key?.ToLower();
             Display = display;
             DisplayFormat = displayFormat;
         }
@@ -59,7 +44,7 @@ namespace WebExpress.WebAttribute
         /// <returns>The path segment.</returns>
         public IUriPathSegment ToPathSegment()
         {
-            return new UriPathSegmentVariableGuid(VariableName, Display);
+            return new UriPathSegmentVariableGuid(VariableName, Display, DisplayFormat);
         }
     }
 }

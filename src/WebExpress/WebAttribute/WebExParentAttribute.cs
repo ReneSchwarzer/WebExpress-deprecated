@@ -1,24 +1,15 @@
 ﻿using System;
+using WebExpress.WebResource;
 
 namespace WebExpress.WebAttribute
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
-    public class WebExParentAttribute : Attribute, IResourceAttribute
+    public class WebExParentAttribute<T> : Attribute, IResourceAttribute where T : class, IResource
     {
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">The parent id.</param>
-        public WebExParentAttribute(string id)
-        {
-
-        }
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="parentClass">The parent class.</param>
-        public WebExParentAttribute(Type parentClass)
+        public WebExParentAttribute()
         {
 
         }

@@ -54,18 +54,14 @@ namespace WebExpress.WebApp.WebIdentity
 
             foreach (var type in assembly.GetExportedTypes().Where(x => x.IsClass && x.IsSealed && x.GetInterface(typeof(IIdentityResource).Name) != null))
             {
-                var id = type.Name?.ToLower();
+                var id = type.FullName?.ToLower();
                 var name = type.Name;
                 var description = string.Empty;
                 var moduleId = string.Empty;
 
                 foreach (var customAttribute in type.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IModuleAttribute))))
                 {
-                    if (customAttribute.AttributeType == typeof(WebExIdAttribute))
-                    {
-                        id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
-                    }
-                    else if (customAttribute.AttributeType == typeof(WebExNameAttribute))
+                    if (customAttribute.AttributeType == typeof(WebExNameAttribute))
                     {
                         name = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }

@@ -55,11 +55,11 @@ namespace WebExpress.WebResource
         public string ModuleId { get; set; }
 
         /// <summary>
-        /// Returns or sets the context name that provides the resource. The context name 
+        /// Returns the scope names that provides the resource. The scope name
         /// is a string with a name (e.g. global, admin), which can be used by elements to 
         /// determine whether content and how content should be displayed.
         /// </summary>
-        public IReadOnlyList<string> Context { get; set; }
+        public IReadOnlyList<string> Scopes { get; set; }
 
         /// <summary>
         /// Returns or sets the paths of the resource.
@@ -129,7 +129,7 @@ namespace WebExpress.WebResource
             // create context
             var resourceContext = new ResourceContext(moduleContext)
             {
-                Context = Context,
+                Scopes = Scopes,
                 Conditions = Conditions,
                 ResourceId = ResourceId,
                 ResourceTitle = Title,

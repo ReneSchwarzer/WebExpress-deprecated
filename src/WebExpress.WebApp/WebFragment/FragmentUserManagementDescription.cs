@@ -2,6 +2,7 @@
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
 using WebExpress.UI.WebFragment;
+using WebExpress.WebApp.WebSettingPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebPage;
 
@@ -9,7 +10,7 @@ namespace WebExpress.WebApp.WebFragment
 {
     [WebExSection(Section.ContentPreferences)]
     [WebExModule<Module>]
-    [WebExContext("webexpress.webapp.usermanagement.user")]
+    [WebExScope<PageWebAppSettingUserManagementUser>]
     [WebExCache()]
     public sealed class FragmentUserManagementDescription : FragmentControlPanel
     {

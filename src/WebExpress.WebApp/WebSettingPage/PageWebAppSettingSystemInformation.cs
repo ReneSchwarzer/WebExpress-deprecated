@@ -5,8 +5,10 @@ using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
 using WebExpress.UI.WebSettingPage;
 using WebExpress.WebApp.WebPage;
+using WebExpress.WebApp.WebScope;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
+using WebExpress.WebScope;
 
 namespace WebExpress.WebApp.WebSettingPage
 {
@@ -21,10 +23,9 @@ namespace WebExpress.WebApp.WebSettingPage
     [WebExSettingGroup("webexpress.webapp:setting.group.system.label")]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
     [WebExModule<Module>]
-    [WebExContext("admin")]
-    [WebExContext("webexpress.webpp.systeminformation")]
+    [WebExScope<ScopeAdmin>]
     [WebExOptional]
-    public sealed class PageWebAppSettingSystemInformation : PageWebAppSetting
+    public sealed class PageWebAppSettingSystemInformation : PageWebAppSetting, IScope
     {
         /// <summary>
         /// Constructor

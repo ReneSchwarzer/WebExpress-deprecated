@@ -44,9 +44,9 @@ namespace WebExpress.UI.WebFragment
         public string Section { get; set; }
 
         /// <summary>
-        /// Returns the contexts.
+        /// Returns the scopes.
         /// </summary>
-        public IEnumerable<string> Contexts { get; set; }
+        public IEnumerable<string> Scopes { get; set; }
 
         /// <summary>
         /// Returns the conditions that must be met for the component to be active.

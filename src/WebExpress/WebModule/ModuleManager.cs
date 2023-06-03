@@ -112,11 +112,7 @@ namespace WebExpress.WebModule
                     .Where(x => x.AttributeType.GetInterfaces()
                     .Contains(typeof(IModuleAttribute))))
                 {
-                    if (customAttribute.AttributeType == typeof(WebExIdAttribute))
-                    {
-                        id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
-                    }
-                    else if (customAttribute.AttributeType == typeof(WebExNameAttribute))
+                    if (customAttribute.AttributeType == typeof(WebExNameAttribute))
                     {
                         name = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
@@ -142,7 +138,11 @@ namespace WebExpress.WebModule
                     }
                     else if (customAttribute.AttributeType == typeof(WebExApplicationAttribute))
                     {
-                        applicationIds.Add(customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower().Trim());
+                        applicationIds.Add(customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().Trim());
+                    }
+                    else if (customAttribute.AttributeType.Name == typeof(WebExApplicationAttribute<>).Name && customAttribute.AttributeType.Namespace == typeof(WebExApplicationAttribute<>).Namespace)
+                    {
+                        applicationIds.Add(customAttribute.AttributeType.GenericTypeArguments.FirstOrDefault()?.FullName?.ToLower());
                     }
                 }
 

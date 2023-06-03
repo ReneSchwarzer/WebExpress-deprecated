@@ -3,6 +3,10 @@ using WebExpress.WebUri;
 
 namespace WebExpress.WebAttribute
 {
+    /// <summary>
+    /// A static path segment.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
     public class WebExSegmentAttribute : Attribute, IResourceAttribute, ISegmentAttribute
     {
         /// <summary>

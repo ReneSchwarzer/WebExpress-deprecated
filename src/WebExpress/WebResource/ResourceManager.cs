@@ -7,6 +7,7 @@ using WebExpress.WebComponent;
 using WebExpress.WebCondition;
 using WebExpress.WebModule;
 using WebExpress.WebPlugin;
+using WebExpress.WebScope;
 using WebExpress.WebStatusPage;
 using WebExpress.WebUri;
 
@@ -105,43 +106,39 @@ namespace WebExpress.WebResource
             Dictionary.Add(pluginContext, new Dictionary<string, ResourceItem>());
             var dict = Dictionary[pluginContext];
 
-            foreach (var resource in assembly.GetTypes()
+            foreach (var resourceType in assembly.GetTypes()
                 .Where(x => x.IsClass == true && x.IsSealed)
                 .Where(x => x.GetInterface(typeof(IResource).Name) != null)
                 .Where(x => x.GetInterface(typeof(IStatusPage).Name) == null))
             {
-                var id = resource.FullName?.ToLower();
+                var id = resourceType.FullName?.ToLower();
                 var segment = null as ISegmentAttribute;
-                var title = resource.Name;
+                var title = resourceType.Name;
                 var parent = null as string;
                 var contextPath = string.Empty;
                 var includeSubPaths = false;
                 var moduleId = string.Empty;
-                var resourceContext = new List<string>();
+                var scopes = new List<string>();
                 var conditions = new List<ICondition>();
                 var optional = false;
                 var cache = false;
 
-                foreach (var customAttribute in resource.CustomAttributes
+                foreach (var customAttribute in resourceType.CustomAttributes
                     .Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IResourceAttribute))))
                 {
                     var buf = typeof(WebExModuleAttribute<>);
 
-                    if (customAttribute.AttributeType == typeof(WebExIdAttribute))
+                    if (customAttribute.AttributeType.GetInterfaces().Contains(typeof(ISegmentAttribute)))
                     {
-                        id = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower();
-                    }
-                    else if (customAttribute.AttributeType.GetInterfaces().Contains(typeof(ISegmentAttribute)))
-                    {
-                        segment = resource.GetCustomAttributes(customAttribute.AttributeType, false).FirstOrDefault() as ISegmentAttribute;
+                        segment = resourceType.GetCustomAttributes(customAttribute.AttributeType, false).FirstOrDefault() as ISegmentAttribute;
                     }
                     else if (customAttribute.AttributeType == typeof(WebExTitleAttribute))
                     {
                         title = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
-                    else if (customAttribute.AttributeType == typeof(WebExParentAttribute))
+                    else if (customAttribute.AttributeType.Name == typeof(WebExParentAttribute<>).Name && customAttribute.AttributeType.Namespace == typeof(WebExParentAttribute<>).Namespace)
                     {
-                        parent = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
+                        parent = customAttribute.AttributeType.GenericTypeArguments.FirstOrDefault()?.FullName?.ToLower();
                     }
                     else if (customAttribute.AttributeType == typeof(WebExContextPathAttribute))
                     {
@@ -155,29 +152,14 @@ namespace WebExpress.WebResource
                     {
                         moduleId = customAttribute.AttributeType.GenericTypeArguments.FirstOrDefault()?.FullName?.ToLower();
                     }
-                    else if (customAttribute.AttributeType == typeof(WebExContextAttribute))
+                    else if (customAttribute.AttributeType.Name == typeof(WebExScopeAttribute<>).Name && customAttribute.AttributeType.Namespace == typeof(WebExScopeAttribute<>).Namespace)
                     {
-                        resourceContext.Add(customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower());
+                        scopes.Add(customAttribute.AttributeType.GenericTypeArguments.FirstOrDefault()?.FullName?.ToLower());
                     }
-                    else if (customAttribute.AttributeType == typeof(WebExConditionAttribute))
+                    else if (customAttribute.AttributeType.Name == typeof(WebExConditionAttribute<>).Name && customAttribute.AttributeType.Namespace == typeof(WebExConditionAttribute<>).Namespace)
                     {
-                        var condition = (Type)customAttribute.ConstructorArguments.FirstOrDefault().Value;
-
-                        if (condition.GetInterfaces().Contains(typeof(ICondition)))
-                        {
-                            conditions.Add(condition?.Assembly.CreateInstance(condition?.FullName) as ICondition);
-                        }
-                        else
-                        {
-                            HttpServerContext.Log.Warning
-                            (
-                                InternationalizationManager.I18N
-                                (
-                                    "webexpress:resourcemanager.wrongtype",
-                                    condition.Name, typeof(ICondition).Name
-                                )
-                            );
-                        }
+                        var condition = customAttribute.AttributeType.GenericTypeArguments.FirstOrDefault();
+                        conditions.Add(Activator.CreateInstance(condition) as ICondition);
                     }
                     else if (customAttribute.AttributeType == typeof(WebExCacheAttribute))
                     {
@@ -187,6 +169,11 @@ namespace WebExpress.WebResource
                     {
                         optional = true;
                     }
+                }
+
+                if (resourceType.GetInterfaces().Where(x => x == typeof(IScope)).Any())
+                {
+                    scopes.Add(resourceType.FullName?.ToLower());
                 }
 
                 if (string.IsNullOrEmpty(moduleId))
@@ -211,9 +198,9 @@ namespace WebExpress.WebResource
                         ResourceId = id,
                         Title = title,
                         ParentId = parent,
-                        ResourceClass = resource,
+                        ResourceClass = resourceType,
                         ModuleId = moduleId,
-                        Context = resourceContext,
+                        Scopes = scopes,
                         Cache = cache,
                         Conditions = conditions,
                         ContextPath = new UriResource(contextPath),

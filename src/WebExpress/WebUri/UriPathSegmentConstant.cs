@@ -1,4 +1,6 @@
 using System;
+using System.Globalization;
+using WebExpress.Internationalization;
 
 namespace WebExpress.WebUri
 {
@@ -97,6 +99,15 @@ namespace WebExpress.WebUri
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Returns or sets the display text.
+        /// </summary>
+        /// <param name="culture">The culture.</param>
+        public virtual string GetDisplay(CultureInfo culture)
+        {
+            return InternationalizationManager.I18N(culture, Display);
         }
 
         /// <summary>

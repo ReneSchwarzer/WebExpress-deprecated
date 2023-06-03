@@ -28,16 +28,16 @@ namespace WebExpress.WebResource
         public IModuleContext ModuleContext { get; private set; }
 
         /// <summary>
-        /// Returns the context name that provides the resource. The context name 
+        /// Returns the scope names that provides the resource. The scope name
         /// is a string with a name (e.g. global, admin), which can be used by elements to 
         /// determine whether content and how content should be displayed.
         /// </summary>
-        public IReadOnlyList<string> Context { get; internal set; }
+        public IEnumerable<string> Scopes { get; internal set; }
 
         /// <summary>
         /// Returns the conditions that must be met for the resource to be active.
         /// </summary>
-        public ICollection<ICondition> Conditions { get; internal set; } = new List<ICondition>();
+        public IEnumerable<ICondition> Conditions { get; internal set; } = new List<ICondition>();
 
         /// <summary>
         /// Returns the resource id.

@@ -1,3 +1,5 @@
+using System.Globalization;
+
 namespace WebExpress.WebUri
 {
     /// <summary>
@@ -49,5 +51,11 @@ namespace WebExpress.WebUri
         /// <param name="obj">The comparison object.</param>
         /// <returns>true if equals, false otherwise</returns>
         bool Equals(IUriPathSegment obj);
+
+        /// <summary>
+        /// Returns or sets the display text.
+        /// </summary>
+        /// <param name="culture">The culture.</param>
+        string GetDisplay(CultureInfo culture);
     }
 }

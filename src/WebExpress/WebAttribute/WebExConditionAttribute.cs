@@ -1,4 +1,5 @@
 ﻿using System;
+using WebExpress.WebCondition;
 
 namespace WebExpress.WebAttribute
 {
@@ -6,13 +7,12 @@ namespace WebExpress.WebAttribute
     /// Activation of options (e.g. WebEx.WebApp.Setting.SystemInformation for displaying system information).
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
-    public class WebExConditionAttribute : Attribute, IResourceAttribute
+    public class WebExConditionAttribute<T> : Attribute, IResourceAttribute where T : class, ICondition
     {
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="condition">Die Bedingung</param>
-        public WebExConditionAttribute(Type condition)
+        public WebExConditionAttribute()
         {
 
         }

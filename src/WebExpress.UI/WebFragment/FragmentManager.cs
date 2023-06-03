@@ -35,7 +35,7 @@ namespace WebExpress.UI.WebFragment
         public IHttpServerContext HttpServerContext { get; private set; }
 
         /// <summary>
-        /// Delivers or sets the directory where the components are listed.
+        /// Returns or sets the directory where the components are listed.
         /// </summary>
         private FragmentDictionary Dictionary { get; set; } = new FragmentDictionary();
 
@@ -105,7 +105,7 @@ namespace WebExpress.UI.WebFragment
                 ))
             {
                 var moduleId = string.Empty;
-                var contexts = new List<string>();
+                var scopes = new List<string>();
                 var section = string.Empty;
                 var conditions = new List<ICondition>();
                 var cache = false;
@@ -122,27 +122,14 @@ namespace WebExpress.UI.WebFragment
                     {
                         moduleId = customAttribute.AttributeType.GenericTypeArguments.FirstOrDefault()?.FullName?.ToLower();
                     }
-                    if (customAttribute.AttributeType == typeof(WebExContextAttribute))
+                    else if (customAttribute.AttributeType.Name == typeof(WebExScopeAttribute<>).Name && customAttribute.AttributeType.Namespace == typeof(WebExScopeAttribute<>).Namespace)
                     {
-                        contexts.Add(customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().ToLower());
+                        scopes.Add(customAttribute.AttributeType.GenericTypeArguments.FirstOrDefault()?.FullName?.ToLower());
                     }
-                    else if (customAttribute.AttributeType == typeof(WebExConditionAttribute))
+                    else if (customAttribute.AttributeType.Name == typeof(WebExConditionAttribute<>).Name && customAttribute.AttributeType.Namespace == typeof(WebExConditionAttribute<>).Namespace)
                     {
-                        var condition = (Type)customAttribute.ConstructorArguments.FirstOrDefault().Value;
-
-                        if (condition.GetInterfaces().Contains(typeof(ICondition)))
-                        {
-                            conditions.Add(condition?.Assembly.CreateInstance(condition?.FullName) as ICondition);
-                        }
-                        else
-                        {
-                            HttpServerContext.Log.Warning
-                            (
-                                InternationalizationManager.I18N("webexpress.ui:fragmentmanager.wrongtype",
-                                condition.Name,
-                                typeof(ICondition).Name
-                            ));
-                        }
+                        var condition = customAttribute.AttributeType.GenericTypeArguments.FirstOrDefault();
+                        conditions.Add(Activator.CreateInstance(condition) as ICondition);
                     }
                     else if (customAttribute.AttributeType == typeof(WebExCacheAttribute))
                     {
@@ -196,7 +183,7 @@ namespace WebExpress.UI.WebFragment
                 }
 
                 // register fragment
-                foreach (var context in contexts.Any() ? contexts : new List<string>(new[] { "" }))
+                foreach (var context in scopes.Any() ? scopes : new List<string>(new[] { "" }))
                 {
                     var key = string.Join(":", section, context);
 
@@ -216,7 +203,7 @@ namespace WebExpress.UI.WebFragment
                         Cache = cache,
                         Conditions = conditions,
                         Section = section,
-                        Contexts = contexts
+                        Scopes = scopes
                     };
 
                     dictItem.Add(fragmentItem);

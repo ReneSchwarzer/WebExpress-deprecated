@@ -6,8 +6,10 @@ using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebApp.WebPage;
+using WebExpress.WebApp.WebScope;
 using WebExpress.WebAttribute;
 using WebExpress.WebMessage;
+using WebExpress.WebScope;
 
 namespace WebExpress.WebApp.WebSettingPage
 {
@@ -22,12 +24,12 @@ namespace WebExpress.WebApp.WebSettingPage
     [WebExSettingGroup("webexpress.webapp:setting.group.system.label")]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
     [WebExModule<Module>]
-    [WebExContext("admin")]
+    [WebExScope<ScopeAdmin>]
     [WebExOptional]
-    public sealed class PageWebAppSettingLog : PageWebAppSetting
+    public sealed class PageWebAppSettingLog : PageWebAppSetting, IScope
     {
         /// <summary>
-        /// Delivers or sets the Uri to download the lot file. Null if no log file downlod is to be performed.
+        /// Returns or sets the Uri to download the lot file. Null if no log file downlod is to be performed.
         /// </summary>
         public string DownloadUri { get; set; }
 
