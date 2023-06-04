@@ -112,6 +112,8 @@ sitemapmanager.preorder={0} => {1}
 sitemapmanager.sitemap=Sitemap:
 sitemapmanager.merge.error=Die beiden Sitemaps '{0}' und '{1}' konnten nicht gemerdged werden.
 
+sessionmanager.initialization=Der Sessionmanager wurde initialisiert.
+
 schedulermanager.initialization=Der Schedulemanager wurde initialisiert.
 schedulermanager.register=Das Plugin '{0}' wurde im Schedulemanager registriert.
 schedulermanager.job.register=Der Job '{1}' wurden dem Modul '{0}' zugewiesen.

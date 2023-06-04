@@ -112,6 +112,8 @@ sitemapmanager.preorder={0} => {1}
 sitemapmanager.sitemap=Sitemap:
 sitemapmanager.merge.error=The two sitemaps '{0}' and '{1}' could not be merged.
 
+sessionmanager.initialization=The session manager has been initialized.
+
 schedulermanager.initialization=The schedule manager has been initialized.
 schedulermanager.register=The plugin '{0}' is registered in the schedule manager manager.
 schedulermanager.job.register=The job '{1}' have been assigned to the module '{0}'.

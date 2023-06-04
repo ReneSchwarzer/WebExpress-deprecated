@@ -503,6 +503,23 @@ namespace WebExpress.WebMessage
         }
 
         /// <summary>
+        /// Returns a parameter by name.
+        /// </summary>
+        /// <typeparam name="T">The parameter.</typeparam>
+        /// <returns>The value.</returns>
+        public Parameter GetParameter<T>() where T : Parameter
+        {
+            var name = Parameter.GetKey<T>();
+
+            if (!string.IsNullOrWhiteSpace(name) && HasParameter(name))
+            {
+                return Param[name.ToLower()];
+            }
+
+            return null;
+        }
+
+        /// <summary>
         /// Checks whether a parameter exists.
         /// </summary>
         /// <param name="name">The name of the parameter.</param>

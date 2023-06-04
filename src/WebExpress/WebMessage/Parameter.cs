@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace WebExpress.WebMessage
@@ -80,6 +81,16 @@ namespace WebExpress.WebMessage
         public static List<Parameter> Create(params Parameter[] param)
         {
             return new List<Parameter>(param);
+        }
+
+        /// <summary>
+        /// Returns the key.
+        /// </summary>
+        /// <typeparam name="T">The type.</typeparam>
+        /// <returns>The key.</returns>
+        public static string GetKey<T>() where T : Parameter
+        {
+            return (Activator.CreateInstance(typeof(T)) as T)?.Key;
         }
 
         /// <summary>

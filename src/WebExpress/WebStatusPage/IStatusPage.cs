@@ -27,11 +27,6 @@ namespace WebExpress.WebStatusPage
         IModuleContext ModuleContext { get; }
 
         /// <summary>
-        /// Returns the uri of the resource.
-        /// </summary>
-        UriResource Uri { get; }
-
-        /// <summary>
         /// Liefert oder setzt den Statuscode
         /// </summary>
         int StatusCode { get; set; }

@@ -393,6 +393,7 @@ namespace WebExpress
                 responseFeature.StatusCode = response.Status;
                 responseFeature.ReasonPhrase = response.Reason;
                 responseFeature.Headers.KeepAlive = "true";
+                responseFeature.Headers.Add("PageID", "Test");
 
                 if (response.Header.Location != null)
                 {

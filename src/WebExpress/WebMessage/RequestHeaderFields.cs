@@ -8,74 +8,81 @@ using System.Text;
 namespace WebExpress.WebMessage
 {
     /// <summary>
-    /// siehe RFC 2616
+    /// see RFC 2616
     /// </summary>
     public class RequestHeaderFields
     {
         /// <summary>
-        /// Der Host
+        /// Returns the host.
         /// </summary>
         public string Host { get; private set; }
 
         /// <summary>
-        /// Keep-Alive | close
+        /// Returns the connection. Keep-Alive or close.
         /// </summary>
         public string Connection { get; private set; }
 
         /// <summary>
-        /// Liefert oder setzt die Content-Länge
+        /// Returns the content length.
         /// </summary>
         public long ContentLength { get; private set; }
 
         /// <summary>
-        /// Liefert oder setzt den Content-Typ
+        /// Returns the content type.
         /// </summary>
         public string ContentType { get; private set; }
 
         /// <summary>
-        /// Liefert oder setzt die Sprache des Content
+        /// Returns the language of the content.
         /// </summary>
         public string ContentLanguage { get; private set; }
 
         /// <summary>
-        /// Liefert oder setzt die Kodierung des Content
+        /// Returns the encoding of the content.
         /// </summary>
         public Encoding ContentEncoding { get; private set; }
 
         /// <summary>
-        /// Liefert oder setzt den User-Agent
+        /// Returns the user agent.
         /// </summary>
         public string UserAgent { get; private set; }
 
         /// <summary>
-        /// Liefert oder setzt die erlaubten Medientypen
+        /// Returns the accepted media types.
         /// </summary>
         public ICollection<string> Accept { get; private set; }
 
         /// <summary>
-        /// Liefert oder setzt die erlaubten Endkodierungen
+        /// Returns the accepted encodings.
         /// </summary>
         public string AcceptEncoding { get; private set; }
 
         /// <summary>
-        /// Liefert oder setzt die erlaubten Sprachen
+        /// Returns the accepted languages.
         /// </summary>
         public IEnumerable<string> AcceptLanguage { get; private set; }
 
         /// <summary>
-        /// Liefert oder setzt die Zugangsdaten Name und Passwort
+        /// Returns the access data name and password.
         /// </summary>
         public RequestAuthorization Authorization { get; private set; }
 
         /// <summary>
-        /// Liefert oder setzt die Cookies
+        /// Returns the cookies.
         /// </summary>
         public ICollection<Cookie> Cookies { get; } = new List<Cookie>();
 
         /// <summary>
+        /// Returns the referer. The referer header echoes the absolute or partial address from 
+        /// which a resource was requested. The Referer header allows a server to identify referring 
+        /// pages from which people visit or where requested resources are used.
+        /// </summary>
+        public string Referer { get; private set; }
+
+        /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="contextFeatures">Anfänglicher Satz von Features.</param>
+        /// <param name="contextFeatures">Initial set of features.</param>
         internal RequestHeaderFields(IFeatureCollection contextFeatures)
         {
             var requestFeature = contextFeatures.Get<IHttpRequestFeature>();
@@ -90,6 +97,7 @@ namespace WebExpress.WebMessage
             AcceptEncoding = requestFeature.Headers.AcceptEncoding;
             AcceptLanguage = requestFeature.Headers.AcceptLanguage.SelectMany(x => x.Split(';', StringSplitOptions.RemoveEmptyEntries));
             UserAgent = requestFeature.Headers.UserAgent;
+            Referer = requestFeature.Headers.Referer;
 
             foreach (var cookie in requestFeature.Headers.Cookie)
             {

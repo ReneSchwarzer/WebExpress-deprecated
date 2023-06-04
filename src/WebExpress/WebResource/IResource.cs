@@ -2,7 +2,6 @@
 using WebExpress.WebApplication;
 using WebExpress.WebMessage;
 using WebExpress.WebModule;
-using WebExpress.WebUri;
 
 namespace WebExpress.WebResource
 {
@@ -27,11 +26,6 @@ namespace WebExpress.WebResource
         /// Returns the module context where the resource exists.
         /// </summary>
         IResourceContext ResourceContext { get; }
-
-        /// <summary>
-        /// Returns the uri of the resource.
-        /// </summary>
-        UriResource Uri { get; }
 
         /// <summary>
         /// Initialization

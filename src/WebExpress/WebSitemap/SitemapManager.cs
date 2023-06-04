@@ -445,7 +445,6 @@ namespace WebExpress.WebSitemap
             if (instance is Resource resorce)
             {
                 resorce.Id = node.ResourceItem?.ResourceId;
-                resorce.Uri = uri;
                 resorce.ApplicationContext = node.ResourceContext?.ModuleContext?.ApplicationContext;
                 resorce.ModuleContext = node.ResourceContext?.ModuleContext;
             }

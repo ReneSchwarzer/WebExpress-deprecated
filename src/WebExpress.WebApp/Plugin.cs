@@ -31,7 +31,6 @@ namespace WebExpress.WebApp
         /// <param name="context">The context of the plugin that applies to the execution of the plugin.</param>
         public void Initialization(IPluginContext context)
         {
-
         }
 
         /// <summary>

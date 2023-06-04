@@ -3,8 +3,8 @@
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
 		<Title>WebExpress.WebApp</Title>
-		<Version>1.4.4.0</Version>
-		<AssemblyVersion>1.4.4.0</AssemblyVersion>
+		<Version>1.4.5.0</Version>
+		<AssemblyVersion>1.4.5.0</AssemblyVersion>
 		<TargetFramework>net7.0</TargetFramework>
 		<RuntimeIdentifiers>any</RuntimeIdentifiers>
 		<RepositoryUrl>https://github.com/ReneSchwarzer/WebExpress.git</RepositoryUrl>
@@ -14,7 +14,7 @@
 		<EnableDynamicLoading>true</EnableDynamicLoading>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Description>Provide a business application template for the WebExpress web server.</Description>
-		<PackageVersion>1.4.4-alpha</PackageVersion>
+		<PackageVersion>1.4.5-alpha</PackageVersion>
 		<PackageProjectUrl>https://github.com/ReneSchwarzer/WebExpress</PackageProjectUrl>
 		<PackageIcon>icon.png</PackageIcon>
 		<PackageReadmeFile>README.md</PackageReadmeFile>

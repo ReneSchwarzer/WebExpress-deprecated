@@ -37,7 +37,7 @@ namespace WebExpress.WebSession
 
             HttpServerContext.Log.Debug
             (
-                InternationalizationManager.I18N("webexpress:applicationmanager.initialization")
+                InternationalizationManager.I18N("webexpress:sessionmanager.initialization")
             );
         }
 
