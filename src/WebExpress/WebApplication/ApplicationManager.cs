@@ -278,6 +278,11 @@ namespace WebExpress.WebApplication
         /// <param name="pluginContext">The context of the plugin that contains the applications.</param>
         public void Boot(IPluginContext pluginContext)
         {
+            if (pluginContext == null)
+            {
+                return;
+            }
+
             if (!Dictionary.ContainsKey(pluginContext))
             {
                 HttpServerContext.Log.Warning

@@ -46,7 +46,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         public ControlPanelFlexbox(string id = null)
             : base(id)
         {
@@ -55,7 +55,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         /// <param name="content">Die Listeneinträge</param>
         public ControlPanelFlexbox(string id, params IControl[] content)
             : base(id, content)
@@ -74,7 +74,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         /// <param name="items">Die Listeneinträge</param>
         public ControlPanelFlexbox(string id, IEnumerable<IControl> content)
             : base(id, content)

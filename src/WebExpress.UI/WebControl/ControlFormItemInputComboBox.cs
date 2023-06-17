@@ -30,7 +30,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         public ControlFormItemInputComboBox(string id = null)
             : base(id)
         {
@@ -40,7 +40,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         /// <param name="items">The ComboBox entries.</param>
         public ControlFormItemInputComboBox(string id, params string[] items)
             : this(id)
@@ -61,7 +61,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         /// <param name="items">The ComboBox entries.</param>
         public ControlFormItemInputComboBox(string id, string name, IEnumerable<ControlFormItemInputComboBoxItem> items)
             : this(id, name)

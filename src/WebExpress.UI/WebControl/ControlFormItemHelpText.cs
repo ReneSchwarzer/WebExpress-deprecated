@@ -22,7 +22,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         public ControlFormItemHelpText(string id)
             : base(id)
         {
@@ -31,7 +31,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         /// <param name="text">The text.</param>
         public ControlFormItemHelpText(string id, string text)
             : this(id)

@@ -29,7 +29,7 @@
     //    /// Constructor
     //    /// </summary>
     //    /// <param name="page">Die zugehörige Seite</param>
-    //    /// <param name="id">Returns or sets the id.</param>
+    //    /// <param name="id">The id.</param>
     //    public ControlTableSortable(IPage page, string id = null)
     //        : base(page, id)
     //    {

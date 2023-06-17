@@ -18,7 +18,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         public ControlTimeline(string id = null)
             : base(id)
         {
@@ -28,7 +28,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         public ControlTimeline(params ControlTimelineItem[] items)
             : base(null)
         {

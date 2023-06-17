@@ -77,14 +77,14 @@ namespace WebExpress.WebApp.WebControl
         }
 
         /// <summary>
-        /// Returns or sets the width.rleitungs-Uri
+        /// Returns or sets the redirect uri.
         /// </summary>
         public string RedirectUri { get { return Formular?.RedirectUri; } set { Formular.RedirectUri = value; } }
 
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         public ControlModalFormularFileUpload(string id = null)
             : this(id, null)
         {
@@ -93,7 +93,7 @@ namespace WebExpress.WebApp.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         /// <param name="content">Die Formularsteuerelemente</param>
         public ControlModalFormularFileUpload(string id, params ControlFormItem[] content)
             : base(id, string.Empty, content)

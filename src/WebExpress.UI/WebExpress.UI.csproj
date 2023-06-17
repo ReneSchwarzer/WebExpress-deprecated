@@ -3,8 +3,8 @@
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
 		<Title>WebExpress.UI</Title>
-		<Version>1.4.5.0</Version>
-		<AssemblyVersion>1.4.5.0</AssemblyVersion>
+		<Version>1.4.6.0</Version>
+		<AssemblyVersion>1.4.6.0</AssemblyVersion>
 		<TargetFramework>net7.0</TargetFramework>
 		<RuntimeIdentifiers>any</RuntimeIdentifiers>
 		<RepositoryUrl>https://github.com/ReneSchwarzer/WebExpress.git</RepositoryUrl>
@@ -14,7 +14,7 @@
 		<EnableDynamicLoading>true</EnableDynamicLoading>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Description>Provide user interface elements to the WebExpress web server.</Description>
-		<PackageVersion>1.4.5-alpha</PackageVersion>
+		<PackageVersion>1.4.6-alpha</PackageVersion>
 		<PackageProjectUrl>https://github.com/ReneSchwarzer/WebExpress</PackageProjectUrl>
 		<PackageIcon>icon.png</PackageIcon>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
@@ -54,6 +54,7 @@
 		<None Remove="Assets\css\webexpress.ui.search.css" />
 		<None Remove="Assets\css\webexpress.ui.selection.css" />
 		<None Remove="Assets\css\webexpress.ui.table.css" />
+		<None Remove="Assets\css\webexpress.ui.toolpanel.css" />
 		<None Remove="Assets\fonts\fa-solid-900.eot" />
 		<None Remove="Assets\fonts\fa-solid-900.ttf" />
 		<None Remove="Assets\fonts\fa-solid-900.woff" />
@@ -199,6 +200,7 @@
 		</EmbeddedResource>
 		<EmbeddedResource Include="Assets\css\bootstrap.min.css.map" />
 		<EmbeddedResource Include="Assets\css\Chart.min.css" />
+		<EmbeddedResource Include="Assets\css\webexpress.ui.toolpanel.css" />
 		<EmbeddedResource Include="Assets\css\webexpress.ui.expand.css" />
 		<EmbeddedResource Include="Assets\css\webexpress.ui.modalformular.css" />
 		<EmbeddedResource Include="Assets\css\webexpress.ui.modalpage.css" />

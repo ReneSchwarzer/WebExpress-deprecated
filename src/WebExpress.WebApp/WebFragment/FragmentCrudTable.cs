@@ -22,7 +22,7 @@ namespace WebExpress.WebApp.WebFragment
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         public FragmentCrudTable(string id = null)
             : base(id)
         {

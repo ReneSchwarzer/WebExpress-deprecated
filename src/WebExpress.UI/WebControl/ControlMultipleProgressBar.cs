@@ -20,7 +20,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         public ControlMultipleProgressBar(string id = null)
             : base(id)
         {
@@ -30,7 +30,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         /// <param name="value">The value.</param>
         public ControlMultipleProgressBar(string id, params ControlMultipleProgressBarItem[] items)
             : this(id)

@@ -36,7 +36,7 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Liefert oder setzt die Überschrift
+        /// Returns or sets the headline.
         /// </summary>
         public string Head { get; set; }
 
@@ -48,7 +48,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         public ControlAlert(string id = null)
             : base(id)
         {

@@ -109,7 +109,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         public ControlDropdown(string id = null)
             : base(id)
         {
@@ -119,7 +119,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         /// <param name="content">The content of the html element.</param>
         public ControlDropdown(string id, params IControlDropdownItem[] content)
             : base(id)
@@ -144,7 +144,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         /// <param name="content">The content of the html element.</param>
         public ControlDropdown(string id, IEnumerable<IControlDropdownItem> content)
             : base(id)
@@ -306,7 +306,13 @@ namespace WebExpress.UI.WebControl
                 }
             );
 
-            return html;
+            var modals = Items.Where(x => x is ControlDropdownItemLink)
+                .Select(x => x as ControlDropdownItemLink)
+                .Select(x => x.Modal)
+                .Where(x => x.Type == TypeModal.Modal)
+                .Select(x => x.Modal.Render(context));
+
+            return new HtmlList(html, modals);
         }
     }
 }

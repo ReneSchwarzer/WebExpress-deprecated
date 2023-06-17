@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using WebExpress.WebMessage;
 using WebExpress.UI.WebControl;
+using WebExpress.WebMessage;
 using WebExpress.WebPage;
 
 namespace WebExpress.UI.WebFragment
@@ -41,18 +41,18 @@ namespace WebExpress.UI.WebFragment
         /// <param name="page">The page in which the fragment is active.</param>
         /// <param name="request">The request.</param>
         /// <returns>An enumeration of the fragment instances.</returns>
-        public IEnumerable<T> CreateInstance<T>(IPage page, Request request) where T : IControl
+        public IEnumerable<T> CreateInstance<T>(IPage page, Request request = null) where T : IControl
         {
-            if (!CheckControl(request))
+            if (request != null && !CheckControl(request))
             {
                 return new List<T>();
             }
             else if (Context.Cache && Instance != null)
             {
-                return new List<T>() { (T) Instance };
+                return new List<T>() { (T)Instance };
             }
 
-            if (Type.Assembly.CreateInstance(Type.FullName) is IFragment instance)
+            if (Activator.CreateInstance(Type) is IFragment instance)
             {
                 instance.Initialization(Context, page);
 
@@ -63,7 +63,7 @@ namespace WebExpress.UI.WebFragment
 
                 return new List<T>() { (T)instance };
             }
-            else if (Type.Assembly.CreateInstance(Type.FullName) is IFragmentDynamic dynamicInstance)
+            else if (Activator.CreateInstance(Type) is IFragmentDynamic dynamicInstance)
             {
                 dynamicInstance.Initialization(Context, page);
 

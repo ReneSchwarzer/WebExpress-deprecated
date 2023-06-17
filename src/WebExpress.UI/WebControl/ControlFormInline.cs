@@ -78,7 +78,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         public ControlFormInline(string id = null)
             : base(id)
         {
@@ -98,7 +98,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         /// <param name="items">The controls that are associated with the form.</param>
         public ControlFormInline(string id, params ControlFormItem[] items)
             : this(id)

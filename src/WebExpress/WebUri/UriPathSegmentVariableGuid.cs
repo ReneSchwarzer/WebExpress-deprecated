@@ -105,11 +105,17 @@ namespace WebExpress.WebUri
         public override string GetDisplay(CultureInfo culture)
         {
             var match = Regex.Match(Value, Expression, RegexOptions.IgnoreCase | RegexOptions.Compiled);
+            var guid = DisplayFormat == Format.Simple ? match.Groups[7].ToString() : match.Groups[2].ToString();
+
+            if (string.IsNullOrWhiteSpace(Display) || !Display.Contains("{0}"))
+            {
+                return guid;
+            }
 
             return string.Format
             (
                 InternationalizationManager.I18N(culture, Display),
-                DisplayFormat == Format.Simple ? match.Groups[7].ToString() : match.Groups[2].ToString()
+                guid
             );
         }
 

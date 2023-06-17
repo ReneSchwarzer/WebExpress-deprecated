@@ -33,7 +33,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         public ControlPanel(string id = null)
             : base(id)
         {
@@ -62,7 +62,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         /// <param name="content">The content of the html element.</param>
         public ControlPanel(string id, params IControl[] content)
             : this(id)
@@ -73,7 +73,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         /// <param name="content">The content of the html element.</param>
         public ControlPanel(string id, IEnumerable<IControl> content)
             : this(id)
@@ -84,7 +84,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         /// <param name="content">The content of the html element.</param>
         public ControlPanel(string id, List<IControl> content)
             : base(id)

@@ -42,7 +42,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         public ControlToolbar(string id = null)
             : base(id)
         {
@@ -52,7 +52,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         /// <param name="items">Die Toolitems</param>
         public ControlToolbar(string id = null, params IControlToolBarItem[] items)
             : this(id)

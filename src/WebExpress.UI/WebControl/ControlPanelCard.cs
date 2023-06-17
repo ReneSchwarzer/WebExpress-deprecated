@@ -12,34 +12,34 @@ namespace WebExpress.UI.WebControl
     public class ControlPanelCard : ControlPanel
     {
         /// <summary>
-        /// Liefert oder setzt den Headertext
+        /// Returns or sets the header text.
         /// </summary>
         public string Header { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt den Headerbild
+        /// Returns or sets the header image.
         /// </summary>
         public string HeaderImage { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Überschrift
+        /// Returns or sets the headline.
         /// </summary>
         public string Headline { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt den Fußtext
+        /// Returns or sets the footer.
         /// </summary>
         public string Footer { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt den Fußbild
+        /// Returns or sets the footer image.
         /// </summary>
         public string FooterImage { get; set; }
 
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         public ControlPanelCard(string id = null)
             : base(id)
         {
@@ -49,7 +49,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         public ControlPanelCard(string id, params Control[] items)
             : base(id, items)
         {
@@ -59,7 +59,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         public ControlPanelCard(params Control[] items)
             : base(items)
         {
@@ -75,9 +75,9 @@ namespace WebExpress.UI.WebControl
         }
 
         /// <summary>
-        /// Fügt weitere Steuerelemente der Karte hinzu
+        /// Adds controls to the panel.
         /// </summary>
-        /// <param name="items">Die einzufügenden Steuerelemente</param>
+        /// <param name="items">The controls to insert.</param>
         public void Add(params Control[] items)
         {
             Content.AddRange(items);

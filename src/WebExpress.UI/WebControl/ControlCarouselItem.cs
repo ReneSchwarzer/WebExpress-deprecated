@@ -6,7 +6,7 @@
     public class ControlCarouselItem
     {
         /// <summary>
-        /// Liefert oder setzt die Überschrift
+        /// Returns or sets the headline.
         /// </summary>
         public string Headline { get; set; }
 

@@ -1,0 +1,19 @@
+.toolpanel {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: fit-content;
+}
+
+    .toolpanel > .dropdown {
+        display: none;
+        position: absolute;
+    }
+
+    .toolpanel:hover .dropdown {
+        display: block;
+    }
+
+    .toolpanel:focus .dropdown {
+        display: block;
+    }

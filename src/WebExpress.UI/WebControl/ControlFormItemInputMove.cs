@@ -27,7 +27,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         public ControlFormItemInputMove(string id = null)
             : base(string.IsNullOrEmpty(id) ? typeof(ControlFormItemInputSelection).GUID.ToString() : id)
         {
@@ -37,7 +37,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         /// <param name="items">The entries.</param>
         public ControlFormItemInputMove(string id, params ControlFormItemInputSelectionItem[] items)
             : this(id)

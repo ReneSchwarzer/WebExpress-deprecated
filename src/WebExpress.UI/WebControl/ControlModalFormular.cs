@@ -15,7 +15,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         public ControlModalFormular(string id = null)
             : this(id, string.Empty, null)
         {
@@ -25,7 +25,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         /// <param name="header">Die Überschrift</param>
         public ControlModalFormular(string id, string header)
             : this(id, header, null)
@@ -36,7 +36,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         /// <param name="content">Die Formularsteuerelemente</param>
         public ControlModalFormular(string id, params ControlFormItem[] content)
             : this(id, string.Empty, content)
@@ -47,7 +47,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         /// <param name="header">Die Überschrift</param>
         /// <param name="content">Die Formularsteuerelemente</param>
         public ControlModalFormular(string id, string header, params ControlFormItem[] content)

@@ -217,7 +217,7 @@ namespace WebExpress.WebComponent
         /// <summary>
         /// Returns a component based on its id.
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         /// <returns>The instance of the component or null.</returns>
         public static IComponent GetComponent(string id)
         {

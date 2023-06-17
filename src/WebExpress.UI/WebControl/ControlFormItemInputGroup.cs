@@ -23,7 +23,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         public ControlFormItemInputGroup(string id = null)
             : base(id)
         {
@@ -34,7 +34,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         /// <param name="group">The name.</param>
         public ControlFormItemInputGroup(string id, ControlFormItemGroup group)
             : base(id)

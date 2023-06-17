@@ -9,7 +9,7 @@ namespace WebExpress.WebApp.WebControl
     public class ControlFormularConfirm : ControlForm
     {
         /// <summary>
-        /// Event wird ausgelöst, wenn das Löschen bestätigt wurde
+        /// Event is triggered when deletion is confirmed.
         /// </summary>
         public event EventHandler<FormularEventArgs> Confirm;
 
@@ -38,7 +38,7 @@ namespace WebExpress.WebApp.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         public ControlFormularConfirm(string id = null)
             : base(id, null)
         {
@@ -46,7 +46,7 @@ namespace WebExpress.WebApp.WebControl
         }
 
         /// <summary>
-        /// Löst das Confirm-Event aus
+        /// Triggers the confirm event.
         /// </summary>
         /// <param name="context">The context in which the control is rendered.</param>
         protected virtual void OnConfirm(RenderContextFormular context)
@@ -67,7 +67,7 @@ namespace WebExpress.WebApp.WebControl
         }
 
         /// <summary>
-        /// Löst das Process-Event aus
+        /// Triggers the crocess event.
         /// </summary>
         /// <param name="context"></param>
         protected override void OnProcess(RenderContextFormular context)

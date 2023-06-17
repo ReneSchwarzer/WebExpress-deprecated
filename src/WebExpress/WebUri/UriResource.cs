@@ -419,7 +419,7 @@ namespace WebExpress.WebUri
                 pathSegments = pathSegments.Select(x =>
                 {
                     if (x is IUriPathSegmentVariable variable &&
-                        variable.VariableName.Equals(parameter.Key, StringComparison.OrdinalIgnoreCase))
+                        variable.VariableName.Equals(parameter?.Key, StringComparison.OrdinalIgnoreCase))
                     {
                         var copy = variable.Copy() as IUriPathSegmentVariable;
                         copy.Value = parameter.Value;

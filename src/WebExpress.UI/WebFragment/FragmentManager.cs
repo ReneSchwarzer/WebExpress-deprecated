@@ -347,20 +347,35 @@ namespace WebExpress.UI.WebFragment
         /// </summary>
         /// <param name="section">The section where the fragment is embedded.</param>
         /// <param name="page">The page that holds the fragments.</param>
-        /// <param name="contexs">The context where the fragments exists.</param>
+        /// <returns>A list of fragments.</returns>
+        public IEnumerable<FragmentCacheItem> GetCacheableFragments<T>
+        (
+            string section,
+            IPage page
+        ) where T : IControl
+        {
+            return GetCacheableFragments<T>(section, page, page?.ResourceContext?.Scopes);
+        }
+
+        /// <summary>
+        /// Determines all fragments that match the parameters.
+        /// </summary>
+        /// <param name="section">The section where the fragment is embedded.</param>
+        /// <param name="page">The page that holds the fragments.</param>
+        /// <param name="scopes">The scopes where the fragments exists.</param>
         /// <returns>A list of fragments.</returns>
         public IEnumerable<FragmentCacheItem> GetCacheableFragments<T>
         (
             string section,
             IPage page,
-            IEnumerable<string> contexs = null
+            IEnumerable<string> scopes
         ) where T : IControl
         {
             var applicationContext = page?.ApplicationContext;
-            contexs ??= Enumerable.Empty<string>();
+            scopes ??= Enumerable.Empty<string>();
 
             var fragmentItems = GetFragmentItems($"{section}:")
-                .Union(contexs.SelectMany(x => GetFragmentItems
+                .Union(scopes.SelectMany(x => GetFragmentItems
                 (
                     string.Join(":", section?.ToLower(), x?.ToLower())
                 )));

@@ -30,7 +30,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         public ControlTag(string id = null)
             : base(id)
         {
@@ -41,7 +41,7 @@ namespace WebExpress.UI.WebControl
         /// Constructor
         /// </summary>
         /// <param name="page">Die zugehörige Seite</param>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         /// <param name="content">The content of the html element.</param>
         public ControlTag(string id, params Control[] content)
             : this(id)
@@ -52,7 +52,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         /// <param name="content">The content of the html element.</param>
         public ControlTag(string id, IEnumerable<Control> content)
             : this(id)

@@ -34,11 +34,35 @@ namespace WebExpress.Html
         /// <summary>
         /// Constructor
         /// </summary>
+        /// <param name="firstNode">The first content of the html element.</param>
+        /// <param name="followingNodes">The following contents of the html elements.</param>
+        public HtmlList(IHtmlNode firstNode, params IHtmlNode[] followingNodes)
+            : this()
+        {
+            Elements.Add(firstNode);
+            Elements.AddRange(followingNodes);
+        }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
         /// <param name="nodes">The content of the html element.</param>
         public HtmlList(IEnumerable<IHtmlNode> nodes)
             : this()
         {
             Elements.AddRange(nodes);
+        }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="firstNode">The first content of the html element.</param>
+        /// <param name="followingNodes">The following contents of the html elements.</param>
+        public HtmlList(IHtmlNode firstNode, IEnumerable<IHtmlNode> followingNodes)
+            : this()
+        {
+            Elements.Add(firstNode);
+            Elements.AddRange(followingNodes);
         }
 
         /// <summary>

@@ -57,7 +57,7 @@ plugin. The plugins answer the requests, create the content and transfer it to W
 Finally, the content is delivered as an HTTP response via WebExpress. WebExpress uses 
 Kestrel to process http(s) requests.
 
-![WebExpress bigpicture](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/bigpicture.svg)
+![WebExpress bigpicture](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/bigpicture.svg)
 
 In order to be able to easily extend WebExpress, it is split into several program libraries. 
 The ```WebExpress.dll``` program library is global and is used as a basis in other projects. It 
@@ -68,14 +68,14 @@ represents the application that takes over the control of the individual functio
 components. The ```WebExpress.App.exe``` program library is generic and can be replaced by its 
 own program library.
 
-![WebExpress packages](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/assets/packages.svg)
+![WebExpress packages](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/assets/dg/packages.svg)
 
 In the context of WebExpress, (web) applications are deployed. An application is the logical 
 combination of modules. Modules, in turn, are amalgamations of (web) elements. Elements reflect 
 content (e.g. web pages). The relationships between WebExpress, packages, applications, modules, 
 and elements are illustrated in the following figure: 
 
-![WebExpress architecture](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/architecture.svg)
+![WebExpress architecture](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/architecture.svg)
 
 ## Component model
 The components of WebExpress and its applications are centrally managed in the ```ComponentManager```.
@@ -98,7 +98,7 @@ The following components are available in WebExpress:
 
 In addition, you can create your own components and register them in the ```ComponentManager```.
 
-![WebExpress componemtmodel](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/componemtmodel.svg)
+![WebExpress componemtmodel](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/componemtmodel.svg)
 
 ## Package model
 WebExpress is designed by its open and modular plugin system, which supports many usage scenarios. The 
@@ -109,7 +109,7 @@ The recursive resolution of the dependencies is done by WebExpress.
 The WebExpress packages are ZIP-compressed files that can provide libraries for multiple platforms. They 
 have the `wxp` file extension. A WebExpress package has the following structure:
 
-![WebExpress packagestructure](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/packagestructure.svg)
+![WebExpress packagestructure](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/packagestructure.svg)
 
 |Directory/ File  |Description
 |-----------------|-------------------
@@ -123,7 +123,7 @@ have the `wxp` file extension. A WebExpress package has the following structure:
 
 The packages are versioned and can assume the following states:
 
-![WebExpress packagestate](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/packagestate.svg)
+![WebExpress packagestate](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/packagestate.svg)
 
 - **Available** - The package is available, but not yet loaded by the WebExpress. 
 - **Active** - The package has been loaded and is ready for use. 
@@ -133,7 +133,7 @@ The ```PackageManager``` is responsible for provisioning the packages. This has 
 packages and deactivating or removing them if desired. The following directories are used to 
 store the packages and libraries: 
 
-![WebExpress packagedirectories](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/packagedirectories.svg)
+![WebExpress packagedirectories](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/packagedirectories.svg)
 
 |Directory/ File |Description
 |----------------|-----------------------
@@ -151,7 +151,7 @@ disabled packages are excluded. A disabled package is activated by changing the 
 loading the package into the package directory. When a package is deleted, it is removed from the package directory and 
 from the catalog. The `PackageManager` manages the catalog. This can be accessed at runtime via the following classes.
 
-![WebExpress packagemodel](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/packagemodel.svg)
+![WebExpress packagemodel](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/packagemodel.svg)
 
 ## Plugin model
 The plugin system can be used to extend both WebExpress and application functionalities. Each plugin can provide content in 
@@ -195,7 +195,7 @@ The following attributes are available:
 The implemented methods from the interface cover the life cycle of the plugin. Meta information about the plugin is 
 stored in the `PluginContext` and is available globally via the ```PluginManager```.
 
-![WebExpress pluginmodel](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/pluginmodel.svg)
+![WebExpress pluginmodel](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/pluginmodel.svg)
 
 ## Application model
 Each plugin can provide one or more applications. To define an application, a class must be defined that implements the 
@@ -231,7 +231,7 @@ The methods implemented from the interface cover the life cycle of the applicati
 applications it contains are instantiated. These remain in place until the plugin is unloaded. Meta information about 
 the application is stored in the ```ApplicationContext``` and managed by the ```ApplicationManager```.
 
-![WebExpress applicationmodel](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/applicationmodel.svg)
+![WebExpress applicationmodel](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/applicationmodel.svg)
 
 ## Module model
 Each application can consist of one or more modules. To define a module, a class must be defined that implements the ```IModule``` 
@@ -268,7 +268,7 @@ The instance of the module is created when the plugin is loaded and persists unt
 implemented from the interface cover the life cycle of the module. Meta information about the module is stored in the ```ModuleContext``` 
 and is available globally. The ```ModuleManager``` manages the modules. 
 
-![WebExpress modulemodel](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/modulemodel.svg)
+![WebExpress modulemodel](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/modulemodel.svg)
 
 ## Resource model
 Resources are (web) elements that can be accessed with a URI (Uniform Resource Identifier). When a plugin is loaded, all classes marked 
@@ -316,12 +316,12 @@ A cached resource is created on the first call and persists until the associated
 at instantiation, while the `Process` method is called each time the resource is requested. For non-cached resources, a new instance is 
 created each time they are called.
 
-![WebExpress sequencediagram](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/sequencediagram.svg)
+![WebExpress sequencediagram](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/sequencediagram.svg)
 
 The ```ResourceManager``` manages all resources. However, these are only accessible through the ```SitemapManager```. The interaction of the classes involved is illustrated 
 in the following figure.
 
-![WebExpress resourcemodel](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/resourcemodel.svg)
+![WebExpress resourcemodel](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/resourcemodel.svg)
 
 Resources, such as pages or assets, can be uniquely addressed with the help of URIs. The following resource types are supported:
 
@@ -336,7 +336,7 @@ In a sitemap, all resources are listed with their URI. When a WebClient calls a 
 caller. Only one resource can be associated with a URI. Multiple URIs, on the other hand, can point to a common resource. This comes into play, among other things, 
 when the segment of the resource has dynamic components (e.g. described by regular expressions). Furthermore, a partial URI can refer to a resource.
 
-![WebExpress sitemap](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/sitemap.svg)
+![WebExpress sitemap](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/sitemap.svg)
 
 The sitemap is implemented as a tree. Multiple paths to the same resource are resolved by creating a copy of the affected resource. For example, the URIs ```/B/E/G```, 
 ```/B/X/G```, and ```/C/D/G``` point to the same resource ```G```, where ```G = G'```.
@@ -393,7 +393,7 @@ parameters are supported:
 ## Page modell
 Web pages are resources that are rendered in an HTML tree before delivery. The ```ViualTree``` class, which is available in the ```RenderContext```, is responsible for the display of the page.
 
-![WebExpress pagemodel](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/pagemodel.svg)
+![WebExpress pagemodel](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/pagemodel.svg)
 
 ## Response modell
 Web queries can be answered with different status responses (see RFC 2616). If successful, a status code of ```200``` is returned with the invoked resource. In the ```ResponseManager```, generally 
@@ -423,7 +423,7 @@ is used to determine the status page:
 - Use the status pages from the plugin "webexpress.webapp".
 - Use the system status pages.
 
-![WebExpress statuspagemodel](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/statuspagemodel.svg)
+![WebExpress statuspagemodel](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/statuspagemodel.svg)
 
 If no status page is found in the current application, a default page is created and delivered by WebExpress.
 
@@ -439,11 +439,11 @@ The provision of multilingual applications for different cultures is supported b
 
 For the translation of texts, language translation files are used, which are stored in the packages under ```Internationalization```. 
 
-![WebExpress internationalizationfiles](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/internationalizationfiles.png)
+![WebExpress internationalizationfiles](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/internationalizationfiles.png)
 
 The data must be stored as embedded resources in the project file.
 
-![WebExpress internationalizationproject](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/internationalizationproject.png)
+![WebExpress internationalizationproject](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/internationalizationproject.png)
 
 The name of the language translation file must match the country code from ISO 3166 ALPHA-2. Each language translation file is structured as follows:
 
@@ -467,23 +467,23 @@ var text = I18N(culture, "PlginId:name.discription"); culture, pluginId:key
 ## Controls
 Controls are units of the web page that are translated into HTML source code by rendering. A Web page consists of nested controls.
 
-![WebExpress controls](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/controls.png)
+![WebExpress controls](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/controls.svg)
 
 ### Form
 A form takes user input and forwards it to the web server for processing.
 
-![WebExpress formprocess](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/formprocess.png)
+![WebExpress formprocess](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/formprocess.svg)
 
 Form classes and associated form controls are available for entering data.
 
-![WebExpress form](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/form.png)
+![WebExpress form](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/form.svg)
 
 The alignment of the form elements can be controlled with the help of the different form classes.
 
 |Class                   |Description
 |------------------------|-------------------------
-|```ControlForm```       |A form in which the elements are arranged in several rows. ![WebExpress controlform](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/controlform.svg)
-|```ControlFormInline``` |A form whose elements are arranged in one row. ![WebExpress controlforminline](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/controlforminline.svg)
+|```ControlForm```       |A form in which the elements are arranged in several rows. ![WebExpress controlform](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/controlform.svg)
+|```ControlFormInline``` |A form whose elements are arranged in one row. ![WebExpress controlforminline](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/controlforminline.svg)
 
 ### Form controls
 Each form can hold multiple form controls. There are two different types of form controls:
@@ -495,18 +495,18 @@ The arrangement of the form contents can be controlled by the ```ControlFormItem
 
 |Arrangement      |Class                                      |Example
 |-----------------|-------------------------------------------|-------------
-|Vertical         |```ControlFormItemGroupVertical```         |![WebExpress groupvertical](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/groupvertical.svg)
-|Horizontal       |```ControlFormItemGroupHorizontal```       |![WebExpress grouphorizontal](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/grouphorizontal.svg)
-|Mix              |```ControlFormItemGroupMix```              |![WebExpress groupmix](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/groupmix.svg)
-|ColumnVertical   |```ControlFormItemGroupColumnVertical```   |![WebExpress groupcolumnvertical](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/groupcolumnvertical.svg)
-|ColumnHorizontal |```ControlFormItemGroupColumnHorizontal``` |![WebExpress groupcolumnhorizontal](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/groupcolumnhorizontal.svg)
-|ColumnMix        |```ControlFormItemGroupColumnMix```        |![WebExpress groupcolumnmix](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/groupcolumnmix.svg)
+|Vertical         |```ControlFormItemGroupVertical```         |![WebExpress groupvertical](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/groupvertical.svg)
+|Horizontal       |```ControlFormItemGroupHorizontal```       |![WebExpress grouphorizontal](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/grouphorizontal.svg)
+|Mix              |```ControlFormItemGroupMix```              |![WebExpress groupmix](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/groupmix.svg)
+|ColumnVertical   |```ControlFormItemGroupColumnVertical```   |![WebExpress groupcolumnvertical](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/groupcolumnvertical.svg)
+|ColumnHorizontal |```ControlFormItemGroupColumnHorizontal``` |![WebExpress groupcolumnhorizontal](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/groupcolumnhorizontal.svg)
+|ColumnMix        |```ControlFormItemGroupColumnMix```        |![WebExpress groupcolumnmix](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/groupcolumnmix.svg)
 
 ## Fragment model
 Fragments are components that can be integrated into pages to extend functionalities. Fragments can come from different sources (plugins). When a resource is loaded, the fragments 
 stored in the sections are determined, instantiated and integrated into the resource. A section is a named area within a page (e.g. ```Property.Primary```).
 
-![WebExpress fragmentmodel](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/fragmentmodel.svg)
+![WebExpress fragmentmodel](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/fragmentmodel.svg)
 
 Fragments are derived from the ```IFragment``` interface and are identified by attributes:
 
@@ -556,7 +556,7 @@ In the ```Create``` method, the fragments are instantiated.
 A session establishes a state-based connection between the client and WebExpress using the otherwise stateless HTTP(S) protocol. The session is assigned to a cookie and 
 is personalized. The cookie consists of a guid. Further data is not stored in the cookie, but on the server side in the ```session``` object. 
 
-![WebExpress sessionmodel](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/sessionmodel.svg)
+![WebExpress sessionmodel](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/sessionmodel.svg)
 
 The session manager delivers the currently used session based on the cookie stored in the request. The session, in turn, stores instances of the ```ISessionProperty``` 
 interface in which the information (e.g. parameters) is stored. 
@@ -565,7 +565,7 @@ interface in which the information (e.g. parameters) is stored.
 Jobs are tasks that are executed in a time-controlled and repetitive manner. When a plugin is loaded, all jobs containing it are determined by the ScheduleManager and 
 instantiated and started at the specified execution time.
 
-![WebExpress jobmodel](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/jobmodel.svg)
+![WebExpress jobmodel](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/jobmodel.svg)
 
 A job is created by creating a class that inherits from Job.
 
@@ -598,20 +598,20 @@ Tasks are another form of concurrent code execution. In contrast to jobs, tasks 
 may not be available until a later date. However, the web application can still be fully used. If the result is available, information is usually provided (e.g. by means 
 of a notification).
 
-![WebExpress taskmodel](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/taskmodel.svg)
+![WebExpress taskmodel](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/taskmodel.svg)
 
 Tasks are created dynamically by instantiating a class derived from ```Task``` and starting it from the ```TaskManager```.
 
 The tasks can take the following states:
 
-![WebExpress taskstate](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/taskstate.svg)
+![WebExpress taskstate](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/taskstate.svg)
 
 ## Notification model
 Notifications are messages that are displayed to users as pop-up windows. The notifications are globally (visible to all), linked to a session (visible to current users) or 
 to specific roles (visible to selected users). The notifications are displayed in the upper right corner and are retained when a page is changed. Notifications are closed 
 by the user or at the end of the display period. Notifications that are visible to multiple users are removed by closing a user.
 
-![WebExpress notificationmodel](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/notificationmodel.svg)
+![WebExpress notificationmodel](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/notificationmodel.svg)
 
 The ```NotificationManager``` is the central class for notifications. The ```AddNotification``` method is used to create notifications.
 
@@ -643,7 +643,7 @@ NotificationManager.AddNotification
 
 The example creates a notification with a headline, an icon, and a message. The display time is 30 seconds.
 
-![WebExpress notification](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/notification.png)
+![WebExpress notification](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/notification.png)
 
 The NotificationManager must be enabled in the application. For this purpose, webexpress.webapp with the ResourceId or all webexpress.webapp.* must be included.
 
@@ -678,7 +678,7 @@ The provisioning service provides WebExpress with the basic requirements for the
 account. The following illustration outlines the lifecycle of a user account. A user account can be in one of two states, ```Active``` and ```Deactivated```. If the 
 events ```Create```, ```Update```, ```Disable```, ```Enable``` or ```Delete``` occur, the user account changes its state.
 
-![WebExpress identitystate](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/identitystate.svg)
+![WebExpress identitystate](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/identitystate.svg)
 
 - Create: This event creates a new user account for an entity. As a rule, each entity should have exactly one user account. 
 - Update: The update event is triggered in the event of changes (e.g. marriage or relocation). The changes are forwarded to the appropriate user accounts.
@@ -696,15 +696,14 @@ of a collection of attributes (properties e.g. name, password), which individual
 each group can be assigned one or more roles (e.g. administrator, programmer). The roles determine access to identity resources. In the following figure, the concept of 
 identity is defined in terms of a UML model.
 
-![WebExpress identity](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/identity.svg)
+![WebExpress identity](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/identity.svg)
 
 The identities and groups must be loaded from a persistent data storage. These can be provided by the application or come from external identity management (e.g. LDAP). The roles and 
 identity resources are dictated by the application by hard-implementing them.
 
-![WebExpress identitymodel](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/identitymodel.svg)
+![WebExpress identitymodel](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/identitymodel.svg)
 
 WebExpress provides the following default groups:
-![WebExpress identitymodel](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/identitymodel.svg)
 
 |Group |Description
 |------|------------------
@@ -730,7 +729,6 @@ public sealed class MyIdentityRole : IIdentityRole
 {
 }
 ````
-![WebExpress identitymodel](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/identitymodel.svg)
 
 The role definition classes have the following attributes:
 
@@ -771,7 +769,7 @@ one transition (identity -> group -> role -> identity resource). This is done by
 ```CheckAccess: (Identity, Identity Resource, Right) → Bool ```
 of the Identity Manager. A return value of ```true``` means that access can be made.
 
-![WebExpress checkaccess](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/checkaccess.svg)
+![WebExpress checkaccess](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/checkaccess.svg)
 
 During the authorization check, a distinction is made between the following types of access:
 
@@ -799,7 +797,7 @@ The ```WebExpress.WebApp.dll``` package provides a template for creating busines
 The template determines the layout of a page. The page is divided into a header, a side area, the page content, and a footer. The individual sections (areas) can be accessed 
 via the class properties. Furthermore, components can bind to these areas and display their contents.
 
-![WebExpress webapppage](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/webapppage.svg)
+![WebExpress webapppage](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/webapppage.svg)
 
 ### Header
 The business application header contains buttons and submenus to navigate the application at the top level. The ```ApplicationNavigator``` refers to other (WebExpress) 
@@ -808,70 +806,70 @@ point to key features of the application. The ```QuickCreate``` button provides 
 to the application. The ```Help``` shaft panel groups the application's help links. The ```Notification``` button collects all notifications from the application. In 
 the ```Avatar``` button, the functions of the user account are provided. The ```Setting``` button contains the functions for configuring the application.
 
-![WebExpress webapppageheader](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/webapppageheader.svg)
+![WebExpress webapppageheader](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/webapppageheader.svg)
 
 ### Sidebar
 The left side area of the application is responsible for the navigation of a thematically related area/function. Links to sub-functions or data sets can be created and 
 displayed here.
 
-![WebExpress webapppagesidebar](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/webapppagesidebar.svg)
+![WebExpress webapppagesidebar](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/webapppagesidebar.svg)
 
 ### Content
 The content area is used to display records (for example, as a table or list) or to display and edit a record.
 
-![WebExpress webapppagecontent](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/webapppagecontent.svg)
+![WebExpress webapppagecontent](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/webapppagecontent.svg)
 
 ### Toolbar
 
 The toolbar contains links or buttons with data-independent functions (e.g. switching between lists and table view).
 
-![WebExpress webapppagetoolbar](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/webapppagetoolbar.svg)
+![WebExpress webapppagetoolbar](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/webapppagetoolbar.svg)
 
 ### Headline
 The headline displays the title of the displayed data. The title bar also has data-dependent functions (e.g. printing) and a display of metadata (e.g. creation date, creator).
 
-![WebExpress webapppageheadline](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/webapppageheadline.svg)
+![WebExpress webapppageheadline](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/webapppageheadline.svg)
 
 ### Property
 The properties pane is used to display metadata and properties of the displayed data (for example, attachments). 
 
-![WebExpress webapppageproperty](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/webapppageproperty.svg)
+![WebExpress webapppageproperty](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/webapppageproperty.svg)
 
 ### Notifications
 There are three ways to display notifications in web applications. The first way is to display notifications in the Notification section of the header. Above all, personalized 
 notifications are displayed here (e.g. new comments on subscribed content). The second way is to display notifications in an area below the header. This is intended for application-wide 
 notifications (e.g. scheduled maintenance windows).
 
-![WebExpress webapppagetoastnotification](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/webapppagetoastnotification.svg)
+![WebExpress webapppagetoastnotification](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/webapppagetoastnotification.svg)
 
 The third option is to display notifications in a pop-up dialog. This is intended for the display of results (e.g. successful saving).
 
-![WebExpress webapppagenotification](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/webapppagenotification.svg)
+![WebExpress webapppagenotification](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/webapppagenotification.svg)
 
 ### Searchoptions
 The search options provide a dialog for filtering records.
 
-![WebExpress webapppagesearchoption](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/webapppagesearchoption.svg)
+![WebExpress webapppagesearchoption](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/webapppagesearchoption.svg)
 
 ### Footer
 The footer is located at the bottom of the web application and usually contains information about the copyright, imprint and version.
 
-![WebExpress webapppagefooter](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/webapppagefooter.svg)
+![WebExpress webapppagefooter](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/webapppagefooter.svg)
 
 ## Login Page
 The login page is used to authenticate users. 
 
-![WebExpress webapploginpage](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/webapploginpage.svg)
+![WebExpress webapploginpage](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/webapploginpage.svg)
 
 ## Status page
 The status pages are displayed in case of errors. This can have different causes. For example, if a requested page was not found.
 
-![WebExpress webappstatuspage](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/webappstatuspage.svg)
+![WebExpress webappstatuspage](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/webappstatuspage.svg)
 
 ## Setting page
 Setting page templates are used to administer the web applications. Settings pages must implement the ```IPageSetting``` interface.
 
-![WebExpress webappsettingpagemodel](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/webappsettingpagemodel.svg)
+![WebExpress webappsettingpagemodel](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/webappsettingpagemodel.svg)
 
 When the settings page is generated, the class is enriched with meta information by attributes.
 
@@ -901,24 +899,24 @@ The following attributes are available for a settings page:
 The template is specially adapted to the settings pages. In particular, the side navigation pane and a tab element are automatically populated 
 from the meta information.
 
-![WebExpress webappsettingpage](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/webappsettingpage.svg)
+![WebExpress webappsettingpage](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/webappsettingpage.svg)
 
 ### Setting menu
 The settings menu groups the different settings thematically. The groups are determined from the ```SettingGroup``` attributes of the settings pages.
 
-![WebExpress webappsettingpagemenu](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/webappsettingpagemenu.svg)
+![WebExpress webappsettingpagemenu](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/webappsettingpagemenu.svg)
 
 ### Setting tab
 The contents of the ```SettingTab``` are fed from the ```SettingSection``` attributes of the settings pages. For each defined section, a tab element is created and linked to the first element 
 of the section. The ```SettingTab``` is not displayed if no section or only one section has been defined.
 
-![WebExpress webappsettingpagetab](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/webappsettingpagetab.svg)
+![WebExpress webappsettingpagetab](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/webappsettingpagetab.svg)
 
 ## Theme model
 WebExpress.WebApp offers a ready-made layout (e.g. color scheme, fonts, font sizes). This can be adapted to individual needs by the web applications. The management of the themes is taken over by the 
 ```ThemeManager```. An individual topic can be assigned to each application. The configuration of the topics can be done via definition classes or via a settings dialog, which is provided by WebExpress.WebApp.
 
-![WebExpress webappthememodel](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/webappthememodel.svg)
+![WebExpress webappthememodel](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/webappthememodel.svg)
 
 A color scheme is defined in a class that implements the ITheme interface and is associated with an application.
 
@@ -958,7 +956,7 @@ CRUD stands for the four basic operations supported by WebExpress.WebApp in the 
 
 The CRUD framework consists of HTML and REST API templates that provide a generic view and processing.
 
-![WebExpress crud](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/crud.svg)
+![WebExpress crud](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/crud.svg)
 
 CRUD operations are mapped by the REST API by the following operations (RFC 7231 and RFC 5789):
 

@@ -9,7 +9,7 @@ namespace WebExpress.WebApp.WebControl
     public class ControlModalFormularConfirm : ControlModalFormular
     {
         /// <summary>
-        /// Event wird ausgelöst, wenn das Löschen bestätigt wurde
+        /// Event is triggered when deletion is confirmed.
         /// </summary>
         public event EventHandler<FormularEventArgs> Confirm;
 
@@ -34,14 +34,14 @@ namespace WebExpress.WebApp.WebControl
         public new ControlFormItem Content { get; set; }
 
         /// <summary>
-        /// Returns or sets the width.rleitungs-Uri
+        /// Returns or sets the redirect uri.
         /// </summary>
         public string RedirectUri { get { return Formular?.RedirectUri; } set { Formular.RedirectUri = value; } }
 
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         public ControlModalFormularConfirm(string id = null)
             : this(id, null)
         {
@@ -51,7 +51,7 @@ namespace WebExpress.WebApp.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         /// <param name="content">Die Formularsteuerelemente</param>
         public ControlModalFormularConfirm(string id, params ControlFormItem[] content)
             : base(id, string.Empty, content)
@@ -71,7 +71,7 @@ namespace WebExpress.WebApp.WebControl
         }
 
         /// <summary>
-        /// Löst das Confirm-Event aus
+        /// Triggers the Confirm event.
         /// </summary>
         /// <param name="context">The context in which the control is rendered.</param>
         protected virtual void OnConfirm(RenderContextFormular context)

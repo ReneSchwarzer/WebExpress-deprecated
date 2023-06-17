@@ -5,7 +5,7 @@
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         public ControlPanelDialog(string id = null)
             : base(id)
         {

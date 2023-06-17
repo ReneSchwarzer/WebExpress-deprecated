@@ -14,7 +14,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         public ControlNavigationItemHeader(string id = null)
             : base(id)
         {
@@ -23,7 +23,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         /// <param name="text">The text.</param>
         public ControlNavigationItemHeader(string id, string text)
             : base(id)
