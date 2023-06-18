@@ -22,7 +22,7 @@ namespace WebExpress.WebJob
         /// Initialization
         /// </summary>
         /// <param name="context">The context in which the job is executed.</param>
-        public virtual void Initialization(JobContext context)
+        public virtual void Initialization(IJobContext context)
         {
             Context = context;
         }

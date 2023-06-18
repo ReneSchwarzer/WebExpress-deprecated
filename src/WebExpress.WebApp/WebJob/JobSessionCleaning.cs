@@ -12,7 +12,7 @@ namespace WebExpress.WebApp.WebJob
         /// Initialization
         /// </summary>
         /// <param name="context">The context in which the job is executed.</param>
-        public override void Initialization(JobContext context)
+        public override void Initialization(IJobContext context)
         {
             base.Initialization(context);
         }

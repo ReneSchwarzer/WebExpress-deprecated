@@ -11,7 +11,7 @@ namespace WebExpress.WebJob
         /// Initialization
         /// </summary>
         /// <param name="context">The context in which the job is executed.</param>
-        public void Initialization(JobContext context);
+        public void Initialization(IJobContext context);
 
         /// <summary>
         /// Processing of the resource.
