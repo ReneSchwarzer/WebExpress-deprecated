@@ -173,10 +173,10 @@ different forms. A distinction is made between the following types of content:
 Each plugin must have a class `Plugin` that implements ```IPlugin```.
 
 ``` c#
-[WebExName("myplugin")]
-[WebExDescription("description")]
-[WebExIcon("/assets/img/Logo.png")]
-[WebExDependency("webexpress.webapp")]
+[Name("myplugin")]
+[Description("description")]
+[Icon("/assets/img/Logo.png")]
+[Dependency("webexpress.webapp")]
 public sealed class MyPlugin : IPlugin
 {
 }
@@ -184,13 +184,13 @@ public sealed class MyPlugin : IPlugin
 
 The following attributes are available:
 
-|Attribute        |Type   |Multiplicity |Optional |Description
-|-----------------|-------|-------------|---------|--------------
-|WebExId          |String |1            |Yes      |The unique identification key. If no ID is specified, the namespace is used. An ìd should only be specified in exceptional cases.
-|WebExName        |String |1            |Yes      |The name of the plugin. This can be a key to internationalization.
-|WebExDescription |String |1            |Yes      |The description of the plugin. This can be a key to internationalization.
-|WebExIcon        |String |1            |Yes      |The icon that represents the plugin graphically.
-|WebExDependency  |String |n            |Yes      |Defines a dependency on another plugin and is specified via the PluginId.
+|Attribute   |Type   |Multiplicity |Optional |Description
+|------------|-------|-------------|---------|--------------
+|Id          |String |1            |Yes      |The unique identification key. If no ID is specified, the namespace is used. An ìd should only be specified in exceptional cases.
+|Name        |String |1            |Yes      |The name of the plugin. This can be a key to internationalization.
+|Description |String |1            |Yes      |The description of the plugin. This can be a key to internationalization.
+|Icon        |String |1            |Yes      |The icon that represents the plugin graphically.
+|Dependency  |String |n            |Yes      |Defines a dependency on another plugin and is specified via the PluginId.
 
 The implemented methods from the interface cover the life cycle of the plugin. Meta information about the plugin is 
 stored in the `PluginContext` and is available globally via the ```PluginManager```.
@@ -202,11 +202,11 @@ Each plugin can provide one or more applications. To define an application, a cl
 `IApplication` interface. The application's metadata is appended as attributes of the class.
 
 ``` c#
-[WebExName("Application")]
-[WebExDescription("example")]
-[WebExIcon("/app.svg")]
-[WebExContextPath("/app")]
-[WebExAssetPath("/app")]
+[Name("Application")]
+[Description("example")]
+[Icon("/app.svg")]
+[ContextPath("/app")]
+[AssetPath("/app")]
 public sealed class MyApplication : IApplication
 {
 }
@@ -214,18 +214,18 @@ public sealed class MyApplication : IApplication
 
 The following attributes are available:
 
-|Attribute        |Type       |Multiplicity |Optional |Description
-|-----------------|-----------|-------------|---------|------------
-|WebExId          |String     |1            |Yes      |The unique identification key. If no ID is specified, the class name is used. An ID should only be specified in exceptional cases.
-|WebExName        |String     |1            |Yes      |The name of the application. This can be a key to internationalization.
-|WebExDescription |String     |1            |Yes      |The description of the application. This can be a key to internationalization.
-|WebExIcon        |String     |1            |Yes      |The icon that represents the application graphically.
-|WebExAssetPath   |String     |1            |Yes      |The path where the assets are stored. This file path is mounted in the asset path of the web server.
-|WebExDataPath    |String     |1            |Yes      |The path where the data is stored. This file path is mounted in the data path of the web server.
-|WebExContextPath |String     |1            |Yes      |The context path where the resources are stored. This path is mounted in the context path of the web server.
-|WebOption        |String     |n            |Yes      |Includes resources that are marked as optional and are otherwise not directly integrated into the application. The name of the option is the ModuleId and the ResourceId (e.g. webexpress.webapp.settinglog) or webexpress.webapp.* if all options of a module are to be included. A regular expression can also be used.
-| ^^              |Type       | ^^          | ^^      |The class of the module. All options from the module will be activated.
-| ^^              |Type, Type | ^^          | ^^      |The class of the module and resource to be activated.
+|Attribute   |Type       |Multiplicity |Optional |Description
+|------------|-----------|-------------|---------|------------
+|Id          |String     |1            |Yes      |The unique identification key. If no ID is specified, the class name is used. An ID should only be specified in exceptional cases.
+|Name        |String     |1            |Yes      |The name of the application. This can be a key to internationalization.
+|Description |String     |1            |Yes      |The description of the application. This can be a key to internationalization.
+|Icon        |String     |1            |Yes      |The icon that represents the application graphically.
+|AssetPath   |String     |1            |Yes      |The path where the assets are stored. This file path is mounted in the asset path of the web server.
+|DataPath    |String     |1            |Yes      |The path where the data is stored. This file path is mounted in the data path of the web server.
+|ContextPath |String     |1            |Yes      |The context path where the resources are stored. This path is mounted in the context path of the web server.
+|Option      |String     |n            |Yes      |Includes resources that are marked as optional and are otherwise not directly integrated into the application. The name of the option is the ModuleId and the ResourceId (e.g. webexpress.webapp.settinglog) or webexpress.webapp.* if all options of a module are to be included. A regular expression can also be used.
+| ^^         |Type       | ^^          | ^^      |The class of the module. All options from the module will be activated.
+| ^^         |Type, Type | ^^          | ^^      |The class of the module and resource to be activated.
 
 The methods implemented from the interface cover the life cycle of the application. When the plugin is loaded, all the 
 applications it contains are instantiated. These remain in place until the plugin is unloaded. Meta information about 
@@ -239,11 +239,11 @@ interface. The module's metadata is appended as attributes of the class. A modul
 for the application and making them accessible.
 
 ``` c#
-[WebExName("MyModule")]
-[WebExDescription("example")]
-[WebExIcon("/mod.svg")]
-[WebExContextPath("/mod")]
-[WebExApplication<MyApplication>]
+[Name("MyModule")]
+[Description("example")]
+[Icon("/mod.svg")]
+[ContextPath("/mod")]
+[Application<MyApplication>]
 public sealed class MyModule : IModule
 {
 }
@@ -251,18 +251,18 @@ public sealed class MyModule : IModule
 
 The following attributes are available:
 
-|Attribute           |Type               |Multiplicity |Optional |Description
-|--------------------|-------------------|-------------|---------|----------------
-|WebExId             |String             |1            |Yes      |The unique identification key. If no ID is specified, the class name is used. An id should only be specified in exceptional cases.
-|WebExName           |String             |1            |Yes      |The name of the module. This can be a key to internationalization.
-|WebExDescription    |String             |1            |Yes      |The description of the module. This can be a key to internationalization.
-|WebExIcon           |String             |1            |Yes      |The icon that represents the module graphically.
-|WebExAssetPath      |String             |1            |Yes      |The path where the assets are stored. This path is mounted in the application's asset path.
-|WebExDataPath       |String             |1            |Yes      |The path where the data is stored. This file path is mounted in the data path of the application.
-|WebExContextPath    |String             |1            |Yes      |The context path where the resources are stored. This path is mounted in the context path of the application.
-|WebExIdentityDomain |None, Local, Share |1            |Yes      |Determines the identity domain of the application. `None` - The application does not provide an identity domain. `Local` - The application has its own identity domain. `Share` - The application shares the identity domain with other applications.
-|WebExApplication    |String             |n            |No       |A specific `ApplicationId`, regular expression, or * for any application. 
-|                    |Type               |             |         |The class of the application.
+|Attribute      |Type               |Multiplicity |Optional |Description
+|---------------|-------------------|-------------|---------|----------------
+|Id             |String             |1            |Yes      |The unique identification key. If no ID is specified, the class name is used. An id should only be specified in exceptional cases.
+|Name           |String             |1            |Yes      |The name of the module. This can be a key to internationalization.
+|Description    |String             |1            |Yes      |The description of the module. This can be a key to internationalization.
+|Icon           |String             |1            |Yes      |The icon that represents the module graphically.
+|AssetPath      |String             |1            |Yes      |The path where the assets are stored. This path is mounted in the application's asset path.
+|DataPath       |String             |1            |Yes      |The path where the data is stored. This file path is mounted in the data path of the application.
+|ContextPath    |String             |1            |Yes      |The context path where the resources are stored. This path is mounted in the context path of the application.
+|IdentityDomain |None, Local, Share |1            |Yes      |Determines the identity domain of the application. `None` - The application does not provide an identity domain. `Local` - The application has its own identity domain. `Share` - The application shares the identity domain with other applications.
+|Application    |String             |n            |No       |A specific `ApplicationId`, regular expression, or * for any application. 
+|               |Type               |             |         |The class of the application.
 
 The instance of the module is created when the plugin is loaded and persists until the application is unloaded. The methods 
 implemented from the interface cover the life cycle of the module. Meta information about the module is stored in the ```ModuleContext``` 
@@ -276,12 +276,12 @@ as resources are automatically determined from the assembly and included in a si
 provided with attributes.
 
 ``` c#
-[WebExSegment("E")]
-[WebExContextPath("/C/D")]
-[WebExModule<MyModule>]
-[WebExScope<ScopeGeneral>]
-[WebExAuthorization(Permission.RWX, IdentityRoleDefault.SystemAdministrator)]
-[WebExAuthorization(Permission.R, IdentityRoleDefault.Everyone)]
+[Segment("E")]
+[ContextPath("/C/D")]
+[Module<MyModule>]
+[Scope<ScopeGeneral>]
+[Authorization(Permission.RWX, IdentityRoleDefault.SystemAdministrator)]
+[Authorization(Permission.R, IdentityRoleDefault.Everyone)]
 public sealed class G : ResourcePage
 {
 }
@@ -289,22 +289,22 @@ public sealed class G : ResourcePage
 
 The following attributes are available:
 
-|Attribute            |Type              |Multiplicity |Optional |Description
-|---------------------|------------------|-------------|---------|----------------
-|WebExId              |String            |1            |Yes      |The unique identification key. If no id is specified, the class name is used. An id should only be specified in exceptional cases.
-|WebExTitle           |String            |1            |Yes      |The name of the page. This can be an internationalization key.
-|WebExSegment         |String, String    |1            |Yes      |The path segment of the resource. The first argument is the path segment. The second argument is the display string.
-|WebExSegmentInt      |Parameter, String |1            |Yes      |A variable path segment of type `Int`.
-|WebExSegmentGuid     |Parameter, String |1            |Yes      |A variable path segment of type `Guid`.
-|WebExContextPath     |String            |1            |Yes      |The URI path from the module to the resource. The URI of the RSresource is composed of the `ContextPath` of the web server, the application, the module, the resource, and the segment.
-|WebExParent          |IResource         |1            |Yes      |The resource is included below a parent resource. The context path is derived from that of the parent and the resource.
-|WebExIncludeSubPaths |Bool              |1            |Yes      |Determines whether all resources below the specified path (including segment) are processed.
-|WebExScope           |IScope            |n            |Yes      |The scope of the resource
-|WebExModule          |IModule           |1            |No       |The class of the module. The module must be defined in the same plugin as the resource.
-|WebExAuthorization   |Int, String       |n            |Yes      |Grants authority to a role (specifying the id) (see section notification model).
-|WebExCondition       |ICondition        |n            |Yes      |Condition that must be met for the resource to be available.
-|WebExCache           |-                 |1            |Yes      |Determines whether the resource is created once and reused each time it is called.
-|WebExOptional        |-                 |1            |Yes      |Marks a resource as optional. It only becomes active if the option has been activated in the application.
+|Attribute       |Type              |Multiplicity |Optional |Description
+|----------------|------------------|-------------|---------|----------------
+|Id              |String            |1            |Yes      |The unique identification key. If no id is specified, the class name is used. An id should only be specified in exceptional cases.
+|Title           |String            |1            |Yes      |The name of the page. This can be an internationalization key.
+|Segment         |String, String    |1            |Yes      |The path segment of the resource. The first argument is the path segment. The second argument is the display string.
+|SegmentInt      |Parameter, String |1            |Yes      |A variable path segment of type `Int`.
+|SegmentGuid     |Parameter, String |1            |Yes      |A variable path segment of type `Guid`.
+|ContextPath     |String            |1            |Yes      |The URI path from the module to the resource. The URI of the RSresource is composed of the `ContextPath` of the web server, the application, the module, the resource, and the segment.
+|Parent          |IResource         |1            |Yes      |The resource is included below a parent resource. The context path is derived from that of the parent and the resource.
+|IncludeSubPaths |Bool              |1            |Yes      |Determines whether all resources below the specified path (including segment) are processed.
+|Scope           |IScope            |n            |Yes      |The scope of the resource
+|Module          |IModule           |1            |No       |The class of the module. The module must be defined in the same plugin as the resource.
+|Authorization   |Int, String       |n            |Yes      |Grants authority to a role (specifying the id) (see section notification model).
+|Condition       |ICondition        |n            |Yes      |Condition that must be met for the resource to be available.
+|Cache           |-                 |1            |Yes      |Determines whether the resource is created once and reused each time it is called.
+|Optional        |-                 |1            |Yes      |Marks a resource as optional. It only becomes active if the option has been activated in the application.
 
 Resources that are not identified by attributes can be registered manually in the sitemap.
 
@@ -344,7 +344,7 @@ The sitemap is implemented as a tree. Multiple paths to the same resource are re
 Context paths can be specified in the configuration of WebExpress, the applications and the modules. The context paths are prefixed to the URIs. The following 
 possible combinations exist:
 
-|WebExpress |Application |Module | Resource | URI
+|press |Application |Module | Resource | URI
 |-----------|------------|-------|----------|----
 |-          |-           |-      |/         |/
 |-          |-           |-      |/a/b/c    |/a/b/c
@@ -410,9 +410,9 @@ public sealed class S : ResourcePage, IStatusPage
 
 The following attributes are available:
 
-|Attribute       |Type |Multiplicity |Optional |Description
-|----------------|-----|-------------|---------|-------------
-|WebExStatusCode |int  |1            |No       |The status code (see RFC 2616 para. 6). 
+|Attribute  |Type |Multiplicity |Optional |Description
+|-----------|-----|-------------|---------|-------------
+|StatusCode |int  |1            |No       |The status code (see RFC 2616 para. 6). 
 
 When creating a response that differs from status 200, the corresponding status page is determined from the ResponseManger and an instance is created. To do this, the following order 
 is used to determine the status page:
@@ -511,12 +511,12 @@ stored in the sections are determined, instantiated and integrated into the reso
 Fragments are derived from the ```IFragment``` interface and are identified by attributes:
 
 ``` c#
-[WebExSection("Sektionsname")]
-[WebExOrder(0)]
-[WebExModule<MyModule>]
-[WebExScope<ScopeGeneral>]
-[WebExAuthorization(Permission.RW, IdentityRoleDefault.Authenticated)]
-[WebExAuthorization(Permission.R, IdentityRoleDefault.Everyone)]
+[Section("Sektionsname")]
+[Order(0)]
+[Module<MyModule>]
+[Scope<ScopeGeneral>]
+[Authorization(Permission.RW, IdentityRoleDefault.Authenticated)]
+[Authorization(Permission.R, IdentityRoleDefault.Everyone)]
 public sealed class C : IFragment
 {
 }
@@ -524,23 +524,23 @@ public sealed class C : IFragment
 
 The following attributes are available:
 
-|Attribute          |Type        |Multiplicity |Optional |Description
-|-------------------|------------|-------------|---------|-----------------
-|WebExId            |String      |1            |No       |The unique identification key. 
-|WebExSection       |String      |1            |No       |The section of the Web page where the fragment is rendered.
-|WebExOrder         |Int         |1            |Yes      |The order within the section. If no value is specified, the order "0" is set as the default.
-|WebExModule        |IModule     |1            |No       |The class of the module. The module must be defined in the same plugin as the resource.
-|WebExScope         |IScope      |n            |Yes      |The scope in which the fragment is valid.
-|WebExAuthorization |Int, String |n            |Yes      |Grants authority to a role (specifying the id).       
-|WebExCondition     |ICondition  |1            |Yes      |Condition that must be met for the fragment to be available.
-|WebExCache         |-           |1            |Yes      |Determines whether the fragment is created once and reused each time it is called. This attribute is active only if the associated page also has the cache attribute. 
+|Attribute     |Type        |Multiplicity |Optional |Description
+|--------------|------------|-------------|---------|-----------------
+|Id            |String      |1            |No       |The unique identification key. 
+|Section       |String      |1            |No       |The section of the Web page where the fragment is rendered.
+|Order         |Int         |1            |Yes      |The order within the section. If no value is specified, the order "0" is set as the default.
+|Module        |IModule     |1            |No       |The class of the module. The module must be defined in the same plugin as the resource.
+|Scope         |IScope      |n            |Yes      |The scope in which the fragment is valid.
+|Authorization |Int, String |n            |Yes      |Grants authority to a role (specifying the id).       
+|Condition     |ICondition  |1            |Yes      |Condition that must be met for the fragment to be available.
+|Cache         |-           |1            |Yes      |Determines whether the fragment is created once and reused each time it is called. This attribute is active only if the associated page also has the cache attribute. 
 
 If the fragments are to be created dynamically at runtime, it is necessary to create a class that implements ```IFragmentDynamic```.
 
 ``` c#
-[WebExSection("section name")]
-[WebExModule<MyModule>]
-[WebExScope<ScopeGeneral>]
+[Section("section name")]
+[Module<MyModule>]
+[Scope<ScopeGeneral>]
 public sealed class C : IFragmentDynamic
 {
     public IEnumerable<T> Create<T>() where T : IControl
@@ -561,17 +561,44 @@ is personalized. The cookie consists of a guid. Further data is not stored in th
 The session manager delivers the currently used session based on the cookie stored in the request. The session, in turn, stores instances of the ```ISessionProperty``` 
 interface in which the information (e.g. parameters) is stored. 
 
+## Event modell
+Events are notifications from the WebExpress API or web applications that can be subscribed to and evaluated.
+
+![WebExpress jobmodel](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/eventmodel.svg)
+
+A eventhandler is created by creating a class that inherits from ```IEventHandler```.
+
+``` c#
+[Event<Event>] 
+[Module<MyModule>]
+public sealed class MyEventHandler : IEventHandler
+{
+  public override void Process(object sender)
+  {
+    base Process();
+  }
+}
+```
+
+The following attributes are available:
+
+|Attribute |Type    |Multiplicity |Optional |Description
+|----------|--------|-------------|---------|------------
+|Event     |IEvent  |1            |No       |The event at which you want to listen.
+|Module    |IModule |1            |No       |The class of the module. The module must be defined in the same plugin as the resource.
+
+
 ## Job modell
 Jobs are tasks that are executed in a time-controlled and repetitive manner. When a plugin is loaded, all jobs containing it are determined by the ScheduleManager and 
 instantiated and started at the specified execution time.
 
 ![WebExpress jobmodel](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/jobmodel.svg)
 
-A job is created by creating a class that inherits from Job.
+A job is created by a class that inherits from ```Job```.
 
 ``` c#
-[WebExJob("30", "0", "1", "*", "*")] // The job starts at 0:30 a.m. on the first day of each month
-[WebExModule<MyModule>]
+[Job("30", "0", "1", "*", "*")] // The job starts at 0:30 a.m. on the first day of each month
+[Module<MyModule>]
 public sealed class MyJob : Job
 {
   public override void Initialization(JobContext context)
@@ -581,17 +608,17 @@ public sealed class MyJob : Job
 
   public override void Process()
   {
-    base. Process();
+    base Process();
   }
 }
 ```
 
 The following attributes are available:
 
-|Attribute   |Type    |Multiplicity |Optional |Description
-|------------|--------|-------------|---------|------------
-|WebExJob    |String  |1            |No       |Time information about when the job should be executed. The parameters have the following meanings: Minute (0 - 59), Hour (0 - 23), Day of the month (1 - 31), Month (1 - 12), Weekday (0 - 6) for (Sunday - Saturday). The parameters can consist of single values, comma-separated lists (1, 3, 6, 9, ...), range (from-to) or * for all.
-|WebExModule |IModule |1            |No       |The class of the module. The module must be defined in the same plugin as the resource.
+|Attribute |Type    |Multiplicity |Optional |Description
+|----------|--------|-------------|---------|------------
+|Job       |String  |1            |No       |Time information about when the job should be executed. The parameters have the following meanings: Minute (0 - 59), Hour (0 - 23), Day of the month (1 - 31), Month (1 - 12), Weekday (0 - 6) for (Sunday - Saturday). The parameters can consist of single values, comma-separated lists (1, 3, 6, 9, ...), range (from-to) or * for all.
+|Module    |IModule |1            |No       |The class of the module. The module must be defined in the same plugin as the job.
 
 ## Task model
 Tasks are another form of concurrent code execution. In contrast to jobs, tasks are executed ad-hoc (e.g. an export task that was triggered by the user). The result 
@@ -648,9 +675,7 @@ The example creates a notification with a headline, an icon, and a message. The 
 The NotificationManager must be enabled in the application. For this purpose, webexpress.webapp with the ResourceId or all webexpress.webapp.* must be included.
 
 ``` c#
-[WebExId("app")]
-...
-[WebExOption<WebExpress.WebApp.ApiPopupNotificationV1>]
+[Option<WebExpress.WebApp.ApiPopupNotificationV1>]
 public sealed class MyApplication : IApplication
 {
 }
@@ -721,10 +746,9 @@ WebExpress provides the following roles:
 In addition to the listed standard roles, self-defined roles from definition classes can be provided. 
 
 ``` c#
-[WebExId("7f2f1d0c-7ef8-48b8-b513-e9fc12cb2c24")]
-[WebExModule<MyModule>]
-[WebExName("myRole")]
-[WebExRole(IdentityRoleDefault.Authenticated)]
+[Module<MyModule>]
+[Name("myRole")]
+[Role(IdentityRoleDefault.Authenticated)]
 public sealed class MyIdentityRole : IIdentityRole
 {
 }
@@ -732,23 +756,22 @@ public sealed class MyIdentityRole : IIdentityRole
 
 The role definition classes have the following attributes:
 
-|Attribute        |Type    |Multiplicity |Optional |Description
-|-----------------|--------|-------------|---------|-------------
-|WebExId          |String  |1            |No       |The unique identification key.
-|WebExModule      |IModule |1            |No       |The class of the module. The module must be defined in the same plugin as the resource.
-|WebExName        |String  |1            |No       |The human-readable name of the role or an internationalization key.
-|WebExDescription |String  |1            |Yes      |The description of the role. This can be a key to internationalization.
-|WebExRole        |String  |1            |Yes      |Inherits the characteristics of the specified role.
+|Attribute   |Type    |Multiplicity |Optional |Description
+|------------|--------|-------------|---------|-------------
+|Id          |String  |1            |No       |The unique identification key.
+|Module      |IModule |1            |No       |The class of the module. The module must be defined in the same plugin as the resource.
+|Name        |String  |1            |No       |The human-readable name of the role or an internationalization key.
+|Description |String  |1            |Yes      |The description of the role. This can be a key to internationalization.
+|Role        |String  |1            |Yes      |Inherits the characteristics of the specified role.
 
 Identity resources are usually automatically discovered from the metadata of the web resources and web components and assigned to roles. In addition, identity resources can also be 
 created from definition classes.
 
 ``` c#
-[WebExId("647af2e9-d8a1-4b83-835d-3d7da022fba9")]
-[WebExModule<MyModule>]
-[WebExName("Passwort zurücksetzen")]
-[WebExAuthorization(Permission.RW, IdentityRoleDefault.Authenticated)]
-[WebExAuthorization(Permission.R, IdentityRoleDefault.Everyone)]
+[Module<MyModule>]
+[Name("Passwort zurücksetzen")]
+[Authorization(Permission.RW, IdentityRoleDefault.Authenticated)]
+[Authorization(Permission.R, IdentityRoleDefault.Everyone)]
 public sealed class MyIdentityResource : IIdentityResource
 {
 }
@@ -756,13 +779,13 @@ public sealed class MyIdentityResource : IIdentityResource
 
 The identity resource definition classes have the following attributes:
 
-|Attribute          |Type        |Multiplicity |Optional |Description
-|-------------------|------------|-------------|---------|-------------
-|WebExId            |String      |1            |No       |The unique identification key.
-|WebExModule        |IModule     |1            |No       |The class of the module. The module must be defined in the same plugin as the resource.
-|WebExName          |String      |1            |No       |The human-readable name of the role or an internationalization key.
-|WebExDescription   |String      |1            |Yes      |The description of the role. This can be a key to internationalization.
-|WebExAuthorization |Int, String |1            |Yes      |Grants authority for a role (specifying the id).
+|Attribute     |Type        |Multiplicity |Optional |Description
+|--------------|------------|-------------|---------|-------------
+|Id            |String      |1            |No       |The unique identification key.
+|Module        |IModule     |1            |No       |The class of the module. The module must be defined in the same plugin as the resource.
+|Name          |String      |1            |No       |The human-readable name of the role or an internationalization key.
+|Description   |String      |1            |Yes      |The description of the role. This can be a key to internationalization.
+|Authorization |Int, String |1            |Yes      |Grants authority for a role (specifying the id).
 
 In the case of an authorization check (can an identity be accessed by an identity resource (e.g. page)), it must be checked whether there is at least 
 one transition (identity -> group -> role -> identity resource). This is done by the function 
@@ -874,12 +897,10 @@ Setting page templates are used to administer the web applications. Settings pag
 When the settings page is generated, the class is enriched with meta information by attributes.
 
 ``` c#
-[WebExId("Settings")]
-...
-[WebExSettingContext("admin")]
-[WebExSettingSection(SettingSection.Primary)]
-[WebExSettingGroup("Setting")]
-[WebExSettingIcon(TypeIcon.InfoCircle)]
+[SettingContext("admin")]
+[SettingSection(SettingSection.Primary)]
+[SettingGroup("Setting")]
+[SettingIcon(TypeIcon.InfoCircle)]
 public sealed class S : PageTemplateWebAppSetting
 {
 }
@@ -887,14 +908,14 @@ public sealed class S : PageTemplateWebAppSetting
 
 The following attributes are available for a settings page:
 
-|Attribute           |Type           |Multiplicity |Optional |Description
-|--------------------|---------------|-------------|---------|--------------
-|WebExSettingContext |String         |1            |Yes      |Sets the context. Only settings pages that use the same context are included in the Setting menu. In the ```SettingTab```, all contexts are listed and referred to the first settings page.
-|WebExSettingSection |SettingSection |1            |Yes      |Determines the section by displaying the entry in the Setting menu.
-|WebExSettingGroup   |String         |1            |Yes      |Groups the settings entries within a section.
-|WebExSettingIcon    |String         |1            |Yes      |An icon to be displayed in the SettigMenu along with the link to the settings page.
-| ^^                 |TypeIcon       | ^^          | ^^      | ^^
-|WebExSettingHide    |-              |1            |Yes      |Not displaying the page in the settings
+|Attribute      |Type           |Multiplicity |Optional |Description
+|---------------|---------------|-------------|---------|--------------
+|SettingContext |String         |1            |Yes      |Sets the context. Only settings pages that use the same context are included in the Setting menu. In the ```SettingTab```, all contexts are listed and referred to the first settings page.
+|SettingSection |SettingSection |1            |Yes      |Determines the section by displaying the entry in the Setting menu.
+|SettingGroup   |String         |1            |Yes      |Groups the settings entries within a section.
+|SettingIcon    |String         |1            |Yes      |An icon to be displayed in the SettigMenu along with the link to the settings page.
+| ^^            |TypeIcon       | ^^          | ^^      | ^^
+|SettingHide    |-              |1            |Yes      |Not displaying the page in the settings
 
 The template is specially adapted to the settings pages. In particular, the side navigation pane and a tab element are automatically populated 
 from the meta information.
@@ -921,11 +942,10 @@ WebExpress.WebApp offers a ready-made layout (e.g. color scheme, fonts, font siz
 A color scheme is defined in a class that implements the ITheme interface and is associated with an application.
 
 ``` c#
-[WebExId("mytheme")]
-[WebExName("MyLayout")]
-[WebExDescription("example")]
-[WebExImage("/assets/img/mytheme.png")]
-[WebExApplication<MyApplication>]
+[Name("MyLayout")]
+[Description("example")]
+[Image("/assets/img/mytheme.png")]
+[Application<MyApplication>]
 public sealed class MyTheme : ITheme
 {
     public static PropertyColorBackground HeaderBackground => new(TypeColorBackground.Dark);
@@ -937,14 +957,14 @@ public sealed class MyTheme : ITheme
 
 The following attributes are available:
 
-|Attribute        |Type   |Multiplicity |Optional |Description
-|-----------------|-------|-------------|---------|---------------------
-|WebExId          |String |1            |No       |The unique identification key.
-|WebExName        |String |1            |No       |The name of the topic that can be displayed in the interface. This can be a key to internationalization.
-|WebExDescription |String |1            |Yes      |The description of the topic. This can be a key to internationalization.
-|WebExImage       |String |1            |Yes      |Link to an image that visually represents the topic.
-|WebExApplication |String |n            |No       |A specific ApplicationId, regular expression, or * for any application.
-|                 |Type   |             |         |The class of the application.
+|Attribute   |Type   |Multiplicity |Optional |Description
+|------------|-------|-------------|---------|---------------------
+|Id          |String |1            |No       |The unique identification key.
+|Name        |String |1            |No       |The name of the topic that can be displayed in the interface. This can be a key to internationalization.
+|Description |String |1            |Yes      |The description of the topic. This can be a key to internationalization.
+|Image       |String |1            |Yes      |Link to an image that visually represents the topic.
+|Application |String |n            |No       |A specific ApplicationId, regular expression, or * for any application.
+|            |Type   |             |         |The class of the application.
 
 # CRUD
 CRUD stands for the four basic operations supported by WebExpress.WebApp in the form of a framework:
@@ -1026,7 +1046,7 @@ namespace Sample
         public void Dispose() { }
     }
 
-    [WebExApplication<MyApplication>]
+    [Application<MyApplication>]
     public sealed class MyModule : IModule
     {
         public void Initialization(IModuleContext context) { }
@@ -1034,7 +1054,7 @@ namespace Sample
         public void Dispose() { }
     }
 
-    [WebExModule<MyModule>]
+    [Module<MyModule>]
     public sealed class Home : ResourcePage
     {
         public Home (UriRessource uri, IModuleContext context)

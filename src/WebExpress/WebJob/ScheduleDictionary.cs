@@ -7,7 +7,7 @@ namespace WebExpress.WebJob
     /// key = plugin context
     /// value = ressource items
     /// </summary>
-    internal class ScheduleDictionary : Dictionary<IPluginContext, IList<ScheduleItem>>
+    internal class ScheduleDictionary : Dictionary<IPluginContext, IList<ScheduleStaticItem>>
     {
     }
 }

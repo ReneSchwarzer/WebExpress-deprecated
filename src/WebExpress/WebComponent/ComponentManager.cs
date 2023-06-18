@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using WebExpress.Internationalization;
 using WebExpress.WebApplication;
+using WebExpress.WebEvent;
 using WebExpress.WebJob;
 using WebExpress.WebModule;
 using WebExpress.WebPackage;
@@ -50,7 +51,8 @@ namespace WebExpress.WebComponent
                 PluginManager,
                 ApplicationManager,
                 ModuleManager,
-                ScheduleManager,
+                EventManager,
+                JobManager,
                 ResponseManager,
                 SitemapManager,
                 InternationalizationManager,
@@ -83,10 +85,16 @@ namespace WebExpress.WebComponent
         public static ModuleManager ModuleManager { get; private set; }
 
         /// <summary>
-        /// Returns the schedule manager.
+        /// Returns the event manager.
         /// </summary>
-        /// <returns>The instance of the schedule manager or null.</returns>
-        public static ScheduleManager ScheduleManager { get; private set; }
+        /// <returns>The instance of the event manager or null.</returns>
+        public static EventManager EventManager { get; private set; }
+
+        /// <summary>
+        /// Returns the job manager.
+        /// </summary>
+        /// <returns>The instance of the job manager or null.</returns>
+        public static JobManager JobManager { get; private set; }
 
         /// <summary>
         /// Returns the response manager.
@@ -147,7 +155,8 @@ namespace WebExpress.WebComponent
             ModuleManager = CreateInstance(typeof(ModuleManager)) as ModuleManager;
             ResourceManager = CreateInstance(typeof(ResourceManager)) as ResourceManager;
             ResponseManager = CreateInstance(typeof(ResponseManager)) as ResponseManager;
-            ScheduleManager = CreateInstance(typeof(ScheduleManager)) as ScheduleManager;
+            EventManager = CreateInstance(typeof(EventManager)) as EventManager;
+            JobManager = CreateInstance(typeof(JobManager)) as JobManager;
             SitemapManager = CreateInstance(typeof(SitemapManager)) as SitemapManager;
             SessionManager = CreateInstance(typeof(SessionManager)) as SessionManager;
             TaskManager = CreateInstance(typeof(TaskManager)) as TaskManager;
@@ -201,6 +210,8 @@ namespace WebExpress.WebComponent
                     null,
                     null
                 ) as IComponent;
+
+                //var component = Activator.CreateInstance(componentType, flags) as IComponent;
 
                 component.Initialization(HttpServerContext);
 
@@ -346,7 +357,7 @@ namespace WebExpress.WebComponent
             );
 
             PackageManager.Execute();
-            ScheduleManager.Execute();
+            JobManager.Execute();
         }
 
         /// <summary>
@@ -454,7 +465,7 @@ namespace WebExpress.WebComponent
                 ModuleManager.PrepareForLog(pluginContext, output, 4);
                 ResourceManager.PrepareForLog(pluginContext, output, 4);
                 ResponseManager.PrepareForLog(pluginContext, output, 4);
-                ScheduleManager.PrepareForLog(pluginContext, output, 4);
+                JobManager.PrepareForLog(pluginContext, output, 4);
             }
 
             foreach (var item in Dictionary)

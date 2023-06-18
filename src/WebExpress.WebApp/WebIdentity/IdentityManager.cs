@@ -61,15 +61,15 @@ namespace WebExpress.WebApp.WebIdentity
 
                 foreach (var customAttribute in type.CustomAttributes.Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IModuleAttribute))))
                 {
-                    if (customAttribute.AttributeType == typeof(WebExNameAttribute))
+                    if (customAttribute.AttributeType == typeof(NameAttribute))
                     {
                         name = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
-                    else if (customAttribute.AttributeType == typeof(WebExDescriptionAttribute))
+                    else if (customAttribute.AttributeType == typeof(DescriptionAttribute))
                     {
                         description = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
-                    else if (customAttribute.AttributeType.Name == typeof(WebExModuleAttribute<>).Name && customAttribute.AttributeType.Namespace == typeof(WebExModuleAttribute<>).Namespace)
+                    else if (customAttribute.AttributeType.Name == typeof(ModuleAttribute<>).Name && customAttribute.AttributeType.Namespace == typeof(ModuleAttribute<>).Namespace)
                     {
                         moduleId = customAttribute.AttributeType.GenericTypeArguments.FirstOrDefault()?.FullName?.ToLower();
                     }

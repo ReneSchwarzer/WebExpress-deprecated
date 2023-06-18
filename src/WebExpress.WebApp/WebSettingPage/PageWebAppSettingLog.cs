@@ -16,16 +16,16 @@ namespace WebExpress.WebApp.WebSettingPage
     /// <summary>
     /// Logging settings page.
     /// </summary>
-    [WebExTitle("webexpress.webapp:setting.titel.log.label")]
-    [WebExSegment("log", "webexpress.webapp:setting.titel.log.label")]
-    [WebExContextPath("/setting")]
+    [Title("webexpress.webapp:setting.titel.log.label")]
+    [Segment("log", "webexpress.webapp:setting.titel.log.label")]
+    [ContextPath("/setting")]
     [WebExSettingSection(WebExSettingSection.Secondary)]
     [WebExSettingIcon(TypeIcon.FileMedicalAlt)]
     [WebExSettingGroup("webexpress.webapp:setting.group.system.label")]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
-    [WebExModule<Module>]
-    [WebExScope<ScopeAdmin>]
-    [WebExOptional]
+    [Module<Module>]
+    [Scope<ScopeAdmin>]
+    [Optional]
     public sealed class PageWebAppSettingLog : PageWebAppSetting, IScope
     {
         /// <summary>

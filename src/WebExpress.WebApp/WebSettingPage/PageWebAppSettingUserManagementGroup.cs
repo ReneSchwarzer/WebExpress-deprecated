@@ -15,16 +15,16 @@ namespace WebExpress.WebApp.WebSettingPage
     /// <summary>
     /// Settings page of the groups.
     /// </summary>
-    [WebExTitle("webexpress.webapp:setting.usermanager.group.label")]
-    [WebExSegment("group", "webexpress.webapp:setting.usermanager.group.label")]
-    [WebExContextPath("/setting")]
+    [Title("webexpress.webapp:setting.usermanager.group.label")]
+    [Segment("group", "webexpress.webapp:setting.usermanager.group.label")]
+    [ContextPath("/setting")]
     [WebExSettingSection(WebExSettingSection.Primary)]
     [WebExSettingIcon(TypeIcon.Users)]
     [WebExSettingGroup("webexpress.webapp:setting.usermanager.group.usermanagement.label")]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
-    [WebExModule<Module>]
-    [WebExScope<ScopeAdmin>]
-    [WebExOptional]
+    [Module<Module>]
+    [Scope<ScopeAdmin>]
+    [Optional]
     public sealed class PageWebAppSettingUserManagementGroup : PageWebAppSetting, IScope
     {
         /// <summary>

@@ -34,5 +34,14 @@ namespace WebExpress.WebJob
             PluginContext = moduleContext?.PluginContext;
             ModuleContext = moduleContext;
         }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="pluginContext">The plugin context.</param>
+        internal JobContext(IPluginContext pluginContext)
+        {
+            PluginContext = pluginContext;
+        }
     }
 }

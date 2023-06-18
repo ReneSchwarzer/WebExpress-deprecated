@@ -98,6 +98,7 @@ namespace WebExpress.UI.WebFragment
                 (
                     x => x.IsClass &&
                     x.IsSealed &&
+                    x.IsPublic &&
                     (
                         x.GetInterfaces().Contains(typeof(IFragment)) ||
                         x.GetInterfaces().Contains(typeof(IFragmentDynamic))
@@ -118,20 +119,20 @@ namespace WebExpress.UI.WebFragment
                             .Contains(typeof(IResourceAttribute))
                 ))
                 {
-                    if (customAttribute.AttributeType.Name == typeof(WebExModuleAttribute<>).Name && customAttribute.AttributeType.Namespace == typeof(WebExModuleAttribute<>).Namespace)
+                    if (customAttribute.AttributeType.Name == typeof(ModuleAttribute<>).Name && customAttribute.AttributeType.Namespace == typeof(ModuleAttribute<>).Namespace)
                     {
                         moduleId = customAttribute.AttributeType.GenericTypeArguments.FirstOrDefault()?.FullName?.ToLower();
                     }
-                    else if (customAttribute.AttributeType.Name == typeof(WebExScopeAttribute<>).Name && customAttribute.AttributeType.Namespace == typeof(WebExScopeAttribute<>).Namespace)
+                    else if (customAttribute.AttributeType.Name == typeof(ScopeAttribute<>).Name && customAttribute.AttributeType.Namespace == typeof(ScopeAttribute<>).Namespace)
                     {
                         scopes.Add(customAttribute.AttributeType.GenericTypeArguments.FirstOrDefault()?.FullName?.ToLower());
                     }
-                    else if (customAttribute.AttributeType.Name == typeof(WebExConditionAttribute<>).Name && customAttribute.AttributeType.Namespace == typeof(WebExConditionAttribute<>).Namespace)
+                    else if (customAttribute.AttributeType.Name == typeof(ConditionAttribute<>).Name && customAttribute.AttributeType.Namespace == typeof(ConditionAttribute<>).Namespace)
                     {
                         var condition = customAttribute.AttributeType.GenericTypeArguments.FirstOrDefault();
                         conditions.Add(Activator.CreateInstance(condition) as ICondition);
                     }
-                    else if (customAttribute.AttributeType == typeof(WebExCacheAttribute))
+                    else if (customAttribute.AttributeType == typeof(CacheAttribute))
                     {
                         cache = true;
                     }

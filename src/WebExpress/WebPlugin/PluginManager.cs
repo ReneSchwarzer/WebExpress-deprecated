@@ -113,7 +113,7 @@ namespace WebExpress.WebPlugin
 
             // register plugin
             foreach (var assembly in assemblies
-                .OrderBy(x => x.GetCustomAttribute(typeof(WebExSystemPluginAttribute)) != null ? 0 : 1))
+                .OrderBy(x => x.GetCustomAttribute(typeof(SystemPluginAttribute)) != null ? 0 : 1))
             {
                 Register(assembly);
             }
@@ -199,19 +199,19 @@ namespace WebExpress.WebPlugin
                     foreach (var customAttribute in type.CustomAttributes
                         .Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IPluginAttribute))))
                     {
-                        if (customAttribute.AttributeType == typeof(WebExNameAttribute))
+                        if (customAttribute.AttributeType == typeof(NameAttribute))
                         {
                             name = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                         }
-                        else if (customAttribute.AttributeType == typeof(WebExIconAttribute))
+                        else if (customAttribute.AttributeType == typeof(IconAttribute))
                         {
                             icon = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                         }
-                        else if (customAttribute.AttributeType == typeof(WebExDescriptionAttribute))
+                        else if (customAttribute.AttributeType == typeof(DescriptionAttribute))
                         {
                             description = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                         }
-                        else if (customAttribute.AttributeType == typeof(WebExDependencyAttribute))
+                        else if (customAttribute.AttributeType == typeof(DependencyAttribute))
                         {
                             dependencies.Add(customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString());
                         }
@@ -533,7 +533,7 @@ namespace WebExpress.WebPlugin
                 .Where
                 (
                     x => x.Value.PluginClass.Assembly
-                        .GetCustomAttribute(typeof(WebExSystemPluginAttribute)) != null
+                        .GetCustomAttribute(typeof(SystemPluginAttribute)) != null
                 )
                 .Select(x => InternationalizationManager.I18N
                 (
@@ -546,7 +546,7 @@ namespace WebExpress.WebPlugin
                 .Where
                 (
                     x => x.Value.PluginClass.Assembly
-                        .GetCustomAttribute(typeof(WebExSystemPluginAttribute)) == null
+                        .GetCustomAttribute(typeof(SystemPluginAttribute)) == null
                 )
                 .Select(x => InternationalizationManager.I18N
                 (

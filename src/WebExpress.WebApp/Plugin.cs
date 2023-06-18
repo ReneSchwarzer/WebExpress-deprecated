@@ -1,20 +1,22 @@
 ﻿using System.Collections.Generic;
 using WebExpress.UI.WebSettingPage;
+using WebExpress.WebApp.WebJob;
 using WebExpress.WebApp.WebScope;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
+using WebExpress.WebJob;
 using WebExpress.WebPage;
 using WebExpress.WebPlugin;
 using WebExpress.WebResource;
 
-[assembly: WebExSystemPlugin()]
+[assembly: SystemPlugin()]
 
 namespace WebExpress.WebApp
 {
-    [WebExName("WebExpress.WebApp")]
-    [WebExDescription("plugin.description")]
-    [WebExIcon("/assets/img/Logo.png")]
-    [WebExDependency("webexpress.ui")]
+    [Name("WebExpress.WebApp")]
+    [Description("plugin.description")]
+    [Icon("/assets/img/Logo.png")]
+    [Dependency("webexpress.ui")]
     public sealed class Plugin : IPlugin
     {
         /// <summary>
@@ -31,6 +33,7 @@ namespace WebExpress.WebApp
         /// <param name="context">The context of the plugin that applies to the execution of the plugin.</param>
         public void Initialization(IPluginContext context)
         {
+            ComponentManager.JobManager.Register<JobSessionCleaning>(context, new Cron(context.Host, "30", "0", "1", "*", "*"));
         }
 
         /// <summary>

@@ -114,16 +114,17 @@ sitemapmanager.merge.error=Die beiden Sitemaps '{0}' und '{1}' konnten nicht gem
 
 sessionmanager.initialization=Der Sessionmanager wurde initialisiert.
 
-schedulermanager.initialization=Der Schedulemanager wurde initialisiert.
-schedulermanager.register=Das Plugin '{0}' wurde im Schedulemanager registriert.
-schedulermanager.job.register=Der Job '{1}' wurden dem Modul '{0}' zugewiesen.
-schedulermanager.modulenotfound=Das Modul '{0}' wurde nicht gefunden.
-schedulermanager.moduleless=Der Job '{0}' besitzt keine Angaben zum Modul.
-schedulermanager.wrongmodule=Der Job '{1}' ist kein Teil des Moduls {0}.
-schedulermanager.job=Job: '{0}' für Modul '{1}'
-schedulermanager.job.process=Der Job '{0}' wird ausgeführt.
-schedulermanager.cron.parseerror=Syntaxfehler in der Zeitangabe eines Jobs. Der Wert '{0}' kann nicht verarbeitet werden.
-schedulermanager.cron.range=Syntaxfehler in der Zeitangabe eines Jobs. Der Wert '{0}' ist außerhalb des gültigen Bereiches.
+eventmanager.initialization=Der Eventmanager wurde initialisiert.
+
+jobmanager.initialization=Der Schedulemanager wurde initialisiert.
+jobmanager.register=Das Plugin '{0}' wurde im Schedulemanager registriert.
+jobmanager.job.register=Der Job '{1}' wurden dem Modul '{0}' zugewiesen.
+jobmanager.moduleless=Der Job '{0}' besitzt keine Angaben zum Modul.
+jobmanager.wrongmodule=Der Job '{1}' ist kein Teil des Moduls {0}.
+jobmanager.job=Job: '{0}' für Modul '{1}'
+jobmanager.job.process=Der Job '{0}' wird ausgeführt.
+jobmanager.cron.parseerror=Syntaxfehler in der Zeitangabe eines Jobs. Der Wert '{0}' kann nicht verarbeitet werden.
+jobmanager.cron.range=Syntaxfehler in der Zeitangabe eines Jobs. Der Wert '{0}' ist außerhalb des gültigen Bereiches.
 
 resource.variable.duplicate=Variable '{0}' bereits vorhanden!
 resource.file={0}: Datei '{1}' wurde geladen.

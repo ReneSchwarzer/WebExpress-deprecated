@@ -114,16 +114,17 @@ sitemapmanager.merge.error=The two sitemaps '{0}' and '{1}' could not be merged.
 
 sessionmanager.initialization=The session manager has been initialized.
 
-schedulermanager.initialization=The schedule manager has been initialized.
-schedulermanager.register=The plugin '{0}' is registered in the schedule manager manager.
-schedulermanager.job.register=The job '{1}' have been assigned to the module '{0}'.
-schedulermanager.modulenotfound=The module '{0}' was not found.
-schedulermanager.moduleless=The job '{0}' does not have any information about the module.
-schedulermanager.wrongmodule=The '{1}' job is not part of the module {0}.
-schedulermanager.job=Job: '{0}' for module '{1}'
-schedulermanager.job.process=The job '{0}' is executed.
-schedulermanager.cron.parseerror=Syntax error in the timing of a job. The value '{0}' cannot be processed.
-schedulermanager.cron.range=Syntax error in the timing of a job. The value '{0}' is outside the valid range.
+eventmanager.initialization=The event manager has been initialized.
+
+jobmanager.initialization=The schedule manager has been initialized.
+jobmanager.register=The plugin '{0}' is registered in the schedule manager manager.
+jobmanager.job.register=The job '{1}' have been assigned to the module '{0}'.
+jobmanager.moduleless=The job '{0}' does not have any information about the module.
+jobmanager.wrongmodule=The '{1}' job is not part of the module {0}.
+jobmanager.job=Job: '{0}' for module '{1}'
+jobmanager.job.process=The job '{0}' is executed.
+jobmanager.cron.parseerror=Syntax error in the timing of a job. The value '{0}' cannot be processed.
+jobmanager.cron.range=Syntax error in the timing of a job. The value '{0}' is outside the valid range.
 
 resource.variable.duplicate=Variable '{0}' already exists!
 resource.file={0}: File '{1}' has been loaded.

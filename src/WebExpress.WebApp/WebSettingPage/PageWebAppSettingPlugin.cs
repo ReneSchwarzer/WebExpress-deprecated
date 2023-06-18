@@ -20,16 +20,16 @@ namespace WebExpress.WebApp.WebSettingPage
     /// <summary>
     /// Settings page with information about the active plugins.
     /// </summary>
-    [WebExTitle("webexpress.webapp:setting.titel.plugin.label")]
-    [WebExSegment("plugin", "webexpress.webapp:setting.titel.plugin.label")]
-    [WebExContextPath("/Setting")]
+    [Title("webexpress.webapp:setting.titel.plugin.label")]
+    [Segment("plugin", "webexpress.webapp:setting.titel.plugin.label")]
+    [ContextPath("/Setting")]
     [WebExSettingSection(WebExSettingSection.Secondary)]
     [WebExSettingIcon(TypeIcon.PuzzlePiece)]
     [WebExSettingGroup("webexpress.webapp:setting.group.system.label")]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
-    [WebExModule<Module>]
-    [WebExScope<ScopeAdmin>]
-    [WebExOptional]
+    [Module<Module>]
+    [Scope<ScopeAdmin>]
+    [Optional]
     public sealed class PageWebAppSettingPlugin : PageWebAppSetting, IScope
     {
         /// <summary>

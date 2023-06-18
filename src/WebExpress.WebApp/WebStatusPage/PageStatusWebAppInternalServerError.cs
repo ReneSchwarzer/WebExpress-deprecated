@@ -8,8 +8,8 @@ namespace WebExpress.WebApp.WebStatusPage
     /// <summary>
     /// Statusseite
     /// </summary>
-    [WebExStatusCode(500)]
-    [WebExDefault]
+    [StatusCode(500)]
+    [Default]
     public sealed class PageStatusWebAppInternalServerError : PageStatusWebApp<ResponseInternalServerError>
     {
         /// <summary>

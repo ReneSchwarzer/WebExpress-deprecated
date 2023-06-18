@@ -107,7 +107,7 @@ namespace WebExpress.WebResource
             var dict = Dictionary[pluginContext];
 
             foreach (var resourceType in assembly.GetTypes()
-                .Where(x => x.IsClass == true && x.IsSealed)
+                .Where(x => x.IsClass == true && x.IsSealed && x.IsPublic)
                 .Where(x => x.GetInterface(typeof(IResource).Name) != null)
                 .Where(x => x.GetInterface(typeof(IStatusPage).Name) == null))
             {
@@ -126,46 +126,46 @@ namespace WebExpress.WebResource
                 foreach (var customAttribute in resourceType.CustomAttributes
                     .Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IResourceAttribute))))
                 {
-                    var buf = typeof(WebExModuleAttribute<>);
+                    var buf = typeof(ModuleAttribute<>);
 
                     if (customAttribute.AttributeType.GetInterfaces().Contains(typeof(ISegmentAttribute)))
                     {
                         segment = resourceType.GetCustomAttributes(customAttribute.AttributeType, false).FirstOrDefault() as ISegmentAttribute;
                     }
-                    else if (customAttribute.AttributeType == typeof(WebExTitleAttribute))
+                    else if (customAttribute.AttributeType == typeof(TitleAttribute))
                     {
                         title = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
-                    else if (customAttribute.AttributeType.Name == typeof(WebExParentAttribute<>).Name && customAttribute.AttributeType.Namespace == typeof(WebExParentAttribute<>).Namespace)
+                    else if (customAttribute.AttributeType.Name == typeof(ParentAttribute<>).Name && customAttribute.AttributeType.Namespace == typeof(ParentAttribute<>).Namespace)
                     {
                         parent = customAttribute.AttributeType.GenericTypeArguments.FirstOrDefault()?.FullName?.ToLower();
                     }
-                    else if (customAttribute.AttributeType == typeof(WebExContextPathAttribute))
+                    else if (customAttribute.AttributeType == typeof(ContextPathAttribute))
                     {
                         contextPath = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
-                    else if (customAttribute.AttributeType == typeof(WebExIncludeSubPathsAttribute))
+                    else if (customAttribute.AttributeType == typeof(IncludeSubPathsAttribute))
                     {
                         includeSubPaths = Convert.ToBoolean(customAttribute.ConstructorArguments.FirstOrDefault().Value);
                     }
-                    else if (customAttribute.AttributeType.Name == typeof(WebExModuleAttribute<>).Name && customAttribute.AttributeType.Namespace == typeof(WebExModuleAttribute<>).Namespace)
+                    else if (customAttribute.AttributeType.Name == typeof(ModuleAttribute<>).Name && customAttribute.AttributeType.Namespace == typeof(ModuleAttribute<>).Namespace)
                     {
                         moduleId = customAttribute.AttributeType.GenericTypeArguments.FirstOrDefault()?.FullName?.ToLower();
                     }
-                    else if (customAttribute.AttributeType.Name == typeof(WebExScopeAttribute<>).Name && customAttribute.AttributeType.Namespace == typeof(WebExScopeAttribute<>).Namespace)
+                    else if (customAttribute.AttributeType.Name == typeof(ScopeAttribute<>).Name && customAttribute.AttributeType.Namespace == typeof(ScopeAttribute<>).Namespace)
                     {
                         scopes.Add(customAttribute.AttributeType.GenericTypeArguments.FirstOrDefault()?.FullName?.ToLower());
                     }
-                    else if (customAttribute.AttributeType.Name == typeof(WebExConditionAttribute<>).Name && customAttribute.AttributeType.Namespace == typeof(WebExConditionAttribute<>).Namespace)
+                    else if (customAttribute.AttributeType.Name == typeof(ConditionAttribute<>).Name && customAttribute.AttributeType.Namespace == typeof(ConditionAttribute<>).Namespace)
                     {
                         var condition = customAttribute.AttributeType.GenericTypeArguments.FirstOrDefault();
                         conditions.Add(Activator.CreateInstance(condition) as ICondition);
                     }
-                    else if (customAttribute.AttributeType == typeof(WebExCacheAttribute))
+                    else if (customAttribute.AttributeType == typeof(CacheAttribute))
                     {
                         cache = true;
                     }
-                    else if (customAttribute.AttributeType == typeof(WebExOptionalAttribute))
+                    else if (customAttribute.AttributeType == typeof(OptionalAttribute))
                     {
                         optional = true;
                     }

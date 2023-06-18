@@ -3,12 +3,12 @@ using WebExpress.WebModule;
 
 namespace WebExpress.WebApp
 {
-    [WebExApplication("*")]
-    [WebExName("module.name")]
-    [WebExDescription("module.description")]
-    [WebExIcon("/assets/img/Logo.png")]
-    [WebExAssetPath("/")]
-    [WebExContextPath("/modules/wxapp")]
+    [Application("*")]
+    [Name("module.name")]
+    [Description("module.description")]
+    [Icon("/assets/img/Logo.png")]
+    [AssetPath("/")]
+    [ContextPath("/modules/wxapp")]
     public sealed class Module : IModule
     {
         /// <summary>

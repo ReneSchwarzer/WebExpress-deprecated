@@ -9,12 +9,12 @@ namespace WebExpress.WebApp.WebSettingPage
     /// <summary>
     /// Download the log file.
     /// </summary>
-    [WebExSegment("download", "")]
-    [WebExContextPath("/")]
-    [WebExParent<PageWebAppSettingLog>]
-    [WebExModule<Module>]
-    [WebExScope<ScopeAdmin>]
-    [WebExOptional]
+    [Segment("download", "")]
+    [ContextPath("/")]
+    [Parent<PageWebAppSettingLog>]
+    [Module<Module>]
+    [Scope<ScopeAdmin>]
+    [Optional]
     public sealed class PageWebAppSettingLogDownload : ResourceBinary
     {
         /// <summary>

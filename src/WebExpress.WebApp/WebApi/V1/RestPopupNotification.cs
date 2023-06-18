@@ -10,11 +10,11 @@ namespace WebExpress.WebApp.WebAPI.V1
     /// <summary>
     /// Returns the status and progress of a task (WebTask).
     /// </summary>
-    [WebExSegment("popupnotifications", "")]
-    [WebExContextPath("/api/v1")]
-    [WebExModule<Module>]
-    [WebExIncludeSubPaths(true)]
-    [WebExOptional]
+    [Segment("popupnotifications", "")]
+    [ContextPath("/api/v1")]
+    [Module<Module>]
+    [IncludeSubPaths(true)]
+    [Optional]
     public sealed class RestPopupNotification : ResourceRest
     {
         /// <summary>

@@ -78,7 +78,7 @@ namespace WebExpress.WebStatusPage
             var assembly = pluginContext?.Assembly;
 
             foreach (var resource in assembly.GetTypes()
-                .Where(x => x.IsClass == true && x.IsSealed)
+                .Where(x => x.IsClass == true && x.IsSealed && x.IsPublic)
                 .Where(x => x.GetInterface(typeof(IStatusPage).Name) != null))
             {
                 var id = resource.Name?.ToLower();
@@ -89,11 +89,11 @@ namespace WebExpress.WebStatusPage
                 foreach (var customAttribute in resource.CustomAttributes
                     .Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IApplicationAttribute))))
                 {
-                    if (customAttribute.AttributeType == typeof(WebExStatusCodeAttribute))
+                    if (customAttribute.AttributeType == typeof(StatusCodeAttribute))
                     {
                         statusCode = Convert.ToInt32(customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString());
                     }
-                    else if (customAttribute.AttributeType.Name == typeof(WebExModuleAttribute<>).Name && customAttribute.AttributeType.Namespace == typeof(WebExModuleAttribute<>).Namespace)
+                    else if (customAttribute.AttributeType.Name == typeof(ModuleAttribute<>).Name && customAttribute.AttributeType.Namespace == typeof(ModuleAttribute<>).Namespace)
                     {
                         moduleId = customAttribute.AttributeType.GenericTypeArguments.FirstOrDefault()?.FullName?.ToLower();
                     }
@@ -102,7 +102,7 @@ namespace WebExpress.WebStatusPage
                 foreach (var customAttribute in resource.CustomAttributes
                     .Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IStatusPageAttribute))))
                 {
-                    if (customAttribute.AttributeType == typeof(WebExDefaultAttribute))
+                    if (customAttribute.AttributeType == typeof(DefaultAttribute))
                     {
                         defaultItem = true;
                     }

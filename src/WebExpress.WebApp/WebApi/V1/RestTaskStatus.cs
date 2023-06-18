@@ -10,11 +10,11 @@ namespace WebExpress.WebApp.WebAPI.V1
     /// <summary>
     /// Determines the status and progress of a task (WebTask).
     /// </summary>
-    [WebExSegment("taskstatus", "")]
-    [WebExContextPath("/api/v1")]
-    [WebExIncludeSubPaths(true)]
-    [WebExModule<Module>]
-    [WebExOptional]
+    [Segment("taskstatus", "")]
+    [ContextPath("/api/v1")]
+    [IncludeSubPaths(true)]
+    [Module<Module>]
+    [Optional]
     public sealed class RestTaskStatus : ResourceRest
     {
         /// <summary>

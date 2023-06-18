@@ -14,10 +14,10 @@ namespace WebExpress.WebApp.WebAPI.V1
     /// <summary>
     /// REST API for user management.
     /// </summary>
-    [WebExSegment("user", "")]
-    [WebExContextPath("/api/v1")]
-    [WebExModule<Module>]
-    [WebExOptional]
+    [Segment("user", "")]
+    [ContextPath("/api/v1")]
+    [Module<Module>]
+    [Optional]
     public sealed class RestUserManagement : ResourceRestCrud<WebItemUser>
     {
         /// <summary>

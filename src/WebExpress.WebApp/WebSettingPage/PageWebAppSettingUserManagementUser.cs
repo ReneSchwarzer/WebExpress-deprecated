@@ -11,16 +11,16 @@ namespace WebExpress.WebApp.WebSettingPage
     /// <summary>
     /// Users settings page.
     /// </summary>
-    [WebExTitle("webexpress.webapp:setting.usermanager.user.label")]
-    [WebExSegment("user", "webexpress.webapp:setting.usermanager.user.label")]
-    [WebExContextPath("/setting")]
+    [Title("webexpress.webapp:setting.usermanager.user.label")]
+    [Segment("user", "webexpress.webapp:setting.usermanager.user.label")]
+    [ContextPath("/setting")]
     [WebExSettingSection(WebExSettingSection.Primary)]
     [WebExSettingIcon(TypeIcon.User)]
     [WebExSettingGroup("webexpress.webapp:setting.usermanager.group.usermanagement.label")]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
-    [WebExModule<Module>]
-    [WebExScope<ScopeAdmin>]
-    [WebExOptional]
+    [Module<Module>]
+    [Scope<ScopeAdmin>]
+    [Optional]
     public sealed class PageWebAppSettingUserManagementUser : PageWebAppSetting, IScope
     {
         /// <summary>

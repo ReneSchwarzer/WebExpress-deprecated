@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<!-- Generiert durch Microsoft Visio, SVG Export jobmodel.svg Page-1 -->
+<!-- Generiert durch Microsoft Visio, SVG Export jobmodel.svg Statische Struktur-1 -->
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
 		xmlns:v="http://schemas.microsoft.com/visio/2003/SVGExtensions/" width="6.48904in" height="9.97129in"
-		viewBox="0 0 467.211 717.933" xml:space="preserve" color-interpolation-filters="sRGB" class="st19">
+		viewBox="0 0 467.211 717.933" xml:space="preserve" color-interpolation-filters="sRGB" class="st20">
 	<v:documentProperties v:langID="1031" v:metric="true" v:viewMarkup="false">
 		<v:userDefs>
 			<v:ud v:nameU="msvNoAutoConnect" v:val="VT0(1):26"/>
@@ -32,8 +32,9 @@
 		.st15 {stroke:#000000;stroke-dasharray:1.5,0.75;stroke-linecap:butt;stroke-width:0.75}
 		.st16 {fill:#000000;font-family:Segoe UI Emoji;font-size:0.833336em}
 		.st17 {font-family:Calibri;font-size:1em}
-		.st18 {marker-end:url(#mrkr14-14);stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.24}
-		.st19 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
+		.st18 {fill:#ffffff;stroke:none;stroke-linecap:butt}
+		.st19 {marker-end:url(#mrkr14-14);stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.24}
+		.st20 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
 	]]>
 	</style>
 
@@ -141,12 +142,11 @@
 				<v:ud v:nameU="EntityName" v:prompt="" v:val="VT4(Klassenname)"/>
 				<v:ud v:nameU="HdrHgt" v:prompt="" v:val="VT0(0.43616263699002):1"/>
 				<v:ud v:nameU="BackGrnd" v:prompt="" v:val="VT5(#f2f2f2)"/>
-				<v:ud v:nameU="BackGrndLine" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="BackGrndLine" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="Test" v:prompt="" v:val="VT0(0):5"/>
 				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(1.0431976212537):1"/>
 				<v:ud v:nameU="EntityName" v:prompt="" v:val="VT4(MyJob)"/>
-				<v:ud v:nameU="BackGrnd" v:prompt="" v:val="VT5(#f2f2f2)"/>
 			</v:userDefs>
 			<title>Klasse.622</title>
 			<desc>MyJob</desc>
@@ -216,16 +216,14 @@
 				<v:ud v:nameU="EntityName" v:prompt="" v:val="VT4(Klassenname)"/>
 				<v:ud v:nameU="HdrHgt" v:prompt="" v:val="VT0(0.43616263699002):1"/>
 				<v:ud v:nameU="BackGrnd" v:prompt="" v:val="VT5(#f2f2f2)"/>
-				<v:ud v:nameU="BackGrndLine" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="BackGrndLine" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="Test" v:prompt="" v:val="VT0(0):5"/>
 				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(6.6619300736463):1"/>
-				<v:ud v:nameU="EntityName" v:prompt="" v:val="VT4(SchedulerManager)"/>
-				<v:ud v:nameU="BackGrnd" v:prompt="" v:val="VT5(#f2f2f2)"/>
-				<v:ud v:nameU="BackGrndLine" v:prompt="" v:val="VT0(0):26"/>
+				<v:ud v:nameU="EntityName" v:prompt="" v:val="VT4(JobManager)"/>
 			</v:userDefs>
 			<title>Klasse.750</title>
-			<desc>SchedulerManager</desc>
+			<desc>JobManager</desc>
 			<g id="shape661-24" v:mID="661" v:groupContext="shape">
 				<title>Tabelle.661</title>
 				<v:userDefs>
@@ -249,7 +247,7 @@
 					<v:ud v:nameU="Spacer" v:prompt="" v:val="VT0(0):26"/>
 					<v:ud v:nameU="UsableHgt" v:prompt="" v:val="VT0(0.43616263699002):1"/>
 					<v:ud v:nameU="UmlRole" v:prompt="" v:val="VT4(Klassenname)"/>
-					<v:ud v:nameU="UmlRole" v:prompt="" v:val="VT4(SchedulerManager)"/>
+					<v:ud v:nameU="UmlRole" v:prompt="" v:val="VT4(JobManager)"/>
 				</v:userDefs>
 				<path d="M0 717.93 L184.25 717.93 L184.25 686.53 L0 686.53 L0 717.93 Z" class="st9"/>
 			</g>
@@ -268,7 +266,7 @@
 			<g id="shape660-29" v:mID="660" v:groupContext="groupContent">
 				<v:textBlock v:margins="rect(8.5,4,8.5,4)" v:tabSpace="42.5197"/>
 				<v:textRect cx="92.126" cy="660.551" width="184.26" height="31.4037"/>
-				<text x="4" y="664.15" class="st8" v:langID="1031"><v:paragraph/><v:tabList/>SchedulerManager</text>			</g>
+				<text x="4" y="664.15" class="st8" v:langID="1031"><v:paragraph/><v:tabList/>JobManager</text>			</g>
 		</g>
 		<g id="shape665-31" v:mID="665" v:groupContext="shape" transform="translate(21.2096,-505.429)">
 			<title>Mitglied.755</title>
@@ -280,7 +278,7 @@
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="UserWidth" v:prompt="" v:val="VT0(1.8897637795276):24"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(1)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT5(0)"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
@@ -288,7 +286,6 @@
 				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(Initialization(IHttpServerContext))"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(#f2f2f2)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(1):5"/>
@@ -308,7 +305,7 @@
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="UserWidth" v:prompt="" v:val="VT0(1.8897637795276):24"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(1)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT5(0)"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
@@ -316,7 +313,6 @@
 				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(Register(IPluginContext))"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(#f2f2f2)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(1):5"/>
@@ -336,7 +332,7 @@
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="UserWidth" v:prompt="" v:val="VT0(1.8897637795276):24"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(1)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT5(0)"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
@@ -344,7 +340,6 @@
 				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(Remove(IPluginContext))"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(#f2f2f2)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(1):5"/>
@@ -376,13 +371,11 @@
 				<v:ud v:nameU="EntityName" v:prompt="" v:val="VT4(Klassenname)"/>
 				<v:ud v:nameU="HdrHgt" v:prompt="" v:val="VT0(0.43616263699002):1"/>
 				<v:ud v:nameU="BackGrnd" v:prompt="" v:val="VT5(#f2f2f2)"/>
-				<v:ud v:nameU="BackGrndLine" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="BackGrndLine" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="Test" v:prompt="" v:val="VT0(0):5"/>
 				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(3.3518218888318):1"/>
 				<v:ud v:nameU="EntityName" v:prompt="" v:val="VT4(ComponentManager)"/>
-				<v:ud v:nameU="BackGrnd" v:prompt="" v:val="VT5(#f2f2f2)"/>
-				<v:ud v:nameU="BackGrndLine" v:prompt="" v:val="VT0(0):26"/>
 			</v:userDefs>
 			<title>Klasse.771</title>
 			<desc>ComponentManager</desc>
@@ -440,7 +433,7 @@
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="UserWidth" v:prompt="" v:val="VT0(1.8897637795276):24"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(1)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT5(0)"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
@@ -448,7 +441,6 @@
 				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(Initialization(IHttpServerContext))"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(#f2f2f2)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(1):5"/>
@@ -468,7 +460,7 @@
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="UserWidth" v:prompt="" v:val="VT0(1.8897637795276):24"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(1)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT5(0)"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
@@ -476,7 +468,6 @@
 				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(Register(IPluginContext))"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(#f2f2f2)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(1):5"/>
@@ -496,7 +487,7 @@
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="UserWidth" v:prompt="" v:val="VT0(1.8897637795276):24"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(1)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT5(0)"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
@@ -504,7 +495,6 @@
 				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(Execute())"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(#f2f2f2)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(1):5"/>
@@ -524,7 +514,7 @@
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="UserWidth" v:prompt="" v:val="VT0(1.8897637795276):24"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(1)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT5(0)"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
@@ -532,7 +522,6 @@
 				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(ShutDown())"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(#f2f2f2)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(1):5"/>
@@ -565,7 +554,7 @@
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="UserWidth" v:prompt="" v:val="VT0(1.8897637795276):24"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(1)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT5(0)"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
@@ -573,7 +562,6 @@
 				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(⚡AddComponent)"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(#f2f2f2)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(1):5"/>
@@ -593,7 +581,7 @@
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="UserWidth" v:prompt="" v:val="VT0(1.8897637795276):24"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(1)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT5(0)"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
@@ -601,7 +589,6 @@
 				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(⚡RemoveComponent)"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(#f2f2f2)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(1):5"/>
@@ -621,7 +608,7 @@
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="UserWidth" v:prompt="" v:val="VT0(1.8897637795276):24"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(1)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT5(0)"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
@@ -629,7 +616,6 @@
 				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(PackageManager)"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(#f2f2f2)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(1):5"/>
@@ -649,7 +635,7 @@
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="UserWidth" v:prompt="" v:val="VT0(1.8897637795276):24"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(1)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT5(0)"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
@@ -657,7 +643,6 @@
 				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(PluginManager)"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(#f2f2f2)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(1):5"/>
@@ -677,7 +662,7 @@
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="UserWidth" v:prompt="" v:val="VT0(1.8897637795276):24"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(1)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT5(0)"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
@@ -685,7 +670,6 @@
 				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(ModuleManager)"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(#f2f2f2)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(1):5"/>
@@ -705,7 +689,7 @@
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="UserWidth" v:prompt="" v:val="VT0(1.8897637795276):24"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(1)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT5(0)"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
@@ -713,7 +697,6 @@
 				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(ApplicationManager)"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(#f2f2f2)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(1):5"/>
@@ -733,7 +716,7 @@
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="UserWidth" v:prompt="" v:val="VT0(1.8897637795276):24"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(1)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT5(0)"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
@@ -741,7 +724,6 @@
 				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(...)"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(#f2f2f2)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(1):5"/>
@@ -783,7 +765,7 @@
 				</v:userDefs>
 				<v:textBlock v:margins="rect(0,0,0,0)" v:tabSpace="42.5197"/>
 				<v:textRect cx="2.9335" cy="713.131" width="5.87" height="9.60356"/>
-				<rect v:rectContext="textBkgnd" x="0.906097" y="708.331" width="4.05478" height="9.59985" class="st1"/>
+				<rect v:rectContext="textBkgnd" x="0.906097" y="708.331" width="4.05478" height="9.59985" class="st18"/>
 				<text x="0.91" y="715.53" class="st2" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>1</text>			</g>
 			<g id="shape687-105" v:mID="687" v:groupContext="shape" transform="translate(44.4521,-39.1748)">
 				<title>Tabelle.687</title>
@@ -813,7 +795,7 @@
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="UserWidth" v:prompt="" v:val="VT0(1.8897637795276):24"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(1)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT5(0)"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
@@ -821,7 +803,6 @@
 				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(Remove(IPluginContext))"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(#f2f2f2)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(1):5"/>
@@ -853,7 +834,7 @@
 				<v:ud v:nameU="EntityName" v:prompt="" v:val="VT4(Klassenname)"/>
 				<v:ud v:nameU="HdrHgt" v:prompt="" v:val="VT0(0.43616263699002):1"/>
 				<v:ud v:nameU="BackGrnd" v:prompt="" v:val="VT5(#f2f2f2)"/>
-				<v:ud v:nameU="BackGrndLine" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="BackGrndLine" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="Test" v:prompt="" v:val="VT0(0):5"/>
 				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
 				<v:ud v:nameU="StereoType" v:prompt="" v:val="VT0(1):5"/>
@@ -861,8 +842,6 @@
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(2.0200385941541):1"/>
 				<v:ud v:nameU="EntityName" v:prompt="" v:val="VT4(IJob)"/>
 				<v:ud v:nameU="HdrHgt" v:prompt="" v:val="VT0(0.59593536783854):1"/>
-				<v:ud v:nameU="BackGrnd" v:prompt="" v:val="VT5(#f2f2f2)"/>
-				<v:ud v:nameU="BackGrndLine" v:prompt="" v:val="VT0(0):26"/>
 			</v:userDefs>
 			<title>Klasse.690</title>
 			<desc>IJob</desc>
@@ -935,7 +914,7 @@
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="UserWidth" v:prompt="" v:val="VT0(1.8897637795276):24"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(1)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT5(0)"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
@@ -943,7 +922,6 @@
 				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(Initialization(JobContext))"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(#f2f2f2)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(1):5"/>
@@ -963,7 +941,7 @@
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="UserWidth" v:prompt="" v:val="VT0(1.8897637795276):24"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(1)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT5(0)"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
@@ -971,7 +949,6 @@
 				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(Process())"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(#f2f2f2)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(1):5"/>
@@ -1003,13 +980,11 @@
 				<v:ud v:nameU="EntityName" v:prompt="" v:val="VT4(Klassenname)"/>
 				<v:ud v:nameU="HdrHgt" v:prompt="" v:val="VT0(0.43616263699002):1"/>
 				<v:ud v:nameU="BackGrnd" v:prompt="" v:val="VT5(#f2f2f2)"/>
-				<v:ud v:nameU="BackGrndLine" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="BackGrndLine" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="Test" v:prompt="" v:val="VT0(0):5"/>
 				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(6.6619300736463):1"/>
 				<v:ud v:nameU="EntityName" v:prompt="" v:val="VT4(Job)"/>
-				<v:ud v:nameU="BackGrnd" v:prompt="" v:val="VT5(#f2f2f2)"/>
-				<v:ud v:nameU="BackGrndLine" v:prompt="" v:val="VT0(0):26"/>
 			</v:userDefs>
 			<title>Klasse.758</title>
 			<desc>Job</desc>
@@ -1078,7 +1053,7 @@
 			</v:userDefs>
 			<title>Schnittstellenrealisierung.770</title>
 			<g id="shape709-142" v:mID="709" v:groupContext="groupContent" v:layerMember="0">
-				<path d="M-7.09 717.93 L-7.09 669.1" class="st18"/>
+				<path d="M-7.09 717.93 L-7.09 669.1" class="st19"/>
 			</g>
 		</g>
 		<g id="group720-147" transform="translate(18.375,-614.97)" v:mID="720" v:groupContext="group">
@@ -1103,7 +1078,7 @@
 				<v:ud v:nameU="EntityName" v:prompt="" v:val="VT4(Klassenname)"/>
 				<v:ud v:nameU="HdrHgt" v:prompt="" v:val="VT0(0.43616263699002):1"/>
 				<v:ud v:nameU="BackGrnd" v:prompt="" v:val="VT5(#f2f2f2)"/>
-				<v:ud v:nameU="BackGrndLine" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="BackGrndLine" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="Test" v:prompt="" v:val="VT0(0):5"/>
 				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
 				<v:ud v:nameU="StereoType" v:prompt="" v:val="VT0(1):5"/>
@@ -1111,8 +1086,6 @@
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(2.0200347794568):1"/>
 				<v:ud v:nameU="EntityName" v:prompt="" v:val="VT4(IComponentPlugin)"/>
 				<v:ud v:nameU="HdrHgt" v:prompt="" v:val="VT0(0.59593536783854):1"/>
-				<v:ud v:nameU="BackGrnd" v:prompt="" v:val="VT5(#f2f2f2)"/>
-				<v:ud v:nameU="BackGrndLine" v:prompt="" v:val="VT0(0):26"/>
 			</v:userDefs>
 			<title>Klasse.782</title>
 			<desc>IComponentPlugin</desc>
@@ -1185,7 +1158,7 @@
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="UserWidth" v:prompt="" v:val="VT0(1.8897637795276):24"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(1)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT5(0)"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
@@ -1193,7 +1166,6 @@
 				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(Initialization(IHttpServerContext))"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(#f2f2f2)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(1):5"/>
@@ -1236,7 +1208,7 @@
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="UserWidth" v:prompt="" v:val="VT0(1.8897637795276):24"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(1)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT5(0)"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
@@ -1244,7 +1216,6 @@
 				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(Register(IPluginContext))"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(#f2f2f2)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(1):5"/>
@@ -1264,7 +1235,7 @@
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="UserWidth" v:prompt="" v:val="VT0(1.8897637795276):24"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(1)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT5(0)"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
@@ -1272,7 +1243,6 @@
 				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(Remove(IPluginContext))"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(#f2f2f2)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(1):5"/>
@@ -1292,7 +1262,7 @@
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="UserWidth" v:prompt="" v:val="VT0(1.8897637795276):24"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(1)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT5(0)"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
@@ -1300,7 +1270,6 @@
 				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(Initialization(JobContext))"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(#f2f2f2)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(1):5"/>
@@ -1320,7 +1289,7 @@
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="UserWidth" v:prompt="" v:val="VT0(1.8897637795276):24"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(1)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT5(0)"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
@@ -1328,7 +1297,6 @@
 				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(Process())"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(#f2f2f2)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(1):5"/>
@@ -1360,7 +1328,7 @@
 				<v:ud v:nameU="EntityName" v:prompt="" v:val="VT4(Klassenname)"/>
 				<v:ud v:nameU="HdrHgt" v:prompt="" v:val="VT0(0.43616263699002):1"/>
 				<v:ud v:nameU="BackGrnd" v:prompt="" v:val="VT5(#f2f2f2)"/>
-				<v:ud v:nameU="BackGrndLine" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="BackGrndLine" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="Test" v:prompt="" v:val="VT0(0):5"/>
 				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
 				<v:ud v:nameU="StereoType" v:prompt="" v:val="VT0(1):5"/>
@@ -1368,8 +1336,6 @@
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(2.0200385941541):1"/>
 				<v:ud v:nameU="EntityName" v:prompt="" v:val="VT4(IJobContext)"/>
 				<v:ud v:nameU="HdrHgt" v:prompt="" v:val="VT0(0.59593536783854):1"/>
-				<v:ud v:nameU="BackGrnd" v:prompt="" v:val="VT5(#f2f2f2)"/>
-				<v:ud v:nameU="BackGrndLine" v:prompt="" v:val="VT0(0):26"/>
 			</v:userDefs>
 			<title>Klasse.736</title>
 			<desc>IJobContext</desc>
@@ -1442,7 +1408,7 @@
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="UserWidth" v:prompt="" v:val="VT0(1.8897637795276):24"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(1)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT5(0)"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
@@ -1450,7 +1416,6 @@
 				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(PluginContext)"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(#f2f2f2)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(1):5"/>
@@ -1470,7 +1435,7 @@
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="UserWidth" v:prompt="" v:val="VT0(1.8897637795276):24"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(1)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT5(0)"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
@@ -1478,7 +1443,6 @@
 				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(ModuleContext)"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(#f2f2f2)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(1):5"/>
@@ -1498,7 +1462,7 @@
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="UserWidth" v:prompt="" v:val="VT0(1.8897637795276):24"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(1)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT5(0)"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
@@ -1506,7 +1470,6 @@
 				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(JobId)"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(#f2f2f2)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(1):5"/>
@@ -1526,7 +1489,7 @@
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="UserWidth" v:prompt="" v:val="VT0(1.8897637795276):24"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(1)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT5(0)"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
@@ -1534,7 +1497,6 @@
 				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(Cron)"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(#f2f2f2)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(1):5"/>
@@ -1618,13 +1580,11 @@
 				<v:ud v:nameU="EntityName" v:prompt="" v:val="VT4(Klassenname)"/>
 				<v:ud v:nameU="HdrHgt" v:prompt="" v:val="VT0(0.43616263699002):1"/>
 				<v:ud v:nameU="BackGrnd" v:prompt="" v:val="VT5(#f2f2f2)"/>
-				<v:ud v:nameU="BackGrndLine" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="BackGrndLine" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="Test" v:prompt="" v:val="VT0(0):5"/>
 				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(6.6619300736463):1"/>
 				<v:ud v:nameU="EntityName" v:prompt="" v:val="VT4(Cron)"/>
-				<v:ud v:nameU="BackGrnd" v:prompt="" v:val="VT5(#f2f2f2)"/>
-				<v:ud v:nameU="BackGrndLine" v:prompt="" v:val="VT0(0):26"/>
 			</v:userDefs>
 			<title>Klasse.749</title>
 			<desc>Cron</desc>
@@ -1682,7 +1642,7 @@
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="UserWidth" v:prompt="" v:val="VT0(1.8897637795276):24"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(1)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT5(0)"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
@@ -1690,7 +1650,6 @@
 				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(Minute)"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(#f2f2f2)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(1):5"/>
@@ -1710,7 +1669,7 @@
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="UserWidth" v:prompt="" v:val="VT0(1.8897637795276):24"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(1)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT5(0)"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
@@ -1718,7 +1677,6 @@
 				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(Hour)"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(#f2f2f2)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(1):5"/>
@@ -1738,7 +1696,7 @@
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="UserWidth" v:prompt="" v:val="VT0(1.8897637795276):24"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(1)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT5(0)"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
@@ -1746,7 +1704,6 @@
 				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(Day)"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(#f2f2f2)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(1):5"/>
@@ -1766,7 +1723,7 @@
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="UserWidth" v:prompt="" v:val="VT0(1.8897637795276):24"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(1)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT5(0)"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
@@ -1774,7 +1731,6 @@
 				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(Month)"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(#f2f2f2)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(1):5"/>
@@ -1794,7 +1750,7 @@
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="UserWidth" v:prompt="" v:val="VT0(1.8897637795276):24"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(1)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT5(0)"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
@@ -1802,7 +1758,6 @@
 				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(Weekday)"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(#f2f2f2)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(1):5"/>
@@ -1835,7 +1790,7 @@
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="UserWidth" v:prompt="" v:val="VT0(1.8897637795276):24"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(1)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT5(0)"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
@@ -1843,7 +1798,6 @@
 				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(Matching(Clock))"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(#f2f2f2)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(1):5"/>
@@ -1875,13 +1829,11 @@
 				<v:ud v:nameU="EntityName" v:prompt="" v:val="VT4(Klassenname)"/>
 				<v:ud v:nameU="HdrHgt" v:prompt="" v:val="VT0(0.43616263699002):1"/>
 				<v:ud v:nameU="BackGrnd" v:prompt="" v:val="VT5(#f2f2f2)"/>
-				<v:ud v:nameU="BackGrndLine" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="BackGrndLine" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="Test" v:prompt="" v:val="VT0(0):5"/>
 				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(6.6619300736463):1"/>
 				<v:ud v:nameU="EntityName" v:prompt="" v:val="VT4(Clock)"/>
-				<v:ud v:nameU="BackGrnd" v:prompt="" v:val="VT5(#f2f2f2)"/>
-				<v:ud v:nameU="BackGrndLine" v:prompt="" v:val="VT0(0):26"/>
 			</v:userDefs>
 			<title>Klasse.764</title>
 			<desc>Clock</desc>
@@ -1939,7 +1891,7 @@
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="UserWidth" v:prompt="" v:val="VT0(1.8897637795276):24"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(1)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT5(0)"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
@@ -1947,7 +1899,6 @@
 				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(Minute)"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(#f2f2f2)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(1):5"/>
@@ -1967,7 +1918,7 @@
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="UserWidth" v:prompt="" v:val="VT0(1.8897637795276):24"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(1)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT5(0)"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
@@ -1975,7 +1926,6 @@
 				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(Hour)"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(#f2f2f2)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(1):5"/>
@@ -1995,7 +1945,7 @@
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="UserWidth" v:prompt="" v:val="VT0(1.8897637795276):24"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(1)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT5(0)"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
@@ -2003,7 +1953,6 @@
 				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(Day)"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(#f2f2f2)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(1):5"/>
@@ -2023,7 +1972,7 @@
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="UserWidth" v:prompt="" v:val="VT0(1.8897637795276):24"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(1)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT5(0)"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
@@ -2031,7 +1980,6 @@
 				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(Month)"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(#f2f2f2)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(1):5"/>
@@ -2051,7 +1999,7 @@
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="UserWidth" v:prompt="" v:val="VT0(1.8897637795276):24"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(1)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT5(0)"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
@@ -2059,7 +2007,6 @@
 				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(Weekday)"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(#f2f2f2)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(1):5"/>
@@ -2092,7 +2039,7 @@
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="UserWidth" v:prompt="" v:val="VT0(1.8897637795276):24"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(1)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT5(0)"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
@@ -2100,7 +2047,6 @@
 				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(Synchronize())"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(#f2f2f2)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(1):5"/>
@@ -2111,7 +2057,7 @@
 			<rect x="0" y="705.929" width="178.583" height="12.0036" class="st11"/>
 			<text x="8.5" y="714.93" class="st12" v:langID="1031"><v:paragraph/><v:tabList/>Synchronize()</text>		</g>
 		<g id="shape776-289" v:mID="776" v:groupContext="shape" transform="translate(262.155,-21.2096)">
-			<title>Member.776</title>
+			<title>Mitglied.776</title>
 			<desc>Equals(object)</desc>
 			<v:userDefs>
 				<v:ud v:nameU="msvShapeCategories" v:prompt="" v:val="VT4(Member)"/>
@@ -2120,7 +2066,7 @@
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="UserWidth" v:prompt="" v:val="VT0(1.8897637795276):24"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT5(0)"/>
+				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(1)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT5(0)"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
@@ -2128,7 +2074,6 @@
 				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(Equals(object))"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
-				<v:ud v:nameU="DarkColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="BackFillColor" v:prompt="" v:val="VT5(#f2f2f2)"/>
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(1):5"/>

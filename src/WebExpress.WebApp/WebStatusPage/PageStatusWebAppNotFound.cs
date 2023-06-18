@@ -8,8 +8,8 @@ namespace WebExpress.WebApp.WebStatusPage
     /// <summary>
     /// Statusseite
     /// </summary>
-    [WebExStatusCode(404)]
-    [WebExDefault]
+    [StatusCode(404)]
+    [Default]
     public sealed class PageStatusWebAppNotFound : PageStatusWebApp<ResponseNotFound>
     {
         /// <summary>

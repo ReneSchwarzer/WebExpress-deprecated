@@ -15,16 +15,16 @@ namespace WebExpress.WebApp.WebSettingPage
     /// <summary>
     /// Settings page with system information.
     /// </summary>
-    [WebExTitle("webexpress.webapp:setting.titel.systeminformation.label")]
-    [WebExSegment("systeminformation", "webexpress.webapp:setting.titel.systeminformation.label")]
-    [WebExContextPath("/setting")]
+    [Title("webexpress.webapp:setting.titel.systeminformation.label")]
+    [Segment("systeminformation", "webexpress.webapp:setting.titel.systeminformation.label")]
+    [ContextPath("/setting")]
     [WebExSettingSection(WebExSettingSection.Secondary)]
     [WebExSettingIcon(TypeIcon.InfoCircle)]
     [WebExSettingGroup("webexpress.webapp:setting.group.system.label")]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
-    [WebExModule<Module>]
-    [WebExScope<ScopeAdmin>]
-    [WebExOptional]
+    [Module<Module>]
+    [Scope<ScopeAdmin>]
+    [Optional]
     public sealed class PageWebAppSettingSystemInformation : PageWebAppSetting, IScope
     {
         /// <summary>

@@ -96,8 +96,13 @@ namespace WebExpress.WebModule
 
             var assembly = pluginContext.Assembly;
 
-            foreach (var type in assembly.GetExportedTypes()
-                .Where(x => x.IsClass && x.IsSealed && x.GetInterface(typeof(IModule).Name) != null))
+            foreach (var type in assembly.GetExportedTypes().Where
+                (
+                    x => x.IsClass &&
+                    x.IsSealed &&
+                    x.IsPublic &&
+                    x.GetInterface(typeof(IModule).Name) != null
+                ))
             {
                 var id = type.FullName?.ToLower();
                 var name = type.Name;
@@ -112,31 +117,31 @@ namespace WebExpress.WebModule
                     .Where(x => x.AttributeType.GetInterfaces()
                     .Contains(typeof(IModuleAttribute))))
                 {
-                    if (customAttribute.AttributeType == typeof(WebExNameAttribute))
+                    if (customAttribute.AttributeType == typeof(NameAttribute))
                     {
                         name = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
-                    else if (customAttribute.AttributeType == typeof(WebExIconAttribute))
+                    else if (customAttribute.AttributeType == typeof(IconAttribute))
                     {
                         icon = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
-                    else if (customAttribute.AttributeType == typeof(WebExDescriptionAttribute))
+                    else if (customAttribute.AttributeType == typeof(DescriptionAttribute))
                     {
                         description = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
-                    else if (customAttribute.AttributeType == typeof(WebExContextPathAttribute))
+                    else if (customAttribute.AttributeType == typeof(ContextPathAttribute))
                     {
                         contextPath = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
-                    else if (customAttribute.AttributeType == typeof(WebExAssetPathAttribute))
+                    else if (customAttribute.AttributeType == typeof(AssetPathAttribute))
                     {
                         assetPath = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
-                    else if (customAttribute.AttributeType == typeof(WebExDataPathAttribute))
+                    else if (customAttribute.AttributeType == typeof(DataPathAttribute))
                     {
                         dataPath = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
-                    else if (customAttribute.AttributeType == typeof(WebExApplicationAttribute))
+                    else if (customAttribute.AttributeType == typeof(ApplicationAttribute))
                     {
                         applicationIds.Add(customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().Trim());
                     }

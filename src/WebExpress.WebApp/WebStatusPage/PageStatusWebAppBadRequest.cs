@@ -8,8 +8,8 @@ namespace WebExpress.WebApp.WebStatusPage
     /// <summary>
     /// Statusseite
     /// </summary>
-    [WebExStatusCode(400)]
-    [WebExDefault]
+    [StatusCode(400)]
+    [Default]
     public sealed class PageStatusWebAppBadRequest : PageStatusWebApp<ResponseBadRequest>
     {
         /// <summary>
