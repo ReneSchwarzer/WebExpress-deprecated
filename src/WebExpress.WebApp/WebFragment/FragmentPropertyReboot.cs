@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using WebExpress.Html;
+using WebExpress.WebHtml;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
 using WebExpress.UI.WebFragment;
@@ -13,7 +13,7 @@ using WebExpress.WebPage;
 
 namespace WebExpress.WebApp.WebFragment
 {
-    [WebExSection(Section.HeadlineSecondary)]
+    [Section(Section.HeadlineSecondary)]
     [Module<Module>]
     [Scope<PageWebAppSettingSystemInformation>]
     [Condition<ConditionUnix>]

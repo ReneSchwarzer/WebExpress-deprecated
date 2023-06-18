@@ -3,7 +3,7 @@ using WebExpress.UI.WebAttribute;
 
 namespace WebExpress.UI.SettingPage
 {
-    public class SettingPageDictionaryItemSection : Dictionary<WebExSettingSection, SettingPageDictionaryItemGroup>
+    public class SettingPageDictionaryItemSection : Dictionary<SettingSection, SettingPageDictionaryItemGroup>
     {
         /// <summary>
         /// Adds an item.
@@ -11,7 +11,7 @@ namespace WebExpress.UI.SettingPage
         /// <param name="section">The section.</param>
         /// <param name="group">The group.</param>
         /// <param name="item">The item to insert.</param>
-        public void AddPage(WebExSettingSection section, string group, SettingPageDictionaryItem item)
+        public void AddPage(SettingSection section, string group, SettingPageDictionaryItem item)
         {
             // register Section
             if (!ContainsKey(section))
@@ -50,32 +50,32 @@ namespace WebExpress.UI.SettingPage
         {
             var firstPage = null as SettingPageSearchResult;
 
-            if (ContainsKey(WebExSettingSection.Preferences))
+            if (ContainsKey(SettingSection.Preferences))
             {
-                firstPage = this[WebExSettingSection.Preferences].FindFirstPage();
+                firstPage = this[SettingSection.Preferences].FindFirstPage();
                 if (firstPage != null)
                 {
-                    firstPage.Section = WebExSettingSection.Preferences;
+                    firstPage.Section = SettingSection.Preferences;
 
                     return firstPage;
                 }
             }
-            else if (ContainsKey(WebExSettingSection.Primary))
+            else if (ContainsKey(SettingSection.Primary))
             {
-                firstPage = this[WebExSettingSection.Primary].FindFirstPage();
+                firstPage = this[SettingSection.Primary].FindFirstPage();
                 if (firstPage != null)
                 {
-                    firstPage.Section = WebExSettingSection.Primary;
+                    firstPage.Section = SettingSection.Primary;
 
                     return firstPage;
                 }
             }
-            else if (ContainsKey(WebExSettingSection.Secondary))
+            else if (ContainsKey(SettingSection.Secondary))
             {
-                firstPage = this[WebExSettingSection.Secondary].FindFirstPage();
+                firstPage = this[SettingSection.Secondary].FindFirstPage();
                 if (firstPage != null)
                 {
-                    firstPage.Section = WebExSettingSection.Secondary;
+                    firstPage.Section = SettingSection.Secondary;
 
                     return firstPage;
                 }
@@ -89,7 +89,7 @@ namespace WebExpress.UI.SettingPage
         /// </summary>
         /// <param name="section">The section.</param>
         /// <returns>A group in the same section.</returns>
-        public SettingPageDictionaryItemGroup GetGroup(WebExSettingSection section)
+        public SettingPageDictionaryItemGroup GetGroup(SettingSection section)
         {
             if (ContainsKey(section))
             {

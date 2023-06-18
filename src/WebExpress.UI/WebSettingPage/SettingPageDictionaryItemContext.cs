@@ -12,7 +12,7 @@ namespace WebExpress.UI.SettingPage
         /// <param name="section">The section.</param>
         /// <param name="group">The group.</param>
         /// <param name="page">The item to insert.</param>
-        public void AddPage(string context, WebExSettingSection section, string group, SettingPageDictionaryItem page)
+        public void AddPage(string context, SettingSection section, string group, SettingPageDictionaryItem page)
         {
             context ??= "*";
 

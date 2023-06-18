@@ -1,7 +1,7 @@
 ﻿namespace WebExpress.WebAttribute
 {
     /// <summary>
-    /// Kennzeichnet eine Klasse als Plugin-Komponente
+    /// Interface of a resource assignment attribute.
     /// </summary>
     public interface IResourceAttribute
     {

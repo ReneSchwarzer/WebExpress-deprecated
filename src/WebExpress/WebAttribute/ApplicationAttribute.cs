@@ -4,17 +4,10 @@ using WebExpress.WebApplication;
 namespace WebExpress.WebAttribute
 {
     /// <summary>
-    /// Interface of a application assignment attribute.
-    /// </summary>
-    {
-
-    }
-
-    /// <summary>
     /// Application assignment attribute of the application ID.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
-    public class ApplicationAttribute : Attribute, IWebExApplicationAttribute
+    public class ApplicationAttribute : Attribute, IModuleAttribute
     {
         /// <summary>
         /// Constructor
@@ -31,7 +24,7 @@ namespace WebExpress.WebAttribute
     /// </summary>
     /// <typeparamref name="T">The type of the application.</typeparamref/>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
-    public class WebExApplicationAttribute<T> : Attribute, IWebExApplicationAttribute where T : class, IApplication
+    public class ApplicationAttribute<T> : Attribute, IModuleAttribute where T : class, IApplication
     {
 
     }

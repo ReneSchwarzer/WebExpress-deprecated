@@ -1,7 +1,7 @@
 ﻿namespace WebExpress.WebAttribute
 {
     /// <summary>
-    /// Kennzeichnet eine Klasse als Modul-Komponente
+    /// Interface of a module assignment attribute.
     /// </summary>
     public interface IModuleAttribute
     {

@@ -145,7 +145,7 @@ namespace WebExpress.WebModule
                     {
                         applicationIds.Add(customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString().Trim());
                     }
-                    else if (customAttribute.AttributeType.Name == typeof(WebExApplicationAttribute<>).Name && customAttribute.AttributeType.Namespace == typeof(WebExApplicationAttribute<>).Namespace)
+                    else if (customAttribute.AttributeType.Name == typeof(ApplicationAttribute<>).Name && customAttribute.AttributeType.Namespace == typeof(ApplicationAttribute<>).Namespace)
                     {
                         applicationIds.Add(customAttribute.AttributeType.GenericTypeArguments.FirstOrDefault()?.FullName?.ToLower());
                     }

@@ -12,7 +12,7 @@ namespace WebExpress.UI.SettingPage
         /// <summary>
         /// Returns the section.
         /// </summary>
-        public WebExSettingSection Section { get; internal set; }
+        public SettingSection Section { get; internal set; }
 
         /// <summary>
         /// Returns the group.

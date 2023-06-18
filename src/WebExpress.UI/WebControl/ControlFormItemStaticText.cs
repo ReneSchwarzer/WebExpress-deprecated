@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using WebExpress.Html;
+using WebExpress.WebHtml;
 using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace WebExpress.UI.WebControl

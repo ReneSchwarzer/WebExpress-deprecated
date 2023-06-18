@@ -1,4 +1,4 @@
-﻿using WebExpress.Html;
+﻿using WebExpress.WebHtml;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
 using WebExpress.UI.WebFragment;
@@ -8,7 +8,7 @@ using WebExpress.WebPage;
 
 namespace WebExpress.WebApp.WebFragment
 {
-    [WebExSection(Section.ContentPreferences)]
+    [Section(Section.ContentPreferences)]
     [Module<Module>]
     [Scope<PageWebAppSettingUserManagementUser>]
     [Cache()]

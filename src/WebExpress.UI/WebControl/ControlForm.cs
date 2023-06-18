@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using WebExpress.Html;
+using WebExpress.WebHtml;
 using WebExpress.Internationalization;
 using WebExpress.WebMessage;
 using WebExpress.WebPage;
@@ -14,7 +14,7 @@ namespace WebExpress.UI.WebControl
         /// <summary>
         /// Returns or sets the layout.
         /// </summary>
-        public virtual TypeLayoutFormular Layout { get; set; } = TypeLayoutFormular.Vertical;
+        public virtual TypeLayoutForm Layout { get; set; } = TypeLayoutForm.Vertical;
 
         /// <summary>
         /// Event to validate the input values.
@@ -342,8 +342,8 @@ namespace WebExpress.UI.WebControl
 
             group = Layout switch
             {
-                TypeLayoutFormular.Horizontal => new ControlFormItemGroupHorizontal(),
-                TypeLayoutFormular.Mix => new ControlFormItemGroupMix(),
+                TypeLayoutForm.Horizontal => new ControlFormItemGroupHorizontal(),
+                TypeLayoutForm.Mix => new ControlFormItemGroupMix(),
                 _ => new ControlFormItemGroupVertical(),
             };
 

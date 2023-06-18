@@ -88,7 +88,7 @@ namespace WebExpress.UI.SettingPage
                 var id = settingPageType.FullName?.ToLower();
                 var context = null as string;
                 var group = null as string;
-                var section = WebExSettingSection.Primary;
+                var section = SettingSection.Primary;
                 var moduleId = null as string;
                 var hide = false;
                 var icon = null as PropertyIcon;
@@ -97,19 +97,19 @@ namespace WebExpress.UI.SettingPage
                 foreach (var customAttribute in settingPageType.CustomAttributes
                     .Where(x => x.AttributeType.GetInterfaces().Contains(typeof(IResourceAttribute))))
                 {
-                    if (customAttribute.AttributeType == typeof(WebExSettingContextAttribute))
+                    if (customAttribute.AttributeType == typeof(SettingContextAttribute))
                     {
                         context = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
-                    else if (customAttribute.AttributeType == typeof(WebExSettingGroupAttribute))
+                    else if (customAttribute.AttributeType == typeof(SettingGroupAttribute))
                     {
                         group = customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     }
-                    else if (customAttribute.AttributeType == typeof(WebExSettingSectionAttribute))
+                    else if (customAttribute.AttributeType == typeof(SettingSectionAttribute))
                     {
-                        section = (WebExSettingSection)Enum.Parse(typeof(WebExSettingSection), customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString());
+                        section = (SettingSection)Enum.Parse(typeof(SettingSection), customAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString());
                     }
-                    else if (customAttribute.AttributeType == typeof(WebExSettingHideAttribute))
+                    else if (customAttribute.AttributeType == typeof(SettingHideAttribute))
                     {
                         hide = true;
                     }
@@ -117,7 +117,7 @@ namespace WebExpress.UI.SettingPage
                     {
                         moduleId = customAttribute.AttributeType.GenericTypeArguments.FirstOrDefault()?.FullName?.ToLower();
                     }
-                    else if (customAttribute.AttributeType == typeof(WebExSettingIconAttribute))
+                    else if (customAttribute.AttributeType == typeof(SettingIconAttribute))
                     {
                         var iconAttribute = customAttribute.ConstructorArguments.FirstOrDefault().Value;
                         icon = iconAttribute?.GetType() == typeof(int) ?

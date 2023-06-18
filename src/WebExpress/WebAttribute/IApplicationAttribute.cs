@@ -1,7 +1,7 @@
 ﻿namespace WebExpress.WebAttribute
 {
     /// <summary>
-    /// Kennzeichnet eine Klasse als Anwendungs-Komponente
+    /// Interface of a application assignment attribute.
     /// </summary>
     public interface IApplicationAttribute
     {

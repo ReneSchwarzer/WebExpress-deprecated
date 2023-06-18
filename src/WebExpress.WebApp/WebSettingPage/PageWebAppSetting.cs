@@ -65,9 +65,9 @@ namespace WebExpress.WebApp.WebSettingPage
                 var section = settinPageManager.GetSections(ApplicationContext, searchResult?.Context);
 
                 // setting menu
-                AddSettingMenu(section, WebExSettingSection.Preferences, SettingMenu, context);
-                AddSettingMenu(section, WebExSettingSection.Primary, SettingMenu, context);
-                AddSettingMenu(section, WebExSettingSection.Secondary, SettingMenu, context);
+                AddSettingMenu(section, SettingSection.Preferences, SettingMenu, context);
+                AddSettingMenu(section, SettingSection.Primary, SettingMenu, context);
+                AddSettingMenu(section, SettingSection.Secondary, SettingMenu, context);
 
                 // setting tab
                 foreach (var settingContext in contexts
@@ -113,7 +113,7 @@ namespace WebExpress.WebApp.WebSettingPage
         /// <param name="section">The selected section.</param>
         /// <param name="control">The section to be inserted.</param>
         /// <param name="context">The context for rendering the page.</param>
-        private void AddSettingMenu(IEnumerable<SettingPageDictionaryItemSection> sections, WebExSettingSection section, ControlNavigation control, RenderContextWebApp context)
+        private void AddSettingMenu(IEnumerable<SettingPageDictionaryItemSection> sections, SettingSection section, ControlNavigation control, RenderContextWebApp context)
         {
             var groups = sections
                 .Select(x => x.GetGroup(section))
