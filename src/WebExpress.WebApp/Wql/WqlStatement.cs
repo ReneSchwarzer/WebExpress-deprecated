@@ -4,10 +4,14 @@ namespace WebExpress.WebApp.Wql
 {
     public class WqlStatement
     {
+        public IFilter Filter { get; internal set; }
+        public Order Order { get; internal set; }
+        public Partitioning Partitioning { get; internal set; }
+
         /// <summary>
         /// Constructor
         /// </summary>
-        public WqlStatement()
+        internal WqlStatement()
         {
 
         }
@@ -15,17 +19,17 @@ namespace WebExpress.WebApp.Wql
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="wql">Die Abfrage in Stringform</param>
-        public WqlStatement(string wql)
+        /// <param name="wqlString">The query in string form.</param>
+        public WqlStatement(string wqlString)
         {
-
+            var wql = Parser.Parse(wqlString);
         }
 
         /// <summary>
-        /// Wendet den Filter auf das ungefilterte Datenobjekt an
+        /// Applies the filter to the unfiltered data object.
         /// </summary>
-        /// <param name="unfiltered">Die ungefilterten Daten</param>
-        /// <returns>Die gefilterten Daten</returns>
+        /// <param name="unfiltered">The unfiltered data.</param>
+        /// <returns>The filtered data.</returns>
         public IQueryable<T> Apply<T>(IQueryable<T> unfiltered)
         {
             return unfiltered.AsQueryable();

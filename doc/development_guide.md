@@ -1000,24 +1000,23 @@ The example returns the first five elements of the dataset that contain the valu
 The following BNF is used to illustrate the grammar:
 
 ```
-                 WQL ::= Filter Order Partitioning | ε
-              Filter ::= Filter LogicalOperator Filter | „(“Filter„)“ | Condition | ε
-           Condition ::= Attribute Operator „"“Value„"“ | Attribute Operator Function 
-     LogicalOperator ::= „and“ | „or“
-           Attribute ::= Sign Attribute | Sign
-            Function ::= Name „(“ ParameterList „)“
-                Name ::= Sign Name | Sign
-       ParameterList ::= Parameter „,“ Parameter | Parameter | ε
-           Parameter ::= „"“Value„"“ | Function
-            Operator ::= „=“ | „>“ | „<“ |  „!=“ | „is“ | „is not“ | „in“ | „not in“
-               Order ::= „orderby“ OrderOperator | ε
-       OrderOperator ::= OrderOperator „,“ OrderOperator | Attribute DescendingOrder
-     DescendingOrder ::= „asc“ | „desc“ | ε
-         Partitioning::= Partitioning Partitioning | PartitioningOperator Number | ε
-PartitioningOperator ::= „take“ | „skip“
-                Sign ::= „A“ | … | „Z“ | „a“ | … | „z“ 
-              Number ::= „0“ | … | „9“
-               Value ::= all characters except „"“ 
+<WQL>                  ::= <Filter> <Order> <Partitioning> | ε
+<Filter>               ::= "(" <Filter> ")" | <Filter> <LogicalOperator> <Filter> |<Condition> | ε
+<Condition>            ::= <Attribute> <Operator> <Value> | <Attribute> <Operator> <Function>
+<LogicalOperator>      ::= "and" | "or"
+<Attribute>            ::= <Name>
+<Function>             ::= <Name> "(" <Parameter> <ParameterNext> ")"
+<ParameterNext>        ::= "," <Parameter> <ParameterNext> | ε
+<Parameter>            ::= <Value> | <Function>
+<Operator>             ::= "=" | ">" | "<" | ">=" | "<=" | "!=" | "~" | "is" | "is not" | "in" | "not in"| "was"
+<Order>                ::= "order" "by" <Attribute> <DescendingOrder> <OrderNext> | ε
+<OrderNext>            ::= "," <Attribute> <DescendingOrder> <OrderNext> | ε
+<DescendingOrder>      ::= "asc" | "desc" | ε
+<Partitioning>         ::= <Partitioning> <Partitioning> | <PartitioningOperator> <Number> | ε
+<PartitioningOperator> ::= "take" | "skip"
+<Name>                 ::= [A-Za-z_] [A-Za-z0-9_]+
+<Value>                ::= """ [A-Za-z0-9_@<>=~$%/!.,;:\-]+ """ | "'" [A-Za-z0-9_@<>=~$%/!.,;:\-]+ "'"| <Number>
+<Number>               ::= [0-9]+
 ```
 
 # Example
