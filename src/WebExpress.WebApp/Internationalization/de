@@ -5,6 +5,8 @@ plugin.description=Stellt Basiskomponenten einer Webanwendung bereit.
 module.name=WebExpress.WebApp
 module.description=Stellt Basiskomponenten einer Webanwendung bereit.
 
+wqlmanager.initialization=Der Wql-Manager wurde initialisiert.
+
 identitymanager.initialization=Der Identitätsmanager wurde initialisiert.
 identitymanager.moduleless=Es wurde kein Modul angegeben.
 

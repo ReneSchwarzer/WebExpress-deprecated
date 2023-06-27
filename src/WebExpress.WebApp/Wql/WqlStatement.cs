@@ -2,27 +2,28 @@
 
 namespace WebExpress.WebApp.Wql
 {
-    public class WqlStatement
+    public class WqlStatement : IWqlExpression
     {
-        public IFilter Filter { get; internal set; }
-        public Order Order { get; internal set; }
-        public Partitioning Partitioning { get; internal set; }
+        /// <summary>
+        /// Returns the filter expression.
+        /// </summary>
+        public IWqlExpressionFilter Filter { get; internal set; }
+
+        /// <summary>
+        /// Returns the order expression.
+        /// </summary>
+        public WqlExpressionOrder Order { get; internal set; }
+
+        /// <summary>
+        /// Returns the partitioning expression.
+        /// </summary>
+        public WqlExpressionPartitioning Partitioning { get; internal set; }
 
         /// <summary>
         /// Constructor
         /// </summary>
         internal WqlStatement()
         {
-
-        }
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="wqlString">The query in string form.</param>
-        public WqlStatement(string wqlString)
-        {
-            var wql = Parser.Parse(wqlString);
         }
 
         /// <summary>
@@ -32,7 +33,39 @@ namespace WebExpress.WebApp.Wql
         /// <returns>The filtered data.</returns>
         public IQueryable<T> Apply<T>(IQueryable<T> unfiltered)
         {
-            return unfiltered.AsQueryable();
+            var filtered = unfiltered;
+
+            if (Filter != null)
+            {
+                filtered = Filter.Apply(filtered);
+            }
+
+            if (Order != null)
+            {
+                filtered = Order.Apply(filtered);
+            }
+
+            if (Partitioning != null)
+            {
+                filtered = Partitioning.Apply(filtered);
+            }
+
+            return filtered.AsQueryable();
+        }
+
+        /// <summary>
+        /// Converts the WQL expression to a string.
+        /// </summary>
+        /// <returns>The WQL expression as a string.</returns>
+        public override string ToString()
+        {
+            return string.Format
+            (
+                "{0} {1} {2}", 
+                Filter != null ? Filter.ToString() : "", 
+                Order != null ? Order.ToString() : "", 
+                Partitioning != null ? Partitioning.ToString() : ""
+            ).Trim();
         }
     }
 }

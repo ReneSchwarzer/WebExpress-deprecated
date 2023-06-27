@@ -5,6 +5,8 @@ plugin.description=Provides basic components of a web application.
 module.name=WebExpress.WebApp
 module.description=Provides basic components of a web application.
 
+wqlmanager.initialization=The wql manager has been initialized.
+
 identitymanager.initialization=The identity manager has been initialized.
 identitymanager.moduleless=No module was specified.
 

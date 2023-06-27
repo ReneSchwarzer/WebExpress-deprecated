@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using WebExpress.WebMessage;
 using WebExpress.WebApp.Wql;
+using WebExpress.WebMessage;
 using WebExpress.WebResource;
 
 namespace WebExpress.WebApp.WebResource
@@ -49,7 +49,8 @@ namespace WebExpress.WebApp.WebResource
 
             lock (Guard ?? new object())
             {
-                var data = GetData(new WqlStatement(wql), request);
+                var wqlStatement = WqlParser.Parse(wql);
+                var data = GetData(wqlStatement, request);
 
                 var count = data.Count();
                 var totalpage = Math.Round(count / (double)itemCount, MidpointRounding.ToEven);

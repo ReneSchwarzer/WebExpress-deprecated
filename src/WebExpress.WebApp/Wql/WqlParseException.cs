@@ -2,13 +2,13 @@
 
 namespace WebExpress.WebApp.Wql
 {
-    public class WqpParseException : Exception
+    public class WqlParseException : Exception
     {
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="message">The massage.</param>
-        public WqpParseException(string message)
+        public WqlParseException(string message)
             : base(message)
         {
         }

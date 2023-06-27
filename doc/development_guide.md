@@ -1002,13 +1002,14 @@ The following BNF is used to illustrate the grammar:
 ```
 <WQL>                  ::= <Filter> <Order> <Partitioning> | ε
 <Filter>               ::= "(" <Filter> ")" | <Filter> <LogicalOperator> <Filter> |<Condition> | ε
-<Condition>            ::= <Attribute> <Operator> <Value> | <Attribute> <Operator> <Function>
+<Condition>            ::= <Attribute> <BinaryOperator> <Parameter> | <Attribute> <SetOperator> "(" <Parameter> <ParameterNext> ")"
 <LogicalOperator>      ::= "and" | "or"
 <Attribute>            ::= <Name>
 <Function>             ::= <Name> "(" <Parameter> <ParameterNext> ")"
-<ParameterNext>        ::= "," <Parameter> <ParameterNext> | ε
 <Parameter>            ::= <Value> | <Function>
-<Operator>             ::= "=" | ">" | "<" | ">=" | "<=" | "!=" | "~" | "is" | "is not" | "in" | "not in"| "was"
+<ParameterNext>        ::= "," <Parameter> <ParameterNext> | ε
+<BinaryOperator>       ::= "=" | ">" | "<" | ">=" | "<=" | "!=" | "~" | "is" | "is not"
+<SetOperator>          ::= "in" | "not in"
 <Order>                ::= "order" "by" <Attribute> <DescendingOrder> <OrderNext> | ε
 <OrderNext>            ::= "," <Attribute> <DescendingOrder> <OrderNext> | ε
 <DescendingOrder>      ::= "asc" | "desc" | ε
