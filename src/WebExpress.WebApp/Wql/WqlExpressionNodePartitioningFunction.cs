@@ -5,12 +5,12 @@ namespace WebExpress.WebApp.Wql
     /// <summary>
     /// Describes the partitioning expression of a wql statement.
     /// </summary>
-    public class WqlExpressionPartitioningFunction : IWqlExpression
+    public class WqlExpressionNodePartitioningFunction : IWqlExpressionNode
     {
         /// <summary>
         /// Returns the operator expressions.
         /// </summary>
-        public WqlExpressionPartitioningOperator Operator { get; internal set; }
+        public WqlExpressionNodePartitioningOperator Operator { get; internal set; }
 
         /// <summary>
         /// Returns the value expressions.
@@ -20,7 +20,7 @@ namespace WebExpress.WebApp.Wql
         /// <summary>
         /// Constructor
         /// </summary>
-        internal WqlExpressionPartitioningFunction()
+        internal WqlExpressionNodePartitioningFunction()
         {
         }
 
@@ -33,12 +33,12 @@ namespace WebExpress.WebApp.Wql
         {
             var filtered = unfiltered;
 
-            if (Operator == WqlExpressionPartitioningOperator.Skip)
+            if (Operator == WqlExpressionNodePartitioningOperator.Skip)
             {
                 filtered = filtered.Skip(Value);
             }
 
-            if (Operator == WqlExpressionPartitioningOperator.Take)
+            if (Operator == WqlExpressionNodePartitioningOperator.Take)
             {
                 filtered = filtered.Take(Value);
             }

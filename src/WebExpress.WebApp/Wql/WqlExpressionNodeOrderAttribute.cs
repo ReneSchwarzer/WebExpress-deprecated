@@ -1,16 +1,17 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace WebExpress.WebApp.Wql
 {
     /// <summary>
     /// Describes the order attribute of a wql statement.
     /// </summary>
-    public class WqlExpressionOrderAttribute : IWqlExpression
+    public class WqlExpressionNodeOrderAttribute : IWqlExpressionNode
     {
         /// <summary>
         /// Returns the attribute expressions.
         /// </summary>
-        public WqlExpressionAttribute Attribute { get; internal set; }
+        public WqlExpressionNodeAttribute Attribute { get; internal set; }
 
         /// <summary>
         /// Returns the descending expressions.
@@ -18,9 +19,14 @@ namespace WebExpress.WebApp.Wql
         public bool Descending { get; internal set; }
 
         /// <summary>
+        /// Returns the position of the attbibute within the order by statement.
+        /// </summary>
+        public int Position { get; internal set; }
+
+        /// <summary>
         /// Constructor
         /// </summary>
-        internal WqlExpressionOrderAttribute()
+        internal WqlExpressionNodeOrderAttribute()
         {
         }
 
@@ -31,28 +37,30 @@ namespace WebExpress.WebApp.Wql
         /// <returns>The filtered data.</returns>
         public IQueryable<T> Apply<T>(IQueryable<T> unfiltered)
         {
-            var filtered = unfiltered;
-            var property = typeof(T).GetProperties()
-                .Where(x => x.Name.Equals(Attribute.Name, System.StringComparison.OrdinalIgnoreCase))
-                .FirstOrDefault();
+            var property = Attribute.Property;
 
-            if (property == null)
+            if (Position > 0 && unfiltered is IOrderedQueryable<T> orderedQueryable)
             {
-                throw new WqlParseException($"Order attribute '{Attribute.Name}' is not known.");
-            }
-
-            Attribute.Name = property.Name;
-
-            if (Descending)
-            {
-                filtered = filtered.OrderByDescending(x => property.GetValue(x));
+                if (Descending)
+                {
+                    return orderedQueryable.ThenByDescending(x => property.GetValue(x));
+                }
+                else
+                {
+                    return orderedQueryable.ThenBy(x => property.GetValue(x));
+                }
             }
             else
-            {
-                filtered = filtered.OrderBy(x => property.GetValue(x));
+            { 
+                if (Descending)
+                {
+                    return unfiltered.OrderByDescending(x => property.GetValue(x));
+                }
+                else
+                {
+                    return unfiltered.OrderBy(x => property.GetValue(x));
+                }
             }
-
-            return filtered.AsQueryable();
         }
 
         /// <summary>

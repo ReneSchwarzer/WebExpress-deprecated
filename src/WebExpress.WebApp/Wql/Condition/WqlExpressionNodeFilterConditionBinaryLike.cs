@@ -1,15 +1,14 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
 namespace WebExpress.WebApp.Wql.Condition
 {
-    public class WqlExpressionConditionBinaryLike : WqlExpressionConditionBinary
+    public class WqlExpressionNodeFilterConditionBinaryLike : WqlExpressionNodeFilterConditionBinary
     {
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="op">The operator.</param>
-        public WqlExpressionConditionBinaryLike()
+        public WqlExpressionNodeFilterConditionBinaryLike()
             : base("~")
         {
         }
@@ -21,17 +20,29 @@ namespace WebExpress.WebApp.Wql.Condition
         /// <returns>The filtered data.</returns>
         public override IQueryable<T> Apply<T>(IQueryable<T> unfiltered)
         {
-            var property = GetPropertyInfo<T>();
+            var property = Attribute.Property;
+            var value = Parameter.GetValue().ToString();
             var filtered = unfiltered.Where
             (
                 x => property.GetValue(x).ToString().Contains
                 (
-                    Parameter.GetValue().ToString(),
-                    StringComparison.OrdinalIgnoreCase
+                    value
                 )
             );
 
-            return filtered.AsQueryable();
+            return filtered;
+        }
+
+        /// <summary>
+        /// Returns the sql query string.
+        /// </summary>
+        /// <returns>The sql part of the node.</returns>
+        public override string GetSqlQueryString()
+        {
+            var property = Attribute?.Property;
+            var value = Parameter.Value;
+
+            return $"{property.Name} like '%{value}%'";
         }
     }
 }

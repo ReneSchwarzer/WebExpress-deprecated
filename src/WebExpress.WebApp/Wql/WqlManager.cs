@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using WebExpress.Internationalization;
-using WebExpress.UI.WebFragment;
 using WebExpress.WebApp.Wql.Condition;
+using WebExpress.WebApp.Wql.Function;
 using WebExpress.WebComponent;
 using WebExpress.WebPlugin;
 
@@ -13,17 +13,33 @@ namespace WebExpress.WebApp.Wql
         /// <summary>
         /// An event that fires when an condition is added.
         /// </summary>
-        public event EventHandler<IFragmentContext> AddCondition;
+        public event EventHandler<IWqlExpressionNodeFilterConditionContext> AddCondition;
 
         /// <summary>
         /// An event that fires when an condition is removed.
         /// </summary>
-        public event EventHandler<IFragmentContext> RemoveCondition;
+        public event EventHandler<IWqlExpressionNodeFilterConditionContext> RemoveCondition;
+
+        /// <summary>
+        /// An event that fires when an function is added.
+        /// </summary>
+        public event EventHandler<IWqlExpressionNodeFilterFunctionContext> AddFunction;
+
+        /// <summary>
+        /// An event that fires when an function is removed.
+        /// </summary>
+        public event EventHandler<IWqlExpressionNodeFilterFunctionContext> RemoveFunction;
+
 
         /// <summary>
         /// Returns the reference to the context of the host.
         /// </summary>
         public IHttpServerContext HttpServerContext { get; private set; }
+
+        /// <summary>
+        /// Returns the wql parser.
+        /// </summary>
+        public WqlParser Parser { get; private set; } = new WqlParser();
 
         /// <summary>
         /// Constructor
@@ -39,7 +55,18 @@ namespace WebExpress.WebApp.Wql
                 Remove(pluginContext);
             };
 
-            WqlParser.Register<WqlExpressionConditionBinaryEqual>();
+            Parser.RegisterCondition<WqlExpressionNodeFilterConditionBinaryEqual>();
+            Parser.RegisterCondition<WqlExpressionNodeFilterConditionBinaryGreaterThan>();
+            Parser.RegisterCondition<WqlExpressionNodeFilterConditionBinaryGreaterThanOrEqual>();
+            Parser.RegisterCondition<WqlExpressionNodeFilterConditionBinaryLessThan>();
+            Parser.RegisterCondition<WqlExpressionNodeFilterConditionBinaryLessThanOrEqual>();
+            Parser.RegisterCondition<WqlExpressionNodeFilterConditionBinaryLike>();
+
+            Parser.RegisterCondition<WqlExpressionNodeFilterConditionSetIn>();
+            Parser.RegisterCondition<WqlExpressionNodeFilterConditionSetNotIn>();
+
+            Parser.RegisterFunction<WqlExpressionNodeFilterFunctionDay>();
+            Parser.RegisterFunction<WqlExpressionNodeFilterFunctionNow>();
         }
 
         /// <summary>
@@ -89,19 +116,37 @@ namespace WebExpress.WebApp.Wql
         /// <summary>
         /// Raises the AddCondition event.
         /// </summary>
-        /// <param name="fragmentContext">The condition context.</param>
-        private void OnAddCondition(IFragmentContext fragmentContext)
+        /// <param name="conditionContext">The condition context.</param>
+        private void OnAddCondition(IWqlExpressionNodeFilterConditionContext conditionContext)
         {
-            AddCondition?.Invoke(this, fragmentContext);
+            AddCondition?.Invoke(this, conditionContext);
         }
 
         /// <summary>
         /// Raises the RemoveCondition event.
         /// </summary>
-        /// <param name="fragmentContext">The condition context.</param>
-        private void OnRemoveCondition(IFragmentContext fragmentContext)
+        /// <param name="conditionContext">The condition context.</param>
+        private void OnRemoveCondition(IWqlExpressionNodeFilterConditionContext conditionContext)
         {
-            RemoveCondition?.Invoke(this, fragmentContext);
+            RemoveCondition?.Invoke(this, conditionContext);
+        }
+
+        /// <summary>
+        /// Raises the AddFunction event.
+        /// </summary>
+        /// <param name="functionContext">The function context.</param>
+        private void OnAddFunction(IWqlExpressionNodeFilterFunctionContext functionContext)
+        {
+            AddFunction?.Invoke(this, functionContext);
+        }
+
+        /// <summary>
+        /// Raises the RemoveFunction event.
+        /// </summary>
+        /// <param name="functionContext">The function context.</param>
+        private void OnRemoveFunction(IWqlExpressionNodeFilterFunctionContext functionContext)
+        {
+            RemoveFunction?.Invoke(this, functionContext);
         }
 
         /// <summary>

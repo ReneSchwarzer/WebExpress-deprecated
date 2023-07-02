@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using WebExpress.WebApp.Wql;
+using WebExpress.WebComponent;
 using WebExpress.WebMessage;
 using WebExpress.WebResource;
 
@@ -15,22 +16,22 @@ namespace WebExpress.WebApp.WebResource
         protected object Guard { get; set; }
 
         /// <summary>
-        /// Processing of the resource. des GET-Request
+        /// Processing of the resource that was called via the get request.
         /// </summary>
         /// <param name="request">The request.</param>
         /// <returns>An enumeration of which json serializer can be serialized.</returns>
         public abstract IEnumerable<object> GetColumns(Request request);
 
         /// <summary>
-        /// Processing of the resource. des GET-Request
+        /// Processing of the resource that was called via the get request.
         /// </summary>
-        /// <param name="wql">The filter.</param>
+        /// <param name="wql">The filtering and sorting options.</param>
         /// <param name="request">The request.</param>
         /// <returns>An enumeration of which json serializer can be serialized.</returns>
         public abstract IEnumerable<T> GetData(WqlStatement wql, Request request);
 
         /// <summary>
-        /// Processing of the resource. des GET-Request
+        /// Processing of the resource that was called via the get request.
         /// </summary>
         /// <param name="request">The request.</param>
         /// <returns>An enumeration of which json serializer can be serialized.</returns>
@@ -49,7 +50,7 @@ namespace WebExpress.WebApp.WebResource
 
             lock (Guard ?? new object())
             {
-                var wqlStatement = WqlParser.Parse(wql);
+                var wqlStatement = ComponentManager.GetComponent<WqlManager>().Parser.Parse<T>(wql);
                 var data = GetData(wqlStatement, request);
 
                 var count = data.Count();

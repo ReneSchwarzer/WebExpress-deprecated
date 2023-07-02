@@ -1,26 +1,28 @@
-﻿using WebExpress.WebApp.Wql.Function;
+﻿using System.Collections.Generic;
+using System.Linq;
+using WebExpress.WebApp.Wql.Function;
 
 namespace WebExpress.WebApp.Wql
 {
     /// <summary>
     /// Describes the parameter expression of a wql statement.
     /// </summary>
-    public class WqlExpressionParameter
+    public class WqlExpressionNodeParameter : IWqlExpressionNode
     {
         /// <summary>
         /// Returns the value expressions.
         /// </summary>
-        public WqlExpressionValue Value { get; internal set; }
+        public WqlExpressionNodeValue Value { get; internal set; }
 
         /// <summary>
         /// Returns the function expressions.
         /// </summary>
-        public WqlExpressionFunction Function { get; internal set; }
+        public WqlExpressionNodeFilterFunction Function { get; internal set; }
 
         /// <summary>
         /// Constructor
         /// </summary>
-        internal WqlExpressionParameter()
+        internal WqlExpressionNodeParameter()
         {
         }
 

@@ -5,33 +5,32 @@ namespace WebExpress.WebApp.Wql.Function
     /// <summary>
     /// Describes the function expression of a wql statement.
     /// </summary>
-    public class WqlExpressionFunction
+    public abstract class WqlExpressionNodeFilterFunction : IWqlExpressionNode
     {
         /// <summary>
         /// Returns the function name.
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; private set; }
 
         /// <summary>
         /// Returns the parameter expressions.
         /// </summary>
-        public List<WqlExpressionParameter> Parameters { get; internal set; }
+        public IEnumerable<WqlExpressionNodeParameter> Parameters { get; internal set; }
 
         /// <summary>
         /// Constructor
         /// </summary>
-        internal WqlExpressionFunction()
+        /// <param name="name">The function name</param>
+        protected WqlExpressionNodeFilterFunction(string name)
         {
+            Name = name.ToLower();
         }
 
         /// <summary>
         /// Executes the function.
         /// </summary>
         /// <returns>The return value.</returns>
-        public object Execute()
-        {
-            return "";
-        }
+        public abstract object Execute();
 
         /// <summary>
         /// Converts the function expression to a string.

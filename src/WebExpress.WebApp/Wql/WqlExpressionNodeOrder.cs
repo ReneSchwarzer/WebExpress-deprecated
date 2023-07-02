@@ -4,19 +4,19 @@ using System.Linq;
 namespace WebExpress.WebApp.Wql
 {
     /// <summary>
-    /// Describes the partitioning expression of a wql statement.
+    /// Describes the order expression of a wql statement.
     /// </summary>
-    public class WqlExpressionPartitioning : IWqlExpression
+    public class WqlExpressionNodeOrder : IWqlExpressionNode
     {
         /// <summary>
-        /// Returns the partitioning function expressions.
+        /// Returns the order attribute expressions.
         /// </summary>
-        public IReadOnlyList<WqlExpressionPartitioningFunction> PartitioningFunctions { get; internal set; }
+        public IReadOnlyList<WqlExpressionNodeOrderAttribute> Attributes { get; internal set; }
 
         /// <summary>
         /// Constructor
         /// </summary>
-        internal WqlExpressionPartitioning()
+        internal WqlExpressionNodeOrder()
         {
         }
 
@@ -29,21 +29,21 @@ namespace WebExpress.WebApp.Wql
         {
             var filtered = unfiltered;
 
-            foreach(var function in PartitioningFunctions)
+            foreach (var attribute in Attributes)
             {
-                filtered = function.Apply(filtered);
+                filtered = attribute.Apply(filtered);
             }
 
             return filtered.AsQueryable();
         }
 
         /// <summary>
-        /// Converts the partitioning expression to a string.
+        /// Converts the order expression to a string.
         /// </summary>
-        /// <returns>The partitioning expression as a string.</returns>
+        /// <returns>The order expression as a string.</returns>
         public override string ToString()
         {
-            return string.Format("{0}", string.Join(" ", PartitioningFunctions)).Trim();
+            return string.Format("order by {0}", string.Join(", ", Attributes)).Trim();
         }
     }
 }

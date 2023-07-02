@@ -1015,8 +1015,10 @@ The following BNF is used to illustrate the grammar:
 <DescendingOrder>      ::= "asc" | "desc" | ε
 <Partitioning>         ::= <Partitioning> <Partitioning> | <PartitioningOperator> <Number> | ε
 <PartitioningOperator> ::= "take" | "skip"
+<Value>                ::= """ <Word> """ | "'" <Word> "'"| <Double> | <Word>
 <Name>                 ::= [A-Za-z_] [A-Za-z0-9_]+
-<Value>                ::= """ [A-Za-z0-9_@<>=~$%/!.,;:\-]+ """ | "'" [A-Za-z0-9_@<>=~$%/!.,;:\-]+ "'"| <Number>
+<Word>                 ::= [A-Za-z0-9_@<>=~$%/!+.,;:\-]+
+<Double>               ::= ^[+-]?[0-9]*[.]?[0-9]+$
 <Number>               ::= [0-9]+
 ```
 

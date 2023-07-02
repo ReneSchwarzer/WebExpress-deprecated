@@ -24,7 +24,7 @@ namespace WebExpress.WebResource
         }
 
         /// <summary>
-        /// Processing of the resource. des GET-Request
+        /// Processing of the resource that was called via the get request.
         /// </summary>
         /// <param name="request">The request.</param>
         /// <returns>An enumeration of which json serializer can be serialized.</returns>
@@ -34,7 +34,7 @@ namespace WebExpress.WebResource
         }
 
         /// <summary>
-        /// Processing of the resource. des DELETE-Request
+        /// Processing of the resource that was called via the delete request.
         /// </summary>
         /// <param name="id">The id to delete.</param>
         /// <param name="request">The request.</param>

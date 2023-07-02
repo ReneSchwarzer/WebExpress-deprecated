@@ -1,16 +1,17 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace WebExpress.WebApp.Wql
 {
     /// <summary>
     /// Describes the filter expression of a wql statement.
     /// </summary>
-    public class WqlExpressionFilterBinary : IWqlExpressionFilter
+    public class WqlExpressionNodeFilterBinary : WqlExpressionNodeFilter
     {
         /// <summary>
         /// Returns the left filter expressions.
         /// </summary>
-        public IWqlExpressionFilter LeftFilter { get; internal set; }
+        public WqlExpressionNodeFilter LeftFilter { get; internal set; }
 
         /// <summary>
         /// Returns the logical operator expressions.
@@ -20,12 +21,12 @@ namespace WebExpress.WebApp.Wql
         /// <summary>
         /// Returns the right filter expressions.
         /// </summary>
-        public IWqlExpressionFilter RightFilter { get; internal set; }
+        public WqlExpressionNodeFilter RightFilter { get; internal set; }
 
         /// <summary>
         /// Constructor
         /// </summary>
-        internal WqlExpressionFilterBinary()
+        internal WqlExpressionNodeFilterBinary()
         {
         }
 
@@ -34,7 +35,7 @@ namespace WebExpress.WebApp.Wql
         /// </summary>
         /// <param name="unfiltered">The unfiltered data.</param>
         /// <returns>The filtered data.</returns>
-        public IQueryable<T> Apply<T>(IQueryable<T> unfiltered)
+        public override IQueryable<T> Apply<T>(IQueryable<T> unfiltered)
         {
             var filtered = unfiltered;
             var leftFiltered = LeftFilter.Apply(filtered);

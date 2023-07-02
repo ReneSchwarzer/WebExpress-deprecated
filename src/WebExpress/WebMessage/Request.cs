@@ -8,8 +8,8 @@ using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using WebExpress.WebHtml;
 using WebExpress.WebComponent;
+using WebExpress.WebHtml;
 using WebExpress.WebSession;
 using WebExpress.WebUri;
 
@@ -230,6 +230,10 @@ namespace WebExpress.WebMessage
                     else if (split.Length == 2)
                     {
                         AddParameter(new Parameter(split[0], split[1], ParameterScope.Parameter));
+                    }
+                    else if (split.Length > 2)
+                    {
+                        AddParameter(new Parameter(split[0], string.Join("=", split.Skip(1)), ParameterScope.Parameter));
                     }
                 }
             });

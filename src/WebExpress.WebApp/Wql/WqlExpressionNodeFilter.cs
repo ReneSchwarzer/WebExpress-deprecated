@@ -6,17 +6,17 @@ namespace WebExpress.WebApp.Wql
     /// <summary>
     /// Describes the filter expression of a wql statement.
     /// </summary>
-    public class WqlExpressionFilter : IWqlExpressionFilter
+    public class WqlExpressionNodeFilter : IWqlExpressionNodeApply
     {
         /// <summary>
         /// Returns the condition expression.
         /// </summary>
-        public IWqlExpressionCondition Condition { get; internal set; }
+        public WqlExpressionNodeFilterCondition Condition { get; internal set; }
 
         /// <summary>
         /// Constructor
         /// </summary>
-        internal WqlExpressionFilter()
+        internal WqlExpressionNodeFilter()
         {
         }
 
@@ -25,9 +25,20 @@ namespace WebExpress.WebApp.Wql
         /// </summary>
         /// <param name="unfiltered">The unfiltered data.</param>
         /// <returns>The filtered data.</returns>
-        public IQueryable<T> Apply<T>(IQueryable<T> unfiltered)
+        public virtual IQueryable<T> Apply<T>(IQueryable<T> unfiltered)
         {
-            return Condition.Apply(unfiltered);
+            return Condition?.Apply(unfiltered) ?? unfiltered;
+        }
+
+        /// <summary>
+        /// Returns the sql query string.
+        /// </summary>
+        /// <returns>The sql part of the node.</returns>
+        public string GetSqlQueryString()
+        {
+            var sql = Condition.GetSqlQueryString();
+
+            return sql;
         }
 
         /// <summary>

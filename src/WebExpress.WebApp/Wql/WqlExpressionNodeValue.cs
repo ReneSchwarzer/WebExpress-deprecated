@@ -1,9 +1,13 @@
-﻿namespace WebExpress.WebApp.Wql
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+
+namespace WebExpress.WebApp.Wql
 {
     /// <summary>
     /// Describes the value expression of a wql statement.
     /// </summary>
-    public class WqlExpressionValue
+    public class WqlExpressionNodeValue : IWqlExpressionNode
     {
         /// <summary>
         /// Returns the value as string.
@@ -11,14 +15,19 @@
         public string StringValue { get; internal set; }
 
         /// <summary>
-        /// Returns the value as int.
+        /// Returns the value as double.
         /// </summary>
-        public int? NumberValue { get; internal set; }
+        public double? NumberValue { get; internal set; }
+
+        /// <summary>
+        /// Returns the culture in which to run the wql.
+        /// </summary>
+        public CultureInfo Culture { get; internal set; }
 
         /// <summary>
         /// Constructor
         /// </summary>
-        internal WqlExpressionValue()
+        internal WqlExpressionNodeValue()
         {
         }
 
@@ -28,14 +37,15 @@
         /// <returns>The value.</returns>
         public object GetValue()
         {
-            return NumberValue.HasValue ? NumberValue.Value : StringValue;
+            return NumberValue.HasValue ? 
+                NumberValue.Value : (object)StringValue;
         }
 
         /// <summary>
         /// Converts the value to a string.
         /// </summary>
         /// <param name="value">The value.</param>
-        public static explicit operator string(WqlExpressionValue value)
+        public static explicit operator string(WqlExpressionNodeValue value)
         {
             return value.GetValue().ToString();
         }
@@ -46,10 +56,12 @@
         /// <returns>The value expression as a string.</returns>
         public override string ToString()
         {
+            var value = GetValue();
+
             return string.Format
             (
                 "{0}",
-                NumberValue.HasValue ? NumberValue.Value.ToString() : "'" + StringValue + "'"
+                value is string ? "'" + value + "'" : Convert.ToString(value, Culture)
             ).Trim();
         }
     }
