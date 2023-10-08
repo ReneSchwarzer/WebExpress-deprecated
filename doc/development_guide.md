@@ -1,4 +1,4 @@
-![WebExpress logo](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/icon.png)
+[WebExpress logo](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/icon.png)
 
 # WebExpress
 WebExpress is a lightweight web server that has been optimized for use in low-performance 
@@ -224,8 +224,8 @@ The following attributes are available:
 |DataPath    |String     |1            |Yes      |The path where the data is stored. This file path is mounted in the data path of the web server.
 |ContextPath |String     |1            |Yes      |The context path where the resources are stored. This path is mounted in the context path of the web server.
 |Option      |String     |n            |Yes      |Includes resources that are marked as optional and are otherwise not directly integrated into the application. The name of the option is the ModuleId and the ResourceId (e.g. webexpress.webapp.settinglog) or webexpress.webapp.* if all options of a module are to be included. A regular expression can also be used.
-| ^^         |Type       | ^^          | ^^      |The class of the module. All options from the module will be activated.
-| ^^         |Type, Type | ^^          | ^^      |The class of the module and resource to be activated.
+|            |Type       |             |         |The class of the module. All options from the module will be activated.
+|            |Type, Type |             |         |The class of the module and resource to be activated.
 
 The methods implemented from the interface cover the life cycle of the application. When the plugin is loaded, all the 
 applications it contains are instantiated. These remain in place until the plugin is unloaded. Meta information about 
@@ -587,7 +587,6 @@ The following attributes are available:
 |Event     |IEvent  |1            |No       |The event at which you want to listen.
 |Module    |IModule |1            |No       |The class of the module. The module must be defined in the same plugin as the resource.
 
-
 ## Job modell
 Jobs are tasks that are executed in a time-controlled and repetitive manner. When a plugin is loaded, all jobs containing it are determined by the ScheduleManager and 
 instantiated and started at the specified execution time.
@@ -681,8 +680,7 @@ public sealed class MyApplication : IApplication
 }
 ```
 
-The functions of the ```NotificationManager``` can also be accessed via the REST API interface 
-```{base path}/wxapp/api/v1/popupnotifications```
+The functions of the ```NotificationManager``` can also be accessed via the REST API interface ```{base path}/wxapp/api/v1/popupnotifications```
 can be accessed. The following methods are available:
 
 |Method |Parameter             |Description
@@ -690,6 +688,83 @@ can be accessed. The following methods are available:
 |Get    |None                  |Detects all notifications for the current user.
 |Post   |A notification object |Stores a notification.
 |Delete |The id                |Deletes an existing notification.
+
+## Index model
+The index model provides a reverse index to enable fast and efficient search for 
+data. Because a reverse index is kept in memory, it can greatly speed up access 
+to the data. However, creating and storing a reverse index requires additional 
+storage space and processing time. Especially with large amounts of data, the 
+storage requirements can be significant. Therefore, it is important to weigh 
+the benefits against the costs in order to achieve the best possible performance.
+
+![WebExpress indexmodel](https://raw.githubusercontent.com/ReneSchwarzer/WebExpress/doc/assets/dg/indexmodel.svg)
+
+To create a reverse index, the data type to be indexed must be registered in 
+the ```IndexManager```.
+
+``` c#
+/// DataType must implement the IIndexItem interface.
+public class DataType : IIndexItem
+{
+    public int Id { get; set;}
+    public string Text { get; set;}
+} 
+
+ComponentManager.GetComponent<IndexManager>().Register<DataType>();
+```
+
+The reverse index is built by using the ```ReBuild``` method for all objects or ```Add``` for an object.
+
+``` c#
+var records = new []
+{
+    new DataType(){ Id=0, Text="lorem ipsum" },
+    new DataType(){ Id=1, Text="lorem scelerisque ornare" } 
+};
+
+ComponentManager.GetComponent<IndexManager>().ReIndex(records);
+```
+
+To access the reverse index, WQL (see below) is used.
+
+``` c#
+var wql = ComponentManager.GetComponent<IndexManager>().ExecuteWql("Text ~ "lorem"");
+var res = wql?.Apply();
+```
+
+### WQL
+The WebExpress Query Language (WQL) is a query language that filters and sorts a given amount of data from the reverse index. A statement of the query language is usually sent from the client to the server, which collects, filters and sorts the data in the reverse index and sends it back to the client.
+Example of a WQL:
+
+```
+Name ~ "WebExpress" and Create < now(-3d) orderby Create desc take 5
+```
+
+The example returns the first five elements of the dataset that contain the value "WebExpress" in the Name attribute and that were created three days ago (Create attribute) or earlier. The result is sorted in descending order by creation date.
+
+The following BNF is used to illustrate the grammar:
+
+```
+<WQL>                  ::= <Filter> <Order> <Partitioning> | ε
+<Filter>               ::= "(" <Filter> ")" | <Filter> <LogicalOperator> <Filter> |<Condition> | ε
+<Condition>            ::= <Attribute> <BinaryOperator> <Parameter> | <Attribute> <SetOperator> "(" <Parameter> <ParameterNext> ")"
+<LogicalOperator>      ::= "and" | "or"
+<Attribute>            ::= <Name>
+<Function>             ::= <Name> "(" <Parameter> <ParameterNext> ")" | Name "(" ")"
+<Parameter>            ::= <Function> | <DoubleValue> | """ <StringValue> """ | "'" <StringValue> "'"  | <StringValue>
+<ParameterNext>        ::= "," <Parameter> <ParameterNext> | ε
+<BinaryOperator>       ::= "=" | ">" | "<" | ">=" | "<=" | "!=" | "~" | "is" | "is not"
+<SetOperator>          ::= "in" | "not in"
+<Order>                ::= "order" "by" <Attribute> <DescendingOrder> <OrderNext> | ε
+<OrderNext>            ::= "," <Attribute> <DescendingOrder> <OrderNext> | ε
+<DescendingOrder>      ::= "asc" | "desc" | ε
+<Partitioning>         ::= <Partitioning> <Partitioning> | <PartitioningOperator> <Number> | ε
+<PartitioningOperator> ::= "take" | "skip"
+<Name>                 ::= [A-Za-z_.][A-Za-z0-9_.]+
+<StringValue>          ::= [A-Za-z0-9_@<>=~$%/!+.,;:\-]+
+<DoubleValue>          ::= [+-]?[0-9]*[.]?[0-9]+
+<Number>               ::= [0-9]+
+```
 
 ## Identity model
 A large number of web applications are subject to requirements for access protection, integrity and confidentiality. These requirements can be met through 
@@ -914,7 +989,7 @@ The following attributes are available for a settings page:
 |SettingSection |SettingSection |1            |Yes      |Determines the section by displaying the entry in the Setting menu.
 |SettingGroup   |String         |1            |Yes      |Groups the settings entries within a section.
 |SettingIcon    |String         |1            |Yes      |An icon to be displayed in the SettigMenu along with the link to the settings page.
-| ^^            |TypeIcon       | ^^          | ^^      | ^^
+|               |TypeIcon       |             |         |   
 |SettingHide    |-              |1            |Yes      |Not displaying the page in the settings
 
 The template is specially adapted to the settings pages. In particular, the side navigation pane and a tab element are automatically populated 
@@ -986,41 +1061,6 @@ CRUD operations are mapped by the REST API by the following operations (RFC 7231
 |Read (Retrieve)  |List or Table     |GET
 |Update           |Form              |PATCH
 |Delete (Destroy) |Confirmation form |DELETE
-
-# WQL
-The WebExpress Query Language (WQL) is a query language that filters and sorts a given amount of data. A statement of the query language is usually sent from the client to the server, which collects, filters and sorts the data and sends it back to the client.
-Example of a WQL:
-
-```
-Name ~ "WebExpress" and Create < now(-3d) orderby Create desc take 5
-```
-
-The example returns the first five elements of the dataset that contain the value "WebExpress" in the Name attribute and that were created three days ago (Create attribute) or earlier. The result is sorted in descending order by creation date.
-
-The following BNF is used to illustrate the grammar:
-
-```
-<WQL>                  ::= <Filter> <Order> <Partitioning> | ε
-<Filter>               ::= "(" <Filter> ")" | <Filter> <LogicalOperator> <Filter> |<Condition> | ε
-<Condition>            ::= <Attribute> <BinaryOperator> <Parameter> | <Attribute> <SetOperator> "(" <Parameter> <ParameterNext> ")"
-<LogicalOperator>      ::= "and" | "or"
-<Attribute>            ::= <Name>
-<Function>             ::= <Name> "(" <Parameter> <ParameterNext> ")"
-<Parameter>            ::= <Value> | <Function>
-<ParameterNext>        ::= "," <Parameter> <ParameterNext> | ε
-<BinaryOperator>       ::= "=" | ">" | "<" | ">=" | "<=" | "!=" | "~" | "is" | "is not"
-<SetOperator>          ::= "in" | "not in"
-<Order>                ::= "order" "by" <Attribute> <DescendingOrder> <OrderNext> | ε
-<OrderNext>            ::= "," <Attribute> <DescendingOrder> <OrderNext> | ε
-<DescendingOrder>      ::= "asc" | "desc" | ε
-<Partitioning>         ::= <Partitioning> <Partitioning> | <PartitioningOperator> <Number> | ε
-<PartitioningOperator> ::= "take" | "skip"
-<Value>                ::= """ <Word> """ | "'" <Word> "'"| <Double> | <Word>
-<Name>                 ::= [A-Za-z_] [A-Za-z0-9_]+
-<Word>                 ::= [A-Za-z0-9_@<>=~$%/!+.,;:\-]+
-<Double>               ::= ^[+-]?[0-9]*[.]?[0-9]+$
-<Number>               ::= [0-9]+
-```
 
 # Example
 The classic example of the Hello World application is intended to show in the simplest possible way which instructions and components are needed for a complete program.

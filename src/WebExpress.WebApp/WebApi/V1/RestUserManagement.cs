@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using WebExpress.WebApp.Model;
+using WebExpress.WebApp.WebIndex.Wql;
 using WebExpress.WebApp.WebResource;
-using WebExpress.WebApp.WebUser;
-using WebExpress.WebApp.Wql;
 using WebExpress.WebAttribute;
 using WebExpress.WebMessage;
 using WebExpress.WebResource;
@@ -71,10 +70,9 @@ namespace WebExpress.WebApp.WebAPI.V1
         /// <param name="wql">The filtering and sorting options.</param>
         /// <param name="request">The request.</param>
         /// <returns>An enumeration of which json serializer can be serialized.</returns>
-        public override IEnumerable<WebItemUser> GetData(WqlStatement wql, Request request)
+        public override IEnumerable<WebItemUser> GetData(IWqlStatement<WebItemUser> wql, Request request)
         {
-            var users = UserManager.Users.AsQueryable();
-            users = wql.Apply(users);
+            var users = wql.Apply();
 
             return users.Select(x => new WebItemUser()
             {

@@ -174,7 +174,7 @@ namespace WebExpress.WebApp.WebControl
         {
             var user = new User()
             {
-                Id = Guid.NewGuid().ToString(),
+                Id = 0,
                 Login = Login.Value,
                 Firstname = Firstname.Value,
                 Lastname = Lastname.Value,

@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
+using WebExpress.WebApp.WebIndex;
 
 namespace WebExpress.WebApp.WebUser
 {
-    public class User
+    public class User : IIndexItem
     {
         /// <summary>
         /// Returns or sets the id.
         /// </summary>
         [XmlAttribute("id")]
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Loginkennung

@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using WebExpress.WebApp.Wql;
+using WebExpress.WebApp.WebIndex;
+using WebExpress.WebApp.WebIndex.Wql;
 using WebExpress.WebComponent;
 using WebExpress.WebMessage;
 using WebExpress.WebResource;
 
 namespace WebExpress.WebApp.WebResource
 {
-    public abstract class ResourceRestCrud<T> : ResourceRest where T : class, new()
+    public abstract class ResourceRestCrud<T> : ResourceRest where T : IIndexItem
     {
         /// <summary>
         /// Returns or sets the lock object.
@@ -28,7 +29,7 @@ namespace WebExpress.WebApp.WebResource
         /// <param name="wql">The filtering and sorting options.</param>
         /// <param name="request">The request.</param>
         /// <returns>An enumeration of which json serializer can be serialized.</returns>
-        public abstract IEnumerable<T> GetData(WqlStatement wql, Request request);
+        public abstract IEnumerable<T> GetData(IWqlStatement<T> wql, Request request);
 
         /// <summary>
         /// Processing of the resource that was called via the get request.
@@ -50,7 +51,7 @@ namespace WebExpress.WebApp.WebResource
 
             lock (Guard ?? new object())
             {
-                var wqlStatement = ComponentManager.GetComponent<WqlManager>().Parser.Parse<T>(wql);
+                var wqlStatement = ComponentManager.GetComponent<IndexManager>().ExecuteWql<T>(wql);
                 var data = GetData(wqlStatement, request);
 
                 var count = data.Count();

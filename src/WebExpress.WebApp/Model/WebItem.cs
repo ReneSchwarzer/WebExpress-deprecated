@@ -1,15 +1,21 @@
-﻿using System;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
+using WebExpress.WebApp.WebIndex;
 
 namespace WebExpress.WebApp.Model
 {
-    public class WebItem
+    public class WebItem : IIndexItem
     {
         /// <summary>
         /// Returns or sets the guid. des Objektes
         /// </summary>
         [JsonPropertyName("id")]
-        public string Id { get; set; } = Guid.NewGuid().ToString();
+        public int Id { get; set; }
+
+        /// <summary>
+        /// Returns or sets the guid. des Objektes
+        /// </summary>
+        [JsonPropertyName("guid")]
+        public string Guid { get; set; } = System.Guid.NewGuid().ToString();
 
         /// <summary>
         /// Die Uri

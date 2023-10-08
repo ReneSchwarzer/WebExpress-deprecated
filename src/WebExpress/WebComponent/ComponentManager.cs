@@ -478,7 +478,7 @@ namespace WebExpress.WebComponent
                        InternationalizationManager.I18N("webexpress:pluginmanager.plugin", item.Key.PluginId)
                     );
 
-                    component.ComponentInstance.PrepareForLog(item.Key, output, 4);
+                    component.ComponentInstance?.PrepareForLog(item.Key, output, 4);
                 }
             }
 
