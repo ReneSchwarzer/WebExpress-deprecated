@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Reflection;
 
 namespace WebExpress.WebApp.WebIndex
 {
@@ -33,8 +34,8 @@ namespace WebExpress.WebApp.WebIndex
         /// <summary>
         /// Returns an index field based on its name.
         /// </summary>
-        /// <param name="fieldName">The index field name.</param>
+        /// <param name="property">The property that makes up the index.</param>
         /// <returns>The index field or null.</returns>
-        IIndexReverse<T> GetReverseIndex(string fieldName);
+        IIndexReverse<T> GetReverseIndex(PropertyInfo property);
     }
 }

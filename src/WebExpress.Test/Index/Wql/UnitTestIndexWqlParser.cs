@@ -1,27 +1,30 @@
 ﻿using System.Linq;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace WebExpress.Test.Index.Wql
 {
     public class UnitTestIndexWqlParser : IClassFixture<UnitTestIndexWqlFixture>
     {
+        public ITestOutputHelper Output { get; private set; }
+
         protected UnitTestIndexWqlFixture Fixture { get; set; }
 
-        public UnitTestIndexWqlParser(UnitTestIndexWqlFixture fixture)
+        public UnitTestIndexWqlParser(UnitTestIndexWqlFixture fixture, ITestOutputHelper output)
         {
             Fixture = fixture;
-
+            Output = output;
         }
 
         [Fact]
         public void TestParseEmptyFromQueryable()
         {
             var wql = Fixture.ExecuteWql("");
-            var res = wql?.Apply(Fixture.TestDataA.AsQueryable());
+            var res = wql?.Apply(Fixture.TestData.AsQueryable());
             Assert.Null(wql.Filter);
             Assert.Null(wql.Order);
             Assert.Null(wql.Partitioning);
-            Assert.True(Fixture.TestDataA.Count() == res.Count());
+            Assert.True(Fixture.TestData.Count() == res.Count());
         }
 
         [Fact]
@@ -32,14 +35,14 @@ namespace WebExpress.Test.Index.Wql
             Assert.Null(wql.Filter);
             Assert.Null(wql.Order);
             Assert.Null(wql.Partitioning);
-            Assert.True(Fixture.TestDataA.Count() == res.Count());
+            Assert.True(Fixture.TestData.Count() == res.Count());
         }
 
         [Fact]
         public void TestParseSimpleFilterEqualsFromQueryable()
         {
             var wql = Fixture.ExecuteWql("firstname='Olivia'");
-            var res = wql?.Apply(Fixture.TestDataA.AsQueryable());
+            var res = wql?.Apply(Fixture.TestData.AsQueryable());
             var item = res?.FirstOrDefault();
 
             Assert.NotNull(res);
@@ -73,7 +76,7 @@ namespace WebExpress.Test.Index.Wql
         public void TestParseSimpleFilterLoremIpsumEqualsFromQueryable()
         {
             var wql = Fixture.ExecuteWql("description~'lorem ipsum'");
-            var res = wql?.Apply(Fixture.TestDataA.AsQueryable());
+            var res = wql?.Apply(Fixture.TestData.AsQueryable());
             var item = res?.FirstOrDefault();
 
             Assert.NotNull(res);
@@ -107,7 +110,7 @@ namespace WebExpress.Test.Index.Wql
         public void TestParseSimpleFilterLike()
         {
             var wql = Fixture.ExecuteWql("firstname ~ 'Oliv'");
-            var res = wql?.Apply(Fixture.TestDataA.AsQueryable());
+            var res = wql?.Apply(Fixture.TestData.AsQueryable());
             var item = res?.FirstOrDefault();
 
             Assert.NotNull(res);
@@ -124,7 +127,7 @@ namespace WebExpress.Test.Index.Wql
         public void TestParseSimpleFilterSet()
         {
             var wql = Fixture.ExecuteWql("firstname in ('FirstName33', 'FirstName55')");
-            var res = wql?.Apply(Fixture.TestDataA.AsQueryable());
+            var res = wql?.Apply(Fixture.TestData.AsQueryable());
             var item1 = res?.FirstOrDefault();
             var item2 = res?.Skip(1).FirstOrDefault();
 
@@ -144,7 +147,7 @@ namespace WebExpress.Test.Index.Wql
         public void TestParseSimpleFilterLowerCase()
         {
             var wql = Fixture.ExecuteWql("firstname  ~  'olivia'");
-            var res = wql?.Apply(Fixture.TestDataA.AsQueryable());
+            var res = wql?.Apply(Fixture.TestData.AsQueryable());
             var item = res?.FirstOrDefault();
 
             Assert.NotNull(res);
@@ -161,7 +164,7 @@ namespace WebExpress.Test.Index.Wql
         public void TestParseSimpleFilterAnd()
         {
             var wql = Fixture.ExecuteWql("FirstName = 'FirstName23' and lastname = \"LastName23\"");
-            var res = wql?.Apply(Fixture.TestDataA.AsQueryable());
+            var res = wql?.Apply(Fixture.TestData.AsQueryable());
             var item = res?.FirstOrDefault();
 
             Assert.NotNull(res);
@@ -179,7 +182,7 @@ namespace WebExpress.Test.Index.Wql
         public void TestParseSimpleFilterOr()
         {
             var wql = Fixture.ExecuteWql("FirstName = 'FirstName55' or LastName = 'LastName33'");
-            var res = wql?.Apply(Fixture.TestDataA.AsQueryable());
+            var res = wql?.Apply(Fixture.TestData.AsQueryable());
             var item1 = res?.FirstOrDefault();
             var item2 = res?.Skip(1).FirstOrDefault();
 
@@ -199,7 +202,7 @@ namespace WebExpress.Test.Index.Wql
         public void TestParseOrderByFirstName()
         {
             var wql = Fixture.ExecuteWql("orderby firstname");
-            var res = wql?.Apply(Fixture.TestDataA.AsQueryable());
+            var res = wql?.Apply(Fixture.TestData.AsQueryable());
             var item1 = res?.FirstOrDefault();
             var item2 = res?.LastOrDefault();
 
@@ -218,7 +221,7 @@ namespace WebExpress.Test.Index.Wql
         public void TestParseOrderByFirstNameAsc()
         {
             var wql = Fixture.ExecuteWql("order by firstname asc");
-            var res = wql?.Apply(Fixture.TestDataA.AsQueryable());
+            var res = wql?.Apply(Fixture.TestData.AsQueryable());
             var item1 = res?.FirstOrDefault();
             var item2 = res?.LastOrDefault();
 
@@ -237,7 +240,7 @@ namespace WebExpress.Test.Index.Wql
         public void TestParseOrderByFirstNameDesc()
         {
             var wql = Fixture.ExecuteWql("order by firstname desc");
-            var res = wql?.Apply(Fixture.TestDataA.AsQueryable());
+            var res = wql?.Apply(Fixture.TestData.AsQueryable());
             var item1 = res?.FirstOrDefault();
             var item2 = res?.LastOrDefault();
 
@@ -256,7 +259,7 @@ namespace WebExpress.Test.Index.Wql
         public void TestParseOrderByFirstNameAndLastName()
         {
             var wql = Fixture.ExecuteWql("order by firstname, lastname");
-            var res = wql?.Apply(Fixture.TestDataA.AsQueryable());
+            var res = wql?.Apply(Fixture.TestData.AsQueryable());
             var item1 = res?.FirstOrDefault();
             var item2 = res?.LastOrDefault();
 
@@ -275,7 +278,7 @@ namespace WebExpress.Test.Index.Wql
         public void TestParsePartitioningTake()
         {
             var wql = Fixture.ExecuteWql("take 10");
-            var res = wql?.Apply(Fixture.TestDataA.AsQueryable());
+            var res = wql?.Apply(Fixture.TestData.AsQueryable());
             var item1 = res?.FirstOrDefault();
             var item2 = res?.LastOrDefault();
 
@@ -295,14 +298,14 @@ namespace WebExpress.Test.Index.Wql
         public void TestParsePartitioningSkip()
         {
             var wql = Fixture.ExecuteWql("skip 10");
-            var res = wql?.Apply(Fixture.TestDataA.AsQueryable());
+            var res = wql?.Apply(Fixture.TestData.AsQueryable());
             var item = res?.FirstOrDefault();
 
             Assert.NotNull(res);
             Assert.NotNull(item);
             Assert.Equal("skip 10", wql.ToString());
             Assert.Equal("Isabella", item.FirstName);
-            Assert.Equal(Fixture.TestDataA.Count() - 10, res.Count());
+            Assert.Equal(Fixture.TestData.Count() - 10, res.Count());
             Assert.Null(wql.Filter);
             Assert.Null(wql.Order);
             Assert.NotNull(wql.Partitioning);
@@ -312,7 +315,7 @@ namespace WebExpress.Test.Index.Wql
         public void TestParsePartitioningTakeSkip()
         {
             var wql = Fixture.ExecuteWql("take 10 skip 5");
-            var res = wql?.Apply(Fixture.TestDataA.AsQueryable());
+            var res = wql?.Apply(Fixture.TestData.AsQueryable());
             var item1 = res?.FirstOrDefault();
             var item2 = res?.LastOrDefault();
 
@@ -332,7 +335,7 @@ namespace WebExpress.Test.Index.Wql
         public void TestParsePartitioningSkipTake()
         {
             var wql = Fixture.ExecuteWql("skip 5 take 10");
-            var res = wql?.Apply(Fixture.TestDataA.AsQueryable());
+            var res = wql?.Apply(Fixture.TestData.AsQueryable());
             var item1 = res?.FirstOrDefault();
             var item2 = res?.LastOrDefault();
 

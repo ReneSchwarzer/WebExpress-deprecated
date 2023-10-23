@@ -34,7 +34,8 @@ namespace WebExpress.WebApp.WebIndex.Memory
         {
             if (ContainsKey(item.Id))
             {
-                Remove(item.Id);
+                T value;
+                Remove(item.Id, out value);
             }
         }
 

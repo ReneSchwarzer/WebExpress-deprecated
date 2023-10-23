@@ -109,7 +109,7 @@ namespace WebExpress
         private bool _done = false;
 
         /// <summary>
-        /// Unsaved Entries Queue.
+        /// Unsaved entries queue.
         /// </summary>
         private readonly Queue<LogItem> _queue = new Queue<LogItem>();
 

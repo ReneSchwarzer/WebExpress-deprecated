@@ -23,6 +23,6 @@ namespace WebExpress.WebApp.WebIndex
         /// </summary>
         /// <param name="term">The term.</param>
         /// <returns>An enumeration of the data ids.</returns>
-        IEnumerable<int> Collect(string term);
+        IEnumerable<int> Collect(object term);
     }
 }

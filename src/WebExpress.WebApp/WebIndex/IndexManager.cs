@@ -74,12 +74,13 @@ namespace WebExpress.WebApp.WebIndex
         /// Registers a data type in the index.
         /// </summary>
         /// <typeparam name="T">The data type. This must have the IIndexItem interface.</typeparam>
+        /// <param name="capacity">The predicted capacity (number of items to store) of the index.</param>
         /// <param name="type">The index type.</param>
-        public void Register<T>(IndexType type = IndexType.Memory) where T : IIndexItem
+        public void Register<T>(uint capacity = ushort.MaxValue, IndexType type = IndexType.Memory) where T : IIndexItem
         {
             if (!Documents.ContainsKey(typeof(T)))
             {
-                Documents.Add(typeof(T), new IndexDocument<T>(type));
+                Documents.Add(typeof(T), new IndexDocument<T>(type, capacity));
             }
         }
 
@@ -90,10 +91,12 @@ namespace WebExpress.WebApp.WebIndex
         /// <param name="items">The data to be added to the index.</param>
         public void ReIndex<T>(IEnumerable<T> items) where T : IIndexItem
         {
+            Register<T>();
+
             foreach (var item in items)
             {
                 Add(item);
-            }
+            };
         }
 
         /// <summary>
@@ -137,7 +140,8 @@ namespace WebExpress.WebApp.WebIndex
         {
             if (GetIndexDocument<T>() != null)
             {
-                Documents.Remove(typeof(T));
+                IIndexDocument value;
+                Documents.Remove(typeof(T), out value);
             }
         }
 

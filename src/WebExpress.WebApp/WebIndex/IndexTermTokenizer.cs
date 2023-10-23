@@ -1,9 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace WebExpress.WebApp.WebIndex
 {
     public static class IndexTermTokenizer
     {
+        private static char[] delimiters = new char[] { ' ', '?', '!', ':', '<', '>', '=', '%', '(', ')' };
+
         /// <summary>
         /// Tokenize an input string into an enumeration of terms.
         /// </summary>
@@ -11,49 +15,33 @@ namespace WebExpress.WebApp.WebIndex
         /// <returns>An enumeration of terms.</returns>
         public static IEnumerable<IndexTermToken> Tokenize(string input)
         {
-            var currentToken = "";
-            var position = 0;
+            var currentToken = new StringBuilder();
+            var position = (uint)0;
 
-            if (input == null)
+            if (input == null || input.Length == 0)
             {
                 yield break;
             }
 
-            for (int i = 0; i < input.Length; i++)
+            foreach (var c in input)
             {
-                var c = input[i];
-
-                if (char.IsWhiteSpace(c))
+                if (char.IsWhiteSpace(c) || delimiters.Contains(c))
                 {
                     if (currentToken.Length > 0)
                     {
                         yield return new IndexTermToken()
                         {
                             Position = position,
-                            Value = currentToken
+                            Value = IndexTermNormalizer.Normalize(currentToken.ToString())
                         };
                     }
 
-                    currentToken = "";
-                    position++;
-                }
-                else if (c == '<' || c == '>' || c == '(' || c == ')' || c == '!')
-                {
-                    if (currentToken.Length > 0)
-                    {
-                        yield return new IndexTermToken()
-                        {
-                            Position = position,
-                            Value = currentToken
-                        };
-                    }
-
-                    currentToken = "";
+                    currentToken = new StringBuilder();
                     position++;
                 }
                 else
                 {
-                    currentToken += c;
+                    currentToken.Append(c);
                 }
             }
 
@@ -62,7 +50,7 @@ namespace WebExpress.WebApp.WebIndex
                 yield return new IndexTermToken()
                 {
                     Position = position,
-                    Value = currentToken
+                    Value = IndexTermNormalizer.Normalize(currentToken.ToString())
                 };
             }
         }

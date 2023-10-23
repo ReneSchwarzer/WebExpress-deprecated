@@ -5,7 +5,7 @@
         /// <summary>
         /// Returns the position of the token in the input value.
         /// </summary>
-        public int Position { get; internal set; }
+        public uint Position { get; internal set; }
 
         /// <summary>
         /// Returns the token value.

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -12,8 +12,6 @@ namespace WebExpress.Test.Index
     public class UnitTestIndexFixture
     {
         public IndexManager IndexManager { get; private set; }
-        public IEnumerable<UnitTestIndexTestDocumentA> TestDataA { get; } = UnitTestIndexTestDocumentA.GenerateTestData();
-        public IEnumerable<UnitTestIndexTestDocumentB> TestDataB { get; } = UnitTestIndexTestDocumentB.GenerateTestData();
 
         public UnitTestIndexFixture()
         {
@@ -29,6 +27,13 @@ namespace WebExpress.Test.Index
         public virtual void Dispose()
         {
 
+        }
+
+        public long GetUsedMemory()
+        {
+            long lngSessMemory = Process.GetCurrentProcess().WorkingSet64;
+
+            return lngSessMemory;
         }
     }
 }

@@ -3,9 +3,9 @@
 namespace WebExpress.WebApp.WebIndex.Memory
 {
     /// <summary>
-    /// Index: The id of a item.
+    /// A hash list with the position of a item.
     /// </summary>
-    public class IndexMemoryReversePosition : HashSet<int>
+    public class IndexMemoryReversePosition : HashSet<uint>
     {
     }
 }

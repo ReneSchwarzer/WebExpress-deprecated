@@ -1,44 +1,44 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
+using System.Globalization;
+using System.Text;
 
 namespace WebExpress.WebApp.WebIndex
 {
     public static class IndexTermNormalizer
     {
+        /// <summary>
+        /// Converts an input string into a standardized form.
+        /// </summary>
+        /// <param name="input">The input string.</param>
+        /// <returns>The normalized form of the input string.</returns>
         public static IEnumerable<IndexTermToken> Normalize(IEnumerable<IndexTermToken> input)
         {
-            return input.Select(x => new IndexTermToken()
+            foreach (var token in input)
             {
-                Position = x.Position,
-                Value = Normalize(x.Value)
-            });
+                token.Value = Normalize(token.Value);
+                yield return token;
+            }
         }
 
+        /// <summary>
+        /// Converts an input string into a standardized form.
+        /// </summary>
+        /// <param name="input">The input string.</param>
+        /// <returns>The normalized form of the input string.</returns>
         public static string Normalize(string input)
         {
-            var str = input?.ToLower();
+            var normalized = input.Normalize(NormalizationForm.FormKD);
+            var stringBuilder = new StringBuilder();
 
-            str = str?.Replace("ä", "ae");
-            str = str?.Replace("ö", "oe");
-            str = str?.Replace("ü", "ue");
-            str = str?.Replace("ß", "ss");
-            str = str?.Replace("á", "a");
-            str = str?.Replace("â", "a");
-            str = str?.Replace("à", "a");
-            str = str?.Replace("é", "e");
-            str = str?.Replace("ê", "e");
-            str = str?.Replace("è", "e");
-            str = str?.Replace("í", "i");
-            str = str?.Replace("î", "i");
-            str = str?.Replace("ì", "i");
-            str = str?.Replace("ó", "o");
-            str = str?.Replace("ô", "o");
-            str = str?.Replace("ò", "o");
-            str = str?.Replace("ú", "u");
-            str = str?.Replace("û", "u");
-            str = str?.Replace("ù", "u");
+            foreach (var c in normalized)
+            {
+                if (CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)
+                {
+                    stringBuilder.Append(c);
+                }
+            }
 
-            return str;
+            return stringBuilder.ToString().ToLowerInvariant();
         }
     }
 }

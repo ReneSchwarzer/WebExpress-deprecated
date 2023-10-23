@@ -341,7 +341,7 @@ namespace WebExpress.WebApp.WebIndex.Wql
                 {
                     Name = attribute,
                     Property = typeof(T).GetProperty(attribute),
-                    ReverseIndex = IndexDocument.GetReverseIndex(attribute)
+                    ReverseIndex = IndexDocument.GetReverseIndex(typeof(T).GetProperty(attribute))
                 };
             }
 
