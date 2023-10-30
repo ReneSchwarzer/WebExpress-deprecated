@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using WebExpress.WebHtml;
 using WebExpress.Internationalization;
+using WebExpress.WebHtml;
 using WebExpress.WebMessage;
 using WebExpress.WebPage;
 using static WebExpress.Internationalization.InternationalizationManager;
@@ -338,7 +338,7 @@ namespace WebExpress.UI.WebControl
 
             var main = new HtmlElementSectionMain();
 
-            var group = null as ControlFormItemGroup;
+            var group = default(ControlFormItemGroup);
 
             group = Layout switch
             {

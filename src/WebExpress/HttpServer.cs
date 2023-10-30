@@ -16,10 +16,10 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using System.Threading.Tasks;
 using WebExpress.Config;
-using WebExpress.WebHtml;
 using WebExpress.Internationalization;
 using WebExpress.WebApplication;
 using WebExpress.WebComponent;
+using WebExpress.WebHtml;
 using WebExpress.WebMessage;
 using WebExpress.WebModule;
 using WebExpress.WebPage;
@@ -249,7 +249,7 @@ namespace WebExpress
         {
             var stopwatch = Stopwatch.StartNew();
             var request = context.Request;
-            var response = null as Response;
+            var response = default(Response);
             var culture = request.Culture;
             var uri = request?.Uri;
 

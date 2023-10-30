@@ -56,7 +56,7 @@ namespace WebExpress.UI.WebControl
         /// <returns>The control as html.</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var img = null as HtmlElement;
+            var img = default(HtmlElement);
 
             if (Image != null)
             {

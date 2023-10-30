@@ -48,7 +48,7 @@ namespace WebExpress.UI.SettingPage
         /// <returns> The first setting page.</returns>
         public SettingPageSearchResult FindFirstPage()
         {
-            var firstPage = null as SettingPageSearchResult;
+            var firstPage = default(SettingPageSearchResult);
 
             if (ContainsKey(SettingSection.Preferences))
             {

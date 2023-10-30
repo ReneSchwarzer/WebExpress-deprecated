@@ -86,12 +86,12 @@ namespace WebExpress.UI.SettingPage
                     .Where(x => x.IsClass && x.IsSealed && (x.GetInterfaces().Contains(typeof(IPageSetting)))))
             {
                 var id = settingPageType.FullName?.ToLower();
-                var context = null as string;
-                var group = null as string;
+                var context = default(string);
+                var group = default(string);
                 var section = SettingSection.Primary;
-                var moduleId = null as string;
+                var moduleId = default(string);
                 var hide = false;
-                var icon = null as PropertyIcon;
+                var icon = default(PropertyIcon);
 
                 // determining attributes
                 foreach (var customAttribute in settingPageType.CustomAttributes

@@ -396,7 +396,7 @@ namespace WebExpress.WebMessage
                             lines.Add(Encoding.UTF8.GetString(Content, offset, Content.Length - offset));
                         }
 
-                        var last = null as Parameter;
+                        var last = default(Parameter);
 
                         foreach (var v in lines)
                         {

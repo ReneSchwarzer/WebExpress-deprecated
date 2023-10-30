@@ -63,7 +63,7 @@ namespace WebExpress.WebApp.WebAPI.V1
                 new
                 {
                     Id = id,
-                    State = null as string,
+                    State = default(string),
                     Progress = 0
                 }
             };

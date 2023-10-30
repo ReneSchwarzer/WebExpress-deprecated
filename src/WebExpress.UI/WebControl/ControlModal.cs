@@ -145,7 +145,7 @@ namespace WebExpress.UI.WebControl
                 Class = "modal-body"
             };
 
-            var footer = null as HtmlElementTextContentDiv;
+            var footer = default(HtmlElementTextContentDiv);
 
             var footerButton = new HtmlElementFieldButton(new HtmlText(I18N(context.Culture, "webexpress.ui:modal.close.label")))
             {

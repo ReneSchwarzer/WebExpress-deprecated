@@ -48,7 +48,7 @@ namespace WebExpress.WebSession
         /// <returns>The session.</returns>
         public Session GetSession(Request request)
         {
-            var session = null as Session;
+            var session = default(Session);
 
             // Session ermitteln
             var sessionCookie = request?.Header

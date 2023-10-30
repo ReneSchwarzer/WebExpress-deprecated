@@ -35,7 +35,7 @@ namespace WebExpress.Test.Schedule
 
             ComponentManager.Initialization(context);
 
-            var clock = new Clock(new DateTime(dateTime.Year, 2, dateTime.Day, dateTime.Hour, dateTime.Minute, 0));
+            var clock = new Clock(new DateTime(dateTime.Year, 1, dateTime.Day, dateTime.Hour, dateTime.Minute, 0));
             var cron = new Cron(context, "*", "*", "0-33", "2, 1-4, x");
 
             Assert.True

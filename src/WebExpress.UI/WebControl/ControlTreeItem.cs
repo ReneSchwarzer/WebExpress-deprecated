@@ -122,7 +122,7 @@ namespace WebExpress.UI.WebControl
         public override IHtmlNode Render(RenderContext context)
         {
             var content = from x in Content select x.Render(context);
-            var container = null as HtmlElementTextContentDiv;
+            var container = default(HtmlElementTextContentDiv);
 
             if (Layout == TypeLayoutTreeItem.TreeView)
             {

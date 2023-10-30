@@ -112,9 +112,9 @@ namespace WebExpress.WebResource
                 .Where(x => x.GetInterface(typeof(IStatusPage).Name) == null))
             {
                 var id = resourceType.FullName?.ToLower();
-                var segment = null as ISegmentAttribute;
+                var segment = default(ISegmentAttribute);
                 var title = resourceType.Name;
-                var parent = null as string;
+                var parent = default(string);
                 var contextPath = string.Empty;
                 var includeSubPaths = false;
                 var moduleId = string.Empty;

@@ -48,7 +48,7 @@ namespace WebExpress.UI.SettingPage
         /// <returns>The first setting page.</returns>
         public SettingPageSearchResult FindFirstPage()
         {
-            var firstItem = null as SettingPageDictionaryItem;
+            var firstItem = default(SettingPageDictionaryItem);
 
             foreach (var group in this.OrderBy(x => x.Key))
             {

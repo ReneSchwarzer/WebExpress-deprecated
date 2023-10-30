@@ -126,7 +126,7 @@ namespace WebExpress.UI.WebControl
                 Class = "modal-body"
             };
 
-            var footer = null as HtmlElementTextContentDiv;
+            var footer = default(HtmlElementTextContentDiv);
 
             var submitFooterButton = new ControlFormItemButton()
             {
