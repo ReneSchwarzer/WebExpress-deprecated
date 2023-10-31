@@ -12,17 +12,17 @@
         /// <summary>
         /// Returns or sets the header.
         /// </summary>
-        public IndexStorageDataStructureHeader Header => Index.Header;
+        public IndexStorageSegmentHeader Header => Index.Header;
 
         /// <summary>
         /// Returns or sets the memory manager.
         /// </summary>
-        public IndexStorageDataStructureAllocator Allocator => Index.Allocator;
+        public IndexStorageSegmentAllocator Allocator => Index.Allocator;
 
         /// <summary>
         /// Returns the statistical values that can be help to optimize the index.
         /// </summary>
-        public IndexStorageDataStructureStatistic Statistic => Index.Statistic;
+        public IndexStorageSegmentStatistic Statistic => Index.Statistic;
 
         /// <summary>
         /// Constructor

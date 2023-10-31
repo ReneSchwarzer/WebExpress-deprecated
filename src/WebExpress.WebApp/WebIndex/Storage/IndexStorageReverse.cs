@@ -30,22 +30,22 @@ namespace WebExpress.WebApp.WebIndex.Storage
         /// <summary>
         /// Returns or sets the header.
         /// </summary>
-        public IndexStorageDataStructureHeader Header { get; private set; }
+        public IndexStorageSegmentHeader Header { get; private set; }
 
         /// <summary>
         /// Returns or sets the hash map.
         /// </summary>
-        public IndexStorageDataStructureHashMap<IndexStorageDataStructureTerm> HashMap { get; private set; }
+        public IndexStorageSegmentHashMap<IndexStorageSegmentTerm> HashMap { get; private set; }
 
         /// <summary>
         /// Returns or sets the memory manager.
         /// </summary>
-        public IndexStorageDataStructureAllocator Allocator { get; private set; }
+        public IndexStorageSegmentAllocator Allocator { get; private set; }
 
         /// <summary>
         /// Returns the statistical values that can be help to optimize the index.
         /// </summary>
-        public IndexStorageDataStructureStatistic Statistic { get; private set; }
+        public IndexStorageSegmentStatistic Statistic { get; private set; }
 
         /// <summary>
         /// Constructor
@@ -62,10 +62,13 @@ namespace WebExpress.WebApp.WebIndex.Storage
 
             var exists = File.Exists(FileName);
             IndexFile = new IndexStorageFile(FileName);
-            Header = new IndexStorageDataStructureHeader(new IndexStorageContext(this));
-            Allocator = new IndexStorageDataStructureAllocator(new IndexStorageContext(this));
-            Statistic = new IndexStorageDataStructureStatistic(new IndexStorageContext(this));
-            HashMap = new IndexStorageDataStructureHashMap<IndexStorageDataStructureTerm>(new IndexStorageContext(this), capacity);
+            Header = new IndexStorageSegmentHeader(new IndexStorageContext(this));
+            Allocator = new IndexStorageSegmentAllocator(new IndexStorageContext(this));
+            Statistic = new IndexStorageSegmentStatistic(new IndexStorageContext(this));
+            HashMap = new IndexStorageSegmentHashMap<IndexStorageSegmentTerm>(new IndexStorageContext(this), capacity);
+
+            Allocator.Alloc(Statistic);
+            Allocator.Alloc(HashMap);
 
             if (exists)
             {
@@ -99,11 +102,11 @@ namespace WebExpress.WebApp.WebIndex.Storage
             foreach (var term in terms)
             {
                 HashMap[term.Value]
-                    .Add(new IndexStorageDataStructureTerm(new IndexStorageContext(this)) { Term = term.Value, Fequency = 1 })
+                    .Add(new IndexStorageSegmentTerm(new IndexStorageContext(this)) { Term = term.Value, Fequency = 1 })
                     .Postings[item.Id]
-                    .Add(new IndexStorageDataStructurePosting(new IndexStorageContext(this)) { DocumentID = item.Id })
+                    .Add(new IndexStorageSegmentPosting(new IndexStorageContext(this)) { DocumentID = item.Id })
                     .Positions
-                    .Add(new IndexStorageDataStructurePosition(new IndexStorageContext(this)) { Position = term.Position });
+                    .Add(new IndexStorageSegmentPosition(new IndexStorageContext(this)) { Position = term.Position });
             }
         }
 

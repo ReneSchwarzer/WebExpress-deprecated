@@ -3,15 +3,15 @@ using System.IO;
 
 namespace WebExpress.WebApp.WebIndex.Storage
 {
-    public class IndexStorageDataStructureHashMap<T> : IndexStorageDataStructure
-        where T : IIndexStorageDataStructureListItem
+    public class IndexStorageSegmentHashMap<T> : IndexStorageSegment
+        where T : IIndexStorageSegmentListItem
     {
         /// <summary>
         /// A hash bucket is a range of memory in a hash table that is associated with a 
         /// specific hash value. A bucket provides a concatenated list by recording the 
         /// collisions (different keys with the same hash value).
         /// </summary>
-        private IndexStorageDataStructureList<T>[] Buckets;
+        private IndexStorageSegmentList<T>[] Buckets;
 
         /// <summary>
         /// The number of fields (buckets) of the hash map. This should be a 
@@ -22,14 +22,14 @@ namespace WebExpress.WebApp.WebIndex.Storage
         /// <summary>
         /// Returns the amount of space required on the storage device.
         /// </summary>
-        public override uint SizeOf => sizeof(uint);
+        public override uint Size => sizeof(uint) + (IndexStorageSegmentList<T>.SegmentSize * BucketCount);
 
         /// <summary>
         /// Returns or sets the address of the first term in a bucket in the hash map.
         /// </summary>
         /// <param name="term">The term.</param>
         /// <returns>The address in the bucket at the index.</returns>
-        public IndexStorageDataStructureList<T> this[object term]
+        public IndexStorageSegmentList<T> this[object term]
         {
             get
             {
@@ -44,16 +44,26 @@ namespace WebExpress.WebApp.WebIndex.Storage
         /// </summary>
         /// <param name="context">The reference to the context of the index.</param>
         /// <param name="capacity">The number of elements to be stored in the hash map.</param>
-        public IndexStorageDataStructureHashMap(IndexStorageContext context, uint capacity)
+        public IndexStorageSegmentHashMap(IndexStorageContext context, uint capacity)
             : base(context)
         {
             BucketCount = DeterminePrimeNumber(capacity);
-            Context.Allocator.Alloc(this);
+            Buckets = new IndexStorageSegmentList<T>[BucketCount];
+        }
 
-            Buckets = new IndexStorageDataStructureList<T>[BucketCount];
+        /// <summary>
+        /// Assigns an address to the segment.
+        /// </summary>
+        /// <param name="addr">The address of the segment.</param>
+        public override void OnAllocated(ulong addr)
+        {
+            base.OnAllocated(addr);
+
             for (uint i = 0; i < BucketCount; i++)
             {
-                Buckets[i] = new IndexStorageDataStructureList<T>(Context);
+                var a = Addr + Size + (i * IndexStorageSegmentList<T>.SegmentSize);
+                Buckets[i] = new IndexStorageSegmentList<T>(Context);
+                Buckets[i].OnAllocated(a);
             }
         }
 
@@ -61,15 +71,18 @@ namespace WebExpress.WebApp.WebIndex.Storage
         /// Reads the record from the storage medium.
         /// </summary>
         /// <param name="reader">The reader for i/o operations.</param>
-        public override void Read(BinaryReader reader)
+        /// <param name="addr">The address of the segment.</param>
+        public override void Read(BinaryReader reader, ulong addr)
         {
+            Addr = addr;
             reader.BaseStream.Seek((long)Addr, SeekOrigin.Begin);
 
             BucketCount = reader.ReadUInt32();
 
-            for (int i = 0; i < BucketCount; i++)
+            for (uint i = 0; i < BucketCount; i++)
             {
-                Buckets[i] = Context.IndexFile.Read(Buckets[i]);
+                var a = Addr + Size + (i * IndexStorageSegmentList<T>.SegmentSize);
+                Buckets[i] = Context.IndexFile.Read<IndexStorageSegmentList<T>>(a, Context);
             }
         }
 

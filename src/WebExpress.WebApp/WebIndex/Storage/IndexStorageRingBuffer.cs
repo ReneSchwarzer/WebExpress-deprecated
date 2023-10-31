@@ -4,19 +4,19 @@ using System.Collections.Generic;
 namespace WebExpress.WebApp.WebIndex.Storage
 {
     /// <summary>
-    /// A ring buffer for circular buffering of data structures.
+    /// A ring buffer for circular buffering of segments.
     /// </summary>
     public class IndexStorageRingBuffer
     {
         /// <summary>
         /// The ring buffer.
         /// </summary>
-        private IIndexStorageDataStructure[] buffer;
+        private IIndexStorageSegment[] buffer;
 
         /// <summary>
         /// Buffer for random access.
         /// </summary>
-        private Dictionary<ulong, IIndexStorageDataStructure> dict;
+        private Dictionary<ulong, IIndexStorageSegment> dict;
 
         /// <summary>
         /// The beginning of the ring buffer.
@@ -31,13 +31,13 @@ namespace WebExpress.WebApp.WebIndex.Storage
         /// <summary>
         /// Event is triggered when the insertion of new data displaces existing data.
         /// </summary>
-        public event EventHandler<IIndexStorageDataStructure> DataOverwritten;
+        public event EventHandler<IIndexStorageSegment> DataOverwritten;
 
         /// <summary>
-        /// Returns a data structure if sored.
+        /// Returns a segment if sored.
         /// </summary>
-        /// <param name="addr">The address of th data structure.</param>
-        public IIndexStorageDataStructure this[ulong addr]
+        /// <param name="addr">The address of th segment.</param>
+        public IIndexStorageSegment this[ulong addr]
         {
             get => dict.ContainsKey(addr) ? dict[addr] : null;
         }
@@ -48,8 +48,8 @@ namespace WebExpress.WebApp.WebIndex.Storage
         /// <param name="capacity">The number of elements to be stored in the ring buffer.</param>
         public IndexStorageRingBuffer(uint capacity)
         {
-            buffer = new IIndexStorageDataStructure[capacity];
-            dict = new Dictionary<ulong, IIndexStorageDataStructure>((int)capacity);
+            buffer = new IIndexStorageSegment[capacity];
+            dict = new Dictionary<ulong, IIndexStorageSegment>((int)capacity);
             head = 0;
             tail = 0;
         }
@@ -57,8 +57,8 @@ namespace WebExpress.WebApp.WebIndex.Storage
         /// <summary>
         /// Adds an item to the end of the ring buffer.
         /// </summary>
-        /// <param name="item">The data structure.</param>
-        public void Enqueue(IIndexStorageDataStructure item)
+        /// <param name="item">The segment.</param>
+        public void Enqueue(IIndexStorageSegment item)
         {
             if (dict.ContainsKey(item.Addr))
             {
@@ -84,8 +84,8 @@ namespace WebExpress.WebApp.WebIndex.Storage
         /// <summary>
         /// Removes an element at the beginning of the ring buffer.
         /// </summary>
-        /// <returns>The data structure.</returns>
-        public IIndexStorageDataStructure Dequeue()
+        /// <returns>The segment.</returns>
+        public IIndexStorageSegment Dequeue()
         {
             if (head == tail)
             {
@@ -99,10 +99,10 @@ namespace WebExpress.WebApp.WebIndex.Storage
         }
 
         /// <summary>
-        /// Checks whether a data structure exists at the given address.
+        /// Checks whether a segment exists at the given address.
         /// </summary>
         /// <param name="addr"></param>
-        /// <returns>The address of th data structure.</returns>
+        /// <returns>The address of th segment.</returns>
         public bool Contains(ulong addr)
         {
             return dict.ContainsKey(addr);
@@ -112,7 +112,7 @@ namespace WebExpress.WebApp.WebIndex.Storage
         /// Triggers when the event DataOverwritten is to be triggered.
         /// </summary>
         /// <param name="e">The event argument.</param>
-        protected virtual void OnDataOverwritten(IIndexStorageDataStructure e)
+        protected virtual void OnDataOverwritten(IIndexStorageSegment e)
         {
             DataOverwritten?.Invoke(this, e);
         }

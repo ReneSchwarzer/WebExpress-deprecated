@@ -5,7 +5,7 @@ namespace WebExpress.WebApp.WebIndex.Storage
     /// <summary>
     /// Records statistical values that can be help to optimize the index.
     /// </summary>
-    public class IndexStorageDataStructureStatistic : IndexStorageDataStructure
+    public class IndexStorageSegmentStatistic : IndexStorageSegment
     {
         /// <summary>
         /// Returns or sets the maximum occurrence of collisions that occur 
@@ -37,26 +37,25 @@ namespace WebExpress.WebApp.WebIndex.Storage
         /// <summary>
         /// Returns the amount of space required on the storage device.
         /// </summary>
-        public override uint SizeOf => sizeof(ulong);
+        public override uint Size => sizeof(ulong);
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="context">The reference to the context of the index.</param>
-        public IndexStorageDataStructureStatistic(IndexStorageContext context)
+        public IndexStorageSegmentStatistic(IndexStorageContext context)
             : base(context)
         {
-            Context.Allocator.Alloc(this);
         }
 
         /// <summary>
         /// Invoked when a new collision is detected.
         /// </summary>
-        /// <param name="item">The data structure.</param>
+        /// <param name="item">The segment.</param>
         /// <param name="collisions">The number of collisions.</param>
-        internal void AddCollision<T>(T item, uint collisions) where T : IIndexStorageDataStructureListItem
+        internal void AddCollision<T>(T item, uint collisions) where T : IIndexStorageSegmentListItem
         {
-            if (item is IndexStorageDataStructureTerm term)
+            if (item is IndexStorageSegmentTerm term)
             {
                 if (MaxTermCollisions < collisions)
                 {
@@ -65,7 +64,7 @@ namespace WebExpress.WebApp.WebIndex.Storage
                     Context.IndexFile.Write(this);
                 }
             }
-            else if (item is IndexStorageDataStructurePosting posting)
+            else if (item is IndexStorageSegmentPosting posting)
             {
                 if (MaxPostingCollisions < collisions)
                 {
@@ -80,8 +79,10 @@ namespace WebExpress.WebApp.WebIndex.Storage
         /// Reads the record from the storage medium.
         /// </summary>
         /// <param name="reader">The reader for i/o operations.</param>
-        public override void Read(BinaryReader reader)
+        /// <param name="addr">The address of the segment.</param>
+        public override void Read(BinaryReader reader, ulong addr)
         {
+            Addr = addr;
             reader.BaseStream.Seek((long)Addr, SeekOrigin.Begin);
 
             TermCount = reader.ReadUInt32();

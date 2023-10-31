@@ -5,7 +5,7 @@ namespace WebExpress.WebApp.WebIndex.Storage
     /// <summary>
     /// The Allocator is a mechanism for reserving and freeing up space. 
     /// </summary>
-    public class IndexStorageDataStructureAllocator : IndexStorageDataStructure
+    public class IndexStorageSegmentAllocator : IndexStorageSegment
     {
         /// <summary>
         /// Returns or sets the next free memory address.
@@ -15,37 +15,37 @@ namespace WebExpress.WebApp.WebIndex.Storage
         /// <summary>
         /// Returns the amount of space required on the storage device.
         /// </summary>
-        public override uint SizeOf => sizeof(ulong);
+        public override uint Size => sizeof(ulong);
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="context">The reference to the context of the index.</param>
-        public IndexStorageDataStructureAllocator(IndexStorageContext context)
+        public IndexStorageSegmentAllocator(IndexStorageContext context)
             : base(context)
         {
-            Addr = Context.Header.SizeOf;
-            NextFreeAddr = Addr + SizeOf;
+            Addr = IndexStorageSegmentHeader.SegmentSize;
+            NextFreeAddr = Addr + Size;
         }
 
         /// <summary>
         /// Allocate the memory.
         /// </summary>
-        /// <param name="dataStructure">The data structure determines how much memory should be reserved.</param>
+        /// <param name="segment">The segment determines how much memory should be reserved.</param>
         /// <returns>The start address of the reserved storage area.</returns>
-        public ulong Alloc(IIndexStorageDataStructure dataStructure)
+        public ulong Alloc(IIndexStorageSegment segment)
         {
-            if (dataStructure.Addr != 0)
+            if (segment.Addr != 0)
             {
                 // address has already been assigned.
-                return dataStructure.Addr;
+                return segment.Addr;
             }
 
             var addr = NextFreeAddr;
 
-            dataStructure.SetAddress(addr);
+            segment.OnAllocated(addr);
 
-            NextFreeAddr += dataStructure.SizeOf;
+            NextFreeAddr += segment.Size;
 
             return addr;
         }
@@ -53,18 +53,20 @@ namespace WebExpress.WebApp.WebIndex.Storage
         /// <summary>
         /// Allocate the memory.
         /// </summary>
-        /// <param name="dataStructure">The data structure determines how much memory should be reserved.</param>
-        public void Free(IIndexStorageDataStructure dataStructure)
+        /// <param name="segment">The segment determines how much memory should be reserved.</param>
+        public void Free(IIndexStorageSegment segment)
         {
-            dataStructure.SetAddress(0);
+            segment.OnAllocated(0);
         }
 
         /// <summary>
         /// Reads the record from the storage medium.
         /// </summary>
         /// <param name="reader">The reader for i/o operations.</param>
-        public override void Read(BinaryReader reader)
+        /// <param name="addr">The address of the segment.</param>
+        public override void Read(BinaryReader reader, ulong addr)
         {
+            Addr = addr;
             reader.BaseStream.Seek((long)Addr, SeekOrigin.Begin);
 
             NextFreeAddr = reader.ReadUInt64();

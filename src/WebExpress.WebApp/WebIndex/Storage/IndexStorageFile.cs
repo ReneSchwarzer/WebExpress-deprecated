@@ -31,7 +31,7 @@ namespace WebExpress.WebApp.WebIndex.Storage
         internal BinaryWriter Writer { get; private set; }
 
         /// <summary>
-        /// Returns a buffer for caching data structures.
+        /// Returns a buffer for caching segments.
         /// </summary>
         private IndexStorageRingBuffer Buffer { get; } = new IndexStorageRingBuffer(10000);
 
@@ -68,52 +68,51 @@ namespace WebExpress.WebApp.WebIndex.Storage
         /// <summary>
         /// Reads the record from the storage medium.
         /// </summary>
-        /// <param name="addr">The data structure address.</param>
+        /// <param name="addr">The segment address.</param>
         /// <param name="context">The reference to the context of the index.</param>
         /// <typeparam name="T">The type to be read.</typeparam>
-        /// <returns>The data structure, how it was read by the storage medium.</returns>
-        public T Read<T>(ulong addr, IndexStorageContext context) where T : IIndexStorageDataStructure
+        /// <returns>The segment, how it was read by the storage medium.</returns>
+        public T Read<T>(ulong addr, IndexStorageContext context) where T : IIndexStorageSegment
         {
             //if (Buffer.Contains(addr))
             //{
             //    return (T)Buffer[addr];
             //}
 
-            T dataStructure = (T)Activator.CreateInstance(typeof(T), context);
+            T segment = (T)Activator.CreateInstance(typeof(T), context);
+            segment.Read(Reader, addr);
 
-            dataStructure.Read(Reader);
-
-            return dataStructure;
+            return segment;
         }
 
         /// <summary>
         /// Reads the record from the storage medium.
         /// </summary>
-        /// <param name="dataStructure">The data structure.</param>
-        public T Read<T>(T dataStructure) where T : IIndexStorageDataStructure
+        /// <param name="segment">The segment.</param>
+        public T Read<T>(T segment) where T : IIndexStorageSegment
         {
-            //if (Buffer.Contains(dataStructure.Addr))
+            //if (Buffer.Contains(segment.Addr))
             //{
-            //    return (T)Buffer[dataStructure.Addr];
+            //    return (T)Buffer[segment.Addr];
             //}
 
-            dataStructure.Read(Reader);
+            segment.Read(Reader, segment.Addr);
 
-            return dataStructure;
+            return segment;
         }
 
         /// <summary>
         /// Writes the record to the storage medium.
         /// </summary>
-        /// <param name="dataStructure">The data structure.</param>
-        public void Write(IIndexStorageDataStructure dataStructure)
+        /// <param name="segment">The segment.</param>
+        public void Write(IIndexStorageSegment segment)
         {
-            //if (!Buffer.ContainsKey(dataStructure.Addr))
+            //if (!Buffer.ContainsKey(segment.Addr))
             //{
-            //    Buffer.Add(dataStructure.Addr, dataStructure);
+            //    Buffer.Add(segment.Addr, segment);
             //}
 
-            dataStructure.Write(Writer);
+            segment.Write(Writer);
         }
 
         /// <summary>
@@ -121,7 +120,7 @@ namespace WebExpress.WebApp.WebIndex.Storage
         /// </summary>
         public void Flush()
         {
-            //var item = default(IIndexStorageDataStructure);
+            //var item = default(IIndexStoragesegment);
 
             //while ((item = Buffer.Dequeue()) != null)
             //{

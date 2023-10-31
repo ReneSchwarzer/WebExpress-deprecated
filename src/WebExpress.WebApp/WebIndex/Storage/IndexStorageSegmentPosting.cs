@@ -3,7 +3,7 @@ using System.IO;
 
 namespace WebExpress.WebApp.WebIndex.Storage
 {
-    public class IndexStorageDataStructurePosting : IndexStorageDataStructure, IIndexStorageDataStructureListItem
+    public class IndexStorageSegmentPosting : IndexStorageSegment, IIndexStorageSegmentListItem
     {
         /// <summary>
         /// Returns or sets the address of the following posting.
@@ -23,31 +23,31 @@ namespace WebExpress.WebApp.WebIndex.Storage
         /// <summary>
         /// Returns the position list.
         /// </summary>
-        public IndexStorageDataStructureList<IndexStorageDataStructurePosition> Positions { get; private set; }
+        public IndexStorageSegmentList<IndexStorageSegmentPosition> Positions { get; private set; }
 
         /// <summary>
         /// Returns the amount of space required on the storage device.
         /// </summary>
-        public override uint SizeOf => sizeof(ulong) + sizeof(ulong) + sizeof(int);
+        public override uint Size => sizeof(ulong) + sizeof(ulong) + sizeof(int);
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="context">The reference to the context of the index.</param>
-        public IndexStorageDataStructurePosting(IndexStorageContext context)
+        public IndexStorageSegmentPosting(IndexStorageContext context)
             : base(context)
         {
-            Context.Allocator.Alloc(this);
-
-            Positions = new IndexStorageDataStructureList<IndexStorageDataStructurePosition>(context, ListSortDirection.Descending);
+            Positions = new IndexStorageSegmentList<IndexStorageSegmentPosition>(context, ListSortDirection.Descending);
         }
 
         /// <summary>
         /// Reads the record from the storage medium.
         /// </summary>
         /// <param name="reader">The reader for i/o operations.</param>
-        public override void Read(BinaryReader reader)
+        /// <param name="addr">The address of the segment.</param>
+        public override void Read(BinaryReader reader, ulong addr)
         {
+            Addr = addr;
             reader.BaseStream.Seek((long)Addr, SeekOrigin.Begin);
 
             SuccessorAddr = reader.ReadUInt64();
@@ -83,7 +83,7 @@ namespace WebExpress.WebApp.WebIndex.Storage
         /// <exception cref="System.ArgumentException">Obj is not the same type as this instance.</exception>
         public int CompareTo(object obj)
         {
-            if (obj is IndexStorageDataStructurePosting posting)
+            if (obj is IndexStorageSegmentPosting posting)
             {
                 return DocumentID.CompareTo(posting.DocumentID);
             }

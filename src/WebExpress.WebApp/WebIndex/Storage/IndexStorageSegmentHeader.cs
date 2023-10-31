@@ -2,7 +2,7 @@
 
 namespace WebExpress.WebApp.WebIndex.Storage
 {
-    public class IndexStorageDataStructureHeader : IndexStorageDataStructure
+    public class IndexStorageSegmentHeader : IndexStorageSegment
     {
         /// <summary>
         /// Returns or sets the file identifire.
@@ -12,13 +12,18 @@ namespace WebExpress.WebApp.WebIndex.Storage
         /// <summary>
         /// Returns the amount of space required on the storage device.
         /// </summary>
-        public override uint SizeOf => 3;
+        public override uint Size => SegmentSize;
+
+        /// <summary>
+        /// Returns the amount of space required on the storage device.
+        /// </summary>
+        public static uint SegmentSize => 3;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="context">The reference to the context of the index.</param>
-        public IndexStorageDataStructureHeader(IndexStorageContext context)
+        public IndexStorageSegmentHeader(IndexStorageContext context)
             : base(context)
         {
             Addr = 0;
@@ -29,8 +34,10 @@ namespace WebExpress.WebApp.WebIndex.Storage
         /// Reads the record from the storage medium.
         /// </summary>
         /// <param name="reader">The reader for i/o operations.</param>
-        public override void Read(BinaryReader reader)
+        /// <param name="addr">The address of the segment.</param>
+        public override void Read(BinaryReader reader, ulong addr)
         {
+            Addr = addr;
             reader.BaseStream.Seek((long)Addr, SeekOrigin.Begin);
 
             Identifier = new string(reader.ReadChars(3));

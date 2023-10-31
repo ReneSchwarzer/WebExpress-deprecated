@@ -7,7 +7,7 @@ using WebExpress.WebApp.WebIndex.Storage;
 namespace WebExpress.WebApp.WebIndex
 {
     /// <summary>
-    /// The IndexDocument is a data structure that provides indexes (for each property of a data type).
+    /// The IndexDocument is a segment that provides indexes (for each property of a data type).
     /// Key: The field name.
     /// Value: The reverse index.
     /// </summary>

@@ -18,21 +18,21 @@
         /// <summary>
         /// Returns or sets the header.
         /// </summary>
-        public IndexStorageDataStructureHeader Header { get; }
+        public IndexStorageSegmentHeader Header { get; }
 
         /// <summary>
         /// Returns or sets the hash map.
         /// </summary>
-        public IndexStorageDataStructureHashMap<IndexStorageDataStructureTerm> HashMap { get; }
+        public IndexStorageSegmentHashMap<IndexStorageSegmentTerm> HashMap { get; }
 
         /// <summary>
         /// Returns or sets the memory manager.
         /// </summary>
-        public IndexStorageDataStructureAllocator Allocator { get; }
+        public IndexStorageSegmentAllocator Allocator { get; }
 
         /// <summary>
         /// Returns the statistical values that can be help to optimize the index.
         /// </summary>
-        public IndexStorageDataStructureStatistic Statistic { get; }
+        public IndexStorageSegmentStatistic Statistic { get; }
     }
 }

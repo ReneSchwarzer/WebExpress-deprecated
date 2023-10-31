@@ -2,7 +2,7 @@
 
 namespace WebExpress.WebApp.WebIndex.Storage
 {
-    public interface IIndexStorageDataStructureListItem : IIndexStorageDataStructure, IComparable
+    public interface IIndexStorageSegmentListItem : IIndexStorageSegment, IComparable
     {
         /// <summary>
         /// Returns or sets the address of the following list item.

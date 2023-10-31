@@ -2,7 +2,7 @@
 
 namespace WebExpress.WebApp.WebIndex.Storage
 {
-    public class IndexStorageDataStructurePosition : IndexStorageDataStructure, IIndexStorageDataStructureListItem
+    public class IndexStorageSegmentPosition : IndexStorageSegment, IIndexStorageSegmentListItem
     {
         /// <summary>
         /// Returns or sets the address of the following position.
@@ -17,24 +17,25 @@ namespace WebExpress.WebApp.WebIndex.Storage
         /// <summary>
         /// Returns the amount of space required on the storage device.
         /// </summary>
-        public override uint SizeOf => sizeof(ulong) + sizeof(int);
+        public override uint Size => sizeof(ulong) + sizeof(int);
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="context">The reference to the context of the index.</param>
-        public IndexStorageDataStructurePosition(IndexStorageContext context)
+        public IndexStorageSegmentPosition(IndexStorageContext context)
             : base(context)
         {
-            Context.Allocator.Alloc(this);
         }
 
         /// <summary>
         /// Reads the record from the storage medium.
         /// </summary>
         /// <param name="reader">The reader for i/o operations.</param>
-        public override void Read(BinaryReader reader)
+        /// <param name="addr">The address of the segment.</param>
+        public override void Read(BinaryReader reader, ulong addr)
         {
+            Addr = addr;
             reader.BaseStream.Seek((long)Addr, SeekOrigin.Begin);
 
             SuccessorAddr = reader.ReadUInt64();
@@ -68,7 +69,7 @@ namespace WebExpress.WebApp.WebIndex.Storage
         /// <exception cref="System.ArgumentException">Obj is not the same type as this instance.</exception>
         public int CompareTo(object obj)
         {
-            if (obj is IndexStorageDataStructurePosition position)
+            if (obj is IndexStorageSegmentPosition position)
             {
                 return Position.CompareTo(position.Position);
             }

@@ -9,18 +9,24 @@ namespace WebExpress.WebApp.WebIndex.Storage
     /// A simple concatenated sorted list.
     /// </summary>
     /// <typeparam name="T">The list item type.</typeparam>
-    public class IndexStorageDataStructureList<T> : IndexStorageDataStructure, IEnumerable<T>
-        where T : IIndexStorageDataStructureListItem
+    public class IndexStorageSegmentList<T> : IndexStorageSegment, IEnumerable<T>
+        where T : IIndexStorageSegmentListItem
     {
         /// <summary>
         /// Returns or sets the address of the first item in the list, or null if the 
         /// list is empty.
         /// </summary>
         public ulong FirstItemAddr { get; set; }
+
         /// <summary>
         /// Returns the amount of space required on the storage device.
         /// </summary>
-        public override uint SizeOf => sizeof(ulong);
+        public override uint Size => SegmentSize;
+
+        /// <summary>
+        /// Returns the amount of space required on the storage device.
+        /// </summary>
+        public static uint SegmentSize => sizeof(ulong);
 
         /// <summary>
         /// Checks if the list is empty.
@@ -56,11 +62,21 @@ namespace WebExpress.WebApp.WebIndex.Storage
         /// </summary>
         /// <param name="context">The reference to the context of the index.</param>
         /// <param name="sortDirection">The sort order of the list.</param>
-        public IndexStorageDataStructureList(IndexStorageContext context, ListSortDirection sortDirection = ListSortDirection.Ascending)
+        public IndexStorageSegmentList(IndexStorageContext context)
+            : base(context)
+        {
+            SortDirection = ListSortDirection.Ascending;
+        }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="context">The reference to the context of the index.</param>
+        /// <param name="sortDirection">The sort order of the list.</param>
+        public IndexStorageSegmentList(IndexStorageContext context, ListSortDirection sortDirection)
             : base(context)
         {
             SortDirection = sortDirection;
-            Context.Allocator.Alloc(this);
         }
 
         /// <summary>
@@ -134,8 +150,10 @@ namespace WebExpress.WebApp.WebIndex.Storage
         /// Reads the record from the storage medium.
         /// </summary>
         /// <param name="reader">The reader for i/o operations.</param>
-        public override void Read(BinaryReader reader)
+        /// <param name="addr">The address of the segment.</param>
+        public override void Read(BinaryReader reader, ulong addr)
         {
+            Addr = addr;
             reader.BaseStream.Seek((long)Addr, SeekOrigin.Begin);
 
             FirstItemAddr = reader.ReadUInt64();
